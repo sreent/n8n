@@ -85,7 +85,8 @@ type ModuleName =
 	| 'workflow-reviews'
 	| 'type-availability-policies'
 	// Fork modules (not in upstream n8n)
-	| 'send-copy';
+	| 'send-copy'
+	| 'git-sync';
 
 export interface SetupProps {
 	endpointGroups?: EndpointGroup[];

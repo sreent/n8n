@@ -81,6 +81,7 @@ export class ModuleRegistry {
 		'inbound-auth-core',
 		// Fork modules (not in upstream n8n)
 		'send-copy',
+		'git-sync',
 	];
 
 	private readonly activeModules: string[] = [];
