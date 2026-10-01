@@ -83,7 +83,9 @@ type ModuleName =
 	| 'token-exchange'
 	| 'policy-infrastructure'
 	| 'workflow-reviews'
-	| 'type-availability-policies';
+	| 'type-availability-policies'
+	// Fork modules (not in upstream n8n)
+	| 'send-copy';
 
 export interface SetupProps {
 	endpointGroups?: EndpointGroup[];

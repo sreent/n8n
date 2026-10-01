@@ -79,6 +79,8 @@ export class ModuleRegistry {
 		'instance-ai',
 		'agents',
 		'inbound-auth-core',
+		// Fork modules (not in upstream n8n)
+		'send-copy',
 	];
 
 	private readonly activeModules: string[] = [];
