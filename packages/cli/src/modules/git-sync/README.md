@@ -84,8 +84,8 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 - HTTPS only. SSH keys are not supported.
 - SHA-256 repositories are not supported.
 - Workflows that use credentials with different IDs on each instance change on
-  every push from another instance. To sync in both directions, use the
-  **Match credentials by ID** setting on every instance.
+  every push from another instance. To sync in both directions, set
+  **Credential matching** to **Match by ID** on every instance.
 
 ## Code
 
