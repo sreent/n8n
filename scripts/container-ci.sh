@@ -3,25 +3,126 @@
 #
 # GitHub Actions is off in this fork, so cloud sessions run these checks instead. They
 # follow the upstream "CI: Pull Requests" workflow for the packages that changed since
-# the base branch. The end-to-end and database tests are not part of it yet.
+# the base branch, and they select tests the way upstream CI does: n8n's
+# `janitor test-scoped` runner runs only the tests whose imports reach a changed file
+# (`vitest related`), and runs a full suite when a config file or package.json changed.
 #
-# Usage: scripts/container-ci.sh [base-ref]    (default base: origin/master)
+# Modes:
+#   (default)  Test the packages that the change touches. Quick enough for every push.
+#   --full     Also test the packages that depend on them, as upstream CI does. Use it
+#              before a merge, and after a merge of upstream n8n.
+#   --plan     Print the packages and the test scope of each step. Run nothing.
+#
+# Usage: scripts/container-ci.sh [--full | --plan] [base-ref]   (default base: origin/master)
 #
 # The script writes one log for each step, and summary.txt, to
 # $CONTAINER_CI_OUT/<commit> (default /tmp/container-ci). It exits non-zero when a
-# step fails.
+# step fails. The end-to-end and database tests are not part of it yet.
 set -u
 
+MODE=quick
+case "${1:-}" in
+	--full | --plan)
+		MODE=${1#--}
+		shift
+		;;
+esac
 BASE=${1:-origin/master}
+
 cd "$(git rev-parse --show-toplevel)" || exit 1
 # The repository needs Node 24. The cloud environment setup script installs it here.
 [ -d /opt/node24/bin ] && export PATH="/opt/node24/bin:$PATH"
+TURBO=./node_modules/.bin/turbo
+JANITOR=packages/cli/node_modules/.bin/janitor
+# The change analysis below needs turbo and the janitor runner.
+[ -x "$TURBO" ] && [ -x "$JANITOR" ] || pnpm install --frozen-lockfile >/dev/null || exit 1
+
+# ── What changed ─────────────────────────────────────────────────────────────
+
+# Turbo reads the lockfile to find the packages whose dependencies changed.
+packages_for() {
+	"$TURBO" ls --filter="$1" --output=json 2>/dev/null |
+		jq -r '.packages.items[] | "\(.name) \(.path)"'
+}
+CHANGED_PACKAGES=$(packages_for "[$BASE]")
+if [ -z "$CHANGED_PACKAGES" ] && git diff --name-only "$BASE"...HEAD | grep -q '^packages/'; then
+	echo "error: packages changed, but turbo reports none. Is $BASE fetched?" >&2
+	exit 1
+fi
+if [ "$MODE" = full ]; then
+	TESTED_PACKAGES=$(packages_for "...[$BASE]")
+else
+	TESTED_PACKAGES=$CHANGED_PACKAGES
+fi
+
+# The test runner reads CHANGED_FILES. For it, a lockfile change means "run every
+# suite". Turbo already knows which packages the lockfile change touches, so name
+# their package.json instead. That makes the runner run the full suite of those
+# packages only.
+CHANGED_FILES=$(git diff --name-only "$BASE"...HEAD | grep -vx 'pnpm-lock.yaml')
+if git diff --name-only "$BASE"...HEAD | grep -qx 'pnpm-lock.yaml'; then
+	while read -r _ path; do
+		[ -n "$path" ] || continue
+		awk -v prefix="$path/" 'index($0, prefix) == 1 { found = 1 } END { exit !found }' \
+			<<<"$CHANGED_FILES" || CHANGED_FILES+=$'\n'"$path/package.json"
+	done <<<"$CHANGED_PACKAGES"
+fi
+export CHANGED_FILES
+
+tested() { grep -q "^$1 " <<<"$TESTED_PACKAGES"; }
+# Filter flags for the tested packages that match a path pattern (an extended regex).
+filters_for_paths() {
+	awk -v pattern="$1" '$2 ~ pattern { printf "--filter=%s\n", $1 }' <<<"$TESTED_PACKAGES"
+}
+FRONTEND_PATHS='^packages/(frontend/|modules/[^/]+/frontend$)'
+mapfile -t FRONTEND_FILTERS < <(filters_for_paths "$FRONTEND_PATHS")
+# Other backend packages are small, so they run their full unit suites.
+mapfile -t BACKEND_FILTERS < <(
+	awk -v pattern="$FRONTEND_PATHS" '$2 !~ pattern' <<<"$TESTED_PACKAGES" |
+		grep -vE '^(n8n|n8n-nodes-base) ' | awk '{ printf "--filter=%s\n", $1 }'
+)
+mapfile -t TESTED_FILTERS < <(awk '{ printf "--filter=%s\n", $1 }' <<<"$TESTED_PACKAGES")
+# The module registry loads a backend module by name, so the import graph cannot link
+# a module's files to its integration tests. A changed module runs all of them.
+mapfile -t CHANGED_MODULES < <(
+	grep -oE '^packages/cli/src/modules/[^/]+/' <<<"$CHANGED_FILES" | sort -u | sed 's#^packages/cli/##'
+)
+
+if [ "$MODE" = plan ]; then
+	echo "Mode: quick (default). Base: $BASE"
+	echo "Changed packages:"
+	awk '{ print "  " $1 }' <<<"$CHANGED_PACKAGES"
+	echo "Unit tests:"
+	while read -r name path; do
+		[ -n "$path" ] || continue
+		if jq -e '.scripts["test:changed"] // .scripts["test:unit:changed"]' "$path/package.json" >/dev/null; then
+			scope=$(cd "$path" && "$OLDPWD/$JANITOR" scope 2>/dev/null)
+			case "$scope" in
+				RUN_FULL) scope="full suite" ;;
+				SKIP) scope="no tests" ;;
+				*) scope="tests that import the $(wc -w <<<"$scope") changed files" ;;
+			esac
+			echo "  $name: $scope"
+		elif jq -e '.scripts["test:unit"]' "$path/package.json" >/dev/null; then
+			echo "  $name: full unit suite (small package)"
+		else
+			echo "  $name: no tests"
+		fi
+	done <<<"$CHANGED_PACKAGES"
+	echo "Backend modules with all their tests: ${CHANGED_MODULES[*]:-none}"
+	echo "Steps: unit-backend ${BACKEND_FILTERS[*]#--filter=}"
+	echo "       unit-frontend ${FRONTEND_FILTERS[*]#--filter=}"
+	echo "With --full, these packages are tested too:"
+	packages_for "...[$BASE]" | awk '{ print $1 }' | grep -vxF -f <(awk '{ print $1 }' <<<"$CHANGED_PACKAGES") |
+		sed 's/^/  /'
+	exit 0
+fi
+
+# ── Checks ───────────────────────────────────────────────────────────────────
 
 SHA=$(git rev-parse --short HEAD)
 OUT=${CONTAINER_CI_OUT:-/tmp/container-ci}/$SHA
 rm -rf "$OUT" && mkdir -p "$OUT"
-TURBO=./node_modules/.bin/turbo
-CHANGED=(--filter="[$BASE]")
 FAILED=0
 
 step() {
@@ -35,21 +136,37 @@ step() {
 	echo "$name exit=$code time=$(($(date +%s) - start))s" | tee -a "$OUT/summary.txt"
 }
 
-echo "commit $SHA base $BASE" | tee "$OUT/summary.txt"
+echo "commit $SHA base $BASE mode $MODE" | tee "$OUT/summary.txt"
 
 # Fork rule: no change to enterprise (.ee.) files.
 step clean-room bash -c "! git diff --name-only '$BASE'...HEAD | grep -E '\.ee(\.|/)'"
 step install pnpm install --frozen-lockfile
 # The editor app and its type check use up to 8 GB of memory, so they run one at a time.
 step build "$TURBO" run build --filter='n8n...' --concurrency=1
-step format "$TURBO" run format:check "${CHANGED[@]}" --only --continue
-step typecheck "$TURBO" run typecheck "${CHANGED[@]}" --only --continue --concurrency=1
-step lint "$TURBO" run lint "${CHANGED[@]}" --only --continue --concurrency=2
-step lint-styles "$TURBO" run lint:styles "${CHANGED[@]}" --only --continue --concurrency=2
-step unit-tests "$TURBO" run test "${CHANGED[@]}" --only --continue --concurrency=1
-# Integration tests of the fork modules. They use SQLite and a local Git repository.
-step integration-tests bash -c \
-	"cd packages/cli && pnpm test:integration src/modules/git-sync src/modules/send-copy"
+# Without a filter, turbo would check every package, so skip the checks when none changed.
+if [ "${#TESTED_FILTERS[@]}" -gt 0 ]; then
+	step format "$TURBO" run format:check "${TESTED_FILTERS[@]}" --only --continue
+	step typecheck "$TURBO" run typecheck "${TESTED_FILTERS[@]}" --only --continue --concurrency=1
+	step lint "$TURBO" run lint "${TESTED_FILTERS[@]}" --only --continue --concurrency=2
+	step lint-styles "$TURBO" run lint:styles "${TESTED_FILTERS[@]}" --only --continue --concurrency=2
+fi
+
+if [ "${#BACKEND_FILTERS[@]}" -gt 0 ]; then
+	step unit-backend "$TURBO" run test:unit "${BACKEND_FILTERS[@]}" --only --continue --concurrency=2
+fi
+if tested n8n; then
+	step unit-cli "$TURBO" run test:unit:changed --filter=n8n --only
+	step integration-cli "$TURBO" run test:integration:changed --filter=n8n --only
+fi
+if [ "${#CHANGED_MODULES[@]}" -gt 0 ]; then
+	step module-tests bash -c "cd packages/cli && pnpm test:integration ${CHANGED_MODULES[*]} --passWithNoTests"
+fi
+if tested n8n-nodes-base; then
+	step unit-nodes "$TURBO" run test:changed --filter=n8n-nodes-base --only
+fi
+if [ "${#FRONTEND_FILTERS[@]}" -gt 0 ]; then
+	step unit-frontend "$TURBO" run test:changed "${FRONTEND_FILTERS[@]}" --only --continue --concurrency=1
+fi
 
 if [ "$FAILED" -eq 0 ]; then
 	echo "result PASS" | tee -a "$OUT/summary.txt"
