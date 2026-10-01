@@ -6908,8 +6908,8 @@ importers:
         specifier: 4.1.0
         version: 4.1.0(patch_hash=eaa2c80f80cdc4293b0f1c9c0410823960f839fc15f155c8cb23666d5950e049)(vue@3.5.26(typescript@6.0.2))
       wa-sqlite:
-        specifier: github:rhashimoto/wa-sqlite#779219540f66cecaa159da32b3b8936697ba10a7
-        version: https://codeload.github.com/rhashimoto/wa-sqlite/tar.gz/779219540f66cecaa159da32b3b8936697ba10a7
+        specifier: github:sreent/wa-sqlite#779219540f66cecaa159da32b3b8936697ba10a7
+        version: https://codeload.github.com/sreent/wa-sqlite/tar.gz/779219540f66cecaa159da32b3b8936697ba10a7
       web-tree-sitter:
         specifier: 0.24.3
         version: 0.24.3
@@ -24497,8 +24497,8 @@ packages:
     resolution: {integrity: sha512-o8qghlI8NZHU1lLPrpi2+Uq7abh4GGPpYANlalzWxyWteJOCsr/P+oPBA49TOLu5FTZO4d3F9MnWJfiMo4BkmA==}
     engines: {node: '>=18'}
 
-  wa-sqlite@https://codeload.github.com/rhashimoto/wa-sqlite/tar.gz/779219540f66cecaa159da32b3b8936697ba10a7:
-    resolution: {gitHosted: true, integrity: sha512-uguFGpJLuBbbUsszSQG2gntXg3+W1JY+LfxvW5nYcS41n3OxHoNb3REwm4OW7S8g7H8WXAhQNM+4Mh56f70XeA==, tarball: https://codeload.github.com/rhashimoto/wa-sqlite/tar.gz/779219540f66cecaa159da32b3b8936697ba10a7}
+  wa-sqlite@https://codeload.github.com/sreent/wa-sqlite/tar.gz/779219540f66cecaa159da32b3b8936697ba10a7:
+    resolution: {gitHosted: true, integrity: sha512-uguFGpJLuBbbUsszSQG2gntXg3+W1JY+LfxvW5nYcS41n3OxHoNb3REwm4OW7S8g7H8WXAhQNM+4Mh56f70XeA==, tarball: https://codeload.github.com/sreent/wa-sqlite/tar.gz/779219540f66cecaa159da32b3b8936697ba10a7}
     version: 1.0.9
 
   walk-up-path@4.0.0:
@@ -44764,7 +44764,7 @@ snapshots:
     dependencies:
       xml-name-validator: 5.0.0
 
-  wa-sqlite@https://codeload.github.com/rhashimoto/wa-sqlite/tar.gz/779219540f66cecaa159da32b3b8936697ba10a7: {}
+  wa-sqlite@https://codeload.github.com/sreent/wa-sqlite/tar.gz/779219540f66cecaa159da32b3b8936697ba10a7: {}
 
   walk-up-path@4.0.0: {}
 
