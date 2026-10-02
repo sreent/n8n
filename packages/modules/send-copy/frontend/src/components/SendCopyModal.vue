@@ -194,10 +194,10 @@ async function onSend() {
 		:header="i18n.baseText('sendCopy.modal.title', { interpolate: { name: workflowName } })"
 		:description="i18n.baseText('sendCopy.modal.description')"
 		size="medium"
-		data-test-id="send-copy-modal"
 		@update:open="onOpenChange"
 	>
-		<div :class="$style.body">
+		<!-- N8nDialog renders no element of its own, so the test id goes on the body. -->
+		<div :class="$style.body" data-test-id="send-copy-modal">
 			<N8nText tag="label" size="small" bold>
 				{{ i18n.baseText('sendCopy.modal.recipientsLabel') }}
 			</N8nText>
