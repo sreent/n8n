@@ -103,10 +103,10 @@ FRONTEND_PATHS='^packages/(frontend/|modules/[^/]+/frontend$)'
 mapfile -t FRONTEND_FILTERS < <(filters_for_paths "$FRONTEND_PATHS")
 # Other backend packages are small, so they run their full unit suites.
 mapfile -t BACKEND_FILTERS < <(
-	awk -v pattern="$FRONTEND_PATHS" '$2 !~ pattern' <<<"$TESTED_PACKAGES" |
+	awk -v pattern="$FRONTEND_PATHS" 'NF && $2 !~ pattern' <<<"$TESTED_PACKAGES" |
 		grep -vE '^(n8n|n8n-nodes-base) ' | awk '{ printf "--filter=%s\n", $1 }'
 )
-mapfile -t TESTED_FILTERS < <(awk '{ printf "--filter=%s\n", $1 }' <<<"$TESTED_PACKAGES")
+mapfile -t TESTED_FILTERS < <(awk 'NF { printf "--filter=%s\n", $1 }' <<<"$TESTED_PACKAGES")
 # The module registry loads a backend module by name, so the import graph cannot link
 # a module's files to its integration tests. A changed module runs all of them.
 mapfile -t CHANGED_MODULES < <(
@@ -116,7 +116,7 @@ mapfile -t CHANGED_MODULES < <(
 if [ "$MODE" = plan ]; then
 	echo "Mode: quick (default). Base: $BASE"
 	echo "Changed packages:"
-	awk '{ print "  " $1 }' <<<"$CHANGED_PACKAGES"
+	awk 'NF { print "  " $1 }' <<<"$CHANGED_PACKAGES"
 	echo "Unit tests:"
 	while read -r name path; do
 		[ -n "$path" ] || continue
