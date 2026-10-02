@@ -4001,7 +4001,7 @@
 	"settings.gitSync.authorEmail.label": "Committer email",
 	"settings.gitSync.authorEmail.description": "The email address of the committer.",
 	"settings.gitSync.credentialMatching.label": "Credential matching",
-	"settings.gitSync.credentialMatching.description": "How a pull finds the credentials of a workflow on this instance. A missing credential becomes an empty credential that you fill in. To sync in both directions, match by ID on every instance.",
+	"settings.gitSync.credentialMatching.description": "How a pull finds credentials on this instance. A missing one becomes an empty credential. To sync both ways, match by ID on every instance.",
 	"settings.gitSync.credentialMatching.option.nameAndType": "Match by name and type",
 	"settings.gitSync.credentialMatching.option.idOnly": "Match by ID",
 	"settings.gitSync.test.label": "Connection test",

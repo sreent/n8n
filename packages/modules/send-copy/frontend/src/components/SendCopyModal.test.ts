@@ -87,6 +87,12 @@ describe('SendCopyModal', () => {
 		);
 	});
 
+	it('renders its test id on an element in the dialog', async () => {
+		render();
+
+		expect(await screen.findByTestId('send-copy-modal')).toBeInTheDocument();
+	});
+
 	it('disables Send until a colleague is selected', async () => {
 		render();
 

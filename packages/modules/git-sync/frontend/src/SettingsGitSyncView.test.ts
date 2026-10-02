@@ -109,6 +109,14 @@ describe('SettingsGitSyncView', () => {
 		expect(screen.getByTestId('git-sync-no-remote-branch')).toBeInTheDocument();
 	});
 
+	it('does not show a documentation link', async () => {
+		getSettingsMock.mockResolvedValue(null);
+		render();
+
+		expect(await screen.findByTestId('git-sync-repository-url')).toBeInTheDocument();
+		expect(screen.queryByTestId('settings-page-header-docs')).not.toBeInTheDocument();
+	});
+
 	it('shows the changes on both sides', async () => {
 		getSettingsMock.mockResolvedValue(saved);
 		getStatusMock.mockResolvedValue(

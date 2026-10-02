@@ -319,6 +319,7 @@ onMounted(async () => {
 		<N8nSettingsPageHeader
 			:title="i18n.baseText('settings.gitSync.title')"
 			:description="i18n.baseText('settings.gitSync.description')"
+			:show-docs-link="false"
 		/>
 
 		<div v-if="gitSyncStore.loading" :class="$style.loading" data-test-id="git-sync-loading">
@@ -479,6 +480,7 @@ onMounted(async () => {
 					<N8nSettingsRow
 						:title="i18n.baseText('settings.gitSync.credentialMatching.label')"
 						:description="i18n.baseText('settings.gitSync.credentialMatching.description')"
+						:max-description-lines="3"
 						action-fill
 					>
 						<template #action>
