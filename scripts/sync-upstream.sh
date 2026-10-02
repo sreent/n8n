@@ -176,11 +176,12 @@ conflicted() {
 	return 1
 }
 
-# Do not merge the lockfile by hand. Take the upstream lockfile, and let pnpm add the fork's
-# packages, now or after the package.json conflicts (--continue).
+# pnpm writes the lockfile, and a text merge can keep stale entries: for example, a link to a
+# workspace package that upstream moved. So always start from the upstream lockfile, and let
+# pnpm add the fork's packages, now or after the package.json conflicts (--continue).
+git show "$NEW:$LOCKFILE" >"$LOCKFILE"
+git add "$LOCKFILE"
 if conflicted 'pnpm-lock\.yaml'; then
-	git checkout --theirs -- "$LOCKFILE"
-	git add "$LOCKFILE"
 	mapfile -t paths < <(printf '%s\n' "${paths[@]}" | grep -vxF "$LOCKFILE")
 fi
 conflicted '(.*/)?package\.json' || refresh_lockfile
