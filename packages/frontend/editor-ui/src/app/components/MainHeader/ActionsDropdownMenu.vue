@@ -54,6 +54,7 @@ import { useDependencies } from '@/app/composables/useDependencies';
 import { useDependencyMenu } from '@/app/composables/useDependencyMenu';
 import { useEmptyCanvasGroupsFlag } from '@/features/workflows/canvas/composables/useEmptyCanvasGroupsFlag';
 import { removeEmptyCanvasGroupsFromWorkflowData } from '@/features/workflows/canvas/emptyGroup.utils';
+import { SEND_COPY_ACTION_ID, useSendCopyAction } from '@n8n/frontend-module-send-copy';
 
 // Dependency submenu ids (`<type>:<id>`) share the menu with the fixed actions.
 type WorkflowMenuItem = DropdownMenuItemProps<WORKFLOW_MENU_ACTIONS | string>;
@@ -79,6 +80,7 @@ const sourceControlStore = useSourceControlStore();
 const collaborationStore = useCollaborationStore();
 const workflowsListStore = useWorkflowsListStore();
 const uiStore = useUIStore();
+const sendCopy = useSendCopyAction();
 const $style = useCssModule();
 const rootStore = useRootStore();
 const tagsStore = useTagsStore();
@@ -249,6 +251,16 @@ const workflowMenuItems = computed<WorkflowMenuItem[]>(() => {
 			id: WORKFLOW_MENU_ACTIONS.DUPLICATE,
 			label: locale.baseText('menuActions.duplicate'),
 			icon: { type: 'icon', value: 'copy' },
+			disabled: !props.id,
+		});
+	}
+
+	// Fork module (not in upstream n8n): send an independent copy to colleagues.
+	if (sendCopy.isAvailable.value && !props.isNewWorkflow && !props.isArchived) {
+		organization.push({
+			id: SEND_COPY_ACTION_ID,
+			label: sendCopy.label.value,
+			icon: { type: 'icon', value: 'send' },
 			disabled: !props.id,
 		});
 	}
@@ -428,6 +440,10 @@ async function onWorkflowMenuSelect(action: WORKFLOW_MENU_ACTIONS | string): Pro
 					parentFolderId: props.currentFolder?.id,
 				},
 			});
+			break;
+		}
+		case SEND_COPY_ACTION_ID: {
+			sendCopy.open({ id: props.id, name: props.name });
 			break;
 		}
 		case WORKFLOW_MENU_ACTIONS.RENAME: {

@@ -58,6 +58,7 @@ import { createEventBus } from '@n8n/utils/event-bus';
 import { usePrivateCredentials } from '@/features/resolvers/composables/usePrivateCredentials';
 import PrivateCredentialIcon from '@/features/resolvers/components/PrivateCredentialIcon.vue';
 import { useDependencies } from '@/app/composables/useDependencies';
+import { SEND_COPY_ACTION_ID, useSendCopyAction } from '@n8n/frontend-module-send-copy';
 
 const WORKFLOW_LIST_ITEM_ACTIONS = {
 	OPEN: 'open',
@@ -128,6 +129,7 @@ const { isEnabled: isPrivateCredentialsEnabled } = usePrivateCredentials();
 const { hasDependencies } = useDependencies();
 
 const uiStore = useUIStore();
+const sendCopy = useSendCopyAction();
 const usersStore = useUsersStore();
 const workflowsStore = useWorkflowsStore();
 const workflowsListStore = useWorkflowsListStore();
@@ -220,6 +222,14 @@ const actions = computed(() => {
 		items.push({
 			label: locale.baseText('workflows.item.duplicate'),
 			value: WORKFLOW_LIST_ITEM_ACTIONS.DUPLICATE,
+		});
+	}
+
+	// Fork module (not in upstream n8n): send an independent copy to colleagues.
+	if (sendCopy.isAvailable.value && workflowPermissions.value.read && !props.data.isArchived) {
+		items.push({
+			label: sendCopy.label.value,
+			value: SEND_COPY_ACTION_ID,
 		});
 	}
 
@@ -413,6 +423,9 @@ async function onAction(action: string) {
 					parentFolderId: props.data.parentFolder?.id,
 				},
 			});
+			break;
+		case SEND_COPY_ACTION_ID:
+			sendCopy.open({ id: props.data.id, name: props.data.name });
 			break;
 		case WORKFLOW_LIST_ITEM_ACTIONS.SHARE:
 			uiStore.openModalWithData({

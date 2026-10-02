@@ -41,6 +41,9 @@ export const MODULE_NAMES = [
 	'type-availability-policies',
 	'instance-reporting',
 	'inbound-auth-core',
+	// Fork modules (not in upstream n8n)
+	'send-copy',
+	'git-sync',
 ] as const;
 
 export type ModuleName = (typeof MODULE_NAMES)[number];

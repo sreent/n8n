@@ -1,4 +1,5 @@
 import { capabilities, capabilityRegistry } from '@n8n/frontend-module-sdk';
+import { sendCopyModalCloser } from '@n8n/frontend-module-send-copy';
 
 import type { IWorkflowSettings, ModalKey } from '@/Interface';
 import { useUIStore } from '@/app/stores/ui.store';
@@ -22,6 +23,8 @@ const modalOpeners = {
 	openModalWithData: (payload: { name: ModalKey; data: Record<string, unknown> }) =>
 		useUIStore().openModalWithData(payload),
 };
+
+const closeModuleModal = (name: string) => useUIStore().closeModal(name);
 
 const syncWorkflowMcpAccess = (workflowIds: string[], availableInMCP: boolean) => {
 	const workflowsListStore = useWorkflowsListStore();
@@ -58,4 +61,6 @@ export const registerShellCapabilities = () => {
 	capabilityRegistry.provide(capabilities.modalOpeners, modalOpeners);
 	capabilityRegistry.provide(capabilities.workflowMcpAccessSync, syncWorkflowMcpAccess);
 	capabilityRegistry.provide(capabilities.mcpExposeAllOffer, mcpExposeAllOffer);
+	// Fork module (not in upstream n8n): lets the send-copy modal close itself.
+	capabilityRegistry.provide(sendCopyModalCloser, closeModuleModal);
 };

@@ -89,6 +89,8 @@ describe('eligibleModules', () => {
 			'instance-ai',
 			'agents',
 			'inbound-auth-core',
+			'send-copy',
+			'git-sync',
 		]);
 	});
 
@@ -128,6 +130,8 @@ describe('eligibleModules', () => {
 			'instance-ai',
 			'agents',
 			'inbound-auth-core',
+			'send-copy',
+			'git-sync',
 			'type-availability-policies',
 		]);
 	});
