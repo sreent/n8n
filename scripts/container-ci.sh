@@ -38,8 +38,9 @@ cd "$(git rev-parse --show-toplevel)" || exit 1
 [ -d /opt/node24/bin ] && export PATH="/opt/node24/bin:$PATH"
 TURBO=./node_modules/.bin/turbo
 JANITOR=packages/cli/node_modules/.bin/janitor
-# The change analysis below needs turbo and the janitor runner.
-[ -x "$TURBO" ] && [ -x "$JANITOR" ] || pnpm install --frozen-lockfile >/dev/null || exit 1
+# The change analysis below needs turbo and the janitor runner. A plain `pnpm install` fails in a
+# new cloud session, so install with scripts/cloud-install.sh.
+[ -x "$TURBO" ] && [ -x "$JANITOR" ] || scripts/cloud-install.sh >/dev/null || exit 1
 
 # ── What changed ─────────────────────────────────────────────────────────────
 
@@ -171,7 +172,7 @@ echo "commit $SHA base $COMPARED mode $MODE" | tee "$OUT/summary.txt"
 # Fork rule: the fork changes no enterprise (.ee.) file. Compare the whole fork with the
 # upstream commit that it matches, so that an upstream update still passes.
 step clean-room bash -c "! git diff --name-only '$UPSTREAM_BASE' HEAD | grep -E '\.ee(\.|/)'"
-step install pnpm install --frozen-lockfile
+step install scripts/cloud-install.sh
 # The editor app and its type check use up to 8 GB of memory, so they run one at a time.
 step build "$TURBO" run build --filter='n8n...' --concurrency=1
 # Without a filter, turbo would check every package, so skip the checks when none changed.
