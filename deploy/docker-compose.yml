@@ -1,0 +1,72 @@
+# The sreent/n8n fork on one Linux server: n8n, PostgreSQL, and Caddy for HTTPS.
+# Read README.md in this folder first. The values come from .env (see .env.example).
+name: n8n
+
+services:
+  postgres:
+    # n8n supports PostgreSQL 17 and 18. Keep the major version: to change it, restore a backup.
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: n8n
+      POSTGRES_USER: n8n
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      # PostgreSQL 18 images keep the data in a version folder below this path.
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U n8n -d n8n']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  n8n:
+    image: ${N8N_IMAGE:?Set N8N_IMAGE in .env}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_DATABASE: n8n
+      DB_POSTGRESDB_USER: n8n
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
+      # n8n encrypts the credentials with this key. A restore needs the same key.
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY:?Set N8N_ENCRYPTION_KEY in .env}
+      N8N_HOST: ${DOMAIN:?Set DOMAIN in .env}
+      N8N_PROTOCOL: https
+      N8N_LISTEN_ADDRESS: 0.0.0.0
+      WEBHOOK_URL: https://${DOMAIN}/
+      # Caddy is the one proxy in front of n8n.
+      N8N_PROXY_HOPS: 1
+      GENERIC_TIMEZONE: ${TIMEZONE:-UTC}
+      TZ: ${TIMEZONE:-UTC}
+      # Keep files from workflows in PostgreSQL, so that one database backup holds all data.
+      N8N_DEFAULT_BINARY_DATA_MODE: database
+      N8N_GIT_SYNC_ALLOWED_HOSTS: ${GIT_SYNC_ALLOWED_HOSTS:-}
+    volumes:
+      # Only data that n8n can make again: the Git sync working copy and caches.
+      - n8n-data:/home/node/.n8n
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - n8n
+    ports:
+      - '${HTTP_PORT:-80}:80'
+      - '${HTTPS_PORT:-443}:443'
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # The HTTPS certificates. Caddy gets and renews them.
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  postgres-data:
+  n8n-data:
+  caddy-data:
+  caddy-config:

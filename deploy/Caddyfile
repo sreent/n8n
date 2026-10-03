@@ -1,0 +1,5 @@
+# Caddy gets an HTTPS certificate for $DOMAIN and renews it. The DNS record of the domain must
+# point at this server, and ports 80 and 443 must be open.
+{$DOMAIN} {
+	reverse_proxy n8n:5678
+}
