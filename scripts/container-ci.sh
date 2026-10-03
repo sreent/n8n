@@ -10,10 +10,13 @@
 # Modes:
 #   (default)  Test the packages that the change touches. Quick enough for every push.
 #   --full     Also test the packages that depend on them, as upstream CI does. Use it
-#              before a merge, and after a merge of upstream n8n.
+#              before a merge.
+#   --fork     Test all the fork's own changes: everything that differs from the upstream
+#              commit in scripts/sync-upstream.base. Use it after scripts/sync-upstream.sh.
+#              Upstream CI has already tested the upstream changes.
 #   --plan     Print the packages and the test scope of each step. Run nothing.
 #
-# Usage: scripts/container-ci.sh [--full | --plan] [base-ref]   (default base: origin/master)
+# Usage: scripts/container-ci.sh [--full | --fork | --plan] [base-ref]   (default base: origin/master)
 #
 # The script writes one log for each step, and summary.txt, to
 # $CONTAINER_CI_OUT/<commit> (default /tmp/container-ci). It exits non-zero when a
@@ -22,12 +25,13 @@ set -u
 
 MODE=quick
 case "${1:-}" in
-	--full | --plan)
+	--full | --fork | --plan)
 		MODE=${1#--}
 		shift
 		;;
 esac
 BASE=${1:-origin/master}
+UPSTREAM_URL=https://github.com/n8n-io/n8n.git
 
 cd "$(git rev-parse --show-toplevel)" || exit 1
 # The repository needs Node 24. The cloud environment setup script installs it here.
@@ -39,33 +43,54 @@ JANITOR=packages/cli/node_modules/.bin/janitor
 
 # ── What changed ─────────────────────────────────────────────────────────────
 
+# The upstream commit that the fork matches. The fork mode and the clean-room check
+# compare with it, so fetch it when it is missing. One commit is enough.
+UPSTREAM_BASE=$(tr -d '[:space:]' <scripts/sync-upstream.base)
+git cat-file -e "$UPSTREAM_BASE^{commit}" 2>/dev/null ||
+	git fetch --quiet --no-tags --depth=1 "$UPSTREAM_URL" "$UPSTREAM_BASE" || exit 1
+
 # Turbo reads the lockfile to find the packages whose dependencies changed.
 packages_for() {
-	"$TURBO" ls --filter="$1" --output=json 2>/dev/null |
+	"$TURBO" ls ${1:+--filter="$1"} --output=json 2>/dev/null |
 		jq -r '.packages.items[] | "\(.name) \(.path)"'
 }
-CHANGED_PACKAGES=$(packages_for "[$BASE]")
-if [ -z "$CHANGED_PACKAGES" ] && git diff --name-only "$BASE"...HEAD | grep -q '^packages/'; then
-	echo "error: packages changed, but turbo reports none. Is $BASE fetched?" >&2
-	exit 1
-fi
-if [ "$MODE" = full ]; then
-	TESTED_PACKAGES=$(packages_for "...[$BASE]")
-else
-	TESTED_PACKAGES=$CHANGED_PACKAGES
-fi
 
-# The test runner reads CHANGED_FILES. For it, a lockfile change means "run every
-# suite". Turbo already knows which packages the lockfile change touches, so name
-# their package.json instead. That makes the runner run the full suite of those
-# packages only.
-CHANGED_FILES=$(git diff --name-only "$BASE"...HEAD | grep -vx 'pnpm-lock.yaml')
-if git diff --name-only "$BASE"...HEAD | grep -qx 'pnpm-lock.yaml'; then
-	while read -r _ path; do
-		[ -n "$path" ] || continue
-		awk -v prefix="$path/" 'index($0, prefix) == 1 { found = 1 } END { exit !found }' \
-			<<<"$CHANGED_FILES" || CHANGED_FILES+=$'\n'"$path/package.json"
-	done <<<"$CHANGED_PACKAGES"
+if [ "$MODE" = fork ]; then
+	# The fork shares no history with upstream, so compare the two trees. A file belongs
+	# to the package with the longest path that contains it.
+	FORK_FILES=$(git diff --name-only "$UPSTREAM_BASE" HEAD)
+	CHANGED_PACKAGES=$(
+		packages_for | awk '{ print length($2), $0 }' | sort -rn | cut -d' ' -f2- |
+			awk 'NR == FNR { files[$0] = 1; next }
+				{ hit = 0; for (f in files) if (files[f] && index(f, $2 "/") == 1) { files[f] = 0; hit = 1 } }
+				hit { print }' <(printf '%s\n' "$FORK_FILES") -
+	)
+	TESTED_PACKAGES=$CHANGED_PACKAGES
+	CHANGED_FILES=$(grep -vx 'pnpm-lock.yaml' <<<"$FORK_FILES")
+else
+	CHANGED_PACKAGES=$(packages_for "[$BASE]")
+	if [ -z "$CHANGED_PACKAGES" ] && git diff --name-only "$BASE"...HEAD | grep -q '^packages/'; then
+		echo "error: packages changed, but turbo reports none. Is $BASE fetched?" >&2
+		exit 1
+	fi
+	if [ "$MODE" = full ]; then
+		TESTED_PACKAGES=$(packages_for "...[$BASE]")
+	else
+		TESTED_PACKAGES=$CHANGED_PACKAGES
+	fi
+
+	# The test runner reads CHANGED_FILES. For it, a lockfile change means "run every
+	# suite". Turbo already knows which packages the lockfile change touches, so name
+	# their package.json instead. That makes the runner run the full suite of those
+	# packages only.
+	CHANGED_FILES=$(git diff --name-only "$BASE"...HEAD | grep -vx 'pnpm-lock.yaml')
+	if git diff --name-only "$BASE"...HEAD | grep -qx 'pnpm-lock.yaml'; then
+		while read -r _ path; do
+			[ -n "$path" ] || continue
+			awk -v prefix="$path/" 'index($0, prefix) == 1 { found = 1 } END { exit !found }' \
+				<<<"$CHANGED_FILES" || CHANGED_FILES+=$'\n'"$path/package.json"
+		done <<<"$CHANGED_PACKAGES"
+	fi
 fi
 export CHANGED_FILES
 
@@ -78,10 +103,10 @@ FRONTEND_PATHS='^packages/(frontend/|modules/[^/]+/frontend$)'
 mapfile -t FRONTEND_FILTERS < <(filters_for_paths "$FRONTEND_PATHS")
 # Other backend packages are small, so they run their full unit suites.
 mapfile -t BACKEND_FILTERS < <(
-	awk -v pattern="$FRONTEND_PATHS" '$2 !~ pattern' <<<"$TESTED_PACKAGES" |
+	awk -v pattern="$FRONTEND_PATHS" 'NF && $2 !~ pattern' <<<"$TESTED_PACKAGES" |
 		grep -vE '^(n8n|n8n-nodes-base) ' | awk '{ printf "--filter=%s\n", $1 }'
 )
-mapfile -t TESTED_FILTERS < <(awk '{ printf "--filter=%s\n", $1 }' <<<"$TESTED_PACKAGES")
+mapfile -t TESTED_FILTERS < <(awk 'NF { printf "--filter=%s\n", $1 }' <<<"$TESTED_PACKAGES")
 # The module registry loads a backend module by name, so the import graph cannot link
 # a module's files to its integration tests. A changed module runs all of them.
 mapfile -t CHANGED_MODULES < <(
@@ -91,7 +116,7 @@ mapfile -t CHANGED_MODULES < <(
 if [ "$MODE" = plan ]; then
 	echo "Mode: quick (default). Base: $BASE"
 	echo "Changed packages:"
-	awk '{ print "  " $1 }' <<<"$CHANGED_PACKAGES"
+	awk 'NF { print "  " $1 }' <<<"$CHANGED_PACKAGES"
 	echo "Unit tests:"
 	while read -r name path; do
 		[ -n "$path" ] || continue
@@ -136,10 +161,16 @@ step() {
 	echo "$name exit=$code time=$(($(date +%s) - start))s" | tee -a "$OUT/summary.txt"
 }
 
-echo "commit $SHA base $BASE mode $MODE" | tee "$OUT/summary.txt"
+if [ "$MODE" = fork ]; then
+	COMPARED="upstream ${UPSTREAM_BASE:0:10}"
+else
+	COMPARED=$BASE
+fi
+echo "commit $SHA base $COMPARED mode $MODE" | tee "$OUT/summary.txt"
 
-# Fork rule: no change to enterprise (.ee.) files.
-step clean-room bash -c "! git diff --name-only '$BASE'...HEAD | grep -E '\.ee(\.|/)'"
+# Fork rule: the fork changes no enterprise (.ee.) file. Compare the whole fork with the
+# upstream commit that it matches, so that an upstream update still passes.
+step clean-room bash -c "! git diff --name-only '$UPSTREAM_BASE' HEAD | grep -E '\.ee(\.|/)'"
 step install pnpm install --frozen-lockfile
 # The editor app and its type check use up to 8 GB of memory, so they run one at a time.
 step build "$TURBO" run build --filter='n8n...' --concurrency=1
