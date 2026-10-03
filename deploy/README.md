@@ -120,6 +120,15 @@ its own `.env`. Connect both to the same Git branch in **Settings > Git sync**: 
 development, and pull in production. See the
 [Git sync README](../packages/cli/src/modules/git-sync/README.md).
 
+## Limits
+
+- n8n runs the scripts of the Code node in its own container, in the internal task runner mode.
+  This mode works for JavaScript. n8n marks it as deprecated, and Python in the Code node needs
+  a separate runners container (external mode). A later update of this folder adds that
+  container.
+- This setup runs one n8n instance on one server. The nightly backup is the protection against
+  the loss of the server.
+
 ## Security
 
 - Keep the server up to date. On Ubuntu, `unattended-upgrades` installs the security updates.
