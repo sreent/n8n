@@ -1,4 +1,4 @@
-# The sreent/n8n fork on one Linux server: n8n, PostgreSQL, and Caddy for HTTPS.
+# The sreent/n8n fork on one Linux server: n8n, its task runners, PostgreSQL, and Caddy for HTTPS.
 # Read README.md in this folder first. The values come from .env (see .env.example).
 name: n8n
 
@@ -45,9 +45,29 @@ services:
       # Keep files from workflows in PostgreSQL, so that one database backup holds all data.
       N8N_DEFAULT_BINARY_DATA_MODE: database
       N8N_GIT_SYNC_ALLOWED_HOSTS: ${GIT_SYNC_ALLOWED_HOSTS:-}
+      # The Code nodes run in the runners container (external mode). n8n waits for the runners on
+      # port 5679. Only the containers of this stack can reach that port, and they need the token.
+      N8N_RUNNERS_MODE: external
+      N8N_RUNNERS_AUTH_TOKEN: ${N8N_RUNNERS_AUTH_TOKEN:?Set N8N_RUNNERS_AUTH_TOKEN in .env}
+      N8N_RUNNERS_BROKER_LISTEN_ADDRESS: 0.0.0.0
     volumes:
       # Only data that n8n can make again: the Git sync working copy and caches.
       - n8n-data:/home/node/.n8n
+
+  runners:
+    # Runs the JavaScript and Python code of the Code nodes, apart from n8n. The image must have the
+    # same version as the n8n image.
+    image: ${N8N_RUNNERS_IMAGE:?Set N8N_RUNNERS_IMAGE in .env}
+    restart: unless-stopped
+    depends_on:
+      - n8n
+    environment:
+      N8N_RUNNERS_TASK_BROKER_URI: http://n8n:5679
+      N8N_RUNNERS_AUTH_TOKEN: ${N8N_RUNNERS_AUTH_TOKEN}
+      # The default time zone of the JavaScript Code node, as in n8n.
+      GENERIC_TIMEZONE: ${TIMEZONE:-UTC}
+      # A runner without work for 15 seconds stops. The container starts it again for the next task.
+      N8N_RUNNERS_AUTO_SHUTDOWN_TIMEOUT: 15
 
   caddy:
     image: caddy:2-alpine
