@@ -59,17 +59,27 @@ refresh_lockfile() {
 	git add "$LOCKFILE"
 }
 
+# The pre-commit hooks that lefthook.yml skips on a merge, as a comma-separated list.
+merge_skipped_hooks() {
+	awk '/^[^[:space:]#][^:]*:/ { inside = ($0 ~ /^pre-commit:/) }
+		inside && /^    [A-Za-z0-9_-]+:[[:space:]]*$/ { hook = $1; sub(/:$/, "", hook) }
+		inside && hook != "" && /^[[:space:]]+- merge[[:space:]]*$/ { print hook }' lefthook.yml |
+		sort -u | paste -sd, -
+}
+
 commit_sync() {
-	# The pre-commit hooks check the staged files, which include the upstream changes. The
-	# actionlint hook needs a tool that a cloud session does not have. Upstream CI has already
-	# checked the upstream workflow files, and Actions is off in the fork.
-	if ! command -v actionlint >/dev/null; then
-		export LEFTHOOK_EXCLUDE="${LEFTHOOK_EXCLUDE:+$LEFTHOOK_EXCLUDE,}actionlint_check"
-	fi
+	# This commit merges upstream work, so commit it as lefthook treats a merge: skip the hooks
+	# that lefthook.yml skips on a merge. Upstream CI has already checked these files, and some
+	# of these hooks need tools or packages that are not installed yet (actionlint, tbls or
+	# Docker, packages that upstream moved).
+	local skipped
+	skipped=$(merge_skipped_hooks)
+	export LEFTHOOK_EXCLUDE="${LEFTHOOK_EXCLUDE:+$LEFTHOOK_EXCLUDE,}$skipped"
 	git commit --quiet -F "$MSG_FILE"
 	rm -f "$MSG_FILE"
 	echo "Committed: $(git log --oneline -1)"
-	echo "Next: run scripts/container-ci.sh --fork, then push and open a pull request."
+	echo "Next: run scripts/container-ci.sh --fork, which installs the new dependencies first."
+	echo "Then push and open a pull request."
 }
 
 if [ "$ACTION" = continue ]; then
