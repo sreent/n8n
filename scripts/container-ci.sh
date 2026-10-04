@@ -183,13 +183,16 @@ step build "$TURBO" run build --filter='n8n...' --concurrency=1
 # Without a filter, turbo would check every package, so skip the checks when none changed.
 if [ "${#TESTED_FILTERS[@]}" -gt 0 ]; then
 	step format "$TURBO" run format:check "${TESTED_FILTERS[@]}" --only --continue
-	step typecheck "$TURBO" run typecheck "${TESTED_FILTERS[@]}" --only --continue --concurrency=1
-	step lint "$TURBO" run lint "${TESTED_FILTERS[@]}" --only --continue --concurrency=2
+	# With --only, turbo leaves the dependency tasks out of the task hash. A cached result can then
+	# come from a run with other code in a dependency. So the steps that read the code of other
+	# packages use --force, which does not read the cache.
+	step typecheck "$TURBO" run typecheck "${TESTED_FILTERS[@]}" --only --force --continue --concurrency=1
+	step lint "$TURBO" run lint "${TESTED_FILTERS[@]}" --only --force --continue --concurrency=2
 	step lint-styles "$TURBO" run lint:styles "${TESTED_FILTERS[@]}" --only --continue --concurrency=2
 fi
 
 if [ "${#BACKEND_FILTERS[@]}" -gt 0 ]; then
-	step unit-backend "$TURBO" run test:unit "${BACKEND_FILTERS[@]}" --only --continue --concurrency=2
+	step unit-backend "$TURBO" run test:unit "${BACKEND_FILTERS[@]}" --only --force --continue --concurrency=2
 fi
 if tested n8n; then
 	step unit-cli "$TURBO" run test:unit:changed --filter=n8n --only
