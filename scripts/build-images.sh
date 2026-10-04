@@ -37,8 +37,8 @@ case "${1:-}" in
 esac
 
 cd "$(git rev-parse --show-toplevel)"
-# The repository needs Node 24. The cloud environment setup script installs it here.
-[ -d /opt/node24/bin ] && export PATH="/opt/node24/bin:$PATH"
+# The repository needs Node 24. In a cloud session, this installs it when it is missing.
+. scripts/cloud-node.sh
 
 IMAGE=${IMAGE:-ghcr.io/sreent/n8n}
 RUNNERS_IMAGE=${RUNNERS_IMAGE:-ghcr.io/sreent/n8n-runners}

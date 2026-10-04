@@ -25,10 +25,15 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
 
 ## Cloud sessions
 
-- The repository needs Node 24 and pnpm 12. The environment setup script installs them in
-  `/opt/node24`. Put `/opt/node24/bin` first on the `PATH`.
+- Start the session with two repositories: `sreent/n8n` and `sreent/wa-sqlite`. The editor app
+  installs wa-sqlite from the archive of `sreent/wa-sqlite`. A cloud session can download the
+  archive of a repository only when the repository is attached to the session.
+- The repository needs Node 24 and pnpm 12. The scripts in `scripts/` install them in
+  `/opt/node24` when they are missing (`scripts/cloud-node.sh`), so the environment needs no
+  setup script. Put `/opt/node24/bin` first on the `PATH`.
 - Install the dependencies with `scripts/cloud-install.sh`, not with `pnpm install`. In a cloud
-  session, a plain install fails on `@vscode/ripgrep`.
+  session, a plain install fails on `@vscode/ripgrep`. The script also stops with a clear error
+  when a repository that it downloads from is not attached.
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
   `--plan` to see which tests it selects.
 
