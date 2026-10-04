@@ -1,16 +1,16 @@
-import { PROJECT_CUSTOM_ROLE_OPERATIONS } from '@/roles/custom-role-scopes.ee';
+import { PROJECT_CUSTOM_ROLE_OPERATIONS } from '@/roles/custom-role-scopes';
 import {
 	CREDENTIALS_SHARING_OWNER_SCOPES,
 	CREDENTIALS_SHARING_USER_SCOPES,
-} from '@/roles/scopes/credential-sharing-scopes.ee';
-import { GLOBAL_ADMIN_SCOPES, GLOBAL_OWNER_SCOPES } from '@/roles/scopes/global-scopes.ee';
+} from '@/roles/scopes/credential-sharing-scopes';
+import { GLOBAL_ADMIN_SCOPES, GLOBAL_OWNER_SCOPES } from '@/roles/scopes/global-scopes';
 import {
 	PERSONAL_PROJECT_OWNER_SCOPES,
 	PROJECT_EDITOR_SCOPES,
 	PROJECT_VIEWER_SCOPES,
 	REGULAR_PROJECT_ADMIN_SCOPES,
-} from '@/roles/scopes/project-scopes.ee';
-import { combineScopes } from '@/utilities/combine-scopes.ee';
+} from '@/roles/scopes/project-scopes';
+import { combineScopes } from '@/utilities/combine-scopes';
 
 describe('credential:createEndUser default grants', () => {
 	it('is granted to instance owners and admins', () => {

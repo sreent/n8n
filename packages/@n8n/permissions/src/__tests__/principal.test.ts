@@ -1,9 +1,9 @@
-import { getApiKeyScopesForRole } from '@/public-api-permissions.ee';
-import { getGlobalScopes } from '@/utilities/get-global-scopes.ee';
-import { getAuthPrincipalScopes } from '@/utilities/get-role-scopes.ee';
-import { hasGlobalScope } from '@/utilities/has-global-scope.ee';
-import type { AuthMethod, Principal, SecurityContext } from '@/principal.ee';
-import type { AuthPrincipal } from '@/types.ee';
+import { getApiKeyScopesForRole } from '@/public-api-permissions';
+import { getGlobalScopes } from '@/utilities/get-global-scopes';
+import { getAuthPrincipalScopes } from '@/utilities/get-role-scopes';
+import { hasGlobalScope } from '@/utilities/has-global-scope';
+import type { AuthMethod, Principal, SecurityContext } from '@/principal';
+import type { AuthPrincipal } from '@/types';
 
 const principal: Principal = {
 	id: 'user-1',

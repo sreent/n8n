@@ -1,5 +1,5 @@
-import { GLOBAL_SCOPE_MAP } from '../../roles/role-maps.ee';
-import { getGlobalScopes } from '../get-global-scopes.ee';
+import { GLOBAL_SCOPE_MAP } from '../../roles/role-maps';
+import { getGlobalScopes } from '../get-global-scopes';
 import { createAuthPrincipal } from './utils';
 
 describe('getGlobalScopes', () => {

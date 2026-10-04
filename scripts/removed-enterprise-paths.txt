@@ -24,3 +24,6 @@ packages/cli/test/integration/eventbus.ee.test.ts
 # secretsProviders.ee stay with the backend module.
 packages/frontend/editor-ui/src/features/integrations/logStreaming.ee/
 packages/frontend/editor-ui/src/features/integrations/promotions.ee/
+
+# The permission core: the fork has its own scopes, roles and checks (step 2).
+packages/@n8n/permissions/src/**/*.ee.*

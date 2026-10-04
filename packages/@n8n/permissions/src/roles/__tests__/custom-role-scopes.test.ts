@@ -1,5 +1,5 @@
-import { API_KEY_RESOURCES } from '@/constants.ee';
-import type { Scope } from '@/types.ee';
+import { API_KEY_RESOURCES } from '@/constants';
+import type { Scope } from '@/types';
 import {
 	CUSTOM_ROLE_SCOPE_WHITELIST,
 	GLOBAL_CUSTOM_ROLE_SCOPE_GROUPS,
@@ -9,23 +9,23 @@ import {
 	MANDATORY_INSTANCE_SCOPES,
 	PROJECT_CUSTOM_ROLE_SCOPES,
 	withMandatoryInstanceScopes,
-} from '@/roles/custom-role-scopes.ee';
+} from '@/roles/custom-role-scopes';
 import {
 	CREDENTIALS_SHARING_OWNER_SCOPES,
 	CREDENTIALS_SHARING_USER_SCOPES,
-} from '@/roles/scopes/credential-sharing-scopes.ee';
+} from '@/roles/scopes/credential-sharing-scopes';
 import {
 	GLOBAL_ADMIN_SCOPES,
 	GLOBAL_MEMBER_SCOPES,
 	GLOBAL_OWNER_SCOPES,
-} from '@/roles/scopes/global-scopes.ee';
+} from '@/roles/scopes/global-scopes';
 import {
 	PERSONAL_PROJECT_OWNER_SCOPES,
 	PROJECT_CHAT_USER_SCOPES,
 	PROJECT_EDITOR_SCOPES,
 	PROJECT_VIEWER_SCOPES,
 	REGULAR_PROJECT_ADMIN_SCOPES,
-} from '@/roles/scopes/project-scopes.ee';
+} from '@/roles/scopes/project-scopes';
 import { ALL_SCOPES } from '@/scope-information';
 
 describe('custom role scope whitelists', () => {

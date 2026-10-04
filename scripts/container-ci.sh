@@ -173,6 +173,10 @@ echo "commit $SHA base $COMPARED mode $MODE" | tee "$OUT/summary.txt"
 # scripts/removed-enterprise-paths.txt lists. Compare the whole fork with the upstream commit
 # that it matches, so that an upstream update still passes.
 step clean-room scripts/removed-enterprise.sh check "$UPSTREAM_BASE"
+# The permission data of @n8n/permissions must be what scripts/permission-snapshot.mjs makes from
+# the recorded snapshot of a running n8n.
+step permission-data node scripts/permission-snapshot.mjs generate \
+	packages/@n8n/permissions/permission-snapshot.json --check
 step install scripts/cloud-install.sh
 # The editor app and its type check use up to 8 GB of memory, so they run one at a time.
 step build "$TURBO" run build --filter='n8n...' --concurrency=1

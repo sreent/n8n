@@ -1,5 +1,5 @@
-import type { GlobalRole, Scope } from '../../types.ee';
-import { hasGlobalScope } from '../has-global-scope.ee';
+import type { GlobalRole, Scope } from '../../types';
+import { hasGlobalScope } from '../has-global-scope';
 import { createAuthPrincipal } from './utils';
 
 describe('hasGlobalScope', () => {
