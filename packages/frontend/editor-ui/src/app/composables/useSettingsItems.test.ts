@@ -1,6 +1,5 @@
 import { computed, ref } from 'vue';
 
-import { PROMOTIONS_SETTINGS_VIEW } from '@/features/integrations/promotions.ee/promotions.constants';
 import { useSettingsItems } from './useSettingsItems';
 import { VIEWS } from '../constants';
 
@@ -109,47 +108,6 @@ describe('useSettingsItems', () => {
 			);
 
 			expect(item?.preview).toBe(true);
-		});
-	});
-
-	describe('Environments v2', () => {
-		beforeEach(() => {
-			activeModules.value = ['promotions'];
-			promotionsFlag.value = 'true';
-		});
-
-		it('appears directly after Environments when enabled', () => {
-			const items = useSettingsItems().settingsItems.value;
-			const environmentsIndex = items.findIndex(({ id }) => id === 'settings-source-control');
-
-			expect(items[environmentsIndex + 1]).toMatchObject({
-				id: 'settings-promotions',
-				route: { to: { name: PROMOTIONS_SETTINGS_VIEW } },
-			});
-		});
-
-		it('is hidden when the feature flag is off', () => {
-			promotionsFlag.value = 'false';
-
-			expect(useSettingsItems().settingsItems.value.map(({ id }) => id)).not.toContain(
-				'settings-promotions',
-			);
-		});
-
-		it('is hidden when the promotions module is inactive', () => {
-			activeModules.value = ['source-control'];
-
-			expect(useSettingsItems().settingsItems.value.map(({ id }) => id)).not.toContain(
-				'settings-promotions',
-			);
-		});
-
-		it('is hidden when route access is denied', () => {
-			canUserAccessRouteByName.mockImplementation((name) => name !== PROMOTIONS_SETTINGS_VIEW);
-
-			expect(useSettingsItems().settingsItems.value.map(({ id }) => id)).not.toContain(
-				'settings-promotions',
-			);
 		});
 	});
 

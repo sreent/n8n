@@ -3,7 +3,6 @@ import { useDocumentVisibility } from '@/app/composables/useDocumentVisibility';
 import { useGlobalEntityCreation } from '@/app/composables/useGlobalEntityCreation';
 import { VIEWS } from '@/app/constants';
 import { sourceControlEventBus } from '@/features/integrations/sourceControl.ee/sourceControl.eventBus';
-import { promotionEventBus } from '@/features/integrations/promotions.ee/promotions.eventBus';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { N8nIcon, N8nMenuItem, N8nText } from '@n8n/design-system';
@@ -202,14 +201,10 @@ async function reloadMyProjects() {
 onBeforeMount(async () => {
 	await usersStore.fetchUsers({ filter: { isPending: false }, take: 2 });
 	sourceControlEventBus.on('pull', reloadMyProjects);
-	promotionEventBus.on('applied', reloadMyProjects);
-	promotionEventBus.on('projectRemoved', reloadMyProjects);
 });
 
 onBeforeUnmount(() => {
 	sourceControlEventBus.off('pull', reloadMyProjects);
-	promotionEventBus.off('applied', reloadMyProjects);
-	promotionEventBus.off('projectRemoved', reloadMyProjects);
 });
 </script>
 

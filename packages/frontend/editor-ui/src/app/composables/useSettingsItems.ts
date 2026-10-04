@@ -11,8 +11,6 @@ import { useUIStore } from '../stores/ui.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { hasPermission } from '../utils/rbac/permissions';
 import { MIGRATION_REPORT_TARGET_VERSION } from '@n8n/api-types';
-import { PROMOTIONS_SETTINGS_VIEW } from '@/features/integrations/promotions.ee/promotions.constants';
-import { usePromotionsEnabled } from '@/features/shared/promotions/usePromotionsEnabled';
 
 export function useSettingsItems() {
 	const router = useRouter();
@@ -20,7 +18,6 @@ export function useSettingsItems() {
 	const uiStore = useUIStore();
 	const settingsStore = useSettingsStore();
 	const { canUserAccessRouteByName } = useUserHelpers(router);
-	const { isEnabled: isPromotionsEnabled } = usePromotionsEnabled();
 	const { balance } = useAiGateway();
 	const { openTopUp } = useAiGatewayTopUp();
 
@@ -122,15 +119,6 @@ export function useSettingsItems() {
 				route: { to: { name: VIEWS.SOURCE_CONTROL } },
 			},
 			{
-				id: 'settings-promotions',
-				icon: 'git-branch',
-				label: i18n.baseText('settings.promotions.title'),
-				position: 'top',
-				available: isPromotionsEnabled.value && canUserAccessRouteByName(PROMOTIONS_SETTINGS_VIEW),
-				route: { to: { name: PROMOTIONS_SETTINGS_VIEW } },
-				preview: true,
-			},
-			{
 				id: 'settings-sso',
 				icon: 'user-lock',
 				label: i18n.baseText('settings.sso'),
@@ -175,15 +163,6 @@ export function useSettingsItems() {
 				route: { to: { name: VIEWS.WORKER_VIEW } },
 			},
 		];
-
-		menuItems.push({
-			id: 'settings-log-streaming',
-			icon: 'log-in',
-			label: i18n.baseText('settings.log-streaming'),
-			position: 'top',
-			available: canUserAccessRouteByName(VIEWS.LOG_STREAMING_SETTINGS),
-			route: { to: { name: VIEWS.LOG_STREAMING_SETTINGS } },
-		});
 
 		menuItems.push({
 			id: 'settings-community-nodes',

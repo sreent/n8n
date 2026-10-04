@@ -17,3 +17,9 @@ packages/cli/src/modules/workflow-reviews.ee/
 # Their enterprise tests outside the module folders.
 packages/cli/test/integration/dynamic-credentials.ee/
 packages/cli/test/integration/eventbus.ee.test.ts
+
+# Editor folders of removed features. The editor keeps sourceControl.ee for now: enterprise files
+# that the fork still has (evaluations and variables) use it. externalSecrets.ee and
+# secretsProviders.ee stay with the backend module.
+packages/frontend/editor-ui/src/features/integrations/logStreaming.ee/
+packages/frontend/editor-ui/src/features/integrations/promotions.ee/
