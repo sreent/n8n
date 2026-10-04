@@ -32,8 +32,11 @@ The fork removes the enterprise code step by step, and builds its own versions o
 3. Our own project and sharing services, then team projects with our own roles.
 4. Our own features, one at a time: SSO, external secrets and an audit log export.
 
-`scripts/removed-enterprise-paths.txt` lists the removed areas. `scripts/sync-upstream.sh`
-deletes them again after each upstream update, and container CI checks that they stay deleted.
+[FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
+fork, the plan, and the clean-room sources for a rebuild.
+
+`scripts/removed-enterprise-paths.txt` lists the removed areas. `scripts/sync-upstream.sh` deletes
+them again after each upstream update, and container CI checks that they stay deleted.
 
 ## Rules
 
