@@ -169,9 +169,10 @@ else
 fi
 echo "commit $SHA base $COMPARED mode $MODE" | tee "$OUT/summary.txt"
 
-# Fork rule: the fork changes no enterprise (.ee.) file. Compare the whole fork with the
-# upstream commit that it matches, so that an upstream update still passes.
-step clean-room bash -c "! git diff --name-only '$UPSTREAM_BASE' HEAD | grep -E '\.ee(\.|/)'"
+# Fork rule: the fork adds and changes no enterprise (.ee.) file. It only deletes the areas that
+# scripts/removed-enterprise-paths.txt lists. Compare the whole fork with the upstream commit
+# that it matches, so that an upstream update still passes.
+step clean-room scripts/removed-enterprise.sh check "$UPSTREAM_BASE"
 step install scripts/cloud-install.sh
 # The editor app and its type check use up to 8 GB of memory, so they run one at a time.
 step build "$TURBO" run build --filter='n8n...' --concurrency=1

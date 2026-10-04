@@ -1,0 +1,6 @@
+# Enterprise code that the fork removed. scripts/removed-enterprise.sh reads this list:
+# scripts/sync-upstream.sh deletes these paths again after each upstream update, and
+# scripts/container-ci.sh checks that they stay deleted.
+#
+# One path for each line, relative to the repository root. A path that ends with / names a
+# folder and everything in it. Lines that start with # are comments.

@@ -15,6 +15,8 @@
 #   upstream-ref   A branch, a tag such as n8n@2.43.0, or a commit ID of n8n-io/n8n.
 #   --no-commit    Stage the result, but do not commit it.
 #
+# The fork removed some enterprise code. After the merge, the script deletes the upstream files in
+# the areas that scripts/removed-enterprise-paths.txt lists, so they never come back.
 # The target must contain the current base, so the script does not go back in history.
 # Without conflicts, the script makes one commit. With conflicts, it stops as `git merge` does:
 # resolve the files that `git status` shows, add them, then run the script with --continue.
@@ -175,6 +177,24 @@ if [ "${#conflicts[@]}" -gt 0 ]; then
 		done
 		printf '%s\0' "${conflicts[@]}"
 	} | git update-index -z --index-info
+fi
+
+# The fork removed some enterprise areas (scripts/removed-enterprise-paths.txt). Delete their
+# files again: the files that upstream changed, which conflict with the deletion, and the files
+# that upstream added. The script handles them by name only and never opens them.
+mapfile -t removed < <(git ls-files | scripts/removed-enterprise.sh match | sort -u)
+if [ "${#removed[@]}" -gt 0 ]; then
+	printf '%s\0' "${removed[@]}" |
+		git --literal-pathspecs rm -q --cached --pathspec-from-file=- --pathspec-file-nul
+	printf '%s\0' "${removed[@]}" | xargs -0 rm -f --
+	sed -n 's#^\([^#].*/\)$#\1#p' scripts/removed-enterprise-paths.txt | while read -r dir; do
+		if [ -d "$dir" ]; then find "$dir" -depth -type d -empty -delete; fi
+	done
+	if [ "${#paths[@]}" -gt 0 ]; then
+		mapfile -t paths < <(printf '%s\n' "${paths[@]}" |
+			grep -vxF -f <(printf '%s\n' "${removed[@]}") || true)
+	fi
+	echo "Deleted ${#removed[@]} upstream files in the removed enterprise areas."
 fi
 
 # Whether a path with conflicts matches the extended regex $1.
