@@ -175,6 +175,15 @@ describe('Public API scope parity', () => {
 		expect(mismatches).toEqual([]);
 	}, 30_000);
 
+	// The fork removed the public API endpoints of these enterprise features. Their scopes stay in
+	// the enterprise scope list until the fork replaces it (FORK.md, step 2).
+	const removedFeatureResources = new Set([
+		'ldap',
+		'eventBusDestination',
+		'sourceControl',
+		'gitConnection',
+	]);
+
 	test('every API key scope in API_KEY_RESOURCES is consumed by at least one endpoint', () => {
 		const consumed = new Set(
 			ops.flatMap((op) => {
@@ -184,6 +193,7 @@ describe('Public API scope parity', () => {
 		);
 		const declared = new Set<string>();
 		for (const [resource, operations] of Object.entries(API_KEY_RESOURCES)) {
+			if (removedFeatureResources.has(resource)) continue;
 			for (const operation of operations) {
 				declared.add(`${resource}:${operation}`);
 			}

@@ -4,25 +4,21 @@
  * Verifies that when a workflow is run manually from the editor:
  *  - The auth cookie passed to `executeManually` is encrypted into
  *    `runtimeData.credentials` of the persisted execution.
- *  - `N8NIdentifier.resolve` can decrypt that context, validate the cookie
- *    via `AuthService.authenticateUserByCookie`, and return the running
- *    user's id — without any request-bound (browserId / endpoint) data.
- *  - A blocklisted cookie (simulating logout) makes the resolver fail.
+ *  - Without a cookie, no credential context is stored.
  */
 
 import { LicenseState } from '@n8n/backend-common';
 import { testDb, createWorkflow } from '@n8n/backend-test-utils';
-import { ExecutionRepository, InvalidAuthTokenRepository, type IWorkflowDb } from '@n8n/db';
+import { ExecutionRepository, type IWorkflowDb } from '@n8n/db';
 import { Container } from '@n8n/di';
 import { Cipher } from 'n8n-core';
 import { toCredentialContext, toExecutionContext, type IExecutionContext } from 'n8n-workflow';
 import { mock } from 'vitest-mock-extended';
 
 import { AuthService } from '@/auth/auth.service';
-import { N8NIdentifier } from '@/modules/dynamic-credentials.ee/credential-resolvers/identifiers/n8n-identifier';
 import { WorkflowExecutionService } from '@/workflows/workflow-execution.service';
 
-import { createOwner, createMember } from './shared/db/users';
+import { createOwner } from './shared/db/users';
 import * as utils from './shared/utils';
 import { loadNodesFromDist } from './shared/utils/node-types-data';
 import { createSimpleWorkflowFixture } from './shared/workflow-fixtures';
@@ -35,13 +31,10 @@ Container.set(LicenseState, licenseMock);
 
 describe('Manual execution credential context (integration)', () => {
 	let owner: Awaited<ReturnType<typeof createOwner>>;
-	let member: Awaited<ReturnType<typeof createMember>>;
 	let workflowExecutionService: WorkflowExecutionService;
 	let executionRepository: ExecutionRepository;
 	let authService: AuthService;
 	let cipher: Cipher;
-	let identifier: N8NIdentifier;
-	let invalidAuthTokenRepository: InvalidAuthTokenRepository;
 
 	beforeAll(async () => {
 		await testDb.init();
@@ -51,14 +44,11 @@ describe('Manual execution credential context (integration)', () => {
 		await utils.initBinaryDataService();
 
 		owner = await createOwner();
-		member = await createMember();
 
 		workflowExecutionService = Container.get(WorkflowExecutionService);
 		executionRepository = Container.get(ExecutionRepository);
 		authService = Container.get(AuthService);
 		cipher = Container.get(Cipher);
-		identifier = Container.get(N8NIdentifier);
-		invalidAuthTokenRepository = Container.get(InvalidAuthTokenRepository);
 	});
 
 	afterEach(async () => {
@@ -144,63 +134,6 @@ describe('Manual execution credential context (integration)', () => {
 
 			expect(ctx.source).toBe('manual');
 			expect(ctx.credentials).toBeUndefined();
-		});
-	});
-
-	describe('N8NIdentifier end-to-end resolution', () => {
-		it('resolves a manual-execution context to the running user via real AuthService', async () => {
-			const cookie = authService.issueJWT(owner, owner.mfaEnabled, 'browser-1');
-			const executionId = await runManually(owner, cookie);
-			const ctx = await getExecutionContext(executionId);
-
-			// Decrypt the persisted credential context and feed it into the identifier
-			// exactly as the credential resolver would at runtime.
-			const decrypted = await cipher.decryptV2(ctx.credentials!);
-			const credentialContext = toCredentialContext(decrypted);
-
-			const resolvedUserId = await identifier.resolve(credentialContext, {});
-
-			expect(resolvedUserId).toBe(owner.id);
-		});
-
-		it('routes the right secret to the right user across two members', async () => {
-			const ownerCookie = authService.issueJWT(owner, owner.mfaEnabled, 'browser-owner');
-			const memberCookie = authService.issueJWT(member, member.mfaEnabled, 'browser-member');
-
-			const ownerExecutionId = await runManually(owner, ownerCookie);
-			const memberExecutionId = await runManually(member, memberCookie);
-
-			const ownerCtx = await getExecutionContext(ownerExecutionId);
-			const memberCtx = await getExecutionContext(memberExecutionId);
-
-			const ownerResolved = await identifier.resolve(
-				toCredentialContext(await cipher.decryptV2(ownerCtx.credentials!)),
-				{},
-			);
-			const memberResolved = await identifier.resolve(
-				toCredentialContext(await cipher.decryptV2(memberCtx.credentials!)),
-				{},
-			);
-
-			expect(ownerResolved).toBe(owner.id);
-			expect(memberResolved).toBe(member.id);
-			expect(ownerResolved).not.toBe(memberResolved);
-		});
-
-		it('rejects a blocklisted cookie (logout mid-run scenario)', async () => {
-			const cookie = authService.issueJWT(owner, owner.mfaEnabled, 'browser-1');
-			const executionId = await runManually(owner, cookie);
-			const ctx = await getExecutionContext(executionId);
-
-			// Simulate the user logging out between execution start and resolver invocation.
-			await invalidAuthTokenRepository.insert({
-				token: cookie,
-				expiresAt: new Date(Date.now() + 60 * 60 * 1000),
-			});
-
-			const credentialContext = toCredentialContext(await cipher.decryptV2(ctx.credentials!));
-
-			await expect(identifier.resolve(credentialContext, {})).rejects.toThrow('Unauthorized');
 		});
 	});
 });

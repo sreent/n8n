@@ -253,10 +253,6 @@ export const setupTestServer = ({
 						break;
 					}
 
-					case 'eventBus':
-						await import('@/modules/log-streaming.ee/log-streaming.controller.js');
-						break;
-
 					case 'auth':
 						await import('@/controllers/auth.controller.js');
 						break;
@@ -276,14 +272,6 @@ export const setupTestServer = ({
 					case 'mfa':
 						await import('@/controllers/mfa.controller.js');
 						break;
-
-					case 'ldap': {
-						const { LdapService } = await import('@/modules/ldap.ee/ldap.service.ee.js');
-						await import('@/modules/ldap.ee/ldap.controller.ee.js');
-						testServer.license.enable('feat:ldap');
-						await Container.get(LdapService).init();
-						break;
-					}
 
 					case 'saml': {
 						const { SamlService } = await import('@/modules/sso-saml/saml.service.ee.js');
@@ -307,10 +295,6 @@ export const setupTestServer = ({
 						await import('@/modules/otel/otel-settings.controller.js');
 						break;
 					}
-
-					case 'sourceControl':
-						await import('@/modules/source-control.ee/source-control.controller.ee.js');
-						break;
 
 					case 'community-packages':
 						await import('@/modules/community-packages/community-packages.controller.js');
@@ -401,10 +385,6 @@ export const setupTestServer = ({
 
 					case 'data-table':
 						await import('@/modules/data-table/data-table.module.js');
-						break;
-
-					case 'workflow-reviews':
-						await import('@/modules/workflow-reviews.ee/workflow-reviews.module.js');
 						break;
 
 					case 'mcp':

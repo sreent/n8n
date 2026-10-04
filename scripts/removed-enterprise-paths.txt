@@ -4,3 +4,16 @@
 #
 # One path for each line, relative to the repository root. A path that ends with / names a
 # folder and everything in it. Lines that start with # are comments.
+
+# Backend modules that do nothing without an enterprise license. The external-secrets and
+# provisioning modules stay for now: other enterprise files that the fork still has use them.
+packages/cli/src/modules/dynamic-credentials.ee/
+packages/cli/src/modules/instance-reporting.ee/
+packages/cli/src/modules/ldap.ee/
+packages/cli/src/modules/log-streaming.ee/
+packages/cli/src/modules/promotions.ee/
+packages/cli/src/modules/source-control.ee/
+packages/cli/src/modules/workflow-reviews.ee/
+# Their enterprise tests outside the module folders.
+packages/cli/test/integration/dynamic-credentials.ee/
+packages/cli/test/integration/eventbus.ee.test.ts

@@ -64,7 +64,6 @@ import { CredentialNotFoundError } from '@/errors/credential-not-found.error';
 import { BadRequestError, ConflictError, ForbiddenError, NotFoundError } from '@n8n/errors';
 import { ExternalHooks } from '@/external-hooks';
 import { validateEntity } from '@/generic-helpers';
-import { getChangedSharedFields } from '@/modules/dynamic-credentials.ee/services/shared-fields';
 import { ExternalSecretsConfig } from '@/modules/external-secrets.ee/external-secrets.config';
 import { SecretsProviderAccessCheckService } from '@/modules/external-secrets.ee/secret-provider-access-check.service.ee';
 import { DCR_MANAGED_CREDENTIAL_FIELDS } from '@/oauth/dcr-managed-fields';
@@ -1681,25 +1680,6 @@ export class CredentialsService {
 		try {
 			return this.credentialTypes.getByName(credentialType).properties;
 		} catch {
-			return [];
-		}
-	}
-
-	/**
-	 * Shared (static, non-resolvable) fields whose value changed vs. the stored
-	 * credential. `newData` must be un-redacted (see `prepareUpdateData`).
-	 */
-	async getChangedSharedFields(
-		credential: CredentialsEntity,
-		newData: ICredentialDataDecryptedObject,
-	): Promise<string[]> {
-		try {
-			const credentialType = this.credentialTypes.getByName(credential.type);
-			const oldData = await this.decrypt(credential, true);
-			return getChangedSharedFields(credentialType, oldData, newData);
-		} catch {
-			// Unknown credential type or decrypt failure: fall back to leaving
-			// connections untouched rather than blocking the update.
 			return [];
 		}
 	}
