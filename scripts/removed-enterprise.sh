@@ -20,15 +20,33 @@ LIST=scripts/removed-enterprise-paths.txt
 
 match() {
 	awk -v list="$LIST" '
+		# A glob: ** matches any characters, * matches any characters except /.
+		function glob_to_regex(glob, re) {
+			re = glob
+			gsub(/[.+?()|^$\[\]{}]/, "\\\\&", re)
+			gsub(/\*\*\//, "\001", re)
+			gsub(/\*\*/, "\002", re)
+			gsub(/\*/, "[^/]*", re)
+			gsub(/\001/, "(.*/)?", re)
+			gsub(/\002/, ".*", re)
+			return "^" re "$"
+		}
 		BEGIN {
 			while ((getline line < list) > 0) {
-				if (line !~ /^(#|[[:space:]]*$)/) paths[++n] = line
+				if (line ~ /^(#|[[:space:]]*$)/) continue
+				paths[++n] = line
+				if (index(line, "*")) regexes[n] = glob_to_regex(line)
 			}
 		}
 		{
 			for (i = 1; i <= n; i++) {
 				p = paths[i]
-				if ($0 == p || (substr(p, length(p)) == "/" && index($0, p) == 1)) {
+				if (i in regexes) {
+					if ($0 ~ regexes[i]) {
+						print
+						next
+					}
+				} else if ($0 == p || (substr(p, length(p)) == "/" && index($0, p) == 1)) {
 					print
 					next
 				}

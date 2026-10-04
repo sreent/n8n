@@ -3,7 +3,8 @@
 # scripts/container-ci.sh checks that they stay deleted.
 #
 # One path for each line, relative to the repository root. A path that ends with / names a
-# folder and everything in it. Lines that start with # are comments.
+# folder and everything in it. In a path, ** matches any characters and * matches any characters
+# except /. Lines that start with # are comments.
 
 # Backend modules that do nothing without an enterprise license. The external-secrets and
 # provisioning modules stay for now: other enterprise files that the fork still has use them.
