@@ -10,6 +10,9 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   `packages/modules/git-sync/frontend` and `packages/modules/send-copy/frontend`. Their READMEs
   describe them.
 - `deploy/`: runs the fork on a Linux server with Docker Compose.
+- `vendor/`: the wa-sqlite package that the editor app installs. Upstream installs it from
+  GitHub, which a cloud session cannot do. `scripts/vendor-wa-sqlite.sh` packs it from the
+  upstream commit and gives the same file again.
 - `scripts/container-ci.sh`, `scripts/sync-upstream.sh`, `scripts/cloud-install.sh` and
   `scripts/build-images.sh`: CI, upstream updates, installs in cloud sessions, and the Docker
   images.
@@ -25,10 +28,12 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
 
 ## Cloud sessions
 
-- The repository needs Node 24 and pnpm 12. The environment setup script installs them in
-  `/opt/node24`. Put `/opt/node24/bin` first on the `PATH`.
+- The repository needs Node 24 and pnpm 12. The scripts in `scripts/` install them in
+  `/opt/node24` when they are missing (`scripts/cloud-node.sh`), so the environment needs no
+  setup script. Put `/opt/node24/bin` first on the `PATH`.
 - Install the dependencies with `scripts/cloud-install.sh`, not with `pnpm install`. In a cloud
-  session, a plain install fails on `@vscode/ripgrep`.
+  session, a plain install fails on `@vscode/ripgrep`. The script also stops with a clear error
+  when a repository that it downloads from is not attached.
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
   `--plan` to see which tests it selects.
 
@@ -49,3 +54,6 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   Then run `scripts/container-ci.sh --fork`, and open a pull request.
 - `scripts/sync-upstream.base` holds the upstream commit that the fork matches. Only
   `scripts/sync-upstream.sh` changes it.
+- When an upstream update changes the wa-sqlite commit in
+  `packages/frontend/editor-ui/package.json`, keep the upstream line. Then run
+  `scripts/vendor-wa-sqlite.sh`.

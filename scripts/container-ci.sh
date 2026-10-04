@@ -34,8 +34,8 @@ BASE=${1:-origin/master}
 UPSTREAM_URL=https://github.com/n8n-io/n8n.git
 
 cd "$(git rev-parse --show-toplevel)" || exit 1
-# The repository needs Node 24. The cloud environment setup script installs it here.
-[ -d /opt/node24/bin ] && export PATH="/opt/node24/bin:$PATH"
+# The repository needs Node 24. In a cloud session, this installs it when it is missing.
+. scripts/cloud-node.sh || exit 1
 TURBO=./node_modules/.bin/turbo
 JANITOR=packages/cli/node_modules/.bin/janitor
 # The change analysis below needs turbo and the janitor runner. A plain `pnpm install` fails in a

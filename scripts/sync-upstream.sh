@@ -48,8 +48,8 @@ fail() {
 # macOS has Bash 3 in /bin/bash. Install a newer Bash, for example with Homebrew.
 [ "${BASH_VERSINFO[0]}" -ge 4 ] || fail "Bash 4 or later is necessary."
 cd "$(git rev-parse --show-toplevel)"
-# The repository needs Node 24. The cloud environment setup script installs it here.
-[ -d /opt/node24/bin ] && export PATH="/opt/node24/bin:$PATH"
+# The repository needs Node 24. In a cloud session, this installs it when it is missing.
+. scripts/cloud-node.sh
 MSG_FILE="$(git rev-parse --git-dir)/SYNC_UPSTREAM_MSG"
 
 # pnpm writes the lockfile. Let it add the fork's packages to the merged lockfile.
@@ -196,10 +196,9 @@ if conflicted 'pnpm-lock\.yaml'; then
 fi
 conflicted '(.*/)?package\.json' || refresh_lockfile
 
-if grep -q 'rhashimoto/wa-sqlite' "$EDITOR_PACKAGE" 2>/dev/null; then
-	echo "note: $EDITOR_PACKAGE names rhashimoto/wa-sqlite. Cloud sessions can only download"
-	echo "      sreent/wa-sqlite. Sync that fork to the upstream commit, then use"
-	echo "      github:sreent/wa-sqlite#<commit>."
+if grep -q 'github:rhashimoto/wa-sqlite' "$EDITOR_PACKAGE" 2>/dev/null; then
+	echo "note: upstream changed the wa-sqlite commit in $EDITOR_PACKAGE. Keep the"
+	echo "      upstream line, then run scripts/vendor-wa-sqlite.sh to store that commit in vendor/."
 fi
 
 if [ "${#paths[@]}" -gt 0 ]; then
