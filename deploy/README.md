@@ -9,6 +9,7 @@ server and restore a backup.
 flowchart LR
   users["Browsers and webhooks"] -- "HTTPS (443)" --> caddy["Caddy"]
   caddy --> n8n["n8n"]
+  n8n -- "Code node scripts" --> runners["Task runners"]
   n8n --> postgres[("PostgreSQL")]
   postgres -- "backup.sh" --> backups[("backups/")]
 ```
@@ -16,10 +17,11 @@ flowchart LR
 | Service | Purpose |
 |---|---|
 | `caddy` | Gets and renews the HTTPS certificate for your domain, and sends the traffic to n8n |
-| `n8n` | The fork image |
+| `n8n` | The fork's n8n image |
+| `runners` | Runs the JavaScript and Python code of the Code nodes, apart from n8n |
 | `postgres` | All n8n data, including the files from workflows |
 
-Only Caddy is reachable from outside. n8n and PostgreSQL have no open ports.
+Only Caddy is reachable from outside. n8n, the runners and PostgreSQL have no open ports.
 
 ## What you need
 
@@ -27,7 +29,7 @@ Only Caddy is reachable from outside. n8n and PostgreSQL have no open ports.
   good choice.
 - A domain name for n8n, for example `n8n.example.com`.
 - Open ports 22 (SSH), 80 and 443 in the firewall of the provider.
-- The n8n image in a registry, and a token that can read it.
+- The n8n image and the runners image in a registry, and a token that can read them.
 
 ## Install
 
@@ -66,7 +68,7 @@ Only Caddy is reachable from outside. n8n and PostgreSQL have no open ports.
 8. Open `https://<your domain>` and make the owner account. Turn on two-factor authentication
    for it.
 
-`docker compose ps` shows the three services. `docker compose logs -f n8n` shows the n8n log.
+`docker compose ps` shows the four services. `docker compose logs -f n8n` shows the n8n log.
 
 ## Back up
 
@@ -104,14 +106,15 @@ Only Caddy is reachable from outside. n8n and PostgreSQL have no open ports.
    ./backup.sh
    ```
 
-2. Get the new image and start it:
+2. Get the new images and start them:
 
    ```bash
    docker compose pull
    docker compose up -d
    ```
 
-To run a specific version, set its tag in `N8N_IMAGE`.
+To run a specific version, set its tag in `N8N_IMAGE` and in `N8N_RUNNERS_IMAGE`. Use the same
+tag for the two images.
 
 ## Development and production
 
@@ -122,10 +125,10 @@ development, and pull in production. See the
 
 ## Limits
 
-- n8n runs the scripts of the Code node in its own container, in the internal task runner mode.
-  This mode works for JavaScript. n8n marks it as deprecated, and Python in the Code node needs
-  a separate runners container (external mode). A later update of this folder adds that
-  container.
+- The scripts of the Code node can import only some modules: `crypto` and `moment` in
+  JavaScript, and no modules in Python. To add modules, build an image from the runners image.
+  See [Task runners](https://docs.n8n.io/hosting/configuration/task-runners/) in the n8n
+  documentation.
 - This setup runs one n8n instance on one server. The nightly backup is the protection against
   the loss of the server.
 
@@ -134,12 +137,15 @@ development, and pull in production. See the
 - Keep the server up to date. On Ubuntu, `unattended-upgrades` installs the security updates.
 - Open only ports 22, 80 and 443.
 - `.env` holds the secrets. Only root must be able to read it.
+- The scripts of the Code nodes run in the `runners` container, not in the n8n container. That
+  container gets no database password and no encryption key. It connects to n8n with
+  `N8N_RUNNERS_AUTH_TOKEN`.
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| `docker-compose.yml` | The three services |
+| `docker-compose.yml` | The four services |
 | `Caddyfile` | The HTTPS proxy |
 | `.env.example` | The settings. Copy it to `.env` |
 | `backup.sh` | Makes a database backup |
