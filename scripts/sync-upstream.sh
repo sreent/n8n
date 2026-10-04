@@ -196,10 +196,9 @@ if conflicted 'pnpm-lock\.yaml'; then
 fi
 conflicted '(.*/)?package\.json' || refresh_lockfile
 
-if grep -q 'rhashimoto/wa-sqlite' "$EDITOR_PACKAGE" 2>/dev/null; then
-	echo "note: $EDITOR_PACKAGE names rhashimoto/wa-sqlite. Cloud sessions can only download"
-	echo "      sreent/wa-sqlite. Sync that fork to the upstream commit, then use"
-	echo "      github:sreent/wa-sqlite#<commit>."
+if grep -q 'github:rhashimoto/wa-sqlite' "$EDITOR_PACKAGE" 2>/dev/null; then
+	echo "note: upstream changed the wa-sqlite commit in $EDITOR_PACKAGE. Keep the"
+	echo "      upstream line, then run scripts/vendor-wa-sqlite.sh to store that commit in vendor/."
 fi
 
 if [ "${#paths[@]}" -gt 0 ]; then

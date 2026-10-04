@@ -14,9 +14,9 @@ cd "$(git rev-parse --show-toplevel)"
 # The repository needs Node 24. In a cloud session, this installs it when it is missing.
 . scripts/cloud-node.sh
 
-# The lockfile installs some packages, such as wa-sqlite, from the archive of a GitHub
-# repository. A cloud session can download that archive only when the repository is attached to
-# the session. Name the missing repositories before pnpm fails with a less clear error.
+# The lockfile can install a package from the archive of a GitHub repository. A cloud session can
+# download that archive only when the repository is attached to the session. Name the missing
+# repositories before pnpm fails with a less clear error. (wa-sqlite comes from vendor/ instead.)
 if [ "${CLAUDE_CODE_REMOTE:-}" = true ]; then
 	missing=
 	for url in $(grep -o 'tarball: https://codeload\.github\.com/[^,}]*' pnpm-lock.yaml |
