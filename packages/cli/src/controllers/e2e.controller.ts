@@ -27,7 +27,6 @@ import { inE2ETests } from '@/constants';
 import type { FeatureReturnType } from '@/license';
 import { License } from '@/license';
 import { MfaService } from '@/mfa/mfa.service';
-import { LogStreamingDestinationService } from '@/modules/log-streaming.ee/log-streaming-destination.service';
 import { Push } from '@/push';
 import { WorkflowScheduledJobOwner } from '@/scheduling/workflow-scheduled-job-owner';
 import { CacheService } from '@n8n/backend-services';
@@ -203,7 +202,6 @@ export class E2EController {
 		private readonly userRepository: UserRepository,
 		private readonly frontendService: FrontendService,
 		private readonly executionsConfig: ExecutionsConfig,
-		private readonly logStreamingDestinationsService: LogStreamingDestinationService,
 		private readonly scheduledJobRepository: ScheduledJobRepository,
 		private readonly workflowScheduledJobOwner: WorkflowScheduledJobOwner,
 		private readonly pollerStateRepository: PollerStateRepository,
@@ -231,7 +229,6 @@ export class E2EController {
 	@Post('/reset', { skipAuth: true })
 	async reset(req: ResetRequest) {
 		this.resetFeatures();
-		await this.resetLogStreaming();
 		await this.removeActiveWorkflows();
 		await this.truncateAll();
 		await this.reseedRolesAndScopes();
@@ -604,15 +601,6 @@ export class E2EController {
 	private async removeActiveWorkflows() {
 		this.workflowRunner.removeAllQueuedWorkflowActivations();
 		await this.workflowRunner.removeAll();
-	}
-
-	private async resetLogStreaming() {
-		const destinations = await this.logStreamingDestinationsService.findDestination();
-		for (const destination of destinations) {
-			if (destination.id) {
-				await this.logStreamingDestinationsService.removeDestination(destination.id, false);
-			}
-		}
 	}
 
 	private async truncateAll() {

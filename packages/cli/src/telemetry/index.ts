@@ -27,7 +27,6 @@ import type {
 import { License } from '@/license';
 import { PostHogClient } from '@/posthog';
 
-import { SourceControlPreferencesService } from '../modules/source-control.ee/source-control-preferences.service.ee';
 import { USER_CALLED_MCP_TOOL_EVENT } from '../modules/mcp/mcp.constants';
 
 type ExecutionTrackDataKey =
@@ -239,19 +238,12 @@ export class Telemetry {
 			return;
 		}
 
-		const sourceControlPreferences = Container.get(
-			SourceControlPreferencesService,
-		).getPreferences();
-
 		// License info
 		const pulsePacket = {
 			plan_name_current: this.license.getPlanName(),
 			quota: this.license.getTriggerLimit(),
 			usage: await this.workflowRepository.getActiveTriggerCount(),
 			role_count: await Container.get(UserRepository).countUsersByRole(),
-			source_control_set_up: Container.get(SourceControlPreferencesService).isSourceControlSetup(),
-			branchName: sourceControlPreferences.branchName,
-			read_only_instance: sourceControlPreferences.branchReadOnly,
 			team_projects: (await Container.get(ProjectRepository).getProjectCounts()).team,
 			project_role_count: await Container.get(ProjectRelationRepository).countUsersByRole(),
 		};
