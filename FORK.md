@@ -10,8 +10,9 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   `packages/modules/git-sync/frontend` and `packages/modules/send-copy/frontend`. Their READMEs
   describe them.
 - `deploy/`: runs the fork on a Linux server with Docker Compose.
-- `scripts/container-ci.sh`, `scripts/sync-upstream.sh` and `scripts/cloud-install.sh`: CI,
-  upstream updates, and installs in cloud sessions.
+- `scripts/container-ci.sh`, `scripts/sync-upstream.sh`, `scripts/cloud-install.sh` and
+  `scripts/build-images.sh`: CI, upstream updates, installs in cloud sessions, and the Docker
+  images.
 
 ## Rules
 
@@ -30,6 +31,17 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   session, a plain install fails on `@vscode/ripgrep`.
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
   `--plan` to see which tests it selects.
+
+## Docker images
+
+- `scripts/build-images.sh` builds the n8n image and the task runners image that `deploy/` runs.
+  The tags are `<n8n version>-<commit>` and `latest`. Build from `master`, after the merge.
+- `scripts/build-images.sh --push` also pushes the images to `ghcr.io/sreent`. It reads
+  `REGISTRY_USERNAME` and `REGISTRY_PASSWORD` (a personal access token (classic) with the
+  `write:packages` scope) from the environment. Set them in the environment settings. Do not put
+  the token in a chat or a command.
+- In a cloud session, start the Docker daemon (`dockerd`) in the background first. The script
+  handles the session proxy and the pull limits of Docker Hub.
 
 ## Upstream updates
 

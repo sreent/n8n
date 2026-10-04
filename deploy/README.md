@@ -25,11 +25,13 @@ Only Caddy is reachable from outside. n8n, the runners and PostgreSQL have no op
 
 ## What you need
 
-- A Linux virtual machine with 2 CPUs, 4 GB of memory and a 30 GB disk. Ubuntu 24.04 LTS is a
-  good choice.
+- A Linux virtual machine with an x86-64 (amd64) processor, 2 CPUs, 4 GB of memory and a 30 GB
+  disk. Ubuntu 24.04 LTS is a good choice. The images are for x86-64 only.
 - A domain name for n8n, for example `n8n.example.com`.
 - Open ports 22 (SSH), 80 and 443 in the firewall of the provider.
 - The n8n image and the runners image in a registry, and a token that can read them.
+  `scripts/build-images.sh --push` in the repository builds the two images and pushes them to
+  GitHub Container Registry.
 
 ## Install
 
@@ -114,7 +116,8 @@ Only Caddy is reachable from outside. n8n, the runners and PostgreSQL have no op
    ```
 
 To run a specific version, set its tag in `N8N_IMAGE` and in `N8N_RUNNERS_IMAGE`. Use the same
-tag for the two images.
+tag for the two images. A tag has the n8n version and the commit, for example
+`2.42.0-fb1b129d21`. `latest` is the newest push.
 
 ## Development and production
 
