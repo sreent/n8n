@@ -12,7 +12,6 @@ import {
 	PROJECT_VIEWER_ROLE_SLUG,
 } from './constants';
 import { ALL_SCOPES } from './scope-information';
-import type { Scope } from './types';
 
 export const roleNamespaceSchema = z.enum([
 	'global',
@@ -31,8 +30,7 @@ export const globalRoleSchema = z.enum([
 
 /** Any global role that a user can get: a system role other than the owner, or a custom role. */
 export const assignableGlobalRoleSchema = z
-	.string()
-	.min(1)
+	.union([globalRoleSchema.exclude([GLOBAL_OWNER_ROLE_SLUG]), z.string().min(1)])
 	.refine((role) => role !== GLOBAL_OWNER_ROLE_SLUG, {
 		message: 'This global role value is not assignable',
 	});
@@ -85,10 +83,10 @@ export const secretsProviderConnectionSharingRoleSchema = z.enum([
 
 const allScopes: ReadonlySet<string> = new Set(ALL_SCOPES);
 
-export const scopeSchema = z.custom<Scope>(
-	(value) => typeof value === 'string' && allScopes.has(value),
-	{ message: 'Invalid scope' },
-);
+/** A scope that exists. The type stays `string`, so a request with an unknown scope can be typed. */
+export const scopeSchema = z.string().refine((value) => allScopes.has(value), {
+	message: 'Invalid scope',
+});
 
 export const roleSchema = z.object({
 	slug: z.string().min(1),
