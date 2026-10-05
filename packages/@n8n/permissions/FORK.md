@@ -53,8 +53,11 @@ every recorded user:
 - Every other user gets the API key scopes of its role, in the order of the role, then
   `API_KEY_EXTRA_SCOPES`. The extra scopes give access to resources in the projects of the user.
   Custom roles follow the same rule.
-- `OWNER_API_KEY_SCOPES` and `MEMBER_API_KEY_SCOPES` are this result for the owner and member roles.
-  `getOwnerOnlyApiKeyScopes()` is the first list without the second.
+- `MEMBER_API_KEY_SCOPES` is this result for the member role. `OWNER_API_KEY_SCOPES` is this
+  result for the owner role without the community package scopes: the ordinary tests of the
+  community packages API expect a key with only this list to be refused there.
+- `getOwnerOnlyApiKeyScopes()` is the full result for the owner role without the member list. A
+  user who becomes a member loses these scopes from their API keys.
 
 ## Custom roles
 
