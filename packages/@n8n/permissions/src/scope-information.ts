@@ -1,5 +1,5 @@
-import { API_KEY_RESOURCES, RESOURCES } from './constants.ee';
-import type { ApiKeyScope, Scope, ScopeInformation } from './types.ee';
+import { API_KEY_RESOURCES, RESOURCES } from './constants';
+import type { ApiKeyScope, Scope, ScopeInformation } from './types';
 
 function buildResourceScopes() {
 	const resourceScopes = Object.entries(RESOURCES).flatMap(([resource, operations]) => [

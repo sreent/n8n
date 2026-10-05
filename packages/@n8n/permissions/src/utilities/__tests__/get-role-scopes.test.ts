@@ -1,5 +1,5 @@
-import type { AllRoleTypes, Resource } from '../../types.ee';
-import { getRoleScopes, COMBINED_ROLE_MAP } from '../get-role-scopes.ee';
+import type { AllRoleTypes, Resource } from '../../types';
+import { getRoleScopes, COMBINED_ROLE_MAP } from '../get-role-scopes';
 
 describe('getRoleScopes', () => {
 	describe('role scope retrieval', () => {

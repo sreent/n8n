@@ -1,6 +1,6 @@
-import { GLOBAL_SCOPE_MAP } from '@/roles/role-maps.ee';
-import { globalRoleSchema } from '@/schemas.ee';
-import type { AuthPrincipal, GlobalRole, Scope } from '@/types.ee';
+import { GLOBAL_SCOPE_MAP } from '@/roles/role-maps';
+import { globalRoleSchema } from '@/schemas';
+import type { AuthPrincipal, GlobalRole, Scope } from '@/types';
 
 function createBuildInAuthPrincipal(role: GlobalRole): AuthPrincipal {
 	return {

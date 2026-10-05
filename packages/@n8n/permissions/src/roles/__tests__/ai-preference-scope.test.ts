@@ -1,10 +1,10 @@
-import { RESOURCES } from '@/constants.ee';
+import { RESOURCES } from '@/constants';
 import {
 	GLOBAL_ADMIN_SCOPES,
 	GLOBAL_CHAT_USER_SCOPES,
 	GLOBAL_MEMBER_SCOPES,
 	GLOBAL_OWNER_SCOPES,
-} from '@/roles/scopes/global-scopes.ee';
+} from '@/roles/scopes/global-scopes';
 import { scopeInformation } from '@/scope-information';
 
 /**

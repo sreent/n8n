@@ -1,4 +1,14 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+import {
+	GLOBAL_ADMIN_ROLE_SLUG,
+	GLOBAL_CHAT_USER_ROLE_SLUG,
+	GLOBAL_MEMBER_ROLE_SLUG,
+	GLOBAL_OWNER_ROLE_SLUG,
+	PROJECT_ADMIN_ROLE_SLUG,
+	PROJECT_CHAT_USER_ROLE_SLUG,
+	PROJECT_EDITOR_ROLE_SLUG,
+	PROJECT_OWNER_ROLE_SLUG,
+	PROJECT_VIEWER_ROLE_SLUG,
+} from '../constants';
 import type {
 	CredentialSharingRole,
 	GlobalRole,
@@ -6,46 +16,48 @@ import type {
 	Scope,
 	SecretsProviderConnectionSharingRole,
 	WorkflowSharingRole,
-} from '../types.ee';
+} from '../types';
 import {
 	CREDENTIALS_SHARING_OWNER_SCOPES,
 	CREDENTIALS_SHARING_USER_SCOPES,
-} from './scopes/credential-sharing-scopes.ee';
+} from './scopes/credential-sharing-scopes';
 import {
-	GLOBAL_OWNER_SCOPES,
 	GLOBAL_ADMIN_SCOPES,
-	GLOBAL_MEMBER_SCOPES,
 	GLOBAL_CHAT_USER_SCOPES,
-} from './scopes/global-scopes.ee';
+	GLOBAL_MEMBER_SCOPES,
+	GLOBAL_OWNER_SCOPES,
+} from './scopes/global-scopes';
 import {
-	REGULAR_PROJECT_ADMIN_SCOPES,
 	PERSONAL_PROJECT_OWNER_SCOPES,
+	PROJECT_CHAT_USER_SCOPES,
 	PROJECT_EDITOR_SCOPES,
 	PROJECT_VIEWER_SCOPES,
-	PROJECT_CHAT_USER_SCOPES,
-} from './scopes/project-scopes.ee';
-import {
-	WORKFLOW_SHARING_OWNER_SCOPES,
-	WORKFLOW_SHARING_EDITOR_SCOPES,
-} from './scopes/workflow-sharing-scopes.ee';
+	REGULAR_PROJECT_ADMIN_SCOPES,
+} from './scopes/project-scopes';
 import {
 	SECRETS_PROVIDER_CONNECTION_SHARING_OWNER_SCOPES,
 	SECRETS_PROVIDER_CONNECTION_SHARING_USER_SCOPES,
-} from './scopes/secrets-provider-connection-sharing-scopes.ee';
+} from './scopes/secrets-provider-connection-sharing-scopes';
+import {
+	WORKFLOW_SHARING_EDITOR_SCOPES,
+	WORKFLOW_SHARING_OWNER_SCOPES,
+} from './scopes/workflow-sharing-scopes';
+
+// The order of the roles in each map is the order of the roles in ALL_ROLES.
 
 export const GLOBAL_SCOPE_MAP: Record<GlobalRole, Scope[]> = {
-	'global:owner': GLOBAL_OWNER_SCOPES,
-	'global:admin': GLOBAL_ADMIN_SCOPES,
-	'global:member': GLOBAL_MEMBER_SCOPES,
-	'global:chatUser': GLOBAL_CHAT_USER_SCOPES,
+	[GLOBAL_OWNER_ROLE_SLUG]: GLOBAL_OWNER_SCOPES,
+	[GLOBAL_ADMIN_ROLE_SLUG]: GLOBAL_ADMIN_SCOPES,
+	[GLOBAL_MEMBER_ROLE_SLUG]: GLOBAL_MEMBER_SCOPES,
+	[GLOBAL_CHAT_USER_ROLE_SLUG]: GLOBAL_CHAT_USER_SCOPES,
 };
 
 export const PROJECT_SCOPE_MAP: Record<ProjectRole, Scope[]> = {
-	'project:admin': REGULAR_PROJECT_ADMIN_SCOPES,
-	'project:personalOwner': PERSONAL_PROJECT_OWNER_SCOPES,
-	'project:editor': PROJECT_EDITOR_SCOPES,
-	'project:viewer': PROJECT_VIEWER_SCOPES,
-	'project:chatUser': PROJECT_CHAT_USER_SCOPES,
+	[PROJECT_OWNER_ROLE_SLUG]: PERSONAL_PROJECT_OWNER_SCOPES,
+	[PROJECT_ADMIN_ROLE_SLUG]: REGULAR_PROJECT_ADMIN_SCOPES,
+	[PROJECT_EDITOR_ROLE_SLUG]: PROJECT_EDITOR_SCOPES,
+	[PROJECT_VIEWER_ROLE_SLUG]: PROJECT_VIEWER_SCOPES,
+	[PROJECT_CHAT_USER_ROLE_SLUG]: PROJECT_CHAT_USER_SCOPES,
 };
 
 export const CREDENTIALS_SHARING_SCOPE_MAP: Record<CredentialSharingRole, Scope[]> = {
@@ -65,11 +77,3 @@ export const SECRETS_PROVIDER_CONNECTION_SHARING_SCOPE_MAP: Record<
 	'secretsProviderConnection:owner': SECRETS_PROVIDER_CONNECTION_SHARING_OWNER_SCOPES,
 	'secretsProviderConnection:user': SECRETS_PROVIDER_CONNECTION_SHARING_USER_SCOPES,
 };
-
-export const ALL_ROLE_MAPS = {
-	global: GLOBAL_SCOPE_MAP,
-	project: PROJECT_SCOPE_MAP,
-	credential: CREDENTIALS_SHARING_SCOPE_MAP,
-	workflow: WORKFLOW_SHARING_SCOPE_MAP,
-	secretsProviderConnection: SECRETS_PROVIDER_CONNECTION_SHARING_SCOPE_MAP,
-} as const;

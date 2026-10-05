@@ -1,4 +1,4 @@
-import type { ApiKeyScope, Scope } from '@/types.ee';
+import type { ApiKeyScope, Scope } from '@/types';
 
 // These are a type-level tests,
 // that will be catch issues in the `typecheck` step instead of in an actual test run

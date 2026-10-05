@@ -28,7 +28,8 @@ The fork removes the enterprise code step by step, and builds its own versions o
 
 1. The rules and the tooling, and the enterprise modules that do nothing without a licence.
 2. Our own permission core (scopes, roles and `hasScope`) in place of the enterprise files of
-   `@n8n/permissions`.
+   `@n8n/permissions`. Done: see
+   [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md).
 3. Our own project and sharing services, then team projects with our own roles.
 4. Our own features, one at a time: SSO, external secrets and an audit log export.
 
@@ -41,15 +42,18 @@ them again after each upstream update, and container CI checks that they stay de
 ## Rules
 
 - **Clean room.** Do not open, read, edit, copy or search the contents of enterprise files
-  (`*.ee.*` files and `*.ee/` folders), also not in the Git history or in upstream. Exclude them
-  from searches, for example `rg --glob '!*.ee.*' --glob '!**/*.ee/**'`. To remove enterprise
-  code, work with the file names and with the ordinary code that uses them. To build a
-  replacement, use the public n8n documentation, the ordinary code and the behaviour of a
-  running n8n.
+  (`*.ee.*` files and `*.ee/` folders), also not their build output in `dist/`, the Git history
+  or upstream. Exclude them from searches, for example
+  `rg <pattern> -g '*.ts' --glob '!*.ee.*' --glob '!**/*.ee/**'`. Put the exclusions last: in
+  ripgrep, the last glob that matches a file wins. To remove enterprise code, work with the file
+  names and with the ordinary code that uses them. To build a replacement, use the public n8n
+  documentation, the ordinary code and the behaviour of a running n8n.
 - **Licence checks.** Do not change or go around a licence check that turns on enterprise code
   that is still in the fork.
-- **Permission scopes.** Do not add permission scopes. The scope list is enterprise code, so this
-  rule stays until step 2 replaces it.
+- **Permission scopes.** The scope list and the role maps are fork code now. They come from a
+  running n8n through `scripts/permission-snapshot.mjs`. Do not edit
+  `packages/@n8n/permissions/src/permission-data.generated.ts` by hand. A fork feature that needs a
+  scope adds it as packages/@n8n/permissions/FORK.md tells.
 - **Notices.** Keep `LICENSE.md` and `LICENSE_EE.md`. This file is the notice that the fork
   changes n8n. Use the fork for internal business use only.
 - Keep the changes to upstream files small. Each upstream update must merge them again.
@@ -86,6 +90,9 @@ them again after each upstream update, and container CI checks that they stay de
 - The script deletes the upstream files in the removed enterprise areas again. When an update
   breaks the build because ordinary code uses a removed area, change the ordinary code. Do not
   restore the enterprise files.
+- When an upstream update changes scopes or roles, make the permission data again, as
+  [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md) tells. The scope
+  snapshot test of `@n8n/permissions` fails when upstream adds a scope.
 - When an upstream update changes the wa-sqlite commit in
   `packages/frontend/editor-ui/package.json`, keep the upstream line. Then run
   `scripts/vendor-wa-sqlite.sh`.

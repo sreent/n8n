@@ -3,7 +3,7 @@ import {
 	PROJECT_EDITOR_ROLE_SLUG,
 	PROJECT_OWNER_ROLE_SLUG,
 	PROJECT_VIEWER_ROLE_SLUG,
-} from '@/constants.ee';
+} from '@/constants';
 
 import {
 	roleNamespaceSchema,
@@ -13,7 +13,7 @@ import {
 	credentialSharingRoleSchema,
 	workflowSharingRoleSchema,
 	customProjectRoleSchema,
-} from '../schemas.ee';
+} from '../schemas';
 
 describe('roleNamespaceSchema', () => {
 	test.each([

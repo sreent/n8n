@@ -17,12 +17,13 @@ this file in the same pull request.
      `n8n-io/n8n`.
    - The behaviour of a running n8n without a licence.
 
-   Never use enterprise files or their tests, also not in the Git history or in upstream.
+   Never use enterprise files, their tests or their build output, also not in the Git history or
+   in upstream.
 3. **Write the tests from the spec.** Test the REST API and the UI as a user sees them.
 4. **Build a fork module** in `packages/cli/src/modules/<name>` and
    `packages/modules/<name>/frontend`, as Git sync and Send a copy do. Follow the rules in
-   FORK.md: no new permission scopes until step 2, and no changes to licence checks around
-   enterprise code.
+   FORK.md: add permission scopes as `packages/@n8n/permissions/FORK.md` tells, and make no
+   changes to licence checks around enterprise code.
 5. **Update this file:** the status, the module and the spec.
 
 ## Priorities
@@ -30,7 +31,8 @@ this file in the same pull request.
 The owner chose these on 2026-10-04:
 
 1. Team projects and roles (sharing, project roles, the admin role, custom roles, API key scopes).
-   Needs step 2 (our own permission core) and step 3 (our own project and sharing services).
+   Needs step 2 (our own permission core, done) and step 3 (our own project and sharing
+   services).
 2. SSO: OIDC first, then SAML, with role provisioning.
 3. External secrets.
 4. An audit log export (in place of log streaming).
@@ -51,10 +53,10 @@ The owner chose these on 2026-10-04:
 | Feature | Licence flag | What it does | Status | Fork plan | Sources |
 |---|---|---|---|---|---|
 | Sharing | `feat:sharing` | Share workflows and credentials with users and projects. | Kept, enterprise code (project, workflow and credential services) | Priority 1. Today: Send a copy (copies, no live sharing). | [Workflows](https://docs.n8n.io/workflows/sharing/), [credentials](https://docs.n8n.io/credentials/credential-sharing/) |
-| Project roles | `feat:projectRole:admin`, `:editor`, `:viewer` | Admin, editor and viewer roles in team projects. | Kept, enterprise code (`@n8n/permissions`) | Priority 1 | [Role types](https://docs.n8n.io/user-management/rbac/role-types/), [projects](https://docs.n8n.io/user-management/rbac/projects/), `@n8n/permissions/src/scope-information.ts`, `roles/all-roles.ts`, `@n8n/db` entities `project`, `project-relation`, `role` |
-| Advanced permissions | `feat:advancedPermissions` | The global admin role and its permissions. | Kept, enterprise code (`@n8n/permissions`) | Priority 1 | [Role types](https://docs.n8n.io/user-management/rbac/role-types/) |
-| Custom roles | `feat:customRoles` | Roles that an admin builds from scopes. | Kept, enterprise code (`@n8n/permissions`) | Priority 1, after the permission core | [Custom roles](https://docs.n8n.io/user-management/rbac/custom-roles/) |
-| API key scopes | `feat:apiKeyScopes` | Limit an API key to some scopes. | Kept, enterprise code (`@n8n/permissions`) | Priority 1, after the permission core | [API authentication](https://docs.n8n.io/api/authentication/) |
+| Project roles | `feat:projectRole:admin`, `:editor`, `:viewer` | Admin, editor and viewer roles in team projects. | Roles and scopes: Fork (`@n8n/permissions`, step 2). Project service: kept, enterprise code | Priority 1 | [Roles](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/see-available-roles.md), [projects](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/organize-work-in-projects.md), `@n8n/permissions/FORK.md`, `roles/all-roles.ts`, `@n8n/db` entities `project`, `project-relation`, `role` |
+| Advanced permissions | `feat:advancedPermissions` | The global admin role and its permissions. | Role and scopes: Fork (`@n8n/permissions`, step 2). Licence checks: gated ordinary code | Priority 1 | [Roles](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/see-available-roles.md) |
+| Custom roles | `feat:customRoles` | Roles that an admin builds from scopes. | Scope data and editor options: Fork (`@n8n/permissions`, step 2). Role service: gated ordinary code | Priority 1 | [Custom roles](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/create-custom-roles.md), `@n8n/permissions/FORK.md` |
+| API key scopes | `feat:apiKeyScopes` | Limit an API key to some scopes. | API key scopes for each role: Fork (`@n8n/permissions`, step 2). Licence checks: gated ordinary code | Priority 1 | [API authentication](https://docs.n8n.io/api/authentication/) |
 | OIDC SSO | `feat:oidc` | Sign-in with an OpenID Connect provider. | Kept, enterprise code (files in `modules/sso-oidc`) and gated ordinary code | Priority 2 | [OIDC](https://docs.n8n.io/user-management/oidc/), ordinary files in `packages/cli/src/modules/sso-oidc`, public API `sso-oidc.public.controller.ts` |
 | SAML SSO | `feat:saml` | Sign-in with a SAML provider. | Kept, enterprise code (files in `modules/sso-saml`) and gated ordinary code | Priority 2 | [SAML](https://docs.n8n.io/user-management/saml/), ordinary files in `packages/cli/src/modules/sso-saml`, public API `sso-saml.public.controller.ts` |
 | Role provisioning | (part of SAML and OIDC) | Set roles from claims of the identity provider. | Kept, enterprise code (`modules/provisioning.ee`) | Priority 2 | Public API `role-mapping-rules.public.controller.ts` |

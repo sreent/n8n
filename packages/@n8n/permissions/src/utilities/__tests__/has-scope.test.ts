@@ -1,5 +1,5 @@
-import type { Scope, ScopeLevels } from '../../types.ee';
-import { hasScope } from '../has-scope.ee';
+import type { Scope, ScopeLevels } from '../../types';
+import { hasScope } from '../has-scope';
 
 describe('hasScope', () => {
 	const userScopes: ScopeLevels = {

@@ -5,16 +5,16 @@ import {
 	PROJECT_OWNER_ROLE_SLUG,
 	PROJECT_VIEWER_ROLE_SLUG,
 	PROJECT_CHAT_USER_ROLE_SLUG,
-} from '../constants.ee';
+} from '../constants';
 import {
 	CREDENTIALS_SHARING_SCOPE_MAP,
 	GLOBAL_SCOPE_MAP,
 	PROJECT_SCOPE_MAP,
 	SECRETS_PROVIDER_CONNECTION_SHARING_SCOPE_MAP,
 	WORKFLOW_SHARING_SCOPE_MAP,
-} from './role-maps.ee';
-import type { AllRolesMap, AllRoleTypes, Scope } from '../types.ee';
-import { getRoleScopes } from '../utilities/get-role-scopes.ee';
+} from './role-maps';
+import type { AllRolesMap, AllRoleTypes, Scope } from '../types';
+import { getRoleScopes } from '../utilities/get-role-scopes';
 
 const ROLE_NAMES: Record<AllRoleTypes, string> = {
 	'global:owner': 'Owner',

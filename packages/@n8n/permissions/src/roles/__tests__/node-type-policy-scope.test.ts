@@ -1,18 +1,18 @@
-import { API_KEY_RESOURCES } from '@/constants.ee';
+import { API_KEY_RESOURCES } from '@/constants';
 import {
 	MEMBER_API_KEY_SCOPES,
 	OWNER_API_KEY_SCOPES,
 	getApiKeyScopesForRole,
 	getOwnerOnlyApiKeyScopes,
-} from '@/public-api-permissions.ee';
-import { GLOBAL_ADMIN_SCOPES, GLOBAL_OWNER_SCOPES } from '@/roles/scopes/global-scopes.ee';
+} from '@/public-api-permissions';
+import { GLOBAL_ADMIN_SCOPES, GLOBAL_OWNER_SCOPES } from '@/roles/scopes/global-scopes';
 import {
 	PERSONAL_PROJECT_OWNER_SCOPES,
 	PROJECT_EDITOR_SCOPES,
 	PROJECT_VIEWER_SCOPES,
 	REGULAR_PROJECT_ADMIN_SCOPES,
-} from '@/roles/scopes/project-scopes.ee';
-import { isApiKeyScope, type AuthPrincipal } from '@/types.ee';
+} from '@/roles/scopes/project-scopes';
+import { isApiKeyScope, type AuthPrincipal } from '@/types';
 
 describe('nodeTypePolicy:manage default grants', () => {
 	it('is granted to instance owners and admins', () => {

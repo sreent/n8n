@@ -1,5 +1,5 @@
-import type { Scope, ScopeLevels, MaskLevels } from '../../types.ee';
-import { combineScopes } from '../combine-scopes.ee';
+import type { Scope, ScopeLevels, MaskLevels } from '../../types';
+import { combineScopes } from '../combine-scopes';
 
 describe('combineScopes', () => {
 	describe('basic scope combining', () => {
