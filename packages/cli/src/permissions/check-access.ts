@@ -10,8 +10,6 @@ import {
 	SharedCredentialsRepository,
 	SharedWorkflow,
 	SharedWorkflowRepository,
-	WorkflowEntity,
-	WorkflowRepository,
 } from '@n8n/db';
 import { Container } from '@n8n/di';
 import { NotFoundError } from '@n8n/errors';
@@ -30,14 +28,24 @@ export type ScopeCheckResource = {
 	dataTableId?: string;
 };
 
+/** The scopes that `credential:manageInstance` gives on an instance credential. */
+const INSTANCE_CREDENTIAL_SCOPES: readonly Scope[] = [
+	'credential:read',
+	'credential:update',
+	'credential:delete',
+	'credential:manageInstance',
+];
+
 /**
  * Check if a user holds all `scopes` for a resource.
  *
  * - A user whose global role holds all the scopes passes for every resource.
  * - With `globalOnly`, only the global role counts.
  * - Otherwise one id names the resource. When several ids are given, the first of credential,
- *   workflow, data table and project counts. A missing credential, workflow or data table throws a
- *   `NotFoundError`.
+ *   workflow, data table and project counts. A missing data table, and a credential or workflow
+ *   without shares, throw a `NotFoundError`.
+ * - A user whose global role holds `credential:manageInstance` may read, update and delete an
+ *   instance credential.
  * - The user passes when one of their project roles holds all the scopes, in a project that owns
  *   the resource or that it is shared with. For a shared credential or workflow, the role of the
  *   share must also hold all the scopes.
@@ -56,7 +64,6 @@ export async function userHasScopes(
 
 	const repositories = {
 		credentials: trx?.getRepository(CredentialsEntity) ?? Container.get(CredentialsRepository),
-		workflows: trx?.getRepository(WorkflowEntity) ?? Container.get(WorkflowRepository),
 		dataTables: trx?.getRepository(DataTable) ?? Container.get(DataTableRepository),
 		projectRelations:
 			trx?.getRepository(ProjectRelation) ?? Container.get(ProjectRelationRepository),
@@ -81,6 +88,21 @@ export async function userHasScopes(
 		return relation !== null && projectRoles.includes(relation.role.slug);
 	};
 
+	/**
+	 * Whether the user manages an instance credential: their global role holds
+	 * `credential:manageInstance`, and every scope is one that this role gives on instance
+	 * credentials. Shares do not count here.
+	 */
+	const managesInstanceCredential = async (credentialId: string) => {
+		if (!hasGlobalScope(user, 'credential:manageInstance')) return false;
+		if (!scopes.every((scope) => INSTANCE_CREDENTIAL_SCOPES.includes(scope))) return false;
+		const credential = await repositories.credentials.findOne({
+			where: { id: credentialId },
+			select: { id: true, usageScope: true },
+		});
+		return credential?.usageScope === 'instance';
+	};
+
 	/** Whether a share of the resource gives the user all the scopes. */
 	const holdsScopesThroughShares = async (
 		shares: Array<{ projectId: string; role: string }>,
@@ -97,21 +119,18 @@ export async function userHasScopes(
 		return false;
 	};
 
-	// A missing credential, workflow or data table is a not-found error, also without scopes. Every
-	// credential and workflow has an owner share, so the existence check runs only without shares.
+	// A credential or workflow without shares is not found, also when its row exists.
 	if (credentialId) {
+		if (await managesInstanceCredential(credentialId)) return true;
 		const shares = await repositories.sharedCredentials.findBy({ credentialsId: credentialId });
-		if (shares.length === 0 && !(await repositories.credentials.existsBy({ id: credentialId }))) {
+		if (shares.length === 0)
 			throw new NotFoundError(`Credential with ID "${credentialId}" not found.`);
-		}
 		return await holdsScopesThroughShares(shares, 'credential');
 	}
 
 	if (workflowId) {
 		const shares = await repositories.sharedWorkflows.findBy({ workflowId });
-		if (shares.length === 0 && !(await repositories.workflows.existsBy({ id: workflowId }))) {
-			throw new NotFoundError(`Workflow with ID "${workflowId}" not found.`);
-		}
+		if (shares.length === 0) throw new NotFoundError(`Workflow with ID "${workflowId}" not found.`);
 		return await holdsScopesThroughShares(shares, 'workflow');
 	}
 

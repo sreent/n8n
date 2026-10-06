@@ -11,7 +11,7 @@ import {
 	testModules,
 } from '@n8n/backend-test-utils';
 import type { CredentialsEntity, Project, User } from '@n8n/db';
-import { ProjectRepository, SharedCredentialsRepository } from '@n8n/db';
+import { CredentialsRepository, ProjectRepository, SharedCredentialsRepository } from '@n8n/db';
 import { Container } from '@n8n/di';
 import type { Scope } from '@n8n/permissions';
 
@@ -51,6 +51,10 @@ const SCOPE_SETS: Scope[][] = [
 	['credential:use'],
 	['credential:createEndUser'],
 	['credential:connect'],
+	['credential:create'],
+	['credential:list'],
+	['credential:shareGlobally'],
+	['credential:manageInstance'],
 	['dataTable:read'],
 	['dataTable:readRow'],
 	['dataTable:writeRow'],
@@ -133,6 +137,12 @@ beforeAll(async () => {
 		{ slug: 'custom:global-half', roleType: 'global' },
 	);
 	users.memberE = await createUser({ role: globalReader });
+	// A global role that holds only the scope to manage instance credentials.
+	const instanceCredentialManager = await createCustomRoleWithScopeSlugs(
+		['credential:manageInstance'],
+		{ slug: 'custom:instance-credentials', roleType: 'global' },
+	);
+	users.memberF = await createUser({ role: instanceCredentialManager });
 	const projectUpdater = await createCustomRoleWithScopeSlugs(
 		['project:update', 'workflow:update', 'credential:update'],
 		{ slug: 'custom:project-half', roleType: 'project' },
@@ -178,6 +188,9 @@ beforeAll(async () => {
 		targets.push({ label: `workflow ${label}`, ids: { workflowId: workflow.id } });
 	}
 	targets.push({ label: 'workflow missing', ids: { workflowId: 'missing-workflow' } });
+	// A workflow without any share.
+	const unsharedWorkflow = await createWorkflow({ name: 'unshared' });
+	targets.push({ label: 'workflow without shares', ids: { workflowId: unsharedWorkflow.id } });
 
 	const credentials = {
 		personalA: await credentialOf('personalA', personalA),
@@ -191,6 +204,42 @@ beforeAll(async () => {
 		targets.push({ label: `credential ${label}`, ids: { credentialId: credential.id } });
 	}
 	targets.push({ label: 'credential missing', ids: { credentialId: 'missing-credential' } });
+	// An instance credential has no shares.
+	const credentialsRepository = Container.get(CredentialsRepository);
+	const instanceCredential = await credentialsRepository.save(
+		credentialsRepository.create({
+			name: 'instance',
+			type: 'githubApi',
+			data: 'encrypted',
+			usageScope: 'instance',
+		}),
+	);
+	targets.push({
+		label: 'credential instance without shares',
+		ids: { credentialId: instanceCredential.id },
+	});
+	// An instance credential with a share, which the API never makes.
+	const sharedInstanceCredential = await credentialsRepository.save(
+		credentialsRepository.create({
+			name: 'instance with share',
+			type: 'githubApi',
+			data: 'encrypted',
+			usageScope: 'instance',
+		}),
+	);
+	await shareCredential(sharedInstanceCredential, team1);
+	targets.push({
+		label: 'credential instance with a share',
+		ids: { credentialId: sharedInstanceCredential.id },
+	});
+	// A project credential that lost its shares.
+	const unsharedCredential = await credentialsRepository.save(
+		credentialsRepository.create({ name: 'unshared', type: 'githubApi', data: 'encrypted' }),
+	);
+	targets.push({
+		label: 'credential project without shares',
+		ids: { credentialId: unsharedCredential.id },
+	});
 
 	const dataTables = {
 		personalA: await createDataTable(personalA, { name: 'personalA' }),
@@ -275,7 +324,8 @@ describe('userHasScopes', () => {
 	test('throws the recorded errors', async () => {
 		const errors: Record<string, string> = {};
 		const someTargets = targets.filter(
-			({ label }) => label.endsWith('missing') || label === 'no ids',
+			({ label }) =>
+				label.endsWith('missing') || label.endsWith('without shares') || label === 'no ids',
 		);
 		for (const userLabel of ['owner', 'memberA']) {
 			for (const { label, ids } of someTargets) {
@@ -284,10 +334,15 @@ describe('userHasScopes', () => {
 					try {
 						errors[key] = String(await userHasScopes(users[userLabel], scopes, false, ids));
 					} catch (error) {
-						errors[key] =
+						const message =
 							error instanceof Error
 								? `${error.constructor.name}: ${error.message}`
 								: String(error);
+						// Generated ids change on each run.
+						errors[key] = Object.values(ids).reduce(
+							(text, id) => (id ? text.replaceAll(id, '<id>') : text),
+							message,
+						);
 					}
 				}
 			}
