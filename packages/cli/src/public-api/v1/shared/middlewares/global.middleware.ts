@@ -10,7 +10,7 @@ import type { NextFunction, Request, Response } from 'express';
 import { FeatureNotLicensedError } from '@/errors/feature-not-licensed.error';
 import { NotFoundError } from '@n8n/errors';
 import { License } from '@/license';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import { USER_QUOTA_FORBIDDEN_MESSAGE } from '@/public-api/constants';
 import type { PaginatedRequest } from '@/public-api/types';
 

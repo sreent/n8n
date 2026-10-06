@@ -48,7 +48,7 @@ import { BUILDER_TOOLS } from '../builder/builder-tool-names';
 import type { Agent } from '../entities/agent.entity';
 import type { AgentSecureRuntime } from '../runtime/agent-secure-runtime';
 import { getAgentConfigHash } from '../utils/agent-config-hash';
-import * as checkAccess from '@/permissions.ee/check-access';
+import * as checkAccess from '@/permissions/check-access';
 import type { InstanceAiCredentialService } from '@n8n/instance-ai';
 
 const ctx = {

@@ -12,7 +12,7 @@ import { InstanceSettings } from 'n8n-core';
 import { UserError } from 'n8n-workflow';
 
 import { ForbiddenError } from '@n8n/errors';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import type { PeriodUnit, TypeUnit, ByTimeInsightType } from './database/entities/insights-shared';
 import { NumberToType } from './database/entities/insights-shared';

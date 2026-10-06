@@ -6,7 +6,7 @@ import { createDeferredPromise } from '@n8n/utils/promise/deferred-promise';
 import type { InstanceSettings } from 'n8n-core';
 import { mock } from 'vitest-mock-extended';
 
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import type { Publisher } from '@/scaling/pubsub/publisher.service';
 
 import type { AgentExecutionOrchestratorService } from '../../agent-execution-orchestrator.service';
@@ -30,7 +30,7 @@ import {
 	WAKE_RESULT_TEXT_MAX_CHARS,
 } from '../background-job-messages';
 
-vi.mock('@/permissions.ee/check-access', () => ({
+vi.mock('@/permissions/check-access', () => ({
 	userHasScopes: vi.fn().mockResolvedValue(true),
 }));
 

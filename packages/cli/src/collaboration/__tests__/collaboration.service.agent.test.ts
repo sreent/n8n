@@ -19,9 +19,9 @@ import type { AccessService } from '@/services/access.service';
 import type { Logger } from '@n8n/backend-common';
 import type { ErrorReporter } from 'n8n-core';
 
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
-vi.mock('@/permissions.ee/check-access', () => ({
+vi.mock('@/permissions/check-access', () => ({
 	userHasScopes: vi.fn().mockResolvedValue(true),
 }));
 

@@ -14,7 +14,7 @@ import type { ZodTypeAny } from 'zod';
 import { FeatureNotLicensedError } from '@/errors/feature-not-licensed.error';
 import { BadRequestError } from '@n8n/errors';
 import { License } from '@/license';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import { USER_QUOTA_FORBIDDEN_MESSAGE } from '@/public-api/constants';
 import { assertJsonContentType } from '@/public-api/public-api-media-type';
 import type { ValidatedParamArg } from '@/public-api/public-api-route-resolver';

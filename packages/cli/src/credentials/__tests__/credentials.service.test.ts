@@ -64,7 +64,7 @@ import {
 	DCR_MANAGED_CREDENTIAL_FIELDS,
 	type DcrManagedCredentialField,
 } from '@/oauth/dcr-managed-fields';
-import * as checkAccess from '@/permissions.ee/check-access';
+import * as checkAccess from '@/permissions/check-access';
 import type { CredentialsTester } from '@/services/credentials-tester.service';
 import type { OwnershipService } from '@/services/ownership.service';
 import type { ProjectService } from '@/services/project.service.ee';

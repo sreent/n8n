@@ -5,7 +5,7 @@ import { mock } from 'vitest-mock-extended';
 import { UserError } from 'n8n-workflow';
 
 import type { McpRegistryService } from '@/modules/mcp-registry/registry/mcp-registry.service';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import { ForbiddenError, NotFoundError } from '@n8n/errors';
 
 import type { AgentExecutionService, ThreadListItem } from '../agent-execution.service';
@@ -18,7 +18,7 @@ import type { AttachableWorkflowsService } from '../attachable-workflows.service
 import type { Agent } from '../entities/agent.entity';
 import { InstanceAiAgentContextAdapterService } from '../instance-ai-agent-context.adapter';
 
-vi.mock('@/permissions.ee/check-access', () => ({ userHasScopes: vi.fn() }));
+vi.mock('@/permissions/check-access', () => ({ userHasScopes: vi.fn() }));
 
 function makeService() {
 	const agentsService = mock<AgentsService>();

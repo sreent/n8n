@@ -5,7 +5,7 @@ import { UserError } from 'n8n-workflow';
 import { ForbiddenError } from '@n8n/errors';
 import type { DataTable } from '@/modules/data-table/data-table.entity';
 import { DataTableService } from '@/modules/data-table/data-table.service';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import { matchTargetTable } from './data-table-matching-mode';
 import { decideAbsentTable } from './data-table-missing-mode';

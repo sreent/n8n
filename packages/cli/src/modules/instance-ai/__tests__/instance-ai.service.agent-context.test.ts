@@ -4,12 +4,12 @@ import { Container } from '@n8n/di';
 import type { InstanceAiAgentContextReader, InstanceAiContext } from '@n8n/instance-ai';
 import { mock } from 'vitest-mock-extended';
 
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import { InstanceAiAgentContextAdapterService } from '../../agents/instance-ai-agent-context.adapter';
 import { InstanceAiService } from '../instance-ai.service';
 
-vi.mock('@/permissions.ee/check-access', () => ({
+vi.mock('@/permissions/check-access', () => ({
 	userHasScopes: vi.fn(),
 }));
 

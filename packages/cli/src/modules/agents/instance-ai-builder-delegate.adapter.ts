@@ -14,7 +14,7 @@ import { Like } from '@n8n/typeorm';
 import { UserError } from 'n8n-workflow';
 
 import { ForbiddenError } from '@n8n/errors';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import { AgentConfigService } from './agent-config.service';
 import { AgentSkillsService } from './agent-skills.service';

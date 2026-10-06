@@ -9,7 +9,7 @@ import { AgentDefaultModelResolverService } from '@/modules/agents/agent-default
 import { AgentRunnableStateService } from '@/modules/agents/agent-runnable-state.service';
 import { AgentsService } from '@/modules/agents/agents.service';
 import type { Agent } from '@/modules/agents/entities/agent.entity';
-import * as checkAccess from '@/permissions.ee/check-access';
+import * as checkAccess from '@/permissions/check-access';
 
 import type { InstanceAiMemoryService } from '../instance-ai-memory.service';
 import { InstanceAiPendingAgentService } from '../instance-ai-pending-agent.service';
