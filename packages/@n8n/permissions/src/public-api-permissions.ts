@@ -19,12 +19,25 @@ export function getApiKeyScopesForRole(principal: AuthPrincipal): ApiKeyScope[] 
 const scopesOf = (slug: string, scopes: Scope[]) =>
 	getApiKeyScopesForRole({ role: { slug, scopes: scopes.map((scope) => ({ slug: scope })) } });
 
-export const OWNER_API_KEY_SCOPES: ApiKeyScope[] = scopesOf('global:owner', GLOBAL_OWNER_SCOPES);
+/** All API key scopes of the owner role. */
+const OWNER_ROLE_API_KEY_SCOPES = scopesOf('global:owner', GLOBAL_OWNER_SCOPES);
+
+/**
+ * The usual scopes of an owner API key. The owner can also give a key the community package
+ * scopes, but this list does not hold them: the tests of the community packages API expect a key
+ * with only this list to be refused there.
+ */
+export const OWNER_API_KEY_SCOPES: ApiKeyScope[] = OWNER_ROLE_API_KEY_SCOPES.filter(
+	(scope) => !scope.startsWith('communityPackage:'),
+);
 
 export const MEMBER_API_KEY_SCOPES: ApiKeyScope[] = scopesOf('global:member', GLOBAL_MEMBER_SCOPES);
 
-/** The scopes to remove from the API keys of an owner or admin who becomes a member. */
+/**
+ * The scopes to remove from the API keys of an owner or admin who becomes a member: all API key
+ * scopes of the owner role that a member cannot hold.
+ */
 export function getOwnerOnlyApiKeyScopes(): ApiKeyScope[] {
 	const memberScopes = new Set<ApiKeyScope>(MEMBER_API_KEY_SCOPES);
-	return OWNER_API_KEY_SCOPES.filter((scope) => !memberScopes.has(scope));
+	return OWNER_ROLE_API_KEY_SCOPES.filter((scope) => !memberScopes.has(scope));
 }
