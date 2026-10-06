@@ -59,7 +59,10 @@ answers with `globalOnly`, and checks that a transaction gives the same answers.
 
 The snapshot was recorded against the original function, and the fork function gives the same
 snapshot. One intended difference: the message of the `UnexpectedError` for a route without an id
-has the fork's own words. Only developers see it.
+has the fork's own words. Only developers see it. To record the snapshot again after an upstream
+update, point the import of the test at `@/permissions.ee/check-access` and run the test with
+`-u`. Then point the import back and run the test with `-u` again. The second run may change only
+that message.
 
 The enterprise unit test `permissions.ee/__tests__/check-access.test.ts` replaces the database with
 mocks of the original's repository calls, so it cannot check another implementation. Its counts:
