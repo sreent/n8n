@@ -30,7 +30,11 @@ The fork removes the enterprise code step by step, and builds its own versions o
 2. Our own permission core (scopes, roles and `hasScope`) in place of the enterprise files of
    `@n8n/permissions`. Done: see
    [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md).
-3. Our own project and sharing services, then team projects with our own roles.
+3. Our own project and sharing services, then team projects with our own roles. In progress:
+   the scope check `userHasScopes` is done (see
+   [packages/cli/src/permissions/FORK.md](packages/cli/src/permissions/FORK.md)). Next: the project
+   service, the sharing services, the sharing UI of the editor, then team projects, project roles
+   and sharing for the fork.
 4. Our own features, one at a time: SSO, external secrets and an audit log export.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
@@ -90,6 +94,9 @@ them again after each upstream update, and container CI checks that they stay de
 - The script deletes the upstream files in the removed enterprise areas again. When an update
   breaks the build because ordinary code uses a removed area, change the ordinary code. Do not
   restore the enterprise files.
+- The snapshot test of `packages/cli/src/permissions` fails when an update changes what a role
+  may do. Compare the change with the upstream change, then update the fork code or the
+  snapshot.
 - When an upstream update changes scopes or roles, make the permission data again, as
   [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md) tells. The scope
   snapshot test of `@n8n/permissions` fails when upstream adds a scope.
