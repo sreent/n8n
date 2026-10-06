@@ -397,6 +397,9 @@ export default defineConfig({
 				'./src/scheduling/poll-trigger-node/poll-trigger-job-registrar.ts',
 				'./src/scheduling/schedule-trigger-node/schedule-trigger-job-registrar.ts',
 				'./src/security-audit/risk-reporters/credentials-risk-reporter.ts',
+				// Fork: replaces the enterprise project.service.ee.ts for ordinary code, with the same
+				// `EntityManager` parameters. Remove it when they become a context.
+				'./src/services/project.service.ts',
 				'./src/services/role-cache.service.ts',
 				'./src/services/role.service.ts',
 				'./src/services/user.service.ts',
