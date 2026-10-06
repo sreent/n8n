@@ -4,7 +4,7 @@ import { PROJECT_ROOT } from 'n8n-workflow';
 
 import { FolderNotFoundError } from '@/errors/folder-not-found.error';
 import { FolderService } from '@/services/folder.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { Telemetry } from '@/telemetry';
 
 import { createCreateFolderTool } from '../tools/create-folder.tool';

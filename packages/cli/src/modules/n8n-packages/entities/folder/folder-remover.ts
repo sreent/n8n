@@ -1,7 +1,7 @@
 import { Service } from '@n8n/di';
 
 import { FolderService } from '@/services/folder.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 import type { FolderRemovalPlan } from './folder-removal.types';
 import type { ImportContext, RemovedFolderSummary } from '../../n8n-packages.types';

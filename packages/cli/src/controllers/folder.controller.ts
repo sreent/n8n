@@ -26,7 +26,7 @@ import { UserError } from 'n8n-workflow';
 import { FolderNotFoundError } from '@/errors/folder-not-found.error';
 import { BadRequestError, InternalServerError, NotFoundError } from '@n8n/errors';
 import { FolderService } from '@/services/folder.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { EnterpriseWorkflowService } from '@/workflows/workflow.service.ee';
 
 @RestController('/projects/:projectId/folders')

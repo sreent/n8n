@@ -47,7 +47,7 @@ import { DataTableNotFoundError } from './errors/data-table-not-found.error';
 import { DataTableValidationError } from './errors/data-table-validation.error';
 import { normalizeRows } from './utils/sql-utils';
 
-import { ProjectNotFoundError, ProjectService } from '@/services/project.service.ee';
+import { ProjectNotFoundError, ProjectService } from '@/services/project.service';
 
 @Service()
 export class DataTableService {

@@ -65,7 +65,7 @@ import type { DynamicNodeParametersService } from '@/services/dynamic-node-param
 import type { FolderService } from '@/services/folder.service';
 import type { InstanceWriteAccessService } from '@/services/instance-write-access.service';
 import { NodeResourceExplorerService } from '@/services/node-resource-explorer.service';
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 
 import type { TagService } from '@/services/tag.service';
 import type { Telemetry } from '@/telemetry';

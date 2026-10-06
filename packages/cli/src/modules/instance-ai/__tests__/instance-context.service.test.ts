@@ -10,7 +10,7 @@ import type {
 } from '@n8n/db';
 import { mock, type MockProxy } from 'vitest-mock-extended';
 
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 
 import { cleanStoredUserMessage } from '../internal-messages';
 import {

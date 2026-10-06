@@ -6,7 +6,7 @@ import { mock } from 'vitest-mock-extended';
 
 import { ProjectController } from '@/controllers/project.controller';
 import type { ProvisioningService } from '@/modules/provisioning.ee/provisioning.service.ee';
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 
 describe('ProjectController', () => {
 	const projectsService = mock<ProjectService>();

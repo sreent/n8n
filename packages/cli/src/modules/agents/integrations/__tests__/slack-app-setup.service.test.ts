@@ -13,7 +13,7 @@ import {
 } from '@n8n/backend-services';
 import type { CredentialsOverwrites } from '@/credentials-overwrites';
 import { BadRequestError } from '@n8n/errors';
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 
 import type { AgentIntegrationManagementService } from '../../agent-integration-management.service';
 import type { AgentRepository } from '../../repositories/agent.repository';

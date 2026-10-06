@@ -6,7 +6,7 @@ import { UserError } from 'n8n-workflow';
 
 import { ForbiddenError, NotFoundError } from '@n8n/errors';
 import { FolderService } from '@/services/folder.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 import type { CredentialBindingRequest } from '../entities/credential/credential.types';
 import type { DataTableImportRequest } from '../entities/data-table/data-table.types';

@@ -42,7 +42,7 @@ import { FolderNotFoundError } from '@/errors/folder-not-found.error';
 import { BadRequestError, NotFoundError } from '@n8n/errors';
 import { assertProjectScope } from '@/public-api/v1/shared/services/utils.service';
 import { FolderService } from '@/services/folder.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 const tags = ['Folders'];
 

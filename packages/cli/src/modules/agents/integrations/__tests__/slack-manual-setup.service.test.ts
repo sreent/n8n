@@ -4,7 +4,7 @@ import { mock } from 'vitest-mock-extended';
 
 import type { CacheService } from '@n8n/backend-services';
 import { BadRequestError } from '@n8n/errors';
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 
 import { SlackManualSetupService } from '../platforms/slack/slack-manual-setup.service';
 import type { SlackMethodsService } from '../platforms/slack/slack-methods.service';

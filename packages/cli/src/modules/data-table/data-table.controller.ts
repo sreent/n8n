@@ -38,7 +38,7 @@ import {
 	NotFoundError,
 } from '@n8n/errors';
 import { InstanceWriteAccessService } from '@/services/instance-write-access.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 import { assertRowReadAccessIfReturningRows } from './data-table-permissions';
 import { DataTableService } from './data-table.service';

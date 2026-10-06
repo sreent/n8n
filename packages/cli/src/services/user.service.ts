@@ -32,7 +32,7 @@ import { validate as uuidValidate } from 'uuid';
 
 import { JwtService } from './jwt.service';
 import { OwnershipService } from './ownership.service';
-import { ProjectService } from './project.service.ee';
+import { ProjectService } from './project.service';
 import { PublicApiKeyService } from './public-api-key.service';
 
 import { RESPONSE_ERROR_MESSAGES } from '@/constants';

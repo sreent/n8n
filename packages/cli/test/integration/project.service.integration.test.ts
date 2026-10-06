@@ -14,7 +14,7 @@ import { LicenseMocker } from '@test-integration/license';
 import { createUser } from './shared/db/users';
 
 import { License } from '@/license';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 describe('ProjectService', () => {
 	let projectService: ProjectService;

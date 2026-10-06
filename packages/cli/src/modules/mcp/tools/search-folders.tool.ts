@@ -2,7 +2,7 @@ import type { User } from '@n8n/db';
 import z from 'zod';
 
 import type { FolderService } from '@/services/folder.service';
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 import type { Telemetry } from '@/telemetry';
 
 import { USER_CALLED_MCP_TOOL_EVENT } from '../mcp.constants';

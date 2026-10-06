@@ -2,7 +2,7 @@ import type { LicenseState } from '@n8n/backend-common';
 import type { Project, User } from '@n8n/db';
 import { mock } from 'vitest-mock-extended';
 
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 
 import type { PreparedProject, ProjectPlanItem } from '../project-import.types';
 import { ProjectImporter } from '../project-importer';
