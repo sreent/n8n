@@ -20,7 +20,7 @@ import type { Agent } from '@/modules/agents/entities/agent.entity';
 import type { AgentRepository } from '@/modules/agents/repositories/agent.repository';
 import type { DataTableService } from '@/modules/data-table/data-table.service';
 import type { EvalAgentExecutionService } from '@/modules/instance-ai/eval/agent-execution.service';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import { AgentEvalRunnerService } from '../agent-eval-runner.service';
 import type { AgentEvalsFlagGate } from '../agent-evals-flag-gate';
@@ -44,7 +44,7 @@ vi.mock('@/modules/data-table/data-table.service', () => ({
 vi.mock('@/modules/instance-ai/eval/agent-execution.service', () => ({
 	EvalAgentExecutionService: class EvalAgentExecutionService {},
 }));
-vi.mock('@/permissions.ee/check-access', () => ({
+vi.mock('@/permissions/check-access', () => ({
 	userHasScopes: vi.fn().mockResolvedValue(true),
 }));
 

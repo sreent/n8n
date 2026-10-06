@@ -10,7 +10,7 @@ import type {
 import { UserError } from 'n8n-workflow';
 
 import { McpRegistryService } from '@/modules/mcp-registry/registry/mcp-registry.service';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import { ForbiddenError, NotFoundError } from '@n8n/errors';
 
 import {

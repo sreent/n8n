@@ -6,7 +6,7 @@ import { Service } from '@n8n/di';
 import { InstanceSettings } from 'n8n-core';
 import { OperationalError, UnexpectedError } from 'n8n-workflow';
 
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import { Publisher } from '@/scaling/pubsub/publisher.service';
 
 import { AgentConversationStateService } from '../agent-conversation-state.service';

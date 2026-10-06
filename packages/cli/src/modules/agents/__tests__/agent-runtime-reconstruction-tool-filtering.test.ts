@@ -22,7 +22,7 @@ import type { CredentialsFinderService } from '@n8n/backend-services';
 import { SubworkflowPolicyChecker } from '@/executions/pre-execution-checks';
 import type { EphemeralNodeExecutor } from '@/node-execution';
 import type { OauthService } from '@/oauth/oauth.service';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import type { AiService } from '@/services/ai.service';
 import { WorkflowRunner } from '@/workflow-runner';
 import type { WorkflowFinderService } from '@/workflows/workflow-finder.service';
@@ -50,7 +50,7 @@ import type * as WorkflowToolFactory from '../tools/workflow-tool-factory';
 import { WorkflowToolUnavailableError } from '../tools/workflow-tool-unavailable-error';
 import { WorkflowToolWorkflowLoader } from '../tools/workflow-tool-workflow-loader.service';
 
-vi.mock('@/permissions.ee/check-access', () => ({
+vi.mock('@/permissions/check-access', () => ({
 	userHasScopes: vi.fn(),
 }));
 

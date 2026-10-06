@@ -5,14 +5,14 @@ import type { InstanceSettings } from 'n8n-core';
 import type { MockProxy } from 'vitest-mock-extended';
 import { mock } from 'vitest-mock-extended';
 
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import type { WorkflowSharingService } from '@n8n/backend-services';
 
 import { TypeToNumber, type TypeUnitNumber } from '../database/entities/insights-shared';
 import type { InsightsByPeriodRepository } from '../database/repositories/insights-by-period.repository';
 import { InsightsService } from '../insights.service';
 
-vi.mock('@/permissions.ee/check-access', () => ({
+vi.mock('@/permissions/check-access', () => ({
 	userHasScopes: vi.fn(),
 }));
 

@@ -13,7 +13,7 @@ import { UserError } from 'n8n-workflow';
 import { mock } from 'vitest-mock-extended';
 
 import { ForbiddenError, NotFoundError } from '@n8n/errors';
-import * as checkAccess from '@/permissions.ee/check-access';
+import * as checkAccess from '@/permissions/check-access';
 
 import type { AgentsService } from '../agents.service';
 import { AgentsSettingsService } from '../agents-settings.service';

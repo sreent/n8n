@@ -32,7 +32,7 @@ import { WorkflowLoaderService } from '../workflow-loader.service';
 import { CredentialsFinderService } from '@n8n/backend-services';
 import { BadRequestError, ForbiddenError } from '@n8n/errors';
 import { NodeTypes } from '@/node-types';
-import * as checkAccess from '@/permissions.ee/check-access';
+import * as checkAccess from '@/permissions/check-access';
 
 describe('DynamicNodeParametersService', () => {
 	const logger = mockInstance(Logger);

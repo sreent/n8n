@@ -3,7 +3,7 @@ import type { Mock } from 'vitest';
 import { mock } from 'vitest-mock-extended';
 
 import type { SecretsProviderAccessCheckService } from '@/modules/external-secrets.ee/secret-provider-access-check.service.ee';
-import * as checkAccess from '@/permissions.ee/check-access';
+import * as checkAccess from '@/permissions/check-access';
 
 import {
 	validateExternalSecretsPermissions,

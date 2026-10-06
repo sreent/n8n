@@ -24,7 +24,7 @@ import {
 } from '../instance-context.service';
 
 const { userHasScopes } = vi.hoisted(() => ({ userHasScopes: vi.fn() }));
-vi.mock('@/permissions.ee/check-access', () => ({ userHasScopes }));
+vi.mock('@/permissions/check-access', () => ({ userHasScopes }));
 
 const NOW = new Date('2026-09-04T12:00:00.000Z');
 const USER_ID = 'user-1';

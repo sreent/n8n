@@ -15,7 +15,7 @@ import { AgentsSettingsService } from '@/modules/agents/agents-settings.service'
 import type { Agent as AgentEntity } from '@/modules/agents/entities/agent.entity';
 import { AgentRepository } from '@/modules/agents/repositories/agent.repository';
 import { createAgentCredentialProvider } from '@/modules/agents/utils/agent-credential-provider';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import {
 	EvalAgentExecutionService,
@@ -46,7 +46,7 @@ vi.mock('@/modules/agents/utils/agent-credential-provider', () => ({
 vi.mock('@/modules/agents/json-config/agent-config-composition', () => ({
 	sanitizeToolName: (name: string) => name.replace(/[^a-zA-Z0-9_-]+/g, '_'),
 }));
-vi.mock('@/permissions.ee/check-access', () => ({ userHasScopes: vi.fn() }));
+vi.mock('@/permissions/check-access', () => ({ userHasScopes: vi.fn() }));
 vi.mock('@/utils/ai-proxy-fetch', () => ({ createAiProxyFetch: vi.fn(() => vi.fn()) }));
 vi.mock('../agent-scenario-seed', () => ({ generateAgentScenarioSeed: vi.fn() }));
 vi.mock('../mcp-mock-fetch', () => ({ createMcpMockFetch: vi.fn(() => vi.fn()) }));

@@ -5,7 +5,7 @@ import { createDeferredPromise } from '@n8n/utils/promise/deferred-promise';
 import { mock } from 'vitest-mock-extended';
 
 import type { CredentialsService } from '@/credentials/credentials.service';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import type { AgentChatExecutionService } from '../agent-chat-execution.service';
 import type { AgentExecutionOrchestratorService } from '../agent-execution-orchestrator.service';
@@ -22,7 +22,7 @@ import type { ChatIntegrationService } from '../integrations/chat-integration.se
 import type { AgentMessageQueueRepository } from '../repositories/agent-message-queue.repository';
 import type { AgentQueueDispatch, QueuedIntegrationMessage } from '../types/agent-queued-message';
 
-vi.mock('@/permissions.ee/check-access', () => ({ userHasScopes: vi.fn() }));
+vi.mock('@/permissions/check-access', () => ({ userHasScopes: vi.fn() }));
 
 describe('AgentMessageQueueConsumer', () => {
 	const queue = mock<AgentMessageQueueService>();
