@@ -387,6 +387,9 @@ export default defineConfig(
 			'./src/modules/chat-hub/chat-hub.service.ts',
 			'./src/modules/chat-hub/chat-hub.settings.service.ts',
 			'./src/permissions.ee/check-access.ts',
+			// Fork: replaces the enterprise check-access.ts above for ordinary code, with the same
+			// `EntityManager` parameter. Remove both entries when the transaction moves to a context.
+			'./src/permissions/check-access.ts',
 			'./src/scheduling/durable-job-provisioner.ts',
 			'./src/scheduling/durable-scheduler.ts',
 			'./src/scheduling/poll-trigger-node/poll-trigger-job-registrar.ts',
