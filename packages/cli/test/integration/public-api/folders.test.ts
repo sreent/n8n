@@ -6,7 +6,7 @@ import type { ApiKeyScope } from '@n8n/permissions';
 
 import { FolderNotFoundError } from '@/errors/folder-not-found.error';
 import { FolderService } from '@/services/folder.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 import { createFolder } from '../shared/db/folders';
 import { createTag } from '../shared/db/tags';

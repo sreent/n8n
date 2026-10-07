@@ -10,7 +10,7 @@ import { isCredSharingEnabled } from '@/constants/credential-sharing';
 import { CredentialsFinderService, type UnusableCredential } from '@n8n/backend-services';
 import { NodeTypes } from '@/node-types';
 import { OwnershipService } from '@/services/ownership.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 class InvalidCredentialError extends UserError {
 	override description = 'Please recreate the credential.';

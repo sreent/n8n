@@ -70,7 +70,7 @@ import { PollTriggerJobRegistrar } from '@/scheduling/poll-trigger-node/poll-tri
 import { ScheduleTriggerJobRegistrar } from '@/scheduling/schedule-trigger-node/schedule-trigger-job-registrar';
 import { WorkflowScheduledJobOwner } from '@/scheduling/workflow-scheduled-job-owner';
 import { OwnershipService } from '@/services/ownership.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 import { TagService } from '@/services/tag.service';
 import { WEBHOOK_CONFLICT_MESSAGE } from '@/webhooks/constants';

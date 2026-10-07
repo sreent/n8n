@@ -4,7 +4,7 @@ import type { Role } from '@n8n/permissions';
 import { mock } from 'vitest-mock-extended';
 
 import { NotFoundError } from '@n8n/errors';
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 
 import { RoleController } from '../role.controller';
 

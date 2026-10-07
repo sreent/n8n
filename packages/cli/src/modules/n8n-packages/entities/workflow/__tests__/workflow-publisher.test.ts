@@ -4,7 +4,7 @@ import type { Project, User, WorkflowEntity } from '@n8n/db';
 import { mock } from 'vitest-mock-extended';
 
 import { ForbiddenError, NotFoundError } from '@n8n/errors';
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 import type { WebhookService } from '@/webhooks/webhook.service';
 import type { WorkflowService } from '@/workflows/workflow.service';
 

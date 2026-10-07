@@ -12,7 +12,7 @@ import { monitorEventLoopDelay, performance } from 'node:perf_hooks';
 import { ActiveWorkflowManager } from '@/active-workflow-manager';
 import { CredentialsService } from '@/credentials/credentials.service';
 import { NodeTypes } from '@/node-types';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { WorkflowService } from '@/workflows/workflow.service';
 
 import { createAdmin, createMember } from './shared/db/users';

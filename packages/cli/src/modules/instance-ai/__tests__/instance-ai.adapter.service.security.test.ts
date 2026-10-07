@@ -53,7 +53,7 @@ import type { WorkflowRunner } from '@/workflow-runner';
 import type { DynamicNodeParametersService } from '@/services/dynamic-node-parameters.service';
 import { NodeResourceExplorerService } from '@/services/node-resource-explorer.service';
 import type { FolderService } from '@/services/folder.service';
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 import type { TagService } from '@/services/tag.service';
 
 import type { InstanceAiSettingsService } from '../instance-ai-settings.service';

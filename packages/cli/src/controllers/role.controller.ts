@@ -31,7 +31,7 @@ import {
 import { Role as RoleDTO } from '@n8n/permissions';
 
 import { NotFoundError } from '@n8n/errors';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { assertCanManageRoleType, canReassignUsers } from '@/services/role-authorization';
 
 @RestController('/roles')

@@ -3,7 +3,7 @@ import { SharedWorkflowRepository } from '@n8n/db';
 import { Service } from '@n8n/di';
 
 import { FolderFinderService } from '@n8n/backend-services';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { WorkflowFinderService } from '@/workflows/workflow-finder.service';
 
 import {

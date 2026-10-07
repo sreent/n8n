@@ -4,7 +4,7 @@ import type { AuthenticatedRequest, User } from '@n8n/db';
 import type { Response } from 'express';
 import { mock } from 'vitest-mock-extended';
 
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 import type { UserService } from '@/services/user.service';
 
 import { UsersPublicController } from '../users.public.controller';

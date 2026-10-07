@@ -6,7 +6,7 @@ import { randomBytes } from 'node:crypto';
 
 import { BadRequestError, ForbiddenError, NotFoundError } from '@n8n/errors';
 import { CacheService } from '@n8n/backend-services';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 import { SlackMethodsService } from './slack-methods.service';
 import {

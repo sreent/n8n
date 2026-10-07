@@ -30,7 +30,7 @@ import type { UserManagementMailer } from '@/user-management/email';
 
 import { JwtService } from '../jwt.service';
 import type { OwnershipService } from '../ownership.service';
-import type { ProjectService } from '../project.service.ee';
+import type { ProjectService } from '../project.service';
 import type { PublicApiKeyService } from '../public-api-key.service';
 
 describe('UserService', () => {

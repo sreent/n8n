@@ -9,7 +9,7 @@ import { LicenseMocker } from '@test-integration/license';
 import { createMember } from '../shared/db/users';
 
 import { License } from '@/license';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 let projectRepository: ProjectRepository;
 let projectService: ProjectService;

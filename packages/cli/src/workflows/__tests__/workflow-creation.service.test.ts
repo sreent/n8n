@@ -21,7 +21,7 @@ import type { InstanceRedactionEnforcementService } from '@/modules/redaction/in
 import type { NodeTypes } from '@/node-types';
 import { userHasScopes } from '@/permissions/check-access';
 import type { PolicyEnforcementService } from '@/policy/policy-enforcement.service';
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 import type { FolderService } from '@/services/folder.service';
 import * as WorkflowHelpers from '@/workflow-helpers';
 import type { WorkflowHookContextService } from '@/workflow-hook-context.service';

@@ -31,7 +31,7 @@ import { ActiveWorkflowManager } from '@/active-workflow-manager';
 import { STARTING_NODES } from '@/constants';
 import { ExecutionService } from '@/executions/execution.service';
 import { InstanceRedactionEnforcementService } from '@/modules/redaction/instance-redaction-enforcement.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { Telemetry } from '@/telemetry';
 
 import { saveCredential } from '../shared/db/credentials';

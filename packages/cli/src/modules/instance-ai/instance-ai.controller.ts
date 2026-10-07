@@ -92,7 +92,7 @@ import { CredentialsService } from '@/credentials/credentials.service';
 import { BadRequestError, ConflictError, ForbiddenError, NotFoundError } from '@n8n/errors';
 import { Push } from '@/push';
 import { Publisher } from '@/scaling/pubsub/publisher.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { UrlService } from '@n8n/backend-services';
 
 type FlushableResponse = Response & { flush?: () => void };

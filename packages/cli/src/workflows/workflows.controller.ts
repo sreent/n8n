@@ -51,7 +51,7 @@ import { userHasScopes } from '@/permissions/check-access';
 import * as ResponseHelper from '@/response-helper';
 import { NamingService } from '@/services/naming.service';
 import { OwnershipService } from '@/services/ownership.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { UserManagementMailer } from '@/user-management/email';
 import * as utils from '@/utils';
 import { getWorkflowProjectDetailsSafe } from '@/workflows/utils';

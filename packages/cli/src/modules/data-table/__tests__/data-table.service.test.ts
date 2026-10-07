@@ -20,7 +20,7 @@ import { DataTableColumnNotFoundError } from '../errors/data-table-column-not-fo
 import { DataTableNotFoundError } from '../errors/data-table-not-found.error';
 import { DataTableValidationError } from '../errors/data-table-validation.error';
 
-import { ProjectNotFoundError, ProjectService } from '@/services/project.service.ee';
+import { ProjectNotFoundError, ProjectService } from '@/services/project.service';
 
 describe('DataTableService', () => {
 	let dataTableService: DataTableService;

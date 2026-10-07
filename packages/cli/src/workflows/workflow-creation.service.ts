@@ -27,7 +27,7 @@ import { NodeTypes } from '@/node-types';
 import { userHasScopes } from '@/permissions/check-access';
 import { PolicyEnforcementService } from '@/policy/policy-enforcement.service';
 import { FolderService } from '@/services/folder.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { TagService } from '@/services/tag.service';
 import * as WorkflowHelpers from '@/workflow-helpers';
 import { WorkflowHookContextService } from '@/workflow-hook-context.service';

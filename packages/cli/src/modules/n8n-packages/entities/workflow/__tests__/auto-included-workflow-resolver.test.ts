@@ -2,7 +2,7 @@ import type { Folder, Project, SharedWorkflowRepository, User, WorkflowEntity } 
 import { mock } from 'vitest-mock-extended';
 
 import type { FolderFinderService } from '@n8n/backend-services';
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 import type { WorkflowFinderService } from '@/workflows/workflow-finder.service';
 
 import {

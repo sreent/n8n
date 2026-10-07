@@ -3,7 +3,7 @@ import { Container } from '@n8n/di';
 import type { Scope } from '@n8n/permissions';
 
 import { ForbiddenError, NotFoundError } from '@n8n/errors';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 export async function assertProjectScope(
 	user: User,
