@@ -40,7 +40,7 @@ import type { ICredentialDataDecryptedObject } from 'n8n-workflow';
 import { CredentialDescriptionsService } from '@/credentials/credential-descriptions.service';
 import { CredentialTypes } from '@/credential-types';
 import { CredentialsService } from '@/credentials/credentials.service';
-import { EnterpriseCredentialsService } from '@/credentials/credentials.service.ee';
+import { EnterpriseCredentialsService } from '@/credentials/enterprise-credentials.service';
 import { CredentialsHelper } from '@/credentials-helper';
 import { CredentialNotFoundError } from '@/errors/credential-not-found.error';
 import { BadRequestError, ForbiddenError, NotFoundError } from '@n8n/errors';

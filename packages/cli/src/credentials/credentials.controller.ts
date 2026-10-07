@@ -37,7 +37,7 @@ import { z } from 'zod';
 import { CredentialConnectionStatusProxy } from './credential-connection-status-proxy';
 import { CredentialDescriptionsService } from './credential-descriptions.service';
 import { CredentialsService } from './credentials.service';
-import { EnterpriseCredentialsService } from './credentials.service.ee';
+import { EnterpriseCredentialsService } from './enterprise-credentials.service';
 import { getExternalSecretExpressionPaths } from './external-secrets.utils';
 
 import { CredentialsOverwrites } from '@/credentials-overwrites';

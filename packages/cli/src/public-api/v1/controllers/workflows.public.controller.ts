@@ -73,7 +73,7 @@ import { createWorkflowEntityFromPayload } from '@/workflows/workflow-entity-map
 import { WorkflowFinderService } from '@/workflows/workflow-finder.service';
 import { WorkflowHistoryService } from '@/workflows/workflow-history/workflow-history.service';
 import { WorkflowService } from '@/workflows/workflow.service';
-import { EnterpriseWorkflowService } from '@/workflows/workflow.service.ee';
+import { EnterpriseWorkflowService } from '@/workflows/enterprise-workflow.service';
 
 const DEPRECATED_ALIAS_SINCE = new Date('2026-07-23T00:00:00Z');
 

@@ -73,7 +73,7 @@ import type { WorkflowRunner } from '@/workflow-runner';
 import type { WorkflowFinderService } from '@/workflows/workflow-finder.service';
 import type { WorkflowHistoryService } from '@/workflows/workflow-history/workflow-history.service';
 import type { WorkflowService } from '@/workflows/workflow.service';
-import type { EnterpriseWorkflowService } from '@/workflows/workflow.service.ee';
+import type { EnterpriseWorkflowService } from '@/workflows/enterprise-workflow.service';
 
 import type { InstanceAiSettingsService } from '../instance-ai-settings.service';
 import { InstanceAiAdapterService } from '../instance-ai.adapter.service';
