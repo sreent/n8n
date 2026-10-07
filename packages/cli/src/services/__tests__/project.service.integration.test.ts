@@ -28,7 +28,6 @@ import {
 } from '@n8n/db';
 import { Container } from '@n8n/di';
 import type { Scope } from '@n8n/permissions';
-import { deepCopy } from 'n8n-workflow';
 import type { MockInstance } from 'vitest';
 
 import { ActiveWorkflowManager } from '@/active-workflow-manager';
@@ -47,6 +46,7 @@ import { createDataTable } from '@test-integration/db/data-tables';
 import { createFolder } from '@test-integration/db/folders';
 import { createCustomRoleWithScopeSlugs } from '@test-integration/db/roles';
 import { createUser } from '@test-integration/db/users';
+import { GoldenRecorder } from '@test-integration/golden-recorder';
 import { LicenseMocker } from '@test-integration/license';
 
 const activeWorkflowManager = mockInstance(ActiveWorkflowManager);
@@ -103,162 +103,17 @@ async function withProjectSecrets<T>(
 	}
 }
 
-// #region Labels and normalization
-
-/** Ids of the fixture, mapped to readable labels. */
-const labels = new Map<string, string>();
-/** Numeric ids of secrets provider connections, mapped to their provider keys. */
-const connectionLabels = new Map<number, string>();
-
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}/;
-// A generated id: a nanoid (16 characters, with a digit) or a UUID.
-const GENERATED_ID =
-	/\b((?=[A-Za-z]*\d)[A-Za-z0-9]{16}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\b/g;
-
-function labelString(text: string): string {
-	if (labels.has(text)) return `@${labels.get(text)}`;
-	if (ISO_DATE.test(text)) return '<date>';
-	let result = text;
-	for (const [id, label] of labels) {
-		if (result.includes(id)) result = result.replaceAll(id, `@${label}`);
-	}
-	return result.replace(GENERATED_ID, '<id>');
-}
-
-function normalizeValue(value: unknown): unknown {
-	if (typeof value === 'string') return labelString(value);
-	// As in JSON: `undefined` is `null` in an array and leaves out a key in an object.
-	if (Array.isArray(value)) return value.map((entry) => normalizeValue(entry ?? null));
-	if (value !== null && typeof value === 'object') {
-		return Object.fromEntries(
-			Object.entries(value)
-				.filter(([, entry]) => entry !== undefined)
-				.map(([key, entry]) => [
-					key,
-					/(At|Date)$/.test(key) && entry !== null
-						? '<date>'
-						: isScopeList(key, entry)
-							? '<scope entities>'
-							: normalizeValue(entry),
-				]),
-		);
-	}
-	return value;
-}
-
-/** The scope entities of a role. They come from the role table, which the methods never change. */
-function isScopeList(key: string, value: unknown) {
-	return (
-		key === 'scopes' &&
-		Array.isArray(value) &&
-		value.length > 0 &&
-		typeof value[0] === 'object' &&
-		value[0] !== null &&
-		'slug' in value[0]
-	);
-}
-
-/** A copy with `toJSON` applied (as the API sends it), then labels for ids and placeholders for dates. */
-function normalize(value: unknown): unknown {
-	if (value === undefined) return '<undefined>';
-	return normalizeValue(deepCopy(value as object));
-}
-
-/** The error class chain, the message and the HTTP status code of an error. */
-function describeError(error: unknown): string {
-	if (!(error instanceof Error)) return `non-error: ${String(error)}`;
-	const chain: string[] = [];
-	let prototype: unknown = Object.getPrototypeOf(error);
-	while (prototype && prototype !== Error.prototype) {
-		chain.push((prototype as { constructor: { name: string } }).constructor.name);
-		prototype = Object.getPrototypeOf(prototype);
-	}
-	const status = 'httpStatusCode' in error ? ` [${String(error.httpStatusCode)}]` : '';
-	return `${chain.join(' < ')}: ${labelString(error.message)}${status}`;
-}
-
-// #endregion
-
-// #region Database dump
-
-/** Columns with large or encrypted content that project operations never change. */
-const DROPPED_COLUMNS = new Set([
-	'nodes',
-	'connections',
-	'settings',
-	'staticData',
-	'pinData',
-	'meta',
-	'data',
-	'encryptedSettings',
-	'password',
-]);
-
-function normalizeRow(table: string, row: Record<string, unknown>) {
-	const result: Record<string, unknown> = {};
-	for (const [column, value] of Object.entries(row)) {
-		if (DROPPED_COLUMNS.has(column)) continue;
-		if (/(At|Date)$/.test(column) && value !== null) {
-			result[column] = '<date>';
-		} else if (column === 'id' && typeof value === 'number') {
-			result[column] = table.endsWith('secrets_provider_connection')
-				? `@${connectionLabels.get(value) ?? '<new>'}`
-				: '<n>';
-		} else if (column === 'secretsProviderConnectionId' && typeof value === 'number') {
-			result[column] = `@${connectionLabels.get(value) ?? '<new>'}`;
-		} else {
-			result[column] = typeof value === 'string' ? labelString(value) : value;
-		}
-	}
-	return JSON.stringify(result);
-}
-
-type Dump = Record<string, string[]>;
-
-async function dumpDb(): Promise<Dump> {
-	const manager = Container.get(ProjectRepository).manager;
-	const tables = [
-		...new Set(manager.connection.entityMetadatas.map((metadata) => metadata.tablePath)),
-	].sort();
-	const dump: Dump = {};
-	for (const table of tables) {
-		if (table.endsWith('migrations')) continue;
-		const rows = await manager.query<Array<Record<string, unknown>>>(`SELECT * FROM "${table}"`);
-		dump[table] = rows.map((row) => normalizeRow(table, row)).sort();
-	}
-	const physical = await manager.query<Array<{ name: string }>>(
-		"SELECT name FROM sqlite_master WHERE type = 'table'",
-	);
-	dump['<physical tables>'] = physical.map(({ name }) => labelString(name)).sort();
-	return dump;
-}
-
-function difference(left: string[], right: string[]) {
-	const remaining = [...right];
-	const result: string[] = [];
-	for (const line of left) {
-		const index = remaining.indexOf(line);
-		if (index === -1) result.push(line);
-		else remaining.splice(index, 1);
-	}
-	return result;
-}
-
-function diffDumps(before: Dump, after: Dump) {
-	const changes: Record<string, { removed?: string[]; added?: string[] }> = {};
-	for (const table of new Set([...Object.keys(before), ...Object.keys(after)])) {
-		const removed = difference(before[table] ?? [], after[table] ?? []);
-		const added = difference(after[table] ?? [], before[table] ?? []);
-		if (removed.length === 0 && added.length === 0) continue;
-		changes[table] = {
-			...(removed.length > 0 ? { removed } : {}),
-			...(added.length > 0 ? { added } : {}),
-		};
-	}
-	return changes;
-}
-
-// #endregion
+const recorder = new GoldenRecorder();
+const {
+	labels,
+	connectionLabels,
+	labelString,
+	normalize,
+	describeError,
+	dumpDb,
+	diffDumps,
+	labelNewRows,
+} = recorder;
 
 // #region Fixture
 
@@ -505,19 +360,6 @@ async function read(run: () => Promise<unknown>): Promise<Outcome> {
 	}
 	collectCalls(outcome);
 	return outcome;
-}
-
-/** Give the rows that a method added a label: their table and their name. */
-async function labelNewRows() {
-	const manager = Container.get(ProjectRepository).manager;
-	for (const table of ['project', 'workflow_entity', 'credentials_entity', 'folder', 'user']) {
-		const rows = await manager.query<Array<{ id: string; name?: string; email?: string }>>(
-			`SELECT * FROM "${table}"`,
-		);
-		for (const row of rows) {
-			if (!labels.has(row.id)) labels.set(row.id, `new ${table} ${row.name ?? row.email}`);
-		}
-	}
 }
 
 /** Seed the fixture again, call a changing method, and record what changed. */
