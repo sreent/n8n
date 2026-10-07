@@ -204,7 +204,7 @@ import { getRequiredRedactionScopes } from '@/workflows/utils';
 import { WorkflowFinderService } from '@/workflows/workflow-finder.service';
 import { WorkflowHistoryService } from '@/workflows/workflow-history/workflow-history.service';
 import { WorkflowService } from '@/workflows/workflow.service';
-import { EnterpriseWorkflowService } from '@/workflows/workflow.service.ee';
+import { EnterpriseWorkflowService } from '@/workflows/enterprise-workflow.service';
 
 import { extractResolvedNodeParameters } from './extract-resolved-node-parameters';
 import { waitForInstanceAiExecution } from './instance-ai-execution-wait';

@@ -30,7 +30,7 @@ import { WorkflowCreationService } from '@/workflows/workflow-creation.service';
 import type { WorkflowFinderService } from '@/workflows/workflow-finder.service';
 import type { WorkflowHistoryService } from '@/workflows/workflow-history/workflow-history.service';
 import type { WorkflowValidationService } from '@/workflows/workflow-validation.service';
-import type { EnterpriseWorkflowService } from '@/workflows/workflow.service.ee';
+import type { EnterpriseWorkflowService } from '@/workflows/enterprise-workflow.service';
 import { ALL_RULES_RELAXED, NO_RULES_RELAXED } from './node-group-rules.test-data';
 
 vi.mock('@/permissions/check-access');

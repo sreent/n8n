@@ -37,7 +37,7 @@ import { dropRedactionPolicy } from './utils';
 import { WorkflowFinderService } from './workflow-finder.service';
 import { WorkflowHistoryService } from './workflow-history/workflow-history.service';
 import { WorkflowValidationService } from './workflow-validation.service';
-import { EnterpriseWorkflowService } from './workflow.service.ee';
+import { EnterpriseWorkflowService } from './enterprise-workflow.service';
 
 export interface WorkflowCreateBatchContext {
 	project: Project;

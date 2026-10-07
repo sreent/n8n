@@ -376,6 +376,9 @@ export default defineConfig({
 			// drops TypeORM in favor of a use-case repository method.
 			files: [
 				'./src/binary-data/database.manager.ts',
+				// Fork: replaces the enterprise credentials.service.ee.ts for ordinary code, with the same
+				// `EntityManager` parameter. Remove it when the transaction moves to a context.
+				'./src/credentials/enterprise-credentials.service.ts',
 				'./src/events/relays/telemetry.event-relay.ts',
 				'./src/executions/execution-data/db-store.ts',
 				'./src/executions/execution-persistence.ts',
@@ -403,6 +406,9 @@ export default defineConfig({
 				'./src/services/role-cache.service.ts',
 				'./src/services/role.service.ts',
 				'./src/services/user.service.ts',
+				// Fork: replaces the enterprise workflow.service.ee.ts for ordinary code, with the same
+				// `EntityManager` parameter. Remove it when the transaction moves to a context.
+				'./src/workflows/enterprise-workflow.service.ts',
 				'./src/workflows/workflow-creation.service.ts',
 			],
 			rules: {

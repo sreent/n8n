@@ -365,7 +365,7 @@ export class WorkflowService {
 		T extends ListQueryDb.Workflow.Plain | ListQueryDb.Workflow.WithSharing,
 	>(workflows: T[]): Promise<Array<T & { hasResolvableCredentials: boolean }>> {
 		// Use lazy import to avoid circular dependency
-		const { EnterpriseWorkflowService } = await import('./workflow.service.ee.js');
+		const { EnterpriseWorkflowService } = await import('./enterprise-workflow.service.js');
 		const enterpriseWorkflowService = Container.get(EnterpriseWorkflowService);
 
 		const workflowIds = workflows.map((w) => w.id);
@@ -543,10 +543,10 @@ export class WorkflowService {
 		// cannot access and revert edits to existing read-only credential nodes.
 		// Runs after replaceInvalidCredentials so old-format/name references are
 		// already resolved to IDs before the check.
-		// Loaded lazily to avoid a circular import (workflow.service.ee pulls in
+		// Loaded lazily to avoid a circular import (enterprise-workflow.service pulls in
 		// folder/project services which import this module).
 		if (this.licenseState.isSharingLicensed()) {
-			const { EnterpriseWorkflowService } = await import('./workflow.service.ee.js');
+			const { EnterpriseWorkflowService } = await import('./enterprise-workflow.service.js');
 			await Container.get(EnterpriseWorkflowService).preventTampering(
 				workflowUpdateData,
 				workflowId,

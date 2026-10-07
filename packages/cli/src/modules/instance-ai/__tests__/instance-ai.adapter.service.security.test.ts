@@ -58,7 +58,7 @@ import type { TagService } from '@/services/tag.service';
 
 import type { InstanceAiSettingsService } from '../instance-ai-settings.service';
 
-import type { EnterpriseWorkflowService } from '@/workflows/workflow.service.ee';
+import type { EnterpriseWorkflowService } from '@/workflows/enterprise-workflow.service';
 import type { ExecutionPersistence } from '@/executions/execution-persistence';
 import type { CollaborationService } from '@/collaboration/collaboration.service';
 import type { License } from '@/license';

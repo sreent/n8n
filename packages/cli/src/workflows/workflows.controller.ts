@@ -64,7 +64,7 @@ import { WorkflowExecutionService } from './workflow-execution.service';
 import { WorkflowFinderService } from './workflow-finder.service';
 import { WorkflowRequest } from './workflow.request';
 import { WorkflowService } from './workflow.service';
-import { EnterpriseWorkflowService } from './workflow.service.ee';
+import { EnterpriseWorkflowService } from './enterprise-workflow.service';
 
 @RestController('/workflows')
 export class WorkflowsController {
