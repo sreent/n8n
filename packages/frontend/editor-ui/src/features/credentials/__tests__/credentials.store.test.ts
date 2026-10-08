@@ -41,7 +41,7 @@ vi.mock('@n8n/stores/settings.store', () => ({
 }));
 
 vi.mock('../credentials.api');
-vi.mock('../credentials.ee.api');
+vi.mock('../credentialSharing.api');
 
 describe('credentials.store', () => {
 	beforeEach(() => {
@@ -625,7 +625,7 @@ describe('credentials.store', () => {
 	describe('setCredentialSharedWith', () => {
 		it('should pass isGlobal parameter when setting credential sharing', async () => {
 			const store = useCredentialsStore();
-			const credentialsEeApi = await import('../credentials.ee.api');
+			const credentialsEeApi = await import('../credentialSharing.api');
 
 			// Initialize the store with a credential
 			store.state.credentials = {
@@ -667,7 +667,7 @@ describe('credentials.store', () => {
 
 		it('should update credential state with new sharing settings', async () => {
 			const store = useCredentialsStore();
-			const credentialsEeApi = await import('../credentials.ee.api');
+			const credentialsEeApi = await import('../credentialSharing.api');
 
 			const initialCredential = mock<ICredentialsResponse>({
 				id: 'cred-1',

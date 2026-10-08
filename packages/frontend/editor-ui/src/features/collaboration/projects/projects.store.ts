@@ -5,9 +5,9 @@ import { useRootStore } from '@n8n/stores/useRootStore';
 import * as dataTableApi from '@/features/core/dataTable/dataTable.api';
 import * as projectsApi from './projects.api';
 import * as workflowsApi from '@/app/api/workflows';
-import * as workflowsEEApi from '@/app/api/workflows.ee';
+import * as workflowsEEApi from '@/app/api/workflowSharing';
 import * as credentialsApi from '@/features/credentials/credentials.api';
-import * as credentialsEEApi from '@/features/credentials/credentials.ee.api';
+import * as credentialsEEApi from '@/features/credentials/credentialSharing.api';
 import {
 	getProjectPoolSettings,
 	getProjectSecretProviderConnectionsByProjectId,

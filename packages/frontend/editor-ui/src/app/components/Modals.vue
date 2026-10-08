@@ -110,7 +110,7 @@ import WorkflowVersionFormModal, {
 	type WorkflowVersionFormModalData,
 } from '@/features/workflows/workflowHistory/components/WorkflowVersionFormModal.vue';
 import WorkflowSettings from '@/features/workflows/components/WorkflowSettings/WorkflowSettings.vue';
-import WorkflowShareModal from '@/features/workflows/components/WorkflowShareModal.ee.vue';
+import WorkflowShareModal from '@/features/workflows/components/WorkflowShareModal.vue';
 import WorkflowDiffModal from '@/features/workflows/workflowDiff/WorkflowDiffModal.vue';
 import DynamicModalLoader from './DynamicModalLoader.vue';
 import NodeRecommendationModalV2 from '@/experiments/templateRecoV2/components/NodeRecommendationModal.vue';
