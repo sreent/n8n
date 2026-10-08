@@ -11,7 +11,7 @@ import type {
 } from './folders.types';
 import * as foldersApi from './folders.api';
 import * as workflowsApi from '@/app/api/workflows';
-import * as workflowsEEApi from '@/app/api/workflows.ee';
+import * as workflowsEEApi from '@/app/api/workflowSharing';
 import { useRootStore } from '@n8n/stores/useRootStore';
 import { useFavoritesStore } from '@/app/stores/favorites.store';
 import { ref } from 'vue';

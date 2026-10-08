@@ -15,7 +15,7 @@ import AgentTriggersSection from '../components/AgentTriggersSection.vue';
 enableAutoUnmount(afterEach);
 
 vi.mock('@/features/credentials/credentials.api');
-vi.mock('@/features/credentials/credentials.ee.api');
+vi.mock('@/features/credentials/credentialSharing.api');
 
 vi.mock('@n8n/stores/useRootStore', () => ({
 	useRootStore: () => ({

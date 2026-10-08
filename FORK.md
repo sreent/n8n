@@ -33,10 +33,11 @@ The fork removes the enterprise code step by step, and builds its own versions o
 3. Our own project and sharing services, then team projects with our own roles. In progress:
    the scope check `userHasScopes` (see
    [packages/cli/src/permissions/FORK.md](packages/cli/src/permissions/FORK.md)), the project
-   service (see [packages/cli/src/services/FORK.md](packages/cli/src/services/FORK.md)) and the
+   service (see [packages/cli/src/services/FORK.md](packages/cli/src/services/FORK.md)), the
    sharing services (see [packages/cli/src/workflows/FORK.md](packages/cli/src/workflows/FORK.md))
-   are done. Next: the sharing UI of the editor, then team projects, project roles and sharing for
-   the fork.
+   and the sharing UI of the editor (see
+   [packages/frontend/editor-ui/FORK.md](packages/frontend/editor-ui/FORK.md)) are done. Next: team
+   projects, project roles and sharing for the fork.
 4. Our own features, one at a time: SSO, external secrets and an audit log export.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
@@ -97,9 +98,11 @@ them again after each upstream update, and container CI checks that they stay de
   breaks the build because ordinary code uses a removed area, change the ordinary code. Do not
   restore the enterprise files.
 - The snapshot tests of `packages/cli/src/permissions`, of the project service
-  (`packages/cli/src/services`) and of the sharing services (`packages/cli/src/workflows`) fail
-  when an update changes what a role may do, how projects work or how sharing works. Compare the change with the upstream change, then update the fork code or the snapshot.
-  The FORK.md files there tell how to record a snapshot against the enterprise code.
+  (`packages/cli/src/services`), of the sharing services (`packages/cli/src/workflows`) and of the
+  sharing UI (`packages/frontend/editor-ui`) fail when an update changes what a role may do, how
+  projects work or how sharing works. Compare the change with the upstream change, then update the
+  fork code or the snapshot. The FORK.md files there tell how to record a snapshot against the
+  enterprise code.
 - When an upstream update changes scopes or roles, make the permission data again, as
   [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md) tells. The scope
   snapshot test of `@n8n/permissions` fails when upstream adds a scope.
