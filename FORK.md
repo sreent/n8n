@@ -39,10 +39,13 @@ The fork removes the enterprise code step by step, and builds its own versions o
    and the `EnterpriseEdition` gate of the editor (see
    [packages/frontend/editor-ui/FORK.md](packages/frontend/editor-ui/FORK.md)).
 4. Our own features, one at a time: SSO, external secrets and an audit log export. Then replace
-   or remove the rest of the enterprise code.
+   or remove the rest of the enterprise code. SSO is a drop-in replacement that behaves as the
+   enterprise SSO and turns on in step 5. Order: the SSO helpers (done, see
+   [packages/cli/src/sso/FORK.md](packages/cli/src/sso/FORK.md)), then OIDC, SAML and role
+   provisioning.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
-   the admin role and custom roles. They are on by default, and an environment variable turns them
-   off. The upstream tests run with them off.
+   the admin role, custom roles and SSO. They are on by default, and an environment variable turns
+   them off. The upstream tests run with them off.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.
@@ -105,9 +108,9 @@ them again after each upstream update, and container CI checks that they stay de
   restore the enterprise files.
 - The snapshot tests of `packages/cli/src/permissions`, of the project service
   (`packages/cli/src/services`), of the sharing services (`packages/cli/src/workflows`), of the
-  execution view (`packages/cli/src/executions`), and of the sharing UI and the `EnterpriseEdition`
-  gate (`packages/frontend/editor-ui`) fail when an update changes what a role may do, how
-  projects work or how sharing works. Compare the change with the upstream change, then update the
+  execution view (`packages/cli/src/executions`), of the SSO helpers (`packages/cli/src/sso`), and
+  of the sharing UI and the `EnterpriseEdition` gate (`packages/frontend/editor-ui`) fail when an
+  update changes what a role may do, how projects, sharing or the sign-in method work. Compare the change with the upstream change, then update the
   fork code or the snapshot. The FORK.md files there tell how to record a snapshot against the
   enterprise code.
 - When an upstream update changes scopes or roles, make the permission data again, as
