@@ -9,7 +9,7 @@ import {
 	OIDC_CLIENT_SECRET_REDACTED_VALUE,
 	OIDC_PREFERENCES_DB_KEY,
 } from '@/modules/sso-oidc/constants';
-import { OidcService } from '@/modules/sso-oidc/oidc.service.ee';
+import { OidcService } from '@/modules/sso-oidc/oidc.service';
 import { SamlService } from '@/modules/sso-saml/saml.service.ee';
 import { setCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 import { createOwnerWithApiKey } from '@test-integration/db/users';
