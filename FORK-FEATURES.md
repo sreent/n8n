@@ -32,7 +32,9 @@ The owner chose these on 2026-10-04:
 
 1. Team projects and roles (sharing, project roles, the admin role, custom roles, API key scopes).
    Needs step 2 (our own permission core, done) and step 3 (our own project and sharing
-   services).
+   services, done). Sharing, team projects, the project roles, the admin role and custom roles
+   turn on in step 5 of FORK.md, when no enterprise code is left (the owner chose this on
+   2026-10-09).
 2. SSO: OIDC first, then SAML, with role provisioning.
 3. External secrets.
 4. An audit log export (in place of log streaming).
@@ -43,7 +45,7 @@ The owner chose these on 2026-10-04:
 |---|---|
 | Removed | The fork deleted the enterprise code (`scripts/removed-enterprise-paths.txt`). |
 | Kept, enterprise code | Enterprise files for the feature are still in the fork. They do nothing without a licence. |
-| Gated, ordinary code | Ordinary code behind a licence check. FORK.md does not yet say whether the fork may change these checks. |
+| Gated, ordinary code | Ordinary code behind a licence check. The fork keeps these checks until no enterprise code is left (FORK.md, step 5). |
 | Free with a key | n8n turns the feature on for free with a registered community key (**Settings > Usage and plan > Unlock**). |
 | Fork | The fork has its own feature. |
 | Not checked | Nobody looked at the code of this feature yet. |
@@ -52,10 +54,10 @@ The owner chose these on 2026-10-04:
 
 | Feature | Licence flag | What it does | Status | Fork plan | Sources |
 |---|---|---|---|---|---|
-| Sharing | `feat:sharing` | Share workflows and credentials with users and projects. | Sharing services: Fork (`cli/src/workflows/enterprise-workflow.service.ts`, `cli/src/credentials/enterprise-credentials.service.ts`, step 3). Editor sharing UI: Fork (the share modal, the sharing tab of the credential modal, their API helpers and the `workflowsEE` store, step 3) | Priority 1. Today: Send a copy (copies, no live sharing). | [Workflows](https://docs.n8n.io/workflows/sharing/), [credentials](https://docs.n8n.io/credentials/credential-sharing/), `cli/src/workflows/FORK.md`, `editor-ui/FORK.md` |
-| Project roles | `feat:projectRole:admin`, `:editor`, `:viewer` | Admin, editor and viewer roles in team projects. | Roles and scopes: Fork (`@n8n/permissions`, step 2). Scope check: Fork (`cli/src/permissions`, step 3). Project service: Fork (`cli/src/services/project.service.ts`, step 3) | Priority 1 | [Roles](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/see-available-roles.md), [projects](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/organize-work-in-projects.md), `@n8n/permissions/FORK.md`, `roles/all-roles.ts`, `@n8n/db` entities `project`, `project-relation`, `role` |
-| Advanced permissions | `feat:advancedPermissions` | The global admin role and its permissions. | Role and scopes: Fork (`@n8n/permissions`, step 2). Licence checks: gated ordinary code | Priority 1 | [Roles](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/see-available-roles.md) |
-| Custom roles | `feat:customRoles` | Roles that an admin builds from scopes. | Scope data and editor options: Fork (`@n8n/permissions`, step 2). Role service: gated ordinary code | Priority 1 | [Custom roles](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/create-custom-roles.md), `@n8n/permissions/FORK.md` |
+| Sharing | `feat:sharing` | Share workflows and credentials with users and projects. | Sharing services: Fork (`cli/src/workflows/enterprise-workflow.service.ts`, `cli/src/credentials/enterprise-credentials.service.ts`, step 3). Editor sharing UI: Fork (the share modal, the sharing tab of the credential modal, their API helpers and the `workflowsEE` store, step 3). Execution view: Fork (`cli/src/executions/enterprise-execution.service.ts`, step 3). Licence gate of the editor: Fork (`EnterpriseEdition.vue`, step 3) | Priority 1. Turns on in step 5 of FORK.md. Today: Send a copy (copies, no live sharing). | [Workflows](https://docs.n8n.io/workflows/sharing/), [credentials](https://docs.n8n.io/credentials/credential-sharing/), `cli/src/workflows/FORK.md`, `editor-ui/FORK.md` |
+| Project roles | `feat:projectRole:admin`, `:editor`, `:viewer` | Admin, editor and viewer roles in team projects. | Roles and scopes: Fork (`@n8n/permissions`, step 2). Scope check: Fork (`cli/src/permissions`, step 3). Project service: Fork (`cli/src/services/project.service.ts`, step 3) | Priority 1. Turns on in step 5 of FORK.md. | [Roles](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/see-available-roles.md), [projects](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/organize-work-in-projects.md), `@n8n/permissions/FORK.md`, `roles/all-roles.ts`, `@n8n/db` entities `project`, `project-relation`, `role` |
+| Advanced permissions | `feat:advancedPermissions` | The global admin role and its permissions. | Role and scopes: Fork (`@n8n/permissions`, step 2). Licence checks: gated ordinary code | Priority 1. Turns on in step 5 of FORK.md. | [Roles](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/see-available-roles.md) |
+| Custom roles | `feat:customRoles` | Roles that an admin builds from scopes. | Scope data and editor options: Fork (`@n8n/permissions`, step 2). Role service: gated ordinary code | Priority 1. Turns on in step 5 of FORK.md. | [Custom roles](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/create-custom-roles.md), `@n8n/permissions/FORK.md` |
 | API key scopes | `feat:apiKeyScopes` | Limit an API key to some scopes. | API key scopes for each role: Fork (`@n8n/permissions`, step 2). Licence checks: gated ordinary code | Priority 1 | [API authentication](https://docs.n8n.io/api/authentication/) |
 | OIDC SSO | `feat:oidc` | Sign-in with an OpenID Connect provider. | Kept, enterprise code (files in `modules/sso-oidc`) and gated ordinary code | Priority 2 | [OIDC](https://docs.n8n.io/user-management/oidc/), ordinary files in `packages/cli/src/modules/sso-oidc`, public API `sso-oidc.public.controller.ts` |
 | SAML SSO | `feat:saml` | Sign-in with a SAML provider. | Kept, enterprise code (files in `modules/sso-saml`) and gated ordinary code | Priority 2 | [SAML](https://docs.n8n.io/user-management/saml/), ordinary files in `packages/cli/src/modules/sso-saml`, public API `sso-saml.public.controller.ts` |
@@ -94,7 +96,7 @@ The owner chose these on 2026-10-04:
 
 | Quota | Without a licence | Fork plan |
 |---|---|---|
-| `quota:maxTeamProjects` | 0 team projects | Priority 1 |
+| `quota:maxTeamProjects` | 0 team projects | Priority 1. No limit from step 5 of FORK.md. |
 | `quota:users`, `quota:activeWorkflows`, `quota:maxVariables` | No limit | None needed |
 | `quota:workflowHistoryPrune` | 24 hours of workflow history | Open. Git sync keeps the history in Git. |
 | `quota:insights:*` | Not checked | With insights |
