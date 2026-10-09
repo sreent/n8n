@@ -84,7 +84,10 @@ them again after each upstream update, and container CI checks that they stay de
   session, a plain install fails on `@vscode/ripgrep`. The script also stops with a clear error
   when a repository that it downloads from is not attached.
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
-  `--plan` to see which tests it selects.
+  `--plan` to see which tests it selects. It leaves out the test files in
+  `scripts/container-ci-skipped-tests.txt`: the enterprise SSO tests, which the owner chose not to
+  run on the fork code. It runs the integration tests with 2 workers, because more time out on the
+  4 CPUs of a cloud session.
 
 ## Docker images
 

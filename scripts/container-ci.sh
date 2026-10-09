@@ -113,6 +113,24 @@ mapfile -t TESTED_FILTERS < <(awk 'NF { printf "--filter=%s\n", $1 }' <<<"$TESTE
 mapfile -t CHANGED_MODULES < <(
 	grep -oE '^packages/cli/src/modules/[^/]+/' <<<"$CHANGED_FILES" | sort -u | sed 's#^packages/cli/##'
 )
+# Test files that the CI leaves out, for example enterprise tests that the owner chose not to run
+# on the fork code. They become vitest --exclude paths of packages/cli, the only package that the
+# list supports for now.
+SKIPPED_TESTS_FILE=scripts/container-ci-skipped-tests.txt
+mapfile -t SKIPPED_TESTS < <(grep -vE '^[[:space:]]*(#|$)' "$SKIPPED_TESTS_FILE")
+CLI_SKIP_ARGS=()
+for path in "${SKIPPED_TESTS[@]}"; do
+	case "$path" in
+		packages/cli/*) CLI_SKIP_ARGS+=("--exclude=${path#packages/cli/}") ;;
+		*)
+			echo "error: $SKIPPED_TESTS_FILE: only packages/cli files are supported: $path" >&2
+			exit 1
+			;;
+	esac
+done
+# The integration tests run with 2 workers. With more, a large selection times out on the
+# 4 CPUs of a cloud session.
+INTEGRATION_ARGS=(--maxWorkers=2 "${CLI_SKIP_ARGS[@]}")
 
 if [ "$MODE" = plan ]; then
 	echo "Mode: quick (default). Base: $BASE"
@@ -136,6 +154,9 @@ if [ "$MODE" = plan ]; then
 		fi
 	done <<<"$CHANGED_PACKAGES"
 	echo "Backend modules with all their tests: ${CHANGED_MODULES[*]:-none}"
+	echo "Integration tests: 2 workers"
+	echo "Skipped test files ($SKIPPED_TESTS_FILE):"
+	printf '  %s\n' "${SKIPPED_TESTS[@]:-none}"
 	echo "Steps: unit-backend ${BACKEND_FILTERS[*]#--filter=}"
 	echo "       unit-frontend ${FRONTEND_FILTERS[*]#--filter=}"
 	echo "With --full, these packages are tested too:"
@@ -195,11 +216,11 @@ if [ "${#BACKEND_FILTERS[@]}" -gt 0 ]; then
 	step unit-backend "$TURBO" run test:unit "${BACKEND_FILTERS[@]}" --only --force --continue --concurrency=2
 fi
 if tested n8n; then
-	step unit-cli "$TURBO" run test:unit:changed --filter=n8n --only
-	step integration-cli "$TURBO" run test:integration:changed --filter=n8n --only
+	step unit-cli "$TURBO" run test:unit:changed --filter=n8n --only -- "${CLI_SKIP_ARGS[@]}"
+	step integration-cli "$TURBO" run test:integration:changed --filter=n8n --only -- "${INTEGRATION_ARGS[@]}"
 fi
 if [ "${#CHANGED_MODULES[@]}" -gt 0 ]; then
-	step module-tests bash -c "cd packages/cli && pnpm test:integration ${CHANGED_MODULES[*]} --passWithNoTests"
+	step module-tests bash -c "cd packages/cli && pnpm test:integration ${CHANGED_MODULES[*]} --passWithNoTests ${INTEGRATION_ARGS[*]}"
 fi
 if tested n8n-nodes-base; then
 	step unit-nodes "$TURBO" run test:changed --filter=n8n-nodes-base --only
