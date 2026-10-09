@@ -1,0 +1,8 @@
+# Test files that scripts/container-ci.sh leaves out: one path from the repository root on each
+# line. Only packages/cli files are supported.
+#
+# The enterprise SSO tests. The owner chose not to run them on the fork code (2026-10-09).
+packages/cli/src/modules/sso-oidc/__tests__/oidc.controller.ee.test.ts
+packages/cli/src/modules/sso-oidc/__tests__/oidc.service.ee.test.ts
+packages/cli/src/sso.ee/__tests__/sso-helpers.test.ts
+packages/cli/test/integration/oidc/oidc.service.ee.test.ts
