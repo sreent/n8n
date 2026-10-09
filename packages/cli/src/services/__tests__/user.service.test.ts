@@ -25,7 +25,7 @@ import type { ExternalHooks } from '@/external-hooks';
 import type { License } from '@/license';
 import type { ProvisioningService } from '@/modules/provisioning.ee/provisioning.service.ee';
 import { UserService } from '@/services/user.service';
-import * as ssoHelpers from '@/sso.ee/sso-helpers';
+import * as ssoHelpers from '@/sso/sso-helpers';
 import type { UserManagementMailer } from '@/user-management/email';
 
 import { JwtService } from '../jwt.service';

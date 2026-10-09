@@ -9,12 +9,12 @@ import { InvalidMfaCodeError } from '@/errors/response-errors/invalid-mfa-code.e
 import type { MfaService } from '@/mfa/mfa.service';
 import type { PasswordUtility } from '@/services/password.utility';
 import type { UserService } from '@/services/user.service';
-import { getCurrentAuthenticationMethod, isSamlLicensedAndEnabled } from '@/sso.ee/sso-helpers';
+import { getCurrentAuthenticationMethod, isSamlLicensedAndEnabled } from '@/sso/sso-helpers';
 
 import { EmailChangeService } from '../email-change.service';
 
-vi.mock('@/sso.ee/sso-helpers', async () => ({
-	...(await vi.importActual<typeof import('@/sso.ee/sso-helpers')>('@/sso.ee/sso-helpers')),
+vi.mock('@/sso/sso-helpers', async () => ({
+	...(await vi.importActual<typeof import('@/sso/sso-helpers')>('@/sso/sso-helpers')),
 	isSamlLicensedAndEnabled: vi.fn(),
 	getCurrentAuthenticationMethod: vi.fn(),
 }));

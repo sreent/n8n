@@ -8,7 +8,7 @@ import { InvalidMfaCodeError } from '@/errors/response-errors/invalid-mfa-code.e
 import { MfaService } from '@/mfa/mfa.service';
 import { PasswordUtility } from '@/services/password.utility';
 import { UserService } from '@/services/user.service';
-import { getCurrentAuthenticationMethod, isSamlLicensedAndEnabled } from '@/sso.ee/sso-helpers';
+import { getCurrentAuthenticationMethod, isSamlLicensedAndEnabled } from '@/sso/sso-helpers';
 
 /**
  * Shared guards for the email-change flow. Used at request time (with re-auth)

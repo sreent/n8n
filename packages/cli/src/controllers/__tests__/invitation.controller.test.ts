@@ -16,7 +16,7 @@ import { PostHogClient } from '@/posthog';
 import type { AuthlessRequest } from '@/requests';
 import { PasswordUtility } from '@/services/password.utility';
 import { UserService } from '@/services/user.service';
-import * as ssoHelpers from '@/sso.ee/sso-helpers';
+import * as ssoHelpers from '@/sso/sso-helpers';
 
 import { InvitationController } from '../invitation.controller';
 

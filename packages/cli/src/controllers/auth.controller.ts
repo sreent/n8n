@@ -33,7 +33,7 @@ import {
 	isOidcCurrentAuthenticationMethod,
 	isSamlCurrentAuthenticationMethod,
 	isSsoCurrentAuthenticationMethod,
-} from '@/sso.ee/sso-helpers';
+} from '@/sso/sso-helpers';
 import '../auth/handlers/email.auth-handler';
 
 @RestController()

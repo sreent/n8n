@@ -29,7 +29,7 @@ import { CommunityPackagesConfig } from '@/modules/community-packages/community-
 import { isApiKeyAuthEnabled } from '@/public-api';
 import { PushConfig } from '@/push/push.config';
 import { OwnershipService } from '@/services/ownership.service';
-import { getSamlLoginLabel, getCurrentAuthenticationMethod } from '@/sso.ee/sso-helpers';
+import { getSamlLoginLabel, getCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 import { UserManagementMailer } from '@/user-management/email';
 import { resolveFrontendHealthEndpointPath } from '@/utils/health-endpoint.util';
 import {

@@ -38,7 +38,7 @@ import { UserService } from '@/services/user.service';
 import {
 	isOidcCurrentAuthenticationMethod,
 	isSamlCurrentAuthenticationMethod,
-} from '@/sso.ee/sso-helpers';
+} from '@/sso/sso-helpers';
 import { UserManagementMailer } from '@/user-management/email';
 
 @RestController()

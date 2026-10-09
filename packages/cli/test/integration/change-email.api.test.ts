@@ -7,7 +7,7 @@ import { randomString } from 'n8n-workflow';
 import { AuthService } from '@/auth/auth.service';
 import config from '@/config';
 import { ExternalHooks } from '@/external-hooks';
-import { setCurrentAuthenticationMethod } from '@/sso.ee/sso-helpers';
+import { setCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 import { UserManagementMailer } from '@/user-management/email';
 
 import { createLdapUser, createUser } from './shared/db/users';

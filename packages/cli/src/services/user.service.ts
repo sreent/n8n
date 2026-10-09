@@ -42,7 +42,7 @@ import type { Invitation } from '@/interfaces';
 import { License } from '@/license';
 import { PostHogClient } from '@/posthog';
 import type { UserRequest } from '@/requests';
-import { isSsoCurrentAuthenticationMethod } from '@/sso.ee/sso-helpers';
+import { isSsoCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 import { UserManagementMailer } from '@/user-management/email';
 
 export const CHANGE_ROLE_ERROR_MESSAGES = {

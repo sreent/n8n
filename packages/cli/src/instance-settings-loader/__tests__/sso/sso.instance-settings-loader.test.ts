@@ -9,7 +9,7 @@ import { SsoInstanceSettingsLoader } from '../../loaders/sso/sso.instance-settin
 
 const mockSetCurrentAuthenticationMethod = vi.fn();
 const mockGetCurrentAuthenticationMethod = vi.fn().mockReturnValue('email');
-vi.mock('@/sso.ee/sso-helpers', () => ({
+vi.mock('@/sso/sso-helpers', () => ({
 	setCurrentAuthenticationMethod: (...args: unknown[]) =>
 		mockSetCurrentAuthenticationMethod(...args),
 	getCurrentAuthenticationMethod: () => mockGetCurrentAuthenticationMethod(),

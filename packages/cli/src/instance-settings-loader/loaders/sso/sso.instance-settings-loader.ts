@@ -2,10 +2,7 @@ import { Logger } from '@n8n/backend-common';
 import { InstanceSettingsLoaderConfig } from '@n8n/config';
 import { Service } from '@n8n/di';
 
-import {
-	getCurrentAuthenticationMethod,
-	setCurrentAuthenticationMethod,
-} from '@/sso.ee/sso-helpers';
+import { getCurrentAuthenticationMethod, setCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 
 import { OidcInstanceSettingsLoader } from './oidc.instance-settings-loader';
 import { ProvisioningInstanceSettingsLoader } from './provisioning.instance-settings-loader';
