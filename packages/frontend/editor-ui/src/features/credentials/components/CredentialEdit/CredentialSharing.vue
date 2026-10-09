@@ -1,28 +1,18 @@
-<script lang="ts">
+<script setup lang="ts">
 // Fork component (not in upstream n8n): the sharing tab of the credential modal, in place of the
 // enterprise `CredentialSharing.ee.vue`. packages/frontend/editor-ui/FORK.md describes it.
 import type { ResolvedDependency } from '@n8n/api-types';
-
-/**
- * The workflows that use each credential, from the last request that worked. The tab shows them
- * at once, until a new request gives others.
- */
-const usageByCredential = new Map<string, ResolvedDependency[]>();
-</script>
-
-<script setup lang="ts">
 import { N8nButton, N8nEmptyState, N8nText } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
 import { getResourcePermissions, type PermissionsRecord } from '@n8n/permissions';
 import { useRolesStore } from '@n8n/stores/roles.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
-import { useRootStore } from '@n8n/stores/useRootStore';
 import { useUsersStore } from '@n8n/stores/users.store';
 import type { EventBus } from '@n8n/utils/event-bus';
 import type { ICredentialDataDecryptedObject } from 'n8n-workflow';
 import { computed, onMounted, ref } from 'vue';
 
-import { getResourceDependencies } from '@/app/api/workflow-dependencies';
+import { useDependencies } from '@/app/composables/useDependencies';
 import { usePageRedirectionHelper } from '@/app/composables/usePageRedirectionHelper';
 import { EnterpriseEditionFeature } from '@/app/constants';
 import { useUIStore } from '@/app/stores/ui.store';
@@ -57,7 +47,6 @@ const emit = defineEmits<{
 }>();
 
 const i18n = useI18n();
-const rootStore = useRootStore();
 const settingsStore = useSettingsStore();
 const usersStore = useUsersStore();
 const rolesStore = useRolesStore();
@@ -66,6 +55,8 @@ const uiStore = useUIStore();
 const pageRedirectionHelper = usePageRedirectionHelper();
 const searchProjects = useRemoteProjectSearch();
 const { check: envFeatureFlag } = useEnvFeatureFlag();
+/** The workflows that use each resource. It keeps the last result of each one for the session. */
+const { fetchDependencies, getDependencies } = useDependencies();
 
 const sharedWithProjects = ref<ProjectSharingData[]>([
 	...(props.credential?.sharedWithProjects ?? []),
@@ -80,10 +71,6 @@ const homeProject = computed(() => props.credential?.homeProject);
 const canShare = computed(() => props.credentialPermissions.share === true);
 /** Only a user who may share sees the projects that use the credential. */
 const showsUsage = computed(() => isCredentialSharingFlagOn.value && canShare.value);
-/** The workflows that use the credential, with the projects that own them. */
-const usage = ref<ResolvedDependency[]>(
-	showsUsage.value ? (usageByCredential.get(props.credentialId) ?? []) : [],
-);
 /** Sharing with all users needs the global scope of the user, not a scope of the credential. */
 const canShareGlobally = computed(
 	() =>
@@ -158,17 +145,15 @@ const confirmRemoval = computed(() =>
 		: undefined,
 );
 
-/** "Only you", or "Only" and the first name of the project that owns the credential. */
+/**
+ * "Only you", or "Only" and the first name (else the email) of the project that owns the
+ * credential. A project with neither gives an empty name.
+ */
 const ownerText = computed(() => {
 	if (isOwnCredential.value) return i18n.baseText('credentialEdit.credentialSharing.onlyYou');
 	const { name, email } = splitName(homeProject.value?.name ?? '');
 	return i18n.baseText('credentialEdit.credentialSharing.onlyOwner', {
-		interpolate: {
-			name:
-				name?.split(' ')[0] ??
-				email ??
-				i18n.baseText('credentialEdit.credentialSharing.info.sharee.fallback'),
-		},
+		interpolate: { name: name?.split(' ')[0] ?? email ?? '' },
 	});
 });
 
@@ -177,8 +162,10 @@ const ownerText = computed(() => {
  * Each one can get a share with one click.
  */
 const usedInProjects = computed(() => {
+	if (!showsUsage.value) return [];
+	const usage = getDependencies(props.credentialId, 'credential')?.dependencies ?? [];
 	const workflowsByProject = new Map<string, ResolvedDependency[]>();
-	for (const dependency of usage.value) {
+	for (const dependency of usage) {
 		if (!dependency.projectId) continue;
 		const workflows = workflowsByProject.get(dependency.projectId) ?? [];
 		workflows.push(dependency);
@@ -234,17 +221,7 @@ async function goToUpgrade() {
 
 onMounted(async () => {
 	if (!showsUsage.value) return;
-	try {
-		const dependencies = await getResourceDependencies(
-			rootStore.restApiContext,
-			[props.credentialId],
-			'credential',
-		);
-		usage.value = dependencies[props.credentialId]?.dependencies ?? [];
-		usageByCredential.set(props.credentialId, usage.value);
-	} catch {
-		// The rows only suggest shares. When the request fails, the last rows stay.
-	}
+	await fetchDependencies([props.credentialId], 'credential');
 });
 </script>
 

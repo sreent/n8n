@@ -2557,6 +2557,32 @@ describe('sharing UI', () => {
 				}
 			}
 		}
+		for (const sharing of [true, false]) {
+			for (const context of ['list', 'editor'] as const) {
+				await setupApp('memberA', { sharing });
+				server.workflowScopes.set('wf-a', SCOPES.all);
+				if (context === 'list') await showInList('wf-a');
+				if (context === 'editor') await openInEditor('wf-a');
+				takeLog();
+				const store = useWorkflowsEEStore();
+				let result: unknown;
+				try {
+					result = await store.saveWorkflowSharedWith({
+						workflowId: 'wf-a',
+						sharedWithProjects: [PROJECTS.personalC],
+					});
+				} catch (error) {
+					result = { error: plain(error) };
+				}
+				const licence = sharing ? '' : ', without the sharing licence';
+				outcomes[`save in the ${context}${licence}`] = plain({
+					result,
+					ownerName: store.getWorkflowOwnerName('wf-a'),
+					state: workflowState('wf-a'),
+					calls: takeLog(),
+				});
+			}
+		}
 		expect(outcomes).toMatchSnapshot();
 	});
 
