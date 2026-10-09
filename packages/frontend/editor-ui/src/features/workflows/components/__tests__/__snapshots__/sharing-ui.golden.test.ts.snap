@@ -65361,5 +65361,95 @@ exports[`sharing UI > workflowsEE store 1`] = `
     "ownerNameWithFallback": "fallback",
     "storeId": "workflowsEE",
   },
+  "save in the editor": {
+    "calls": [
+      [
+        "request",
+        "PUT /workflows/wf-a/share data {'shareWithIds':['p-c']}",
+      ],
+    ],
+    "ownerName": "Ann Alpha (a@n8n.test)",
+    "result": "<undefined>",
+    "state": {
+      "document": {
+        "homeProject": "project p-a personal Ann Alpha <a@n8n.test>",
+        "sharedWithProjects": [
+          "project p-b personal Ben Beta <b@n8n.test>",
+        ],
+      },
+      "list": {
+        "homeProject": "project p-a personal Ann Alpha <a@n8n.test>",
+        "sharedWithProjects": [
+          "project p-c personal Cleo Gamma <c@n8n.test>",
+        ],
+      },
+      "modalOpen": false,
+      "route": "/workflow/wf-a",
+    },
+  },
+  "save in the editor, without the sharing licence": {
+    "calls": [],
+    "ownerName": "Ann Alpha (a@n8n.test)",
+    "result": "<undefined>",
+    "state": {
+      "document": {
+        "homeProject": "project p-a personal Ann Alpha <a@n8n.test>",
+        "sharedWithProjects": [
+          "project p-b personal Ben Beta <b@n8n.test>",
+        ],
+      },
+      "list": {
+        "homeProject": "project p-a personal Ann Alpha <a@n8n.test>",
+        "sharedWithProjects": [
+          "project p-b personal Ben Beta <b@n8n.test>",
+        ],
+      },
+      "modalOpen": false,
+      "route": "/workflow/wf-a",
+    },
+  },
+  "save in the list": {
+    "calls": [
+      [
+        "request",
+        "PUT /workflows/wf-a/share data {'shareWithIds':['p-c']}",
+      ],
+    ],
+    "ownerName": "Ann Alpha (a@n8n.test)",
+    "result": "<undefined>",
+    "state": {
+      "document": {
+        "homeProject": null,
+        "sharedWithProjects": null,
+      },
+      "list": {
+        "homeProject": "project p-a personal Ann Alpha <a@n8n.test>",
+        "sharedWithProjects": [
+          "project p-c personal Cleo Gamma <c@n8n.test>",
+        ],
+      },
+      "modalOpen": false,
+      "route": "/home/workflows",
+    },
+  },
+  "save in the list, without the sharing licence": {
+    "calls": [],
+    "ownerName": "Ann Alpha (a@n8n.test)",
+    "result": "<undefined>",
+    "state": {
+      "document": {
+        "homeProject": null,
+        "sharedWithProjects": null,
+      },
+      "list": {
+        "homeProject": "project p-a personal Ann Alpha <a@n8n.test>",
+        "sharedWithProjects": [
+          "project p-b personal Ben Beta <b@n8n.test>",
+        ],
+      },
+      "modalOpen": false,
+      "route": "/home/workflows",
+    },
+  },
 }
 `;
