@@ -11,7 +11,7 @@ import {
 } from '@/modules/sso-oidc/constants';
 import { OidcService } from '@/modules/sso-oidc/oidc.service.ee';
 import { SamlService } from '@/modules/sso-saml/saml.service.ee';
-import { setCurrentAuthenticationMethod } from '@/sso.ee/sso-helpers';
+import { setCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 import { createOwnerWithApiKey } from '@test-integration/db/users';
 import { setupTestServer } from '@test-integration/utils';
 

@@ -22,7 +22,7 @@ import { MfaService } from '@/mfa/mfa.service';
 import { PostHogClient } from '@/posthog';
 import type { AuthlessRequest } from '@/requests';
 import { UserService } from '@/services/user.service';
-import * as ssoHelpers from '@/sso.ee/sso-helpers';
+import * as ssoHelpers from '@/sso/sso-helpers';
 
 import { AuthController } from '../auth.controller';
 

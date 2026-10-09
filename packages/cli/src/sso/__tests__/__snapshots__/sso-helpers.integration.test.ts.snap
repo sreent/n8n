@@ -1,0 +1,3815 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SSO helpers > a second change of the method, and a stored method that differs from the config 1`] = `
+{
+  "email to saml to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "first": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "second": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+        "removed": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+  },
+  "row saml, config email": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+}
+`;
+
+exports[`SSO helpers > reading helpers 1`] = `
+{
+  "licence all | method email | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence all | method email | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence all | method email | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence all | method email | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence all | method email | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence all | method ldap | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method ldap | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method ldap | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method ldap | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method ldap | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method oidc | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method oidc | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method oidc | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method oidc | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method oidc | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method saml | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": true,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method saml | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method saml | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method saml | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method saml | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": true,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence all | method unknown | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence all | method unknown | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence all | method unknown | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence all | method unknown | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence all | method unknown | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence ldap | method email | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence ldap | method email | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence ldap | method email | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence ldap | method email | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence ldap | method email | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence ldap | method ldap | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method ldap | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method ldap | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method ldap | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method ldap | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method oidc | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method oidc | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method oidc | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method oidc | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method oidc | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method saml | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method saml | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method saml | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method saml | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method saml | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence ldap | method unknown | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence ldap | method unknown | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence ldap | method unknown | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence ldap | method unknown | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence ldap | method unknown | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence none | method email | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence none | method email | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence none | method email | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence none | method email | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence none | method email | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence none | method ldap | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method ldap | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method ldap | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method ldap | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method ldap | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method oidc | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method oidc | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method oidc | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method oidc | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method oidc | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method saml | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method saml | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method saml | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method saml | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method saml | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence none | method unknown | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence none | method unknown | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence none | method unknown | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence none | method unknown | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence none | method unknown | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence oidc | method email | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence oidc | method email | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence oidc | method email | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence oidc | method email | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence oidc | method email | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence oidc | method ldap | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method ldap | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method ldap | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method ldap | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method ldap | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method oidc | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method oidc | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method oidc | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method oidc | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method oidc | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method saml | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method saml | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method saml | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method saml | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method saml | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence oidc | method unknown | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence oidc | method unknown | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence oidc | method unknown | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence oidc | method unknown | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence oidc | method unknown | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence saml | method email | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence saml | method email | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence saml | method email | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence saml | method email | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence saml | method email | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "<undefined>",
+      "ldap": "<undefined>",
+      "oidc": "<undefined>",
+      "saml": "<undefined>",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "email",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence saml | method ldap | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method ldap | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method ldap | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method ldap | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method ldap | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: ldap) [400]",
+      "ldap": "<undefined>",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: ldap) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: ldap) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: ldap) [400]",
+    },
+    "getCurrentAuthenticationMethod": "ldap",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method oidc | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method oidc | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method oidc | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method oidc | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method oidc | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: oidc) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: oidc) [400]",
+      "oidc": "<undefined>",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: oidc) [400]",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: oidc) [400]",
+    },
+    "getCurrentAuthenticationMethod": "oidc",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": true,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method saml | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": true,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method saml | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method saml | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method saml | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method saml | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: saml) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: saml) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: saml) [400]",
+      "saml": "<undefined>",
+      "unknown": "throws BadRequestError < ResponseError < BaseError: Cannot switch unknown login enabled state when an authentication method other than email or unknown is active (current: saml) [400]",
+    },
+    "getCurrentAuthenticationMethod": "saml",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": true,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": true,
+    "isSsoCurrentAuthenticationMethod": true,
+  },
+  "licence saml | method unknown | all login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence saml | method unknown | ldap login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence saml | method unknown | no login flags": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence saml | method unknown | oidc login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+  "licence saml | method unknown | saml login flag": {
+    "assertAuthenticationMethodCanBeEnabled": {
+      "email": "throws BadRequestError < ResponseError < BaseError: Cannot switch email login enabled state when an authentication method other than email or email is active (current: unknown) [400]",
+      "ldap": "throws BadRequestError < ResponseError < BaseError: Cannot switch ldap login enabled state when an authentication method other than email or ldap is active (current: unknown) [400]",
+      "oidc": "throws BadRequestError < ResponseError < BaseError: Cannot switch oidc login enabled state when an authentication method other than email or oidc is active (current: unknown) [400]",
+      "saml": "throws BadRequestError < ResponseError < BaseError: Cannot switch saml login enabled state when an authentication method other than email or saml is active (current: unknown) [400]",
+      "unknown": "<undefined>",
+    },
+    "getCurrentAuthenticationMethod": "unknown",
+    "getSamlLoginLabel": "",
+    "isOidcCurrentAuthenticationMethod": false,
+    "isSamlCurrentAuthenticationMethod": false,
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": false,
+    "isSsoCurrentAuthenticationMethod": false,
+  },
+}
+`;
+
+exports[`SSO helpers > setCurrentAuthenticationMethod 1`] = `
+{
+  "licence all | from email to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"email","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "email",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from email to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"ldap","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "ldap",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from email to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "oidc",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from email to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "saml",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from email to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"unknown","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "unknown",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from ldap to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"email","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "email",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from ldap to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"ldap","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "ldap",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from ldap to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "oidc",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from ldap to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "saml",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from ldap to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"unknown","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "unknown",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from oidc to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"email","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "email",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from oidc to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"ldap","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "ldap",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from oidc to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "oidc",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from oidc to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "saml",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from oidc to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"unknown","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "unknown",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from saml to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"email","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "email",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from saml to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"ldap","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "ldap",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from saml to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "oidc",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from saml to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "saml",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from saml to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"unknown","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "unknown",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from unknown to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"email","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "email",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from unknown to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"ldap","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "ldap",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from unknown to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "oidc",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from unknown to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "saml",
+    },
+    "result": "<undefined>",
+  },
+  "licence all | from unknown to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"unknown","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "unknown",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from email to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"email","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "email",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from email to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"ldap","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "ldap",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from email to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "oidc",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from email to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "saml",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from email to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"unknown","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "unknown",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from ldap to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"email","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "email",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from ldap to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"ldap","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "ldap",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from ldap to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "oidc",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from ldap to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "saml",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from ldap to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"unknown","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "unknown",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from oidc to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"email","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "email",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from oidc to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"ldap","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "ldap",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from oidc to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "oidc",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from oidc to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "saml",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from oidc to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"unknown","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "unknown",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from saml to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"email","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "email",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from saml to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"ldap","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "ldap",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from saml to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "oidc",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from saml to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "saml",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from saml to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"unknown","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "unknown",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from unknown to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"email","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "email",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from unknown to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"ldap","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "ldap",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from unknown to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"oidc","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "oidc",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from unknown to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"saml","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "saml",
+    },
+    "result": "<undefined>",
+  },
+  "licence none | from unknown to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": false,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": false,
+      },
+      "saml": {
+        "loginEnabled": false,
+        "loginLabel": "",
+      },
+    },
+    "database": {
+      "settings": {
+        "added": [
+          "{"key":"userManagement.authenticationMethod","value":"unknown","loadOnStartup":1}",
+        ],
+      },
+    },
+    "reads": {
+      "getCurrentAuthenticationMethod": "unknown",
+    },
+    "result": "<undefined>",
+  },
+}
+`;
+
+exports[`SSO helpers > setCurrentAuthenticationMethod when the database write fails 1`] = `
+{
+  "method": "saml",
+  "result": "throws QueryFailedError",
+}
+`;
+
+exports[`SSO helpers > setCurrentAuthenticationMethod with all login flags on 1`] = `
+{
+  "from email to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from email to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from email to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from email to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from email to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from ldap to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from ldap to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from ldap to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from ldap to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from ldap to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from oidc to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from oidc to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from oidc to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from oidc to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from oidc to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from saml to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from saml to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from saml to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from saml to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from saml to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from unknown to email": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "email",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from unknown to ldap": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "ldap",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from unknown to oidc": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "oidc",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from unknown to saml": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "saml",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "from unknown to unknown": {
+    "config": {
+      "ldap": {
+        "loginEnabled": true,
+      },
+      "method": "unknown",
+      "oidc": {
+        "loginEnabled": true,
+      },
+      "saml": {
+        "loginEnabled": true,
+        "loginLabel": "Company SSO",
+      },
+    },
+    "result": "<undefined>",
+  },
+}
+`;
+
+exports[`SSO helpers > the SAML login label 1`] = `
+{
+  "label "  spaced  "": "  spaced  ",
+  "label """: "",
+  "label "Company SSO"": "Company SSO",
+}
+`;
+
+exports[`SSO helpers > the licence source of the SAML checks 1`] = `
+{
+  "License on, LicenseState not set": {
+    "isSamlLicensed": "throws ProviderNotSetError < UnexpectedError < BaseError: Cannot query license state because license provider has not been set",
+    "isSamlLicensedAndEnabled": "throws ProviderNotSetError < UnexpectedError < BaseError: Cannot query license state because license provider has not been set",
+  },
+  "License.isLicensed only": {
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+  },
+  "License.isSamlEnabled only": {
+    "isSamlLicensed": false,
+    "isSamlLicensedAndEnabled": false,
+  },
+  "LicenseState not set | method email | no login flags": false,
+  "LicenseState not set | method email | saml login flag": "throws ProviderNotSetError < UnexpectedError < BaseError: Cannot query license state because license provider has not been set",
+  "LicenseState not set | method ldap | no login flags": false,
+  "LicenseState not set | method ldap | saml login flag": "throws ProviderNotSetError < UnexpectedError < BaseError: Cannot query license state because license provider has not been set",
+  "LicenseState not set | method oidc | no login flags": false,
+  "LicenseState not set | method oidc | saml login flag": "throws ProviderNotSetError < UnexpectedError < BaseError: Cannot query license state because license provider has not been set",
+  "LicenseState not set | method saml | no login flags": false,
+  "LicenseState not set | method saml | saml login flag": "throws ProviderNotSetError < UnexpectedError < BaseError: Cannot query license state because license provider has not been set",
+  "LicenseState not set | method unknown | no login flags": false,
+  "LicenseState not set | method unknown | saml login flag": "throws ProviderNotSetError < UnexpectedError < BaseError: Cannot query license state because license provider has not been set",
+  "LicenseState only": {
+    "isSamlLicensed": true,
+    "isSamlLicensedAndEnabled": true,
+  },
+}
+`;

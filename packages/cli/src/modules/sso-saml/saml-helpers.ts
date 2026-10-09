@@ -12,7 +12,7 @@ import {
 	assertAuthenticationMethodCanBeEnabled,
 	getCurrentAuthenticationMethod,
 	setCurrentAuthenticationMethod,
-} from '@/sso.ee/sso-helpers';
+} from '@/sso/sso-helpers';
 
 import { getServiceProviderConfigTestReturnUrl } from './service-provider.ee';
 import type { SamlAttributeMapping, SamlUserAttributes } from './types';

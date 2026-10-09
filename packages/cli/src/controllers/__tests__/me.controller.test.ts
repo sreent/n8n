@@ -19,11 +19,11 @@ import { License } from '@/license';
 import { MfaService } from '@/mfa/mfa.service';
 import type { MeRequest } from '@/requests';
 import { UserService } from '@/services/user.service';
-import { getCurrentAuthenticationMethod } from '@/sso.ee/sso-helpers';
+import { getCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 import { badPasswords } from '@test/test-data';
 
-vi.mock('@/sso.ee/sso-helpers', async () => ({
-	...(await vi.importActual<typeof import('@/sso.ee/sso-helpers')>('@/sso.ee/sso-helpers')),
+vi.mock('@/sso/sso-helpers', async () => ({
+	...(await vi.importActual<typeof import('@/sso/sso-helpers')>('@/sso/sso-helpers')),
 	getCurrentAuthenticationMethod: vi.fn(),
 }));
 
