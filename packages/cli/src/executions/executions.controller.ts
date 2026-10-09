@@ -12,7 +12,7 @@ import { WorkflowSharingService } from '@n8n/backend-services';
 import { isExecutionIdV2 } from './execution-id';
 import { ExecutionListService } from './execution-list.service';
 import { ExecutionService } from './execution.service';
-import { EnterpriseExecutionsService } from './execution.service.ee';
+import { EnterpriseExecutionsService } from './enterprise-execution.service';
 import { ExecutionRequest } from './execution.types';
 import { parseRangeQuery } from './parse-range-query.middleware';
 import { validateExecutionUpdatePayload } from './validation';

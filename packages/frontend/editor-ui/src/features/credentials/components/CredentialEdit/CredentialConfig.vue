@@ -12,7 +12,7 @@ import { isCommunityPackageName } from 'n8n-workflow';
 
 import type { IUpdateInformation } from '@/Interface';
 import CredentialModeSelector, { type CredentialModeOption } from './CredentialModeSelector.vue';
-import EnterpriseEdition from '@/app/components/EnterpriseEdition.ee.vue';
+import EnterpriseEdition from '@/app/components/EnterpriseEdition.vue';
 import { useI18n, addCredentialTranslation } from '@n8n/i18n';
 import { useTelemetry } from '@n8n/composables/useTelemetry';
 import {
