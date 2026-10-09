@@ -209,7 +209,29 @@ first load when the modal closes. The two golden tests show the same behaviour a
 files for all their cases, also for what this title names. The failing test probably makes a state
 that the golden tests do not make. The fork did not read it, so this is not known.
 
+## The `EnterpriseEdition` gate
+
+`src/app/components/EnterpriseEdition.vue` replaces the enterprise `EnterpriseEdition.ee.vue` for
+the five ordinary components that use it: the security settings, the data redaction section, the
+modal that moves a folder, the filters of the resource lists, and the credential details. The name
+stays, so that the callers change only their import.
+
+- The gate renders a `div` that gets the attributes of the caller, for example `class`.
+- Its prop `features` is a list of licence flags (`EnterpriseEditionFeature`). Without the prop,
+  the list is empty.
+- When the licence has each flag (`settingsStore.isEnterpriseFeatureEnabled`), the gate shows its
+  default slot. An empty list needs no flag. Else the gate shows its `fallback` slot. It follows a
+  change of the licence.
+
+`src/app/components/__tests__/EnterpriseEdition.golden.test.ts` renders the gate for 6 licence
+states, 5 feature lists and 4 sets of slots, with the attributes of a caller, and with a licence
+that changes. It records the HTML. The snapshot was recorded against the enterprise file, and the
+fork component gives the same snapshot. To record it again, point the import of the test at
+`EnterpriseEdition.ee.vue`, run the test with `-u`, and point the import back. The enterprise file
+was not read. It has no enterprise test.
+
 ## What stays
 
-- The five enterprise files and their tests stay, unused by ordinary code. They go with the
-  enterprise code.
+- The five enterprise files of the sharing UI and their tests stay, unused by ordinary code.
+  `EnterpriseEdition.ee.vue` stays too, unused by ordinary code. They go with the enterprise
+  code.
