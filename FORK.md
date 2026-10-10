@@ -49,7 +49,8 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/cli/src/modules/sso-saml/FORK.md](packages/cli/src/modules/sso-saml/FORK.md)).
    External secrets are a drop-in replacement too, with all six providers, and turn on in step 5
    (the owner chose this on 2026-10-10). Order: the base class and the Vault, Infisical and
-   1Password providers (done), the AWS, Azure and GCP providers, the module, and the editor. See
+   1Password providers (done), the AWS, Azure and GCP providers (done), the module, and the
+   editor. See
    [packages/cli/src/modules/external-secrets/FORK.md](packages/cli/src/modules/external-secrets/FORK.md).
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
