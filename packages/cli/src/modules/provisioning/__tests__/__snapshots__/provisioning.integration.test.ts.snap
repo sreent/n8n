@@ -14442,6 +14442,314 @@ exports[`Role provisioning > signing in with OIDC 1`] = `
     },
     "writtenRules": [],
   },
+  "project claim | a member in beta and gamma | alpha editor, then a number": {
+    "database": {
+      "auth_identity": {
+        "added": [
+          "{"userId":"@user person161","providerId":"person161-sub","providerType":"oidc","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+      "project_relation": {
+        "added": [
+          "{"projectId":"@project alpha","userId":"@user person161","role":"project:editor","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@project beta","userId":"@user person161","role":"project:viewer","createdAt":"<date>","updatedAt":"<date>"}",
+          "{"projectId":"@project gamma","userId":"@user person161","role":"project:admin","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "sso-user-project-access-updated",
+        {
+          "projectsAdded": 1,
+          "projectsRemoved": 2,
+          "userId": "@user person161",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "oidc",
+          "user": {
+            "authIdentities": [],
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "person161@example.com",
+            "firstName": "Person161",
+            "id": "@user person161",
+            "isPending": false,
+            "lastActiveAt": "<date>",
+            "lastName": "Fixture",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
+    "published": [],
+    "result": {
+      "after": {
+        "projects": [
+          "@project alpha: project:editor",
+        ],
+        "role": "global:member",
+      },
+      "response": {
+        "location": "/",
+        "session": "@user person161",
+        "status": 302,
+      },
+    },
+    "state": {
+      "authenticationMethod": "oidc",
+    },
+    "writtenRules": [],
+  },
+  "project claim | a member in beta and gamma | alpha editor, then a personal project": {
+    "database": {
+      "auth_identity": {
+        "added": [
+          "{"userId":"@user person160","providerId":"person160-sub","providerType":"oidc","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+      "project_relation": {
+        "added": [
+          "{"projectId":"@project alpha","userId":"@user person160","role":"project:editor","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@project beta","userId":"@user person160","role":"project:viewer","createdAt":"<date>","updatedAt":"<date>"}",
+          "{"projectId":"@project gamma","userId":"@user person160","role":"project:admin","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "sso-user-project-access-updated",
+        {
+          "projectsAdded": 1,
+          "projectsRemoved": 2,
+          "userId": "@user person160",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "oidc",
+          "user": {
+            "authIdentities": [],
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "person160@example.com",
+            "firstName": "Person160",
+            "id": "@user person160",
+            "isPending": false,
+            "lastActiveAt": "<date>",
+            "lastName": "Fixture",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
+    "published": [],
+    "result": {
+      "after": {
+        "projects": [
+          "@project alpha: project:editor",
+        ],
+        "role": "global:member",
+      },
+      "response": {
+        "location": "/",
+        "session": "@user person160",
+        "status": 302,
+      },
+    },
+    "state": {
+      "authenticationMethod": "oidc",
+    },
+    "writtenRules": [],
+  },
+  "project claim | a member in beta and gamma | alpha editor, then an unknown project": {
+    "database": {
+      "auth_identity": {
+        "added": [
+          "{"userId":"@user person159","providerId":"person159-sub","providerType":"oidc","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+      "project_relation": {
+        "added": [
+          "{"projectId":"@project alpha","userId":"@user person159","role":"project:editor","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@project beta","userId":"@user person159","role":"project:viewer","createdAt":"<date>","updatedAt":"<date>"}",
+          "{"projectId":"@project gamma","userId":"@user person159","role":"project:admin","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "sso-user-project-access-updated",
+        {
+          "projectsAdded": 1,
+          "projectsRemoved": 2,
+          "userId": "@user person159",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "oidc",
+          "user": {
+            "authIdentities": [],
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "person159@example.com",
+            "firstName": "Person159",
+            "id": "@user person159",
+            "isPending": false,
+            "lastActiveAt": "<date>",
+            "lastName": "Fixture",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
+    "published": [],
+    "result": {
+      "after": {
+        "projects": [
+          "@project alpha: project:editor",
+        ],
+        "role": "global:member",
+      },
+      "response": {
+        "location": "/",
+        "session": "@user person159",
+        "status": 302,
+      },
+    },
+    "state": {
+      "authenticationMethod": "oidc",
+    },
+    "writtenRules": [],
+  },
+  "project claim | a member in beta and gamma | alpha editor, then nonsense": {
+    "database": {
+      "auth_identity": {
+        "added": [
+          "{"userId":"@user person157","providerId":"person157-sub","providerType":"oidc","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+      "project_relation": {
+        "added": [
+          "{"projectId":"@project alpha","userId":"@user person157","role":"project:editor","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@project beta","userId":"@user person157","role":"project:viewer","createdAt":"<date>","updatedAt":"<date>"}",
+          "{"projectId":"@project gamma","userId":"@user person157","role":"project:admin","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "sso-user-project-access-updated",
+        {
+          "projectsAdded": 1,
+          "projectsRemoved": 2,
+          "userId": "@user person157",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "oidc",
+          "user": {
+            "authIdentities": [],
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "person157@example.com",
+            "firstName": "Person157",
+            "id": "@user person157",
+            "isPending": false,
+            "lastActiveAt": "<date>",
+            "lastName": "Fixture",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
+    "published": [],
+    "result": {
+      "after": {
+        "projects": [
+          "@project alpha: project:editor",
+        ],
+        "role": "global:member",
+      },
+      "response": {
+        "location": "/",
+        "session": "@user person157",
+        "status": 302,
+      },
+    },
+    "state": {
+      "authenticationMethod": "oidc",
+    },
+    "writtenRules": [],
+  },
   "project claim | a member in beta and gamma | alpha odd-global, a global role with a project prefix": {
     "database": {
       "auth_identity": {
@@ -15179,6 +15487,67 @@ exports[`Role provisioning > signing in with OIDC 1`] = `
     },
     "writtenRules": [],
   },
+  "project claim | a member in beta and gamma | an unknown project, then nonsense": {
+    "database": {
+      "auth_identity": {
+        "added": [
+          "{"userId":"@user person162","providerId":"person162-sub","providerType":"oidc","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "oidc",
+          "user": {
+            "authIdentities": [],
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "person162@example.com",
+            "firstName": "Person162",
+            "id": "@user person162",
+            "isPending": false,
+            "lastActiveAt": "<date>",
+            "lastName": "Fixture",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
+    "published": [],
+    "result": {
+      "after": {
+        "projects": [
+          "@project beta: project:viewer",
+          "@project gamma: project:admin",
+        ],
+        "role": "global:member",
+      },
+      "response": {
+        "location": "/",
+        "session": "@user person162",
+        "status": 302,
+      },
+    },
+    "state": {
+      "authenticationMethod": "oidc",
+    },
+    "writtenRules": [],
+  },
   "project claim | a member in beta and gamma | gamma admin, as the person has": {
     "database": {
       "auth_identity": {
@@ -15305,6 +15674,83 @@ exports[`Role provisioning > signing in with OIDC 1`] = `
       "response": {
         "location": "/",
         "session": "@user person102",
+        "status": 302,
+      },
+    },
+    "state": {
+      "authenticationMethod": "oidc",
+    },
+    "writtenRules": [],
+  },
+  "project claim | a member in beta and gamma | nonsense, then alpha editor": {
+    "database": {
+      "auth_identity": {
+        "added": [
+          "{"userId":"@user person158","providerId":"person158-sub","providerType":"oidc","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+      "project_relation": {
+        "added": [
+          "{"projectId":"@project alpha","userId":"@user person158","role":"project:editor","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@project beta","userId":"@user person158","role":"project:viewer","createdAt":"<date>","updatedAt":"<date>"}",
+          "{"projectId":"@project gamma","userId":"@user person158","role":"project:admin","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "sso-user-project-access-updated",
+        {
+          "projectsAdded": 1,
+          "projectsRemoved": 2,
+          "userId": "@user person158",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "oidc",
+          "user": {
+            "authIdentities": [],
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "person158@example.com",
+            "firstName": "Person158",
+            "id": "@user person158",
+            "isPending": false,
+            "lastActiveAt": "<date>",
+            "lastName": "Fixture",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
+    "published": [],
+    "result": {
+      "after": {
+        "projects": [
+          "@project alpha: project:editor",
+        ],
+        "role": "global:member",
+      },
+      "response": {
+        "location": "/",
+        "session": "@user person158",
         "status": 302,
       },
     },

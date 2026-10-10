@@ -17,3 +17,7 @@ packages/cli/src/modules/provisioning.ee/__tests__/role-mapping-rule.controller.
 packages/cli/src/modules/provisioning.ee/__tests__/role-mapping-rule.service.ee.test.ts
 packages/cli/src/modules/provisioning.ee/__tests__/role-mapping-rule.validation.test.ts
 packages/cli/src/modules/provisioning.ee/__tests__/role-resolver.service.ee.test.ts
+
+# The enterprise SAML tests. The owner chose not to run them on the fork code (2026-10-10).
+packages/cli/src/modules/sso-saml/__tests__/saml.controller.ee.test.ts
+packages/cli/src/modules/sso-saml/__tests__/saml.service.ee.test.ts

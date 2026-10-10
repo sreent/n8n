@@ -7,7 +7,7 @@ import { Container } from '@n8n/di';
 import { CREDENTIAL_BLANKING_VALUE } from 'n8n-workflow';
 
 import { FeatureNotLicensedError } from '@/errors/feature-not-licensed.error';
-import { SamlService } from '@/modules/sso-saml/saml.service.ee';
+import { SamlService } from '@/modules/sso-saml/saml.service';
 import {
 	RSA_TEST_CERTIFICATE,
 	RSA_TEST_PRIVATE_KEY,

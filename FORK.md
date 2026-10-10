@@ -45,7 +45,8 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/cli/src/modules/sso-oidc/FORK.md](packages/cli/src/modules/sso-oidc/FORK.md)), role
    provisioning (done, see
    [packages/cli/src/modules/provisioning/FORK.md](packages/cli/src/modules/provisioning/FORK.md)),
-   then SAML.
+   and SAML (done, see
+   [packages/cli/src/modules/sso-saml/FORK.md](packages/cli/src/modules/sso-saml/FORK.md)).
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles and SSO. They are on by default, and an environment variable turns
    them off. The upstream tests run with them off.
@@ -116,11 +117,12 @@ them again after each upstream update, and container CI checks that they stay de
   (`packages/cli/src/services`), of the sharing services (`packages/cli/src/workflows`), of the
   execution view (`packages/cli/src/executions`), of the SSO helpers (`packages/cli/src/sso`), of
   the OIDC sign-in (`packages/cli/src/modules/sso-oidc`), of the role provisioning
-  (`packages/cli/src/modules/provisioning`), and of the sharing UI and the `EnterpriseEdition` gate
+  (`packages/cli/src/modules/provisioning`), of the SAML sign-in
+  (`packages/cli/src/modules/sso-saml`), and of the sharing UI and the `EnterpriseEdition` gate
   (`packages/frontend/editor-ui`) fail when an update changes what a role may do, how projects,
-  sharing, the sign-in method, the OIDC sign-in or the role provisioning work. Compare the change
-  with the upstream change, then update the fork code or the snapshot. The FORK.md files there
-  tell how to record a snapshot against the enterprise code.
+  sharing, the sign-in method, the OIDC sign-in, the role provisioning or the SAML sign-in work.
+  Compare the change with the upstream change, then update the fork code or the snapshot. The
+  FORK.md files there tell how to record a snapshot against the enterprise code.
 - When an upstream update changes scopes or roles, make the permission data again, as
   [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md) tells. The scope
   snapshot test of `@n8n/permissions` fails when upstream adds a scope.

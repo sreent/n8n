@@ -27,7 +27,7 @@ import { CREDENTIAL_BLANKING_VALUE } from 'n8n-workflow';
 
 import { TEMPLATES_DIR } from '@/constants';
 import { BadRequestError, ForbiddenError } from '@n8n/errors';
-import { ProvisioningService } from '@/modules/provisioning.ee/provisioning.service.ee';
+import { ProvisioningService } from '@/modules/provisioning/provisioning.service';
 import {
 	EC_TEST_CERTIFICATE,
 	EC_TEST_PRIVATE_KEY,
@@ -37,7 +37,7 @@ import {
 } from '@/modules/sso-saml/__tests__/saml-signing-test-fixtures';
 import { SamlEmailNotVerifiedError } from '@/modules/sso-saml/errors/saml-email-not-verified.error';
 import { setSamlLoginEnabled } from '@/modules/sso-saml/saml-helpers';
-import { SamlService } from '@/modules/sso-saml/saml.service.ee';
+import { SamlService } from '@/modules/sso-saml/saml.service';
 import type { SamlUserAttributes } from '@/modules/sso-saml/types';
 import { getCurrentAuthenticationMethod, setCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 import { createHandlebarsEngine } from '@/utils/handlebars.util';

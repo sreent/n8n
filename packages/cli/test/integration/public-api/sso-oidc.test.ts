@@ -10,7 +10,7 @@ import {
 	OIDC_PREFERENCES_DB_KEY,
 } from '@/modules/sso-oidc/constants';
 import { OidcService } from '@/modules/sso-oidc/oidc.service';
-import { SamlService } from '@/modules/sso-saml/saml.service.ee';
+import { SamlService } from '@/modules/sso-saml/saml.service';
 import { setCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 import { createOwnerWithApiKey } from '@test-integration/db/users';
 import { setupTestServer } from '@test-integration/utils';

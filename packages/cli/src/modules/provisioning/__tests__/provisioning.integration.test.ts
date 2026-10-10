@@ -2688,6 +2688,28 @@ describe('Role provisioning', { timeout: TEST_TIMEOUT }, () => {
 		outcomes['claims, no custom roles licence | a member | a custom global role'] =
 			await signInCase(await existingPerson(), { n8n_instance_role: 'global:auditor' });
 		testServer.license.enable('feat:customRoles');
+
+		// A project claim with entries that n8n can use and entries that it cannot use.
+		const mixedProjectClaims: Record<string, unknown[]> = {
+			'alpha editor, then nonsense': [`${alpha.id}:editor`, 'nonsense'],
+			'nonsense, then alpha editor': ['nonsense', `${alpha.id}:editor`],
+			'alpha editor, then an unknown project': [`${alpha.id}:editor`, 'unknownproject1:editor'],
+			'alpha editor, then a personal project': [
+				`${alpha.id}:editor`,
+				`${memberPersonalProject.id}:editor`,
+			],
+			'alpha editor, then a number': [`${alpha.id}:editor`, 5],
+			'an unknown project, then nonsense': ['unknownproject1:editor', 'nonsense'],
+		};
+		for (const [name, value] of Object.entries(mixedProjectClaims)) {
+			outcomes[`project claim | a member in beta and gamma | ${name}`] = await signInCase(
+				await existingPerson(GLOBAL_MEMBER_ROLE, [
+					[beta, 'project:viewer'],
+					[gamma, 'project:admin'],
+				]),
+				{ n8n_instance_role: 'global:member', n8n_projects: value },
+			);
+		}
 		expect(outcomes).toMatchSnapshot();
 	});
 });

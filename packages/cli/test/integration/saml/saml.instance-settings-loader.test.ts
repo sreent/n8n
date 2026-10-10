@@ -7,7 +7,7 @@ import { SsoInstanceSettingsLoader } from '@/instance-settings-loader/loaders/ss
 import { PROVISIONING_PREFERENCES_DB_KEY } from '@/modules/provisioning/constants';
 import { OIDC_PREFERENCES_DB_KEY } from '@/modules/sso-oidc/constants';
 import { SAML_PREFERENCES_DB_KEY } from '@/modules/sso-saml/constants';
-import { SamlService } from '@/modules/sso-saml/saml.service.ee';
+import { SamlService } from '@/modules/sso-saml/saml.service';
 
 beforeAll(async () => {
 	await testDb.init();
