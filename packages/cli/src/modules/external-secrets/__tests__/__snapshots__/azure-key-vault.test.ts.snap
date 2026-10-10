@@ -1,0 +1,3334 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Azure Key Vault provider > Azure China 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.partner.microsoftonline.cn",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.cn/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > Azure Public Cloud 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > Azure Public Cloud with a vault URL and an authority host in the settings 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > Azure US Government 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.us",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.usgovcloudapi.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > calls before connect, repeated updates, a second connect, and calls after disconnect 1`] = `
+{
+  "after a change": [
+    "new",
+  ],
+  "after the failing update": {
+    "names": [
+      "new",
+    ],
+    "state": "connected",
+  },
+  "failing update": {
+    "error": "Error: boom",
+  },
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "new",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "new",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "connect again",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect again",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "test after disconnect",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test after disconnect",
+      "listed secret taken",
+      "new",
+    ],
+  ],
+  "test after disconnect": {
+    "ok": [
+      true,
+    ],
+  },
+  "test before connect": {
+    "ok": [
+      false,
+      "Failed to connect to Azure Key Vault",
+    ],
+  },
+  "update before connect": {
+    "error": "TypeError < Error: Cannot read properties of undefined (reading 'listPropertiesOfSecrets')",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > custom vault URL and authority host 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.example.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://vault.example.com/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > custom vault URL with an empty authority host 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://vault.example.com",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > custom vault URL without an authority host 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://vault.example.com",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > custom with an invalid vault URL 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "not a url",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > custom without a vault URL 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > empty client ID 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > empty client secret 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > empty cloud 1`] = `
+{
+  "log": [],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": "ok",
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": "ok",
+    "getSecret multi-line": "ok",
+    "getSecret no-flag": "ok",
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": false,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": false,
+    },
+    "hasSecret multi-line": {
+      "ok": false,
+    },
+    "hasSecret no-flag": {
+      "ok": false,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Failed to connect to Azure Key Vault",
+      ],
+    },
+    "update": {
+      "error": "TypeError < Error: Cannot read properties of undefined (reading 'listPropertiesOfSecrets')",
+    },
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > empty tenant ID 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > empty vault name 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > form fields 1`] = `
+{
+  "displayName": "Azure Key Vault",
+  "name": "azureKeyVault",
+  "properties": [
+    {
+      "default": "",
+      "displayName": "Need help filling out these fields? <a href="https://docs.n8n.io/external-secrets/#connect-n8n-to-your-secrets-store" target="_blank">Open docs</a>",
+      "name": "notice",
+      "noDataExpression": true,
+      "type": "notice",
+    },
+    {
+      "default": "public",
+      "displayName": "Azure Cloud",
+      "hint": "The Azure cloud environment your Key Vault is hosted in.",
+      "name": "environment",
+      "noDataExpression": true,
+      "options": [
+        {
+          "description": "Uses <code>vault.azure.net</code> and <code>login.microsoftonline.com</code>",
+          "name": "Azure Public Cloud",
+          "value": "public",
+        },
+        {
+          "description": "Uses <code>vault.usgovcloudapi.net</code> and <code>login.microsoftonline.us</code>",
+          "name": "Azure US Government",
+          "value": "usGovernment",
+        },
+        {
+          "description": "Uses <code>vault.azure.cn</code> and <code>login.partner.microsoftonline.cn</code>",
+          "name": "Azure China",
+          "value": "china",
+        },
+        {
+          "description": "Provide the vault URL and authority host directly, for setups such as Azure Stack or proxied environments",
+          "name": "Custom",
+          "value": "custom",
+        },
+      ],
+      "type": "options",
+    },
+    {
+      "default": "",
+      "displayName": "Vault Name",
+      "displayOptions": {
+        "hide": {
+          "environment": [
+            "custom",
+          ],
+        },
+      },
+      "hint": "The name of your existing Azure Key Vault.",
+      "name": "vaultName",
+      "noDataExpression": true,
+      "placeholder": "e.g. my-vault",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "",
+      "displayName": "Vault URL",
+      "displayOptions": {
+        "show": {
+          "environment": [
+            "custom",
+          ],
+        },
+      },
+      "hint": "The full URL of your existing Azure Key Vault.",
+      "name": "vaultUrl",
+      "noDataExpression": true,
+      "placeholder": "e.g. https://my-vault.vault.usgovcloudapi.net",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "",
+      "displayName": "Tenant ID",
+      "hint": "In Azure, this can be called "Directory (Tenant) ID".",
+      "name": "tenantId",
+      "noDataExpression": true,
+      "placeholder": "e.g. 7dec9324-7074-72b7-a3ca-a9bb3012f466",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "",
+      "displayName": "Client ID",
+      "hint": "In Azure, this can be called "Application (Client) ID".",
+      "name": "clientId",
+      "noDataExpression": true,
+      "placeholder": "e.g. 7753d8c2-e41f-22ed-3dd7-c9e96463622c",
+      "required": true,
+      "type": "string",
+      "typeOptions": {
+        "password": true,
+      },
+    },
+    {
+      "default": "",
+      "displayName": "Client Secret",
+      "hint": "The client secret value of your registered application.",
+      "name": "clientSecret",
+      "noDataExpression": true,
+      "required": true,
+      "type": "string",
+      "typeOptions": {
+        "password": true,
+      },
+    },
+    {
+      "default": "",
+      "displayName": "Authority Host",
+      "displayOptions": {
+        "show": {
+          "environment": [
+            "custom",
+          ],
+        },
+      },
+      "hint": "The Microsoft Entra authority to authenticate against. Leave empty to use the default (https://login.microsoftonline.com).",
+      "name": "authorityHost",
+      "noDataExpression": true,
+      "placeholder": "e.g. https://login.microsoftonline.us",
+      "type": "string",
+    },
+  ],
+}
+`;
+
+exports[`Azure Key Vault provider > list 401 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": "ok",
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": "ok",
+    "getSecret multi-line": "ok",
+    "getSecret no-flag": "ok",
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": false,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": false,
+    },
+    "hasSecret multi-line": {
+      "ok": false,
+    },
+    "hasSecret no-flag": {
+      "ok": false,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "AKV10000: Request is missing a Bearer or PoP token.",
+      ],
+    },
+    "update": {
+      "error": "Error: AKV10000: Request is missing a Bearer or PoP token.",
+    },
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > list 403 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": "ok",
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": "ok",
+    "getSecret multi-line": "ok",
+    "getSecret no-flag": "ok",
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": false,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": false,
+    },
+    "hasSecret multi-line": {
+      "ok": false,
+    },
+    "hasSecret no-flag": {
+      "ok": false,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "The user does not have secrets list permission",
+      ],
+    },
+    "update": {
+      "error": "Error: The user does not have secrets list permission",
+    },
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > no cloud in the settings 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > no secrets 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": "ok",
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": "ok",
+    "getSecret multi-line": "ok",
+    "getSecret no-flag": "ok",
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": false,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": false,
+    },
+    "hasSecret multi-line": {
+      "ok": false,
+    },
+    "hasSecret no-flag": {
+      "ok": false,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > read 403 for one secret 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": "ok",
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": false,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > read 404 for one secret 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https://my-vault.vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": "ok",
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": false,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > reads the secrets in parallel 1`] = `
+{
+  "names": [
+    "a",
+    "b",
+    "c",
+  ],
+  "time": "1000 ms",
+  "update": "ok",
+}
+`;
+
+exports[`Azure Key Vault provider > unknown cloud 1`] = `
+{
+  "log": [],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": "ok",
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": "ok",
+    "getSecret multi-line": "ok",
+    "getSecret no-flag": "ok",
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": false,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": false,
+    },
+    "hasSecret multi-line": {
+      "ok": false,
+    },
+    "hasSecret no-flag": {
+      "ok": false,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Failed to connect to Azure Key Vault",
+      ],
+    },
+    "update": {
+      "error": "TypeError < Error: Cannot read properties of undefined (reading 'listPropertiesOfSecrets')",
+    },
+  },
+}
+`;
+
+exports[`Azure Key Vault provider > vault name with spaces 1`] = `
+{
+  "log": [
+    [
+      "connect",
+      "new ClientSecretCredential",
+      "tenant-1",
+      "client-1",
+      "secret-1",
+      {
+        "authorityHost": "https://login.microsoftonline.com",
+      },
+    ],
+    [
+      "connect",
+      "new SecretClient",
+      "https:// my vault .vault.azure.net/",
+      "ClientSecretCredential",
+    ],
+    [
+      "update",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "db-password",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "disabled",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "empty",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "novalue",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "multi-line",
+    ],
+    [
+      "update",
+      "listed secret taken",
+      "no-flag",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "db-password",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "empty",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "novalue",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "multi-line",
+    ],
+    [
+      "update",
+      "SecretClient.getSecret",
+      "no-flag",
+    ],
+    [
+      "test",
+      "SecretClient.listPropertiesOfSecrets",
+    ],
+    [
+      "test",
+      "listed secret taken",
+      "db-password",
+    ],
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret db-password": {
+      "ok": "pw",
+    },
+    "getSecret db_password": "ok",
+    "getSecret disabled": "ok",
+    "getSecret empty": {
+      "ok": "",
+    },
+    "getSecret multi-line": {
+      "ok": "a
+b",
+    },
+    "getSecret no-flag": {
+      "ok": "f",
+    },
+    "getSecret nope": "ok",
+    "getSecret novalue": "ok",
+    "hasSecret db-password": {
+      "ok": true,
+    },
+    "hasSecret db_password": {
+      "ok": false,
+    },
+    "hasSecret disabled": {
+      "ok": false,
+    },
+    "hasSecret empty": {
+      "ok": true,
+    },
+    "hasSecret multi-line": {
+      "ok": true,
+    },
+    "hasSecret no-flag": {
+      "ok": true,
+    },
+    "hasSecret nope": {
+      "ok": false,
+    },
+    "hasSecret novalue": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "db-password",
+        "empty",
+        "multi-line",
+        "no-flag",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
