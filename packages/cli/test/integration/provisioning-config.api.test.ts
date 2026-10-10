@@ -2,8 +2,8 @@ import { BLOCK_ACCESS_ASSIGNMENT } from '@n8n/api-types';
 import { SettingsRepository } from '@n8n/db';
 import { Container } from '@n8n/di';
 
-import { PROVISIONING_PREFERENCES_DB_KEY } from '@/modules/provisioning.ee/constants';
-import { ProvisioningService } from '@/modules/provisioning.ee/provisioning.service.ee';
+import { PROVISIONING_PREFERENCES_DB_KEY } from '@/modules/provisioning/constants';
+import { ProvisioningService } from '@/modules/provisioning/provisioning.service';
 
 import { createMember, createOwner } from './shared/db/users';
 import type { SuperAgentTest } from './shared/types';

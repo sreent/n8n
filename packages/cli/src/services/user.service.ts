@@ -706,9 +706,7 @@ export class UserService {
 
 	/** Lazy: these services import `UserService`, so a static import would be a value-import cycle. */
 	private async getProvisioningService() {
-		const { ProvisioningService } = await import(
-			'@/modules/provisioning.ee/provisioning.service.ee.js'
-		);
+		const { ProvisioningService } = await import('@/modules/provisioning/provisioning.service.js');
 
 		return Container.get(ProvisioningService);
 	}

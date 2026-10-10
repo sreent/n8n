@@ -38,7 +38,7 @@ import {
 import type { Response } from 'express';
 
 import { ForbiddenError, NotFoundError } from '@n8n/errors';
-import { ProvisioningService } from '@/modules/provisioning.ee/provisioning.service.ee';
+import { ProvisioningService } from '@/modules/provisioning/provisioning.service';
 import {
 	encodeNextCursor,
 	resolveOffsetPagination,

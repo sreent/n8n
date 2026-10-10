@@ -28,8 +28,8 @@ import {
 import type { Response } from 'express';
 
 import { ForbiddenError } from '@n8n/errors';
-import type { RoleMappingRuleResponse } from '@/modules/provisioning.ee/role-mapping-rule.service.ee';
-import { RoleMappingRuleService } from '@/modules/provisioning.ee/role-mapping-rule.service.ee';
+import type { RoleMappingRuleResponse } from '@/modules/provisioning/role-mapping-rule.service';
+import { RoleMappingRuleService } from '@/modules/provisioning/role-mapping-rule.service';
 import {
 	encodeNextCursor,
 	resolveOffsetPagination,
