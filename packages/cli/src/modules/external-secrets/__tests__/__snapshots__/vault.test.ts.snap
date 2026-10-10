@@ -1,0 +1,4312 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Vault provider > AppRole login 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-ar",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-ar",
+    "connect: GET /v1/sys/mounts 200 token=tok-ar",
+    "connect: POST /v1/auth/approle/login 200 body={"role_id":"role-1","secret_id":"sec-1"}",
+    "update: GET /v1/kv/one 200 token=tok-ar",
+    "update: GET /v1/secret/data/app/db 200 token=tok-ar",
+    "update: GET /v1/secret/data/top 200 token=tok-ar",
+    "update: GET /v1/sys/mounts 200 token=tok-ar",
+    "update: LIST /v1/kv/ 200 token=tok-ar",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-ar",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-ar",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-ar",
+    "test: GET /v1/sys/mounts 200 token=tok-ar",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > AppRole login with a namespace 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-ar namespace=team",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-ar namespace=team",
+    "connect: GET /v1/sys/mounts 200 token=tok-ar namespace=team",
+    "connect: POST /v1/auth/approle/login 200 namespace=team body={"role_id":"role-1","secret_id":"sec-1"}",
+    "update: GET /v1/kv/one 200 token=tok-ar namespace=team",
+    "update: GET /v1/secret/data/app/db 200 token=tok-ar namespace=team",
+    "update: GET /v1/secret/data/top 200 token=tok-ar namespace=team",
+    "update: GET /v1/sys/mounts 200 token=tok-ar namespace=team",
+    "update: LIST /v1/kv/ 200 token=tok-ar namespace=team",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-ar namespace=team",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-ar namespace=team",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-ar namespace=team",
+    "test: GET /v1/sys/mounts 200 token=tok-ar namespace=team",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > AppRole login with a wrong secret ID 1`] = `
+{
+  "requests": [
+    "connect: POST /v1/auth/approle/login 400 body={"role_id":"role-1","secret_id":"nope"}",
+    "update: GET /v1/sys/mounts 403",
+    "test: GET /v1/auth/token/lookup-self 403",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 403",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > KV v1 mount root 404 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 404 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > URL with / 1`] = `
+{
+  "requests": [
+    "connect: GET /auth/token/lookup-self 404 token=tok-1",
+    "update: GET /sys/mounts 404 token=tok-1",
+    "test: GET /auth/token/lookup-self 404 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Could not find auth path. Try adding /v1/ to the end of your base URL.",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 404",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > URL with /v1 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > URL with /v1/ 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > URL without a path 1`] = `
+{
+  "requests": [
+    "connect: GET /auth/token/lookup-self 404 token=tok-1",
+    "update: GET /sys/mounts 404 token=tok-1",
+    "test: GET /auth/token/lookup-self 404 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Could not find auth path. Try adding /v1/ to the end of your base URL.",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 404",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > a second connect 1`] = `
+{
+  "requests": [
+    "connect 1: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "connect 1: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "connect 1: GET /v1/sys/mounts 200 token=tok-up",
+    "connect 1: POST /v1/auth/userpass/login/alice 200 body={"password":"pw"}",
+    "connect 2: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "connect 2: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "connect 2: GET /v1/sys/mounts 200 token=tok-up",
+    "connect 2: POST /v1/auth/userpass/login/alice 200 token=tok-up body={"password":"pw"}",
+  ],
+  "state": "connected",
+}
+`;
+
+exports[`Vault provider > calls before connect 1`] = `
+{
+  "token": {
+    "names": [],
+    "requests": [
+      "update: GET /v1/sys/mounts 403",
+      "test: GET /v1/auth/token/lookup-self 403",
+    ],
+    "state": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 403",
+    },
+  },
+  "userpass": {
+    "names": [],
+    "requests": [
+      "update: GET /v1/sys/mounts 403",
+      "test: GET /v1/auth/token/lookup-self 403",
+    ],
+    "state": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 403",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > empty token 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 403",
+    "update: GET /v1/sys/mounts 403",
+    "test: GET /v1/auth/token/lookup-self 403",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 403",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > folder whose secrets are all refused 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 403 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {},
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > folder without a manual mount 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > form fields 1`] = `
+{
+  "displayName": "HashiCorp Vault",
+  "name": "vault",
+  "properties": [
+    {
+      "default": "",
+      "displayName": "Need help filling out these fields? <a href="https://docs.n8n.io/external-secrets/#connect-n8n-to-your-secrets-store" target="_blank">Open docs</a>",
+      "name": "notice",
+      "noDataExpression": true,
+      "type": "notice",
+    },
+    {
+      "default": "",
+      "displayName": "Vault URL",
+      "name": "url",
+      "noDataExpression": true,
+      "placeholder": "e.g. https://example.com/v1/",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "",
+      "displayName": "Vault Namespace (optional)",
+      "hint": "Leave blank if not using namespaces",
+      "name": "namespace",
+      "noDataExpression": true,
+      "placeholder": "e.g. admin",
+      "required": false,
+      "type": "string",
+    },
+    {
+      "default": "token",
+      "displayName": "Authentication Method",
+      "name": "authMethod",
+      "noDataExpression": true,
+      "options": [
+        {
+          "name": "Token",
+          "value": "token",
+        },
+        {
+          "name": "Username and Password",
+          "value": "usernameAndPassword",
+        },
+        {
+          "name": "AppRole",
+          "value": "appRole",
+        },
+      ],
+      "required": true,
+      "type": "options",
+    },
+    {
+      "default": "",
+      "displayName": "Token",
+      "displayOptions": {
+        "show": {
+          "authMethod": [
+            "token",
+          ],
+        },
+      },
+      "name": "token",
+      "noDataExpression": true,
+      "placeholder": "e.g. hvs.2OCsZxZA6Z9lChbt0janOOZI",
+      "required": true,
+      "type": "string",
+      "typeOptions": {
+        "password": true,
+      },
+    },
+    {
+      "default": "",
+      "displayName": "Username",
+      "displayOptions": {
+        "show": {
+          "authMethod": [
+            "usernameAndPassword",
+          ],
+        },
+      },
+      "name": "username",
+      "noDataExpression": true,
+      "placeholder": "Username",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "",
+      "displayName": "Password",
+      "displayOptions": {
+        "show": {
+          "authMethod": [
+            "usernameAndPassword",
+          ],
+        },
+      },
+      "name": "password",
+      "noDataExpression": true,
+      "placeholder": "***************",
+      "required": true,
+      "type": "string",
+      "typeOptions": {
+        "password": true,
+      },
+    },
+    {
+      "default": "",
+      "displayName": "Role ID",
+      "displayOptions": {
+        "show": {
+          "authMethod": [
+            "appRole",
+          ],
+        },
+      },
+      "name": "roleId",
+      "noDataExpression": true,
+      "placeholder": "59d6d1ca-47bb-4e7e-a40b-8be3bc5a0ba8",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "",
+      "displayName": "Secret ID",
+      "displayOptions": {
+        "show": {
+          "authMethod": [
+            "appRole",
+          ],
+        },
+      },
+      "name": "secretId",
+      "noDataExpression": true,
+      "placeholder": "84896a0c-1347-aa90-a4f6-aca8b7558780",
+      "required": true,
+      "type": "string",
+      "typeOptions": {
+        "password": true,
+      },
+    },
+    {
+      "default": "",
+      "displayName": "KV Mount Path (optional)",
+      "hint": "Specify the KV engine mount path to skip sys/mounts auto-discovery. Leave blank to auto-detect.",
+      "name": "kvMountPath",
+      "noDataExpression": true,
+      "placeholder": "e.g. secret/",
+      "required": false,
+      "type": "string",
+    },
+    {
+      "default": "2",
+      "displayName": "KV Version",
+      "hint": "Only used when KV Mount Path is specified.",
+      "name": "kvVersion",
+      "noDataExpression": true,
+      "options": [
+        {
+          "name": "v1",
+          "value": "1",
+        },
+        {
+          "name": "v2",
+          "value": "2",
+        },
+      ],
+      "required": false,
+      "type": "options",
+    },
+    {
+      "default": "",
+      "displayName": "KV Secret Path (optional)",
+      "hint": "Folder inside the KV mount to read secrets from. Leave blank to read the whole mount. Only used when KV Mount Path is specified.",
+      "name": "kvSecretPath",
+      "noDataExpression": true,
+      "placeholder": "e.g. my-app/",
+      "required": false,
+      "type": "string",
+    },
+  ],
+}
+`;
+
+exports[`Vault provider > list of a folder 403 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 403 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual KV v1 mount 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/kv/ 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/kv/ 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual KV v1 mount with a folder 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/kv/f/ 200 token=tok-1",
+    "update: GET /v1/kv/f/two 200 token=tok-1",
+    "update: LIST /v1/kv/f/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/kv/f/ 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "f": {
+          "two": {
+            "z": "w",
+          },
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "kv.f.two.z",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual KV v1 mount with nested folders 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/kv/f/ 200 token=tok-1",
+    "update: GET /v1/kv/f/g/h 200 token=tok-1",
+    "update: GET /v1/kv/f/i 200 token=tok-1",
+    "update: LIST /v1/kv/f/ 200 token=tok-1",
+    "update: LIST /v1/kv/f/g/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/kv/f/ 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "f": {
+          "g": {
+            "h": {
+              "k": "v",
+            },
+          },
+          "i": {
+            "k": "w",
+          },
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "kv.f.g.h.k",
+        "kv.f.i.k",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual KV v2 mount 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount 401 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 401 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 401 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 401 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Could not access secret/metadata/ (status 401).",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount 403 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 403 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 403 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 403 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Permission denied accessing secret/metadata/. Check your token policies.",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount 404 with a text body 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 404 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 404 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 404 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Could not access secret/metadata/ (status 404).",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount 404 with errors 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 404 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 404 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 404 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Could not access secret/metadata/ (status 404).",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount 404 without a body 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 404 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 404 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 404 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Could not access secret/metadata/ (status 404).",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount 500 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 500 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 500 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 500 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Could not access secret/metadata/ (status 500).",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount 503 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 503 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 503 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 503 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Could not access secret/metadata/ (status 503).",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount that does not exist 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/missing/metadata/ 404 token=tok-1",
+    "update: LIST /v1/missing/metadata/ 404 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/missing/metadata/ 404 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount with a folder 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount with a folder without a trailing slash 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount with a nested folder 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/a/b/ 200 token=tok-1",
+    "update: GET /v1/secret/data/a/b/c/y 200 token=tok-1",
+    "update: GET /v1/secret/data/a/b/x 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/a/b/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/a/b/c/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/a/b/ 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "a": {
+          "b": {
+            "c": {
+              "y": {
+                "k": "w",
+              },
+            },
+            "x": {
+              "k": "v",
+            },
+          },
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.a.b.c.y.k",
+        "secret.a.b.x.k",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount with nested folders 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: GET /v1/secret/data/a/b/c 200 token=tok-1",
+    "update: GET /v1/secret/data/a/d 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/a/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/a/b/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "a": {
+          "a/b": {
+            "c": {
+              "k": "v",
+            },
+          },
+          "d": {
+            "k": "w",
+          },
+        },
+        "top": {
+          "k": "x",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.a.a/b.c.k",
+        "secret.a.d.k",
+        "secret.top.k",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount without a trailing slash 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > manual mount without a version 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: LIST /v1/secret/metadata/ 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > mount root 404 with errors 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 404 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > mount root 404 without errors 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 404 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > mount whose secrets are all refused 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 403 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {},
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > mount without secrets 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 404 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > mounts that are not KV v1 or v2 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > namespace 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1 namespace=team",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1 namespace=team",
+    "connect: GET /v1/sys/mounts 200 token=tok-1 namespace=team",
+    "update: GET /v1/kv/one 200 token=tok-1 namespace=team",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1 namespace=team",
+    "update: GET /v1/secret/data/top 200 token=tok-1 namespace=team",
+    "update: GET /v1/sys/mounts 200 token=tok-1 namespace=team",
+    "update: LIST /v1/kv/ 200 token=tok-1 namespace=team",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1 namespace=team",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1 namespace=team",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1 namespace=team",
+    "test: GET /v1/sys/mounts 200 token=tok-1 namespace=team",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > namespace with slashes 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1 namespace=/admin/team/",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1 namespace=/admin/team/",
+    "connect: GET /v1/sys/mounts 200 token=tok-1 namespace=/admin/team/",
+    "update: GET /v1/kv/one 200 token=tok-1 namespace=/admin/team/",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1 namespace=/admin/team/",
+    "update: GET /v1/secret/data/top 200 token=tok-1 namespace=/admin/team/",
+    "update: GET /v1/sys/mounts 200 token=tok-1 namespace=/admin/team/",
+    "update: LIST /v1/kv/ 200 token=tok-1 namespace=/admin/team/",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1 namespace=/admin/team/",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1 namespace=/admin/team/",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1 namespace=/admin/team/",
+    "test: GET /v1/sys/mounts 200 token=tok-1 namespace=/admin/team/",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > nested folders and typed values 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/a/b/c/d 200 token=tok-1",
+    "update: GET /v1/secret/data/a/b/e 200 token=tok-1",
+    "update: GET /v1/secret/data/a/f 200 token=tok-1",
+    "update: GET /v1/secret/data/dot.name 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/a/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/a/b/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/a/b/c/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "a": {
+          "a/b": {
+            "a/b/c": {
+              "d": {
+                "deep": "x",
+              },
+            },
+            "e": {
+              "arr": [
+                1,
+                2,
+              ],
+              "n": 5,
+              "o": {
+                "inner": "v",
+              },
+              "t": true,
+              "z": null,
+            },
+          },
+          "f": {
+            "s": "str",
+          },
+        },
+        "dot.name": {
+          "key.dot": "v1",
+          "with space": "v2",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.a.a/b.a/b/c.d.deep",
+        "secret.a.a/b.e.n",
+        "secret.a.a/b.e.t",
+        "secret.a.a/b.e.o.inner",
+        "secret.a.a/b.e.z",
+        "secret.a.a/b.e.arr.0",
+        "secret.a.a/b.e.arr.1",
+        "secret.a.f.s",
+        "secret.dot.name.key.dot",
+        "secret.dot.name.with space",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > network errors and invalid URLs 1`] = `
+{
+  "connection refused": {
+    "connect": "error",
+    "init": "ok",
+    "test": {
+      "ok": [
+        false,
+        "Connection refused. Please check the host and port of the server are correct.",
+      ],
+    },
+  },
+  "empty URL": {
+    "connect": "error",
+    "init": {
+      "error": "TypeError < Error: Invalid URL",
+    },
+    "test": {
+      "ok": [
+        false,
+      ],
+    },
+  },
+  "invalid URL": {
+    "connect": "error",
+    "init": {
+      "error": "TypeError < Error: Invalid URL",
+    },
+    "test": {
+      "ok": [
+        false,
+      ],
+    },
+  },
+}
+`;
+
+exports[`Vault provider > read of a secret 403 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 403 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > read of a secret 500 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 500 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > repeated updates 1`] = `
+{
+  "after a change": [
+    "secret.other.b",
+    "kv.one.x",
+  ],
+  "after a refused mount": {
+    "names": [
+      "kv.one.x",
+    ],
+    "state": "connected",
+  },
+  "after the failing update": {
+    "names": [
+      "secret.other.b",
+      "kv.one.x",
+    ],
+    "secret": {
+      "other": {
+        "b": "2",
+      },
+    },
+    "state": "connected",
+  },
+  "failing update": {
+    "error": "AxiosError < Error: Request failed with status code 500",
+  },
+  "first": [
+    "secret.app.db.user",
+    "secret.top.a",
+    "kv.one.x",
+  ],
+}
+`;
+
+exports[`Vault provider > request headers 1`] = `
+[
+  {
+    "headers": {
+      "accept": "application/json",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "GET /v1/auth/token/lookup-self",
+  },
+  {
+    "headers": {
+      "accept": "application/json",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "GET /v1/auth/token/lookup-self",
+  },
+  {
+    "headers": {
+      "accept": "application/json",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "GET /v1/auth/token/lookup-self",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "GET /v1/kv/one",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "GET /v1/secret/data/app/db",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "GET /v1/secret/data/top",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "GET /v1/sys/mounts",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "GET /v1/sys/mounts",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "GET /v1/sys/mounts",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "LIST /v1/kv/",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "LIST /v1/secret/metadata/",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+      "x-vault-token": "tok-up",
+    },
+    "request": "LIST /v1/secret/metadata/app/",
+  },
+  {
+    "headers": {
+      "accept": "application/json",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "content-type": "application/json",
+      "user-agent": "n8n",
+      "x-vault-namespace": "team",
+    },
+    "request": "POST /v1/auth/userpass/login/alice",
+  },
+]
+`;
+
+exports[`Vault provider > sys/mounts 401 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 401 token=tok-1",
+    "update: GET /v1/sys/mounts 401 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 401 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Couldn't list mounts but it wasn't a permissions issue. Please consult your Vault admin.",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 401",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > sys/mounts 403 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 403 token=tok-1",
+    "update: GET /v1/sys/mounts 403 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 403 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Couldn't list mounts. Please give these credentials 'read' access to sys/mounts.",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 403",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > sys/mounts 404 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 404 token=tok-1",
+    "update: GET /v1/sys/mounts 404 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 404 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Couldn't list mounts but it wasn't a permissions issue. Please consult your Vault admin.",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 404",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > sys/mounts 500 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 500 token=tok-1",
+    "update: GET /v1/sys/mounts 500 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 500 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Couldn't list mounts but it wasn't a permissions issue. Please consult your Vault admin.",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 500",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > sys/mounts 503 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 503 token=tok-1",
+    "update: GET /v1/sys/mounts 503 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 503 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Couldn't list mounts but it wasn't a permissions issue. Please consult your Vault admin.",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 503",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > timeouts of a slow Vault 1`] = `
+{
+  "afterConnect": "error",
+  "connect": "ok",
+  "connectTime": "1000 ms",
+  "test": {
+    "ok": [
+      false,
+    ],
+  },
+  "testTime": "2000 ms",
+  "update": {
+    "error": "AxiosError < Error: timeout of 2000ms exceeded",
+  },
+  "updateTime": "2000 ms",
+}
+`;
+
+exports[`Vault provider > token lookup 400 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 400 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 400 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > token lookup 401 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 401 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 401 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > token lookup 404 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 404 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 404 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Could not find auth path. Try adding /v1/ to the end of your base URL.",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > token lookup 429 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 429 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 429 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > token lookup 500 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 500 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 500 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > token lookup 503 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 503 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 503 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > token renewal > a renewable token with a TTL of 6 seconds 1`] = `
+{
+  "renewalHeaders": {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "user-agent": "n8n",
+      "x-vault-token": "tok-1",
+    },
+    "request": "POST /v1/auth/token/renew-self",
+  },
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 3000 ms: POST /v1/auth/token/renew-self 200 token=tok-1",
+    "after 3000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 6000 ms: POST /v1/auth/token/renew-self 200 token=tok-1",
+    "after 6000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+  ],
+  "state": "connected",
+}
+`;
+
+exports[`Vault provider > token renewal > a renewable token without an expiry time 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+  ],
+  "state": "connected",
+}
+`;
+
+exports[`Vault provider > token renewal > a renewal that Vault refuses, and a new connect that fails 1`] = `
+{
+  "afterFirst": "error",
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 3000 ms: POST /v1/auth/token/renew-self 403 token=tok-1",
+    "after 3000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 3000 ms: GET /v1/sys/mounts 403 token=tok-1",
+  ],
+  "state": "error",
+}
+`;
+
+exports[`Vault provider > token renewal > a renewal that Vault refuses, with a userpass login 1`] = `
+{
+  "requests": [
+    "connect: POST /v1/auth/userpass/login/alice 200 body={"password":"pw"}",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "connect: GET /v1/sys/mounts 200 token=tok-up",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "after 3000 ms: POST /v1/auth/token/renew-self 403 token=tok-up",
+    "after 3000 ms: POST /v1/auth/userpass/login/alice 200 token=tok-up body={"password":"pw"}",
+    "after 3000 ms: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "after 3000 ms: GET /v1/sys/mounts 200 token=tok-up",
+    "after 3000 ms: GET /v1/auth/token/lookup-self 200 token=tok-up",
+  ],
+  "state": "connected",
+}
+`;
+
+exports[`Vault provider > token renewal > a renewal that Vault refuses, with token auth 1`] = `
+{
+  "afterFirst": "connected",
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 3000 ms: POST /v1/auth/token/renew-self 403 token=tok-1",
+    "after 3000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 3000 ms: GET /v1/sys/mounts 200 token=tok-1",
+    "after 3000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 6000 ms: POST /v1/auth/token/renew-self 403 token=tok-1",
+    "after 6000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 6000 ms: GET /v1/sys/mounts 200 token=tok-1",
+    "after 6000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+  ],
+  "state": "connected",
+}
+`;
+
+exports[`Vault provider > token renewal > a renewal that fails with a server error 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 3000 ms: POST /v1/auth/token/renew-self 500 token=tok-1",
+    "after 3000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 3000 ms: GET /v1/sys/mounts 200 token=tok-1",
+    "after 3000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+  ],
+  "state": "connected",
+}
+`;
+
+exports[`Vault provider > token renewal > a second connect with a renewable token 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect again: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect again: GET /v1/sys/mounts 200 token=tok-1",
+    "connect again: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 4000 ms: POST /v1/auth/token/renew-self 200 token=tok-1",
+    "after 4000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "after 7000 ms: POST /v1/auth/token/renew-self 200 token=tok-1",
+    "after 7000 ms: GET /v1/auth/token/lookup-self 200 token=tok-1",
+  ],
+  "state": "connected",
+}
+`;
+
+exports[`Vault provider > token renewal > a token that is not renewable 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+  ],
+  "state": "connected",
+}
+`;
+
+exports[`Vault provider > token that Vault refuses 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 403 token=bad",
+    "update: GET /v1/sys/mounts 403 token=bad",
+    "test: GET /v1/auth/token/lookup-self 403 token=bad",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 403",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > unknown auth method 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 403",
+    "update: GET /v1/sys/mounts 403",
+    "test: GET /v1/auth/token/lookup-self 403",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 403",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > userpass login 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "connect: GET /v1/sys/mounts 200 token=tok-up",
+    "connect: POST /v1/auth/userpass/login/alice 200 body={"password":"pw"}",
+    "update: GET /v1/kv/one 200 token=tok-up",
+    "update: GET /v1/secret/data/app/db 200 token=tok-up",
+    "update: GET /v1/secret/data/top 200 token=tok-up",
+    "update: GET /v1/sys/mounts 200 token=tok-up",
+    "update: LIST /v1/kv/ 200 token=tok-up",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-up",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-up",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "test: GET /v1/sys/mounts 200 token=tok-up",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > userpass login with a namespace 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-up namespace=team",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-up namespace=team",
+    "connect: GET /v1/sys/mounts 200 token=tok-up namespace=team",
+    "connect: POST /v1/auth/userpass/login/alice 200 namespace=team body={"password":"pw"}",
+    "update: GET /v1/kv/one 200 token=tok-up namespace=team",
+    "update: GET /v1/secret/data/app/db 200 token=tok-up namespace=team",
+    "update: GET /v1/secret/data/top 200 token=tok-up namespace=team",
+    "update: GET /v1/sys/mounts 200 token=tok-up namespace=team",
+    "update: LIST /v1/kv/ 200 token=tok-up namespace=team",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-up namespace=team",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-up namespace=team",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-up namespace=team",
+    "test: GET /v1/sys/mounts 200 token=tok-up namespace=team",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > userpass login with a wrong password 1`] = `
+{
+  "requests": [
+    "connect: POST /v1/auth/userpass/login/alice 400 body={"password":"nope"}",
+    "update: GET /v1/sys/mounts 403",
+    "test: GET /v1/auth/token/lookup-self 403",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": "ok",
+    "getSecret noversion": "ok",
+    "getSecret secret": "ok",
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": false,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 403",
+    },
+  },
+}
+`;
+
+exports[`Vault provider > userpass name with a slash and a space 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "connect: GET /v1/sys/mounts 200 token=tok-up",
+    "connect: POST /v1/auth/userpass/login/a/b%20c 200 body={"password":"pw"}",
+    "update: GET /v1/kv/one 200 token=tok-up",
+    "update: GET /v1/secret/data/app/db 200 token=tok-up",
+    "update: GET /v1/secret/data/top 200 token=tok-up",
+    "update: GET /v1/sys/mounts 200 token=tok-up",
+    "update: LIST /v1/kv/ 200 token=tok-up",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-up",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-up",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-up",
+    "test: GET /v1/sys/mounts 200 token=tok-up",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Vault provider > version without a manual mount 1`] = `
+{
+  "requests": [
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "connect: GET /v1/sys/mounts 200 token=tok-1",
+    "update: GET /v1/kv/one 200 token=tok-1",
+    "update: GET /v1/secret/data/app/db 200 token=tok-1",
+    "update: GET /v1/secret/data/top 200 token=tok-1",
+    "update: GET /v1/sys/mounts 200 token=tok-1",
+    "update: LIST /v1/kv/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/ 200 token=tok-1",
+    "update: LIST /v1/secret/metadata/app/ 200 token=tok-1",
+    "test: GET /v1/auth/token/lookup-self 200 token=tok-1",
+    "test: GET /v1/sys/mounts 200 token=tok-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret generic": "ok",
+    "getSecret kv": {
+      "ok": {
+        "one": {
+          "x": "y",
+        },
+      },
+    },
+    "getSecret noversion": "ok",
+    "getSecret secret": {
+      "ok": {
+        "app": {
+          "db": {
+            "user": "u",
+          },
+        },
+        "top": {
+          "a": "1",
+        },
+      },
+    },
+    "hasSecret generic": {
+      "ok": false,
+    },
+    "hasSecret kv": {
+      "ok": true,
+    },
+    "hasSecret noversion": {
+      "ok": false,
+    },
+    "hasSecret secret": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "secret.app.db.user",
+        "secret.top.a",
+        "kv.one.x",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;

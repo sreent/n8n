@@ -1,0 +1,2806 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Infisical provider > a refused token 1`] = `
+{
+  "names after the new login": [
+    "DB_PASSWORD",
+    "dot.key",
+    "EMPTY",
+  ],
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update after the token expires: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 401 authorization=Bearer at-1",
+    "update after the token expires: POST /api/v1/auth/universal-auth/login 200 authorization=Bearer at-1 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "update after the token expires: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test after the token expires: GET /api/v1/workspace/proj-1 401 authorization=Bearer at-1",
+    "update with a token that stays refused: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 401 authorization=Bearer at-1",
+    "update with a token that stays refused: POST /api/v1/auth/universal-auth/login 200 authorization=Bearer at-1 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "update with a token that stays refused: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 401 authorization=Bearer at-1",
+    "update when the new login fails: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 401 authorization=Bearer at-1",
+    "update when the new login fails: POST /api/v1/auth/universal-auth/login 401 authorization=Bearer at-1 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "update after the failed login: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 401 authorization=Bearer at-1",
+    "update after the failed login: POST /api/v1/auth/universal-auth/login 200 authorization=Bearer at-1 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "update after the failed login: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+  ],
+  "state": "connected",
+  "test after the token expires": {
+    "ok": [
+      false,
+      "Invalid credentials",
+    ],
+  },
+  "update after the failed login": "ok",
+  "update after the token expires": "ok",
+  "update when the new login fails": {
+    "error": "AxiosError < Error: Request failed with status code 401",
+  },
+  "update with a token that stays refused": {
+    "error": "AxiosError < Error: Request failed with status code 401",
+  },
+}
+`;
+
+exports[`Infisical provider > answer without imports 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": {
+      "error": "TypeError < Error: Cannot read properties of undefined (reading 'forEach')",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > answer without secrets 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": {
+      "error": "TypeError < Error: Cannot read properties of undefined (reading 'forEach')",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > duplicate keys 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": {
+      "ok": "2",
+    },
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": true,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "A",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > empty client ID 1`] = `
+{
+  "requests": [
+    "test: GET /api/v1/workspace/proj-1 401",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > empty client secret 1`] = `
+{
+  "requests": [
+    "test: GET /api/v1/workspace/proj-1 401",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > empty secret path 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath= 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > environment that does not exist 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=staging&secretPath=%2F 404 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 404",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > form fields 1`] = `
+{
+  "displayName": "Infisical",
+  "name": "infisical",
+  "properties": [
+    {
+      "default": "",
+      "displayName": "Need help filling out these fields? <a href="https://docs.n8n.io/external-secrets/#connect-n8n-to-your-secrets-store" target="_blank">Open docs</a>",
+      "name": "notice",
+      "noDataExpression": true,
+      "type": "notice",
+    },
+    {
+      "default": "https://app.infisical.com",
+      "displayName": "Site URL",
+      "hint": "The absolute URL of the Infisical instance. Change it only if you're self-hosting Infisical.",
+      "name": "siteURL",
+      "noDataExpression": true,
+      "placeholder": "https://app.infisical.com",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "",
+      "displayName": "Project ID",
+      "hint": "The Infisical project to read secrets from",
+      "name": "projectId",
+      "noDataExpression": true,
+      "placeholder": "e.g. 7c1cbe9c-3f1b-4a92-b3a2-9d5e2f1c8a4b",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "dev",
+      "displayName": "Environment",
+      "hint": "Environment slug (e.g. dev, staging, prod)",
+      "name": "environment",
+      "noDataExpression": true,
+      "placeholder": "dev",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "/",
+      "displayName": "Secret Path",
+      "hint": "The path within the project to read secrets from",
+      "name": "secretPath",
+      "noDataExpression": true,
+      "placeholder": "/",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "universalAuth",
+      "displayName": "Authentication Method",
+      "name": "authMethod",
+      "noDataExpression": true,
+      "options": [
+        {
+          "name": "Universal Auth",
+          "value": "universalAuth",
+        },
+      ],
+      "required": true,
+      "type": "options",
+    },
+    {
+      "default": "",
+      "displayName": "Client ID",
+      "displayOptions": {
+        "show": {
+          "authMethod": [
+            "universalAuth",
+          ],
+        },
+      },
+      "name": "clientId",
+      "noDataExpression": true,
+      "placeholder": "e.g. 8a7b1f1c-9f2a-4d6c-bf1a-2c4e6f8b1d3a",
+      "required": true,
+      "type": "string",
+    },
+    {
+      "default": "",
+      "displayName": "Client Secret",
+      "displayOptions": {
+        "show": {
+          "authMethod": [
+            "universalAuth",
+          ],
+        },
+      },
+      "name": "clientSecret",
+      "noDataExpression": true,
+      "placeholder": "***************",
+      "required": true,
+      "type": "string",
+      "typeOptions": {
+        "password": true,
+      },
+    },
+  ],
+}
+`;
+
+exports[`Infisical provider > import without secrets 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": {
+      "error": "TypeError < Error: Cannot read properties of undefined (reading 'forEach')",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > imported secrets 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": {
+      "ok": "own",
+    },
+    "getSecret B": {
+      "ok": "x1",
+    },
+    "getSecret C": {
+      "ok": "x2",
+    },
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": true,
+    },
+    "hasSecret B": {
+      "ok": true,
+    },
+    "hasSecret C": {
+      "ok": true,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "A",
+        "B",
+        "C",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > imports with the keys of empty and missing own values 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": {
+      "ok": "",
+    },
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": true,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": true,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "EMPTY",
+        "U",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > keys and values of other types 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": {
+      "ok": "empty key",
+    },
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": {
+      "ok": 5,
+    },
+    "getSecret NESTED": "ok",
+    "getSecret O": {
+      "ok": {
+        "x": 1,
+      },
+    },
+    "getSecret U": "ok",
+    "getSecret undefined": {
+      "ok": "no key",
+    },
+    "hasSecret ": {
+      "ok": true,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": true,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": true,
+    },
+    "hasSecret U": {
+      "ok": true,
+    },
+    "hasSecret undefined": {
+      "ok": true,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "N",
+        "U",
+        "undefined",
+        "",
+        "O",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > login 429 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 429 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "test: GET /api/v1/workspace/proj-1 401",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > login 500 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 500 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "test: GET /api/v1/workspace/proj-1 401",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > network errors and invalid URLs 1`] = `
+{
+  "connection refused": {
+    "connect": "error",
+    "init": "ok",
+    "test": {
+      "ok": [
+        false,
+        "Connection refused. Check the Site URL.",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+  "empty URL": {
+    "connect": "error",
+    "init": "ok",
+    "test": {
+      "ok": [
+        false,
+        "Invalid URL",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+  "invalid URL": {
+    "connect": "error",
+    "init": "ok",
+    "test": {
+      "ok": [
+        false,
+        "Invalid URL",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > other environment 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=prod&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "PROD_ONLY",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > project 401 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 401 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 401 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": {
+      "ok": "pw",
+    },
+    "getSecret EMPTY": {
+      "ok": "",
+    },
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": true,
+    },
+    "hasSecret EMPTY": {
+      "ok": true,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "DB_PASSWORD",
+        "dot.key",
+        "EMPTY",
+      ],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > project 403 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 403 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 403 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": {
+      "ok": "pw",
+    },
+    "getSecret EMPTY": {
+      "ok": "",
+    },
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": true,
+    },
+    "hasSecret EMPTY": {
+      "ok": true,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "DB_PASSWORD",
+        "dot.key",
+        "EMPTY",
+      ],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Permission denied. Verify the machine identity has access to this project.",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > project 500 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 500 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 500 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": {
+      "ok": "pw",
+    },
+    "getSecret EMPTY": {
+      "ok": "",
+    },
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": true,
+    },
+    "hasSecret EMPTY": {
+      "ok": true,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "DB_PASSWORD",
+        "dot.key",
+        "EMPTY",
+      ],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Unexpected response from Infisical (status 500).",
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > project ID and path with special characters 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/a%2Fb%3Fc%23d 404 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=a%2Fb%3Fc%23d&environment=dev&secretPath=%2Fx%20y%2Bz 404 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/a%2Fb%3Fc%23d 404 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Project not found. Check the Project ID and Site URL.",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 404",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > project ID with spaces 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/%20proj-1%20 404 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=%20proj-1%20&environment=dev&secretPath=%2F 404 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/%20proj-1%20 404 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Project not found. Check the Project ID and Site URL.",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 404",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > project that does not exist 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-x 404 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-x&environment=dev&secretPath=%2F 404 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-x 404 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Project not found. Check the Project ID and Site URL.",
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 404",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > repeated updates, and calls before connect 1`] = `
+{
+  "after a change": [
+    "OTHER",
+  ],
+  "after the failing update": {
+    "names": [
+      "OTHER",
+    ],
+    "state": "connected",
+  },
+  "failing update": {
+    "error": "AxiosError < Error: Request failed with status code 500",
+  },
+  "first": [
+    "DB_PASSWORD",
+    "dot.key",
+    "EMPTY",
+  ],
+  "names before connect": [],
+  "requests": [
+    "test before connect: GET /api/v1/workspace/proj-1 401",
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 500 authorization=Bearer at-1",
+    "connect again: POST /api/v1/auth/universal-auth/login 200 authorization=Bearer at-1 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect again: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "test before connect": {
+    "ok": [
+      false,
+      "Invalid credentials",
+    ],
+  },
+  "update before connect": {
+    "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+  },
+}
+`;
+
+exports[`Infisical provider > request headers 1`] = `
+[
+  {
+    "headers": {
+      "accept": "application/json",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "connection": "close",
+      "content-type": "application/json",
+      "user-agent": "n8n",
+    },
+    "request": "POST /api/v1/auth/universal-auth/login",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "authorization": "Bearer at-1",
+      "connection": "close",
+      "user-agent": "n8n",
+    },
+    "request": "GET /api/v1/workspace/proj-1",
+  },
+  {
+    "headers": {
+      "accept": "application/json",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "authorization": "Bearer at-1",
+      "connection": "close",
+      "user-agent": "n8n",
+    },
+    "request": "GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F",
+  },
+  {
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "accept-encoding": "gzip, compress, deflate, br",
+      "authorization": "Bearer at-1",
+      "connection": "close",
+      "user-agent": "n8n",
+    },
+    "request": "GET /api/v1/workspace/proj-1",
+  },
+]
+`;
+
+exports[`Infisical provider > secret path /app 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2Fapp 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": {
+      "ok": "n",
+    },
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": true,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "NESTED",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > secret path /app/ 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2Fapp%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > secret path app 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=app 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > secrets 403 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 403 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 403",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > secrets 404 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 404 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 404",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > secrets 500 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 500 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": {
+      "error": "AxiosError < Error: Request failed with status code 500",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > site URL 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": {
+      "ok": "pw",
+    },
+    "getSecret EMPTY": {
+      "ok": "",
+    },
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": true,
+    },
+    "hasSecret EMPTY": {
+      "ok": true,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "DB_PASSWORD",
+        "dot.key",
+        "EMPTY",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > site URL with a path 1`] = `
+{
+  "requests": [
+    "connect: POST /base/api/v1/auth/universal-auth/login 401 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "test: GET /base/api/v1/workspace/proj-1 401",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > site URL with a path and a trailing slash 1`] = `
+{
+  "requests": [
+    "connect: POST /base/api/v1/auth/universal-auth/login 401 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "test: GET /base/api/v1/workspace/proj-1 401",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > site URL with a trailing slash 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 200 body={"clientId":"client-1","clientSecret":"secret-1"}",
+    "connect: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+    "update: GET /api/v4/secrets?projectId=proj-1&environment=dev&secretPath=%2F 200 authorization=Bearer at-1",
+    "test: GET /api/v1/workspace/proj-1 200 authorization=Bearer at-1",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": {
+      "ok": "pw",
+    },
+    "getSecret EMPTY": {
+      "ok": "",
+    },
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": true,
+    },
+    "hasSecret EMPTY": {
+      "ok": true,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [
+        "DB_PASSWORD",
+        "dot.key",
+        "EMPTY",
+      ],
+    },
+    "state after connect": "connected",
+    "state after disconnect": "connected",
+    "state after init": "initializing",
+    "state after test": "connected",
+    "state after update": "connected",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        true,
+      ],
+    },
+    "update": "ok",
+  },
+}
+`;
+
+exports[`Infisical provider > timeouts of a slow Infisical 1`] = `
+{
+  "afterConnect": "error",
+  "connect": "ok",
+  "connectTime": "1000 ms",
+  "test": {
+    "ok": [
+      false,
+      "timeout of 2000ms exceeded",
+    ],
+  },
+  "testTime": "2000 ms",
+}
+`;
+
+exports[`Infisical provider > unknown auth method 1`] = `
+{
+  "requests": [
+    "connect: GET /api/v1/workspace/proj-1 401",
+    "test: GET /api/v1/workspace/proj-1 401",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+}
+`;
+
+exports[`Infisical provider > wrong client secret 1`] = `
+{
+  "requests": [
+    "connect: POST /api/v1/auth/universal-auth/login 401 body={"clientId":"client-1","clientSecret":"nope"}",
+    "test: GET /api/v1/workspace/proj-1 401",
+  ],
+  "result": {
+    "connect": "ok",
+    "disconnect": "ok",
+    "getSecret ": "ok",
+    "getSecret A": "ok",
+    "getSecret B": "ok",
+    "getSecret C": "ok",
+    "getSecret DB_PASSWORD": "ok",
+    "getSecret EMPTY": "ok",
+    "getSecret N": "ok",
+    "getSecret NESTED": "ok",
+    "getSecret O": "ok",
+    "getSecret U": "ok",
+    "getSecret undefined": "ok",
+    "hasSecret ": {
+      "ok": false,
+    },
+    "hasSecret A": {
+      "ok": false,
+    },
+    "hasSecret B": {
+      "ok": false,
+    },
+    "hasSecret C": {
+      "ok": false,
+    },
+    "hasSecret DB_PASSWORD": {
+      "ok": false,
+    },
+    "hasSecret EMPTY": {
+      "ok": false,
+    },
+    "hasSecret N": {
+      "ok": false,
+    },
+    "hasSecret NESTED": {
+      "ok": false,
+    },
+    "hasSecret O": {
+      "ok": false,
+    },
+    "hasSecret U": {
+      "ok": false,
+    },
+    "hasSecret undefined": {
+      "ok": false,
+    },
+    "init": "ok",
+    "names": {
+      "ok": [],
+    },
+    "state after connect": "error",
+    "state after disconnect": "error",
+    "state after init": "initializing",
+    "state after test": "error",
+    "state after update": "error",
+    "state at start": "initializing",
+    "test": {
+      "ok": [
+        false,
+        "Invalid credentials",
+      ],
+    },
+    "update": {
+      "error": "UnexpectedError < BaseError < Error: Update attempted on Infisical before authentication",
+    },
+  },
+}
+`;
