@@ -19,7 +19,7 @@ import type { Response } from 'express';
 
 import { ConflictError } from '@n8n/errors';
 import { OIDC_CLIENT_SECRET_REDACTED_VALUE } from '@/modules/sso-oidc/constants';
-import { OidcService } from '@/modules/sso-oidc/oidc.service.ee';
+import { OidcService } from '@/modules/sso-oidc/oidc.service';
 
 const tags = ['SettingsSsoOidc'];
 

@@ -283,9 +283,9 @@ export const setupTestServer = ({
 					}
 
 					case 'oidc': {
-						const { OidcService } = await import('@/modules/sso-oidc/oidc.service.ee.js');
+						const { OidcService } = await import('@/modules/sso-oidc/oidc.service.js');
 						await Container.get(OidcService).init();
-						await import('@/modules/sso-oidc/oidc.controller.ee.js');
+						await import('@/modules/sso-oidc/oidc.controller.js');
 						break;
 					}
 

@@ -5,9 +5,9 @@ import { Container } from '@n8n/di';
 @BackendModule({ name: 'sso-oidc', licenseFlag: 'feat:oidc', instanceTypes: ['main'] })
 export class OidcModule implements ModuleInterface {
 	async init() {
-		await import('./oidc.controller.ee.js');
+		await import('./oidc.controller.js');
 
-		const { OidcService } = await import('./oidc.service.ee.js');
+		const { OidcService } = await import('./oidc.service.js');
 		await Container.get(OidcService).init();
 	}
 }
