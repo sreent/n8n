@@ -9,7 +9,7 @@ import type { CredentialsEntity, Project, User } from '@n8n/db';
 import {
 	CredentialDependencyRepository,
 	ProjectRepository,
-	SecretsProviderConnectionRepository,
+	ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository,
 } from '@n8n/db';
 import { Container } from '@n8n/di';
 

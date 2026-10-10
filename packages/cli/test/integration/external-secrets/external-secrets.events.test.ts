@@ -1,6 +1,9 @@
 import { Logger } from '@n8n/backend-common';
 import { mockInstance, mockLogger, testDb, testModules } from '@n8n/backend-test-utils';
-import { SecretsProviderConnectionRepository, SettingsRepository } from '@n8n/db';
+import {
+	ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository,
+	SettingsRepository,
+} from '@n8n/db';
 import { Container } from '@n8n/di';
 import { Cipher } from 'n8n-core';
 

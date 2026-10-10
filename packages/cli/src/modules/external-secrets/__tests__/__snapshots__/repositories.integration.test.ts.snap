@@ -1,0 +1,415 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Repositories of the secrets provider connections > findAllAccessibleProviderKeysByCredentialId 1`] = `
+{
+  "a credential that does not exist": [
+    "a-global",
+    "g-on",
+  ],
+  "of P1, shared with P2": [
+    "a-global",
+    "g-on",
+    "p1-on",
+    "p1-owner",
+    "shared-p2-p1",
+  ],
+  "of P3": [
+    "a-global",
+    "g-on",
+  ],
+  "of the personal project": [
+    "a-global",
+    "g-on",
+    "personal-on",
+  ],
+  "only shared with P2": [
+    "a-global",
+    "g-on",
+  ],
+  "without sharing": [
+    "a-global",
+    "g-on",
+  ],
+}
+`;
+
+exports[`Repositories of the secrets provider connections > findEnabledByProjectId 1`] = `
+{
+  "P1": [
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of p1-on",
+      "id": "<id of p1-on>",
+      "isEnabled": true,
+      "projectAccess": [
+        {
+          "createdAt": "<date>",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "@P1",
+            "name": "Project One",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "projectId": "@P1",
+          "role": "secretsProviderConnection:user",
+          "secretsProviderConnectionId": "<id of p1-on>",
+          "updatedAt": "<date>",
+        },
+      ],
+      "providerKey": "p1-on",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of p1-owner",
+      "id": "<id of p1-owner>",
+      "isEnabled": true,
+      "projectAccess": [
+        {
+          "createdAt": "<date>",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "@P1",
+            "name": "Project One",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "projectId": "@P1",
+          "role": "secretsProviderConnection:owner",
+          "secretsProviderConnectionId": "<id of p1-owner>",
+          "updatedAt": "<date>",
+        },
+      ],
+      "providerKey": "p1-owner",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of shared-p2-p1",
+      "id": "<id of shared-p2-p1>",
+      "isEnabled": true,
+      "projectAccess": [
+        {
+          "createdAt": "<date>",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "@P1",
+            "name": "Project One",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "projectId": "@P1",
+          "role": "secretsProviderConnection:user",
+          "secretsProviderConnectionId": "<id of shared-p2-p1>",
+          "updatedAt": "<date>",
+        },
+      ],
+      "providerKey": "shared-p2-p1",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+  ],
+  "P1 with no provider keys": [],
+  "P1 with provider keys": [
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of p1-owner",
+      "id": "<id of p1-owner>",
+      "isEnabled": true,
+      "projectAccess": [
+        {
+          "createdAt": "<date>",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "@P1",
+            "name": "Project One",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "projectId": "@P1",
+          "role": "secretsProviderConnection:owner",
+          "secretsProviderConnectionId": "<id of p1-owner>",
+          "updatedAt": "<date>",
+        },
+      ],
+      "providerKey": "p1-owner",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of shared-p2-p1",
+      "id": "<id of shared-p2-p1>",
+      "isEnabled": true,
+      "projectAccess": [
+        {
+          "createdAt": "<date>",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "@P1",
+            "name": "Project One",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "projectId": "@P1",
+          "role": "secretsProviderConnection:user",
+          "secretsProviderConnectionId": "<id of shared-p2-p1>",
+          "updatedAt": "<date>",
+        },
+      ],
+      "providerKey": "shared-p2-p1",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+  ],
+  "P2": [
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of p2-on",
+      "id": "<id of p2-on>",
+      "isEnabled": true,
+      "projectAccess": [
+        {
+          "createdAt": "<date>",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "@P2",
+            "name": "Project Two",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "projectId": "@P2",
+          "role": "secretsProviderConnection:user",
+          "secretsProviderConnectionId": "<id of p2-on>",
+          "updatedAt": "<date>",
+        },
+      ],
+      "providerKey": "p2-on",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of shared-p2-p1",
+      "id": "<id of shared-p2-p1>",
+      "isEnabled": true,
+      "projectAccess": [
+        {
+          "createdAt": "<date>",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "@P2",
+            "name": "Project Two",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "projectId": "@P2",
+          "role": "secretsProviderConnection:user",
+          "secretsProviderConnectionId": "<id of shared-p2-p1>",
+          "updatedAt": "<date>",
+        },
+      ],
+      "providerKey": "shared-p2-p1",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+  ],
+  "P3": [],
+  "a project that does not exist": [],
+  "personal": [
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of personal-on",
+      "id": "<id of personal-on>",
+      "isEnabled": true,
+      "projectAccess": [
+        {
+          "createdAt": "<date>",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": "<id>",
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "@personal",
+            "name": "Personal",
+            "type": "personal",
+            "updatedAt": "<date>",
+          },
+          "projectId": "@personal",
+          "role": "secretsProviderConnection:user",
+          "secretsProviderConnectionId": "<id of personal-on>",
+          "updatedAt": "<date>",
+        },
+      ],
+      "providerKey": "personal-on",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+  ],
+}
+`;
+
+exports[`Repositories of the secrets provider connections > findEnabledGlobalConnections 1`] = `
+{
+  "with empty options": [
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of a-global",
+      "id": "<id of a-global>",
+      "isEnabled": true,
+      "providerKey": "a-global",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of g-on",
+      "id": "<id of g-on>",
+      "isEnabled": true,
+      "providerKey": "g-on",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+  ],
+  "with no provider keys": [],
+  "with provider keys": [
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of a-global",
+      "id": "<id of a-global>",
+      "isEnabled": true,
+      "providerKey": "a-global",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+  ],
+  "without options": [
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of a-global",
+      "id": "<id of a-global>",
+      "isEnabled": true,
+      "providerKey": "a-global",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+    {
+      "createdAt": "<date>",
+      "encryptedSettings": "settings of g-on",
+      "id": "<id of g-on>",
+      "isEnabled": true,
+      "providerKey": "g-on",
+      "type": "awsSecretsManager",
+      "updatedAt": "<date>",
+    },
+  ],
+}
+`;
+
+exports[`Repositories of the secrets provider connections > findIdByProviderKey 1`] = `
+{
+  "": null,
+  "G-ON": null,
+  "g-off": "<id of g-off as text>",
+  "g-on": "<id of g-on as text>",
+  "missing": null,
+  "p1-off": "<id of p1-off as text>",
+  "p1-on": "<id of p1-on as text>",
+  "shared-p2-p1": "<id of shared-p2-p1 as text>",
+}
+`;
+
+exports[`Repositories of the secrets provider connections > findIdsByProviderKeys 1`] = `
+{
+  "keys in another order": [
+    "<id of g-on as text>",
+    "<id of p1-on as text>",
+    "<id of p2-on as text>",
+  ],
+  "missing and disabled keys": [
+    "<id of g-off as text>",
+    "<id of g-on as text>",
+    "<id of p1-off as text>",
+  ],
+  "no keys": [],
+  "one key": [
+    "<id of p2-on as text>",
+  ],
+  "only missing keys": [],
+  "the same key twice": [
+    "<id of g-on as text>",
+  ],
+}
+`;
+
+exports[`Repositories of the secrets provider connections > the access rows 1`] = `
+[
+  {
+    "projectId": "@P1",
+    "role": "secretsProviderConnection:user",
+    "secretsProviderConnectionId": "<id of p1-off>",
+  },
+  {
+    "projectId": "@P1",
+    "role": "secretsProviderConnection:user",
+    "secretsProviderConnectionId": "<id of p1-on>",
+  },
+  {
+    "projectId": "@P1",
+    "role": "secretsProviderConnection:owner",
+    "secretsProviderConnectionId": "<id of p1-owner>",
+  },
+  {
+    "projectId": "@P2",
+    "role": "secretsProviderConnection:user",
+    "secretsProviderConnectionId": "<id of p2-on>",
+  },
+  {
+    "projectId": "@personal",
+    "role": "secretsProviderConnection:user",
+    "secretsProviderConnectionId": "<id of personal-on>",
+  },
+  {
+    "projectId": "@P1",
+    "role": "secretsProviderConnection:user",
+    "secretsProviderConnectionId": "<id of shared-p2-p1>",
+  },
+  {
+    "projectId": "@P2",
+    "role": "secretsProviderConnection:user",
+    "secretsProviderConnectionId": "<id of shared-p2-p1>",
+  },
+]
+`;

@@ -3,8 +3,8 @@ import { createTeamProject, testDb } from '@n8n/backend-test-utils';
 import type { Project } from '@n8n/db';
 import {
 	CredentialsRepository,
-	ProjectSecretsProviderAccessRepository,
-	SecretsProviderConnectionRepository,
+	ExternalSecretsProjectAccessRepository as ProjectSecretsProviderAccessRepository,
+	ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository,
 	SharedCredentialsRepository,
 } from '@n8n/db';
 import { Container } from '@n8n/di';
