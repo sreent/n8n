@@ -41,10 +41,11 @@ The fork removes the enterprise code step by step, and builds its own versions o
 4. Our own features, one at a time: SSO, external secrets and an audit log export. Then replace
    or remove the rest of the enterprise code. SSO is a drop-in replacement that behaves as the
    enterprise SSO and turns on in step 5. Order: the SSO helpers (done, see
-   [packages/cli/src/sso/FORK.md](packages/cli/src/sso/FORK.md)), OIDC (done without role
-   provisioning, see
-   [packages/cli/src/modules/sso-oidc/FORK.md](packages/cli/src/modules/sso-oidc/FORK.md)), then
-   SAML and role provisioning.
+   [packages/cli/src/sso/FORK.md](packages/cli/src/sso/FORK.md)), OIDC (done, see
+   [packages/cli/src/modules/sso-oidc/FORK.md](packages/cli/src/modules/sso-oidc/FORK.md)), role
+   provisioning (done, see
+   [packages/cli/src/modules/provisioning/FORK.md](packages/cli/src/modules/provisioning/FORK.md)),
+   then SAML.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles and SSO. They are on by default, and an environment variable turns
    them off. The upstream tests run with them off.
@@ -87,9 +88,9 @@ them again after each upstream update, and container CI checks that they stay de
   when a repository that it downloads from is not attached.
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
   `--plan` to see which tests it selects. It leaves out the test files in
-  `scripts/container-ci-skipped-tests.txt`: the enterprise SSO tests, which the owner chose not to
-  run on the fork code. It runs the integration tests with 2 workers, because more time out on the
-  4 CPUs of a cloud session.
+  `scripts/container-ci-skipped-tests.txt`: the enterprise SSO and role provisioning tests, which
+  the owner chose not to run on the fork code. It runs the integration tests with 2 workers,
+  because more time out on the 4 CPUs of a cloud session.
 
 ## Docker images
 
@@ -114,9 +115,10 @@ them again after each upstream update, and container CI checks that they stay de
 - The snapshot tests of `packages/cli/src/permissions`, of the project service
   (`packages/cli/src/services`), of the sharing services (`packages/cli/src/workflows`), of the
   execution view (`packages/cli/src/executions`), of the SSO helpers (`packages/cli/src/sso`), of
-  the OIDC sign-in (`packages/cli/src/modules/sso-oidc`), and of the sharing UI and the
-  `EnterpriseEdition` gate (`packages/frontend/editor-ui`) fail when an update changes what a role
-  may do, how projects, sharing, the sign-in method or the OIDC sign-in work. Compare the change
+  the OIDC sign-in (`packages/cli/src/modules/sso-oidc`), of the role provisioning
+  (`packages/cli/src/modules/provisioning`), and of the sharing UI and the `EnterpriseEdition` gate
+  (`packages/frontend/editor-ui`) fail when an update changes what a role may do, how projects,
+  sharing, the sign-in method, the OIDC sign-in or the role provisioning work. Compare the change
   with the upstream change, then update the fork code or the snapshot. The FORK.md files there
   tell how to record a snapshot against the enterprise code.
 - When an upstream update changes scopes or roles, make the permission data again, as

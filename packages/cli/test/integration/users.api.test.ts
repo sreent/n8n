@@ -41,7 +41,7 @@ import { validateUser } from './shared/utils/users';
 
 import { RESPONSE_ERROR_MESSAGES } from '@/constants';
 import { ExecutionService } from '@/executions/execution.service';
-import { ProvisioningService } from '@/modules/provisioning.ee/provisioning.service.ee';
+import { ProvisioningService } from '@/modules/provisioning/provisioning.service';
 import { OwnershipService } from '@/services/ownership.service';
 import { CHANGE_ROLE_ERROR_MESSAGES } from '@/services/user.service';
 import { Telemetry } from '@/telemetry';

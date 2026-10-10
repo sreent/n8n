@@ -56,9 +56,11 @@ config endpoints also need the `oidc:manage` scope.
 
 - The state is `n8n_state:<uuid v4>` and the nonce is `n8n_nonce:<uuid v4>`.
 - The parameters, in this order: `redirect_uri` (`<instance base URL>/<rest endpoint>/sso/oidc/callback`),
-  `response_type=code`, `scope` (`openid email profile`, and the extra scopes with the outer spaces
-  removed), `prompt`, `state`, `nonce`, `acr_values` (the ACR values joined with spaces, only when
-  there are some), and `client_id` (from `openid-client`). There is no PKCE.
+  `response_type=code`, `scope`, `prompt`, `state`, `nonce`, `acr_values` (the ACR values joined
+  with spaces, only when there are some), and `client_id` (from `openid-client`). There is no PKCE.
+- The scope is `openid email profile`, then the scope name of the role provisioning when it gives
+  roles from direct claims (also when the name is empty), then the extra scopes with the outer
+  spaces removed. One space separates each part.
 - The cookie `n8n-oidc-state` holds a JWT with the audience `n8n:oidc-state`: the state, and
   `testMode` or `redirectUrl`. The cookie `n8n-oidc-nonce` holds a JWT with the audience
   `n8n:oidc-nonce` and the nonce. `JwtService` signs both. They live 15 minutes, are `HttpOnly`,
@@ -96,7 +98,13 @@ config endpoints also need the `oidc:manage` scope.
    secret in the body), and userinfo (`fetchUserInfo` with the subject of the id token).
    `openid-client` does not check the signature of an id token from the token endpoint.
 6. The email comes from userinfo only. It must be there and valid (`isValidEmail` of `@n8n/db`),
-   also for a user with an identity. Then it is in lowercase. The user is:
+   also for a user with an identity.
+7. The role provisioning resolves the roles from the claims, before n8n links or creates the user
+   (see [the role provisioning](../provisioning/FORK.md#an-sso-sign-in)). When the roles refuse the
+   account (`block:access`), the callback sends the event `user-login-failed`
+   (`authenticationMethod: 'oidc'`, `userEmail: 'unknown'`, without a `reason`), redirects to
+   `<instance base URL>/signin?ssoError=access-denied`, and changes nothing.
+8. The email, in lowercase, finds the user:
    - the user of the OIDC identity (the subject), as it is;
    - else the user with the email. The `email_verified` value of userinfo decides: with
      `emailVerifiedRequired`, only `true` and `'true'` pass. Without it, `false` and `'false'` fail.
@@ -107,13 +115,15 @@ config endpoints also need the `oidc:manage` scope.
 
    The callback does not check whether the user is disabled or pending. A disabled user gets a
    session cookie, which the session check of n8n refuses on the next request.
-7. The session cookie (`AuthService.issueCookie` with `usedMfa` true and `req.browserId`). The
+
+   Then the role provisioning applies the roles to the user.
+9. The session cookie (`AuthService.issueCookie` with `usedMfa` true and `req.browserId`). The
    cookie `n8n-oidc-id-token` with the id token, encrypted by `Cipher.encryptV2`, when the encrypted
    value has 3800 characters or fewer. It lives as long as the session. The event `user-logged-in`
    (`authenticationMethod: 'oidc'`). A redirect to the `redirectUrl` of the state cookie, or `/`.
-8. Each failure outside test mode, also in step 1, sends the event `user-login-failed`
-   (`authenticationMethod: 'oidc'`, `userEmail: 'unknown'`, and as `reason` the `error` query of
-   the provider or `oidc_callback_failed`), and redirects as in step 1.
+10. Each other failure outside test mode, also in step 1, sends the event `user-login-failed`
+    (`authenticationMethod: 'oidc'`, `userEmail: 'unknown'`, and as `reason` the `error` query of
+    the provider or `oidc_callback_failed`), and redirects as in step 1.
 
 ### The logout
 
@@ -125,8 +135,6 @@ config endpoints also need the `oidc:manage` scope.
 
 ### Not in this step
 
-- Role provisioning. The golden test runs with the provisioning settings at their defaults (off).
-  The role provisioning step adds the claims of the provider, for OIDC and SAML.
 - An IP rate limit. A probe in production mode found none on the endpoints of the original.
 
 ## Clean-room sources
@@ -153,6 +161,9 @@ The enterprise files and their tests were not read, and the enterprise tests wer
 fork code, as the repository owner chose. There was one slip: a search with a shell glob printed 10
 lines of `sso-saml/saml.service.ee.ts` (calls of the ordinary `SamlValidator`). The OIDC code does
 not use them.
+
+The role provisioning of the sign-in came in a later pull request. Its sources, and the two slips of
+that work, are in [the role provisioning document](../provisioning/FORK.md#clean-room-sources).
 
 ### Instrumentation of the library boundary
 
@@ -185,6 +196,10 @@ fake provider (nock, RS256 keys). Its 11 parts cover:
 For each case, the snapshot records the response (status, location, cookies with their decoded
 claims and decrypted values, body), the requests to the provider, the events, the pub/sub
 commands, the sign-in state, the rows that changed, and the passwords of new or changed users.
+
+The test runs with the role provisioning at its defaults (off). The golden test of the role
+provisioning (`modules/provisioning/__tests__/provisioning.integration.test.ts`) covers OIDC
+sign-ins that give roles.
 
 The snapshot was recorded against the original files. The fork files give the same snapshot. To
 record it again after an upstream update, point the two imports of the code under test at

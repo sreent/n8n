@@ -4,7 +4,7 @@ import { SettingsRepository } from '@n8n/db';
 import { Container } from '@n8n/di';
 
 import { SsoInstanceSettingsLoader } from '@/instance-settings-loader/loaders/sso/sso.instance-settings-loader';
-import { PROVISIONING_PREFERENCES_DB_KEY } from '@/modules/provisioning.ee/constants';
+import { PROVISIONING_PREFERENCES_DB_KEY } from '@/modules/provisioning/constants';
 import { OIDC_PREFERENCES_DB_KEY } from '@/modules/sso-oidc/constants';
 import { OidcService } from '@/modules/sso-oidc/oidc.service';
 import { SAML_PREFERENCES_DB_KEY } from '@/modules/sso-saml/constants';

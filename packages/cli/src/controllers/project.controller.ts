@@ -24,7 +24,7 @@ import { combineScopes, getAuthPrincipalScopes } from '@n8n/permissions';
 import { Response } from 'express';
 
 import { BadRequestError, ForbiddenError, NotFoundError } from '@n8n/errors';
-import { ProvisioningService } from '@/modules/provisioning.ee/provisioning.service.ee';
+import { ProvisioningService } from '@/modules/provisioning/provisioning.service';
 import type { ProjectRequest } from '@/requests';
 import {
 	ProjectService,

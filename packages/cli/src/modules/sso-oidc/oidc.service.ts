@@ -23,6 +23,7 @@ import { Cipher, InstanceSettings } from 'n8n-core';
 import { randomUUID } from 'node:crypto';
 import * as client from 'openid-client';
 
+import { ProvisioningService } from '@/modules/provisioning/provisioning.service';
 import { Publisher } from '@/scaling/pubsub/publisher.service';
 import {
 	assertAuthenticationMethodCanBeEnabled,
@@ -87,6 +88,7 @@ export class OidcService {
 		private readonly urlService: UrlService,
 		private readonly instanceSettings: InstanceSettings,
 		private readonly publisher: Publisher,
+		private readonly provisioningService: ProvisioningService,
 		outboundHttp: OutboundHttp,
 	) {
 		// The provider is admin-configured and may be internal. The connection does not use the
@@ -179,7 +181,7 @@ export class OidcService {
 	/** The authorization request of a login. */
 	async generateLoginUrl(): Promise<OidcAuthorizationRequest> {
 		if (!this.isLoginEnabled()) throw new ForbiddenError('OIDC login is not enabled');
-		return this.buildAuthorizationRequest(await this.getConfiguration(), this.oidcConfig);
+		return await this.buildAuthorizationRequest(await this.getConfiguration(), this.oidcConfig);
 	}
 
 	/** The authorization request of a connection test, with the stored config and a new discovery. */
@@ -190,7 +192,7 @@ export class OidcService {
 			config.clientId,
 			config.clientSecret,
 		);
-		return this.buildAuthorizationRequest(configuration, config);
+		return await this.buildAuthorizationRequest(configuration, config);
 	}
 
 	/**
@@ -214,13 +216,34 @@ export class OidcService {
 
 		if (!userInfo.email) throw new BadRequestError('An email is required');
 		if (!isValidEmail(userInfo.email)) throw new BadRequestError('The email is not valid');
-		const email = userInfo.email.toLowerCase();
 
+		// The roles come before the user, so that a refused sign-in changes nothing. The rules read
+		// copies, so that they cannot change the values of the sign-in.
+		const roles = await this.provisioningService.resolveSsoRoles({
+			provider: 'oidc',
+			claims,
+			context: {
+				$claims: structuredClone({ ...claims, ...userInfo }),
+				$oidc: { idToken: structuredClone(claims), userInfo: structuredClone(userInfo) },
+				$provider: 'oidc',
+			},
+		});
+		const user = await this.findOrCreateUser(userInfo.email.toLowerCase(), claims.sub, userInfo);
+		await this.provisioningService.applySsoRoles(user, roles);
+		return { user, idToken: tokens.id_token };
+	}
+
+	/** The user of the OIDC identity, else the user with the email, else a new member. */
+	private async findOrCreateUser(
+		email: string,
+		subject: string,
+		userInfo: client.UserInfoResponse,
+	) {
 		const identity = await this.authIdentityRepository.findOne({
-			where: { providerId: claims.sub, providerType: 'oidc' },
+			where: { providerId: subject, providerType: 'oidc' },
 			relations: ['user', 'user.role'],
 		});
-		if (identity) return { user: identity.user, idToken: tokens.id_token };
+		if (identity) return identity.user;
 
 		const existingUser = await this.userRepository.findOne({
 			where: { email },
@@ -234,8 +257,8 @@ export class OidcService {
 			if (rejected) {
 				throw new ForbiddenError('The email of the OIDC provider is not verified');
 			}
-			await this.authIdentityRepository.save(AuthIdentity.create(existingUser, claims.sub, 'oidc'));
-			return { user: existingUser, idToken: tokens.id_token };
+			await this.authIdentityRepository.save(AuthIdentity.create(existingUser, subject, 'oidc'));
+			return existingUser;
 		}
 
 		const { user } = await this.userRepository.createUserWithProject({
@@ -245,8 +268,8 @@ export class OidcService {
 			role: { slug: 'global:member' },
 			password: OIDC_USER_PASSWORD,
 		});
-		await this.authIdentityRepository.save(AuthIdentity.create(user, claims.sub, 'oidc'));
-		return { user, idToken: tokens.id_token };
+		await this.authIdentityRepository.save(AuthIdentity.create(user, subject, 'oidc'));
+		return user;
 	}
 
 	/** The claims and the userinfo of a connection test, with the stored config and a new discovery. */
@@ -318,17 +341,24 @@ export class OidcService {
 		});
 	}
 
-	private buildAuthorizationRequest(
+	private async buildAuthorizationRequest(
 		configuration: client.Configuration,
 		config: OidcRuntimeConfig,
-	): OidcAuthorizationRequest {
+	): Promise<OidcAuthorizationRequest> {
 		const state = `n8n_state:${randomUUID()}`;
 		const nonce = `n8n_nonce:${randomUUID()}`;
+		const scopes = ['openid email profile'];
+		// The direct-claim provisioning asks for the scope of its claims, also when its name is empty.
+		const provisioning = await this.provisioningService.getConfig();
+		if (provisioning.scopesProvisionInstanceRole || provisioning.scopesProvisionProjectRoles) {
+			scopes.push(provisioning.scopesName);
+		}
 		const additionalScopes = config.additionalScopes.trim();
+		if (additionalScopes) scopes.push(additionalScopes);
 		const url = client.buildAuthorizationUrl(configuration, {
 			redirect_uri: this.getCallbackUrl(),
 			response_type: 'code',
-			scope: additionalScopes ? `openid email profile ${additionalScopes}` : 'openid email profile',
+			scope: scopes.join(' '),
 			prompt: config.prompt,
 			state,
 			nonce,
