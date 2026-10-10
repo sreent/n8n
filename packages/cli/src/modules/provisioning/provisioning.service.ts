@@ -366,25 +366,31 @@ export class ProvisioningService {
 	}
 
 	/**
-	 * The project roles of a claim: entries `<project id>:<role>`, for example `abc:editor`. A claim
-	 * with an entry that n8n cannot use, and an empty claim, change nothing.
+	 * The project roles of a claim: entries `<project id>:<role>`, for example `abc:editor`. n8n skips
+	 * an entry that it cannot use. A claim without a usable entry changes nothing. For a project with
+	 * more usable entries, the last one counts.
 	 */
 	private async parseProjectRolesClaim(claim: unknown) {
-		if (!Array.isArray(claim) || claim.length === 0) return undefined;
-		const projectRoles = new Map<string, string>();
+		if (!Array.isArray(claim)) return undefined;
+		const candidates = new Map<string, string>();
 		for (const entry of claim) {
-			if (typeof entry !== 'string') return undefined;
+			if (typeof entry !== 'string') continue;
 			const parts = entry.split(':');
-			if (parts.length !== 2 || parts[0] === '' || parts[1] === '') return undefined;
+			if (parts.length !== 2 || parts[0] === '' || parts[1] === '') continue;
 			const [projectId, roleName] = parts;
 			const role = await this.roleRepository.findBySlug(`project:${roleName}`);
-			if (role?.roleType !== 'project') return undefined;
-			projectRoles.set(projectId, role.slug);
+			if (role?.roleType !== 'project') continue;
+			candidates.set(projectId, role.slug);
 		}
-		const projects = await this.rules.findProjects({}, [...projectRoles.keys()]);
-		const teamProjects = projects.filter((project) => project.type === 'team');
-		if (teamProjects.length !== projectRoles.size) return undefined;
-		return projectRoles;
+		if (candidates.size === 0) return undefined;
+		const projects = await this.rules.findProjects({}, [...candidates.keys()]);
+		const teamProjectIds = new Set(
+			projects.filter((project) => project.type === 'team').map((project) => project.id),
+		);
+		const projectRoles = new Map(
+			[...candidates].filter(([projectId]) => teamProjectIds.has(projectId)),
+		);
+		return projectRoles.size > 0 ? projectRoles : undefined;
 	}
 
 	private async isAssignableGlobalRole(slug: string) {
