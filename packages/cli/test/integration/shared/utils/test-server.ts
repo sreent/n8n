@@ -274,9 +274,9 @@ export const setupTestServer = ({
 						break;
 
 					case 'saml': {
-						const { SamlService } = await import('@/modules/sso-saml/saml.service.ee.js');
+						const { SamlService } = await import('@/modules/sso-saml/saml.service.js');
 						await Container.get(SamlService).init();
-						await import('@/modules/sso-saml/saml.controller.ee.js');
+						await import('@/modules/sso-saml/saml.controller.js');
 						const { setSamlLoginEnabled } = await import('@/modules/sso-saml/saml-helpers.js');
 						await setSamlLoginEnabled(true);
 						break;

@@ -18,7 +18,7 @@ import {
 import type { Response } from 'express';
 
 import { ConflictError } from '@n8n/errors';
-import { SamlService } from '@/modules/sso-saml/saml.service.ee';
+import { SamlService } from '@/modules/sso-saml/saml.service';
 
 import { toSamlConfigurationResponse, toSamlPreferencesUpdate } from './sso-saml.mapper';
 

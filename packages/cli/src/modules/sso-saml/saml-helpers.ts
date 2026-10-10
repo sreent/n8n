@@ -14,7 +14,7 @@ import {
 	setCurrentAuthenticationMethod,
 } from '@/sso/sso-helpers';
 
-import { getServiceProviderConfigTestReturnUrl } from './service-provider.ee';
+import { getServiceProviderConfigTestReturnUrl } from './service-provider';
 import type { SamlAttributeMapping, SamlUserAttributes } from './types';
 
 // can only toggle between email and saml, not directly to e.g. ldap
