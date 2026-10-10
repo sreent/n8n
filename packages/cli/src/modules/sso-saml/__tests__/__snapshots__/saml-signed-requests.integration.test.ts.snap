@@ -1,0 +1,40 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SAML signed requests > a stored config with signed requests 1`] = `
+{
+  "a config with the post binding": 200,
+  "the connection test, post binding": {
+    "body": {
+      "code": 0,
+      "message": "The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received null",
+    },
+    "status": 500,
+  },
+  "the connection test, redirect binding": {
+    "body": {
+      "code": 0,
+      "message": "This is not private key",
+    },
+    "status": 500,
+  },
+  "the first config": 200,
+  "the login, post binding": {
+    "body": {
+      "code": 0,
+      "message": "The first argument must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object. Received null",
+    },
+    "status": 500,
+  },
+  "the login, redirect binding": {
+    "body": {
+      "code": 0,
+      "message": "This is not private key",
+    },
+    "status": 500,
+  },
+  "the metadata of the service provider": {
+    "body": "<EntityDescriptor entityID="http://localhost:5678/rest/sso/saml/metadata" xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:assertion="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</NameIDFormat><AssertionConsumerService index="0" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://localhost:5678/rest/sso/saml/acs" isDefault="true"></AssertionConsumerService><AssertionConsumerService index="1" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-REDIRECT" Location="http://localhost:5678/rest/sso/saml/acs"></AssertionConsumerService></SPSSODescriptor></EntityDescriptor>",
+    "status": 200,
+  },
+}
+`;
