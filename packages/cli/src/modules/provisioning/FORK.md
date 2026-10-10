@@ -18,9 +18,8 @@ The class names and the methods that ordinary code calls stay too:
 | `constants.ts` | `constants.ts` of the enterprise folder | `PROVISIONING_PREFERENCES_DB_KEY` |
 | `provisioning.controller.ts`, `role-mapping-rule.controller.ts`, `provisioning.module.ts` | the files of the same name | the routes and the module name |
 
-The fork's OIDC sign-in now applies the roles. The enterprise SAML files still use the enterprise
-service until the SAML step. Until step 5, the module starts only with the `feat:saml` or the
-`feat:oidc` licence, as before.
+The fork's OIDC and SAML sign-ins apply the roles. Until step 5, the module starts only with the
+`feat:saml` or the `feat:oidc` licence, as before.
 
 ## Behaviour
 
@@ -125,21 +124,25 @@ The SSO service calls the provisioning in two steps.
    sign-in after the link.
 
 **Direct claims** (`scopesProvisionInstanceRole`, `scopesProvisionProjectRoles`): the claims come
-from the id token only, with the claim names of the config.
+from the id token only, with the claim names of the config. For SAML, they are the attributes with
+these names, as the ordinary `getMappedSamlAttributesFromFlowResult` gives them: the instance role
+when it is a single value, and the project roles as a list, also for a single value.
 
 - The instance claim must be the slug of a role of the role type `global` other than `global:owner`.
   Else the default role applies; without a default role nothing changes.
 - The project claim is a list of `<project id>:<role>`, for example `abc:editor`, where
-  `project:<role>` is a role of the role type `project` and the id is a team project. A list with
-  one entry that is not valid, and an empty list, change nothing. For a project in the list twice,
-  the last entry counts. The user gets exactly these team project roles and leaves the other team
-  projects.
+  `project:<role>` is a role of the role type `project` and the id is a team project. n8n skips an
+  entry that is not valid. A list without a valid entry, and an empty list, change nothing. For a
+  project in the list twice, the last valid entry counts. The user gets exactly the team project
+  roles of the valid entries and leaves the other team projects.
 
 **Expression mapping** (`scopesUseExpressionMapping`):
 
 - The expressions read `$claims` (the claims of the id token and of userinfo; userinfo wins), `$oidc`
   (`idToken` and `userInfo`) and `$provider` (`oidc`). These are deep copies, made once for a
-  sign-in, so a value that a rule changes, the later rules read, but the sign-in does not.
+  sign-in, so a value that a rule changes, the later rules read, but the sign-in does not. For SAML,
+  `$claims` and `$saml.attributes` are the raw attributes of the response, and `$provider` is
+  `saml` (see [the SAML sign-in](../sso-saml/FORK.md#the-assertion-consumer-service)).
 - An expression evaluates as `Expression.resolveWithoutWorkflow` of `n8n-workflow` does (tournament,
   with only a few globals such as `Math`). It matches when the result is `true` or the text `true`.
   An expression that does not evaluate does not match.
@@ -203,9 +206,10 @@ provider (nock, RS256 keys). Its 7 parts cover:
 - the service: the managed checks for each mode and set of rules, the first read, the environment
   values, rows of each kind, `init()`, and the reload command in each instance role;
 - the start of the module for each licence and instance type;
-- OIDC sign-ins: the scope, direct claims of each kind, expression mapping with instance and project
-  rules, default roles, refused sign-ins, the order of the checks, and about 80 probes of the
-  expression context and of how an expression evaluates.
+- OIDC sign-ins: the scope, direct claims of each kind (also project claims with valid and not valid
+  entries), expression mapping with instance and project rules, default roles, refused sign-ins,
+  the order of the checks, and about 80 probes of the expression context and of how an expression
+  evaluates.
 
 For each case, the snapshot records the result, the events, the pub/sub commands and the rows that
 changed. Where n8n gives no fixed order (rules with the same order value, the projects of a rule),
@@ -222,11 +226,5 @@ and `constants`) to the `.ee` files, run the copy with `-u`, and use its snapsho
 
 - The files of `provisioning.ee` and their tests stay, unused by ordinary code. They go with the
   enterprise code. `scripts/container-ci-skipped-tests.txt` leaves out their 9 tests.
-- `test/integration/saml/saml.api.test.ts` still imports the enterprise service, because the
-  enterprise SAML files use it. The SAML step changes this.
-- Until the SAML step, the enterprise SAML sign-in uses the enterprise service. That service keeps
-  its own copy of the config in memory, and the config endpoints of the fork do not change it. A
-  probe showed that a SAML sign-in uses the old config until that copy loads again, for example
-  after a restart. This matters only with a SAML licence.
 - No lint allowlist or code-health baseline changes. The queries are in
   `database/provisioning-rule.repository.ts`, not in the services.
