@@ -6,3 +6,14 @@ packages/cli/src/modules/sso-oidc/__tests__/oidc.controller.ee.test.ts
 packages/cli/src/modules/sso-oidc/__tests__/oidc.service.ee.test.ts
 packages/cli/src/sso.ee/__tests__/sso-helpers.test.ts
 packages/cli/test/integration/oidc/oidc.service.ee.test.ts
+
+# The enterprise role provisioning tests. The owner chose not to run them on the fork code (2026-10-10).
+packages/cli/src/modules/provisioning.ee/__tests__/claims-context.builder.test.ts
+packages/cli/src/modules/provisioning.ee/__tests__/constants.test.ts
+packages/cli/src/modules/provisioning.ee/__tests__/provisioning.controller.ee.test.ts
+packages/cli/src/modules/provisioning.ee/__tests__/provisioning.service.ee.test.ts
+packages/cli/src/modules/provisioning.ee/__tests__/role-deletion-checker.ee.test.ts
+packages/cli/src/modules/provisioning.ee/__tests__/role-mapping-rule.controller.ee.test.ts
+packages/cli/src/modules/provisioning.ee/__tests__/role-mapping-rule.service.ee.test.ts
+packages/cli/src/modules/provisioning.ee/__tests__/role-mapping-rule.validation.test.ts
+packages/cli/src/modules/provisioning.ee/__tests__/role-resolver.service.ee.test.ts
