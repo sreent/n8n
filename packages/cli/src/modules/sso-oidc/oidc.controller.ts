@@ -12,6 +12,7 @@ import { Response } from 'express';
 import { Cipher } from 'n8n-core';
 
 import { AuthService } from '@/auth/auth.service';
+import { SsoAccessDeniedError } from '@/modules/provisioning/errors/sso-access-denied.error';
 import { AuthlessRequest } from '@/requests';
 import { JwtService } from '@/services/jwt.service';
 import { validateRedirectUrl } from '@/utils/validate-redirect-url';
@@ -127,6 +128,15 @@ export class OidcController {
 			this.eventService.emit('user-logged-in', { user, authenticationMethod: 'oidc' });
 			res.redirect(stateClaims.redirectUrl ?? '/');
 		} catch (error) {
+			if (error instanceof SsoAccessDeniedError) {
+				// The role mapping refuses the account. The sign-in page explains it.
+				this.eventService.emit('user-login-failed', {
+					authenticationMethod: 'oidc',
+					userEmail: 'unknown',
+				});
+				res.redirect(`${this.urlService.getInstanceBaseUrl()}/signin?ssoError=access-denied`);
+				return;
+			}
 			this.logger.warn('The OIDC sign-in failed', { error });
 			const providerError = req.query.error;
 			this.eventService.emit('user-login-failed', {

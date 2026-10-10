@@ -2,6 +2,7 @@
 // this test checks the fetch that the fork's service gives it: the outbound HTTP transport of n8n,
 // with a direct connection and without the SSRF policy. packages/cli/src/modules/sso-oidc/FORK.md
 // tells why.
+import type { ProvisioningConfigDto } from '@n8n/api-types';
 import type { OutboundHttp, HttpTransport } from '@n8n/backend-network';
 import type { UrlService } from '@n8n/backend-services';
 import type { GlobalConfig } from '@n8n/config';
@@ -9,6 +10,8 @@ import type { Settings, SettingsRepository } from '@n8n/db';
 import type { Cipher } from 'n8n-core';
 import * as client from 'openid-client';
 import { mock } from 'vitest-mock-extended';
+
+import type { ProvisioningService } from '@/modules/provisioning/provisioning.service';
 
 import { OidcService } from '../oidc.service';
 
@@ -42,6 +45,13 @@ describe('OidcService', () => {
 		vi.mocked(client.buildAuthorizationUrl).mockReturnValue(
 			new URL('https://idp.example.test/authorize'),
 		);
+		const provisioningService = mock<ProvisioningService>();
+		provisioningService.getConfig.mockResolvedValue(
+			mock<ProvisioningConfigDto>({
+				scopesProvisionInstanceRole: false,
+				scopesProvisionProjectRoles: false,
+			}),
+		);
 		const service = new OidcService(
 			mock(),
 			mock<GlobalConfig>({ endpoints: { rest: 'rest' } }),
@@ -52,6 +62,7 @@ describe('OidcService', () => {
 			mock<UrlService>({ getInstanceBaseUrl: () => 'http://localhost:5678' }),
 			mock(),
 			mock(),
+			provisioningService,
 			outboundHttp,
 		);
 

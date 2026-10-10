@@ -744,7 +744,10 @@ afterAll(() => {
 // Cases
 // ----------------------------------------------------------------------------------------------
 
-describe('OIDC', () => {
+/** Each test runs many cases one after another, against a real database. */
+const TEST_TIMEOUT = 2 * 60 * 1000;
+
+describe('OIDC', { timeout: TEST_TIMEOUT }, () => {
 	test('reading the config', async () => {
 		const outcomes: Record<string, unknown> = {};
 		const users = { owner, admin, member, 'chat user': chatUser };
