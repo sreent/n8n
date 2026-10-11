@@ -6,8 +6,8 @@ Fork document (not in upstream n8n). Read it with [FORK.md](../../../../../../..
 This folder holds the fork's settings page of external secrets with one connection for each
 provider type, its modal, and the store of external secrets. With the two REST clients in
 `@n8n/rest-api-client`, they replace these enterprise files for all ordinary code. This is pull
-request 5a of external secrets. Pull request 5b replaces the settings pages of the connections
-(`secretsProviders.ee`).
+request 5a of external secrets. Pull request 5b replaced the settings pages of the connections
+(`secretsProviders.ee`). See [the FORK.md of the connections folder](../secretsProviders/FORK.md).
 
 | Fork file                                                | Enterprise file that it replaces                               |
 | -------------------------------------------------------- | -------------------------------------------------------------- |
@@ -243,6 +243,5 @@ unhandled errors (see the differences above).
 - The enterprise folder `externalSecrets.ee`, its tests, and the enterprise REST clients
   `externalSecrets.ee.ts` and `secretsProvider.ee.ts` stay, for the recordings of the golden tests
   after upstream updates. Ordinary code does not import them. They go with the enterprise code.
-- The enterprise pages of the connections (`secretsProviders.ee`) stay until pull request 5b. The
-  index of `@n8n/rest-api-client` gives the fork clients now, also to enterprise files that import
+- The index of `@n8n/rest-api-client` gives the fork clients, also to enterprise files that import
   it. The enterprise store and the fork store have the same id, so they share one state.

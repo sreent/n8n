@@ -3,7 +3,7 @@ import { computed, reactive, ref, watch } from 'vue';
 import { useI18n } from '@n8n/i18n';
 import { useToast } from '@n8n/composables/useToast';
 import { useProjectsStore } from '../projects.store';
-import { useSecretsProvidersList } from '@/features/integrations/secretsProviders.ee/composables/useSecretsProvidersList.ee';
+import { useSecretsProvidersList } from '@/features/integrations/secretsProviders/composables/useSecretsProvidersList';
 import type { SecretProviderConnection } from '@n8n/api-types';
 import { useUIStore } from '@/app/stores/ui.store';
 import { SECRETS_PROVIDER_CONNECTION_MODAL_KEY, VIEWS } from '@/app/constants';
@@ -21,7 +21,7 @@ import {
 	N8nDataTableServer,
 } from '@n8n/design-system';
 import type { TableHeader } from '@n8n/design-system';
-import { useSecretsProviderConnection } from '@/features/integrations/secretsProviders.ee/composables/useSecretsProviderConnection.ee';
+import { useSecretsProviderConnection } from '@/features/integrations/secretsProviders/composables/useSecretsProviderConnection';
 import { useRBACStore } from '@n8n/stores/rbac.store';
 
 const i18n = useI18n();

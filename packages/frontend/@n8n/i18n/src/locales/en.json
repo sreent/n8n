@@ -4481,6 +4481,7 @@
 	"settings.secretsProviderConnections.modal.testConnection.success.serviceEnabled": "Service enabled, {count} secrets available on {providerName}.",
 	"settings.secretsProviderConnections.modal.testConnection.success.reference": "Reference secrets in credentials using expression:",
 	"settings.secretsProviderConnections.modal.testConnection.error": "Couldn't connect with these settings",
+	"settings.secretsProviderConnections.modal.testConnection.error.moreDetails": "More details",
 	"settings.secretsProviderConnections.modal.validation.connectionName.required": "Vault name is required. Enter a unique name for your secret store.",
 	"settings.secretsProviderConnections.modal.validation.connectionName.format": "Name must start with a letter and use only letters or numbers (e.g., \"awsProduction\").",
 	"settings.secretsProviderConnections.modal.connectionName.hint": "Enter a unique name for your secret store. This can not be changed later.",
