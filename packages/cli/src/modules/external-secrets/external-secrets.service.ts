@@ -122,6 +122,7 @@ export class ExternalSecretsService {
 	/** Store whether the provider is connected, and connect or disconnect it. */
 	async setProviderConnected(name: string, connected: unknown) {
 		const settings = (await this.settingsStore.reload()) ?? {};
+		// The API stores the value of the body as it is, also a value that is not a boolean.
 		const providerSettings = {
 			...(settings[name] ?? { connectedAt: null, settings: {} }),
 			connected,
