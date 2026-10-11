@@ -61,6 +61,7 @@ export const LOG_SCOPES = [
 	// Fork modules (not in upstream n8n)
 	'send-copy',
 	'git-sync',
+	'audit-log',
 ] as const;
 
 export type LogScope = (typeof LOG_SCOPES)[number];

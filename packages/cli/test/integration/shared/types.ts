@@ -76,7 +76,8 @@ type ModuleName =
 	| 'type-availability-policies'
 	// Fork modules (not in upstream n8n)
 	| 'send-copy'
-	| 'git-sync';
+	| 'git-sync'
+	| 'audit-log';
 
 export interface SetupProps {
 	endpointGroups?: EndpointGroup[];

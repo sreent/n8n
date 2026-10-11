@@ -78,6 +78,7 @@ export class ModuleRegistry {
 		// Fork modules (not in upstream n8n)
 		'send-copy',
 		'git-sync',
+		'audit-log',
 	];
 
 	private readonly activeModules: string[] = [];

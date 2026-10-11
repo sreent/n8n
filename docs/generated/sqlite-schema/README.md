@@ -71,6 +71,7 @@ Auto-generated from the SQLite migrations in @n8n/db. Do not edit by hand.
 | [execution_metadata](execution_metadata.md) | 4 |  | table |
 | [folder](folder.md) | 6 |  | table |
 | [folder_tag](folder_tag.md) | 2 |  | table |
+| [fork_audit_log_event](fork_audit_log_event.md) | 6 |  | table |
 | [insights_by_period](insights_by_period.md) | 6 |  | table |
 | [insights_metadata](insights_metadata.md) | 5 |  | table |
 | [insights_raw](insights_raw.md) | 5 |  | table |
@@ -1062,6 +1063,14 @@ erDiagram
 "folder_tag" {
   varchar_36_ folderId PK
   varchar_36_ tagId PK
+}
+"fork_audit_log_event" {
+  varchar_128_ eventName
+  varchar_36_ id PK
+  TEXT payload
+  datetime_3_ timestamp
+  varchar_254_ userEmail
+  varchar_36_ userId
 }
 "insights_by_period" {
   INTEGER id
