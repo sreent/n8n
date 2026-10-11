@@ -83,26 +83,23 @@ vi.mock('@n8n/design-system', async (importOriginal) => {
 
 // Mock composables
 const mockActiveProviders = { value: [] };
-vi.mock(
-	'@/features/integrations/secretsProviders.ee/composables/useSecretsProvidersList.ee',
-	() => ({
-		useSecretsProvidersList: vi.fn(() => ({
-			activeProviders: mockActiveProviders,
-			providerTypes: {
-				value: [
-					{ type: 'awsSecretsManager', displayName: 'AWS Secrets Manager' },
-					{ type: 'azureKeyVault', displayName: 'Azure Key Vault' },
-				],
-			},
-			fetchProviderTypes: vi.fn().mockResolvedValue(undefined),
-			fetchActiveConnections: vi.fn().mockResolvedValue(undefined),
-		})),
-	}),
-);
+vi.mock('@/features/integrations/secretsProviders/composables/useSecretsProvidersList', () => ({
+	useSecretsProvidersList: vi.fn(() => ({
+		activeProviders: mockActiveProviders,
+		providerTypes: {
+			value: [
+				{ type: 'awsSecretsManager', displayName: 'AWS Secrets Manager' },
+				{ type: 'azureKeyVault', displayName: 'Azure Key Vault' },
+			],
+		},
+		fetchProviderTypes: vi.fn().mockResolvedValue(undefined),
+		fetchActiveConnections: vi.fn().mockResolvedValue(undefined),
+	})),
+}));
 
 const mockGetConnection = vi.fn();
 vi.mock(
-	'@/features/integrations/secretsProviders.ee/composables/useSecretsProviderConnection.ee',
+	'@/features/integrations/secretsProviders/composables/useSecretsProviderConnection',
 	() => ({
 		useSecretsProviderConnection: vi.fn(() => ({
 			getConnection: mockGetConnection,

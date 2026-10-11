@@ -89,7 +89,7 @@ const SettingsExternalSecrets = async () => {
 
 	if (moduleConfig?.multipleConnections || moduleConfig?.forProjects) {
 		return await import(
-			'@/features/integrations/secretsProviders.ee/views/SettingsSecretsProviders.ee.vue'
+			'@/features/integrations/secretsProviders/views/SettingsSecretsProviders.vue'
 		);
 	}
 
