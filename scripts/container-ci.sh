@@ -36,6 +36,13 @@ UPSTREAM_URL=https://github.com/n8n-io/n8n.git
 cd "$(git rev-parse --show-toplevel)" || exit 1
 # The repository needs Node 24. In a cloud session, this installs it when it is missing.
 . scripts/cloud-node.sh || exit 1
+# In a cloud session, NODE_EXTRA_CA_CERTS holds the CA of the egress gateway. Turbo runs tasks in
+# strict environment mode and drops that variable, but it passes NODE_OPTIONS, and the system
+# store has the same CA. Without the CA, each start of an n8n command in the tests waits about 3
+# seconds for its TLS connection to PostHog, and the command tests time out.
+if [ -n "${NODE_EXTRA_CA_CERTS:-}" ] && node --use-system-ca -e '' 2>/dev/null; then
+	export NODE_OPTIONS="${NODE_OPTIONS:+$NODE_OPTIONS }--use-system-ca"
+fi
 TURBO=./node_modules/.bin/turbo
 JANITOR=packages/cli/node_modules/.bin/janitor
 # The change analysis below needs turbo and the janitor runner. A plain `pnpm install` fails in a
