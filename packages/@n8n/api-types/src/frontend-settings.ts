@@ -451,6 +451,14 @@ export type FrontendModuleSettings = {
 		/** Whether the AI Assistant proxy is available to the agents module. */
 		proxyEnabled: boolean;
 	};
+
+	/**
+	 * Client settings for the audit log module of the fork.
+	 */
+	'audit-log'?: {
+		/** The days that the audit log keeps an event. `0` keeps all events. */
+		retentionDays: number;
+	};
 };
 
 export type N8nEnvFeatFlagValue = boolean | string | number | undefined;
