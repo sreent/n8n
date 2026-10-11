@@ -7,8 +7,8 @@ import {
 } from '@n8n/backend-test-utils';
 import {
 	ProjectRepository,
-	ProjectSecretsProviderAccessRepository,
-	SecretsProviderConnectionRepository,
+	ExternalSecretsProjectAccessRepository as ProjectSecretsProviderAccessRepository,
+	ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository,
 } from '@n8n/db';
 import { Container } from '@n8n/di';
 import { mock } from 'vitest-mock-extended';

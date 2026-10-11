@@ -12,20 +12,22 @@ This folder holds the fork's external secrets: the replacement of the enterprise
   secrets turn on by default, as SSO does.
 - Container CI leaves out the enterprise external secrets tests, as for SSO.
 
-The work comes in four pull requests:
+The work comes in five pull requests:
 
 1. The base class of the providers, the config, the provider registry, and three providers:
    HashiCorp Vault, Infisical and 1Password Connect. (Done.)
-2. The providers AWS Secrets Manager, Azure Key Vault and GCP Secrets Manager. (This pull request.)
-3. The module: the manager, the stored settings and connections, the REST APIs, the access checks,
-   the events and the two repositories of `@n8n/db`. Ordinary code then uses this folder, and
-   container CI leaves out the enterprise tests.
-4. The editor: the settings pages, the modals, the store and the REST clients.
+2. The providers AWS Secrets Manager, Azure Key Vault and GCP Secrets Manager. (Done.)
+3. The repositories of the two tables of the connections in `@n8n/db`, for ordinary code. (This
+   pull request.)
+4. The module: the manager, the stored settings and connections, the REST APIs, the access checks
+   and the events. Ordinary code then uses this folder, and container CI leaves out the enterprise
+   tests.
+5. The editor: the settings pages, the modals, the store and the REST clients.
 
-Until pull request 3, ordinary code uses the enterprise module. Only the golden tests use the files
+Until pull request 4, ordinary code uses the enterprise module. Only the golden tests use the files
 of this folder. The module registry loads `external-secrets/external-secrets.module.ts` before
 `external-secrets.ee/external-secrets.module.ts`, so this folder gets that file only in pull request
-3.
+4.
 
 ## Behaviour
 
@@ -33,7 +35,7 @@ of this folder. The module registry loads `external-secrets/external-secrets.mod
 
 | Variable | Default | Use |
 |---|---|---|
-| `N8N_EXTERNAL_SECRETS_UPDATE_INTERVAL` | 300 | How often n8n reads the secrets again, in seconds (used from pull request 3). |
+| `N8N_EXTERNAL_SECRETS_UPDATE_INTERVAL` | 300 | How often n8n reads the secrets again, in seconds (used from pull request 4). |
 | `N8N_EXTERNAL_SECRETS_CONNECT_TIMEOUT` | 20 | The maximum time of a connect, in seconds. |
 | `N8N_EXTERNAL_SECRETS_REFRESH_TIMEOUT` | 20 | The maximum time of a read of the secrets, in seconds. Vault and Infisical stop each HTTP request after the larger of the two timeouts. The other providers have no request timeout. |
 
@@ -218,6 +220,36 @@ The provider uses the GCP SDK (`@google-cloud/secret-manager`), which makes its 
   `null`), or that has a field that is not text, the original fails with a `TypeError`. The fork
   gives the `UserError` of a key without the fields.
 
+### The repositories (`@n8n/db`)
+
+`ExternalSecretsConnectionRepository` (the table `secrets_provider_connection`) and
+`ExternalSecretsProjectAccessRepository` (the table `project_secrets_provider_access`) are fork
+repositories in `@n8n/db`. Ordinary code uses them in place of the enterprise
+`SecretsProviderConnectionRepository` and `ProjectSecretsProviderAccessRepository`. It imports them
+under the names of the enterprise repositories, so only the import lines of the upstream files
+change. The enterprise module still uses the enterprise repositories: it uses more methods than
+ordinary code, and the fork does not know them.
+
+A connection without access rows is global. The queries of the connection repository:
+
+- `findIdByProviderKey(providerKey)`: the ID of the connection, as text, or `null`. A disabled
+  connection counts. The key must match exactly.
+- `findIdsByProviderKeys(providerKeys)`: the IDs of the connections with the keys, as text, each
+  ID once. Disabled connections count.
+- `findEnabledGlobalConnections({ providerKeys })`: the enabled global connections, without the
+  `projectAccess` relation.
+- `findEnabledByProjectId(projectId, { providerKeys })`: the enabled connections with an access row
+  of the project (owner or user). Each connection has only the access row of that project, with the
+  project.
+- `findAllAccessibleProviderKeysByCredentialId(credentialId)`: the provider keys of the enabled
+  global connections and of the enabled connections of the project that owns the credential
+  (`credential:owner`). A project that the credential is only shared with does not count.
+
+With `providerKeys`, a query gives only the connections with these keys. An empty list of keys
+gives an empty list without a query (an `IN ()` condition is not valid SQL for PostgreSQL). The
+original queries give no defined order: the order depends on the query plan of the database. The
+fork orders the connections by ID.
+
 ## Clean-room sources
 
 - The ordinary code: the test helper `test/shared/external-secrets/utils.ts` (the provider
@@ -226,6 +258,11 @@ The provider uses the GCP SDK (`@google-cloud/secret-manager`), which makes its 
   `ExternalSecretsProxy`, the module registry, `@n8n/backend-network`, the `@1password/connect`
   library, and the SDKs `@aws-sdk/client-secrets-manager`, `@azure/identity`,
   `@azure/keyvault-secrets` and `@google-cloud/secret-manager`.
+- For the repositories: the entities `SecretsProviderConnection` and
+  `ProjectSecretsProviderAccess`, the ordinary test
+  `test/integration/database/repositories/secrets-provider-connection.repository.test.ts`, and the
+  ordinary users `credentials-helper.ts`, `credentials/credential-dependency.service.ts` and the
+  fork's `TeamProjectRepository`.
 - The public n8n documentation: [Use external secret stores](https://docs.n8n.io/administer/manage-credentials/use-external-secret-stores.md)
   and [the environment variables](https://docs.n8n.io/deploy/host-n8n/configure-n8n/basic-configuration/use-environment-variables/external-secrets.md).
 - The public API documentation of [Vault](https://developer.hashicorp.com/vault/api-docs),
@@ -237,7 +274,11 @@ The provider uses the GCP SDK (`@google-cloud/secret-manager`), which makes its 
 - The behaviour of the original files, recorded black-box: the registry gave the names and the
   fields of the forms (the data of `GET /secret-providers/types`). Temporary probes and the golden
   tests ran the original providers against the fake servers, a fake AWS endpoint, and fakes of the
-  classes of the Azure SDK and the GCP SDK.
+  classes of the Azure SDK and the GCP SDK. The golden test of the repositories ran the queries
+  of the enterprise repositories on a fixture.
+- To find the files that use the enterprise module and the enterprise repositories, the fork took
+  them out of the type check (it moved the module folder away, or removed the two exports of
+  `@n8n/db`) and listed only the names of the files with type errors.
 
 The enterprise files and their tests were not read, and the enterprise tests were not run. The
 output of the runs with the original files was filtered to test names, counts, error headlines and
@@ -248,6 +289,14 @@ the enterprise exclusions searched `credentials.service.ee.ts` and its test for 
 output showed only matched fragments without file names, counted over all files (for example
 `state: 'connected'` and `'error'`). The fork code does not use them: the states come from the
 schemas of `@n8n/api-types` and the behaviour of the original files.
+
+There was a second slip in pull request 3: the ordinary test
+`test/integration/external-secrets/external-secrets.api.test.ts` gives the connection repository to
+the constructor of the enterprise manager. When its import used the fork repository, the type check
+reported that the fork class does not have four methods of the enterprise class, and named them
+(`findAll`, `hasGlobalProvider`, `isProviderAvailableInProject` and
+`findAllAccessibleByProjectWithProjectAccess`). The fork does not use these names. That test keeps
+the enterprise repository until pull request 4.
 
 ## The golden tests
 
@@ -278,11 +327,22 @@ The tests set the connect timeout to 1 second and the refresh timeout to 2 secon
 sets the connect timeout to 3 seconds: the retries of the SDK after a throttled request take up to
 1.5 seconds, and all requests of a connect must be in the connect step.
 
+`__tests__/repositories.integration.test.ts` runs the queries of the connection repository on a
+fixture: global and project connections, enabled and disabled ones, owner and user access, a
+personal project, and credentials with owner and user sharing. The snapshot records each result,
+with each list sorted.
+
 The snapshots were recorded twice against the original files, with the same result. The fork files
 give the same snapshots. To record them again after an upstream update: in a copy of a test, point
-the import that the test marks at the `.ee` file, run the copy with `-u`, and use its snapshot.
+the import that the test marks at the original (the `.ee` file of the module, or for the
+repositories the classes `SecretsProviderConnectionRepository` and
+`ProjectSecretsProviderAccessRepository` of `@n8n/db`), run the copy with `-u`, and use its
+snapshot.
 
 ## What stays
 
 - The enterprise module `modules/external-secrets.ee` and its tests stay. Ordinary code uses them
-  until pull request 3.
+  until pull request 4.
+- The enterprise repositories `secrets-provider-connection.repository.ee.ts` and
+  `project-secrets-provider-access.repository.ee.ts` of `@n8n/db` stay, with their exports. The
+  enterprise module uses them.

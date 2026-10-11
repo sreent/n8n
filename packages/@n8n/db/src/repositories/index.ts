@@ -145,5 +145,8 @@ export { SecretsProviderConnectionRepository } from './secrets-provider-connecti
 export { ProjectSecretsProviderAccessRepository } from './project-secrets-provider-access.repository.ee';
 // Fork: the queries of the fork's project service.
 export { TeamProjectRepository } from './team-project.repository';
+// Fork: the secrets provider connections and their project access, for ordinary code.
+export { ExternalSecretsConnectionRepository } from './external-secrets-connection.repository';
+export { ExternalSecretsProjectAccessRepository } from './external-secrets-project-access.repository';
 // Fork: the queries of the fork's sharing services.
 export { SharingRepository } from './sharing.repository';

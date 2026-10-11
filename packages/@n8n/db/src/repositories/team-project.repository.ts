@@ -2,8 +2,8 @@ import { Service } from '@n8n/di';
 import { DataSource, In } from '@n8n/typeorm';
 
 import { BaseRepository } from './base-repository';
-import { ProjectSecretsProviderAccessRepository } from './project-secrets-provider-access.repository.ee';
-import { SecretsProviderConnectionRepository } from './secrets-provider-connection.repository.ee';
+import { ExternalSecretsConnectionRepository } from './external-secrets-connection.repository';
+import { ExternalSecretsProjectAccessRepository } from './external-secrets-project-access.repository';
 import { Project, ProjectRelation } from '../entities';
 import { TransactionRunner } from '../services/transaction';
 
@@ -16,8 +16,8 @@ export class TeamProjectRepository extends BaseRepository<Project> {
 	constructor(
 		dataSource: DataSource,
 		txRunner: TransactionRunner,
-		private readonly secretsProviderConnectionRepository: SecretsProviderConnectionRepository,
-		private readonly projectSecretsProviderAccessRepository: ProjectSecretsProviderAccessRepository,
+		private readonly secretsProviderConnectionRepository: ExternalSecretsConnectionRepository,
+		private readonly projectSecretsProviderAccessRepository: ExternalSecretsProjectAccessRepository,
 	) {
 		super(Project, dataSource.manager, txRunner);
 	}
