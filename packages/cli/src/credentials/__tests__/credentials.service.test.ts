@@ -58,8 +58,8 @@ import { PolicyViolationError } from '@/policy/policy-violation.error';
 import { CredentialNotFoundError } from '@/errors/credential-not-found.error';
 import { BadRequestError, ForbiddenError } from '@n8n/errors';
 import type { ExternalHooks } from '@/external-hooks';
-import type { ExternalSecretsConfig } from '@/modules/external-secrets.ee/external-secrets.config';
-import type { SecretsProviderAccessCheckService } from '@/modules/external-secrets.ee/secret-provider-access-check.service.ee';
+import type { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
+import type { SecretsProviderAccessCheckService } from '@/modules/external-secrets/secret-provider-access-check.service';
 import {
 	DCR_MANAGED_CREDENTIAL_FIELDS,
 	type DcrManagedCredentialField,

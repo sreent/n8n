@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import { type ICredentialDataDecryptedObject } from 'n8n-workflow';
 
 import { BadRequestError } from '@n8n/errors';
-import type { SecretsProviderAccessCheckService } from '@/modules/external-secrets.ee/secret-provider-access-check.service.ee';
+import type { SecretsProviderAccessCheckService } from '@/modules/external-secrets/secret-provider-access-check.service';
 import { userHasScopes } from '@/permissions/check-access';
 
 import {
@@ -91,7 +91,10 @@ export async function validateExternalSecretsPermissions({
 export async function validateAccessToReferencedSecretProviders(
 	projectId: string,
 	data: ICredentialDataDecryptedObject,
-	externalSecretsProviderAccessCheckService: SecretsProviderAccessCheckService,
+	externalSecretsProviderAccessCheckService: Pick<
+		SecretsProviderAccessCheckService,
+		'isProviderAvailableInProject'
+	>,
 	source: 'create' | 'update' | 'transfer',
 ) {
 	if (!containsExternalSecrets(data)) {

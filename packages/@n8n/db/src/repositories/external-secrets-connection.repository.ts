@@ -29,6 +29,25 @@ export class ExternalSecretsConnectionRepository extends BaseRepository<SecretsP
 		super(SecretsProviderConnection, dataSource.manager, txRunner);
 	}
 
+	/** The connection with the provider key, with its access rows and their projects. */
+	async findWithAccessByProviderKey(providerKey: string) {
+		return await this.findOne({ where: { providerKey } });
+	}
+
+	/** All connections, with their access rows and their projects. */
+	async listWithAccess() {
+		return await this.find({ order: { id: 'ASC' } });
+	}
+
+	/** The enabled connections, without their relations. */
+	async findEnabledConnections() {
+		return await this.find({
+			where: { isEnabled: true },
+			order: { id: 'ASC' },
+			loadEagerRelations: false,
+		});
+	}
+
 	/** The ID of the connection with the provider key, as text. A disabled connection counts. */
 	async findIdByProviderKey(providerKey: string): Promise<string | null> {
 		const connection = await this.findOne({

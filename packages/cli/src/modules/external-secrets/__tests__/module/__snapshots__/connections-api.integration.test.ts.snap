@@ -1,0 +1,7524 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Connections API of external secrets > a connection whose connect fails 1`] = `
+[
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "infisicalBad",
+      "settings": {
+        "username": "u",
+      },
+      "type": "infisical",
+    },
+    "events": [
+      [
+        "create",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "create",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [],
+          "providerKey": "infisicalBad",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "infisical",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "create",
+        "infisical#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "create",
+        "infisical#1",
+        "connect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of infisicalBad>",
+        "isEnabled": true,
+        "name": "infisicalBad",
+        "projects": [],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "username": "u",
+        },
+        "state": "error",
+        "type": "infisical",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/infisicalBad",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of infisicalBad>",
+        "isEnabled": true,
+        "name": "infisicalBad",
+        "projects": [],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "username": "u",
+        },
+        "state": "error",
+        "type": "infisical",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "test",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "errorMessage": "The connect failed",
+          "isValid": false,
+          "projects": [],
+          "providerKey": "infisicalBad",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "infisical",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "test",
+        "infisical#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "test",
+        "infisical#2",
+        "connect",
+      ],
+      [
+        "test",
+        "infisical#2",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/infisicalBad/test",
+    "response": {
+      "data": {
+        "error": "The connect failed",
+        "success": false,
+        "testState": "error",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections/infisicalBad/reload",
+    "response": {
+      "data": {
+        "success": false,
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "delete",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "delete",
+        "event",
+        "external-secrets-connection-deleted",
+        {
+          "projects": [],
+          "providerKey": "infisicalBad",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "infisical",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "delete",
+        "infisical#1",
+        "disconnect",
+      ],
+    ],
+    "request": "DELETE /secret-providers/connections/infisicalBad",
+    "response": "<no body>",
+    "status": 204,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > a connection whose connect fails 2`] = `
+{
+  "proxy": {
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "password": "aws password",
+          "username": "aws user",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "other": "other one",
+          "password": "password one",
+          "username": "user one",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > a connection whose connect takes too long 1`] = `
+[
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "azureSlow",
+      "settings": {
+        "username": "u",
+      },
+      "type": "azureKeyVault",
+    },
+    "events": [
+      [
+        "create",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "create",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [],
+          "providerKey": "azureSlow",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "azureKeyVault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "create",
+        "azureKeyVault#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "create",
+        "azureKeyVault#1",
+        "connect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of azureSlow>",
+        "isEnabled": true,
+        "name": "azureSlow",
+        "projects": [],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "username": "u",
+        },
+        "state": "error",
+        "type": "azureKeyVault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/azureSlow",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of azureSlow>",
+        "isEnabled": true,
+        "name": "azureSlow",
+        "projects": [],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "username": "u",
+        },
+        "state": "error",
+        "type": "azureKeyVault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "test",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "errorMessage": "Timed out connecting after 1000ms",
+          "isValid": false,
+          "projects": [],
+          "providerKey": "azureSlow",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "azureKeyVault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "test",
+        "azureKeyVault#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "test",
+        "azureKeyVault#2",
+        "connect",
+      ],
+      [
+        "test",
+        "azureKeyVault#2",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/azureSlow/test",
+    "response": {
+      "data": {
+        "error": "Timed out connecting after 1000ms",
+        "success": false,
+        "testState": "error",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "delete",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "delete",
+        "event",
+        "external-secrets-connection-deleted",
+        {
+          "projects": [],
+          "providerKey": "azureSlow",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "azureKeyVault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "delete",
+        "azureKeyVault#1",
+        "disconnect",
+      ],
+    ],
+    "request": "DELETE /secret-providers/connections/azureSlow",
+    "response": "<no body>",
+    "status": 204,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > change the type 1`] = `
+[
+  {
+    "body": {
+      "type": "onePassword",
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "code": 400,
+      "message": "When changing the connection type, new settings must be provided as well",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "code": 400,
+      "message": "When changing the connection type, new settings must be provided as well",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "type": "other",
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "code": "invalid_enum_value",
+      "message": "Invalid enum value. Expected 'awsSecretsManager' | 'gcpSecretsManager' | 'vault' | 'azureKeyVault' | 'infisical' | 'onePassword', received 'other'",
+      "options": [
+        "awsSecretsManager",
+        "gcpSecretsManager",
+        "vault",
+        "azureKeyVault",
+        "infisical",
+        "onePassword",
+      ],
+      "path": [
+        "type",
+      ],
+      "received": "other",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "settings": {
+        "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+        "username": "one user",
+      },
+      "type": "onePassword",
+    },
+    "events": [
+      [
+        "with settings and the blanked password",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "with settings and the blanked password",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "onePassword",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "with settings and the blanked password",
+        "onePassword#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password three",
+            "username": "one user",
+          },
+        },
+      ],
+      [
+        "with settings and the blanked password",
+        "onePassword#2",
+        "connect",
+      ],
+      [
+        "with settings and the blanked password",
+        "onePassword#2",
+        "update",
+      ],
+      [
+        "with settings and the blanked password",
+        "vault#14",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "one user",
+        },
+        "state": "connected",
+        "type": "onePassword",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "one user",
+        },
+        "state": "connected",
+        "type": "onePassword",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > change the type 2`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "username": "aws user two",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password three",
+          "username": "one user",
+        },
+        "type": "onePassword",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > change the type 3`] = `
+[
+  {
+    "body": {
+      "settings": {
+        "password": "password three",
+        "username": "user three",
+      },
+      "type": "vault",
+    },
+    "events": [
+      [
+        "back with settings",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "back with settings",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "back with settings",
+        "vault#15",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "back with settings",
+        "vault#15",
+        "connect",
+      ],
+      [
+        "back with settings",
+        "vault#15",
+        "update",
+      ],
+      [
+        "back with settings",
+        "onePassword#2",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user three",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > change the type 4`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "username": "aws user two",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password three",
+          "username": "user three",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > create a connection of two projects 1`] = `
+{
+  "create": {
+    "body": {
+      "projectIds": [
+        "@P1",
+        "@P2",
+      ],
+      "providerKey": "awsTwo",
+      "settings": {
+        "password": "aws password",
+        "username": "aws user",
+      },
+      "type": "awsSecretsManager",
+    },
+    "events": [
+      [
+        "create",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "create",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+            {
+              "id": "@P2",
+              "name": "Project Two",
+            },
+          ],
+          "providerKey": "awsTwo",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "awsSecretsManager",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "create",
+        "awsSecretsManager#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "aws password",
+            "username": "aws user",
+          },
+        },
+      ],
+      [
+        "create",
+        "awsSecretsManager#1",
+        "connect",
+      ],
+      [
+        "create",
+        "awsSecretsManager#1",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of awsTwo>",
+        "isEnabled": true,
+        "name": "awsTwo",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+          {
+            "id": "@P2",
+            "name": "Project Two",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [
+          {
+            "name": "awsSecret",
+          },
+        ],
+        "secretsCount": 1,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "aws user",
+        },
+        "state": "connected",
+        "type": "awsSecretsManager",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  "list": {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections",
+    "response": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id of vaultOne>",
+          "isEnabled": true,
+          "name": "vaultOne",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of awsTwo>",
+          "isEnabled": true,
+          "name": "awsTwo",
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+              "role": "secretsProviderConnection:user",
+            },
+            {
+              "id": "@P2",
+              "name": "Project Two",
+              "role": "secretsProviderConnection:user",
+            },
+          ],
+          "secretsCount": 1,
+          "state": "connected",
+          "type": "awsSecretsManager",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  "proxy": {
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "password": "aws password",
+          "username": "aws user",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "other": "other one",
+          "password": "password one",
+          "username": "user one",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > create a global connection 1`] = `
+{
+  "create": {
+    "body": {
+      "projectIds": [],
+      "providerKey": "vaultOne",
+      "settings": {
+        "other": "other one",
+        "password": "password one",
+        "username": "user one",
+      },
+      "type": "vault",
+    },
+    "events": [
+      [
+        "create",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "create",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "create",
+        "vault#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "other": "other one",
+            "password": "password one",
+            "username": "user one",
+          },
+        },
+      ],
+      [
+        "create",
+        "vault#1",
+        "connect",
+      ],
+      [
+        "create",
+        "vault#1",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "other": "other one",
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user one",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  "proxy": {
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "other": "other one",
+          "password": "password one",
+          "username": "user one",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > create connections whose provider fails 1`] = `
+[
+  {
+    "body": {
+      "projectIds": [
+        "@P1",
+      ],
+      "providerKey": "gcpBad",
+      "settings": {
+        "username": "u",
+      },
+      "type": "gcpSecretsManager",
+    },
+    "events": [
+      [
+        "init fails",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "init fails",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "gcpBad",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "gcpSecretsManager",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "init fails",
+        "gcpSecretsManager#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of gcpBad>",
+        "isEnabled": true,
+        "name": "gcpBad",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "username": "u",
+        },
+        "state": "initializing",
+        "type": "gcpSecretsManager",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "onePassBad",
+      "settings": {
+        "password": "p",
+        "username": "u",
+      },
+      "type": "onePassword",
+    },
+    "events": [
+      [
+        "test fails",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "test fails",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [],
+          "providerKey": "onePassBad",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "onePassword",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "test fails",
+        "onePassword#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "p",
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "test fails",
+        "onePassword#1",
+        "connect",
+      ],
+      [
+        "test fails",
+        "onePassword#1",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of onePassBad>",
+        "isEnabled": true,
+        "name": "onePassBad",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "u",
+        },
+        "state": "connected",
+        "type": "onePassword",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > create connections whose provider fails 2`] = `
+{
+  "proxy": {
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "password": "aws password",
+          "username": "aws user",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "other": "other one",
+          "password": "password one",
+          "username": "user one",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > delete connections 1`] = `
+[
+  {
+    "events": [
+      [
+        "a project connection",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "a project connection",
+        "event",
+        "external-secrets-connection-deleted",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+            {
+              "id": "@P2",
+              "name": "Project Two",
+            },
+          ],
+          "providerKey": "awsTwo",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "awsSecretsManager",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "a project connection",
+        "awsSecretsManager#4",
+        "disconnect",
+      ],
+    ],
+    "request": "DELETE /secret-providers/connections/awsTwo",
+    "response": "<no body>",
+    "status": 204,
+  },
+  {
+    "events": [
+      [
+        "a global connection",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "a global connection",
+        "event",
+        "external-secrets-connection-deleted",
+        {
+          "projects": [],
+          "providerKey": "onePassBad",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "onePassword",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "a global connection",
+        "onePassword#1",
+        "disconnect",
+      ],
+    ],
+    "request": "DELETE /secret-providers/connections/onePassBad",
+    "response": "<no body>",
+    "status": 204,
+  },
+  {
+    "events": [
+      [
+        "a connection whose init failed",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "a connection whose init failed",
+        "event",
+        "external-secrets-connection-deleted",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "gcpBad",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "gcpSecretsManager",
+        },
+      ],
+    ],
+    "providers": [],
+    "request": "DELETE /secret-providers/connections/gcpBad",
+    "response": "<no body>",
+    "status": 204,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "DELETE /secret-providers/connections/awsTwo",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "awsTwo" not found",
+    },
+    "status": 404,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections",
+    "response": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id of vaultOne>",
+          "isEnabled": true,
+          "name": "vaultOne",
+          "projects": [],
+          "secretsCount": 1,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of VAULTONE>",
+          "isEnabled": true,
+          "name": "VAULTONE",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>",
+          "isEnabled": true,
+          "name": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of missingProject>",
+          "isEnabled": true,
+          "name": "missingProject",
+          "projects": [],
+          "secretsCount": 0,
+          "state": "initializing",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of sameProjectTwice>",
+          "isEnabled": true,
+          "name": "sameProjectTwice",
+          "projects": [],
+          "secretsCount": 0,
+          "state": "initializing",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of personalProject>",
+          "isEnabled": true,
+          "name": "personalProject",
+          "projects": [
+            {
+              "id": "@personal",
+              "name": "Personal",
+              "role": "secretsProviderConnection:user",
+            },
+          ],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of moreFields>",
+          "isEnabled": true,
+          "name": "moreFields",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > delete connections 2`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "changed": "changed value",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password three",
+          "username": "user three",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > disable and enable a connection 1`] = `
+[
+  {
+    "body": {
+      "isEnabled": false,
+    },
+    "events": [
+      [
+        "disable",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "disable",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+            {
+              "id": "@P2",
+              "name": "Project Two",
+            },
+          ],
+          "providerKey": "awsTwo",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "awsSecretsManager",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "disable",
+        "awsSecretsManager#1",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/awsTwo",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of awsTwo>",
+        "isEnabled": false,
+        "name": "awsTwo",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+          {
+            "id": "@P2",
+            "name": "Project Two",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "aws user",
+        },
+        "state": "initializing",
+        "type": "awsSecretsManager",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/awsTwo",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of awsTwo>",
+        "isEnabled": false,
+        "name": "awsTwo",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+          {
+            "id": "@P2",
+            "name": "Project Two",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "aws user",
+        },
+        "state": "initializing",
+        "type": "awsSecretsManager",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > disable and enable a connection 2`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": false,
+        "providerKey": "awsTwo",
+        "settings": {
+          "password": "aws password",
+          "username": "aws user",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password three",
+          "username": "user three",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > disable and enable a connection 3`] = `
+[
+  {
+    "body": {
+      "isEnabled": false,
+    },
+    "events": [
+      [
+        "disable again",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "disable again",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+            {
+              "id": "@P2",
+              "name": "Project Two",
+            },
+          ],
+          "providerKey": "awsTwo",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "awsSecretsManager",
+        },
+      ],
+    ],
+    "providers": [],
+    "request": "PATCH /secret-providers/connections/awsTwo",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of awsTwo>",
+        "isEnabled": false,
+        "name": "awsTwo",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+          {
+            "id": "@P2",
+            "name": "Project Two",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "aws user",
+        },
+        "state": "initializing",
+        "type": "awsSecretsManager",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "settings": {
+        "username": "aws user two",
+      },
+    },
+    "events": [
+      [
+        "change a disabled connection",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "change a disabled connection",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+            {
+              "id": "@P2",
+              "name": "Project Two",
+            },
+          ],
+          "providerKey": "awsTwo",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "awsSecretsManager",
+        },
+      ],
+    ],
+    "providers": [],
+    "request": "PATCH /secret-providers/connections/awsTwo",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of awsTwo>",
+        "isEnabled": false,
+        "name": "awsTwo",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+          {
+            "id": "@P2",
+            "name": "Project Two",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "username": "aws user two",
+        },
+        "state": "initializing",
+        "type": "awsSecretsManager",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "isEnabled": true,
+    },
+    "events": [
+      [
+        "enable",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "enable",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+            {
+              "id": "@P2",
+              "name": "Project Two",
+            },
+          ],
+          "providerKey": "awsTwo",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "awsSecretsManager",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "enable",
+        "awsSecretsManager#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "aws user two",
+          },
+        },
+      ],
+      [
+        "enable",
+        "awsSecretsManager#2",
+        "connect",
+      ],
+      [
+        "enable",
+        "awsSecretsManager#2",
+        "update",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/awsTwo",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of awsTwo>",
+        "isEnabled": true,
+        "name": "awsTwo",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+          {
+            "id": "@P2",
+            "name": "Project Two",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [
+          {
+            "name": "awsSecret",
+          },
+        ],
+        "secretsCount": 1,
+        "settings": {
+          "username": "aws user two",
+        },
+        "state": "connected",
+        "type": "awsSecretsManager",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/awsTwo",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of awsTwo>",
+        "isEnabled": true,
+        "name": "awsTwo",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+          {
+            "id": "@P2",
+            "name": "Project Two",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [
+          {
+            "name": "awsSecret",
+          },
+        ],
+        "secretsCount": 1,
+        "settings": {
+          "username": "aws user two",
+        },
+        "state": "connected",
+        "type": "awsSecretsManager",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > disable and enable a connection 4`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "username": "aws user two",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password three",
+          "username": "user three",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > in the mode with multiple connections only 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections",
+    "response": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id of vaultOne>",
+          "isEnabled": true,
+          "name": "vaultOne",
+          "projects": [],
+          "secretsCount": 1,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of VAULTONE>",
+          "isEnabled": true,
+          "name": "VAULTONE",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>",
+          "isEnabled": true,
+          "name": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of missingProject>",
+          "isEnabled": true,
+          "name": "missingProject",
+          "projects": [],
+          "secretsCount": 0,
+          "state": "initializing",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of sameProjectTwice>",
+          "isEnabled": true,
+          "name": "sameProjectTwice",
+          "projects": [],
+          "secretsCount": 0,
+          "state": "initializing",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of personalProject>",
+          "isEnabled": true,
+          "name": "personalProject",
+          "projects": [
+            {
+              "id": "@personal",
+              "name": "Personal",
+              "role": "secretsProviderConnection:user",
+            },
+          ],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of moreFields>",
+          "isEnabled": true,
+          "name": "moreFields",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of noLicence>",
+          "isEnabled": true,
+          "name": "noLicence",
+          "projects": [],
+          "secretsCount": 1,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "projectIds": [
+        "@P1",
+      ],
+      "providerKey": "multipleMode",
+      "settings": {
+        "username": "m",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": 403,
+      "message": "Tried to create a project-scoped external secret connection without feature flag enabled",
+    },
+    "status": 403,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/multipleMode",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "multipleMode" not found",
+    },
+    "status": 404,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "DELETE /secret-providers/connections/multipleMode",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "multipleMode" not found",
+    },
+    "status": 404,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/@P1/connections",
+    "response": {
+      "code": 403,
+      "message": "External secrets for projects feature is not enabled",
+    },
+    "status": 403,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "multipleProject",
+      "settings": {
+        "username": "m",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/projects/@P1/connections",
+    "response": {
+      "code": 403,
+      "message": "External secrets for projects feature is not enabled",
+    },
+    "status": 403,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/types",
+    "response": {
+      "data": [
+        {
+          "displayName": "Vault",
+          "icon": "vault",
+          "properties": [
+            {
+              "default": "",
+              "displayName": "Username",
+              "name": "username",
+              "required": true,
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Other",
+              "name": "other",
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Password",
+              "name": "password",
+              "type": "string",
+              "typeOptions": {
+                "password": true,
+              },
+            },
+          ],
+          "type": "vault",
+        },
+        {
+          "displayName": "AWS Secrets Manager",
+          "icon": "awsSecretsManager",
+          "properties": [
+            {
+              "default": "",
+              "displayName": "Username",
+              "name": "username",
+              "required": true,
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Other",
+              "name": "other",
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Password",
+              "name": "password",
+              "type": "string",
+              "typeOptions": {
+                "password": true,
+              },
+            },
+          ],
+          "type": "awsSecretsManager",
+        },
+        {
+          "displayName": "Infisical",
+          "icon": "infisical",
+          "properties": [
+            {
+              "default": "",
+              "displayName": "Username",
+              "name": "username",
+              "required": true,
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Other",
+              "name": "other",
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Password",
+              "name": "password",
+              "type": "string",
+              "typeOptions": {
+                "password": true,
+              },
+            },
+          ],
+          "type": "infisical",
+        },
+        {
+          "displayName": "1Password",
+          "icon": "onePassword",
+          "properties": [
+            {
+              "default": "",
+              "displayName": "Username",
+              "name": "username",
+              "required": true,
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Other",
+              "name": "other",
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Password",
+              "name": "password",
+              "type": "string",
+              "typeOptions": {
+                "password": true,
+              },
+            },
+          ],
+          "type": "onePassword",
+        },
+        {
+          "displayName": "GCP Secrets Manager",
+          "icon": "gcpSecretsManager",
+          "properties": [
+            {
+              "default": "",
+              "displayName": "Username",
+              "name": "username",
+              "required": true,
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Other",
+              "name": "other",
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Password",
+              "name": "password",
+              "type": "string",
+              "typeOptions": {
+                "password": true,
+              },
+            },
+          ],
+          "type": "gcpSecretsManager",
+        },
+        {
+          "displayName": "Azure Key Vault",
+          "icon": "azureKeyVault",
+          "properties": [
+            {
+              "default": "",
+              "displayName": "Username",
+              "name": "username",
+              "required": true,
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Other",
+              "name": "other",
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Password",
+              "name": "password",
+              "type": "string",
+              "typeOptions": {
+                "password": true,
+              },
+            },
+          ],
+          "type": "azureKeyVault",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/completions/secrets/global",
+    "response": {
+      "data": {
+        "VAULTONE": [
+          "first",
+          "second",
+        ],
+        "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": [
+          "first",
+          "second",
+        ],
+        "moreFields": [
+          "first",
+          "second",
+        ],
+        "noLicence": [
+          "changed",
+        ],
+        "vaultOne": [
+          "changed",
+        ],
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/completions/secrets/project/@P1",
+    "response": {
+      "code": 403,
+      "message": "External secrets for projects feature is not enabled",
+    },
+    "status": 403,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > in the mode without connections 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections",
+    "response": {
+      "code": 403,
+      "message": "Requested beta external secret endpoint without feature flag enabled",
+    },
+    "status": 403,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/vaultOne",
+    "response": {
+      "code": 403,
+      "message": "Requested beta external secret endpoint without feature flag enabled",
+    },
+    "status": 403,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "settingsMode",
+      "settings": {
+        "username": "s",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": 403,
+      "message": "Requested beta external secret endpoint without feature flag enabled",
+    },
+    "status": 403,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections/vaultOne/test",
+    "response": {
+      "code": 403,
+      "message": "Requested beta external secret endpoint without feature flag enabled",
+    },
+    "status": 403,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections/vaultOne/reload",
+    "response": {
+      "code": 403,
+      "message": "Requested beta external secret endpoint without feature flag enabled",
+    },
+    "status": 403,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "DELETE /secret-providers/connections/settingsMode",
+    "response": {
+      "code": 403,
+      "message": "Requested beta external secret endpoint without feature flag enabled",
+    },
+    "status": 403,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/@P1/connections",
+    "response": {
+      "code": 403,
+      "message": "External secrets for projects feature is not enabled",
+    },
+    "status": 403,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/types",
+    "response": {
+      "code": 403,
+      "message": "Requested beta external secret endpoint without feature flag enabled",
+    },
+    "status": 403,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/completions/secrets/global",
+    "response": {
+      "code": 403,
+      "message": "External secrets multiple connections feature is not enabled",
+    },
+    "status": 403,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/completions/secrets/project/@P1",
+    "response": {
+      "code": 403,
+      "message": "External secrets for projects feature is not enabled",
+    },
+    "status": 403,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > in the mode without connections 2`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "noLicence": {
+      "changed": "changed value",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "changed": "changed value",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "noLicence",
+        "settings": {},
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password three",
+          "username": "user three",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > in the multi-main mode 1`] = `
+[
+  {
+    "body": {
+      "projectIds": [
+        "@P1",
+      ],
+      "providerKey": "multiMain",
+      "settings": {
+        "username": "multi",
+      },
+      "type": "vault",
+    },
+    "events": [
+      [
+        "create",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "create",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "multiMain",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "create",
+        "vault#23",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "multi",
+          },
+        },
+      ],
+      [
+        "create",
+        "vault#23",
+        "connect",
+      ],
+      [
+        "create",
+        "vault#23",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of multiMain>",
+        "isEnabled": true,
+        "name": "multiMain",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [
+          {
+            "name": "changed",
+          },
+        ],
+        "secretsCount": 1,
+        "settings": {
+          "username": "multi",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "settings": {
+        "username": "multi 2",
+      },
+    },
+    "events": [
+      [
+        "update",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "update",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "multiMain",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "update",
+        "vault#24",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "multi 2",
+          },
+        },
+      ],
+      [
+        "update",
+        "vault#24",
+        "connect",
+      ],
+      [
+        "update",
+        "vault#24",
+        "update",
+      ],
+      [
+        "update",
+        "vault#23",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/multiMain",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of multiMain>",
+        "isEnabled": true,
+        "name": "multiMain",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [
+          {
+            "name": "changed",
+          },
+        ],
+        "secretsCount": 1,
+        "settings": {
+          "username": "multi 2",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "isEnabled": false,
+    },
+    "events": [
+      [
+        "disable",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "disable",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "multiMain",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "disable",
+        "vault#24",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/multiMain",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of multiMain>",
+        "isEnabled": false,
+        "name": "multiMain",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "username": "multi 2",
+        },
+        "state": "initializing",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "isEnabled": true,
+    },
+    "events": [
+      [
+        "enable",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "enable",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "multiMain",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "enable",
+        "vault#25",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "multi 2",
+          },
+        },
+      ],
+      [
+        "enable",
+        "vault#25",
+        "connect",
+      ],
+      [
+        "enable",
+        "vault#25",
+        "update",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/multiMain",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of multiMain>",
+        "isEnabled": true,
+        "name": "multiMain",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [
+          {
+            "name": "changed",
+          },
+        ],
+        "secretsCount": 1,
+        "settings": {
+          "username": "multi 2",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "test",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "isValid": true,
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "multiMain",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "test",
+        "vault#26",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "multi 2",
+          },
+        },
+      ],
+      [
+        "test",
+        "vault#26",
+        "connect",
+      ],
+      [
+        "test",
+        "vault#26",
+        "test",
+      ],
+      [
+        "test",
+        "vault#26",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/multiMain/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "reload",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "reload",
+        "event",
+        "external-secrets-provider-reloaded",
+        {
+          "vaultType": "multiMain",
+        },
+      ],
+      [
+        "reload",
+        "event",
+        "external-secrets-connection-reloaded",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "multiMain",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "reload",
+        "vault#25",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/multiMain/reload",
+    "response": {
+      "data": {
+        "success": true,
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "delete",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "delete",
+        "event",
+        "external-secrets-connection-deleted",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "multiMain",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "delete",
+        "vault#25",
+        "disconnect",
+      ],
+    ],
+    "request": "DELETE /secret-providers/connections/multiMain",
+    "response": "<no body>",
+    "status": 204,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > invalid input of a create 1`] = `
+[
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "vaultOne",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": 400,
+      "message": "Connection with key "vaultOne" already exists",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "VAULTONE",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [
+      [
+        "a key that exists in other case",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "a key that exists in other case",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [],
+          "providerKey": "VAULTONE",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "a key that exists in other case",
+        "vault#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "a key that exists in other case",
+        "vault#2",
+        "connect",
+      ],
+      [
+        "a key that exists in other case",
+        "vault#2",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of VAULTONE>",
+        "isEnabled": true,
+        "name": "VAULTONE",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "username": "u",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "1vault",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": "invalid_string",
+      "message": "Invalid",
+      "path": [
+        "providerKey",
+      ],
+      "validation": "regex",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "with-dash",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": "invalid_string",
+      "message": "Invalid",
+      "path": [
+        "providerKey",
+      ],
+      "validation": "regex",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": "too_small",
+      "exact": false,
+      "inclusive": true,
+      "message": "String must contain at least 1 character(s)",
+      "minimum": 1,
+      "path": [
+        "providerKey",
+      ],
+      "type": "string",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": "too_big",
+      "exact": false,
+      "inclusive": true,
+      "maximum": 128,
+      "message": "String must contain at most 128 character(s)",
+      "path": [
+        "providerKey",
+      ],
+      "type": "string",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [
+      [
+        "a key of 128 characters",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "a key of 128 characters",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [],
+          "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "a key of 128 characters",
+        "vault#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "a key of 128 characters",
+        "vault#3",
+        "connect",
+      ],
+      [
+        "a key of 128 characters",
+        "vault#3",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>",
+        "isEnabled": true,
+        "name": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "username": "u",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "unknownType",
+      "settings": {
+        "username": "u",
+      },
+      "type": "other",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": "invalid_enum_value",
+      "message": "Invalid enum value. Expected 'awsSecretsManager' | 'gcpSecretsManager' | 'vault' | 'azureKeyVault' | 'infisical' | 'onePassword', received 'other'",
+      "options": [
+        "awsSecretsManager",
+        "gcpSecretsManager",
+        "vault",
+        "azureKeyVault",
+        "infisical",
+        "onePassword",
+      ],
+      "path": [
+        "type",
+      ],
+      "received": "other",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "providerKey": "noProjects",
+      "settings": {},
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": "invalid_type",
+      "expected": "array",
+      "message": "Required",
+      "path": [
+        "projectIds",
+      ],
+      "received": "undefined",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "projectIds": [
+        "missing-project",
+      ],
+      "providerKey": "missingProject",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": 0,
+      "message": "SQLITE_CONSTRAINT: FOREIGN KEY constraint failed",
+    },
+    "status": 500,
+  },
+  {
+    "body": {
+      "projectIds": [
+        "@P2",
+        "@P2",
+      ],
+      "providerKey": "sameProjectTwice",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": 0,
+      "message": "There is already an entry with this name",
+    },
+    "status": 500,
+  },
+  {
+    "body": {
+      "projectIds": [
+        "@personal",
+      ],
+      "providerKey": "personalProject",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [
+      [
+        "a personal project",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "a personal project",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [
+            {
+              "id": "@personal",
+              "name": "Personal",
+            },
+          ],
+          "providerKey": "personalProject",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "a personal project",
+        "vault#4",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "a personal project",
+        "vault#4",
+        "connect",
+      ],
+      [
+        "a personal project",
+        "vault#4",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of personalProject>",
+        "isEnabled": true,
+        "name": "personalProject",
+        "projects": [
+          {
+            "id": "@personal",
+            "name": "Personal",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "username": "u",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "noSettings",
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": "invalid_type",
+      "expected": "object",
+      "message": "Required",
+      "path": [
+        "settings",
+      ],
+      "received": "undefined",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "settingsList",
+      "settings": [
+        "a",
+      ],
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "code": "invalid_type",
+      "expected": "object",
+      "message": "Expected object, received array",
+      "path": [
+        "settings",
+      ],
+      "received": "array",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "id": "my id",
+      "isEnabled": false,
+      "projectIds": [],
+      "providerKey": "moreFields",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    "events": [
+      [
+        "more fields",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "more fields",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [],
+          "providerKey": "moreFields",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "more fields",
+        "vault#5",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "more fields",
+        "vault#5",
+        "connect",
+      ],
+      [
+        "more fields",
+        "vault#5",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of moreFields>",
+        "isEnabled": true,
+        "name": "moreFields",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "username": "u",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > invalid input of a create 2`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "password": "aws password",
+          "username": "aws user",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "other": "other one",
+          "password": "password one",
+          "username": "user one",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > invalid input of an update 1`] = `
+[
+  {
+    "body": {
+      "isEnabled": true,
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/connections/missing",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "missing" not found",
+    },
+    "status": 404,
+  },
+  {
+    "body": {
+      "isEnabled": "yes",
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "code": "invalid_type",
+      "expected": "boolean",
+      "message": "Expected boolean, received string",
+      "path": [
+        "isEnabled",
+      ],
+      "received": "string",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "settings": "text",
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "code": "invalid_type",
+      "expected": "object",
+      "message": "Expected object, received string",
+      "path": [
+        "settings",
+      ],
+      "received": "string",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "providerKey": "renamed",
+    },
+    "events": [
+      [
+        "a new key",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "a new key",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "a new key",
+        "vault#16",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "a new key",
+        "vault#16",
+        "connect",
+      ],
+      [
+        "a new key",
+        "vault#16",
+        "update",
+      ],
+      [
+        "a new key",
+        "vault#15",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user three",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > invalid input of an update 2`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "username": "aws user two",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password three",
+          "username": "user three",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > reload a connection 1`] = `
+[
+  {
+    "events": [
+      [
+        "reload",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "reload",
+        "event",
+        "external-secrets-provider-reloaded",
+        {
+          "vaultType": "vaultOne",
+        },
+      ],
+      [
+        "reload",
+        "event",
+        "external-secrets-connection-reloaded",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "reload",
+        "vault#16",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/vaultOne/reload",
+    "response": {
+      "data": {
+        "success": true,
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "changed",
+          },
+        ],
+        "secretsCount": 1,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user three",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > reload a connection 2`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "changed": "changed value",
+    },
+  },
+}
+`;
+
+exports[`Connections API of external secrets > reload a connection 3`] = `
+[
+  {
+    "events": [],
+    "providers": [
+      [
+        "whose update fails",
+        "vault#16",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/vaultOne/reload",
+    "response": {
+      "data": {
+        "success": false,
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections/gcpBad/reload",
+    "response": {
+      "code": 404,
+      "message": "Provider "gcpBad" not found",
+    },
+    "status": 404,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections/missing/reload",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "missing" not found",
+    },
+    "status": 404,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > reload a connection 4`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "changed": "changed value",
+    },
+  },
+}
+`;
+
+exports[`Connections API of external secrets > reload a connection 5`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections/awsTwo/reload",
+    "response": {
+      "code": 404,
+      "message": "Provider "awsTwo" not found",
+    },
+    "status": 404,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > startup 1`] = `
+{
+  "events": [],
+  "providers": [],
+  "proxy": {},
+  "stored": {
+    "access": [],
+    "connections": [],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > test a connection 1`] = `
+[
+  {
+    "events": [
+      [
+        "with no body",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "isValid": true,
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "with no body",
+        "vault#17",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "with no body",
+        "vault#17",
+        "connect",
+      ],
+      [
+        "with no body",
+        "vault#17",
+        "test",
+      ],
+      [
+        "with no body",
+        "vault#17",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/vaultOne/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "password": "tested password",
+      "username": "tested user",
+    },
+    "events": [
+      [
+        "with settings",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "isValid": true,
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "with settings",
+        "vault#18",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "with settings",
+        "vault#18",
+        "connect",
+      ],
+      [
+        "with settings",
+        "vault#18",
+        "test",
+      ],
+      [
+        "with settings",
+        "vault#18",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/vaultOne/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+      "username": "tested user",
+    },
+    "events": [
+      [
+        "with the blanked password",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "isValid": true,
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "with the blanked password",
+        "vault#19",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "with the blanked password",
+        "vault#19",
+        "connect",
+      ],
+      [
+        "with the blanked password",
+        "vault#19",
+        "test",
+      ],
+      [
+        "with the blanked password",
+        "vault#19",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/vaultOne/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "whose test fails",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "errorMessage": "The test failed",
+          "isValid": false,
+          "projects": [],
+          "providerKey": "onePassBad",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "onePassword",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "whose test fails",
+        "onePassword#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "password": "p",
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "whose test fails",
+        "onePassword#3",
+        "connect",
+      ],
+      [
+        "whose test fails",
+        "onePassword#3",
+        "test",
+      ],
+      [
+        "whose test fails",
+        "onePassword#3",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/onePassBad/test",
+    "response": {
+      "data": {
+        "error": "The test failed",
+        "success": false,
+        "testState": "error",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "whose init fails",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "isValid": false,
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "gcpBad",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "gcpSecretsManager",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "whose init fails",
+        "gcpSecretsManager#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+    ],
+    "request": "POST /secret-providers/connections/gcpBad/test",
+    "response": {
+      "data": {
+        "success": false,
+        "testState": "error",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "a disabled connection",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "isValid": true,
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+            {
+              "id": "@P2",
+              "name": "Project Two",
+            },
+          ],
+          "providerKey": "awsTwo",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "awsSecretsManager",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "a disabled connection",
+        "awsSecretsManager#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "aws user two",
+          },
+        },
+      ],
+      [
+        "a disabled connection",
+        "awsSecretsManager#3",
+        "connect",
+      ],
+      [
+        "a disabled connection",
+        "awsSecretsManager#3",
+        "test",
+      ],
+      [
+        "a disabled connection",
+        "awsSecretsManager#3",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/awsTwo/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/connections/missing/test",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "missing" not found",
+    },
+    "status": 404,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > test a connection 2`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "username": "aws user two",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password three",
+          "username": "user three",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > the access of each role 1`] = `
+{
+  "admin DELETE /secret-providers/connections/byRole": {
+    "events": [
+      [
+        "admin",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "admin",
+        "event",
+        "external-secrets-connection-deleted",
+        {
+          "projects": [],
+          "providerKey": "byRole",
+          "userId": "@admin",
+          "userRole": "global:admin",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "status": 204,
+  },
+  "admin GET /secret-providers/connections": {
+    "events": [],
+    "status": 200,
+  },
+  "admin GET /secret-providers/connections/vaultOne": {
+    "events": [],
+    "status": 200,
+  },
+  "admin PATCH /secret-providers/connections/byRole": {
+    "events": [
+      [
+        "admin",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "admin",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [],
+          "providerKey": "byRole",
+          "userId": "@admin",
+          "userRole": "global:admin",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "status": 200,
+  },
+  "admin POST /secret-providers/connections": {
+    "events": [
+      [
+        "admin",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "admin",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [],
+          "providerKey": "byRole",
+          "userId": "@admin",
+          "userRole": "global:admin",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "status": 200,
+  },
+  "admin POST /secret-providers/connections/byRole/reload": {
+    "events": [
+      [
+        "admin",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "admin",
+        "event",
+        "external-secrets-provider-reloaded",
+        {
+          "vaultType": "byRole",
+        },
+      ],
+      [
+        "admin",
+        "event",
+        "external-secrets-connection-reloaded",
+        {
+          "projects": [],
+          "providerKey": "byRole",
+          "userId": "@admin",
+          "userRole": "global:admin",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "status": 200,
+  },
+  "admin POST /secret-providers/connections/byRole/test": {
+    "events": [
+      [
+        "admin",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "isValid": true,
+          "projects": [],
+          "providerKey": "byRole",
+          "userId": "@admin",
+          "userRole": "global:admin",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "status": 200,
+  },
+  "member DELETE /secret-providers/connections/byRole": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member GET /secret-providers/connections": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member GET /secret-providers/connections/vaultOne": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member PATCH /secret-providers/connections/byRole": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member POST /secret-providers/connections": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member POST /secret-providers/connections/byRole/reload": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member POST /secret-providers/connections/byRole/test": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+}
+`;
+
+exports[`Connections API of external secrets > the access of each role 2`] = `
+{
+  "access": [
+    {
+      "connection": "awsTwo",
+      "projectId": "@P1",
+      "role": "secretsProviderConnection:user",
+    },
+    {
+      "connection": "awsTwo",
+      "projectId": "@P2",
+      "role": "secretsProviderConnection:user",
+    },
+    {
+      "connection": "gcpBad",
+      "projectId": "@P1",
+      "role": "secretsProviderConnection:user",
+    },
+    {
+      "connection": "personalProject",
+      "projectId": "@personal",
+      "role": "secretsProviderConnection:user",
+    },
+  ],
+  "connections": [
+    {
+      "isEnabled": true,
+      "providerKey": "VAULTONE",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "awsTwo",
+      "settings": {
+        "username": "aws user two",
+      },
+      "type": "awsSecretsManager",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "gcpBad",
+      "settings": {
+        "username": "u",
+      },
+      "type": "gcpSecretsManager",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "missingProject",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "moreFields",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "onePassBad",
+      "settings": {
+        "password": "p",
+        "username": "u",
+      },
+      "type": "onePassword",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "personalProject",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "sameProjectTwice",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "vaultOne",
+      "settings": {
+        "password": "password three",
+        "username": "user three",
+      },
+      "type": "vault",
+    },
+  ],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {},
+}
+`;
+
+exports[`Connections API of external secrets > the connection after the create 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections",
+    "response": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id of vaultOne>",
+          "isEnabled": true,
+          "name": "vaultOne",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "other": "other one",
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user one",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/secrets",
+    "response": {
+      "data": {
+        "vaultOne": [
+          "first",
+          "second",
+        ],
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers",
+    "response": {
+      "data": [
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "Vault",
+          "icon": "vault",
+          "name": "vault",
+          "state": "initializing",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "AWS Secrets Manager",
+          "icon": "awsSecretsManager",
+          "name": "awsSecretsManager",
+          "state": "initializing",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "Infisical",
+          "icon": "infisical",
+          "name": "infisical",
+          "state": "initializing",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "1Password",
+          "icon": "onePassword",
+          "name": "onePassword",
+          "state": "initializing",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "GCP Secrets Manager",
+          "icon": "gcpSecretsManager",
+          "name": "gcpSecretsManager",
+          "state": "initializing",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "Azure Key Vault",
+          "icon": "azureKeyVault",
+          "name": "azureKeyVault",
+          "state": "initializing",
+        },
+      ],
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > the list before any connection 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections",
+    "response": {
+      "data": [],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/missing",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "missing" not found",
+    },
+    "status": 404,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > update the projects 1`] = `
+[
+  {
+    "body": {
+      "projectIds": [
+        "@P1",
+      ],
+    },
+    "events": [
+      [
+        "to one project",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "to one project",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "to one project",
+        "vault#12",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "to one project",
+        "vault#12",
+        "connect",
+      ],
+      [
+        "to one project",
+        "vault#12",
+        "update",
+      ],
+      [
+        "to one project",
+        "vault#11",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user three",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "projectIds": [
+        "@P2",
+        "@P1",
+      ],
+    },
+    "events": [
+      [
+        "to two projects",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "to two projects",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+            {
+              "id": "@P2",
+              "name": "Project Two",
+            },
+          ],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "to two projects",
+        "vault#13",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "to two projects",
+        "vault#13",
+        "connect",
+      ],
+      [
+        "to two projects",
+        "vault#13",
+        "update",
+      ],
+      [
+        "to two projects",
+        "vault#12",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+          {
+            "id": "@P2",
+            "name": "Project Two",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user three",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "projectIds": [],
+    },
+    "events": [
+      [
+        "to global",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "to global",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "to global",
+        "vault#14",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "to global",
+        "vault#14",
+        "connect",
+      ],
+      [
+        "to global",
+        "vault#14",
+        "update",
+      ],
+      [
+        "to global",
+        "vault#13",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user three",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "projectIds": [
+        "missing-project",
+      ],
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "code": 0,
+      "message": "SQLITE_CONSTRAINT: FOREIGN KEY constraint failed",
+    },
+    "status": 500,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > update the projects 2`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "password": "aws password",
+          "username": "aws user",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password three",
+          "username": "user three",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > update the settings 1`] = `
+[
+  {
+    "body": {
+      "settings": {
+        "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+        "username": "user two",
+      },
+    },
+    "events": [
+      [
+        "blanked password and a new user",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "blanked password and a new user",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "blanked password and a new user",
+        "vault#6",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password one",
+            "username": "user two",
+          },
+        },
+      ],
+      [
+        "blanked password and a new user",
+        "vault#6",
+        "connect",
+      ],
+      [
+        "blanked password and a new user",
+        "vault#6",
+        "update",
+      ],
+      [
+        "blanked password and a new user",
+        "vault#1",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user two",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user two",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > update the settings 2`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "password": "aws password",
+          "username": "aws user",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password one",
+          "username": "user two",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > update the settings 3`] = `
+[
+  {
+    "body": {
+      "settings": {
+        "password": "password three",
+        "username": "user three",
+      },
+    },
+    "events": [
+      [
+        "new settings",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "new settings",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "new settings",
+        "vault#7",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "new settings",
+        "vault#7",
+        "connect",
+      ],
+      [
+        "new settings",
+        "vault#7",
+        "update",
+      ],
+      [
+        "new settings",
+        "vault#6",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user three",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {},
+    "events": [
+      [
+        "no change",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "no change",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "no change",
+        "vault#8",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "no change",
+        "vault#8",
+        "connect",
+      ],
+      [
+        "no change",
+        "vault#8",
+        "update",
+      ],
+      [
+        "no change",
+        "vault#7",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user three",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > update the settings 4`] = `
+{
+  "proxy": {
+    "VAULTONE": {
+      "first": "one",
+      "second": "two",
+    },
+    "awsTwo": {
+      "awsSecret": "aws value",
+    },
+    "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx": {
+      "first": "one",
+      "second": "two",
+    },
+    "moreFields": {
+      "first": "one",
+      "second": "two",
+    },
+    "onePassBad": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalProject": {
+      "first": "one",
+      "second": "two",
+    },
+    "vaultOne": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "password": "aws password",
+          "username": "aws user",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "password three",
+          "username": "user three",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > update the settings 5`] = `
+[
+  {
+    "body": {
+      "settings": {
+        "password": "",
+        "username": "empty",
+      },
+    },
+    "events": [
+      [
+        "an empty password",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "an empty password",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "an empty password",
+        "vault#9",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "",
+            "username": "empty",
+          },
+        },
+      ],
+      [
+        "an empty password",
+        "vault#9",
+        "connect",
+      ],
+      [
+        "an empty password",
+        "vault#9",
+        "update",
+      ],
+      [
+        "an empty password",
+        "vault#8",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "empty",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "settings": {
+        "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+        "username": "empty",
+      },
+    },
+    "events": [
+      [
+        "the blanked empty password",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "the blanked empty password",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "the blanked empty password",
+        "vault#10",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "",
+            "username": "empty",
+          },
+        },
+      ],
+      [
+        "the blanked empty password",
+        "vault#10",
+        "connect",
+      ],
+      [
+        "the blanked empty password",
+        "vault#10",
+        "update",
+      ],
+      [
+        "the blanked empty password",
+        "vault#9",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/connections/vaultOne",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of vaultOne>",
+        "isEnabled": true,
+        "name": "vaultOne",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "empty",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > update the settings 6`] = `
+{
+  "stored": {
+    "access": [
+      {
+        "connection": "awsTwo",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "awsTwo",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "gcpBad",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalProject",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "VAULTONE",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "awsTwo",
+        "settings": {
+          "password": "aws password",
+          "username": "aws user",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "gcpBad",
+        "settings": {
+          "username": "u",
+        },
+        "type": "gcpSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "moreFields",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "onePassBad",
+        "settings": {
+          "password": "p",
+          "username": "u",
+        },
+        "type": "onePassword",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalProject",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "sameProjectTwice",
+        "settings": {
+          "username": "u",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "vaultOne",
+        "settings": {
+          "password": "",
+          "username": "empty",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Connections API of external secrets > without the licence 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections",
+    "response": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id of vaultOne>",
+          "isEnabled": true,
+          "name": "vaultOne",
+          "projects": [],
+          "secretsCount": 1,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of VAULTONE>",
+          "isEnabled": true,
+          "name": "VAULTONE",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>",
+          "isEnabled": true,
+          "name": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of missingProject>",
+          "isEnabled": true,
+          "name": "missingProject",
+          "projects": [],
+          "secretsCount": 0,
+          "state": "initializing",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of sameProjectTwice>",
+          "isEnabled": true,
+          "name": "sameProjectTwice",
+          "projects": [],
+          "secretsCount": 0,
+          "state": "initializing",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of personalProject>",
+          "isEnabled": true,
+          "name": "personalProject",
+          "projects": [
+            {
+              "id": "@personal",
+              "name": "Personal",
+              "role": "secretsProviderConnection:user",
+            },
+          ],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of moreFields>",
+          "isEnabled": true,
+          "name": "moreFields",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "noLicence",
+      "settings": {},
+      "type": "vault",
+    },
+    "events": [
+      [
+        "create",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "create",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [],
+          "providerKey": "noLicence",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "create",
+        "vault#27",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {},
+        },
+      ],
+      [
+        "create",
+        "vault#27",
+        "connect",
+      ],
+      [
+        "create",
+        "vault#27",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of noLicence>",
+        "isEnabled": true,
+        "name": "noLicence",
+        "projects": [],
+        "secrets": [
+          {
+            "name": "changed",
+          },
+        ],
+        "secretsCount": 1,
+        "settings": {},
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "test",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "isValid": true,
+          "projects": [],
+          "providerKey": "vaultOne",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "test",
+        "vault#28",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "password": "password three",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "test",
+        "vault#28",
+        "connect",
+      ],
+      [
+        "test",
+        "vault#28",
+        "test",
+      ],
+      [
+        "test",
+        "vault#28",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/connections/vaultOne/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Connections API of external secrets > without the licence 2`] = `
+{
+  "access": [
+    {
+      "connection": "personalProject",
+      "projectId": "@personal",
+      "role": "secretsProviderConnection:user",
+    },
+  ],
+  "connections": [
+    {
+      "isEnabled": true,
+      "providerKey": "VAULTONE",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "missingProject",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "moreFields",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "noLicence",
+      "settings": {},
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "personalProject",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "sameProjectTwice",
+      "settings": {
+        "username": "u",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "vaultOne",
+      "settings": {
+        "password": "password three",
+        "username": "user three",
+      },
+      "type": "vault",
+    },
+  ],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {},
+}
+`;

@@ -2,7 +2,7 @@ import { GLOBAL_OWNER_ROLE, GLOBAL_MEMBER_ROLE, type User } from '@n8n/db';
 import type { Mock } from 'vitest';
 import { mock } from 'vitest-mock-extended';
 
-import type { SecretsProviderAccessCheckService } from '@/modules/external-secrets.ee/secret-provider-access-check.service.ee';
+import type { SecretsProviderAccessCheckService } from '@/modules/external-secrets/secret-provider-access-check.service';
 import * as checkAccess from '@/permissions/check-access';
 
 import {

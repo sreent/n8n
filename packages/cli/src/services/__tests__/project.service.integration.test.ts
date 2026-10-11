@@ -33,7 +33,7 @@ import type { MockInstance } from 'vitest';
 import { ActiveWorkflowManager } from '@/active-workflow-manager';
 import { License } from '@/license';
 import { DataTableService } from '@/modules/data-table/data-table.service';
-import { ExternalSecretsConfig } from '@/modules/external-secrets.ee/external-secrets.config';
+import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 import { OwnershipTransferHandlerRegistry } from '@/services/ownership-transfer/ownership-transfer-handler.registry';
 import { ProjectService } from '@/services/project.service';
 
