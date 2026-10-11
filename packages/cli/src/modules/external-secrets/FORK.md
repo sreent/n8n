@@ -20,13 +20,17 @@ The work comes in five pull requests:
 3. The repositories of the two tables of the connections in `@n8n/db`, for ordinary code. (Done.)
 4. The module: the manager, the stored settings and connections, the REST APIs, the access checks
    and the events. Ordinary code then uses this folder, and container CI leaves out the enterprise
-   tests. (This pull request.)
-5. The editor: the settings pages, the modals, the store and the REST clients.
+   tests. (Done.)
+5. The editor, in two parts:
+   - 5a: the REST clients, the store, and the settings page with one connection for each provider
+     type, with its modal. (This pull request. See
+     [the FORK.md of the editor folder](../../../../frontend/editor-ui/src/features/integrations/externalSecrets/FORK.md).)
+   - 5b: the settings pages of the connections, their modals, and the connections of a project.
 
 Ordinary code uses this folder. The module registry loads
 `external-secrets/external-secrets.module.ts`. It tries the enterprise folder only when that file is
-not there, so n8n starts the fork module and not the enterprise module. Until pull request 5, the
-enterprise pages of the editor use the REST APIs of the fork module.
+not there, so n8n starts the fork module and not the enterprise module. Until pull request 5b, the
+enterprise pages of the connections in the editor use the REST APIs of the fork module.
 
 ## Behaviour
 

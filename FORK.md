@@ -50,7 +50,10 @@ The fork removes the enterprise code step by step, and builds its own versions o
    External secrets are a drop-in replacement too, with all six providers, and turn on in step 5
    (the owner chose this on 2026-10-10). Order: the base class and the Vault, Infisical and
    1Password providers (done), the AWS, Azure and GCP providers (done), the repositories of the
-   connections (done), the module (done), and the editor. See
+   connections (done), the module (done), the REST clients, the store and the settings page with
+   one connection for each provider type (done, see
+   [the FORK.md of the editor folder](packages/frontend/editor-ui/src/features/integrations/externalSecrets/FORK.md)),
+   and the settings pages of the connections. See
    [packages/cli/src/modules/external-secrets/FORK.md](packages/cli/src/modules/external-secrets/FORK.md).
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
@@ -124,11 +127,13 @@ them again after each upstream update, and container CI checks that they stay de
   the OIDC sign-in (`packages/cli/src/modules/sso-oidc`), of the role provisioning
   (`packages/cli/src/modules/provisioning`), of the SAML sign-in
   (`packages/cli/src/modules/sso-saml`), of external secrets (the providers, the queries of their
-  connections and the module, `packages/cli/src/modules/external-secrets`), and of the sharing UI
+  connections and the module, `packages/cli/src/modules/external-secrets`), of the external secrets
+  editor (the REST clients, the store and the settings page,
+  `packages/frontend/editor-ui/src/features/integrations/externalSecrets`), and of the sharing UI
   and the `EnterpriseEdition` gate (`packages/frontend/editor-ui`) fail when an update changes what
   a role may do, how projects, sharing, the sign-in method, the OIDC sign-in, the role
-  provisioning, the SAML sign-in, the secrets providers, the queries of their connections or the
-  external secrets module work.
+  provisioning, the SAML sign-in, the secrets providers, the queries of their connections, the
+  external secrets module or the external secrets editor work.
   Compare the change with the upstream change, then update the fork code or the snapshot. The
   FORK.md files there tell how to record a snapshot against the enterprise code.
 - When an upstream update changes `packages/cli/test/shared/external-secrets/utils.ts`, make the

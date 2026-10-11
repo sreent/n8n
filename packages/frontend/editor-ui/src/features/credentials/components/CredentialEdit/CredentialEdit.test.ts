@@ -6,7 +6,7 @@ import { CREDENTIAL_EDIT_MODAL_KEY } from '../../credentials.constants';
 import { STORES } from '@n8n/stores';
 import { retry, mockedStore } from '@/__tests__/utils';
 import { useCredentialsStore } from '../../credentials.store';
-import { useExternalSecretsStore } from '@/features/integrations/externalSecrets.ee/externalSecrets.ee.store';
+import { useExternalSecretsStore } from '@/features/integrations/externalSecrets/externalSecrets.store';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
 import { useNDVStore } from '@/features/ndv/shared/ndv.store';
 import {
