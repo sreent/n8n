@@ -1,0 +1,5001 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Project API of external secrets > create a connection in a project 1`] = `
+{
+  "after": [
+    {
+      "events": [],
+      "providers": [],
+      "request": "GET /secret-providers/projects/@P1/connections",
+      "response": {
+        "data": [
+          {
+            "createdAt": "<date>",
+            "id": "<id of p1User>",
+            "isEnabled": true,
+            "name": "p1User",
+            "projects": [
+              {
+                "id": "@P1",
+                "name": "Project One",
+                "role": "secretsProviderConnection:user",
+              },
+            ],
+            "secretsCount": 1,
+            "state": "connected",
+            "type": "awsSecretsManager",
+            "updatedAt": "<date>",
+          },
+          {
+            "createdAt": "<date>",
+            "id": "<id of p1Disabled>",
+            "isEnabled": false,
+            "name": "p1Disabled",
+            "projects": [
+              {
+                "id": "@P1",
+                "name": "Project One",
+                "role": "secretsProviderConnection:user",
+              },
+            ],
+            "secretsCount": 0,
+            "state": "initializing",
+            "type": "vault",
+            "updatedAt": "<date>",
+          },
+          {
+            "createdAt": "<date>",
+            "id": "<id of p1Owned>",
+            "isEnabled": true,
+            "name": "p1Owned",
+            "projects": [
+              {
+                "id": "@P1",
+                "name": "Project One",
+                "role": "secretsProviderConnection:owner",
+              },
+            ],
+            "secretsCount": 2,
+            "state": "connected",
+            "type": "vault",
+            "updatedAt": "<date>",
+          },
+          {
+            "createdAt": "<date>",
+            "id": "<id of globalVault>",
+            "isEnabled": true,
+            "name": "globalVault",
+            "projects": [],
+            "secretsCount": 2,
+            "state": "connected",
+            "type": "vault",
+            "updatedAt": "<date>",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    {
+      "events": [],
+      "providers": [],
+      "request": "GET /secret-providers/projects/@P2/connections",
+      "response": {
+        "data": [
+          {
+            "createdAt": "<date>",
+            "id": "<id of p2Conn>",
+            "isEnabled": true,
+            "name": "p2Conn",
+            "projects": [
+              {
+                "id": "@P2",
+                "name": "Project Two",
+                "role": "secretsProviderConnection:user",
+              },
+            ],
+            "secretsCount": 2,
+            "state": "connected",
+            "type": "vault",
+            "updatedAt": "<date>",
+          },
+          {
+            "createdAt": "<date>",
+            "id": "<id of globalVault>",
+            "isEnabled": true,
+            "name": "globalVault",
+            "projects": [],
+            "secretsCount": 2,
+            "state": "connected",
+            "type": "vault",
+            "updatedAt": "<date>",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    {
+      "events": [],
+      "providers": [],
+      "request": "GET /secret-providers/connections",
+      "response": {
+        "data": [
+          {
+            "createdAt": "<date>",
+            "id": "<id of globalVault>",
+            "isEnabled": true,
+            "name": "globalVault",
+            "projects": [],
+            "secretsCount": 2,
+            "state": "connected",
+            "type": "vault",
+            "updatedAt": "<date>",
+          },
+          {
+            "createdAt": "<date>",
+            "id": "<id of p1User>",
+            "isEnabled": true,
+            "name": "p1User",
+            "projects": [
+              {
+                "id": "@P1",
+                "name": "Project One",
+                "role": "secretsProviderConnection:user",
+              },
+            ],
+            "secretsCount": 1,
+            "state": "connected",
+            "type": "awsSecretsManager",
+            "updatedAt": "<date>",
+          },
+          {
+            "createdAt": "<date>",
+            "id": "<id of p2Conn>",
+            "isEnabled": true,
+            "name": "p2Conn",
+            "projects": [
+              {
+                "id": "@P2",
+                "name": "Project Two",
+                "role": "secretsProviderConnection:user",
+              },
+            ],
+            "secretsCount": 2,
+            "state": "connected",
+            "type": "vault",
+            "updatedAt": "<date>",
+          },
+          {
+            "createdAt": "<date>",
+            "id": "<id of p1Disabled>",
+            "isEnabled": false,
+            "name": "p1Disabled",
+            "projects": [
+              {
+                "id": "@P1",
+                "name": "Project One",
+                "role": "secretsProviderConnection:user",
+              },
+            ],
+            "secretsCount": 0,
+            "state": "initializing",
+            "type": "vault",
+            "updatedAt": "<date>",
+          },
+          {
+            "createdAt": "<date>",
+            "id": "<id of p1Owned>",
+            "isEnabled": true,
+            "name": "p1Owned",
+            "projects": [
+              {
+                "id": "@P1",
+                "name": "Project One",
+                "role": "secretsProviderConnection:owner",
+              },
+            ],
+            "secretsCount": 2,
+            "state": "connected",
+            "type": "vault",
+            "updatedAt": "<date>",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    {
+      "events": [],
+      "providers": [],
+      "request": "GET /secret-providers/connections/p1Owned",
+      "response": {
+        "data": {
+          "createdAt": "<date>",
+          "id": "<id of p1Owned>",
+          "isEnabled": true,
+          "name": "p1Owned",
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+              "role": "secretsProviderConnection:owner",
+            },
+          ],
+          "secrets": [
+            {
+              "name": "first",
+            },
+            {
+              "name": "second",
+            },
+          ],
+          "secretsCount": 2,
+          "settings": {
+            "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "username": "user of p1Owned",
+          },
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+  ],
+  "create": {
+    "body": {
+      "projectIds": [
+        "@P2",
+      ],
+      "providerKey": "p1Owned",
+      "settings": {
+        "password": "secret",
+        "username": "user of p1Owned",
+      },
+      "type": "vault",
+    },
+    "events": [
+      [
+        "create",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "create",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "p1Owned",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "create",
+        "vault#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "secret",
+            "username": "user of p1Owned",
+          },
+        },
+      ],
+      [
+        "create",
+        "vault#1",
+        "connect",
+      ],
+      [
+        "create",
+        "vault#1",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/projects/@P1/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of p1Owned>",
+        "isEnabled": true,
+        "name": "p1Owned",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:owner",
+          },
+        ],
+        "scopes": [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user of p1Owned",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  "proxy": {
+    "globalVault": {
+      "first": "one",
+      "second": "two",
+    },
+    "p1Owned": {
+      "first": "one",
+      "second": "two",
+    },
+    "p1User": {
+      "awsSecret": "aws value",
+    },
+    "p2Conn": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "p1Disabled",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "p1Owned",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:owner",
+      },
+      {
+        "connection": "p1User",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "p2Conn",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "globalVault",
+        "settings": {
+          "password": "secret",
+          "username": "user of globalVault",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": false,
+        "providerKey": "p1Disabled",
+        "settings": {
+          "password": "secret",
+          "username": "user of p1Disabled",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "p1Owned",
+        "settings": {
+          "password": "secret",
+          "username": "user of p1Owned",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "p1User",
+        "settings": {
+          "password": "secret",
+          "username": "user of p1User",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "p2Conn",
+        "settings": {
+          "password": "secret",
+          "username": "user of p2Conn",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Project API of external secrets > create errors in a project 1`] = `
+[
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "globalVault",
+      "settings": {
+        "password": "secret",
+        "username": "user of globalVault",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/projects/@P1/connections",
+    "response": {
+      "code": 400,
+      "message": "Connection with key "globalVault" already exists",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "missingProject",
+      "settings": {
+        "password": "secret",
+        "username": "user of missingProject",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/projects/missing/connections",
+    "response": {
+      "code": 0,
+      "message": "SQLITE_CONSTRAINT: FOREIGN KEY constraint failed",
+    },
+    "status": 500,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "personalOwned",
+      "settings": {
+        "password": "secret",
+        "username": "user of personalOwned",
+      },
+      "type": "vault",
+    },
+    "events": [
+      [
+        "the personal project",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "the personal project",
+        "event",
+        "external-secrets-connection-created",
+        {
+          "projects": [
+            {
+              "id": "@personal",
+              "name": "Personal",
+            },
+          ],
+          "providerKey": "personalOwned",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "the personal project",
+        "vault#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "secret",
+            "username": "user of personalOwned",
+          },
+        },
+      ],
+      [
+        "the personal project",
+        "vault#2",
+        "connect",
+      ],
+      [
+        "the personal project",
+        "vault#2",
+        "update",
+      ],
+    ],
+    "request": "POST /secret-providers/projects/@personal/connections",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of personalOwned>",
+        "isEnabled": true,
+        "name": "personalOwned",
+        "projects": [
+          {
+            "id": "@personal",
+            "name": "Personal",
+            "role": "secretsProviderConnection:owner",
+          },
+        ],
+        "scopes": [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user of personalOwned",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "projectIds": [],
+      "providerKey": "with-dash",
+      "settings": {
+        "password": "secret",
+        "username": "user of with-dash",
+      },
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/projects/@P1/connections",
+    "response": {
+      "code": "invalid_string",
+      "message": "Invalid",
+      "path": [
+        "providerKey",
+      ],
+      "validation": "regex",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "providerKey": "noProjectIds",
+      "settings": {},
+      "type": "vault",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/projects/@P1/connections",
+    "response": {
+      "code": "invalid_type",
+      "expected": "array",
+      "message": "Required",
+      "path": [
+        "projectIds",
+      ],
+      "received": "undefined",
+    },
+    "status": 400,
+  },
+]
+`;
+
+exports[`Project API of external secrets > create errors in a project 2`] = `
+{
+  "access": [
+    {
+      "connection": "p1Disabled",
+      "projectId": "@P1",
+      "role": "secretsProviderConnection:user",
+    },
+    {
+      "connection": "p1Owned",
+      "projectId": "@P1",
+      "role": "secretsProviderConnection:owner",
+    },
+    {
+      "connection": "p1User",
+      "projectId": "@P1",
+      "role": "secretsProviderConnection:user",
+    },
+    {
+      "connection": "p2Conn",
+      "projectId": "@P2",
+      "role": "secretsProviderConnection:user",
+    },
+    {
+      "connection": "personalOwned",
+      "projectId": "@personal",
+      "role": "secretsProviderConnection:owner",
+    },
+  ],
+  "connections": [
+    {
+      "isEnabled": true,
+      "providerKey": "globalVault",
+      "settings": {
+        "password": "secret",
+        "username": "user of globalVault",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "missingProject",
+      "settings": {
+        "password": "secret",
+        "username": "user of missingProject",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": false,
+      "providerKey": "p1Disabled",
+      "settings": {
+        "password": "secret",
+        "username": "user of p1Disabled",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "p1Owned",
+      "settings": {
+        "password": "secret",
+        "username": "user of p1Owned",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "p1User",
+      "settings": {
+        "password": "secret",
+        "username": "user of p1User",
+      },
+      "type": "awsSecretsManager",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "p2Conn",
+      "settings": {
+        "password": "secret",
+        "username": "user of p2Conn",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "personalOwned",
+      "settings": {
+        "password": "secret",
+        "username": "user of personalOwned",
+      },
+      "type": "vault",
+    },
+  ],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {},
+}
+`;
+
+exports[`Project API of external secrets > delete connections in a project 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "DELETE /secret-providers/projects/@P1/connections/globalVault",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "globalVault" not found in project "@P1"",
+    },
+    "status": 404,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "DELETE /secret-providers/projects/@P1/connections/p2Conn",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "p2Conn" not found in project "@P1"",
+    },
+    "status": 404,
+  },
+  {
+    "events": [
+      [
+        "a used one",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "a used one",
+        "awsSecretsManager#1",
+        "disconnect",
+      ],
+    ],
+    "request": "DELETE /secret-providers/projects/@P1/connections/p1User",
+    "response": "<no body>",
+    "status": 204,
+  },
+  {
+    "events": [
+      [
+        "an owned one",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "an owned one",
+        "vault#6",
+        "disconnect",
+      ],
+    ],
+    "request": "DELETE /secret-providers/projects/@P1/connections/p1Owned2",
+    "response": "<no body>",
+    "status": 204,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "DELETE /secret-providers/projects/@P1/connections/missing",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "missing" not found in project "@P1"",
+    },
+    "status": 404,
+  },
+]
+`;
+
+exports[`Project API of external secrets > delete connections in a project 2`] = `
+{
+  "proxy": {
+    "globalVault": {
+      "first": "one",
+      "second": "two",
+    },
+    "p1Owned": {
+      "first": "one",
+      "second": "two",
+    },
+    "p2Conn": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalOwned": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "p1Disabled",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "p1Owned",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:owner",
+      },
+      {
+        "connection": "p2Conn",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalOwned",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:owner",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "globalVault",
+        "settings": {
+          "password": "secret",
+          "username": "user of globalVault",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "password": "secret",
+          "username": "user of missingProject",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": false,
+        "providerKey": "p1Disabled",
+        "settings": {
+          "password": "secret",
+          "username": "user of p1Disabled",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "p1Owned",
+        "settings": {
+          "username": "changed",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "p2Conn",
+        "settings": {
+          "password": "secret",
+          "username": "user of p2Conn",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalOwned",
+        "settings": {
+          "password": "secret",
+          "username": "user of personalOwned",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Project API of external secrets > test connections in a project 1`] = `
+[
+  {
+    "events": [
+      [
+        "an owned one",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "isValid": true,
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "p1Owned",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "an owned one",
+        "vault#5",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "changed",
+          },
+        },
+      ],
+      [
+        "an owned one",
+        "vault#5",
+        "connect",
+      ],
+      [
+        "an owned one",
+        "vault#5",
+        "test",
+      ],
+      [
+        "an owned one",
+        "vault#5",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/projects/@P1/connections/p1Owned/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "a used one",
+        "event",
+        "external-secrets-connection-tested",
+        {
+          "isValid": true,
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "p1User",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "awsSecretsManager",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "a used one",
+        "awsSecretsManager#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "changed",
+          },
+        },
+      ],
+      [
+        "a used one",
+        "awsSecretsManager#2",
+        "connect",
+      ],
+      [
+        "a used one",
+        "awsSecretsManager#2",
+        "test",
+      ],
+      [
+        "a used one",
+        "awsSecretsManager#2",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /secret-providers/projects/@P1/connections/p1User/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/projects/@P1/connections/globalVault/test",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "globalVault" not found in project "@P1"",
+    },
+    "status": 404,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/projects/@P1/connections/p2Conn/test",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "p2Conn" not found in project "@P1"",
+    },
+    "status": 404,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/projects/@P1/connections/missing/test",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "missing" not found in project "@P1"",
+    },
+    "status": 404,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /secret-providers/projects/@P1/connections/p1Owned/reload",
+    "response": "<html error page> Cannot POST /rest/secret-providers/projects/@P1/connections/p1Owned/reload",
+    "status": 404,
+  },
+]
+`;
+
+exports[`Project API of external secrets > the access of each user with the system roles off 1`] = `
+{
+  "admin": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byadminOff",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": {
+      "data": [
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+        [
+          "personalOwned",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": {
+      "data": [
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "old API secrets": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+        "p2Conn": [
+          "first",
+          "second",
+        ],
+        "personalOwned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byadminOff",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "member": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "owner": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byownerOff",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": {
+      "data": [
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+        [
+          "personalOwned",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": {
+      "data": [
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "old API secrets": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+        "p2Conn": [
+          "first",
+          "second",
+        ],
+        "personalOwned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byownerOff",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "p1Admin": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "p1Editor": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "p1Manager": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byp1ManagerOff",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": 403,
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": 403,
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byp1ManagerOff",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "p1Reader": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": 403,
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "p1Viewer": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "p2Admin": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "toggle": 200,
+}
+`;
+
+exports[`Project API of external secrets > the access of each user with the system roles on 1`] = `
+{
+  "admin": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byadminOn",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": {
+      "data": [
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+        [
+          "personalOwned",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": {
+      "data": [
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "old API secrets": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+        "p2Conn": [
+          "first",
+          "second",
+        ],
+        "personalOwned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byadminOn",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "member": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "owner": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byownerOn",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": {
+      "data": [
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+        [
+          "personalOwned",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": {
+      "data": [
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "old API secrets": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+        "p2Conn": [
+          "first",
+          "second",
+        ],
+        "personalOwned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byownerOn",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "p1Admin": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byp1AdminOn",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": 403,
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": 403,
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byp1AdminOn",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "p1Editor": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": 403,
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "p1Manager": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byp1ManagerOn",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": 403,
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": 403,
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byp1ManagerOn",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "p1Reader": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": 403,
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "p1Viewer": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "p2Admin": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": {
+      "data": [
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "roles": {
+    "project:admin": [
+      "externalSecret:list",
+      "externalSecretsProvider:create",
+      "externalSecretsProvider:delete",
+      "externalSecretsProvider:list",
+      "externalSecretsProvider:read",
+      "externalSecretsProvider:sync",
+      "externalSecretsProvider:update",
+    ],
+    "project:editor": [
+      "externalSecret:list",
+      "externalSecretsProvider:list",
+      "externalSecretsProvider:read",
+    ],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "toggle": 200,
+}
+`;
+
+exports[`Project API of external secrets > the access of each user with the system roles on and without role-based access 1`] = `
+{
+  "admin": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byadminOnNoRoles",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": {
+      "data": [
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+        [
+          "personalOwned",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": {
+      "data": [
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "old API secrets": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+        "p2Conn": [
+          "first",
+          "second",
+        ],
+        "personalOwned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byadminOnNoRoles",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "member": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "owner": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byownerOnNoRoles",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": {
+      "data": [
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+        [
+          "personalOwned",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": {
+      "data": [
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "old API secrets": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+        "p2Conn": [
+          "first",
+          "second",
+        ],
+        "personalOwned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byownerOnNoRoles",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "p1Admin": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byp1AdminOnNoRoles",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": 403,
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": 403,
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byp1AdminOnNoRoles",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "p1Editor": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": 403,
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "p1Manager": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": {
+      "data": [
+        "byp1ManagerOnNoRoles",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+    "delete": {
+      "data": undefined,
+      "events": 1,
+      "status": 204,
+    },
+    "global completions": 403,
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": 403,
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": {
+      "data": {
+        "success": true,
+        "testState": "tested",
+      },
+      "events": 1,
+      "status": 200,
+    },
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": {
+      "data": [
+        "byp1ManagerOnNoRoles",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+      ],
+      "events": 2,
+      "status": 200,
+    },
+  },
+  "p1Reader": {
+    "a global one in P1": {
+      "data": [
+        "globalVault",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "completions of P1": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+      "events": 0,
+      "status": 200,
+    },
+    "global list": 403,
+    "list of P1": {
+      "data": [
+        [
+          "p1Disabled",
+          "<no scopes>",
+        ],
+        [
+          "p1Owned",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": {
+      "data": [
+        "p1Owned",
+        [
+          "externalSecret:list",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "p1Viewer": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": 403,
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "p2Admin": {
+    "a global one in P1": 403,
+    "completions of P1": 403,
+    "create": 403,
+    "delete": 403,
+    "global completions": 403,
+    "global completions for P1": 403,
+    "global list": 403,
+    "list of P1": 403,
+    "list of P2": {
+      "data": [
+        [
+          "p2Conn",
+          "<no scopes>",
+        ],
+        [
+          "globalVault",
+          "<no scopes>",
+        ],
+        [
+          "missingProject",
+          "<no scopes>",
+        ],
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "old API secrets": 403,
+    "one of P1": 403,
+    "test": 403,
+    "types": {
+      "data": [
+        "vault",
+        "awsSecretsManager",
+      ],
+      "events": 0,
+      "status": 200,
+    },
+    "update": 403,
+  },
+  "roles": {
+    "project:admin": [
+      "externalSecret:list",
+      "externalSecretsProvider:create",
+      "externalSecretsProvider:delete",
+      "externalSecretsProvider:list",
+      "externalSecretsProvider:read",
+      "externalSecretsProvider:sync",
+      "externalSecretsProvider:update",
+    ],
+    "project:editor": [
+      "externalSecret:list",
+      "externalSecretsProvider:list",
+      "externalSecretsProvider:read",
+    ],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "toggle": {
+    "response": {
+      "code": 403,
+      "message": "Role-based access for external secrets is not enabled",
+    },
+    "status": 403,
+  },
+}
+`;
+
+exports[`Project API of external secrets > the completions and the types 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/completions/secrets/global",
+    "response": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/completions/secrets/global/@P1",
+    "response": {
+      "data": {
+        "globalVault": [
+          "first",
+          "second",
+        ],
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/completions/secrets/project/@P1",
+    "response": {
+      "data": {
+        "p1Owned": [
+          "first",
+          "second",
+        ],
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/completions/secrets/project/@P2",
+    "response": {
+      "data": {
+        "p2Conn": [
+          "first",
+          "second",
+        ],
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/completions/secrets/project/missing",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/types",
+    "response": {
+      "data": [
+        {
+          "displayName": "Vault",
+          "icon": "vault",
+          "properties": [
+            {
+              "default": "",
+              "displayName": "Username",
+              "name": "username",
+              "required": true,
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Other",
+              "name": "other",
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Password",
+              "name": "password",
+              "type": "string",
+              "typeOptions": {
+                "password": true,
+              },
+            },
+          ],
+          "type": "vault",
+        },
+        {
+          "displayName": "AWS Secrets Manager",
+          "icon": "awsSecretsManager",
+          "properties": [
+            {
+              "default": "",
+              "displayName": "Username",
+              "name": "username",
+              "required": true,
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Other",
+              "name": "other",
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Password",
+              "name": "password",
+              "type": "string",
+              "typeOptions": {
+                "password": true,
+              },
+            },
+          ],
+          "type": "awsSecretsManager",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/types/vault",
+    "response": {
+      "data": {
+        "displayName": "Vault",
+        "icon": "vault",
+        "properties": [
+          {
+            "default": "",
+            "displayName": "Username",
+            "name": "username",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Other",
+            "name": "other",
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Password",
+            "name": "password",
+            "type": "string",
+            "typeOptions": {
+              "password": true,
+            },
+          },
+        ],
+        "type": "vault",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/types/azureKeyVault",
+    "response": {
+      "code": 404,
+      "message": "Provider type "azureKeyVault" not found",
+    },
+    "status": 404,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/types/other",
+    "response": {
+      "code": 404,
+      "message": "Provider type "other" not found",
+    },
+    "status": 404,
+  },
+]
+`;
+
+exports[`Project API of external secrets > the connections of a project 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/@P1/connections",
+    "response": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id of p1User>",
+          "isEnabled": true,
+          "name": "p1User",
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+              "role": "secretsProviderConnection:user",
+            },
+          ],
+          "secretsCount": 1,
+          "state": "connected",
+          "type": "awsSecretsManager",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of p1Disabled>",
+          "isEnabled": false,
+          "name": "p1Disabled",
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+              "role": "secretsProviderConnection:user",
+            },
+          ],
+          "secretsCount": 0,
+          "state": "initializing",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of globalVault>",
+          "isEnabled": true,
+          "name": "globalVault",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/@P2/connections",
+    "response": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id of p2Conn>",
+          "isEnabled": true,
+          "name": "p2Conn",
+          "projects": [
+            {
+              "id": "@P2",
+              "name": "Project Two",
+              "role": "secretsProviderConnection:user",
+            },
+          ],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id of globalVault>",
+          "isEnabled": true,
+          "name": "globalVault",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/@personal/connections",
+    "response": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id of globalVault>",
+          "isEnabled": true,
+          "name": "globalVault",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/missing/connections",
+    "response": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id of globalVault>",
+          "isEnabled": true,
+          "name": "globalVault",
+          "projects": [],
+          "secretsCount": 2,
+          "state": "connected",
+          "type": "vault",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/@P1/connections/p1User",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of p1User>",
+        "isEnabled": true,
+        "name": "p1User",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "scopes": [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+        "secrets": [
+          {
+            "name": "awsSecret",
+          },
+        ],
+        "secretsCount": 1,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user of p1User",
+        },
+        "state": "connected",
+        "type": "awsSecretsManager",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/@P1/connections/p1Disabled",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of p1Disabled>",
+        "isEnabled": false,
+        "name": "p1Disabled",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "scopes": [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user of p1Disabled",
+        },
+        "state": "initializing",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/@P1/connections/globalVault",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of globalVault>",
+        "isEnabled": true,
+        "name": "globalVault",
+        "projects": [],
+        "scopes": [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user of globalVault",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/@P1/connections/p2Conn",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "p2Conn" not found",
+    },
+    "status": 404,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/projects/@P1/connections/missing",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "missing" not found",
+    },
+    "status": 404,
+  },
+]
+`;
+
+exports[`Project API of external secrets > the fixture 1`] = `
+{
+  "proxy": {
+    "globalVault": {
+      "first": "one",
+      "second": "two",
+    },
+    "p1User": {
+      "awsSecret": "aws value",
+    },
+    "p2Conn": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "p1Disabled",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "p1User",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "p2Conn",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "globalVault",
+        "settings": {
+          "password": "secret",
+          "username": "user of globalVault",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": false,
+        "providerKey": "p1Disabled",
+        "settings": {
+          "password": "secret",
+          "username": "user of p1Disabled",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "p1User",
+        "settings": {
+          "password": "secret",
+          "username": "user of p1User",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "p2Conn",
+        "settings": {
+          "password": "secret",
+          "username": "user of p2Conn",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Project API of external secrets > the project roles after the toggles 1`] = `
+{
+  "access": [
+    {
+      "connection": "p1Disabled",
+      "projectId": "@P1",
+      "role": "secretsProviderConnection:user",
+    },
+    {
+      "connection": "p1Owned",
+      "projectId": "@P1",
+      "role": "secretsProviderConnection:owner",
+    },
+    {
+      "connection": "p2Conn",
+      "projectId": "@P2",
+      "role": "secretsProviderConnection:user",
+    },
+    {
+      "connection": "personalOwned",
+      "projectId": "@personal",
+      "role": "secretsProviderConnection:owner",
+    },
+  ],
+  "connections": [
+    {
+      "isEnabled": true,
+      "providerKey": "globalVault",
+      "settings": {
+        "password": "secret",
+        "username": "user of globalVault",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "missingProject",
+      "settings": {
+        "password": "secret",
+        "username": "user of missingProject",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": false,
+      "providerKey": "p1Disabled",
+      "settings": {
+        "password": "secret",
+        "username": "user of p1Disabled",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "p1Owned",
+      "settings": {
+        "username": "changed",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "p2Conn",
+      "settings": {
+        "password": "secret",
+        "username": "user of p2Conn",
+      },
+      "type": "vault",
+    },
+    {
+      "isEnabled": true,
+      "providerKey": "personalOwned",
+      "settings": {
+        "password": "secret",
+        "username": "user of personalOwned",
+      },
+      "type": "vault",
+    },
+  ],
+  "roles": {
+    "project:admin": [
+      "externalSecret:list",
+      "externalSecretsProvider:create",
+      "externalSecretsProvider:delete",
+      "externalSecretsProvider:list",
+      "externalSecretsProvider:read",
+      "externalSecretsProvider:sync",
+      "externalSecretsProvider:update",
+    ],
+    "project:editor": [
+      "externalSecret:list",
+      "externalSecretsProvider:list",
+      "externalSecretsProvider:read",
+    ],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {
+    "externalSecrets.systemRolesEnabled": {
+      "loadOnStartup": true,
+      "value": "true",
+    },
+  },
+}
+`;
+
+exports[`Project API of external secrets > the project roles after the toggles 2`] = `
+[
+  [
+    "@p1Admin",
+    "project:admin",
+  ],
+  [
+    "@p1Editor",
+    "project:editor",
+  ],
+  [
+    "@p1Manager",
+    "custom:secrets-manager",
+  ],
+  [
+    "@p1Reader",
+    "custom:secrets-reader",
+  ],
+  [
+    "@p1Viewer",
+    "project:viewer",
+  ],
+]
+`;
+
+exports[`Project API of external secrets > the project roles after the toggles 3`] = `
+{
+  "events": [],
+  "providers": [],
+}
+`;
+
+exports[`Project API of external secrets > update connections in a project 1`] = `
+[
+  {
+    "body": {
+      "projectIds": [
+        "@P2",
+      ],
+      "settings": {
+        "username": "changed",
+      },
+    },
+    "events": [
+      [
+        "an owned one",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "an owned one",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "p1Owned",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "an owned one",
+        "vault#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "changed",
+          },
+        },
+      ],
+      [
+        "an owned one",
+        "vault#3",
+        "connect",
+      ],
+      [
+        "an owned one",
+        "vault#3",
+        "update",
+      ],
+      [
+        "an owned one",
+        "vault#1",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/projects/@P1/connections/p1Owned",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of p1Owned>",
+        "isEnabled": true,
+        "name": "p1Owned",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:owner",
+          },
+        ],
+        "scopes": [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "username": "changed",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "isEnabled": false,
+    },
+    "events": [
+      [
+        "an owned one, disable",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "an owned one, disable",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "p1Owned",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "an owned one, disable",
+        "vault#3",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/projects/@P1/connections/p1Owned",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of p1Owned>",
+        "isEnabled": false,
+        "name": "p1Owned",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:owner",
+          },
+        ],
+        "scopes": [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+        "secrets": [],
+        "secretsCount": 0,
+        "settings": {
+          "username": "changed",
+        },
+        "state": "initializing",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "isEnabled": true,
+    },
+    "events": [
+      [
+        "an owned one, enable",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "an owned one, enable",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "p1Owned",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "vault",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "an owned one, enable",
+        "vault#4",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "changed",
+          },
+        },
+      ],
+      [
+        "an owned one, enable",
+        "vault#4",
+        "connect",
+      ],
+      [
+        "an owned one, enable",
+        "vault#4",
+        "update",
+      ],
+    ],
+    "request": "PATCH /secret-providers/projects/@P1/connections/p1Owned",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of p1Owned>",
+        "isEnabled": true,
+        "name": "p1Owned",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:owner",
+          },
+        ],
+        "scopes": [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+        "secrets": [
+          {
+            "name": "first",
+          },
+          {
+            "name": "second",
+          },
+        ],
+        "secretsCount": 2,
+        "settings": {
+          "username": "changed",
+        },
+        "state": "connected",
+        "type": "vault",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "settings": {
+        "username": "changed",
+      },
+    },
+    "events": [
+      [
+        "a used one",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "a used one",
+        "event",
+        "external-secrets-connection-updated",
+        {
+          "projects": [
+            {
+              "id": "@P1",
+              "name": "Project One",
+            },
+          ],
+          "providerKey": "p1User",
+          "userId": "@owner",
+          "userRole": "global:owner",
+          "vaultType": "awsSecretsManager",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "a used one",
+        "awsSecretsManager#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "changed",
+          },
+        },
+      ],
+      [
+        "a used one",
+        "awsSecretsManager#1",
+        "connect",
+      ],
+      [
+        "a used one",
+        "awsSecretsManager#1",
+        "update",
+      ],
+      [
+        "a used one",
+        "awsSecretsManager#1",
+        "disconnect",
+      ],
+    ],
+    "request": "PATCH /secret-providers/projects/@P1/connections/p1User",
+    "response": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id of p1User>",
+        "isEnabled": true,
+        "name": "p1User",
+        "projects": [
+          {
+            "id": "@P1",
+            "name": "Project One",
+            "role": "secretsProviderConnection:user",
+          },
+        ],
+        "scopes": [
+          "externalSecret:list",
+          "externalSecretsProvider:create",
+          "externalSecretsProvider:delete",
+          "externalSecretsProvider:list",
+          "externalSecretsProvider:read",
+          "externalSecretsProvider:sync",
+          "externalSecretsProvider:update",
+        ],
+        "secrets": [
+          {
+            "name": "awsSecret",
+          },
+        ],
+        "secretsCount": 1,
+        "settings": {
+          "username": "changed",
+        },
+        "state": "connected",
+        "type": "awsSecretsManager",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "settings": {
+        "username": "x",
+      },
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/projects/@P1/connections/globalVault",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "globalVault" not found in project "@P1"",
+    },
+    "status": 404,
+  },
+  {
+    "body": {
+      "settings": {
+        "username": "x",
+      },
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/projects/@P1/connections/p2Conn",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "p2Conn" not found in project "@P1"",
+    },
+    "status": 404,
+  },
+  {
+    "body": {
+      "settings": {
+        "username": "x",
+      },
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/projects/@P1/connections/missing",
+    "response": {
+      "code": 404,
+      "message": "Connection with key "missing" not found in project "@P1"",
+    },
+    "status": 404,
+  },
+  {
+    "body": {
+      "type": "awsSecretsManager",
+    },
+    "events": [],
+    "providers": [],
+    "request": "PATCH /secret-providers/projects/@P1/connections/p1Owned",
+    "response": {
+      "code": 400,
+      "message": "When changing the connection type, new settings must be provided as well",
+    },
+    "status": 400,
+  },
+]
+`;
+
+exports[`Project API of external secrets > update connections in a project 2`] = `
+{
+  "proxy": {
+    "globalVault": {
+      "first": "one",
+      "second": "two",
+    },
+    "p1Owned": {
+      "first": "one",
+      "second": "two",
+    },
+    "p1User": {
+      "awsSecret": "aws value",
+    },
+    "p2Conn": {
+      "first": "one",
+      "second": "two",
+    },
+    "personalOwned": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "stored": {
+    "access": [
+      {
+        "connection": "p1Disabled",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "p1Owned",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:owner",
+      },
+      {
+        "connection": "p1User",
+        "projectId": "@P1",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "p2Conn",
+        "projectId": "@P2",
+        "role": "secretsProviderConnection:user",
+      },
+      {
+        "connection": "personalOwned",
+        "projectId": "@personal",
+        "role": "secretsProviderConnection:owner",
+      },
+    ],
+    "connections": [
+      {
+        "isEnabled": true,
+        "providerKey": "globalVault",
+        "settings": {
+          "password": "secret",
+          "username": "user of globalVault",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "missingProject",
+        "settings": {
+          "password": "secret",
+          "username": "user of missingProject",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": false,
+        "providerKey": "p1Disabled",
+        "settings": {
+          "password": "secret",
+          "username": "user of p1Disabled",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "p1Owned",
+        "settings": {
+          "username": "changed",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "p1User",
+        "settings": {
+          "username": "changed",
+        },
+        "type": "awsSecretsManager",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "p2Conn",
+        "settings": {
+          "password": "secret",
+          "username": "user of p2Conn",
+        },
+        "type": "vault",
+      },
+      {
+        "isEnabled": true,
+        "providerKey": "personalOwned",
+        "settings": {
+          "password": "secret",
+          "username": "user of personalOwned",
+        },
+        "type": "vault",
+      },
+    ],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;

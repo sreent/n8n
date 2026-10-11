@@ -10,10 +10,10 @@ import { Container } from '@n8n/di';
 import { Cipher } from 'n8n-core';
 import { mock } from 'vitest-mock-extended';
 
-import { ExternalSecretsProviders } from '@/modules/external-secrets.ee/external-secrets-providers.ee';
-import { ExternalSecretsConfig } from '@/modules/external-secrets.ee/external-secrets.config';
+import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
+import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 
-import { MockProviders, createDummyProvider } from '../../shared/external-secrets/utils';
+import { MockProviders, createDummyProvider } from '../../shared/external-secrets/fork-providers';
 import { createAdmin, createMember, createOwner } from '../shared/db/users';
 import type { SuperAgentTest } from '../shared/types';
 import * as utils from '../shared/utils';
@@ -759,18 +759,18 @@ describe('Secret Providers Connections API', () => {
 
 	describe('Reload connection secrets', () => {
 		beforeAll(async () => {
-			const { DummyProvider } = await import('../../shared/external-secrets/utils.js');
+			const { DummyProvider } = await import('../../shared/external-secrets/fork-providers.js');
 			mockProvidersInstance.setProviders({ awsSecretsManager: DummyProvider });
 		});
 
 		afterEach(async () => {
-			const { DummyProvider } = await import('../../shared/external-secrets/utils.js');
+			const { DummyProvider } = await import('../../shared/external-secrets/fork-providers.js');
 			mockProvidersInstance.setProviders({ awsSecretsManager: DummyProvider });
 		});
 
 		test('should successfully reload connection secrets', async () => {
 			const { ExternalSecretsManager } = await import(
-				'@/modules/external-secrets.ee/external-secrets-manager.ee.js'
+				'@/modules/external-secrets/external-secrets-manager.js'
 			);
 
 			await ownerAgent
@@ -815,7 +815,7 @@ describe('Secret Providers Connections API', () => {
 				{ role: 'member', allowed: false },
 			])('should allow=$allowed for $role to reload connection', async ({ role, allowed }) => {
 				const { ExternalSecretsManager } = await import(
-					'@/modules/external-secrets.ee/external-secrets-manager.ee.js'
+					'@/modules/external-secrets/external-secrets-manager.js'
 				);
 
 				const providerKey = `reloadAccess${role.charAt(0).toUpperCase() + role.slice(1)}`;
@@ -846,12 +846,12 @@ describe('Secret Providers Connections API', () => {
 
 	describe('Test connection', () => {
 		beforeAll(async () => {
-			const { DummyProvider } = await import('../../shared/external-secrets/utils.js');
+			const { DummyProvider } = await import('../../shared/external-secrets/fork-providers.js');
 			mockProvidersInstance.setProviders({ awsSecretsManager: DummyProvider });
 		});
 
 		afterEach(async () => {
-			const { DummyProvider } = await import('../../shared/external-secrets/utils.js');
+			const { DummyProvider } = await import('../../shared/external-secrets/fork-providers.js');
 			mockProvidersInstance.setProviders({ awsSecretsManager: DummyProvider });
 		});
 
@@ -874,7 +874,7 @@ describe('Secret Providers Connections API', () => {
 		});
 
 		test('should return failure when provider test fails', async () => {
-			const { TestFailProvider } = await import('../../shared/external-secrets/utils.js');
+			const { TestFailProvider } = await import('../../shared/external-secrets/fork-providers.js');
 
 			mockProvidersInstance.setProviders({ awsSecretsManager: TestFailProvider });
 
@@ -896,7 +896,7 @@ describe('Secret Providers Connections API', () => {
 		});
 
 		test('should return error when connection fails', async () => {
-			const { FailedProvider } = await import('../../shared/external-secrets/utils.js');
+			const { FailedProvider } = await import('../../shared/external-secrets/fork-providers.js');
 
 			mockProvidersInstance.setProviders({ awsSecretsManager: FailedProvider });
 

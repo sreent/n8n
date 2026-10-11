@@ -50,7 +50,7 @@ The fork removes the enterprise code step by step, and builds its own versions o
    External secrets are a drop-in replacement too, with all six providers, and turn on in step 5
    (the owner chose this on 2026-10-10). Order: the base class and the Vault, Infisical and
    1Password providers (done), the AWS, Azure and GCP providers (done), the repositories of the
-   connections (done), the module, and the editor. See
+   connections (done), the module (done), and the editor. See
    [packages/cli/src/modules/external-secrets/FORK.md](packages/cli/src/modules/external-secrets/FORK.md).
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
@@ -94,9 +94,9 @@ them again after each upstream update, and container CI checks that they stay de
   when a repository that it downloads from is not attached.
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
   `--plan` to see which tests it selects. It leaves out the test files in
-  `scripts/container-ci-skipped-tests.txt`: the enterprise SSO and role provisioning tests, which
-  the owner chose not to run on the fork code. It runs the integration tests with 2 workers,
-  because more time out on the 4 CPUs of a cloud session.
+  `scripts/container-ci-skipped-tests.txt`: the enterprise SSO, role provisioning and external
+  secrets tests, which the owner chose not to run on the fork code. It runs the integration tests
+  with 2 workers, because more time out on the 4 CPUs of a cloud session.
 
 ## Docker images
 
@@ -123,13 +123,17 @@ them again after each upstream update, and container CI checks that they stay de
   execution view (`packages/cli/src/executions`), of the SSO helpers (`packages/cli/src/sso`), of
   the OIDC sign-in (`packages/cli/src/modules/sso-oidc`), of the role provisioning
   (`packages/cli/src/modules/provisioning`), of the SAML sign-in
-  (`packages/cli/src/modules/sso-saml`), of the secrets providers and their connections
-  (`packages/cli/src/modules/external-secrets`), and of the sharing UI and the `EnterpriseEdition`
-  gate (`packages/frontend/editor-ui`) fail when an update changes what a role may do, how
-  projects, sharing, the sign-in method, the OIDC sign-in, the role provisioning, the SAML sign-in,
-  the secrets providers or the queries of their connections work.
+  (`packages/cli/src/modules/sso-saml`), of external secrets (the providers, the queries of their
+  connections and the module, `packages/cli/src/modules/external-secrets`), and of the sharing UI
+  and the `EnterpriseEdition` gate (`packages/frontend/editor-ui`) fail when an update changes what
+  a role may do, how projects, sharing, the sign-in method, the OIDC sign-in, the role
+  provisioning, the SAML sign-in, the secrets providers, the queries of their connections or the
+  external secrets module work.
   Compare the change with the upstream change, then update the fork code or the snapshot. The
   FORK.md files there tell how to record a snapshot against the enterprise code.
+- When an upstream update changes `packages/cli/test/shared/external-secrets/utils.ts`, make the
+  same change in `fork-providers.ts` next to it. The ordinary tests of external secrets use that
+  fork copy, and the enterprise tests use `utils.ts`.
 - When an upstream update changes scopes or roles, make the permission data again, as
   [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md) tells. The scope
   snapshot test of `@n8n/permissions` fails when upstream adds a scope.

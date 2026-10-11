@@ -16,6 +16,12 @@ export interface SecretsProviderSettings<T = IDataObject> {
 /** The stored settings of the providers, by provider name. */
 export type ExternalSecretsSettings = Record<string, SecretsProviderSettings>;
 
+/** The result of a test of provider settings. */
+export interface ProviderTestResult {
+	success: boolean;
+	error?: string;
+}
+
 /**
  * Fork code (not in upstream n8n). The base class of a secrets provider: a connection to one
  * vault. packages/cli/src/modules/external-secrets/FORK.md describes the behaviour.
@@ -29,6 +35,9 @@ export abstract class SecretsProvider {
 	abstract properties: INodeProperties[];
 
 	state: SecretsProviderState = 'initializing';
+
+	/** The error of the last connect, or `undefined` when the last connect succeeded. */
+	connectError: unknown;
 
 	abstract init(settings: SecretsProviderSettings): Promise<void>;
 
@@ -52,8 +61,9 @@ export abstract class SecretsProvider {
 
 	/**
 	 * The state is `connecting` while `doConnect` runs, then `connected`. It is `error` when
-	 * `doConnect` throws or does not end within the connect timeout. A result that comes after
-	 * the timeout does not change the state. This method never throws.
+	 * `doConnect` throws or does not end within the connect timeout, and `connectError` then holds
+	 * the error. A result that comes after the timeout does not change the state. This method never
+	 * throws.
 	 */
 	async connect(): Promise<void> {
 		this.state = 'connecting';
@@ -63,12 +73,17 @@ export abstract class SecretsProvider {
 			await Promise.race([
 				this.doConnect(),
 				new Promise<never>((_, reject) => {
-					timer = setTimeout(() => reject(new Error('Connect timed out')), timeoutMs);
+					timer = setTimeout(
+						() => reject(new Error(`Timed out connecting after ${timeoutMs}ms`)),
+						timeoutMs,
+					);
 				}),
 			]);
 			this.state = 'connected';
-		} catch {
+			this.connectError = undefined;
+		} catch (error) {
 			this.state = 'error';
+			this.connectError = error;
 		} finally {
 			clearTimeout(timer);
 		}

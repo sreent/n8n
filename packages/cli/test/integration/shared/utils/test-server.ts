@@ -376,7 +376,7 @@ export const setupTestServer = ({
 						break;
 
 					case 'externalSecrets':
-						await import('@/modules/external-secrets.ee/external-secrets.module.js');
+						await import('@/modules/external-secrets/external-secrets.module.js');
 						break;
 
 					case 'insights':

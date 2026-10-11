@@ -1,0 +1,1010 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Lifecycle of the external secrets module > a reload by a command from another instance 1`] = `
+{
+  "events": [],
+  "providers": [
+    [
+      "reload command",
+      "dummy#2",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": "<date>",
+        "settings": {
+          "password": "stored password",
+          "username": "stored user",
+        },
+      },
+    ],
+    [
+      "reload command",
+      "dummy#2",
+      "connect",
+    ],
+    [
+      "reload command",
+      "dummy#2",
+      "update",
+    ],
+    [
+      "reload command",
+      "another#2",
+      "init",
+      {
+        "connected": false,
+        "connectedAt": null,
+        "settings": {
+          "username": "not connected",
+        },
+      },
+    ],
+    [
+      "reload command",
+      "initFails#2",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {},
+      },
+    ],
+    [
+      "reload command",
+      "updateFails#2",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {},
+      },
+    ],
+    [
+      "reload command",
+      "updateFails#2",
+      "connect",
+    ],
+    [
+      "reload command",
+      "updateFails#2",
+      "update",
+    ],
+    [
+      "reload command",
+      "another#1",
+      "disconnect",
+    ],
+    [
+      "reload command",
+      "dummy#1",
+      "disconnect",
+    ],
+  ],
+  "proxy": {
+    "another": {},
+    "dummy": {
+      "reloaded": "reloaded value",
+    },
+    "updateFails": {},
+  },
+  "result": "<undefined>",
+}
+`;
+
+exports[`Lifecycle of the external secrets module > a reload by a command with stored connections 1`] = `
+{
+  "events": [],
+  "providers": [
+    [
+      "reload command",
+      "dummy#1",
+      "disconnect",
+    ],
+    [
+      "reload command",
+      "another#2",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {
+          "username": "stored as object",
+        },
+      },
+    ],
+    [
+      "reload command",
+      "another#2",
+      "connect",
+    ],
+    [
+      "reload command",
+      "another#2",
+      "update",
+    ],
+    [
+      "reload command",
+      "dummy#4",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {
+          "username": "project user",
+        },
+      },
+    ],
+    [
+      "reload command",
+      "dummy#4",
+      "connect",
+    ],
+    [
+      "reload command",
+      "dummy#4",
+      "update",
+    ],
+    [
+      "reload command",
+      "initFails#2",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {},
+      },
+    ],
+    [
+      "reload command",
+      "updateFails#2",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {},
+      },
+    ],
+    [
+      "reload command",
+      "updateFails#2",
+      "connect",
+    ],
+    [
+      "reload command",
+      "updateFails#2",
+      "update",
+    ],
+    [
+      "reload command",
+      "dummy#5",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {
+          "username": "dash",
+        },
+      },
+    ],
+    [
+      "reload command",
+      "dummy#5",
+      "connect",
+    ],
+    [
+      "reload command",
+      "dummy#5",
+      "update",
+    ],
+    [
+      "reload command",
+      "another#3",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {
+          "username": "added later",
+        },
+      },
+    ],
+    [
+      "reload command",
+      "another#3",
+      "connect",
+    ],
+    [
+      "reload command",
+      "another#3",
+      "update",
+    ],
+    [
+      "reload command",
+      "another#1",
+      "disconnect",
+    ],
+    [
+      "reload command",
+      "dummy#2",
+      "disconnect",
+    ],
+    [
+      "reload command",
+      "dummy#3",
+      "disconnect",
+    ],
+  ],
+  "proxy": {
+    "addedLater": {
+      "anotherSecret": "another value",
+    },
+    "objectSettings": {
+      "anotherSecret": "another value",
+    },
+    "projectDummy": {
+      "first": "one",
+      "second": "two",
+    },
+    "updateFailsConn": {},
+    "with-dash": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "result": "<undefined>",
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the access check of the providers of a project 1`] = `
+{
+  "addedLater in P1": true,
+  "addedLater in P2": true,
+  "disabledDummy in P1": true,
+  "disabledDummy in P2": true,
+  "globalDummy in P1": true,
+  "globalDummy in P2": true,
+  "missing in P1": false,
+  "missing in P2": false,
+  "objectSettings in P1": true,
+  "objectSettings in P2": true,
+  "projectDummy in P1": true,
+  "projectDummy in P2": false,
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the connect timeout and the refresh timeout 1`] = `
+{
+  "atStart": {
+    "events": [],
+    "providers": [
+      [
+        "init",
+        "slowConnect#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {},
+        },
+      ],
+      [
+        "init",
+        "slowUpdate#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {},
+        },
+      ],
+      [
+        "init",
+        "slowConnect#1",
+        "connect",
+      ],
+      [
+        "init",
+        "slowUpdate#1",
+        "connect",
+      ],
+      [
+        "init",
+        "slowUpdate#1",
+        "update",
+      ],
+    ],
+    "proxy": {
+      "slowConnectConn": {},
+      "slowUpdateConn": {},
+    },
+  },
+  "init took less than 2 seconds": true,
+  "later": {
+    "events": [],
+    "providers": [],
+    "proxy": {
+      "slowConnectConn": {},
+      "slowUpdateConn": {
+        "slowSecret": "slow value",
+      },
+    },
+  },
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the editor settings before the start 1`] = `
+{
+  "events": [],
+  "providers": [],
+  "proxy": {},
+  "result": {
+    "forProjects": false,
+    "multipleConnections": false,
+    "roleBasedAccess": true,
+    "systemRolesEnabled": false,
+  },
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the editor settings in each mode 1`] = `
+{
+  "multiple": {
+    "forProjects": false,
+    "multipleConnections": true,
+    "roleBasedAccess": true,
+    "systemRolesEnabled": false,
+  },
+  "projects": {
+    "forProjects": true,
+    "multipleConnections": false,
+    "roleBasedAccess": true,
+    "systemRolesEnabled": false,
+  },
+  "projects with the system roles on": {
+    "forProjects": true,
+    "multipleConnections": false,
+    "roleBasedAccess": true,
+    "systemRolesEnabled": true,
+  },
+  "projects without role-based access": {
+    "forProjects": true,
+    "multipleConnections": false,
+    "roleBasedAccess": false,
+    "systemRolesEnabled": false,
+  },
+  "settings": {
+    "forProjects": false,
+    "multipleConnections": false,
+    "roleBasedAccess": true,
+    "systemRolesEnabled": false,
+  },
+  "settings without the licence": {
+    "forProjects": false,
+    "multipleConnections": false,
+    "roleBasedAccess": true,
+    "systemRolesEnabled": false,
+  },
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the retries of a failed connect 1`] = `
+{
+  "after the second retry": {
+    "events": [],
+    "providers": [
+      [
+        "second retry",
+        "retrying#1",
+        "update",
+      ],
+    ],
+  },
+  "atStart": [
+    [
+      "init",
+      "retrying#1",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {},
+      },
+    ],
+    [
+      "init",
+      "retrying#1",
+      "connect",
+    ],
+  ],
+  "proxy": {
+    "retryConn": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "the first retry comes 4.5 to 10.5 seconds after the failure": true,
+  "the second retry comes 9.5 to 20.5 seconds after the first": true,
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the start with stored connections 1`] = `
+{
+  "init": {
+    "events": [],
+    "providers": [
+      [
+        "init",
+        "dummy#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "pw",
+            "username": "global user",
+          },
+        },
+      ],
+      [
+        "init",
+        "dummy#1",
+        "connect",
+      ],
+      [
+        "init",
+        "dummy#1",
+        "update",
+      ],
+      [
+        "init",
+        "another#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "stored as object",
+          },
+        },
+      ],
+      [
+        "init",
+        "another#1",
+        "connect",
+      ],
+      [
+        "init",
+        "another#1",
+        "update",
+      ],
+      [
+        "init",
+        "dummy#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "project user",
+          },
+        },
+      ],
+      [
+        "init",
+        "dummy#2",
+        "connect",
+      ],
+      [
+        "init",
+        "dummy#2",
+        "update",
+      ],
+      [
+        "init",
+        "initFails#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {},
+        },
+      ],
+      [
+        "init",
+        "updateFails#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {},
+        },
+      ],
+      [
+        "init",
+        "updateFails#1",
+        "connect",
+      ],
+      [
+        "init",
+        "updateFails#1",
+        "update",
+      ],
+      [
+        "init",
+        "dummy#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "dash",
+          },
+        },
+      ],
+      [
+        "init",
+        "dummy#3",
+        "connect",
+      ],
+      [
+        "init",
+        "dummy#3",
+        "update",
+      ],
+    ],
+    "proxy": {
+      "globalDummy": {
+        "first": "one",
+        "second": "two",
+      },
+      "objectSettings": {
+        "anotherSecret": "another value",
+      },
+      "projectDummy": {
+        "first": "one",
+        "second": "two",
+      },
+      "updateFailsConn": {},
+      "with-dash": {
+        "first": "one",
+        "second": "two",
+      },
+    },
+    "result": "<undefined>",
+  },
+  "settings": {
+    "events": [],
+    "providers": [],
+    "proxy": {
+      "globalDummy": {
+        "first": "one",
+        "second": "two",
+      },
+      "objectSettings": {
+        "anotherSecret": "another value",
+      },
+      "projectDummy": {
+        "first": "one",
+        "second": "two",
+      },
+      "updateFailsConn": {},
+      "with-dash": {
+        "first": "one",
+        "second": "two",
+      },
+    },
+    "result": {
+      "forProjects": true,
+      "multipleConnections": false,
+      "roleBasedAccess": true,
+      "systemRolesEnabled": false,
+    },
+  },
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the start with stored settings 1`] = `
+{
+  "init": {
+    "events": [],
+    "providers": [
+      [
+        "init",
+        "dummy#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "password": "stored password",
+            "username": "stored user",
+          },
+        },
+      ],
+      [
+        "init",
+        "dummy#1",
+        "connect",
+      ],
+      [
+        "init",
+        "dummy#1",
+        "update",
+      ],
+      [
+        "init",
+        "another#1",
+        "init",
+        {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "not connected",
+          },
+        },
+      ],
+      [
+        "init",
+        "initFails#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {},
+        },
+      ],
+      [
+        "init",
+        "updateFails#1",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {},
+        },
+      ],
+      [
+        "init",
+        "updateFails#1",
+        "connect",
+      ],
+      [
+        "init",
+        "updateFails#1",
+        "update",
+      ],
+    ],
+    "proxy": {
+      "another": {},
+      "dummy": {
+        "first": "one",
+        "second": "two",
+      },
+      "updateFails": {},
+    },
+    "result": "<undefined>",
+  },
+  "settings": {
+    "events": [],
+    "providers": [],
+    "proxy": {
+      "another": {},
+      "dummy": {
+        "first": "one",
+        "second": "two",
+      },
+      "updateFails": {},
+    },
+    "result": {
+      "forProjects": false,
+      "multipleConnections": false,
+      "roleBasedAccess": true,
+      "systemRolesEnabled": false,
+    },
+  },
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the start without the licence 1`] = `
+{
+  "events": [],
+  "providers": [
+    [
+      "init",
+      "dummy#1",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {},
+      },
+    ],
+    [
+      "init",
+      "dummy#1",
+      "connect",
+    ],
+    [
+      "init",
+      "dummy#1",
+      "update",
+    ],
+  ],
+  "proxy": {
+    "noLicence": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "result": "<undefined>",
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the stop and a second start 1`] = `
+{
+  "init": {
+    "events": [],
+    "providers": [
+      [
+        "init again",
+        "dummy#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "password": "stored password",
+            "username": "stored user",
+          },
+        },
+      ],
+      [
+        "init again",
+        "dummy#3",
+        "connect",
+      ],
+      [
+        "init again",
+        "dummy#3",
+        "update",
+      ],
+      [
+        "init again",
+        "another#3",
+        "init",
+        {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "not connected",
+          },
+        },
+      ],
+      [
+        "init again",
+        "initFails#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {},
+        },
+      ],
+      [
+        "init again",
+        "updateFails#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {},
+        },
+      ],
+      [
+        "init again",
+        "updateFails#3",
+        "connect",
+      ],
+      [
+        "init again",
+        "updateFails#3",
+        "update",
+      ],
+      [
+        "init again",
+        "another#2",
+        "disconnect",
+      ],
+      [
+        "init again",
+        "dummy#2",
+        "disconnect",
+      ],
+    ],
+    "proxy": {
+      "another": {},
+      "dummy": {
+        "reloaded": "reloaded value",
+      },
+      "updateFails": {},
+    },
+    "result": "<undefined>",
+  },
+  "secondInit": {
+    "events": [],
+    "providers": [],
+    "proxy": {
+      "another": {},
+      "dummy": {
+        "reloaded": "reloaded value",
+      },
+      "updateFails": {},
+    },
+    "result": "<undefined>",
+  },
+  "secondShutdown": {
+    "events": [],
+    "providers": [
+      [
+        "second shutdown",
+        "dummy#2",
+        "disconnect",
+      ],
+      [
+        "second shutdown",
+        "another#2",
+        "disconnect",
+      ],
+      [
+        "second shutdown",
+        "updateFails#1",
+        "disconnect",
+      ],
+    ],
+    "proxy": {
+      "another": {},
+      "dummy": {
+        "reloaded": "reloaded value",
+      },
+      "updateFails": {},
+    },
+    "result": "<undefined>",
+  },
+  "shutdown": {
+    "events": [],
+    "providers": [
+      [
+        "shutdown",
+        "updateFails#2",
+        "disconnect",
+      ],
+      [
+        "shutdown",
+        "dummy#2",
+        "disconnect",
+      ],
+      [
+        "shutdown",
+        "another#2",
+        "disconnect",
+      ],
+      [
+        "shutdown",
+        "updateFails#1",
+        "disconnect",
+      ],
+    ],
+    "proxy": {
+      "another": {},
+      "dummy": {
+        "reloaded": "reloaded value",
+      },
+      "updateFails": {},
+    },
+    "result": "<undefined>",
+  },
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the stop with stored connections 1`] = `
+{
+  "events": [],
+  "providers": [
+    [
+      "shutdown",
+      "updateFails#2",
+      "disconnect",
+    ],
+    [
+      "shutdown",
+      "another#2",
+      "disconnect",
+    ],
+    [
+      "shutdown",
+      "dummy#4",
+      "disconnect",
+    ],
+    [
+      "shutdown",
+      "updateFails#1",
+      "disconnect",
+    ],
+    [
+      "shutdown",
+      "dummy#5",
+      "disconnect",
+    ],
+    [
+      "shutdown",
+      "another#3",
+      "disconnect",
+    ],
+  ],
+  "proxy": {
+    "addedLater": {
+      "anotherSecret": "another value",
+    },
+    "objectSettings": {
+      "anotherSecret": "another value",
+    },
+    "projectDummy": {
+      "first": "one",
+      "second": "two",
+    },
+    "updateFailsConn": {},
+    "with-dash": {
+      "first": "one",
+      "second": "two",
+    },
+  },
+  "result": "<undefined>",
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the update interval 1`] = `
+{
+  "other calls": [
+    [
+      "init",
+      "dummy#1",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {},
+      },
+    ],
+    [
+      "init",
+      "updateFails#1",
+      "init",
+      {
+        "connected": true,
+        "connectedAt": null,
+        "settings": {},
+      },
+    ],
+    [
+      "init",
+      "dummy#1",
+      "connect",
+    ],
+    [
+      "init",
+      "updateFails#1",
+      "connect",
+    ],
+  ],
+  "updates of intervalDummy, at least 3": true,
+  "updates of intervalDummy, at most 4": true,
+  "updates of intervalFails, at least 3": true,
+}
+`;
+
+exports[`Lifecycle of the external secrets module > the update interval 2`] = `
+{
+  "events": [],
+  "providers": [],
+}
+`;

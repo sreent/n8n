@@ -5,15 +5,15 @@ import { Container } from '@n8n/di';
 import type { Response } from 'superagent';
 import { mock } from 'vitest-mock-extended';
 
-import { ExternalSecretsProviders } from '@/modules/external-secrets.ee/external-secrets-providers.ee';
-import { ExternalSecretsConfig } from '@/modules/external-secrets.ee/external-secrets.config';
+import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
+import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 
 import {
 	AnotherDummyProvider,
 	createDummyProvider,
 	DummyProvider,
 	MockProviders,
-} from '../../shared/external-secrets/utils';
+} from '../../shared/external-secrets/fork-providers';
 import { createAdmin, createMember, createOwner } from '../shared/db/users';
 import type { SuperAgentTest } from '../shared/types';
 import { setupTestServer } from '../shared/utils';

@@ -10,14 +10,14 @@ import { Cipher } from 'n8n-core';
 import type { Response } from 'superagent';
 import { mock } from 'vitest-mock-extended';
 
-import { ExternalSecretsProviders } from '@/modules/external-secrets.ee/external-secrets-providers.ee';
-import { ExternalSecretsConfig } from '@/modules/external-secrets.ee/external-secrets.config';
+import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
+import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 
 import {
 	DummyProvider,
 	MockProviders,
 	createDummyProvider,
-} from '../../shared/external-secrets/utils';
+} from '../../shared/external-secrets/fork-providers';
 import { createAdmin, createMember, createOwner } from '../shared/db/users';
 import type { SuperAgentTest } from '../shared/types';
 import { setupTestServer } from '../shared/utils';
@@ -641,7 +641,7 @@ describe('Secret Providers Project API', () => {
 
 		beforeAll(async () => {
 			agents = { owner: ownerAgent, admin: adminAgent, member: memberAgent };
-			const { DummyProvider } = await import('../../shared/external-secrets/utils.js');
+			const { DummyProvider } = await import('../../shared/external-secrets/fork-providers.js');
 			mockProvidersInstance.setProviders({
 				dummy: DummyProvider,
 				awsSecretsManager: DummyProvider,
@@ -664,7 +664,7 @@ describe('Secret Providers Project API', () => {
 			await createProviderConnection('test-conn', [teamProject1.id]);
 
 			const { ExternalSecretsManager } = await import(
-				'@/modules/external-secrets.ee/external-secrets-manager.ee.js'
+				'@/modules/external-secrets/external-secrets-manager.js'
 			);
 			await Container.get(ExternalSecretsManager).reloadAllProviders();
 
@@ -708,7 +708,7 @@ describe('Secret Providers Project API', () => {
 					await createProviderConnection(`test-auth-${role}`, [teamProject1.id]);
 
 					const { ExternalSecretsManager } = await import(
-						'@/modules/external-secrets.ee/external-secrets-manager.ee.js'
+						'@/modules/external-secrets/external-secrets-manager.js'
 					);
 					await Container.get(ExternalSecretsManager).reloadAllProviders();
 

@@ -1,0 +1,3131 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Settings API of external secrets > a provider whose connect fails 1`] = `
+[
+  {
+    "body": {
+      "username": "u",
+    },
+    "events": [
+      [
+        "save",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": true,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "connectFails",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save",
+        "connectFails#1",
+        "init",
+        {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "save",
+        "connectFails#1",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/connectFails",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "connected": true,
+    },
+    "events": [
+      [
+        "connect",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "connect",
+        "connectFails#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "connect",
+        "connectFails#2",
+        "connect",
+      ],
+      [
+        "connect",
+        "connectFails#1",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/connectFails/connect",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers/connectFails",
+    "response": {
+      "data": {
+        "connected": true,
+        "connectedAt": null,
+        "data": {
+          "username": "u",
+        },
+        "displayName": "connectFails display name",
+        "icon": "connectFails",
+        "name": "connectFails",
+        "properties": [
+          {
+            "default": "",
+            "displayName": "Username",
+            "name": "username",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Other",
+            "name": "other",
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Password",
+            "name": "password",
+            "type": "string",
+            "typeOptions": {
+              "password": true,
+            },
+          },
+        ],
+        "state": "error",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /external-secrets/providers/connectFails/update",
+    "response": {
+      "data": {
+        "updated": false,
+      },
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "username": "u",
+    },
+    "events": [],
+    "providers": [
+      [
+        "test",
+        "connectFails#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "test",
+        "connectFails#3",
+        "connect",
+      ],
+      [
+        "test",
+        "connectFails#3",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/connectFails/test",
+    "response": {
+      "data": {
+        "error": "The connect failed",
+        "success": false,
+        "testState": "error",
+      },
+    },
+    "status": 400,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/secrets",
+    "response": {
+      "data": {
+        "connectFails": [],
+        "dummy": [
+          "changed",
+        ],
+        "testFails": [
+          "first",
+          "second",
+        ],
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "connected": false,
+    },
+    "events": [
+      [
+        "disconnect",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "disconnect",
+        "connectFails#2",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/connectFails/connect",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > a provider whose init fails 1`] = `
+[
+  {
+    "body": {
+      "username": "u",
+    },
+    "events": [
+      [
+        "save",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": true,
+          "isValid": false,
+          "userId": "@owner",
+          "vaultType": "initFails",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save",
+        "initFails#1",
+        "init",
+        {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+    ],
+    "request": "POST /external-secrets/providers/initFails",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "connected": true,
+    },
+    "events": [
+      [
+        "connect",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "connect",
+        "initFails#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+    ],
+    "request": "POST /external-secrets/providers/initFails/connect",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers/initFails",
+    "response": {
+      "data": {
+        "connected": true,
+        "connectedAt": null,
+        "data": {
+          "username": "u",
+        },
+        "displayName": "initFails display name",
+        "icon": "initFails",
+        "name": "initFails",
+        "properties": [
+          {
+            "default": "",
+            "displayName": "Username",
+            "name": "username",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Other",
+            "name": "other",
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Password",
+            "name": "password",
+            "type": "string",
+            "typeOptions": {
+              "password": true,
+            },
+          },
+        ],
+        "state": "initializing",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "username": "u",
+    },
+    "events": [],
+    "providers": [
+      [
+        "test",
+        "initFails#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+    ],
+    "request": "POST /external-secrets/providers/initFails/test",
+    "response": {
+      "data": {
+        "success": false,
+        "testState": "error",
+      },
+    },
+    "status": 400,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /external-secrets/providers/initFails/update",
+    "response": {
+      "data": {
+        "updated": false,
+      },
+    },
+    "status": 400,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > a provider whose init fails 2`] = `
+{
+  "access": [],
+  "connections": [],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {
+    "feature.externalSecrets": {
+      "loadOnStartup": false,
+      "value": {
+        "connectFails": {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "dummy": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password one",
+            "username": "user two",
+          },
+        },
+        "initFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "testFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > a provider whose test fails 1`] = `
+[
+  {
+    "body": {
+      "username": "u",
+    },
+    "events": [
+      [
+        "save",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "errorMessage": "The test failed",
+          "isNew": true,
+          "isValid": false,
+          "userId": "@owner",
+          "vaultType": "testFails",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save",
+        "testFails#1",
+        "init",
+        {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "save",
+        "testFails#1",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/testFails",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "username": "u",
+    },
+    "events": [],
+    "providers": [
+      [
+        "test",
+        "testFails#2",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "test",
+        "testFails#2",
+        "connect",
+      ],
+      [
+        "test",
+        "testFails#2",
+        "test",
+      ],
+      [
+        "test",
+        "testFails#2",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/testFails/test",
+    "response": {
+      "data": {
+        "error": "The test failed",
+        "success": false,
+        "testState": "error",
+      },
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "connected": true,
+    },
+    "events": [
+      [
+        "connect",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "connect",
+        "testFails#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "connect",
+        "testFails#3",
+        "connect",
+      ],
+      [
+        "connect",
+        "testFails#3",
+        "update",
+      ],
+      [
+        "connect",
+        "testFails#1",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/testFails/connect",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers/testFails",
+    "response": {
+      "data": {
+        "connected": true,
+        "connectedAt": null,
+        "data": {
+          "username": "u",
+        },
+        "displayName": "testFails display name",
+        "icon": "testFails",
+        "name": "testFails",
+        "properties": [
+          {
+            "default": "",
+            "displayName": "Username",
+            "name": "username",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Other",
+            "name": "other",
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Password",
+            "name": "password",
+            "type": "string",
+            "typeOptions": {
+              "password": true,
+            },
+          },
+        ],
+        "state": "connected",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > an empty password 1`] = `
+[
+  {
+    "body": {
+      "password": "",
+      "username": "empty",
+    },
+    "events": [
+      [
+        "save",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": false,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save",
+        "dummy#10",
+        "init",
+        {
+          "connectedAt": null,
+          "settings": {
+            "password": "",
+            "username": "empty",
+          },
+        },
+      ],
+      [
+        "save",
+        "dummy#9",
+        "disconnect",
+      ],
+      [
+        "save",
+        "dummy#10",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers/dummy",
+    "response": {
+      "data": {
+        "connectedAt": null,
+        "data": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "empty",
+        },
+        "displayName": "Dummy",
+        "icon": "dummy",
+        "name": "dummy",
+        "properties": [
+          {
+            "default": "",
+            "displayName": "Username",
+            "name": "username",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Other",
+            "name": "other",
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Password",
+            "name": "password",
+            "type": "string",
+            "typeOptions": {
+              "password": true,
+            },
+          },
+        ],
+        "state": "initialized",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+      "username": "empty",
+    },
+    "events": [
+      [
+        "save the answer again",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save the answer again",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": false,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save the answer again",
+        "dummy#11",
+        "init",
+        {
+          "connectedAt": null,
+          "settings": {
+            "password": "",
+            "username": "empty",
+          },
+        },
+      ],
+      [
+        "save the answer again",
+        "dummy#10",
+        "disconnect",
+      ],
+      [
+        "save the answer again",
+        "dummy#11",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > an empty password 2`] = `
+{
+  "access": [],
+  "connections": [],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {
+    "externalSecrets.systemRolesEnabled": {
+      "loadOnStartup": true,
+      "value": "false",
+    },
+    "feature.externalSecrets": {
+      "loadOnStartup": false,
+      "value": {
+        "connectFails": {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "dummy": {
+          "connectedAt": null,
+          "settings": {
+            "password": "",
+            "username": "empty",
+          },
+        },
+        "initFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "testFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > connect the provider 1`] = `
+{
+  "after": [
+    {
+      "events": [],
+      "providers": [],
+      "request": "GET /external-secrets/providers/dummy",
+      "response": {
+        "data": {
+          "connected": true,
+          "connectedAt": null,
+          "data": {
+            "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "username": "user two",
+          },
+          "displayName": "Dummy",
+          "icon": "dummy",
+          "name": "dummy",
+          "properties": [
+            {
+              "default": "",
+              "displayName": "Username",
+              "name": "username",
+              "required": true,
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Other",
+              "name": "other",
+              "type": "string",
+            },
+            {
+              "default": "",
+              "displayName": "Password",
+              "name": "password",
+              "type": "string",
+              "typeOptions": {
+                "password": true,
+              },
+            },
+          ],
+          "state": "connected",
+        },
+      },
+      "status": 200,
+    },
+    {
+      "events": [],
+      "providers": [],
+      "request": "GET /external-secrets/secrets",
+      "response": {
+        "data": {
+          "dummy": [
+            "first",
+            "second",
+          ],
+        },
+      },
+      "status": 200,
+    },
+  ],
+  "connect": {
+    "body": {
+      "connected": true,
+    },
+    "events": [
+      [
+        "connect",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "connect",
+        "dummy#3",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password one",
+            "username": "user two",
+          },
+        },
+      ],
+      [
+        "connect",
+        "dummy#3",
+        "connect",
+      ],
+      [
+        "connect",
+        "dummy#3",
+        "update",
+      ],
+      [
+        "connect",
+        "dummy#2",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/connect",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  "stored": {
+    "access": [],
+    "connections": [],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {
+      "feature.externalSecrets": {
+        "loadOnStartup": false,
+        "value": {
+          "dummy": {
+            "connected": true,
+            "connectedAt": null,
+            "settings": {
+              "password": "password one",
+              "username": "user two",
+            },
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > disconnect the provider 1`] = `
+[
+  {
+    "body": {
+      "connected": false,
+    },
+    "events": [
+      [
+        "disconnect",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "disconnect",
+        "dummy#3",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/connect",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers/dummy",
+    "response": {
+      "data": {
+        "connected": false,
+        "connectedAt": null,
+        "data": {
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user two",
+        },
+        "displayName": "Dummy",
+        "icon": "dummy",
+        "name": "dummy",
+        "properties": [
+          {
+            "default": "",
+            "displayName": "Username",
+            "name": "username",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Other",
+            "name": "other",
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Password",
+            "name": "password",
+            "type": "string",
+            "typeOptions": {
+              "password": true,
+            },
+          },
+        ],
+        "state": "initializing",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/secrets",
+    "response": {
+      "data": {
+        "testFails": [
+          "first",
+          "second",
+        ],
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /external-secrets/providers/dummy/update",
+    "response": {
+      "data": {
+        "updated": false,
+      },
+    },
+    "status": 400,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > disconnect the provider 2`] = `
+{
+  "access": [],
+  "connections": [],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {
+    "feature.externalSecrets": {
+      "loadOnStartup": false,
+      "value": {
+        "connectFails": {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "dummy": {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "password": "password one",
+            "username": "user two",
+          },
+        },
+        "initFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "testFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > in the mode with connections 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers",
+    "response": {
+      "data": [
+        {
+          "connected": false,
+          "connectedAt": null,
+          "data": {
+            "username": "multiple",
+          },
+          "displayName": "Dummy",
+          "icon": "dummy",
+          "name": "dummy",
+          "state": "initialized",
+        },
+        {
+          "connected": true,
+          "connectedAt": null,
+          "data": {
+            "username": "u",
+          },
+          "displayName": "testFails display name",
+          "icon": "testFails",
+          "name": "testFails",
+          "state": "connected",
+        },
+        {
+          "connected": false,
+          "connectedAt": null,
+          "data": {
+            "username": "u",
+          },
+          "displayName": "connectFails display name",
+          "icon": "connectFails",
+          "name": "connectFails",
+          "state": "initializing",
+        },
+        {
+          "connected": true,
+          "connectedAt": null,
+          "data": {
+            "username": "u",
+          },
+          "displayName": "initFails display name",
+          "icon": "initFails",
+          "name": "initFails",
+          "state": "initializing",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers/dummy",
+    "response": {
+      "data": {
+        "connected": false,
+        "connectedAt": null,
+        "data": {
+          "username": "multiple",
+        },
+        "displayName": "Dummy",
+        "icon": "dummy",
+        "name": "dummy",
+        "properties": [
+          {
+            "default": "",
+            "displayName": "Username",
+            "name": "username",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Other",
+            "name": "other",
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Password",
+            "name": "password",
+            "type": "string",
+            "typeOptions": {
+              "password": true,
+            },
+          },
+        ],
+        "state": "initialized",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/secrets",
+    "response": {
+      "data": {
+        "dummy": [],
+        "testFails": [
+          "first",
+          "second",
+        ],
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "username": "projects",
+    },
+    "events": [
+      [
+        "save",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": false,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save",
+        "dummy#20",
+        "init",
+        {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "projects",
+          },
+        },
+      ],
+      [
+        "save",
+        "dummy#19",
+        "disconnect",
+      ],
+      [
+        "save",
+        "dummy#20",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections",
+    "response": {
+      "data": [],
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > in the mode with multiple connections 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers",
+    "response": {
+      "data": [
+        {
+          "connected": false,
+          "connectedAt": null,
+          "data": {
+            "username": "no licence",
+          },
+          "displayName": "Dummy",
+          "icon": "dummy",
+          "name": "dummy",
+          "state": "initialized",
+        },
+        {
+          "connected": true,
+          "connectedAt": null,
+          "data": {
+            "username": "u",
+          },
+          "displayName": "testFails display name",
+          "icon": "testFails",
+          "name": "testFails",
+          "state": "connected",
+        },
+        {
+          "connected": false,
+          "connectedAt": null,
+          "data": {
+            "username": "u",
+          },
+          "displayName": "connectFails display name",
+          "icon": "connectFails",
+          "name": "connectFails",
+          "state": "initializing",
+        },
+        {
+          "connected": true,
+          "connectedAt": null,
+          "data": {
+            "username": "u",
+          },
+          "displayName": "initFails display name",
+          "icon": "initFails",
+          "name": "initFails",
+          "state": "initializing",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "username": "multiple",
+    },
+    "events": [
+      [
+        "save",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": false,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save",
+        "dummy#19",
+        "init",
+        {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "multiple",
+          },
+        },
+      ],
+      [
+        "save",
+        "dummy#18",
+        "disconnect",
+      ],
+      [
+        "save",
+        "dummy#19",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /secret-providers/connections",
+    "response": {
+      "data": [],
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > in the multi-main mode 1`] = `
+[
+  {
+    "body": {
+      "username": "multi",
+    },
+    "events": [
+      [
+        "save",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": false,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save",
+        "dummy#15",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "multi",
+          },
+        },
+      ],
+      [
+        "save",
+        "dummy#15",
+        "connect",
+      ],
+      [
+        "save",
+        "dummy#15",
+        "update",
+      ],
+      [
+        "save",
+        "dummy#13",
+        "disconnect",
+      ],
+      [
+        "save",
+        "dummy#15",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "connected": true,
+    },
+    "events": [
+      [
+        "connect",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "connect",
+        "dummy#16",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "multi",
+          },
+        },
+      ],
+      [
+        "connect",
+        "dummy#16",
+        "connect",
+      ],
+      [
+        "connect",
+        "dummy#16",
+        "update",
+      ],
+      [
+        "connect",
+        "dummy#15",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/connect",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "username": "multi",
+    },
+    "events": [],
+    "providers": [
+      [
+        "test",
+        "dummy#17",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "username": "multi",
+          },
+        },
+      ],
+      [
+        "test",
+        "dummy#17",
+        "connect",
+      ],
+      [
+        "test",
+        "dummy#17",
+        "test",
+      ],
+      [
+        "test",
+        "dummy#17",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "connected",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [
+      [
+        "update",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "update",
+        "event",
+        "external-secrets-provider-reloaded",
+        {
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "update",
+        "dummy#16",
+        "update",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/update",
+    "response": {
+      "data": {
+        "updated": true,
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "connected": false,
+    },
+    "events": [
+      [
+        "disconnect",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "disconnect",
+        "dummy#16",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/connect",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "systemRolesEnabled": false,
+    },
+    "events": [
+      [
+        "system roles",
+        "event",
+        "external-secrets-system-roles-toggled",
+        {
+          "enabled": false,
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "providers": [],
+    "request": "POST /external-secrets/settings",
+    "response": {
+      "data": {
+        "systemRolesEnabled": false,
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > in the multi-main mode 2`] = `
+{
+  "access": [],
+  "connections": [],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {
+    "externalSecrets.systemRolesEnabled": {
+      "loadOnStartup": true,
+      "value": "false",
+    },
+    "feature.externalSecrets": {
+      "loadOnStartup": false,
+      "value": {
+        "connectFails": {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "dummy": {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "multi",
+          },
+        },
+        "initFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "testFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > invalid input 1`] = `
+[
+  {
+    "body": {
+      "username": "u",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /external-secrets/providers/unknown",
+    "response": "<html error page> ResponseError: Could not find provider "unknown"",
+    "status": 500,
+  },
+  {
+    "body": {
+      "connected": true,
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /external-secrets/providers/unknown/connect",
+    "response": "<html error page> ResponseError: Could not find provider "unknown"",
+    "status": 500,
+  },
+  {
+    "body": {
+      "username": "u",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /external-secrets/providers/unknown/test",
+    "response": "<html error page> ResponseError: Could not find provider "unknown"",
+    "status": 500,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "POST /external-secrets/providers/unknown/update",
+    "response": "<html error page> ResponseError: Could not find provider "unknown"",
+    "status": 500,
+  },
+  {
+    "body": {
+      "connected": "yes",
+    },
+    "events": [
+      [
+        "connect with text",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "connect with text",
+        "dummy#7",
+        "init",
+        {
+          "connected": "yes",
+          "connectedAt": null,
+          "settings": {
+            "password": "password one",
+            "username": "user two",
+          },
+        },
+      ],
+      [
+        "connect with text",
+        "dummy#7",
+        "connect",
+      ],
+      [
+        "connect with text",
+        "dummy#7",
+        "update",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/connect",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "body": {},
+    "events": [
+      [
+        "connect without a value",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "connect without a value",
+        "dummy#7",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/connect",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "body": [
+      "a",
+      "b",
+    ],
+    "events": [
+      [
+        "save a list",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save a list",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": false,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save a list",
+        "dummy#8",
+        "init",
+        {
+          "connectedAt": null,
+          "settings": [
+            "a",
+            "b",
+          ],
+        },
+      ],
+      [
+        "save a list",
+        "dummy#8",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "unknownField": "x",
+      "username": "u",
+    },
+    "events": [
+      [
+        "save a field that the form does not have",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save a field that the form does not have",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": false,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save a field that the form does not have",
+        "dummy#9",
+        "init",
+        {
+          "connectedAt": null,
+          "settings": {
+            "unknownField": "x",
+            "username": "u",
+          },
+        },
+      ],
+      [
+        "save a field that the form does not have",
+        "dummy#8",
+        "disconnect",
+      ],
+      [
+        "save a field that the form does not have",
+        "dummy#9",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > invalid input 2`] = `
+{
+  "access": [],
+  "connections": [],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {
+    "externalSecrets.systemRolesEnabled": {
+      "loadOnStartup": true,
+      "value": "false",
+    },
+    "feature.externalSecrets": {
+      "loadOnStartup": false,
+      "value": {
+        "connectFails": {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "dummy": {
+          "connectedAt": null,
+          "settings": {
+            "unknownField": "x",
+            "username": "u",
+          },
+        },
+        "initFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "testFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > save again with the blanked password and a missing field 1`] = `
+{
+  "save": {
+    "body": {
+      "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+      "username": "user two",
+    },
+    "events": [
+      [
+        "save again",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save again",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": false,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save again",
+        "dummy#2",
+        "init",
+        {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "password": "password one",
+            "username": "user two",
+          },
+        },
+      ],
+      [
+        "save again",
+        "dummy#1",
+        "disconnect",
+      ],
+      [
+        "save again",
+        "dummy#2",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  "stored": {
+    "access": [],
+    "connections": [],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {
+      "feature.externalSecrets": {
+        "loadOnStartup": false,
+        "value": {
+          "dummy": {
+            "connected": false,
+            "connectedAt": null,
+            "settings": {
+              "password": "password one",
+              "username": "user two",
+            },
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > save the settings of a provider 1`] = `
+{
+  "save": {
+    "body": {
+      "other": "other one",
+      "password": "password one",
+      "username": "user one",
+    },
+    "events": [
+      [
+        "save",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": true,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save",
+        "dummy#1",
+        "init",
+        {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "other": "other one",
+            "password": "password one",
+            "username": "user one",
+          },
+        },
+      ],
+      [
+        "save",
+        "dummy#1",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  "stored": {
+    "access": [],
+    "connections": [],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {
+      "feature.externalSecrets": {
+        "loadOnStartup": false,
+        "value": {
+          "dummy": {
+            "connected": false,
+            "connectedAt": null,
+            "settings": {
+              "other": "other one",
+              "password": "password one",
+              "username": "user one",
+            },
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > startup 1`] = `
+{
+  "events": [],
+  "providers": [],
+  "stored": {
+    "access": [],
+    "connections": [],
+    "roles": {
+      "project:admin": [],
+      "project:editor": [],
+      "project:personalOwner": [],
+      "project:viewer": [],
+    },
+    "settings": {},
+  },
+}
+`;
+
+exports[`Settings API of external secrets > test the provider 1`] = `
+[
+  {
+    "body": {
+      "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+      "username": "user three",
+    },
+    "events": [],
+    "providers": [
+      [
+        "test with the blanked password",
+        "dummy#4",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "password": "password one",
+            "username": "user three",
+          },
+        },
+      ],
+      [
+        "test with the blanked password",
+        "dummy#4",
+        "connect",
+      ],
+      [
+        "test with the blanked password",
+        "dummy#4",
+        "test",
+      ],
+      [
+        "test with the blanked password",
+        "dummy#4",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "connected",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "password": "password four",
+      "username": "user four",
+    },
+    "events": [],
+    "providers": [
+      [
+        "test with new settings",
+        "dummy#5",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {
+            "password": "password four",
+            "username": "user four",
+          },
+        },
+      ],
+      [
+        "test with new settings",
+        "dummy#5",
+        "connect",
+      ],
+      [
+        "test with new settings",
+        "dummy#5",
+        "test",
+      ],
+      [
+        "test with new settings",
+        "dummy#5",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "connected",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [
+      [
+        "test with no body",
+        "dummy#6",
+        "init",
+        {
+          "connected": true,
+          "connectedAt": "<date>",
+          "settings": {},
+        },
+      ],
+      [
+        "test with no body",
+        "dummy#6",
+        "connect",
+      ],
+      [
+        "test with no body",
+        "dummy#6",
+        "test",
+      ],
+      [
+        "test with no body",
+        "dummy#6",
+        "disconnect",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/test",
+    "response": {
+      "data": {
+        "success": true,
+        "testState": "connected",
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > test the provider 2`] = `
+{
+  "access": [],
+  "connections": [],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {
+    "feature.externalSecrets": {
+      "loadOnStartup": false,
+      "value": {
+        "dummy": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "password": "password one",
+            "username": "user two",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > the access of each role 1`] = `
+{
+  "admin GET /external-secrets/providers": {
+    "events": [],
+    "status": 200,
+  },
+  "admin GET /external-secrets/providers/dummy": {
+    "events": [],
+    "status": 200,
+  },
+  "admin GET /external-secrets/secrets": {
+    "events": [],
+    "status": 200,
+  },
+  "admin POST /external-secrets/providers/dummy": {
+    "events": [
+      [
+        "admin",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "admin",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": false,
+          "isValid": true,
+          "userId": "@admin",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "status": 200,
+  },
+  "admin POST /external-secrets/providers/dummy/connect": {
+    "events": [
+      [
+        "admin",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+    ],
+    "status": 200,
+  },
+  "admin POST /external-secrets/providers/dummy/test": {
+    "events": [],
+    "status": 200,
+  },
+  "admin POST /external-secrets/providers/dummy/update": {
+    "events": [
+      [
+        "admin",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "admin",
+        "event",
+        "external-secrets-provider-reloaded",
+        {
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "status": 200,
+  },
+  "admin POST /external-secrets/settings": {
+    "events": [
+      [
+        "admin",
+        "event",
+        "external-secrets-system-roles-toggled",
+        {
+          "enabled": false,
+          "userId": "@admin",
+        },
+      ],
+    ],
+    "status": 200,
+  },
+  "member GET /external-secrets/providers": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member GET /external-secrets/providers/dummy": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member GET /external-secrets/secrets": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member POST /external-secrets/providers/dummy": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member POST /external-secrets/providers/dummy/connect": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member POST /external-secrets/providers/dummy/test": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member POST /external-secrets/providers/dummy/update": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "member POST /external-secrets/settings": {
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+  },
+}
+`;
+
+exports[`Settings API of external secrets > the access of each role 2`] = `
+{
+  "access": [],
+  "connections": [],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {
+    "externalSecrets.systemRolesEnabled": {
+      "loadOnStartup": true,
+      "value": "false",
+    },
+    "feature.externalSecrets": {
+      "loadOnStartup": false,
+      "value": {
+        "connectFails": {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "dummy": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "by role",
+          },
+        },
+        "initFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "testFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > the capture of events 1`] = `
+[
+  [
+    "capture check",
+    "event",
+    "external-secrets-provider-reloaded",
+    {
+      "vaultType": "check",
+    },
+  ],
+]
+`;
+
+exports[`Settings API of external secrets > the provider after the save 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers/dummy",
+    "response": {
+      "data": {
+        "connected": false,
+        "connectedAt": null,
+        "data": {
+          "other": "other one",
+          "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          "username": "user one",
+        },
+        "displayName": "Dummy",
+        "icon": "dummy",
+        "name": "dummy",
+        "properties": [
+          {
+            "default": "",
+            "displayName": "Username",
+            "name": "username",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Other",
+            "name": "other",
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Password",
+            "name": "password",
+            "type": "string",
+            "typeOptions": {
+              "password": true,
+            },
+          },
+        ],
+        "state": "initialized",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers",
+    "response": {
+      "data": [
+        {
+          "connected": false,
+          "connectedAt": null,
+          "data": {
+            "other": "other one",
+            "password": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "username": "user one",
+          },
+          "displayName": "Dummy",
+          "icon": "dummy",
+          "name": "dummy",
+          "state": "initialized",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "testFails display name",
+          "icon": "testFails",
+          "name": "testFails",
+          "state": "initializing",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "connectFails display name",
+          "icon": "connectFails",
+          "name": "connectFails",
+          "state": "initializing",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "initFails display name",
+          "icon": "initFails",
+          "name": "initFails",
+          "state": "initializing",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/secrets",
+    "response": {
+      "data": {
+        "dummy": [],
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > the providers before any settings 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers",
+    "response": {
+      "data": [
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "Dummy",
+          "icon": "dummy",
+          "name": "dummy",
+          "state": "initializing",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "testFails display name",
+          "icon": "testFails",
+          "name": "testFails",
+          "state": "initializing",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "connectFails display name",
+          "icon": "connectFails",
+          "name": "connectFails",
+          "state": "initializing",
+        },
+        {
+          "connected": false,
+          "data": {},
+          "displayName": "initFails display name",
+          "icon": "initFails",
+          "name": "initFails",
+          "state": "initializing",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers/dummy",
+    "response": {
+      "data": {
+        "data": {},
+        "displayName": "Dummy",
+        "icon": "dummy",
+        "name": "dummy",
+        "properties": [
+          {
+            "default": "",
+            "displayName": "Username",
+            "name": "username",
+            "required": true,
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Other",
+            "name": "other",
+            "type": "string",
+          },
+          {
+            "default": "",
+            "displayName": "Password",
+            "name": "password",
+            "type": "string",
+            "typeOptions": {
+              "password": true,
+            },
+          },
+        ],
+        "state": "initializing",
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers/unknown",
+    "response": "<html error page> ResponseError: Could not find provider "unknown"",
+    "status": 500,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/secrets",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > the system roles setting 1`] = `
+[
+  {
+    "body": {
+      "systemRolesEnabled": true,
+    },
+    "events": [
+      [
+        "turn on",
+        "event",
+        "external-secrets-system-roles-toggled",
+        {
+          "enabled": true,
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "providers": [],
+    "request": "POST /external-secrets/settings/",
+    "response": {
+      "data": {
+        "systemRolesEnabled": true,
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "systemRolesEnabled": true,
+    },
+    "events": [
+      [
+        "turn on again",
+        "event",
+        "external-secrets-system-roles-toggled",
+        {
+          "enabled": true,
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "providers": [],
+    "request": "POST /external-secrets/settings",
+    "response": {
+      "data": {
+        "systemRolesEnabled": true,
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "systemRolesEnabled": false,
+    },
+    "events": [
+      [
+        "turn off",
+        "event",
+        "external-secrets-system-roles-toggled",
+        {
+          "enabled": false,
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "providers": [],
+    "request": "POST /external-secrets/settings",
+    "response": {
+      "data": {
+        "systemRolesEnabled": false,
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {},
+    "events": [],
+    "providers": [],
+    "request": "POST /external-secrets/settings",
+    "response": {
+      "code": "invalid_type",
+      "expected": "boolean",
+      "message": "Required",
+      "path": [
+        "systemRolesEnabled",
+      ],
+      "received": "undefined",
+    },
+    "status": 400,
+  },
+  {
+    "body": {
+      "systemRolesEnabled": "yes",
+    },
+    "events": [],
+    "providers": [],
+    "request": "POST /external-secrets/settings",
+    "response": {
+      "code": "invalid_type",
+      "expected": "boolean",
+      "message": "Expected boolean, received string",
+      "path": [
+        "systemRolesEnabled",
+      ],
+      "received": "string",
+    },
+    "status": 400,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > the system roles setting 2`] = `
+{
+  "access": [],
+  "connections": [],
+  "roles": {
+    "project:admin": [],
+    "project:editor": [],
+    "project:personalOwner": [],
+    "project:viewer": [],
+  },
+  "settings": {
+    "externalSecrets.systemRolesEnabled": {
+      "loadOnStartup": true,
+      "value": "false",
+    },
+    "feature.externalSecrets": {
+      "loadOnStartup": false,
+      "value": {
+        "connectFails": {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "dummy": {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "password": "password one",
+            "username": "user two",
+          },
+        },
+        "initFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+        "testFails": {
+          "connected": true,
+          "connectedAt": null,
+          "settings": {
+            "username": "u",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Settings API of external secrets > update the secrets of the provider 1`] = `
+[
+  {
+    "events": [
+      [
+        "update",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "update",
+        "event",
+        "external-secrets-provider-reloaded",
+        {
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "update",
+        "dummy#3",
+        "update",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy/update",
+    "response": {
+      "data": {
+        "updated": true,
+      },
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/secrets",
+    "response": {
+      "data": {
+        "dummy": [
+          "changed",
+        ],
+      },
+    },
+    "status": 200,
+  },
+]
+`;
+
+exports[`Settings API of external secrets > without the licence 1`] = `
+[
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/providers",
+    "response": {
+      "data": [
+        {
+          "connected": false,
+          "connectedAt": null,
+          "data": {
+            "username": "multi",
+          },
+          "displayName": "Dummy",
+          "icon": "dummy",
+          "name": "dummy",
+          "state": "initializing",
+        },
+        {
+          "connected": true,
+          "connectedAt": null,
+          "data": {
+            "username": "u",
+          },
+          "displayName": "testFails display name",
+          "icon": "testFails",
+          "name": "testFails",
+          "state": "connected",
+        },
+        {
+          "connected": false,
+          "connectedAt": null,
+          "data": {
+            "username": "u",
+          },
+          "displayName": "connectFails display name",
+          "icon": "connectFails",
+          "name": "connectFails",
+          "state": "initializing",
+        },
+        {
+          "connected": true,
+          "connectedAt": null,
+          "data": {
+            "username": "u",
+          },
+          "displayName": "initFails display name",
+          "icon": "initFails",
+          "name": "initFails",
+          "state": "initializing",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  {
+    "events": [],
+    "providers": [],
+    "request": "GET /external-secrets/secrets",
+    "response": {
+      "data": {
+        "testFails": [
+          "first",
+          "second",
+        ],
+      },
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "username": "no licence",
+    },
+    "events": [
+      [
+        "save",
+        "command",
+        {
+          "command": "reload-external-secrets-providers",
+        },
+      ],
+      [
+        "save",
+        "event",
+        "external-secrets-provider-settings-saved",
+        {
+          "isNew": false,
+          "isValid": true,
+          "userId": "@owner",
+          "vaultType": "dummy",
+        },
+      ],
+    ],
+    "providers": [
+      [
+        "save",
+        "dummy#18",
+        "init",
+        {
+          "connected": false,
+          "connectedAt": null,
+          "settings": {
+            "username": "no licence",
+          },
+        },
+      ],
+      [
+        "save",
+        "dummy#18",
+        "test",
+      ],
+    ],
+    "request": "POST /external-secrets/providers/dummy",
+    "response": {
+      "data": {},
+    },
+    "status": 200,
+  },
+  {
+    "body": {
+      "systemRolesEnabled": true,
+    },
+    "events": [
+      [
+        "system roles",
+        "event",
+        "external-secrets-system-roles-toggled",
+        {
+          "enabled": true,
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "providers": [],
+    "request": "POST /external-secrets/settings",
+    "response": {
+      "data": {
+        "systemRolesEnabled": true,
+      },
+    },
+    "status": 200,
+  },
+]
+`;
