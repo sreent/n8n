@@ -93,9 +93,7 @@ const SettingsExternalSecrets = async () => {
 		);
 	}
 
-	return await import(
-		'@/features/integrations/externalSecrets.ee/views/SettingsExternalSecrets.vue'
-	);
+	return await import('@/features/integrations/externalSecrets/views/SettingsExternalSecrets.vue');
 };
 const WorkerView = async () =>
 	await import('@/features/settings/orchestration.ee/views/WorkerView.vue');

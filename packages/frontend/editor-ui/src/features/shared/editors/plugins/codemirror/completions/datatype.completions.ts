@@ -1,7 +1,7 @@
 import { VALID_EMAIL_REGEX } from '@/app/constants';
 import { i18n } from '@n8n/i18n';
 import { useEnvironmentsStore } from '@/features/settings/environments.ee/environments.store';
-import { useExternalSecretsStore } from '@/features/integrations/externalSecrets.ee/externalSecrets.ee.store';
+import { useExternalSecretsStore } from '@/features/integrations/externalSecrets/externalSecrets.store';
 import type {
 	Completion,
 	CompletionContext,
