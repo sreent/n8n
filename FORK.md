@@ -53,7 +53,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    connections (done), the module (done), the REST clients, the store and the settings page with
    one connection for each provider type (done, see
    [the FORK.md of the editor folder](packages/frontend/editor-ui/src/features/integrations/externalSecrets/FORK.md)),
-   and the settings pages of the connections. See
+   and the settings pages of the connections (done, see
+   [the FORK.md of the connections folder](packages/frontend/editor-ui/src/features/integrations/secretsProviders/FORK.md)).
+   See
    [packages/cli/src/modules/external-secrets/FORK.md](packages/cli/src/modules/external-secrets/FORK.md).
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
@@ -129,11 +131,13 @@ them again after each upstream update, and container CI checks that they stay de
   (`packages/cli/src/modules/sso-saml`), of external secrets (the providers, the queries of their
   connections and the module, `packages/cli/src/modules/external-secrets`), of the external secrets
   editor (the REST clients, the store and the settings page,
-  `packages/frontend/editor-ui/src/features/integrations/externalSecrets`), and of the sharing UI
+  `packages/frontend/editor-ui/src/features/integrations/externalSecrets`), of the connections
+  editor (the settings page of the connections, its modals and its composables,
+  `packages/frontend/editor-ui/src/features/integrations/secretsProviders`), and of the sharing UI
   and the `EnterpriseEdition` gate (`packages/frontend/editor-ui`) fail when an update changes what
   a role may do, how projects, sharing, the sign-in method, the OIDC sign-in, the role
   provisioning, the SAML sign-in, the secrets providers, the queries of their connections, the
-  external secrets module or the external secrets editor work.
+  external secrets module, the external secrets editor or the connections editor work.
   Compare the change with the upstream change, then update the fork code or the snapshot. The
   FORK.md files there tell how to record a snapshot against the enterprise code.
 - When an upstream update changes `packages/cli/test/shared/external-secrets/utils.ts`, make the

@@ -23,14 +23,16 @@ The work comes in five pull requests:
    tests. (Done.)
 5. The editor, in two parts:
    - 5a: the REST clients, the store, and the settings page with one connection for each provider
-     type, with its modal. (This pull request. See
+     type, with its modal. (Done. See
      [the FORK.md of the editor folder](../../../../frontend/editor-ui/src/features/integrations/externalSecrets/FORK.md).)
    - 5b: the settings pages of the connections, their modals, and the connections of a project.
+     (This pull request. See
+     [the FORK.md of the connections folder](../../../../frontend/editor-ui/src/features/integrations/secretsProviders/FORK.md).)
 
 Ordinary code uses this folder. The module registry loads
 `external-secrets/external-secrets.module.ts`. It tries the enterprise folder only when that file is
-not there, so n8n starts the fork module and not the enterprise module. Until pull request 5b, the
-enterprise pages of the connections in the editor use the REST APIs of the fork module.
+not there, so n8n starts the fork module and not the enterprise module. The editor uses the fork
+files of pull requests 5a and 5b.
 
 ## Behaviour
 
