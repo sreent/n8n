@@ -1,12 +1,13 @@
 # Audit log
 
 Fork module (not in upstream n8n). The audit log stores the audit events of n8n (`n8n.audit.*`) in
-the database. The instance owner and admins read them in the REST API, filter them, and export them
-as CSV or JSON. The module deletes an event after 90 days.
+the database. The instance owner and admins read them on the page **Settings > Audit log** and in
+the REST API, filter them, and export them as CSV or JSON. The module deletes an event after 90
+days.
 
 The repository owner chose this on 2026-10-11: the fork builds an audit log and a new log
-streaming, the audit log is on by default, and it keeps the events for 90 days. The settings page of
-the audit log comes in the next pull request, as a frontend module.
+streaming, the audit log is on by default, and it keeps the events for 90 days. The settings page is
+the frontend module `packages/modules/audit-log/frontend`. Its README describes it.
 
 This module does not use enterprise code. Upstream n8n has no audit log of its own. The table
 `activity_event` of upstream is a different feed: it keeps a short history of workflows and
