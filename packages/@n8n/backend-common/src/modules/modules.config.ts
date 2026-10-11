@@ -44,6 +44,7 @@ export const MODULE_NAMES = [
 	// Fork modules (not in upstream n8n)
 	'send-copy',
 	'git-sync',
+	'audit-log',
 ] as const;
 
 export type ModuleName = (typeof MODULE_NAMES)[number];

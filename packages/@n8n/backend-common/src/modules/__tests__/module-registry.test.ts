@@ -90,6 +90,7 @@ describe('eligibleModules', () => {
 			'inbound-auth-core',
 			'send-copy',
 			'git-sync',
+			'audit-log',
 		]);
 	});
 
@@ -126,6 +127,7 @@ describe('eligibleModules', () => {
 			'inbound-auth-core',
 			'send-copy',
 			'git-sync',
+			'audit-log',
 			'type-availability-policies',
 		]);
 	});
