@@ -1,10 +1,11 @@
 import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from '@n8n/typeorm';
 
-import type { AnnotationTagEntity } from './annotation-tag-entity.ee';
-import type { ExecutionAnnotation } from './execution-annotation.ee';
+import type { AnnotationTagEntity } from './annotation-tag-entity';
+import type { ExecutionAnnotation } from './execution-annotation';
 
 /**
- * This entity represents the junction table between the execution annotations and the tags
+ * Fork code (not in upstream n8n): a tag of an execution annotation. It replaces the enterprise
+ * entity of the same name. See `packages/cli/src/executions/FORK.md`.
  */
 @Entity({ name: 'execution_annotation_tags' })
 export class AnnotationTagMapping {

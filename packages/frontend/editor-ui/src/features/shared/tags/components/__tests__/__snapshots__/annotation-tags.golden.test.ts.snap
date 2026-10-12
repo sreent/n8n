@@ -1,0 +1,519 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AnnotationTagsDropdown > creates tags in the store, opens the manager, and passes on the events 1`] = `
+{
+  "createCalls": [
+    [
+      "New",
+    ],
+  ],
+  "createResult": {
+    "id": "tag-3",
+    "name": "New",
+  },
+  "emitted": {
+    "blur": [
+      [],
+    ],
+    "esc": [
+      [],
+    ],
+    "update:modelValue": [
+      [
+        [
+          "tag-2",
+        ],
+      ],
+    ],
+  },
+  "openModalCalls": [
+    [
+      "annotationTagsManager",
+    ],
+  ],
+  "openModalWithDataCalls": [],
+}
+`;
+
+exports[`AnnotationTagsDropdown > passes its props, the store state and the permissions to the dropdown 1`] = `
+{
+  "createEnabled": {
+    "allTags": [
+      {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    ],
+    "createEnabled": true,
+    "createTag": "<function>",
+    "eventBus": null,
+    "isLoading": false,
+    "manageEnabled": true,
+    "modelValue": [],
+    "onBlur": "<function>",
+    "onEsc": "<function>",
+    "onManageTags": "<function>",
+    "onUpdate:modelValue": "<function>",
+    "placeholder": "",
+    "tagsById": {
+      "tag-1": {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      "tag-2": {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    },
+  },
+  "defaults": {
+    "allTags": [
+      {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    ],
+    "createEnabled": false,
+    "createTag": "<function>",
+    "eventBus": null,
+    "isLoading": false,
+    "manageEnabled": true,
+    "modelValue": [],
+    "onBlur": "<function>",
+    "onEsc": "<function>",
+    "onManageTags": "<function>",
+    "onUpdate:modelValue": "<function>",
+    "placeholder": "",
+    "tagsById": {
+      "tag-1": {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      "tag-2": {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    },
+  },
+  "deleteOnlyNoCreate": {
+    "allTags": [
+      {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    ],
+    "createEnabled": false,
+    "createTag": "<function>",
+    "eventBus": null,
+    "isLoading": false,
+    "manageEnabled": true,
+    "modelValue": [],
+    "onBlur": "<function>",
+    "onEsc": "<function>",
+    "onManageTags": "<function>",
+    "onUpdate:modelValue": "<function>",
+    "placeholder": "",
+    "tagsById": {
+      "tag-1": {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      "tag-2": {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    },
+  },
+  "fetchAllCalls": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+  ],
+  "listOnly": {
+    "allTags": [
+      {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    ],
+    "createEnabled": false,
+    "createTag": "<function>",
+    "eventBus": null,
+    "isLoading": false,
+    "manageEnabled": false,
+    "modelValue": [],
+    "onBlur": "<function>",
+    "onEsc": "<function>",
+    "onManageTags": "<function>",
+    "onUpdate:modelValue": "<function>",
+    "placeholder": "",
+    "tagsById": {
+      "tag-1": {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      "tag-2": {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    },
+  },
+  "listOnlyCreateEnabled": {
+    "allTags": [
+      {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    ],
+    "createEnabled": false,
+    "createTag": "<function>",
+    "eventBus": null,
+    "isLoading": false,
+    "manageEnabled": false,
+    "modelValue": [],
+    "onBlur": "<function>",
+    "onEsc": "<function>",
+    "onManageTags": "<function>",
+    "onUpdate:modelValue": "<function>",
+    "placeholder": "",
+    "tagsById": {
+      "tag-1": {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      "tag-2": {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    },
+  },
+  "withProps": {
+    "allTags": [
+      {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    ],
+    "createEnabled": false,
+    "createTag": "<function>",
+    "dataTestId": "filter-tags-select",
+    "eventBus": "<event bus>",
+    "id": "filter-tags",
+    "isLoading": false,
+    "manageEnabled": true,
+    "modelValue": [
+      "tag-1",
+    ],
+    "onBlur": "<function>",
+    "onEsc": "<function>",
+    "onManageTags": "<function>",
+    "onUpdate:modelValue": "<function>",
+    "placeholder": "Filter",
+    "tagsById": {
+      "tag-1": {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      "tag-2": {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    },
+  },
+}
+`;
+
+exports[`AnnotationTagsManager > fetches, creates, renames and deletes tags, with the toasts 1`] = `
+{
+  "create": {
+    "result": {
+      "id": "tag-3",
+      "name": "New",
+    },
+  },
+  "createCalls": [
+    [
+      "New",
+    ],
+    [
+      "<b>Bold</b>",
+    ],
+  ],
+  "createError": {
+    "error": "create failed",
+  },
+  "delete": {
+    "result": true,
+  },
+  "deleteCalls": [
+    [
+      "tag-2",
+    ],
+    [
+      "tag-1",
+    ],
+    [
+      "unknown",
+    ],
+  ],
+  "deleteError": {
+    "error": "delete failed",
+  },
+  "deleteFalse": {
+    "error": "Could not delete tag",
+  },
+  "fetch": {
+    "result": undefined,
+  },
+  "fetchAllCalls": [
+    [
+      {
+        "force": true,
+        "withUsageCount": true,
+      },
+    ],
+    [
+      {
+        "force": true,
+        "withUsageCount": true,
+      },
+    ],
+  ],
+  "fetchError": {
+    "result": undefined,
+  },
+  "rename": {
+    "result": {
+      "id": "tag-1",
+      "name": "Great",
+    },
+  },
+  "renameCalls": [
+    [
+      {
+        "id": "tag-1",
+        "name": "Great",
+      },
+    ],
+    [
+      {
+        "id": "tag-1",
+        "name": "Great & Co",
+      },
+    ],
+  ],
+  "renameError": {
+    "error": "rename failed",
+  },
+  "toasts": [
+    [
+      "showError",
+      [
+        "<Error fetch failed>",
+        "Could not fetch tags",
+        {
+          "message": "A problem occurred when trying to fetch tags",
+        },
+      ],
+    ],
+    [
+      "showError",
+      [
+        "<Error create failed>",
+        "Could not create tag",
+        {
+          "message": "A problem occurred when trying to create the tag '%3Cb%3EBold%3C/b%3E':",
+        },
+      ],
+    ],
+    [
+      "showMessage",
+      [
+        {
+          "title": "Tag updated",
+          "type": "success",
+        },
+      ],
+    ],
+    [
+      "showError",
+      [
+        "<Error rename failed>",
+        "Could not update tag",
+        {
+          "message": "A problem occurred when trying to update the tag 'Great%20%26%20Co':",
+        },
+      ],
+    ],
+    [
+      "showMessage",
+      [
+        {
+          "title": "Tag deleted",
+          "type": "success",
+        },
+      ],
+    ],
+    [
+      "showError",
+      [
+        "<Error Could not delete tag>",
+        "Could not delete tag",
+        {
+          "message": "A problem occurred when trying to delete the tag 'Good':",
+        },
+      ],
+    ],
+    [
+      "showError",
+      [
+        "<Error delete failed>",
+        "Could not delete tag",
+        {
+          "message": "A problem occurred when trying to delete the tag '':",
+        },
+      ],
+    ],
+  ],
+}
+`;
+
+exports[`AnnotationTagsManager > passes the tags, the texts and the permissions to the manager 1`] = `
+{
+  "allScopes": {
+    "canCreate": true,
+    "canDelete": true,
+    "canUpdate": true,
+    "isLoading": false,
+    "modalKey": "annotationTagsManager",
+    "noTagsDescriptionLocaleKey": "noAnnotationTagsView.description",
+    "noTagsTitleLocaleKey": "noAnnotationTagsView.title",
+    "onCreateTag": "<function>",
+    "onDeleteTag": "<function>",
+    "onFetchTags": "<function>",
+    "onUpdateTag": "<function>",
+    "tags": [
+      {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    ],
+    "titleLocaleKey": "annotationTagsManager.manageTags",
+    "usageColumnTitleLocaleKey": "annotationTagsView.usage",
+    "usageLocaleKey": "annotationTagsView.inUse",
+  },
+  "loading": {
+    "canCreate": false,
+    "canDelete": false,
+    "canUpdate": true,
+    "isLoading": true,
+    "modalKey": "annotationTagsManager",
+    "noTagsDescriptionLocaleKey": "noAnnotationTagsView.description",
+    "noTagsTitleLocaleKey": "noAnnotationTagsView.title",
+    "onCreateTag": "<function>",
+    "onDeleteTag": "<function>",
+    "onFetchTags": "<function>",
+    "onUpdateTag": "<function>",
+    "tags": [
+      {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    ],
+    "titleLocaleKey": "annotationTagsManager.manageTags",
+    "usageColumnTitleLocaleKey": "annotationTagsView.usage",
+    "usageLocaleKey": "annotationTagsView.inUse",
+  },
+  "updateOnly": {
+    "canCreate": false,
+    "canDelete": false,
+    "canUpdate": true,
+    "isLoading": false,
+    "modalKey": "annotationTagsManager",
+    "noTagsDescriptionLocaleKey": "noAnnotationTagsView.description",
+    "noTagsTitleLocaleKey": "noAnnotationTagsView.title",
+    "onCreateTag": "<function>",
+    "onDeleteTag": "<function>",
+    "onFetchTags": "<function>",
+    "onUpdateTag": "<function>",
+    "tags": [
+      {
+        "id": "tag-1",
+        "name": "Good",
+        "usageCount": 2,
+      },
+      {
+        "id": "tag-2",
+        "name": "Bad",
+        "usageCount": 0,
+      },
+    ],
+    "titleLocaleKey": "annotationTagsManager.manageTags",
+    "usageColumnTitleLocaleKey": "annotationTagsView.usage",
+    "usageLocaleKey": "annotationTagsView.inUse",
+  },
+}
+`;

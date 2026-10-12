@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import AnnotationTagsDropdown from '@/features/shared/tags/components/AnnotationTagsDropdown.ee.vue';
+import AnnotationTagsDropdown from '@/features/shared/tags/components/AnnotationTagsDropdown.vue';
 import { useDebounce } from '@n8n/composables/useDebounce';
 import { usePageRedirectionHelper } from '@/app/composables/usePageRedirectionHelper';
 import { useTelemetry } from '@n8n/composables/useTelemetry';

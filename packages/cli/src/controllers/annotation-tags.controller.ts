@@ -1,8 +1,13 @@
-import { Delete, Get, Patch, Post, RestController, GlobalScope } from '@n8n/decorators';
+import { Delete, Get, GlobalScope, Patch, Post, RestController } from '@n8n/decorators';
 
 import { AnnotationTagsRequest } from '@/requests';
-import { AnnotationTagService } from '@/services/annotation-tag.service.ee';
+import { AnnotationTagService } from '@/services/annotation-tag.service';
 
+/**
+ * Fork code (not in upstream n8n): the REST API of the tags of execution annotations. It replaces
+ * the enterprise controller of the same path. The routes need the global scopes
+ * `annotationTag:*`, and no licence. See `../executions/FORK.md`.
+ */
 @RestController('/annotation-tags')
 export class AnnotationTagsController {
 	constructor(private readonly annotationTagService: AnnotationTagService) {}
@@ -28,7 +33,7 @@ export class AnnotationTagsController {
 	async updateTag(req: AnnotationTagsRequest.Update) {
 		const newTag = this.annotationTagService.toEntity({
 			id: req.params.id,
-			name: req.body.name.trim(),
+			name: req.body.name,
 		});
 
 		return await this.annotationTagService.save(newTag);
@@ -37,9 +42,7 @@ export class AnnotationTagsController {
 	@Delete('/:id')
 	@GlobalScope('annotationTag:delete')
 	async deleteTag(req: AnnotationTagsRequest.Delete) {
-		const { id } = req.params;
-
-		await this.annotationTagService.delete(id);
+		await this.annotationTagService.delete(req.params.id);
 
 		return true;
 	}

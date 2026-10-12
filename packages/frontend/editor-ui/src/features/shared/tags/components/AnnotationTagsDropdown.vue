@@ -1,20 +1,28 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import TagsDropdown from './TagsDropdown.vue';
-import { useUIStore } from '@/app/stores/ui.store';
-import { useAnnotationTagsStore } from '../tags.store';
-import { ANNOTATION_TAGS_MANAGER_MODAL_KEY } from '../tags.constants';
+/**
+ * Fork code (not in upstream n8n): the dropdown of the tags of execution annotations. It replaces
+ * the enterprise component of the same name, and wraps `TagsDropdown` as `WorkflowTagsDropdown`
+ * does, with the annotation tags store and permissions. See
+ * `packages/cli/src/executions/FORK.md`.
+ */
 import type { EventBus } from '@n8n/utils/event-bus';
-import { useAnnotationTagPermissions } from '../useTagPermissions';
+import { computed } from 'vue';
 
-interface TagsDropdownWrapperProps {
+import { useUIStore } from '@/app/stores/ui.store';
+
+import { ANNOTATION_TAGS_MANAGER_MODAL_KEY } from '../tags.constants';
+import { useAnnotationTagsStore } from '../tags.store';
+import { useAnnotationTagPermissions } from '../useTagPermissions';
+import TagsDropdown from './TagsDropdown.vue';
+
+interface AnnotationTagsDropdownProps {
 	placeholder?: string;
 	modelValue?: string[];
 	createEnabled?: boolean;
 	eventBus?: EventBus | null;
 }
 
-const props = withDefaults(defineProps<TagsDropdownWrapperProps>(), {
+const props = withDefaults(defineProps<AnnotationTagsDropdownProps>(), {
 	placeholder: '',
 	modelValue: () => [],
 	createEnabled: false,
@@ -29,7 +37,7 @@ const emit = defineEmits<{
 
 const tagsStore = useAnnotationTagsStore();
 const uiStore = useUIStore();
-const { canCreate: canCreateTag, canManage } = useAnnotationTagPermissions();
+const { canCreate, canManage } = useAnnotationTagPermissions();
 
 const selectedTags = computed({
 	get: () => props.modelValue,
@@ -40,7 +48,7 @@ const allTags = computed(() => tagsStore.allTags);
 const isLoading = computed(() => tagsStore.isLoading);
 const tagsById = computed(() => tagsStore.tagsById);
 
-const isCreateEnabled = computed(() => props.createEnabled && canCreateTag.value);
+const isCreateEnabled = computed(() => props.createEnabled && canCreate.value);
 const isManageEnabled = computed(() => canManage.value);
 
 async function createTag(name: string) {

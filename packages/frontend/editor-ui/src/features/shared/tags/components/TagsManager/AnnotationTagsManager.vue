@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useI18n } from '@n8n/i18n';
+/**
+ * Fork code (not in upstream n8n): the modal that manages the tags of execution annotations. It
+ * replaces the enterprise component of the same name, and wraps `TagsManager` as
+ * `WorkflowTagsManager` does, with the annotation tags store, permissions and texts. See
+ * `packages/cli/src/executions/FORK.md`.
+ */
 import { useToast } from '@n8n/composables/useToast';
-import { useAnnotationTagsStore } from '../../tags.store';
-import TagsManager from './TagsManager.vue';
+import { useI18n } from '@n8n/i18n';
 import type { ITag } from '@n8n/rest-api-client/api/tags';
+import { computed } from 'vue';
+
 import { ANNOTATION_TAGS_MANAGER_MODAL_KEY } from '../../tags.constants';
+import { useAnnotationTagsStore } from '../../tags.store';
 import { useAnnotationTagPermissions } from '../../useTagPermissions';
+import TagsManager from './TagsManager.vue';
 
 const i18n = useI18n();
 const { showError, showMessage } = useToast();
@@ -88,12 +95,12 @@ async function deleteTag(id: string): Promise<boolean> {
 
 <template>
 	<TagsManager
+		:modal-key="ANNOTATION_TAGS_MANAGER_MODAL_KEY"
 		title-locale-key="annotationTagsManager.manageTags"
 		usage-locale-key="annotationTagsView.inUse"
 		usage-column-title-locale-key="annotationTagsView.usage"
 		no-tags-title-locale-key="noAnnotationTagsView.title"
 		no-tags-description-locale-key="noAnnotationTagsView.description"
-		:modal-key="ANNOTATION_TAGS_MANAGER_MODAL_KEY"
 		:tags="tags"
 		:is-loading="isLoading"
 		:can-create="canCreate"
