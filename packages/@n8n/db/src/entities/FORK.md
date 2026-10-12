@@ -56,7 +56,16 @@ replaced enterprise files: `@PrimaryColumn({ type: 'uuid' })` of the reviewer an
 The fork reported it in pull request 35. These entities take the type of `userId` from the
 migration (`column('userId').uuid.notNull.primary`).
 
+## The execution annotation tables
+
+The fork replaced the three entities of execution annotations in step 4 with its own entities,
+with the same names and exports: `annotation-tag-entity.ts`, `annotation-tag-mapping.ts` and
+`execution-annotation.ts`. Their repositories are `annotation-tag.repository.ts` and
+`annotation-tag-mapping.repository.ts`.
+[packages/cli/src/executions/FORK.md](../../../../cli/src/executions/FORK.md#execution-annotations)
+describes them with the rest of the feature.
+
 ## Upstream updates
 
-`scripts/sync-upstream.sh` deletes the six enterprise files again. When an upstream migration
-changes one of these tables, change the fork entity, and run the integration test above.
+`scripts/sync-upstream.sh` deletes the replaced enterprise files again. When an upstream migration
+changes one of these tables, change the fork entity, and run the integration tests of the tables.

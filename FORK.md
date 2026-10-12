@@ -81,6 +81,12 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/cli/src/scaling/FORK.md](packages/cli/src/scaling/FORK.md)), and the entities of the
    workflow review tables (replaced, see
    [packages/@n8n/db/src/entities/FORK.md](packages/@n8n/db/src/entities/FORK.md)).
+   Then the features that the owner chose to rebuild on 2026-10-12, in this order: execution
+   annotations (done, see
+   [packages/cli/src/executions/FORK.md](packages/cli/src/executions/FORK.md#execution-annotations)),
+   variables, evaluations, and the local parts of the AI workflow builder that the MCP tools of
+   the workflow builder use. The chat of the AI builder needs a service of n8n, and goes. Then the
+   source control editor, and last the enterprise files that fork code replaced.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off.
@@ -157,11 +163,13 @@ them again after each upstream update, and container CI checks that they stay de
   editor (the REST clients, the store and the settings page,
   `packages/frontend/editor-ui/src/features/integrations/externalSecrets`), of the connections
   editor (the settings page of the connections, its modals and its composables,
-  `packages/frontend/editor-ui/src/features/integrations/secretsProviders`), and of the sharing UI
-  and the `EnterpriseEdition` gate (`packages/frontend/editor-ui`) fail when an update changes what
-  a role may do, how projects, sharing, the sign-in method, the OIDC sign-in, the role
-  provisioning, the SAML sign-in, the secrets providers, the queries of their connections, the
-  external secrets module, the external secrets editor or the connections editor work.
+  `packages/frontend/editor-ui/src/features/integrations/secretsProviders`), of the sharing UI
+  and the `EnterpriseEdition` gate (`packages/frontend/editor-ui`), and of the execution
+  annotations (`packages/cli/test/integration/annotation-tags.api.test.ts` and the two editor
+  tests that `packages/cli/src/executions/FORK.md` names) fail when an update changes what a role
+  may do, how projects, sharing, the sign-in method, the OIDC sign-in, the role provisioning, the
+  SAML sign-in, the secrets providers, the queries of their connections, the external secrets
+  module, the external secrets editor, the connections editor or the execution annotations work.
   Compare the change with the upstream change, then update the fork code or the snapshot. The
   FORK.md files there tell how to record a snapshot against the enterprise code.
 - When an upstream update changes the public API handler
