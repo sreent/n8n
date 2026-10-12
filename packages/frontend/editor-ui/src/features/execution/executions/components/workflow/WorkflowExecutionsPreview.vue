@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import WorkflowExecutionAnnotationPanel from './WorkflowExecutionAnnotationPanel.ee.vue';
-import WorkflowExecutionAnnotationTags from './WorkflowExecutionAnnotationTags.ee.vue';
+import WorkflowExecutionAnnotationPanel from './WorkflowExecutionAnnotationPanel.vue';
+import WorkflowExecutionAnnotationTags from './WorkflowExecutionAnnotationTags.vue';
 import ExecutionPreviewHost from './ExecutionPreviewHost.vue';
 import { useExecutionDebugging } from '../../composables/useExecutionDebugging';
 import type { IExecutionUIData } from '../../composables/useExecutionHelpers';

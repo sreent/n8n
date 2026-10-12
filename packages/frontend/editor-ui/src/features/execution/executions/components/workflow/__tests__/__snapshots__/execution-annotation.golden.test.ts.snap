@@ -1,0 +1,244 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WorkflowExecutionAnnotationPanel > lists the highlighted values when open 1`] = `
+{
+  "button": "<div class="el-dropdown"><button title="Additional Actions" data-test-id="execution-preview-ellipsis-button" id="el-id-*" role="button" tabindex="0" aria-controls="el-id-*" aria-expanded="true" aria-haspopup="menu" type="button" class="button button subtle small highlightDataButton highlightDataButtonActive el-tooltip__trigger el-tooltip__trigger" aria-live="polite">
+    <transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true">
+      <!--v-if-->
+    </transition-stub>
+    <div class="button-inner"><svg viewBox="0 0 24 24" width="12px" height="12px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="list-checks">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5h8m-8 7h8m-8 7h8M3 17l2 2l4-4M3 7l2 2l4-4"></path>
+      </svg><span class="n8n-badge badge primary xsmall badge"><!--v-if--><span class="n8n-text step-2xs bold label label">2</span>
+      <!--v-if--></span>
+    </div>
+  </button>
+  <!--teleport start-->
+  <!--teleport end-->
+  <!--v-if-->
+</div>",
+  "emptyPanel": "<div class="execution-annotation-panel container" data-test-id="execution-annotation-panel"><div class="section"><div class="heading"><h3 class="n8n-heading text-dark size-small regular">Highlighted data</h3></div><div class="noResultsContainer" data-test-id="execution-annotation-data-empty"><span class="n8n-text align-center text-base size-small regular"><span>Show important data from executions here by adding an <a target="_blank" href="https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.executiondata/">execution data</a> node to your workflow</span></span></div></div></div>",
+  "panel": "<div class="execution-annotation-panel container" data-test-id="execution-annotation-panel"><div class="section"><div class="heading"><h3 class="n8n-heading text-dark size-small regular">Highlighted data</h3></div><div class="metadata"><div class="customDataEntry"><span class="n8n-text text-base size-small regular key key">orderId</span><span class="n8n-text text-base size-small regular value value">A-1</span></div><div class="customDataEntry"><span class="n8n-text text-base size-small regular key key">customer</span><span class="n8n-text text-base size-small regular value value">Acme Corp</span></div></div></div></div>",
+}
+`;
+
+exports[`WorkflowExecutionAnnotationPanel > shows the button with the number of highlighted values 1`] = `
+{
+  "featureOff": "<div class="el-dropdown"><button title="Additional Actions" data-test-id="execution-preview-ellipsis-button" id="el-id-*" role="button" tabindex="0" aria-controls="el-id-*" aria-expanded="false" aria-haspopup="menu" type="button" class="button button subtle small highlightDataButton highlightDataButtonActive el-tooltip__trigger el-tooltip__trigger" aria-live="polite">
+    <transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true">
+      <!--v-if-->
+    </transition-stub>
+    <div class="button-inner"><svg viewBox="0 0 24 24" width="12px" height="12px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="list-checks">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5h8m-8 7h8m-8 7h8M3 17l2 2l4-4M3 7l2 2l4-4"></path>
+      </svg><span class="n8n-badge badge primary xsmall badge"><!--v-if--><span class="n8n-text step-2xs bold label label">2</span>
+      <!--v-if--></span>
+    </div>
+  </button>
+  <!--teleport start-->
+  <!--teleport end-->
+  <!--v-if-->
+</div>",
+  "noCustomDataKey": "<div class="el-dropdown"><button title="Additional Actions" data-test-id="execution-preview-ellipsis-button" id="el-id-*" role="button" tabindex="0" aria-controls="el-id-*" aria-expanded="false" aria-haspopup="menu" type="button" class="button button subtle small highlightDataButton el-tooltip__trigger el-tooltip__trigger" aria-live="polite">
+    <transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true">
+      <!--v-if-->
+    </transition-stub>
+    <div class="button-inner"><svg viewBox="0 0 24 24" width="12px" height="12px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="list-checks">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5h8m-8 7h8m-8 7h8M3 17l2 2l4-4M3 7l2 2l4-4"></path>
+      </svg></div>
+  </button>
+  <!--teleport start-->
+  <!--teleport end-->
+  <!--v-if-->
+</div>",
+  "withData": "<div class="el-dropdown"><button title="Additional Actions" data-test-id="execution-preview-ellipsis-button" id="el-id-*" role="button" tabindex="0" aria-controls="el-id-*" aria-expanded="false" aria-haspopup="menu" type="button" class="button button subtle small highlightDataButton highlightDataButtonActive el-tooltip__trigger el-tooltip__trigger" aria-live="polite">
+    <transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true">
+      <!--v-if-->
+    </transition-stub>
+    <div class="button-inner"><svg viewBox="0 0 24 24" width="12px" height="12px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="list-checks">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5h8m-8 7h8m-8 7h8M3 17l2 2l4-4M3 7l2 2l4-4"></path>
+      </svg><span class="n8n-badge badge primary xsmall badge"><!--v-if--><span class="n8n-text step-2xs bold label label">2</span>
+      <!--v-if--></span>
+    </div>
+  </button>
+  <!--teleport start-->
+  <!--teleport end-->
+  <!--v-if-->
+</div>",
+  "withoutData": "<div class="el-dropdown"><button title="Additional Actions" data-test-id="execution-preview-ellipsis-button" id="el-id-*" role="button" tabindex="0" aria-controls="el-id-*" aria-expanded="false" aria-haspopup="menu" type="button" class="button button subtle small highlightDataButton el-tooltip__trigger el-tooltip__trigger" aria-live="polite">
+    <transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true">
+      <!--v-if-->
+    </transition-stub>
+    <div class="button-inner"><svg viewBox="0 0 24 24" width="12px" height="12px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="list-checks">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5h8m-8 7h8m-8 7h8M3 17l2 2l4-4M3 7l2 2l4-4"></path>
+      </svg></div>
+  </button>
+  <!--teleport start-->
+  <!--teleport end-->
+  <!--v-if-->
+</div>",
+  "withoutUpdateScope": "<div class="el-dropdown"><button title="Additional Actions" data-test-id="execution-preview-ellipsis-button" id="el-id-*" role="button" tabindex="0" aria-controls="el-id-*" aria-expanded="false" aria-haspopup="menu" type="button" disabled="" aria-disabled="true" class="button button subtle small disabled is-disabled highlightDataButton highlightDataButtonActive el-tooltip__trigger el-tooltip__trigger" aria-live="polite">
+    <transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true">
+      <!--v-if-->
+    </transition-stub>
+    <div class="button-inner"><svg viewBox="0 0 24 24" width="12px" height="12px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="list-checks">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5h8m-8 7h8m-8 7h8M3 17l2 2l4-4M3 7l2 2l4-4"></path>
+      </svg><span class="n8n-badge badge primary xsmall badge"><!--v-if--><span class="n8n-text step-2xs bold label label">2</span>
+      <!--v-if--></span>
+    </div>
+  </button>
+  <!--teleport start-->
+  <!--teleport end-->
+  <!--v-if-->
+</div>",
+}
+`;
+
+exports[`WorkflowExecutionAnnotationTags > cancels the edit on escape, and edits on a click on a tag 1`] = `
+{
+  "afterEscape": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><span class="tags-container tagsContainer" data-test-id="execution-annotation-tags"><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Good"><span class="el-tag__content">Good</span>
+  <!--v-if--></span></span><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Bad"><span class="el-tag__content">Bad</span>
+  <!--v-if--></span></span><span class="addTagWrapper"><button data-test-id="new-tag-link" type="button" class="button button ghost xsmall addTagButton addTagButtonIconOnly clickable" aria-live="polite"><transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true"><!--v-if--></transition-stub><div class="button-inner"><svg viewBox="0 0 24 24" width="10px" height="10px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="plus"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14"></path></svg></div></button></span></span></span>
+</div>",
+  "afterTagClick": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><div data-test-id="tags-dropdown-stub" data-model-value="[&quot;tag-1&quot;,&quot;tag-2&quot;]"></div></span></div>",
+  "annotateCallsAfterEscape": [],
+}
+`;
+
+exports[`WorkflowExecutionAnnotationTags > creates and manages tags from the dropdown, and saves on blur without a change 1`] = `
+{
+  "afterBlur": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><span class="tags-container tagsContainer" data-test-id="execution-annotation-tags"><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Good"><span class="el-tag__content">Good</span>
+  <!--v-if--></span></span><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Bad"><span class="el-tag__content">Bad</span>
+  <!--v-if--></span></span><span class="addTagWrapper"><button data-test-id="new-tag-link" type="button" class="button button ghost xsmall addTagButton addTagButtonIconOnly clickable" aria-live="polite"><transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true"><!--v-if--></transition-stub><div class="button-inner"><svg viewBox="0 0 24 24" width="10px" height="10px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="plus"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14"></path></svg></div></button></span></span></span>
+</div>",
+  "annotateCallsWithoutChange": [],
+  "createCalls": [
+    [
+      "New",
+    ],
+  ],
+  "createResult": {
+    "id": "tag-4",
+    "name": "New",
+  },
+  "fetchAllCallsAfterEdit": [
+    [],
+  ],
+  "fetchAllCallsBeforeEdit": [],
+  "openModalCalls": [
+    [
+      "annotationTagsManager",
+    ],
+  ],
+  "openModalWithDataCalls": [],
+}
+`;
+
+exports[`WorkflowExecutionAnnotationTags > edits the tags in the dropdown, and saves them on blur 1`] = `
+{
+  "afterBlur": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><span class="tags-container tagsContainer" data-test-id="execution-annotation-tags"><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Good"><span class="el-tag__content">Good</span>
+  <!--v-if--></span></span><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Bad"><span class="el-tag__content">Bad</span>
+  <!--v-if--></span></span><span class="addTagWrapper"><button data-test-id="new-tag-link" type="button" class="button button ghost xsmall addTagButton addTagButtonIconOnly clickable" aria-live="polite"><transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true"><!--v-if--></transition-stub><div class="button-inner"><svg viewBox="0 0 24 24" width="10px" height="10px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="plus"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14"></path></svg></div></button></span></span></span>
+</div>",
+  "afterChange": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><div data-test-id="tags-dropdown-stub" data-model-value="[&quot;tag-2&quot;,&quot;tag-3&quot;]"></div></span></div>",
+  "annotateCalls": [
+    [
+      "42",
+      {
+        "tags": [
+          "tag-2",
+          "tag-3",
+        ],
+      },
+    ],
+  ],
+  "dropdownAttrs": {
+    "allTags": [
+      {
+        "id": "tag-1",
+        "name": "Good",
+      },
+      {
+        "id": "tag-2",
+        "name": "Bad",
+      },
+      {
+        "id": "tag-3",
+        "name": "Later",
+      },
+    ],
+    "class": "tags-edit",
+    "createTag": "<function>",
+    "dataTestId": "workflow-tags-dropdown",
+    "eventBus": {},
+    "isLoading": false,
+    "modelValue": [
+      "tag-1",
+      "tag-2",
+    ],
+    "onBlur": "<function>",
+    "onEsc": "<function>",
+    "onManageTags": "<function>",
+    "onUpdate:modelValue": "<function>",
+    "placeholder": "Choose or create a tag",
+    "tagsById": {
+      "tag-1": {
+        "id": "tag-1",
+        "name": "Good",
+      },
+      "tag-2": {
+        "id": "tag-2",
+        "name": "Bad",
+      },
+      "tag-3": {
+        "id": "tag-3",
+        "name": "Later",
+      },
+    },
+  },
+  "editing": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><div data-test-id="tags-dropdown-stub" data-model-value="[&quot;tag-1&quot;,&quot;tag-2&quot;]"></div></span></div>",
+  "toasts": [],
+}
+`;
+
+exports[`WorkflowExecutionAnnotationTags > shows a toast when the save fails 1`] = `
+{
+  "afterFailedSave": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><div><button data-test-id="new-tag-link" type="button" class="button button ghost xsmall addTagButton clickable" aria-live="polite"><transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true"><!--v-if--></transition-stub><div class="button-inner"><svg viewBox="0 0 24 24" width="10px" height="10px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="plus"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14"></path></svg><span>Add tag</span></div></button></div></span></div>",
+  "annotateCalls": [
+    [
+      "42",
+      {
+        "tags": [
+          "tag-1",
+        ],
+      },
+    ],
+  ],
+  "toasts": [
+    [
+      "showError",
+      [
+        "<Error save failed>",
+        "executionAnnotationView.tag.error",
+      ],
+    ],
+  ],
+}
+`;
+
+exports[`WorkflowExecutionAnnotationTags > shows the tags, or a button to add the first one 1`] = `
+{
+  "featureOff": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><span class="tags-container tagsContainer" data-test-id="execution-annotation-tags"><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Good"><span class="el-tag__content">Good</span>
+  <!--v-if--></span></span><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Bad"><span class="el-tag__content">Bad</span>
+  <!--v-if--></span></span><span class="addTagWrapper"><button data-test-id="new-tag-link" type="button" class="button button ghost xsmall addTagButton addTagButtonIconOnly clickable" aria-live="polite"><transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true"><!--v-if--></transition-stub><div class="button-inner"><svg viewBox="0 0 24 24" width="10px" height="10px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="plus"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14"></path></svg></div></button></span></span></span>
+</div>",
+  "withTags": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><span class="tags-container tagsContainer" data-test-id="execution-annotation-tags"><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Good"><span class="el-tag__content">Good</span>
+  <!--v-if--></span></span><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Bad"><span class="el-tag__content">Bad</span>
+  <!--v-if--></span></span><span class="addTagWrapper"><button data-test-id="new-tag-link" type="button" class="button button ghost xsmall addTagButton addTagButtonIconOnly clickable" aria-live="polite"><transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true"><!--v-if--></transition-stub><div class="button-inner"><svg viewBox="0 0 24 24" width="10px" height="10px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="plus"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14"></path></svg></div></button></span></span></span>
+</div>",
+  "withoutAnnotation": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><div><button data-test-id="new-tag-link" type="button" class="button button ghost xsmall addTagButton clickable" aria-live="polite"><transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true"><!--v-if--></transition-stub><div class="button-inner"><svg viewBox="0 0 24 24" width="10px" height="10px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="plus"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14"></path></svg><span>Add tag</span></div></button></div></span></div>",
+  "withoutTags": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><div><button data-test-id="new-tag-link" type="button" class="button button ghost xsmall addTagButton clickable" aria-live="polite"><transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true"><!--v-if--></transition-stub><div class="button-inner"><svg viewBox="0 0 24 24" width="10px" height="10px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="plus"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14"></path></svg><span>Add tag</span></div></button></div></span></div>",
+  "withoutUpdateScope": "<div class="executionDetailsTags"><span class="tags" data-test-id="annotation-tags-container"><span class="tags-container tagsContainer" data-test-id="execution-annotation-tags"><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Good"><span class="el-tag__content">Good</span>
+  <!--v-if--></span></span><span class="clickable"><span class="el-tag el-tag--info el-tag--small el-tag--light" title="Bad"><span class="el-tag__content">Bad</span>
+  <!--v-if--></span></span><span class="addTagWrapper"><button data-test-id="new-tag-link" type="button" class="button button ghost xsmall addTagButton addTagButtonIconOnly clickable" aria-live="polite"><transition-stub name="n8n-button-fade" appear="false" persisted="false" css="true"><!--v-if--></transition-stub><div class="button-inner"><svg viewBox="0 0 24 24" width="10px" height="10px" class="n8n-icon" aria-hidden="true" focusable="false" role="img" data-icon="plus"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14"></path></svg></div></button></span></span></span>
+</div>",
+}
+`;

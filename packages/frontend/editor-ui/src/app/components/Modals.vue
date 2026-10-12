@@ -102,7 +102,7 @@ import SetupWorkflowCredentialsModal from '@/features/workflows/templates/compon
 import SourceControlPullModal from '@/features/integrations/sourceControl.ee/components/SourceControlPullModal.vue';
 import SourceControlPullResultModal from '@/features/integrations/sourceControl.ee/components/SourceControlPullResultModal.vue';
 import SourceControlPushModal from '@/features/integrations/sourceControl.ee/components/SourceControlPushModal.vue';
-import AnnotationTagsManager from '@/features/shared/tags/components/TagsManager/AnnotationTagsManager.ee.vue';
+import AnnotationTagsManager from '@/features/shared/tags/components/TagsManager/AnnotationTagsManager.vue';
 import WorkflowTagsManager from '@/features/shared/tags/components/TagsManager/WorkflowTagsManager.vue';
 import WhatsNewModal from '@/app/components/WhatsNewModal.vue';
 import WorkflowActivationConflictingWebhookModal from '@/features/workflows/components/WorkflowActivationConflictingWebhookModal.vue';
