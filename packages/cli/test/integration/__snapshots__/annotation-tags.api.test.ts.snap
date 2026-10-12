@@ -1,0 +1,471 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the tags of an annotated execution > replaces, empties and keeps the tags, and rejects unknown tags 1`] = `
+{
+  "afterClearVote": {
+    "result": {
+      "id": "<number>",
+      "tags": [
+        {
+          "id": "<id 1 (16 chars)>",
+          "name": "Bad",
+        },
+        {
+          "id": "<id 2 (16 chars)>",
+          "name": "Good",
+        },
+      ],
+      "vote": null,
+    },
+  },
+  "afterDuplicateTags": {
+    "result": [
+      {
+        "createdAt": "<date>",
+        "id": "<id 1 (16 chars)>",
+        "name": "Bad",
+        "updatedAt": "<date>",
+      },
+    ],
+  },
+  "afterEmptyTags": {
+    "result": {
+      "id": "<number>",
+      "tags": [],
+      "vote": null,
+    },
+  },
+  "afterSetBoth": {
+    "result": {
+      "id": "<number>",
+      "tags": [
+        {
+          "id": "<id 1 (16 chars)>",
+          "name": "Bad",
+        },
+        {
+          "id": "<id 2 (16 chars)>",
+          "name": "Good",
+        },
+      ],
+      "vote": "up",
+    },
+  },
+  "afterUnknownTag": {
+    "result": [
+      {
+        "createdAt": "<date>",
+        "id": "<id 1 (16 chars)>",
+        "name": "Bad",
+        "updatedAt": "<date>",
+      },
+    ],
+  },
+  "afterVoteOnly": {
+    "result": {
+      "id": "<number>",
+      "tags": [
+        {
+          "id": "<id 1 (16 chars)>",
+          "name": "Bad",
+        },
+        {
+          "id": "<id 2 (16 chars)>",
+          "name": "Good",
+        },
+      ],
+      "vote": "down",
+    },
+  },
+  "beforeAnnotation": {
+    "result": [],
+  },
+  "clearVote": {
+    "result": undefined,
+  },
+  "duplicateTags": {
+    "error": "QueryFailedError",
+    "message": "SQLITE_CONSTRAINT: UNIQUE constraint failed: execution_annotation_tags.annotationId, execution_annotation_tags.tagId",
+  },
+  "emptyTags": {
+    "result": [],
+  },
+  "otherWorkflow": {
+    "error": "NotFoundError",
+    "message": "Not Found",
+  },
+  "replaceTags": {
+    "result": [
+      {
+        "createdAt": "<date>",
+        "id": "<id 1 (16 chars)>",
+        "name": "Bad",
+        "updatedAt": "<date>",
+      },
+    ],
+  },
+  "setBoth": {
+    "result": undefined,
+  },
+  "unknownTag": {
+    "error": "NotFoundError",
+    "message": "Some tags not found",
+  },
+  "voteOnly": {
+    "result": undefined,
+  },
+}
+`;
+
+exports[`with the licence feature > answers for tags that do not exist, and renames to a used name 1`] = `
+{
+  "deleteUnknown": {
+    "body": {
+      "data": true,
+    },
+    "status": 200,
+  },
+  "renameToEmpty": {
+    "body": {
+      "code": 400,
+      "message": "Tag name must be 1 to 24 characters long.",
+    },
+    "status": 400,
+  },
+  "renameToUsedName": {
+    "body": {
+      "code": 0,
+      "message": "There is already an entry with this name",
+    },
+    "status": 500,
+  },
+  "renameUnknown": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id 1 (7 chars)>",
+        "name": "Other",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+}
+`;
+
+exports[`with the licence feature > counts the executions of each tag 1`] = `
+{
+  "withCount": {
+    "body": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id 1 (16 chars)>",
+          "name": "Good",
+          "updatedAt": "<date>",
+          "usageCount": 2,
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id 2 (16 chars)>",
+          "name": "Bad",
+          "updatedAt": "<date>",
+          "usageCount": 1,
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id 3 (16 chars)>",
+          "name": "Unused",
+          "updatedAt": "<date>",
+          "usageCount": 0,
+        },
+      ],
+    },
+    "status": 200,
+  },
+  "withoutCount": {
+    "body": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id 1 (16 chars)>",
+          "name": "Good",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id 2 (16 chars)>",
+          "name": "Bad",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id 3 (16 chars)>",
+          "name": "Unused",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+}
+`;
+
+exports[`with the licence feature > creates, lists, renames and deletes tags 1`] = `
+{
+  "create": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id 1 (16 chars)>",
+        "name": "Good",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  "createSecond": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id 2 (16 chars)>",
+        "name": "Bad",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  "delete": {
+    "body": {
+      "data": true,
+    },
+    "status": 200,
+  },
+  "emptyList": {
+    "body": {
+      "data": [],
+    },
+    "status": 200,
+  },
+  "list": {
+    "body": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id 1 (16 chars)>",
+          "name": "Good",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id 2 (16 chars)>",
+          "name": "Bad",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  "listAfterDelete": {
+    "body": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id 1 (16 chars)>",
+          "name": "Great",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  "listAfterRename": {
+    "body": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id 1 (16 chars)>",
+          "name": "Great",
+          "updatedAt": "<date>",
+        },
+        {
+          "createdAt": "<date>",
+          "id": "<id 2 (16 chars)>",
+          "name": "Bad",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  "rename": {
+    "body": {
+      "data": {
+        "id": "<id 1 (16 chars)>",
+        "name": "Great",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+}
+`;
+
+exports[`with the licence feature > lets a member manage the tags 1`] = `
+{
+  "create": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id 1 (16 chars)>",
+        "name": "Member tag",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  "delete": {
+    "body": {
+      "data": true,
+    },
+    "status": 200,
+  },
+  "list": {
+    "body": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "id": "<id 1 (16 chars)>",
+          "name": "Member tag",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  "rename": {
+    "body": {
+      "data": {
+        "id": "<id 1 (16 chars)>",
+        "name": "Renamed",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+}
+`;
+
+exports[`with the licence feature > rejects names that are not valid, and duplicate names 1`] = `
+{
+  "blank": {
+    "body": {
+      "code": 400,
+      "message": "Tag name must be 1 to 24 characters long.",
+    },
+    "status": 400,
+  },
+  "duplicate": {
+    "body": {
+      "code": 0,
+      "message": "There is already an entry with this name",
+    },
+    "status": 500,
+  },
+  "empty": {
+    "body": {
+      "code": 400,
+      "message": "Tag name must be 1 to 24 characters long.",
+    },
+    "status": 400,
+  },
+  "maxLength": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id 1 (16 chars)>",
+        "name": "yyyyyyyyyyyyyyyyyyyyyyyy",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  "missing": {
+    "body": {
+      "code": 0,
+      "message": "Cannot read properties of undefined (reading 'trim')",
+    },
+    "status": 500,
+  },
+  "notString": {
+    "body": {
+      "code": 0,
+      "message": "attrs.name.trim is not a function",
+    },
+    "status": 500,
+  },
+  "tooLong": {
+    "body": {
+      "code": 400,
+      "message": "Tag name must be 1 to 24 characters long.",
+    },
+    "status": 400,
+  },
+}
+`;
+
+exports[`with the licence feature > removes a deleted tag from the annotated executions 1`] = `
+{
+  "body": {
+    "data": [
+      {
+        "createdAt": "<date>",
+        "id": "<id 1 (16 chars)>",
+        "name": "Bad",
+        "updatedAt": "<date>",
+        "usageCount": 1,
+      },
+    ],
+  },
+  "status": 200,
+}
+`;
+
+exports[`without the licence feature > answers each route 1`] = `
+{
+  "create": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id 1 (16 chars)>",
+        "name": "Good",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+  "delete": {
+    "body": {
+      "data": true,
+    },
+    "status": 200,
+  },
+  "list": {
+    "body": {
+      "data": [],
+    },
+    "status": 200,
+  },
+  "update": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "id": "<id 1 (7 chars)>",
+        "name": "Bad",
+        "updatedAt": "<date>",
+      },
+    },
+    "status": 200,
+  },
+}
+`;

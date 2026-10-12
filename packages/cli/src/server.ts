@@ -32,7 +32,7 @@ import { Telemetry } from '@/telemetry';
 import * as requestPath from '@/utils/request-path';
 
 import '@/controllers/active-workflows.controller';
-import '@/controllers/annotation-tags.controller.ee';
+import '@/controllers/annotation-tags.controller';
 import '@/controllers/auth.controller';
 import '@/controllers/binary-data.controller';
 import '@/controllers/change-email.controller';
