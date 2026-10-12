@@ -165,6 +165,15 @@ export function useSettingsItems() {
 		];
 
 		menuItems.push({
+			id: 'settings-log-streaming',
+			icon: 'log-in',
+			label: i18n.baseText('settings.log-streaming'),
+			position: 'top',
+			available: canUserAccessRouteByName(VIEWS.LOG_STREAMING_SETTINGS),
+			route: { to: { name: VIEWS.LOG_STREAMING_SETTINGS } },
+		});
+
+		menuItems.push({
 			id: 'settings-community-nodes',
 			icon: 'box',
 			label: i18n.baseText('settings.communityNodes'),

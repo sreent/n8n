@@ -62,6 +62,7 @@ export const LOG_SCOPES = [
 	'send-copy',
 	'git-sync',
 	'audit-log',
+	'log-streaming',
 ] as const;
 
 export type LogScope = (typeof LOG_SCOPES)[number];
