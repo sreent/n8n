@@ -74,6 +74,13 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/cli/src/modules/log-streaming/README.md](packages/cli/src/modules/log-streaming/README.md)),
    and its settings page (done, see
    [the FORK.md of the page](packages/frontend/editor-ui/src/features/integrations/logStreaming/FORK.md)).
+   The rest of the enterprise code, first the parts that need no decision of the owner: the S3
+   and Azure Blob storage (removed, with stand-ins, see
+   [packages/@n8n/blob-storage/FORK.md](packages/@n8n/blob-storage/FORK.md)), the multi-main
+   setup, the worker view and the worker pools (removed, with stand-ins, see
+   [packages/cli/src/scaling/FORK.md](packages/cli/src/scaling/FORK.md)), and the entities of the
+   workflow review tables (replaced, see
+   [packages/@n8n/db/src/entities/FORK.md](packages/@n8n/db/src/entities/FORK.md)).
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off.
@@ -160,6 +167,10 @@ them again after each upstream update, and container CI checks that they stay de
 - When an upstream update changes the public API handler
   `packages/cli/src/public-api/v1/handlers/log-streaming/log-streaming.handler.ts`, keep the fork
   version, as `packages/cli/src/modules/log-streaming/README.md` tells.
+- When an upstream update changes how ordinary code uses the S3 and Azure classes of
+  `@n8n/blob-storage` or the scaling classes `MultiMainSetup`, `WorkerStatusService` and
+  `PoolConfigService`, change the fork stand-ins. When an upstream migration changes a workflow
+  review table, change the fork entity. The FORK.md files of step 4 tell how.
 - When an upstream update changes `packages/cli/test/shared/external-secrets/utils.ts`, make the
   same change in `fork-providers.ts` next to it. The ordinary tests of external secrets use that
   fork copy, and the enterprise tests use `utils.ts`.

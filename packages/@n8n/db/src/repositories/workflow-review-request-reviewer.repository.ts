@@ -2,7 +2,7 @@ import { Service } from '@n8n/di';
 import { DataSource, In } from '@n8n/typeorm';
 
 import { BaseRepository } from './base-repository';
-import { WorkflowReviewRequestReviewer } from '../entities/workflow-review-request-reviewer.ee';
+import { WorkflowReviewRequestReviewer } from '../entities/workflow-review-request-reviewer';
 import { type OperationContext, TransactionRunner } from '../services/transaction';
 
 @Service()

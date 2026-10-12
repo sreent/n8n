@@ -29,3 +29,25 @@ packages/frontend/@n8n/rest-api-client/src/api/eventbus.ee.ts
 
 # The permission core: the fork has its own scopes, roles and checks (step 2).
 packages/@n8n/permissions/src/**/*.ee.*
+
+# The S3 and Azure Blob storage. Fork stand-ins with the same names fail with a clear error
+# (packages/@n8n/blob-storage/FORK.md). The ordinary tests of the enterprise classes go with them.
+packages/@n8n/blob-storage/src/**/*.ee.*
+packages/@n8n/blob-storage/src/__tests__/azure-byte-store.test.ts
+packages/@n8n/blob-storage/src/__tests__/mocks.ts
+packages/@n8n/blob-storage/src/__tests__/s3-byte-store.test.ts
+packages/@n8n/blob-storage/src/object-store/__tests__/object-store.service.test.ts
+
+# The multi-main setup, the worker view and the worker pools. Fork stand-ins with the same names
+# keep one main instance and the default queue (packages/cli/src/scaling/FORK.md).
+packages/cli/src/scaling/**/*.ee.*
+packages/cli/src/scaling/__tests__/worker-status.service.test.ts
+packages/cli/src/controllers/project-pool-settings.controller.ee.ts
+packages/cli/src/controllers/__tests__/project-pool-settings.controller.ee.test.ts
+packages/@n8n/db/src/entities/project-pool-settings.ee.ts
+packages/@n8n/db/src/repositories/project-pool-settings.repository.ee.ts
+packages/frontend/editor-ui/src/features/settings/orchestration.ee/
+
+# The entities of the workflow review tables. The fork has its own entities with the same names
+# (packages/@n8n/db/src/entities/FORK.md).
+packages/@n8n/db/src/entities/workflow-review-*.ee.ts

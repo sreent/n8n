@@ -20,7 +20,7 @@ import { Subscriber } from '@/scaling/pubsub/subscriber.service';
 import { resolveQueueName, resolveWorkerPoolName } from '@/scaling/queue-name';
 import type { ScalingService } from '@/scaling/scaling.service';
 import type { WorkerServer, WorkerServerEndpointsConfig } from '@/scaling/worker-server';
-import { WorkerStatusService } from '@/scaling/worker-status.service.ee';
+import { WorkerStatusService } from '@/scaling/worker-status.service';
 import { JwtService } from '@/services/jwt.service';
 
 import { BaseCommand } from './base-command';

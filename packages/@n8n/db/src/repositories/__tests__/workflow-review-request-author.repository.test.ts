@@ -3,7 +3,7 @@ import type { EntityManager } from '@n8n/typeorm';
 import type { Mock } from 'vitest';
 import { mock } from 'vitest-mock-extended';
 
-import { WorkflowReviewRequestAuthor } from '../../entities/workflow-review-request-author.ee';
+import { WorkflowReviewRequestAuthor } from '../../entities/workflow-review-request-author';
 import { TypeOrmTransaction } from '../../services/typeorm-transaction';
 import { mockEntityManager } from '../../utils/test-utils/mock-entity-manager';
 import { WorkflowReviewRequestAuthorRepository } from '../workflow-review-request-author.repository';

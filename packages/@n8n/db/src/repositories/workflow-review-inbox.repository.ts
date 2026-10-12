@@ -3,13 +3,13 @@ import { DataSource, type SelectQueryBuilder } from '@n8n/typeorm';
 
 import { BaseRepository } from './base-repository';
 import { SharedWorkflow } from '../entities/shared-workflow';
-import { WorkflowReviewRequestAuthor } from '../entities/workflow-review-request-author.ee';
-import { WorkflowReviewRequestReviewer } from '../entities/workflow-review-request-reviewer.ee';
-import { WorkflowReviewRequestWorkflow } from '../entities/workflow-review-request-workflow.ee';
+import { WorkflowReviewRequestAuthor } from '../entities/workflow-review-request-author';
+import { WorkflowReviewRequestReviewer } from '../entities/workflow-review-request-reviewer';
+import { WorkflowReviewRequestWorkflow } from '../entities/workflow-review-request-workflow';
 import {
 	WorkflowReviewRequest,
 	type WorkflowReviewRequestState,
-} from '../entities/workflow-review-request.ee';
+} from '../entities/workflow-review-request';
 import { TransactionRunner } from '../services/transaction';
 
 /** The cursor carries its boundary values so deleting the previous page's last row is safe. */

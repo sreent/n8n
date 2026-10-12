@@ -3,7 +3,7 @@ import { mock } from 'vitest-mock-extended';
 
 import { OrchestrationController } from '@/controllers/orchestration.controller';
 import type { License } from '@/license';
-import type { WorkerStatusService } from '@/scaling/worker-status.service.ee';
+import type { WorkerStatusService } from '@/scaling/worker-status.service';
 
 describe('OrchestrationController', () => {
 	const license = mock<License>();

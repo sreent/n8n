@@ -63,7 +63,7 @@ import { ExternalHooks } from '@/external-hooks';
 import type { ResumableExecution } from '@/interfaces';
 import { ManualExecutionService } from '@/manual-execution.service';
 import { NodeTypes } from '@/node-types';
-import type { PoolConfigService } from '@/scaling/pool-config.service.ee';
+import type { PoolConfigService } from '@/scaling/pool-config.service';
 import type { ScalingService } from '@/scaling/scaling.service';
 import type { Job, JobData } from '@/scaling/scaling.types';
 import { EngineV2Dispatcher } from '@/services/engine-v2-dispatcher.service';
@@ -746,7 +746,7 @@ export class WorkflowRunner {
 		}
 
 		if (!this.poolConfigService) {
-			const { PoolConfigService } = await import('@/scaling/pool-config.service.ee.js');
+			const { PoolConfigService } = await import('@/scaling/pool-config.service.js');
 			this.poolConfigService = Container.get(PoolConfigService);
 		}
 

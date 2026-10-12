@@ -38,7 +38,6 @@ import { InvalidAuthToken } from './invalid-auth-token';
 import { PollerState } from './poller-state';
 import { ProcessedData } from './processed-data';
 import { Project } from './project';
-import { ProjectPoolSettings } from './project-pool-settings.ee';
 import { ProjectRelation } from './project-relation';
 import { ProjectSecretsProviderAccess } from './project-secrets-provider-access';
 import type { SecretsProviderAccessRole } from './project-secrets-provider-access';
@@ -91,18 +90,18 @@ import {
 } from './workflow-publication-trigger-status';
 import { WorkflowPublishHistory } from './workflow-publish-history';
 import { WorkflowPublishedVersion } from './workflow-published-version';
-import { WorkflowReviewActivityComment } from './workflow-review-activity-comment.ee';
-import { WorkflowReviewActivity } from './workflow-review-activity.ee';
-import { WorkflowReviewRequestAuthor } from './workflow-review-request-author.ee';
-import { WorkflowReviewRequestReviewer } from './workflow-review-request-reviewer.ee';
-import { WorkflowReviewRequestWorkflow } from './workflow-review-request-workflow.ee';
+import { WorkflowReviewActivityComment } from './workflow-review-activity-comment';
+import { WorkflowReviewActivity } from './workflow-review-activity';
+import { WorkflowReviewRequestAuthor } from './workflow-review-request-author';
+import { WorkflowReviewRequestReviewer } from './workflow-review-request-reviewer';
+import { WorkflowReviewRequestWorkflow } from './workflow-review-request-workflow';
 import {
 	WorkflowReviewRequest,
-	WorkflowReviewRequestDecision,
+	type WorkflowReviewRequestDecision,
 	WorkflowReviewRequestDecisionList,
-	WorkflowReviewRequestState,
+	type WorkflowReviewRequestState,
 	WorkflowReviewRequestStateList,
-} from './workflow-review-request.ee';
+} from './workflow-review-request';
 import { WorkflowStatistics } from './workflow-statistics';
 import { WorkflowTagMapping } from './workflow-tag-mapping';
 
@@ -185,9 +184,9 @@ export {
 	WorkflowPublishedVersion,
 	WorkflowPublishHistory,
 	WorkflowReviewRequest,
-	WorkflowReviewRequestState,
+	type WorkflowReviewRequestState,
 	WorkflowReviewRequestStateList,
-	WorkflowReviewRequestDecision,
+	type WorkflowReviewRequestDecision,
 	WorkflowReviewRequestDecisionList,
 	WorkflowReviewRequestWorkflow,
 	WorkflowReviewRequestReviewer,
@@ -202,7 +201,6 @@ export {
 	TestRun,
 	TestCaseExecution,
 	ExecutionEntity,
-	ProjectPoolSettings,
 	ProjectSecretsProviderAccess,
 	type SecretsProviderAccessRole,
 	SecretsProviderConnection,
@@ -269,7 +267,6 @@ export const entities = {
 	Role,
 	ScheduledJob,
 	ScheduledTask,
-	ProjectPoolSettings,
 	ProjectSecretsProviderAccess,
 	SecretsProviderConnection,
 };

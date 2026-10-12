@@ -1724,6 +1724,8 @@
 	"workerList.actionBox.description.link": "More info",
 	"workerList.actionBox.buttonText": "See plans",
 	"workerList.docs.url": "https://docs.n8n.io/hosting/scaling/queue-mode/#view-running-workers",
+	"workerList.notInBuild.title": "The worker view is not available",
+	"workerList.notInBuild.description": "This build of n8n does not show the status of the queue mode workers.",
 	"executionView.onPaste.title": "Cannot paste here",
 	"executionView.onPaste.message": "This view is read-only. Switch to <i>Workflow</i> tab to be able to edit the current workflow",
 	"executionView.notFound.message": "Execution with id '{executionId}' could not be found!",
