@@ -218,7 +218,9 @@ if [ "${#TESTED_FILTERS[@]}" -gt 0 ]; then
 	# come from a run with other code in a dependency. So the steps that read the code of other
 	# packages use --force, which does not read the cache.
 	step typecheck "$TURBO" run typecheck "${TESTED_FILTERS[@]}" --only --force --continue --concurrency=1
-	step lint "$TURBO" run lint "${TESTED_FILTERS[@]}" --only --force --continue --concurrency=2
+	# One lint at a time: the type-aware lints of cli and of the editor need about 11 GB and 8 GB,
+	# and together they run out of the memory of a cloud session.
+	step lint "$TURBO" run lint "${TESTED_FILTERS[@]}" --only --force --continue --concurrency=1
 	step lint-styles "$TURBO" run lint:styles "${TESTED_FILTERS[@]}" --only --continue --concurrency=2
 fi
 
