@@ -20,8 +20,8 @@ packages/cli/test/integration/dynamic-credentials.ee/
 packages/cli/test/integration/eventbus.ee.test.ts
 
 # Editor folders of removed features. The editor keeps sourceControl.ee for now: enterprise files
-# that the fork still has (evaluations and variables) use it. externalSecrets.ee and
-# secretsProviders.ee stay with the backend module.
+# that the fork still has (evaluations) use it. externalSecrets.ee and secretsProviders.ee stay
+# with the backend module.
 packages/frontend/editor-ui/src/features/integrations/logStreaming.ee/
 packages/frontend/editor-ui/src/features/integrations/promotions.ee/
 # The REST client of log streaming. The fork's client is eventbus.ts in the same folder.
@@ -65,3 +65,9 @@ packages/cli/src/services/annotation-tag.service.ee.ts
 packages/frontend/editor-ui/src/features/execution/executions/components/workflow/WorkflowExecutionAnnotation*.ee.*
 packages/frontend/editor-ui/src/features/shared/tags/components/AnnotationTagsDropdown.ee.*
 packages/frontend/editor-ui/src/features/shared/tags/components/TagsManager/AnnotationTagsManager.ee.vue
+
+# Variables ($vars): the service, the REST API and the editor folder. The fork has its own files
+# with the same names in packages/cli/src/environments/variables and in the editor folder
+# features/settings/environments (packages/cli/src/environments/variables/FORK.md).
+packages/cli/src/environments.ee/
+packages/frontend/editor-ui/src/features/settings/environments.ee/
