@@ -69,6 +69,7 @@ type ModuleName =
 	| 'instance-ai'
 	| 'mcp'
 	| 'oauth-server'
+	| 'log-streaming'
 	| 'redaction'
 	| 'n8n-packages'
 	| 'token-exchange'
