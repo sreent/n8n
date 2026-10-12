@@ -24,6 +24,8 @@ packages/cli/test/integration/eventbus.ee.test.ts
 # secretsProviders.ee stay with the backend module.
 packages/frontend/editor-ui/src/features/integrations/logStreaming.ee/
 packages/frontend/editor-ui/src/features/integrations/promotions.ee/
+# The REST client of log streaming. The fork's client is eventbus.ts in the same folder.
+packages/frontend/@n8n/rest-api-client/src/api/eventbus.ee.ts
 
 # The permission core: the fork has its own scopes, roles and checks (step 2).
 packages/@n8n/permissions/src/**/*.ee.*
