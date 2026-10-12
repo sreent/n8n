@@ -107,6 +107,22 @@ describe('WebhookDestination', () => {
 			});
 		});
 
+		it('skips the names that would change the prototype of the headers', async () => {
+			const request = await destination({
+				sendHeaders: true,
+				specifyHeaders: 'json',
+				jsonHeaders: '{"__proto__":{"polluted":"yes"},"X-Source":"n8n"}',
+				sendQuery: true,
+				specifyQuery: 'keypair',
+				queryParameters: { parameters: [{ name: '__proto__', value: 'x' }] },
+			}).request(loginEvent());
+
+			expect(request.headers).toEqual({ 'X-Source': 'n8n' });
+			expect(Object.getPrototypeOf(request.headers)).toBe(Object.prototype);
+			expect(Object.getPrototypeOf(request.qs)).toBe(Object.prototype);
+			expect(request.qs).toEqual({});
+		});
+
 		it('ignores the headers and the query parameters when sending them is off', async () => {
 			const request = await destination({
 				sendHeaders: false,

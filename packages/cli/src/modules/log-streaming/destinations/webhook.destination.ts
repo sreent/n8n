@@ -4,6 +4,7 @@ import { isRecord } from '@n8n/utils/is-record';
 import {
 	jsonParse,
 	OperationalError,
+	setSafeObjectProperty,
 	UserError,
 	type GenericValue,
 	type ICredentialDataDecryptedObject,
@@ -49,6 +50,16 @@ const isGenericValue = (value: unknown): value is GenericValue =>
 const stringValue = (value: unknown) =>
 	typeof value === 'string' ? value : value === undefined || value === null ? '' : String(value);
 
+/**
+ * Copies the values of a source object. The names come from the settings, so a name such as
+ * `__proto__` must not change the prototype of the target.
+ */
+function assignValues(target: IDataObject, source: Record<string, unknown>) {
+	for (const [name, value] of Object.entries(source)) {
+		if (isGenericValue(value)) setSafeObjectProperty(target, name, value);
+	}
+}
+
 /** The parameters from the JSON text of the options, or from the name and value pairs. */
 function parameters(
 	specify: string | undefined,
@@ -62,13 +73,11 @@ function parameters(
 			errorMessage: `The JSON of the ${what} is not valid`,
 		});
 		if (!isRecord(parsed)) throw new UserError(`The JSON of the ${what} must be an object`);
-		for (const [name, value] of Object.entries(parsed)) {
-			if (isGenericValue(value)) result[name] = value;
-		}
+		assignValues(result, parsed);
 		return result;
 	}
 	for (const { name, value } of items?.parameters ?? []) {
-		if (name) result[name] = value ?? '';
+		if (name) setSafeObjectProperty(result, name, value ?? '');
 	}
 	return result;
 }
@@ -130,10 +139,10 @@ function authenticate(
 			request.headers.Authorization = `Bearer ${stringValue(data.token)}`;
 			return;
 		case 'httpHeaderAuth':
-			request.headers[stringValue(data.name)] = stringValue(data.value);
+			setSafeObjectProperty(request.headers, stringValue(data.name), stringValue(data.value));
 			return;
 		case 'httpQueryAuth':
-			request.qs[stringValue(data.name)] = stringValue(data.value);
+			setSafeObjectProperty(request.qs, stringValue(data.name), stringValue(data.value));
 			return;
 		case 'httpCustomAuth': {
 			const custom =
@@ -143,9 +152,9 @@ function authenticate(
 						})
 					: data.json;
 			if (!isRecord(custom)) return;
-			if (isRecord(custom.headers)) Object.assign(request.headers, custom.headers);
-			if (isRecord(custom.qs)) Object.assign(request.qs, custom.qs);
-			if (isRecord(custom.body)) Object.assign(body, custom.body);
+			if (isRecord(custom.headers)) assignValues(request.headers, custom.headers);
+			if (isRecord(custom.qs)) assignValues(request.qs, custom.qs);
+			if (isRecord(custom.body)) assignValues(body, custom.body);
 			return;
 		}
 	}
@@ -200,7 +209,11 @@ export class WebhookDestination extends LogStreamingDestination<WebhookDestinati
 				'headers',
 			);
 			for (const [name, value] of Object.entries(headers)) {
-				request.headers[name] = typeof value === 'object' ? JSON.stringify(value) : value;
+				setSafeObjectProperty(
+					request.headers,
+					name,
+					typeof value === 'object' ? JSON.stringify(value) : value,
+				);
 			}
 		}
 		if (options.sendQuery) {
