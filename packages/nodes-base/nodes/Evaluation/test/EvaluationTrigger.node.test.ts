@@ -2,7 +2,7 @@ import { mock, mockDeep } from 'vitest-mock-extended';
 import type { IExecuteFunctions, NodeParameterValueType } from 'n8n-workflow';
 
 import { GoogleSheet } from '../../Google/Sheet/v2/helpers/GoogleSheet';
-import { EvaluationTrigger } from '../EvaluationTrigger/EvaluationTrigger.node.ee';
+import { EvaluationTrigger } from '../EvaluationTrigger/EvaluationTrigger.node';
 import * as utils from '../utils/evaluationTriggerUtils';
 import type { Mock } from 'vitest';
 

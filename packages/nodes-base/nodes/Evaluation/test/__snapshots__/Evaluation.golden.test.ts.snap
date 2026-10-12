@@ -1,0 +1,3660 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Evaluation Trigger node > gives the rows of a dataset to the test runner 1`] = `
+{
+  "Data table": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [],
+            "type": "or",
+          },
+          "skip": 0,
+          "take": 1000,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q1",
+            "id": 1,
+            "row_id": 1,
+            "row_number": 0,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Question": "q2",
+            "id": 2,
+            "row_id": 2,
+            "row_number": 1,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Question": "q3",
+            "id": 3,
+            "row_id": 3,
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "Data table with a date": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [],
+            "type": "or",
+          },
+          "skip": 0,
+          "take": 1000,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q1",
+            "id": 1,
+            "row_id": 1,
+            "row_number": 0,
+            "updatedAt": "<Date 2026-01-02T03:04:05.000Z>",
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "Data table with a filter": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getColumns",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [
+              {
+                "columnName": "Question",
+                "condition": "eq",
+                "value": "q2",
+              },
+            ],
+            "type": "or",
+          },
+          "skip": 0,
+          "take": 1000,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q2",
+            "id": 2,
+            "row_id": 2,
+            "row_number": 0,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "Data table with a limit": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [],
+            "type": "or",
+          },
+          "skip": 0,
+          "take": 2,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q1",
+            "id": 1,
+            "row_id": 1,
+            "row_number": 0,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Question": "q2",
+            "id": 2,
+            "row_id": 2,
+            "row_number": 1,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "Data table with an empty table": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [],
+            "type": "or",
+          },
+          "skip": 0,
+          "take": 1000,
+        },
+      ],
+    ],
+    "outcome": [
+      [],
+    ],
+  },
+  "Data table with more than one page": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [],
+            "type": "or",
+          },
+          "skip": 0,
+          "take": 1000,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q1",
+            "id": 1,
+            "row_id": 1,
+            "row_number": 0,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Question": "q2",
+            "id": 2,
+            "row_id": 2,
+            "row_number": 1,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Question": "q3",
+            "id": 3,
+            "row_id": 3,
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "Google Sheet": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a1",
+            "Question": "q1",
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q2",
+            "row_number": 3,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a3",
+            "Question": "q3",
+            "row_number": 4,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "Google Sheet with a filter": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a3",
+            "Question": "q3",
+            "row_number": 4,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "Google Sheet with a filter and a limit of 1": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a3",
+            "Question": "q3",
+            "row_number": 4,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "Google Sheet with a limit": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a1",
+            "Question": "q1",
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q2",
+            "row_number": 3,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "an empty Google Sheet": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [],
+    ],
+  },
+}
+`;
+
+exports[`Evaluation Trigger node > reads a Data table row by row 1`] = `
+{
+  "a row with a date, and a previous row without rows left": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [
+              {
+                "columnName": "id",
+                "condition": "gt",
+                "value": 1,
+              },
+            ],
+            "type": "and",
+          },
+          "skip": 0,
+          "take": 1,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q2",
+            "_rowsLeft": 1,
+            "createdAt": "<Date 2026-01-02T03:04:05.000Z>",
+            "id": 2,
+            "row_id": 2,
+            "row_number": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "after row 1": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [
+              {
+                "columnName": "id",
+                "condition": "gt",
+                "value": 1,
+              },
+            ],
+            "type": "and",
+          },
+          "skip": 0,
+          "take": 1,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q2",
+            "_rowsLeft": 1,
+            "id": 2,
+            "processed": 1,
+            "row_id": 2,
+            "row_number": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "after the last row": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [],
+            "type": "or",
+          },
+          "skip": 0,
+          "take": 1,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q1",
+            "_rowsLeft": 2,
+            "id": 1,
+            "processed": 1,
+            "row_id": 1,
+            "row_number": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "an empty table": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [],
+            "type": "or",
+          },
+          "skip": 0,
+          "take": 1,
+        },
+      ],
+    ],
+    "outcome": "NodeOperationError: No row found",
+  },
+  "first run": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [],
+            "type": "or",
+          },
+          "skip": 0,
+          "take": 1,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q1",
+            "_rowsLeft": 2,
+            "id": 1,
+            "processed": 1,
+            "row_id": 1,
+            "row_number": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "with a limit": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [
+              {
+                "columnName": "id",
+                "condition": "gt",
+                "value": 1,
+              },
+            ],
+            "type": "and",
+          },
+          "skip": 0,
+          "take": 1,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q2",
+            "_rowsLeft": 0,
+            "id": 2,
+            "processed": 1,
+            "row_id": 2,
+            "row_number": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "with a limit, after the limit": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [],
+            "type": "or",
+          },
+          "skip": 0,
+          "take": 1,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q1",
+            "_rowsLeft": 1,
+            "id": 1,
+            "processed": 1,
+            "row_id": 1,
+            "row_number": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "with all conditions": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getColumns",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [
+              {
+                "columnName": "processed",
+                "condition": "eq",
+                "value": "1",
+              },
+              {
+                "columnName": "Question",
+                "condition": "isNotEmpty",
+                "value": null,
+              },
+              {
+                "columnName": "id",
+                "condition": "gt",
+                "value": 1,
+              },
+            ],
+            "type": "and",
+          },
+          "skip": 0,
+          "take": 1,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q2",
+            "_rowsLeft": 1,
+            "id": 2,
+            "processed": 1,
+            "row_id": 2,
+            "row_number": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "with two conditions of which any must match, after row 1": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getColumns",
+      ],
+      [
+        "dataTable.getManyRowsAndCount",
+        {
+          "filter": {
+            "filters": [
+              {
+                "columnName": "processed",
+                "condition": "eq",
+                "value": "1",
+              },
+              {
+                "columnName": "Question",
+                "condition": "eq",
+                "value": "q2",
+              },
+              {
+                "columnName": "id",
+                "condition": "gt",
+                "value": 1,
+              },
+            ],
+            "type": "and",
+          },
+          "skip": 0,
+          "take": 1,
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Question": "q2",
+            "_rowsLeft": 1,
+            "id": 2,
+            "processed": 1,
+            "row_id": 2,
+            "row_number": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "without the Data table module": {
+    "calls": [],
+    "outcome": "NodeOperationError: Attempted to use Data table node but the module is disabled",
+  },
+}
+`;
+
+exports[`Evaluation Trigger node > reads a Google Sheet row by row 1`] = `
+{
+  "4.6 first run": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5!2:1000",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a1",
+            "Question": "q1",
+            "_rowsLeft": 3,
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "4.7 first run": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5!2:1000",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a1",
+            "Question": "q1",
+            "_rowsLeft": 3,
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "a previous row without rows left": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5!3:1000",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q2",
+            "_rowsLeft": 2,
+            "row_number": 3,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "after the first row": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5!3:1000",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q2",
+            "_rowsLeft": 2,
+            "row_number": 3,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "after the last row": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5!2:1000",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a1",
+            "Question": "q1",
+            "_rowsLeft": 3,
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "after the second row of three": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5!4:1000",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a3",
+            "Question": "q3",
+            "_rowsLeft": 1,
+            "row_number": 4,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "an empty sheet": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5!2:1000",
+      ],
+    ],
+    "outcome": "NodeOperationError: No row found",
+  },
+  "with a filter": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q2",
+            "_rowsLeft": 0,
+            "row_number": 3,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "with a filter and a limit of 1": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a3",
+            "Question": "q3",
+            "_rowsLeft": 0,
+            "row_number": 4,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "with a filter that matches no row": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": "NodeOperationError: No row found",
+  },
+  "with a filter, after the match": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q2",
+            "_rowsLeft": 0,
+            "row_number": 3,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "with a limit of 2": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5!2:3",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a1",
+            "Question": "q1",
+            "_rowsLeft": 2,
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "with a limit, after the limit": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5!2:3",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a1",
+            "Question": "q1",
+            "_rowsLeft": 2,
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+}
+`;
+
+exports[`Evaluation Trigger node > reads a filtered Google Sheet with a limit 1`] = `
+{
+  "a long filtered sheet, after row 1000": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q1000",
+            "_rowsLeft": 0,
+            "row_number": 1001,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "a long filtered sheet, rows for the test runner": 999,
+  "a long sheet, after row 1000": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5!1001:1000",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q1000",
+            "_rowsLeft": 0,
+            "row_number": 1001,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "a long sheet, rows for the test runner": 999,
+  "late matches in a long sheet, rows for the test runner": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q998",
+            "row_number": 999,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q999",
+            "row_number": 1000,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q1000",
+            "row_number": 1001,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q1001",
+            "row_number": 1002,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q1002",
+            "row_number": 1003,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "late matches in a long sheet, rows for the test runner, limit 2": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q998",
+            "row_number": 999,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q999",
+            "row_number": 1000,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "limit 2, after row 2": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q3",
+            "_rowsLeft": 0,
+            "row_number": 4,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "limit 2, after row 4": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q4",
+            "_rowsLeft": 0,
+            "row_number": 5,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "limit 2, first run": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q1",
+            "_rowsLeft": 0,
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "limit 3, after row 4": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q4",
+            "_rowsLeft": 0,
+            "row_number": 5,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "no limit, after row 2": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q3",
+            "_rowsLeft": 2,
+            "row_number": 4,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "no limit, after row 5": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q1",
+            "_rowsLeft": 3,
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "rows for the test runner, limit 2": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q1",
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q3",
+            "row_number": 4,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "rows for the test runner, no limit": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.getData",
+        "Sheet5",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q1",
+            "row_number": 2,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q3",
+            "row_number": 4,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q4",
+            "row_number": 5,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Answer": "a2",
+            "Question": "q5",
+            "row_number": 6,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+}
+`;
+
+exports[`Evaluation node > check if evaluating, and an unknown operation 1`] = `
+{
+  "4.6 evaluating": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "json": {
+            "a": 1,
+          },
+        },
+      ],
+      [],
+    ],
+  },
+  "4.6 normal": {
+    "calls": [],
+    "outcome": [
+      [],
+      [
+        {
+          "json": {
+            "a": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "4.7 evaluating": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "json": {
+            "a": 1,
+          },
+        },
+      ],
+      [],
+    ],
+  },
+  "4.7 normal": {
+    "calls": [],
+    "outcome": [
+      [],
+      [
+        {
+          "json": {
+            "a": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "4.8 evaluating": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "json": {
+            "a": 1,
+          },
+        },
+      ],
+      [],
+    ],
+  },
+  "4.8 normal": {
+    "calls": [],
+    "outcome": [
+      [],
+      [
+        {
+          "json": {
+            "a": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "unknown operation": {
+    "calls": [],
+    "outcome": "NodeOperationError: Unsupported Operation",
+  },
+}
+`;
+
+exports[`Evaluation node > set inputs 1`] = `
+{
+  "4.6 from the trigger": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "evaluationData": undefined,
+          "json": {
+            "a": 1,
+          },
+        },
+        {
+          "json": {
+            "a": 2,
+          },
+        },
+      ],
+    ],
+  },
+  "4.7 from the trigger": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "evaluationData": undefined,
+          "json": {
+            "a": 1,
+          },
+        },
+        {
+          "json": {
+            "a": 2,
+          },
+        },
+      ],
+    ],
+  },
+  "4.8 from the trigger": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "evaluationData": undefined,
+          "json": {
+            "a": 1,
+          },
+        },
+        {
+          "json": {
+            "a": 2,
+          },
+        },
+      ],
+    ],
+  },
+  "no inputs": {
+    "calls": [],
+    "outcome": "UserError: No inputs to set",
+  },
+  "trigger not executed": {
+    "calls": [
+      [
+        "addExecutionHints",
+        {
+          "location": "outputPane",
+          "message": "No inputs were set since the execution didn't start from an evaluation trigger",
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {},
+        },
+      ],
+    ],
+  },
+  "without a trigger": {
+    "calls": [
+      [
+        "addExecutionHints",
+        {
+          "location": "outputPane",
+          "message": "No inputs were set since the execution didn't start from an evaluation trigger",
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {},
+        },
+      ],
+    ],
+  },
+}
+`;
+
+exports[`Evaluation node > set metrics 1`] = `
+{
+  "categorization": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Categorization": 1,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "correctness without a model": {
+    "calls": [],
+    "outcome": "NodeOperationError: No language model connected",
+  },
+  "custom 4.6": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Accuracy": 0.5,
+            "Latency": 100,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Accuracy": 0.5,
+            "Latency": 100,
+          },
+          "pairedItem": {
+            "item": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "custom 4.7": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Accuracy": 0.5,
+            "Latency": 100,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Accuracy": 0.5,
+            "Latency": 100,
+          },
+          "pairedItem": {
+            "item": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "custom 4.8": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Accuracy": 0.5,
+            "Latency": 100,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+        {
+          "json": {
+            "Accuracy": 0.5,
+            "Latency": 100,
+          },
+          "pairedItem": {
+            "item": 1,
+          },
+        },
+      ],
+    ],
+  },
+  "string similarity": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "json": {
+            "String similarity": 0.5714285714285714,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "tools used": {
+    "calls": [],
+    "outcome": [
+      [
+        {
+          "json": {
+            "Tools Used": 0.5,
+          },
+          "pairedItem": {
+            "item": 0,
+          },
+        },
+      ],
+    ],
+  },
+  "unknown metric": {
+    "calls": [],
+    "outcome": "NodeOperationError: Unknown metric",
+  },
+}
+`;
+
+exports[`Evaluation node > set outputs to a Data table 1`] = `
+{
+  "4.6": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getColumns",
+      ],
+      [
+        "dataTable.addColumn",
+        {
+          "name": "score",
+          "type": "number",
+        },
+      ],
+      [
+        "dataTable.updateRows",
+        {
+          "data": {
+            "Answer": "clam",
+            "score": 3,
+          },
+          "filter": {
+            "filters": [
+              {
+                "columnName": "id",
+                "condition": "eq",
+                "value": 7,
+              },
+            ],
+            "type": "and",
+          },
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "evaluationData": undefined,
+          "json": {},
+        },
+      ],
+    ],
+  },
+  "4.7": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getColumns",
+      ],
+      [
+        "dataTable.addColumn",
+        {
+          "name": "score",
+          "type": "number",
+        },
+      ],
+      [
+        "dataTable.updateRows",
+        {
+          "data": {
+            "Answer": "clam",
+            "score": 3,
+          },
+          "filter": {
+            "filters": [
+              {
+                "columnName": "id",
+                "condition": "eq",
+                "value": 7,
+              },
+            ],
+            "type": "and",
+          },
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "evaluationData": undefined,
+          "json": {},
+        },
+      ],
+    ],
+  },
+  "4.8": {
+    "calls": [
+      [
+        "helpers.getDataTableProxy",
+        "dt-1",
+      ],
+      [
+        "dataTable.getColumns",
+      ],
+      [
+        "dataTable.addColumn",
+        {
+          "name": "score",
+          "type": "number",
+        },
+      ],
+      [
+        "dataTable.updateRows",
+        {
+          "data": {
+            "Answer": "clam",
+            "score": 3,
+          },
+          "filter": {
+            "filters": [
+              {
+                "columnName": "id",
+                "condition": "eq",
+                "value": 7,
+              },
+            ],
+            "type": "and",
+          },
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "evaluationData": undefined,
+          "json": {},
+        },
+      ],
+    ],
+  },
+  "no outputs": {
+    "calls": [],
+    "outcome": "UserError: No outputs to set",
+  },
+  "unknown source": {
+    "calls": [],
+    "outcome": "NodeOperationError: Unknown source "csv"",
+  },
+  "without a trigger": {
+    "calls": [
+      [
+        "addExecutionHints",
+        {
+          "location": "outputPane",
+          "message": "No outputs were set since the execution didn't start from an evaluation trigger",
+        },
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "json": {},
+        },
+      ],
+    ],
+  },
+  "without the Data table module": {
+    "calls": [],
+    "outcome": "NodeOperationError: Attempted to use Data table node but the module is disabled",
+  },
+}
+`;
+
+exports[`Evaluation node > set outputs to a Google Sheet 1`] = `
+{
+  "4.6": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.updateRows",
+        "Sheet5",
+        [
+          [
+            "row_id",
+            "Question",
+            "Answer",
+            "score",
+          ],
+        ],
+        "RAW",
+        1,
+      ],
+      [
+        "sheet.batchUpdate",
+        [
+          {
+            "range": "Sheet5!C3",
+            "values": [
+              [
+                "clam",
+              ],
+            ],
+          },
+          {
+            "range": "Sheet5!D3",
+            "values": [
+              [
+                "3",
+              ],
+            ],
+          },
+        ],
+        "RAW",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "evaluationData": undefined,
+          "json": {},
+        },
+      ],
+    ],
+  },
+  "4.7": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.updateRows",
+        "Sheet5",
+        [
+          [
+            "row_id",
+            "Question",
+            "Answer",
+            "score",
+          ],
+        ],
+        "RAW",
+        1,
+      ],
+      [
+        "sheet.batchUpdate",
+        [
+          {
+            "range": "Sheet5!C3",
+            "values": [
+              [
+                "clam",
+              ],
+            ],
+          },
+          {
+            "range": "Sheet5!D3",
+            "values": [
+              [
+                "3",
+              ],
+            ],
+          },
+        ],
+        "RAW",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "evaluationData": undefined,
+          "json": {},
+        },
+      ],
+    ],
+  },
+  "4.8": {
+    "calls": [
+      [
+        "sheet.spreadsheetGetSheet",
+      ],
+      [
+        "sheet.updateRows",
+        "Sheet5",
+        [
+          [
+            "row_id",
+            "Question",
+            "Answer",
+            "score",
+          ],
+        ],
+        "RAW",
+        1,
+      ],
+      [
+        "sheet.batchUpdate",
+        [
+          {
+            "range": "Sheet5!C3",
+            "values": [
+              [
+                "clam",
+              ],
+            ],
+          },
+          {
+            "range": "Sheet5!D3",
+            "values": [
+              [
+                "3",
+              ],
+            ],
+          },
+        ],
+        "RAW",
+      ],
+    ],
+    "outcome": [
+      [
+        {
+          "evaluationData": undefined,
+          "json": {},
+        },
+      ],
+    ],
+  },
+}
+`;
+
+exports[`descriptions > the Evaluation Trigger node 1`] = `
+{
+  "customOperations": {
+    "dataset": {
+      "getRows": "<function/0>",
+    },
+  },
+  "description": {
+    "codex": {
+      "alias": [
+        "Test",
+        "Metrics",
+        "Evals",
+        "Set Output",
+        "Set Metrics",
+      ],
+    },
+    "credentials": [
+      {
+        "displayOptions": {
+          "show": {
+            "authentication": [
+              "serviceAccount",
+            ],
+          },
+        },
+        "name": "googleApi",
+        "required": true,
+        "testedBy": "googleApiCredentialTest",
+      },
+      {
+        "displayOptions": {
+          "show": {
+            "authentication": [
+              "oAuth2",
+            ],
+          },
+        },
+        "name": "googleSheetsOAuth2Api",
+        "required": true,
+      },
+    ],
+    "defaults": {
+      "color": "#c3c9d5",
+      "name": "When fetching a dataset row",
+    },
+    "description": "Run a test dataset through your workflow to check performance",
+    "displayName": "Evaluation Trigger",
+    "eventTriggerDescription": "",
+    "group": [
+      "trigger",
+    ],
+    "icon": "fa:check-double",
+    "inputs": [],
+    "name": "evaluationTrigger",
+    "outputs": [
+      "main",
+    ],
+    "properties": [
+      {
+        "default": "dataTable",
+        "description": "Where to get the test dataset from",
+        "displayName": "Source",
+        "displayOptions": {
+          "show": {
+            "@version": [
+              {
+                "_cnd": {
+                  "gte": 4.7,
+                },
+              },
+            ],
+          },
+        },
+        "name": "source",
+        "options": [
+          {
+            "description": "Load the test dataset from a local Data table",
+            "name": "Data table",
+            "value": "dataTable",
+          },
+          {
+            "description": "Load the test dataset from a Google Sheets document",
+            "name": "Google Sheets",
+            "value": "googleSheets",
+          },
+        ],
+        "type": "options",
+      },
+      {
+        "default": "googleSheets",
+        "description": "Where to get the test dataset from",
+        "displayName": "Source",
+        "displayOptions": {
+          "show": {
+            "@version": [
+              {
+                "_cnd": {
+                  "lte": 4.6,
+                },
+              },
+            ],
+          },
+        },
+        "name": "source",
+        "options": [
+          {
+            "description": "Load the test dataset from a local Data table",
+            "name": "Data table",
+            "value": "dataTable",
+          },
+          {
+            "description": "Load the test dataset from a Google Sheets document",
+            "name": "Google Sheets",
+            "value": "googleSheets",
+          },
+        ],
+        "type": "options",
+      },
+      {
+        "default": "",
+        "displayName": "Pulls a test dataset from a Google Sheet. The workflow will run once for each row, in sequence. Tips for wiring this node up <a href="https://docs.n8n.io/advanced-ai/evaluations/tips-and-common-issues/#combining-multiple-triggers">here</a>.",
+        "displayOptions": {
+          "hide": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "name": "notice",
+        "type": "notice",
+      },
+      {
+        "default": "",
+        "displayName": "Credentials",
+        "displayOptions": {
+          "hide": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "name": "credentials",
+        "type": "credentials",
+      },
+      {
+        "default": "oAuth2",
+        "displayName": "Authentication",
+        "displayOptions": {
+          "hide": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "name": "authentication",
+        "options": [
+          {
+            "name": "Service Account",
+            "value": "serviceAccount",
+          },
+          {
+            "name": "OAuth2 (recommended)",
+            "value": "oAuth2",
+          },
+        ],
+        "type": "options",
+      },
+      {
+        "default": {
+          "mode": "list",
+          "value": "",
+        },
+        "displayName": "Document Containing Dataset",
+        "displayOptions": {
+          "hide": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "hint": "Example dataset format <a href="https://docs.google.com/spreadsheets/d/1vD_IdeFUg7sHsK9okL6Doy1rGOkWTnPJV3Dro4FBUsY/edit?gid=0#gid=0">here</a>",
+        "modes": [
+          {
+            "displayName": "From List",
+            "name": "list",
+            "type": "list",
+            "typeOptions": {
+              "searchListMethod": "spreadSheetsSearch",
+              "searchable": true,
+            },
+          },
+          {
+            "displayName": "By URL",
+            "extractValue": {
+              "regex": "https:\\/\\/(?:drive|docs)\\.google\\.com(?:\\/.*|)\\/d\\/([0-9a-zA-Z\\-_]+)(?:\\/.*|)",
+              "type": "regex",
+            },
+            "name": "url",
+            "type": "string",
+            "validation": [
+              {
+                "properties": {
+                  "errorMessage": "Not a valid Google Drive File URL",
+                  "regex": "https:\\/\\/(?:drive|docs)\\.google\\.com(?:\\/.*|)\\/d\\/([0-9a-zA-Z\\-_]+)(?:\\/.*|)",
+                },
+                "type": "regex",
+              },
+            ],
+          },
+          {
+            "displayName": "By ID",
+            "name": "id",
+            "type": "string",
+            "url": "=https://docs.google.com/spreadsheets/d/{{$value}}/edit",
+            "validation": [
+              {
+                "properties": {
+                  "errorMessage": "Not a valid Google Drive File ID",
+                  "regex": "[a-zA-Z0-9\\-_]{2,}",
+                },
+                "type": "regex",
+              },
+            ],
+          },
+        ],
+        "name": "documentId",
+        "required": true,
+        "type": "resourceLocator",
+      },
+      {
+        "default": {
+          "mode": "list",
+          "value": "",
+        },
+        "displayName": "Sheet Containing Dataset",
+        "displayOptions": {
+          "hide": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "modes": [
+          {
+            "displayName": "From List",
+            "name": "list",
+            "type": "list",
+            "typeOptions": {
+              "searchListMethod": "sheetsSearch",
+              "searchable": false,
+            },
+          },
+          {
+            "displayName": "By URL",
+            "extractValue": {
+              "regex": "https:\\/\\/docs\\.google\\.com\\/spreadsheets\\/d\\/[0-9a-zA-Z\\-_]+.*\\#gid=([0-9]+)",
+              "type": "regex",
+            },
+            "name": "url",
+            "type": "string",
+            "validation": [
+              {
+                "properties": {
+                  "errorMessage": "Not a valid Sheet URL",
+                  "regex": "https:\\/\\/docs\\.google\\.com\\/spreadsheets\\/d\\/[0-9a-zA-Z\\-_]+.*\\#gid=([0-9]+)",
+                },
+                "type": "regex",
+              },
+            ],
+          },
+          {
+            "displayName": "By ID",
+            "name": "id",
+            "type": "string",
+            "validation": [
+              {
+                "properties": {
+                  "errorMessage": "Not a valid Sheet ID",
+                  "regex": "((gid=)?[0-9]{1,})",
+                },
+                "type": "regex",
+              },
+            ],
+          },
+        ],
+        "name": "sheetName",
+        "required": true,
+        "type": "resourceLocator",
+        "typeOptions": {
+          "loadOptionsDependsOn": [
+            "documentId.value",
+          ],
+        },
+      },
+      {
+        "default": {
+          "mode": "list",
+          "value": "",
+        },
+        "displayName": "Data table",
+        "displayOptions": {
+          "show": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "modes": [
+          {
+            "displayName": "From List",
+            "name": "list",
+            "type": "list",
+            "typeOptions": {
+              "searchListMethod": "dataTableSearch",
+              "searchable": true,
+              "skipCredentialsCheckInRLC": true,
+            },
+          },
+          {
+            "displayName": "ID",
+            "name": "id",
+            "type": "string",
+          },
+        ],
+        "name": "dataTableId",
+        "required": true,
+        "type": "resourceLocator",
+      },
+      {
+        "default": false,
+        "description": "Whether to limit number of rows to process",
+        "displayName": "Limit Rows",
+        "name": "limitRows",
+        "noDataExpression": true,
+        "type": "boolean",
+      },
+      {
+        "default": 10,
+        "description": "Maximum number of rows to process",
+        "displayName": "Max Rows to Process",
+        "displayOptions": {
+          "show": {
+            "limitRows": [
+              true,
+            ],
+          },
+        },
+        "name": "maxRows",
+        "noDataExpression": false,
+        "type": "number",
+      },
+      {
+        "default": {},
+        "displayName": "Filters",
+        "displayOptions": {
+          "hide": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "name": "filtersUI",
+        "options": [
+          {
+            "displayName": "Filter",
+            "name": "values",
+            "values": [
+              {
+                "default": "",
+                "description": "Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>",
+                "displayName": "Column",
+                "name": "lookupColumn",
+                "type": "options",
+                "typeOptions": {
+                  "loadOptionsDependsOn": [
+                    "sheetName.value",
+                  ],
+                  "loadOptionsMethod": "getSheetHeaderRowWithGeneratedColumnNames",
+                },
+              },
+              {
+                "default": "",
+                "displayName": "Value",
+                "hint": "The column must have this value to be matched",
+                "name": "lookupValue",
+                "type": "string",
+              },
+            ],
+          },
+        ],
+        "placeholder": "Add Filter",
+        "type": "fixedCollection",
+        "typeOptions": {
+          "multipleValueButtonText": "Add Filter",
+          "multipleValues": true,
+        },
+      },
+      {
+        "default": false,
+        "description": "Whether to filter rows to process",
+        "displayName": "Filter Rows",
+        "displayOptions": {
+          "show": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "name": "filterRows",
+        "noDataExpression": true,
+        "type": "boolean",
+      },
+      {
+        "default": "anyCondition",
+        "displayName": "Must Match",
+        "displayOptions": {
+          "show": {
+            "filterRows": [
+              true,
+            ],
+          },
+        },
+        "name": "matchType",
+        "options": [
+          {
+            "name": "Any Condition",
+            "value": "anyCondition",
+          },
+          {
+            "name": "All Conditions",
+            "value": "allConditions",
+          },
+        ],
+        "type": "options",
+      },
+      {
+        "default": {},
+        "description": "Filter to decide which rows get",
+        "displayName": "Conditions",
+        "displayOptions": {
+          "show": {
+            "filterRows": [
+              true,
+            ],
+          },
+        },
+        "name": "filters",
+        "options": [
+          {
+            "displayName": "Conditions",
+            "name": "conditions",
+            "values": [
+              {
+                "default": "id",
+                "description": "Choose from the list, or specify using an <a href="https://docs.n8n.io/code/expressions/">expression</a>",
+                "displayName": "Column",
+                "name": "keyName",
+                "type": "options",
+                "typeOptions": {
+                  "loadOptionsDependsOn": [
+                    "dataTableId.value",
+                  ],
+                  "loadOptionsMethod": "getDataTableColumns",
+                },
+              },
+              {
+                "default": "eq",
+                "displayName": "Condition",
+                "displayOptions": undefined,
+                "name": "condition",
+                "type": "options",
+                "typeOptions": {
+                  "loadOptionsDependsOn": [
+                    "&keyName",
+                  ],
+                  "loadOptionsMethod": "getConditionsForColumn",
+                },
+              },
+              {
+                "default": "",
+                "displayName": "Value",
+                "displayOptions": {
+                  "hide": {
+                    "condition": [
+                      "isEmpty",
+                      "isNotEmpty",
+                      "isTrue",
+                      "isFalse",
+                    ],
+                  },
+                },
+                "name": "keyValue",
+                "type": "string",
+              },
+            ],
+          },
+        ],
+        "placeholder": "Add Condition",
+        "type": "fixedCollection",
+        "typeOptions": {
+          "minRequiredFields": 0,
+          "multipleValues": true,
+        },
+      },
+    ],
+    "version": [
+      4.6,
+      4.7,
+    ],
+  },
+  "keys": [
+    "customOperations",
+    "description",
+    "methods",
+  ],
+  "methods": {
+    "credentialTest": {
+      "googleApiCredentialTest": "<function/1>",
+    },
+    "listSearch": {
+      "dataTableSearch": "<function/2>",
+      "sheetsSearch": "<function/1>",
+      "spreadSheetsSearch": "<function/2>",
+    },
+    "loadOptions": {
+      "getConditionsForColumn": "<function/0>",
+      "getDataTableColumns": "<function/0>",
+      "getSheetHeaderRowWithGeneratedColumnNames": "<function/0>",
+    },
+  },
+}
+`;
+
+exports[`descriptions > the Evaluation node 1`] = `
+{
+  "description": {
+    "credentials": [
+      {
+        "displayOptions": {
+          "show": {
+            "authentication": [
+              "serviceAccount",
+            ],
+            "operation": [
+              "setOutputs",
+            ],
+          },
+        },
+        "name": "googleApi",
+        "required": true,
+        "testedBy": "googleApiCredentialTest",
+      },
+      {
+        "displayOptions": {
+          "show": {
+            "authentication": [
+              "oAuth2",
+            ],
+            "operation": [
+              "setOutputs",
+            ],
+          },
+        },
+        "name": "googleSheetsOAuth2Api",
+        "required": true,
+      },
+    ],
+    "defaults": {
+      "color": "#c3c9d5",
+      "name": "Evaluation",
+    },
+    "description": "Runs an evaluation",
+    "displayName": "Evaluation",
+    "eventTriggerDescription": "",
+    "group": [
+      "transform",
+    ],
+    "icon": "fa:check-double",
+    "inputs": "={{(<getInputConnectionTypes>)($parameter, <metricRequiresModelConnection>)}}",
+    "name": "evaluation",
+    "outputs": "={{(<getOutputConnectionTypes>)($parameter)}}",
+    "properties": [
+      {
+        "default": "setOutputs",
+        "displayName": "Operation",
+        "name": "operation",
+        "noDataExpression": true,
+        "options": [
+          {
+            "name": "Set Inputs",
+            "value": "setInputs",
+          },
+          {
+            "name": "Set Outputs",
+            "value": "setOutputs",
+          },
+          {
+            "name": "Set Metrics",
+            "value": "setMetrics",
+          },
+          {
+            "name": "Check If Evaluating",
+            "value": "checkIfEvaluating",
+          },
+        ],
+        "type": "options",
+      },
+      {
+        "default": "dataTable",
+        "description": "Where to get the test dataset from",
+        "displayName": "Source",
+        "displayOptions": {
+          "show": {
+            "@version": [
+              {
+                "_cnd": {
+                  "gte": 4.8,
+                },
+              },
+            ],
+            "operation": [
+              "setOutputs",
+            ],
+          },
+        },
+        "name": "source",
+        "options": [
+          {
+            "description": "Load the test dataset from a local Data table",
+            "name": "Data table",
+            "value": "dataTable",
+          },
+          {
+            "description": "Load the test dataset from a Google Sheets document",
+            "name": "Google Sheets",
+            "value": "googleSheets",
+          },
+        ],
+        "type": "options",
+      },
+      {
+        "default": "googleSheets",
+        "description": "Where to get the test dataset from",
+        "displayName": "Source",
+        "displayOptions": {
+          "show": {
+            "@version": [
+              {
+                "_cnd": {
+                  "lte": 4.7,
+                },
+              },
+            ],
+            "operation": [
+              "setOutputs",
+            ],
+          },
+        },
+        "name": "source",
+        "options": [
+          {
+            "description": "Load the test dataset from a local Data table",
+            "name": "Data table",
+            "value": "dataTable",
+          },
+          {
+            "description": "Load the test dataset from a Google Sheets document",
+            "name": "Google Sheets",
+            "value": "googleSheets",
+          },
+        ],
+        "type": "options",
+      },
+      {
+        "default": "oAuth2",
+        "displayName": "Authentication",
+        "displayOptions": {
+          "hide": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "name": "authentication",
+        "options": [
+          {
+            "name": "Service Account",
+            "value": "serviceAccount",
+          },
+          {
+            "name": "OAuth2 (recommended)",
+            "value": "oAuth2",
+          },
+        ],
+        "type": "options",
+      },
+      {
+        "default": "",
+        "displayName": "For adding columns from your dataset to the evaluation results. Anything you add here will be displayed in the ‘evaluations’ tab, not on the Google Sheet or Data table.",
+        "displayOptions": {
+          "show": {
+            "operation": [
+              "setInputs",
+            ],
+          },
+        },
+        "name": "setInputsNotice",
+        "type": "notice",
+      },
+      {
+        "default": {},
+        "displayName": "Inputs",
+        "displayOptions": {
+          "show": {
+            "operation": [
+              "setInputs",
+            ],
+          },
+        },
+        "name": "inputs",
+        "options": [
+          {
+            "displayName": "Filter",
+            "name": "values",
+            "values": [
+              {
+                "default": "",
+                "displayName": "Name",
+                "name": "inputName",
+                "requiresDataPath": "single",
+                "type": "string",
+              },
+              {
+                "default": "",
+                "displayName": "Value",
+                "name": "inputValue",
+                "type": "string",
+              },
+            ],
+          },
+        ],
+        "placeholder": "Add Input",
+        "type": "fixedCollection",
+        "typeOptions": {
+          "multipleValueButtonText": "Add Input",
+          "multipleValues": true,
+        },
+      },
+      {
+        "default": "",
+        "displayName": "Credentials",
+        "displayOptions": {
+          "hide": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "name": "credentials",
+        "type": "credentials",
+      },
+      {
+        "default": {
+          "mode": "list",
+          "value": "",
+        },
+        "displayName": "Document Containing Dataset",
+        "displayOptions": {
+          "hide": {
+            "source": [
+              "dataTable",
+            ],
+          },
+          "show": {
+            "operation": [
+              "setOutputs",
+            ],
+          },
+        },
+        "modes": [
+          {
+            "displayName": "From List",
+            "name": "list",
+            "type": "list",
+            "typeOptions": {
+              "searchListMethod": "spreadSheetsSearch",
+              "searchable": true,
+            },
+          },
+          {
+            "displayName": "By URL",
+            "extractValue": {
+              "regex": "https:\\/\\/(?:drive|docs)\\.google\\.com(?:\\/.*|)\\/d\\/([0-9a-zA-Z\\-_]+)(?:\\/.*|)",
+              "type": "regex",
+            },
+            "name": "url",
+            "type": "string",
+            "validation": [
+              {
+                "properties": {
+                  "errorMessage": "Not a valid Google Drive File URL",
+                  "regex": "https:\\/\\/(?:drive|docs)\\.google\\.com(?:\\/.*|)\\/d\\/([0-9a-zA-Z\\-_]+)(?:\\/.*|)",
+                },
+                "type": "regex",
+              },
+            ],
+          },
+          {
+            "displayName": "By ID",
+            "name": "id",
+            "type": "string",
+            "url": "=https://docs.google.com/spreadsheets/d/{{$value}}/edit",
+            "validation": [
+              {
+                "properties": {
+                  "errorMessage": "Not a valid Google Drive File ID",
+                  "regex": "[a-zA-Z0-9\\-_]{2,}",
+                },
+                "type": "regex",
+              },
+            ],
+          },
+        ],
+        "name": "documentId",
+        "required": true,
+        "type": "resourceLocator",
+      },
+      {
+        "default": {
+          "mode": "list",
+          "value": "",
+        },
+        "displayName": "Sheet Containing Dataset",
+        "displayOptions": {
+          "hide": {
+            "source": [
+              "dataTable",
+            ],
+          },
+          "show": {
+            "operation": [
+              "setOutputs",
+            ],
+          },
+        },
+        "modes": [
+          {
+            "displayName": "From List",
+            "name": "list",
+            "type": "list",
+            "typeOptions": {
+              "searchListMethod": "sheetsSearch",
+              "searchable": false,
+            },
+          },
+          {
+            "displayName": "By URL",
+            "extractValue": {
+              "regex": "https:\\/\\/docs\\.google\\.com\\/spreadsheets\\/d\\/[0-9a-zA-Z\\-_]+.*\\#gid=([0-9]+)",
+              "type": "regex",
+            },
+            "name": "url",
+            "type": "string",
+            "validation": [
+              {
+                "properties": {
+                  "errorMessage": "Not a valid Sheet URL",
+                  "regex": "https:\\/\\/docs\\.google\\.com\\/spreadsheets\\/d\\/[0-9a-zA-Z\\-_]+.*\\#gid=([0-9]+)",
+                },
+                "type": "regex",
+              },
+            ],
+          },
+          {
+            "displayName": "By ID",
+            "name": "id",
+            "type": "string",
+            "validation": [
+              {
+                "properties": {
+                  "errorMessage": "Not a valid Sheet ID",
+                  "regex": "((gid=)?[0-9]{1,})",
+                },
+                "type": "regex",
+              },
+            ],
+          },
+        ],
+        "name": "sheetName",
+        "required": true,
+        "type": "resourceLocator",
+        "typeOptions": {
+          "loadOptionsDependsOn": [
+            "documentId.value",
+          ],
+        },
+      },
+      {
+        "default": {
+          "mode": "list",
+          "value": "",
+        },
+        "displayName": "Data table",
+        "displayOptions": {
+          "show": {
+            "source": [
+              "dataTable",
+            ],
+          },
+        },
+        "modes": [
+          {
+            "displayName": "From List",
+            "name": "list",
+            "type": "list",
+            "typeOptions": {
+              "searchListMethod": "dataTableSearch",
+              "searchable": true,
+              "skipCredentialsCheckInRLC": true,
+            },
+          },
+          {
+            "displayName": "ID",
+            "name": "id",
+            "type": "string",
+          },
+        ],
+        "name": "dataTableId",
+        "required": true,
+        "type": "resourceLocator",
+      },
+      {
+        "default": {},
+        "displayName": "Outputs",
+        "displayOptions": {
+          "show": {
+            "operation": [
+              "setOutputs",
+            ],
+          },
+        },
+        "name": "outputs",
+        "options": [
+          {
+            "displayName": "Filter",
+            "name": "values",
+            "values": [
+              {
+                "default": "",
+                "displayName": "Name",
+                "name": "outputName",
+                "requiresDataPath": "single",
+                "type": "string",
+              },
+              {
+                "default": "",
+                "displayName": "Value",
+                "name": "outputValue",
+                "type": "string",
+              },
+            ],
+          },
+        ],
+        "placeholder": "Add Output",
+        "type": "fixedCollection",
+        "typeOptions": {
+          "multipleValueButtonText": "Add Output",
+          "multipleValues": true,
+        },
+      },
+      {
+        "default": "",
+        "displayName": "Metrics measure the quality of an execution. They will be displayed in the ‘evaluations’ tab, not on the Google Sheet or Data table.",
+        "displayOptions": {
+          "show": {
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "notice",
+        "type": "notice",
+      },
+      {
+        "default": "customMetrics",
+        "displayName": "Metric",
+        "displayOptions": {
+          "show": {
+            "@version": [
+              4.6,
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "metric",
+        "type": "hidden",
+      },
+      {
+        "default": "correctness",
+        "displayName": "Metric",
+        "displayOptions": {
+          "show": {
+            "@version": [
+              {
+                "_cnd": {
+                  "gte": 4.7,
+                },
+              },
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "metric",
+        "noDataExpression": true,
+        "options": [
+          {
+            "description": "Whether the answer’s meaning is consistent with a reference answer. Uses a scale of 1 (worst) to 5 (best).",
+            "name": "Correctness (AI-based)",
+            "value": "correctness",
+          },
+          {
+            "description": "Whether the response addresses the query. Uses a scale of 1 (worst) to 5 (best).",
+            "name": "Helpfulness (AI-based)",
+            "value": "helpfulness",
+          },
+          {
+            "description": "How close the answer is to a reference answer, measured character-by-character (edit distance). Returns a score between 0 and 1.",
+            "name": "String Similarity",
+            "value": "stringSimilarity",
+          },
+          {
+            "description": "Whether the answer exactly matches the reference answer. Returns 1 if so and 0 otherwise.",
+            "name": "Categorization",
+            "value": "categorization",
+          },
+          {
+            "description": "Whether tool(s) were used or not. Returns a score between 0 and 1.",
+            "name": "Tools Used",
+            "value": "toolsUsed",
+          },
+          {
+            "description": "Define your own metric(s)",
+            "name": "Custom Metrics",
+            "value": "customMetrics",
+          },
+        ],
+        "type": "options",
+      },
+      {
+        "default": "",
+        "description": "The expected output defined in your evaluation dataset, used as ground truth",
+        "displayName": "Expected Answer",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "correctness",
+              "stringSimilarity",
+              "categorization",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "expectedAnswer",
+        "type": "string",
+      },
+      {
+        "default": "",
+        "description": "The real response generated by AI (e.g. an agent or LLM in the workflow)",
+        "displayName": "Actual Answer",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "correctness",
+              "stringSimilarity",
+              "categorization",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "actualAnswer",
+        "type": "string",
+      },
+      {
+        "default": "",
+        "description": "The original input or question submitted by the user",
+        "displayName": "User Query",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "helpfulness",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "userQuery",
+        "type": "string",
+      },
+      {
+        "default": "",
+        "description": "The response generated by AI (e.g. an agent or LLM in the workflow)",
+        "displayName": "Response",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "helpfulness",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "actualAnswer",
+        "type": "string",
+      },
+      {
+        "default": "",
+        "description": "Enter the name(s) of the tool(s) you expect the AI to call (separated by commas)",
+        "displayName": "Expected Tools",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "toolsUsed",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "expectedTools",
+        "placeholder": "Get Events, Send Email, Search Database",
+        "type": "string",
+      },
+      {
+        "default": "",
+        "displayName": "Intermediate Steps (of Agent)",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "toolsUsed",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "hint": "Map the <code>intermediateSteps</code> field here. To see it, enable returning intermediate steps in the agent’s options",
+        "name": "intermediateSteps",
+        "type": "string",
+      },
+      {
+        "default": "<CORRECTNESS_PROMPT>",
+        "description": "Instruction used to guide the model in scoring the actual answer’s correctness against the expected answer",
+        "displayName": "Prompt",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "correctness",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "prompt",
+        "type": "string",
+        "typeOptions": {
+          "rows": 4,
+        },
+      },
+      {
+        "default": "<HELPFULNESS_PROMPT>",
+        "description": "Instruction used to guide the model in scoring the actual answer’s helpfulness against the expected answer",
+        "displayName": "Prompt",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "helpfulness",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "prompt",
+        "type": "string",
+        "typeOptions": {
+          "rows": 4,
+        },
+      },
+      {
+        "default": "",
+        "displayName": "Calculate the custom metrics before this node, then map them below. <a href='https://docs.n8n.io/build/integrate-ai/test-and-improve-ai-workflows/use-metrics-to-measure-quality#id-2-add-metrics-to-workflow' target='_blank'>View metric examples</a>",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "customMetrics",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "notice",
+        "type": "notice",
+      },
+      {
+        "default": {
+          "assignments": [
+            {
+              "name": "",
+              "type": "number",
+              "value": "",
+            },
+          ],
+        },
+        "displayName": "Metrics to Return",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "customMetrics",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "metrics",
+        "type": "assignmentCollection",
+        "typeOptions": {
+          "assignment": {
+            "defaultType": "number",
+            "disableType": true,
+          },
+        },
+      },
+      {
+        "default": {},
+        "displayName": "Options",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "correctness",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "options",
+        "options": [
+          {
+            "default": "Correctness",
+            "description": "Set this parameter if you want to set a custom name to the metric",
+            "displayName": "Metric Name",
+            "name": "metricName",
+            "type": "string",
+          },
+          {
+            "default": "<CORRECTNESS_INPUT_PROMPT[0]>",
+            "displayName": "Input Prompt",
+            "hint": "<CORRECTNESS_INPUT_PROMPT[1]>",
+            "name": "inputPrompt",
+            "type": "string",
+            "typeOptions": {
+              "rows": 4,
+            },
+          },
+        ],
+        "placeholder": "Add Option",
+        "type": "collection",
+      },
+      {
+        "default": {},
+        "displayName": "Options",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "helpfulness",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "options",
+        "options": [
+          {
+            "default": "Helpfulness",
+            "description": "Set this parameter if you want to set a custom name to the metric",
+            "displayName": "Metric Name",
+            "name": "metricName",
+            "type": "string",
+          },
+          {
+            "default": "<HELPFULNESS_INPUT_PROMPT[0]>",
+            "displayName": "Input Prompt",
+            "hint": "<HELPFULNESS_INPUT_PROMPT[1]>",
+            "name": "inputPrompt",
+            "type": "string",
+            "typeOptions": {
+              "rows": 4,
+            },
+          },
+        ],
+        "placeholder": "Add Option",
+        "type": "collection",
+      },
+      {
+        "default": {},
+        "displayName": "Options",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "categorization",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "options",
+        "options": [
+          {
+            "default": "Categorization",
+            "displayName": "Metric Name",
+            "name": "metricName",
+            "type": "string",
+          },
+        ],
+        "placeholder": "Add Option",
+        "type": "collection",
+      },
+      {
+        "default": {},
+        "displayName": "Options",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "stringSimilarity",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "options",
+        "options": [
+          {
+            "default": "String similarity",
+            "displayName": "Metric Name",
+            "name": "metricName",
+            "type": "string",
+          },
+        ],
+        "placeholder": "Add Option",
+        "type": "collection",
+      },
+      {
+        "default": {},
+        "displayName": "Options",
+        "displayOptions": {
+          "show": {
+            "metric": [
+              "toolsUsed",
+            ],
+            "operation": [
+              "setMetrics",
+            ],
+          },
+        },
+        "name": "options",
+        "options": [
+          {
+            "default": "Tools Used",
+            "displayName": "Metric Name",
+            "name": "metricName",
+            "type": "string",
+          },
+        ],
+        "placeholder": "Add Option",
+        "type": "collection",
+      },
+      {
+        "default": "",
+        "displayName": "Routes to the ‘evaluation’ branch if the execution started from an evaluation trigger. Otherwise routes to the ‘normal’ branch.",
+        "displayOptions": {
+          "show": {
+            "operation": [
+              "checkIfEvaluating",
+            ],
+          },
+        },
+        "name": "notice",
+        "type": "notice",
+      },
+    ],
+    "subtitle": "={{$parameter["operation"]}}",
+    "version": [
+      4.6,
+      4.7,
+      4.8,
+    ],
+  },
+  "keys": [
+    "description",
+    "methods",
+  ],
+  "methods": {
+    "credentialTest": {
+      "googleApiCredentialTest": "<function/1>",
+    },
+    "listSearch": {
+      "dataTableSearch": "<function/2>",
+      "sheetsSearch": "<function/1>",
+      "spreadSheetsSearch": "<function/2>",
+    },
+    "loadOptions": {
+      "getConditionsForColumn": "<function/0>",
+      "getDataTableColumns": "<function/0>",
+      "getSheetHeaderRowWithGeneratedColumnNames": "<function/0>",
+    },
+  },
+}
+`;
+
+exports[`descriptions > the exports of the canned prompts 1`] = `
+{
+  "CORRECTNESS_INPUT_PROMPT": "array of 2",
+  "CORRECTNESS_PROMPT": "string",
+  "HELPFULNESS_INPUT_PROMPT": "array of 2",
+  "HELPFULNESS_PROMPT": "string",
+}
+`;

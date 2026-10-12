@@ -6,7 +6,7 @@ import {
 	CORRECTNESS_INPUT_PROMPT,
 	HELPFULNESS_PROMPT,
 	HELPFULNESS_INPUT_PROMPT,
-} from './CannedMetricPrompts.ee';
+} from './CannedMetricPrompts';
 import { document, sheet } from '../../Google/Sheet/GoogleSheetsTrigger.node';
 
 export const setInputsProperties: INodeProperties[] = [
