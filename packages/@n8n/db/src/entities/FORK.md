@@ -65,6 +65,86 @@ with the same names and exports: `annotation-tag-entity.ts`, `annotation-tag-map
 [packages/cli/src/executions/FORK.md](../../../../cli/src/executions/FORK.md#execution-annotations)
 describes them with the rest of the feature.
 
+## The agent eval tables
+
+Agent evals test an agent against the cases of a dataset. The ordinary module
+`packages/cli/src/modules/agent-evals` runs them, and it is the only user of these tables. The
+fork replaced the four entities and their repositories in step 4 with its own files, with the
+same names and exports. They are part of the evaluations that the owner chose to rebuild on
+2026-10-12.
+
+| Fork file | Table | Enterprise file that it replaces |
+| --- | --- | --- |
+| `agent-eval-dataset.ts` | `agent_eval_dataset` | `agent-eval-dataset.ee.ts` |
+| `agent-eval-run.ts` | `agent_eval_run` | `agent-eval-run.ee.ts` |
+| `agent-eval-result.ts` | `agent_eval_result` | `agent-eval-result.ee.ts` |
+| `agent-eval-rating.ts` | `agent_eval_rating` | `agent-eval-rating.ee.ts` |
+| `../repositories/agent-eval-dataset.repository.ts` | | `agent-eval-dataset.repository.ee.ts` |
+| `../repositories/agent-eval-run.repository.ts` | | `agent-eval-run.repository.ee.ts` |
+| `../repositories/agent-eval-result.repository.ts` | | `agent-eval-result.repository.ee.ts` |
+| `../repositories/agent-eval-rating.repository.ts` | | `agent-eval-rating.repository.ee.ts` |
+
+The entity files also export the types `AgentEvalColumnMapping`, `AgentEvalRunStatus`,
+`AgentEvalResultStatus` and `AgentEvalVote`, as the enterprise files did. They are the types of
+`@n8n/api-types`.
+
+### Sources
+
+- The columns, their types, their defaults and their foreign keys: the ordinary migration
+  `CreateAgentEvalTables1784815940112`.
+- The methods of the repositories, their arguments and their queries: the ordinary unit tests of
+  the four repositories in `../repositories/__tests__`, the ordinary module `agent-evals` and its
+  unit and integration tests, and the record types in `@n8n/api-types`
+  (`schemas/agent-evals.schema.ts`).
+- The behaviour of the original files, recorded black-box by the golden test below. The
+  enterprise files were not read.
+
+### Behaviour
+
+- Each entity has a nano ID, `createdAt` and `updatedAt`. JSON columns use `JsonColumn`, dates use
+  `DateTimeColumn`.
+- A run has a relation `dataset`, so that a query can check the agent of its dataset. A result has
+  a relation `run`, and a rating has a relation `result`. The database deletes the runs of a
+  deleted dataset, the results of a deleted run and the ratings of a deleted result.
+- A dataset has no relation to its agent: the table of agents belongs to the agents module of the
+  CLI. `agentId` is a column with a foreign key in the migration.
+- `createDataset`, `createRun`, `seedResults` and `createRating` set the optional fields to `null`.
+  A new run has the status `new`, and a seeded result has the status `new` and the position in the
+  list as `runIndex` when the caller gives none.
+- `updateDataset` writes only the fields that the patch gives (`null` clears a field), and gives
+  the dataset after the update, or `null` when the agent has no such dataset.
+- The state changes of a run and a result set the status and the time stamps. A finished run has
+  no `runningInstanceId`. `markAllIncompleteAsError` marks the runs with the status `new` or
+  `running` as interrupted.
+- The lists give the newest first, a page of runs breaks ties of `createdAt` with the ID, and the
+  results of a run are in the order of `runIndex`. `countByStatus` counts in the database and gives
+  a count for each status. `findLatestByRunId` gives the newest rating of each rated result of a
+  run, with two queries.
+
+### Tests
+
+- `packages/cli/test/integration/database/repositories/agent-eval.repositories.test.ts` (fork test)
+  calls each method as the module `agent-evals` does, and records the result and the changes to the
+  rows of the four tables. The snapshot was recorded against the enterprise files, and the fork
+  files give the same snapshot.
+- The ordinary unit tests of the four repositories, and the ordinary unit and integration tests of
+  the module `agent-evals`, run on the fork files.
+
+To record the snapshot again after an upstream update, use a checkout of the upstream commit in
+`scripts/sync-upstream.base`. Copy the golden test and its snapshot into the same folder there, and
+run the test with `-u`. The upstream index files export the enterprise files.
+
+### Clean-room record
+
+While the fork prepared these files, a scratchpad probe passed recording proxies as arguments to
+the methods of the enterprise `TestRunRepository` and `TestCaseExecutionRepository` (the
+evaluation tables, not the agent eval tables). The recorder printed each call argument as text, so
+its log showed the source of two short callbacks (one line each) in two methods of
+`test-case-execution.repository.ee.ts`, and the empty headers of two compiled entity classes with
+the names of their base classes. The probe, its log and the recorder were deleted, and the fork
+does not use recording proxies any more. The fork rebuilds those two repositories with the
+evaluation backend, from the ordinary code and from black-box tests of the REST API.
+
 ## Upstream updates
 
 `scripts/sync-upstream.sh` deletes the replaced enterprise files again. When an upstream migration
