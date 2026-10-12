@@ -48,7 +48,6 @@ import '@/controllers/orchestration.controller';
 import '@/controllers/owner.controller';
 import '@/controllers/password-reset.controller';
 import '@/controllers/project.controller';
-import '@/controllers/project-pool-settings.controller.ee';
 import '@/controllers/role.controller';
 import '@/controllers/tags.controller';
 import '@/controllers/translation.controller';

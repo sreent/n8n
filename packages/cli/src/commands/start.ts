@@ -31,7 +31,7 @@ import { DeprecationService } from '@/deprecation/deprecation.service';
 import { FeatureNotLicensedError } from '@/errors/feature-not-licensed.error';
 import { MessageEventBus } from '@/eventbus/message-event-bus/message-event-bus';
 import { LoadNodesAndCredentials } from '@/load-nodes-and-credentials';
-import { MultiMainSetup } from '@/scaling/multi-main-setup.ee';
+import { MultiMainSetup } from '@/scaling/multi-main-setup';
 import { Publisher } from '@/scaling/pubsub/publisher.service';
 import { PubSubRegistry } from '@/scaling/pubsub/pubsub.registry';
 import { Subscriber } from '@/scaling/pubsub/subscriber.service';

@@ -9,7 +9,7 @@ import { InstanceSettings, BinaryDataConfig, ErrorReporter } from 'n8n-core';
 import http from 'node:http';
 import https from 'node:https';
 
-import { MultiMainSetup } from '@/scaling/multi-main-setup.ee';
+import { MultiMainSetup } from '@/scaling/multi-main-setup';
 import { Start } from '../start';
 import { WaitTracker } from '@/wait-tracker';
 import { mock } from 'vitest-mock-extended';

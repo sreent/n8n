@@ -5,7 +5,7 @@ import { Container } from '@n8n/di';
 import { InstanceSettings } from 'n8n-core';
 
 import { ActiveWorkflowManager } from '@/active-workflow-manager';
-import { MultiMainSetup } from '@/scaling/multi-main-setup.ee';
+import { MultiMainSetup } from '@/scaling/multi-main-setup';
 
 import { createOwner } from './shared/db/users';
 import type { SuperAgentTest } from './shared/types';

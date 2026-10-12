@@ -98,7 +98,7 @@ const SettingsExternalSecrets = async () => {
 	return await import('@/features/integrations/externalSecrets/views/SettingsExternalSecrets.vue');
 };
 const WorkerView = async () =>
-	await import('@/features/settings/orchestration.ee/views/WorkerView.vue');
+	await import('@/features/settings/orchestration/views/WorkerView.vue');
 const WorkflowHistory = async () =>
 	await import('@/features/workflows/workflowHistory/views/WorkflowHistory.vue');
 const WorkflowOnboardingView = async () => await import('@/app/views/WorkflowOnboardingView.vue');
