@@ -10,7 +10,8 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   `packages/modules/git-sync/frontend` and `packages/modules/send-copy/frontend`. Their READMEs
   describe them.
 - **Audit log**: the backend module `packages/cli/src/modules/audit-log` keeps the audit events of
-  n8n for 90 days. Its README describes it.
+  n8n for 90 days, and the frontend module `packages/modules/audit-log/frontend` shows them on the
+  page Settings > Audit log. Their READMEs describe them.
 - `deploy/`: runs the fork on a Linux server with Docker Compose.
 - `vendor/`: the wa-sqlite package that the editor app installs. Upstream installs it from
   GitHub, which a cloud session cannot do. `scripts/vendor-wa-sqlite.sh` packs it from the
@@ -63,8 +64,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    without a licence check (the owner chose this on 2026-10-11). Order: the backend of the audit
    log (done, see
    [packages/cli/src/modules/audit-log/README.md](packages/cli/src/modules/audit-log/README.md)),
-   the settings page of the audit log, the backend of log streaming, its public API, and its
-   settings page.
+   the settings page of the audit log (done, see
+   [packages/modules/audit-log/frontend/README.md](packages/modules/audit-log/frontend/README.md)),
+   the backend of log streaming, its public API, and its settings page.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off.
