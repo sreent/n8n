@@ -1,8 +1,8 @@
 import { Container } from '@n8n/di';
 import type { Mock } from 'vitest';
 
-import { EvaluationCollection } from '../../entities/evaluation-collection.ee';
-import { TestRun } from '../../entities/test-run.ee';
+import { EvaluationCollection } from '../../entities/evaluation-collection';
+import { TestRun } from '../../entities/test-run';
 import { mockEntityManager } from '../../utils/test-utils/mock-entity-manager';
 import { EvaluationCollectionRepository } from '../evaluation-collection.repository';
 

@@ -2,7 +2,7 @@ import type { UpsertEvaluationConfigDto } from '@n8n/api-types';
 import { Container } from '@n8n/di';
 import type { Mock } from 'vitest';
 
-import { EvaluationConfig } from '../../entities/evaluation-config.ee';
+import { EvaluationConfig } from '../../entities/evaluation-config';
 import { mockEntityManager } from '../../utils/test-utils/mock-entity-manager';
 import { EvaluationConfigRepository } from '../evaluation-config.repository';
 

@@ -1,0 +1,443 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`a config when its workflow changes 1`] = `
+{
+  "create": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "datasetRef": {
+          "dataTableId": "@table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Answer",
+        "id": "<nano id>",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "expression": "={{ $json.final === $json.expected }}",
+              "outputType": "boolean",
+            },
+            "id": "m1",
+            "name": "Exact",
+            "type": "expression",
+          },
+        ],
+        "name": "Config",
+        "startNodeName": "Prepare",
+        "status": "valid",
+        "updatedAt": "<date>",
+        "workflowId": "@workflow",
+      },
+    },
+    "status": 200,
+  },
+  "create a second": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "datasetRef": {
+          "dataTableId": "@table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Prepare",
+        "id": "<nano id>",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "expression": "={{ $json.final === $json.expected }}",
+              "outputType": "boolean",
+            },
+            "id": "m1",
+            "name": "Exact",
+            "type": "expression",
+          },
+        ],
+        "name": "Second",
+        "startNodeName": "Prepare",
+        "status": "valid",
+        "updatedAt": "<date>",
+        "workflowId": "@workflow",
+      },
+    },
+    "status": 200,
+  },
+  "get after the save": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "datasetRef": {
+          "dataTableId": "@table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Answer",
+        "id": "@config",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "expression": "={{ $json.final === $json.expected }}",
+              "outputType": "boolean",
+            },
+            "id": "m1",
+            "name": "Exact",
+            "type": "expression",
+          },
+        ],
+        "name": "Config",
+        "startNodeName": "Prepare",
+        "status": "valid",
+        "updatedAt": "<date>",
+        "workflowId": "@workflow",
+      },
+    },
+    "status": 200,
+  },
+  "list after the save": {
+    "body": {
+      "data": [
+        {
+          "createdAt": "<date>",
+          "datasetRef": {
+            "dataTableId": "@table",
+          },
+          "datasetSource": "data_table",
+          "endNodeName": "Answer",
+          "id": "@config",
+          "invalidReason": null,
+          "metrics": [
+            {
+              "config": {
+                "expression": "={{ $json.final === $json.expected }}",
+                "outputType": "boolean",
+              },
+              "id": "m1",
+              "name": "Exact",
+              "type": "expression",
+            },
+          ],
+          "name": "Config",
+          "startNodeName": "Prepare",
+          "status": "valid",
+          "updatedAt": "<date>",
+          "workflowId": "@workflow",
+        },
+        {
+          "createdAt": "<date>",
+          "datasetRef": {
+            "dataTableId": "@table",
+          },
+          "datasetSource": "data_table",
+          "endNodeName": "Prepare",
+          "id": "<nano id>",
+          "invalidReason": null,
+          "metrics": [
+            {
+              "config": {
+                "expression": "={{ $json.final === $json.expected }}",
+                "outputType": "boolean",
+              },
+              "id": "m1",
+              "name": "Exact",
+              "type": "expression",
+            },
+          ],
+          "name": "Second",
+          "startNodeName": "Prepare",
+          "status": "valid",
+          "updatedAt": "<date>",
+          "workflowId": "@workflow",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  "rows after the save": [
+    {
+      "endNodeName": "Answer",
+      "invalidReason": null,
+      "name": "Config",
+      "startNodeName": "Prepare",
+      "status": "valid",
+    },
+    {
+      "endNodeName": "Prepare",
+      "invalidReason": null,
+      "name": "Second",
+      "startNodeName": "Prepare",
+      "status": "valid",
+    },
+  ],
+  "rows after the update": [
+    {
+      "endNodeName": "Prepare",
+      "invalidReason": null,
+      "name": "Config",
+      "startNodeName": "Prepare",
+      "status": "valid",
+    },
+    {
+      "endNodeName": "Prepare",
+      "invalidReason": null,
+      "name": "Second",
+      "startNodeName": "Prepare",
+      "status": "valid",
+    },
+  ],
+  "save the workflow without the end node": {
+    "status": 200,
+  },
+  "start a compiled run of the broken config": {
+    "body": {
+      "success": true,
+      "testRunId": "<id>",
+    },
+    "status": 202,
+  },
+  "the broken run": [
+    {
+      "errorCode": null,
+      "errorDetails": null,
+      "status": "completed",
+    },
+  ],
+  "update the broken config to a valid one": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "datasetRef": {
+          "dataTableId": "@table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Prepare",
+        "id": "@config",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "expression": "={{ $json.final === $json.expected }}",
+              "outputType": "boolean",
+            },
+            "id": "m1",
+            "name": "Exact",
+            "type": "expression",
+          },
+        ],
+        "name": "Config",
+        "startNodeName": "Prepare",
+        "status": "valid",
+        "updatedAt": "<date>",
+        "workflowId": "@workflow",
+      },
+    },
+    "status": 200,
+  },
+}
+`;
+
+exports[`the checks of a config 1`] = `
+{
+  "a Google Sheet": {
+    "body": {
+      "code": 0,
+      "message": "Google Sheets datasets are accepted by the schema but not yet runnable",
+    },
+    "status": 500,
+  },
+  "a boolean of two expressions": {
+    "body": {
+      "code": 0,
+      "message": "Metric "Exact" expression cannot be coerced into a boolean",
+    },
+    "status": 500,
+  },
+  "a boolean without an expression": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "datasetRef": {
+          "dataTableId": "@table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Answer",
+        "id": "<nano id>",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "expression": "true",
+              "outputType": "boolean",
+            },
+            "id": "m1",
+            "name": "Exact",
+            "type": "expression",
+          },
+        ],
+        "name": "Config",
+        "startNodeName": "Prepare",
+        "status": "valid",
+        "updatedAt": "<date>",
+        "workflowId": "@workflow a boolean without an expression",
+      },
+    },
+    "status": 200,
+  },
+  "a node with the reserved prefix": {
+    "body": {
+      "code": 0,
+      "message": "Node "__eval_custom" uses the reserved "__eval_" prefix",
+    },
+    "status": 500,
+  },
+  "a similarity input of spaces": {
+    "body": {
+      "code": 0,
+      "message": "Metric "Sim" input "expectedAnswer" must not be empty",
+    },
+    "status": 500,
+  },
+  "a start node with two inputs": {
+    "body": {
+      "code": 0,
+      "message": "Entry node "Prepare" has multiple upstream parents (Other, Seed)",
+    },
+    "status": 500,
+  },
+  "a start node without inputs": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "datasetRef": {
+          "dataTableId": "@table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Answer",
+        "id": "<nano id>",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "expression": "={{ $json.final === $json.expected }}",
+              "outputType": "boolean",
+            },
+            "id": "m1",
+            "name": "Exact",
+            "type": "expression",
+          },
+        ],
+        "name": "Config",
+        "startNodeName": "Lonely",
+        "status": "valid",
+        "updatedAt": "<date>",
+        "workflowId": "@workflow a start node without inputs",
+      },
+    },
+    "status": 200,
+  },
+  "a trigger as the start node": {
+    "body": {
+      "data": {
+        "createdAt": "<date>",
+        "datasetRef": {
+          "dataTableId": "@table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Answer",
+        "id": "<nano id>",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "expression": "={{ $json.final === $json.expected }}",
+              "outputType": "boolean",
+            },
+            "id": "m1",
+            "name": "Exact",
+            "type": "expression",
+          },
+        ],
+        "name": "Config",
+        "startNodeName": "When clicking",
+        "status": "valid",
+        "updatedAt": "<date>",
+        "workflowId": "@workflow a trigger as the start node",
+      },
+    },
+    "status": 200,
+  },
+  "an expression of spaces": {
+    "body": {
+      "code": 0,
+      "message": "Metric "Exact" input "expression" must not be empty",
+    },
+    "status": 500,
+  },
+  "an unknown table": {
+    "body": {
+      "code": 0,
+      "message": "Data table "missing" was not found",
+    },
+    "status": 500,
+  },
+  "rows": [
+    {
+      "endNodeName": "Answer",
+      "invalidReason": null,
+      "name": "Config",
+      "startNodeName": "When clicking",
+      "status": "valid",
+    },
+    {
+      "endNodeName": "Answer",
+      "invalidReason": null,
+      "name": "Config",
+      "startNodeName": "Lonely",
+      "status": "valid",
+    },
+    {
+      "endNodeName": "Answer",
+      "invalidReason": null,
+      "name": "Config",
+      "startNodeName": "Prepare",
+      "status": "valid",
+    },
+  ],
+  "tools with an input of spaces": {
+    "body": {
+      "code": 0,
+      "message": "Metric "Tools" input "expectedTools" must not be empty",
+    },
+    "status": 500,
+  },
+  "two problems: a Google Sheet and an unknown start node": {
+    "body": {
+      "code": 0,
+      "message": "Start node "Missing" was not found on the workflow",
+    },
+    "status": 500,
+  },
+  "two problems: an unknown start node and two metric ids": {
+    "body": {
+      "code": 0,
+      "message": "Start node "Missing" was not found on the workflow",
+    },
+    "status": 500,
+  },
+  "two problems: an unreachable end node and an unknown table": {
+    "body": {
+      "code": 0,
+      "message": "End node "Prepare" is not reachable from start node "Answer"",
+    },
+    "status": 500,
+  },
+  "two problems: two metric ids and an unknown table": {
+    "body": {
+      "code": 0,
+      "message": "Metric id "m1" appears 2 times",
+    },
+    "status": 500,
+  },
+}
+`;

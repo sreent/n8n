@@ -1,0 +1,4959 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the REST API of test runs > cancels and deletes runs 1`] = `
+{
+  "cancel a case of a finished run": {
+    "admin": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "cancelled",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "cancelled",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "cancel a finished case of a running run": {
+    "admin": {
+      "body": {
+        "code": 409,
+        "message": "Test case "@@run-running-case-0" cannot be cancelled — it is not in a pending state",
+      },
+      "status": 409,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "code": 409,
+        "message": "Test case "@@run-running-case-0" cannot be cancelled — it is not in a pending state",
+      },
+      "status": 409,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "cancel a finished run": {
+    "admin": {
+      "body": {
+        "code": 409,
+        "message": "The test run "@run-done" cannot be cancelled",
+      },
+      "status": 409,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "code": 409,
+        "message": "The test run "@run-done" cannot be cancelled",
+      },
+      "status": 409,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "cancel a new case of a running run": {
+    "admin": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "cancelled",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "cancelled",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "cancel a running run": {
+    "admin": {
+      "body": {
+        "success": true,
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "cancelled",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 1,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "cancelled",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 202,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "success": true,
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "cancelled",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 1,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "cancelled",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 202,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "cancel a team case": {
+    "admin": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "cancelled",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "cancelled",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "cancelled",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project editor": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "cancelled",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "cancel a team run": {
+    "admin": {
+      "body": {
+        "success": true,
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "cancelled",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 1,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "cancelled",
+          },
+        ],
+      },
+      "status": 202,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "success": true,
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "cancelled",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 1,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "cancelled",
+          },
+        ],
+      },
+      "status": 202,
+    },
+    "project admin": {
+      "body": {
+        "success": true,
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "cancelled",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 1,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "cancelled",
+          },
+        ],
+      },
+      "status": 202,
+    },
+    "project editor": {
+      "body": {
+        "success": true,
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "cancelled",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 1,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "cancelled",
+          },
+        ],
+      },
+      "status": 202,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "cancel an unknown case": {
+    "admin": {
+      "body": {
+        "code": 409,
+        "message": "Test case "unknown" cannot be cancelled — it is not in a pending state",
+      },
+      "status": 409,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "code": 409,
+        "message": "Test case "unknown" cannot be cancelled — it is not in a pending state",
+      },
+      "status": 409,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "cancel an unknown run": {
+    "admin": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "delete a run": {
+    "admin": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "delete a team run": {
+    "admin": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project editor": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "delete an unknown run": {
+    "admin": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+}
+`;
+
+exports[`the REST API of test runs > lists the runs of a workflow 1`] = `
+{
+  "a page": {
+    "admin": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@run-running",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@run-running",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "an unknown workflow": {
+    "admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "personal": {
+    "admin": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": "<date>",
+            "createdAt": "<date>",
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "errorDetails": {
+              "reason": "empty",
+            },
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@run-failed",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "error",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@run-running",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": "<date>",
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": "error",
+            "id": "@run-done",
+            "metrics": {
+              "accuracy": 0.5,
+            },
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "completed",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": "<date>",
+            "createdAt": "<date>",
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "errorDetails": {
+              "reason": "empty",
+            },
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@run-failed",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "error",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@run-running",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": "<date>",
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": "error",
+            "id": "@run-done",
+            "metrics": {
+              "accuracy": 0.5,
+            },
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "completed",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "team": {
+    "admin": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@team-run",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@team workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@team-run",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@team workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@team-run",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@team workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project editor": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@team-run",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@team workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project viewer": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@team-run",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@team workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+  },
+}
+`;
+
+exports[`the REST API of test runs > reads one run and its cases 1`] = `
+{
+  "a run of another workflow": {
+    "admin": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+  },
+  "cases": {
+    "admin": {
+      "body": {
+        "data": [
+          {
+            "completedAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@run-done-case-0",
+            "inputs": {
+              "question": "a",
+            },
+            "metrics": {
+              "accuracy": 1,
+            },
+            "outputs": {
+              "answer": "A",
+            },
+            "runAt": "<date>",
+            "runIndex": 0,
+            "status": "success",
+          },
+          {
+            "completedAt": "<date>",
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "errorDetails": {
+              "message": "boom",
+            },
+            "executionId": null,
+            "id": "@run-done-case-1",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": "<date>",
+            "runIndex": 1,
+            "status": "error",
+          },
+          {
+            "completedAt": null,
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@run-done-case-2",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": null,
+            "runIndex": 2,
+            "status": "new",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": [
+          {
+            "completedAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@run-done-case-0",
+            "inputs": {
+              "question": "a",
+            },
+            "metrics": {
+              "accuracy": 1,
+            },
+            "outputs": {
+              "answer": "A",
+            },
+            "runAt": "<date>",
+            "runIndex": 0,
+            "status": "success",
+          },
+          {
+            "completedAt": "<date>",
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "errorDetails": {
+              "message": "boom",
+            },
+            "executionId": null,
+            "id": "@run-done-case-1",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": "<date>",
+            "runIndex": 1,
+            "status": "error",
+          },
+          {
+            "completedAt": null,
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@run-done-case-2",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": null,
+            "runIndex": 2,
+            "status": "new",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "cases of an unknown run": {
+    "admin": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "code": 404,
+        "message": "Test run not found",
+      },
+      "status": 404,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "failed run": {
+    "admin": {
+      "body": {
+        "data": {
+          "cancelRequested": false,
+          "collectionId": null,
+          "completedAt": "<date>",
+          "createdAt": "<date>",
+          "errorCode": "TEST_CASES_NOT_FOUND",
+          "errorDetails": {
+            "reason": "empty",
+          },
+          "evaluationConfigId": null,
+          "evaluationConfigSnapshot": null,
+          "finalResult": null,
+          "id": "@run-failed",
+          "metrics": null,
+          "runAt": "<date>",
+          "runningInstanceId": null,
+          "status": "error",
+          "testCaseExecutions": [
+            {
+              "completedAt": "<date>",
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@run-failed-case-0",
+              "inputs": {
+                "question": "a",
+              },
+              "metrics": {
+                "accuracy": 1,
+              },
+              "outputs": {
+                "answer": "A",
+              },
+              "runAt": "<date>",
+              "runIndex": 0,
+              "status": "success",
+            },
+            {
+              "completedAt": "<date>",
+              "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+              "errorDetails": {
+                "message": "boom",
+              },
+              "executionId": null,
+              "id": "@run-failed-case-1",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": "<date>",
+              "runIndex": 1,
+              "status": "error",
+            },
+            {
+              "completedAt": null,
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@run-failed-case-2",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": null,
+              "runIndex": 2,
+              "status": "new",
+            },
+          ],
+          "updatedAt": "<date>",
+          "workflowId": "@personal workflow",
+          "workflowVersionId": null,
+        },
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": {
+          "cancelRequested": false,
+          "collectionId": null,
+          "completedAt": "<date>",
+          "createdAt": "<date>",
+          "errorCode": "TEST_CASES_NOT_FOUND",
+          "errorDetails": {
+            "reason": "empty",
+          },
+          "evaluationConfigId": null,
+          "evaluationConfigSnapshot": null,
+          "finalResult": null,
+          "id": "@run-failed",
+          "metrics": null,
+          "runAt": "<date>",
+          "runningInstanceId": null,
+          "status": "error",
+          "testCaseExecutions": [
+            {
+              "completedAt": "<date>",
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@run-failed-case-0",
+              "inputs": {
+                "question": "a",
+              },
+              "metrics": {
+                "accuracy": 1,
+              },
+              "outputs": {
+                "answer": "A",
+              },
+              "runAt": "<date>",
+              "runIndex": 0,
+              "status": "success",
+            },
+            {
+              "completedAt": "<date>",
+              "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+              "errorDetails": {
+                "message": "boom",
+              },
+              "executionId": null,
+              "id": "@run-failed-case-1",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": "<date>",
+              "runIndex": 1,
+              "status": "error",
+            },
+            {
+              "completedAt": null,
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@run-failed-case-2",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": null,
+              "runIndex": 2,
+              "status": "new",
+            },
+          ],
+          "updatedAt": "<date>",
+          "workflowId": "@personal workflow",
+          "workflowVersionId": null,
+        },
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "run": {
+    "admin": {
+      "body": {
+        "data": {
+          "cancelRequested": false,
+          "collectionId": null,
+          "completedAt": "<date>",
+          "createdAt": "<date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "evaluationConfigId": null,
+          "evaluationConfigSnapshot": null,
+          "finalResult": "error",
+          "id": "@run-done",
+          "metrics": {
+            "accuracy": 0.5,
+          },
+          "runAt": "<date>",
+          "runningInstanceId": null,
+          "status": "completed",
+          "testCaseExecutions": [
+            {
+              "completedAt": "<date>",
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@run-done-case-0",
+              "inputs": {
+                "question": "a",
+              },
+              "metrics": {
+                "accuracy": 1,
+              },
+              "outputs": {
+                "answer": "A",
+              },
+              "runAt": "<date>",
+              "runIndex": 0,
+              "status": "success",
+            },
+            {
+              "completedAt": "<date>",
+              "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+              "errorDetails": {
+                "message": "boom",
+              },
+              "executionId": null,
+              "id": "@run-done-case-1",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": "<date>",
+              "runIndex": 1,
+              "status": "error",
+            },
+            {
+              "completedAt": null,
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@run-done-case-2",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": null,
+              "runIndex": 2,
+              "status": "new",
+            },
+          ],
+          "updatedAt": "<date>",
+          "workflowId": "@personal workflow",
+          "workflowVersionId": null,
+        },
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": {
+          "cancelRequested": false,
+          "collectionId": null,
+          "completedAt": "<date>",
+          "createdAt": "<date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "evaluationConfigId": null,
+          "evaluationConfigSnapshot": null,
+          "finalResult": "error",
+          "id": "@run-done",
+          "metrics": {
+            "accuracy": 0.5,
+          },
+          "runAt": "<date>",
+          "runningInstanceId": null,
+          "status": "completed",
+          "testCaseExecutions": [
+            {
+              "completedAt": "<date>",
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@run-done-case-0",
+              "inputs": {
+                "question": "a",
+              },
+              "metrics": {
+                "accuracy": 1,
+              },
+              "outputs": {
+                "answer": "A",
+              },
+              "runAt": "<date>",
+              "runIndex": 0,
+              "status": "success",
+            },
+            {
+              "completedAt": "<date>",
+              "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+              "errorDetails": {
+                "message": "boom",
+              },
+              "executionId": null,
+              "id": "@run-done-case-1",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": "<date>",
+              "runIndex": 1,
+              "status": "error",
+            },
+            {
+              "completedAt": null,
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@run-done-case-2",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": null,
+              "runIndex": 2,
+              "status": "new",
+            },
+          ],
+          "updatedAt": "<date>",
+          "workflowId": "@personal workflow",
+          "workflowVersionId": null,
+        },
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "team cases": {
+    "admin": {
+      "body": {
+        "data": [
+          {
+            "completedAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@team-run-case-0",
+            "inputs": {
+              "question": "a",
+            },
+            "metrics": {
+              "accuracy": 1,
+            },
+            "outputs": {
+              "answer": "A",
+            },
+            "runAt": "<date>",
+            "runIndex": 0,
+            "status": "success",
+          },
+          {
+            "completedAt": "<date>",
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "errorDetails": {
+              "message": "boom",
+            },
+            "executionId": null,
+            "id": "@team-run-case-1",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": "<date>",
+            "runIndex": 1,
+            "status": "error",
+          },
+          {
+            "completedAt": null,
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@team-run-case-2",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": null,
+            "runIndex": 2,
+            "status": "new",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": [
+          {
+            "completedAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@team-run-case-0",
+            "inputs": {
+              "question": "a",
+            },
+            "metrics": {
+              "accuracy": 1,
+            },
+            "outputs": {
+              "answer": "A",
+            },
+            "runAt": "<date>",
+            "runIndex": 0,
+            "status": "success",
+          },
+          {
+            "completedAt": "<date>",
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "errorDetails": {
+              "message": "boom",
+            },
+            "executionId": null,
+            "id": "@team-run-case-1",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": "<date>",
+            "runIndex": 1,
+            "status": "error",
+          },
+          {
+            "completedAt": null,
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@team-run-case-2",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": null,
+            "runIndex": 2,
+            "status": "new",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "data": [
+          {
+            "completedAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@team-run-case-0",
+            "inputs": {
+              "question": "a",
+            },
+            "metrics": {
+              "accuracy": 1,
+            },
+            "outputs": {
+              "answer": "A",
+            },
+            "runAt": "<date>",
+            "runIndex": 0,
+            "status": "success",
+          },
+          {
+            "completedAt": "<date>",
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "errorDetails": {
+              "message": "boom",
+            },
+            "executionId": null,
+            "id": "@team-run-case-1",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": "<date>",
+            "runIndex": 1,
+            "status": "error",
+          },
+          {
+            "completedAt": null,
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@team-run-case-2",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": null,
+            "runIndex": 2,
+            "status": "new",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project editor": {
+      "body": {
+        "data": [
+          {
+            "completedAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@team-run-case-0",
+            "inputs": {
+              "question": "a",
+            },
+            "metrics": {
+              "accuracy": 1,
+            },
+            "outputs": {
+              "answer": "A",
+            },
+            "runAt": "<date>",
+            "runIndex": 0,
+            "status": "success",
+          },
+          {
+            "completedAt": "<date>",
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "errorDetails": {
+              "message": "boom",
+            },
+            "executionId": null,
+            "id": "@team-run-case-1",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": "<date>",
+            "runIndex": 1,
+            "status": "error",
+          },
+          {
+            "completedAt": null,
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@team-run-case-2",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": null,
+            "runIndex": 2,
+            "status": "new",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project viewer": {
+      "body": {
+        "data": [
+          {
+            "completedAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@team-run-case-0",
+            "inputs": {
+              "question": "a",
+            },
+            "metrics": {
+              "accuracy": 1,
+            },
+            "outputs": {
+              "answer": "A",
+            },
+            "runAt": "<date>",
+            "runIndex": 0,
+            "status": "success",
+          },
+          {
+            "completedAt": "<date>",
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "errorDetails": {
+              "message": "boom",
+            },
+            "executionId": null,
+            "id": "@team-run-case-1",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": "<date>",
+            "runIndex": 1,
+            "status": "error",
+          },
+          {
+            "completedAt": null,
+            "errorCode": null,
+            "errorDetails": null,
+            "executionId": null,
+            "id": "@team-run-case-2",
+            "inputs": null,
+            "metrics": null,
+            "outputs": null,
+            "runAt": null,
+            "runIndex": 2,
+            "status": "new",
+          },
+        ],
+      },
+      "status": 200,
+    },
+  },
+  "team run": {
+    "admin": {
+      "body": {
+        "data": {
+          "cancelRequested": false,
+          "collectionId": null,
+          "completedAt": null,
+          "createdAt": "<date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "evaluationConfigId": null,
+          "evaluationConfigSnapshot": null,
+          "finalResult": null,
+          "id": "@team-run",
+          "metrics": null,
+          "runAt": "<date>",
+          "runningInstanceId": null,
+          "status": "running",
+          "testCaseExecutions": [
+            {
+              "completedAt": "<date>",
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@team-run-case-0",
+              "inputs": {
+                "question": "a",
+              },
+              "metrics": {
+                "accuracy": 1,
+              },
+              "outputs": {
+                "answer": "A",
+              },
+              "runAt": "<date>",
+              "runIndex": 0,
+              "status": "success",
+            },
+            {
+              "completedAt": "<date>",
+              "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+              "errorDetails": {
+                "message": "boom",
+              },
+              "executionId": null,
+              "id": "@team-run-case-1",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": "<date>",
+              "runIndex": 1,
+              "status": "error",
+            },
+            {
+              "completedAt": null,
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@team-run-case-2",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": null,
+              "runIndex": 2,
+              "status": "new",
+            },
+          ],
+          "updatedAt": "<date>",
+          "workflowId": "@team workflow",
+          "workflowVersionId": null,
+        },
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": {
+          "cancelRequested": false,
+          "collectionId": null,
+          "completedAt": null,
+          "createdAt": "<date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "evaluationConfigId": null,
+          "evaluationConfigSnapshot": null,
+          "finalResult": null,
+          "id": "@team-run",
+          "metrics": null,
+          "runAt": "<date>",
+          "runningInstanceId": null,
+          "status": "running",
+          "testCaseExecutions": [
+            {
+              "completedAt": "<date>",
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@team-run-case-0",
+              "inputs": {
+                "question": "a",
+              },
+              "metrics": {
+                "accuracy": 1,
+              },
+              "outputs": {
+                "answer": "A",
+              },
+              "runAt": "<date>",
+              "runIndex": 0,
+              "status": "success",
+            },
+            {
+              "completedAt": "<date>",
+              "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+              "errorDetails": {
+                "message": "boom",
+              },
+              "executionId": null,
+              "id": "@team-run-case-1",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": "<date>",
+              "runIndex": 1,
+              "status": "error",
+            },
+            {
+              "completedAt": null,
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@team-run-case-2",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": null,
+              "runIndex": 2,
+              "status": "new",
+            },
+          ],
+          "updatedAt": "<date>",
+          "workflowId": "@team workflow",
+          "workflowVersionId": null,
+        },
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "data": {
+          "cancelRequested": false,
+          "collectionId": null,
+          "completedAt": null,
+          "createdAt": "<date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "evaluationConfigId": null,
+          "evaluationConfigSnapshot": null,
+          "finalResult": null,
+          "id": "@team-run",
+          "metrics": null,
+          "runAt": "<date>",
+          "runningInstanceId": null,
+          "status": "running",
+          "testCaseExecutions": [
+            {
+              "completedAt": "<date>",
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@team-run-case-0",
+              "inputs": {
+                "question": "a",
+              },
+              "metrics": {
+                "accuracy": 1,
+              },
+              "outputs": {
+                "answer": "A",
+              },
+              "runAt": "<date>",
+              "runIndex": 0,
+              "status": "success",
+            },
+            {
+              "completedAt": "<date>",
+              "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+              "errorDetails": {
+                "message": "boom",
+              },
+              "executionId": null,
+              "id": "@team-run-case-1",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": "<date>",
+              "runIndex": 1,
+              "status": "error",
+            },
+            {
+              "completedAt": null,
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@team-run-case-2",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": null,
+              "runIndex": 2,
+              "status": "new",
+            },
+          ],
+          "updatedAt": "<date>",
+          "workflowId": "@team workflow",
+          "workflowVersionId": null,
+        },
+      },
+      "status": 200,
+    },
+    "project editor": {
+      "body": {
+        "data": {
+          "cancelRequested": false,
+          "collectionId": null,
+          "completedAt": null,
+          "createdAt": "<date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "evaluationConfigId": null,
+          "evaluationConfigSnapshot": null,
+          "finalResult": null,
+          "id": "@team-run",
+          "metrics": null,
+          "runAt": "<date>",
+          "runningInstanceId": null,
+          "status": "running",
+          "testCaseExecutions": [
+            {
+              "completedAt": "<date>",
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@team-run-case-0",
+              "inputs": {
+                "question": "a",
+              },
+              "metrics": {
+                "accuracy": 1,
+              },
+              "outputs": {
+                "answer": "A",
+              },
+              "runAt": "<date>",
+              "runIndex": 0,
+              "status": "success",
+            },
+            {
+              "completedAt": "<date>",
+              "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+              "errorDetails": {
+                "message": "boom",
+              },
+              "executionId": null,
+              "id": "@team-run-case-1",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": "<date>",
+              "runIndex": 1,
+              "status": "error",
+            },
+            {
+              "completedAt": null,
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@team-run-case-2",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": null,
+              "runIndex": 2,
+              "status": "new",
+            },
+          ],
+          "updatedAt": "<date>",
+          "workflowId": "@team workflow",
+          "workflowVersionId": null,
+        },
+      },
+      "status": 200,
+    },
+    "project viewer": {
+      "body": {
+        "data": {
+          "cancelRequested": false,
+          "collectionId": null,
+          "completedAt": null,
+          "createdAt": "<date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "evaluationConfigId": null,
+          "evaluationConfigSnapshot": null,
+          "finalResult": null,
+          "id": "@team-run",
+          "metrics": null,
+          "runAt": "<date>",
+          "runningInstanceId": null,
+          "status": "running",
+          "testCaseExecutions": [
+            {
+              "completedAt": "<date>",
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@team-run-case-0",
+              "inputs": {
+                "question": "a",
+              },
+              "metrics": {
+                "accuracy": 1,
+              },
+              "outputs": {
+                "answer": "A",
+              },
+              "runAt": "<date>",
+              "runIndex": 0,
+              "status": "success",
+            },
+            {
+              "completedAt": "<date>",
+              "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+              "errorDetails": {
+                "message": "boom",
+              },
+              "executionId": null,
+              "id": "@team-run-case-1",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": "<date>",
+              "runIndex": 1,
+              "status": "error",
+            },
+            {
+              "completedAt": null,
+              "errorCode": null,
+              "errorDetails": null,
+              "executionId": null,
+              "id": "@team-run-case-2",
+              "inputs": null,
+              "metrics": null,
+              "outputs": null,
+              "runAt": null,
+              "runIndex": 2,
+              "status": "new",
+            },
+          ],
+          "updatedAt": "<date>",
+          "workflowId": "@team workflow",
+          "workflowVersionId": null,
+        },
+      },
+      "status": 200,
+    },
+  },
+}
+`;
+
+exports[`the REST API of test runs > starts runs 1`] = `
+{
+  "a body that is not valid": {
+    "admin": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+    "member": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+    "owner": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+    "project admin": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+    "project editor": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+    "project viewer": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+  },
+  "admin": {
+    "body": {
+      "success": true,
+      "testRunId": "@started run",
+    },
+    "run": {
+      "errorCode": "EVALUATION_TRIGGER_NOT_FOUND",
+      "errorDetails": "{}",
+      "status": "error",
+    },
+    "status": 202,
+  },
+  "member": {
+    "body": {
+      "code": 404,
+      "message": "Workflow not found",
+    },
+    "run": undefined,
+    "status": 404,
+  },
+  "owner": {
+    "body": {
+      "success": true,
+      "testRunId": "@started run",
+    },
+    "run": {
+      "errorCode": "EVALUATION_TRIGGER_NOT_FOUND",
+      "errorDetails": "{}",
+      "status": "error",
+    },
+    "status": 202,
+  },
+  "project admin": {
+    "body": {
+      "success": true,
+      "testRunId": "@started run",
+    },
+    "run": {
+      "errorCode": "EVALUATION_TRIGGER_NOT_FOUND",
+      "errorDetails": "{}",
+      "status": "error",
+    },
+    "status": 202,
+  },
+  "project editor": {
+    "body": {
+      "success": true,
+      "testRunId": "@started run",
+    },
+    "run": {
+      "errorCode": "EVALUATION_TRIGGER_NOT_FOUND",
+      "errorDetails": "{}",
+      "status": "error",
+    },
+    "status": 202,
+  },
+  "project viewer": {
+    "body": {
+      "code": 404,
+      "message": "Workflow not found",
+    },
+    "run": undefined,
+    "status": 404,
+  },
+}
+`;
+
+exports[`the REST API of test runs > without the licence quota 1`] = `
+{
+  "cancel": {
+    "admin": {
+      "body": {
+        "success": true,
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "cancelled",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 1,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "cancelled",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 202,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "success": true,
+      },
+      "rowsAfter": {
+        "cases": [
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-done-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-done-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-failed-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-failed-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@run-failed-case-2",
+            "status": "new",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@run-running-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running-case-2",
+            "status": "cancelled",
+          },
+          {
+            "completed": 1,
+            "errorCode": null,
+            "id": "@team-run-case-0",
+            "status": "success",
+          },
+          {
+            "completed": 1,
+            "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
+            "id": "@team-run-case-1",
+            "status": "error",
+          },
+          {
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run-case-2",
+            "status": "new",
+          },
+        ],
+        "runs": [
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-done",
+            "runningInstanceId": null,
+            "status": "completed",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 1,
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "id": "@run-failed",
+            "runningInstanceId": null,
+            "status": "error",
+          },
+          {
+            "cancelRequested": 1,
+            "completed": 1,
+            "errorCode": null,
+            "id": "@run-running",
+            "runningInstanceId": null,
+            "status": "cancelled",
+          },
+          {
+            "cancelRequested": 0,
+            "completed": 0,
+            "errorCode": null,
+            "id": "@team-run",
+            "runningInstanceId": null,
+            "status": "running",
+          },
+        ],
+      },
+      "status": 202,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "list": {
+    "admin": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": "<date>",
+            "createdAt": "<date>",
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "errorDetails": {
+              "reason": "empty",
+            },
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@run-failed",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "error",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@run-running",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": "<date>",
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": "error",
+            "id": "@run-done",
+            "metrics": {
+              "accuracy": 0.5,
+            },
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "completed",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "member": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "owner": {
+      "body": {
+        "data": [
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": "<date>",
+            "createdAt": "<date>",
+            "errorCode": "TEST_CASES_NOT_FOUND",
+            "errorDetails": {
+              "reason": "empty",
+            },
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@run-failed",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "error",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": null,
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": null,
+            "id": "@run-running",
+            "metrics": null,
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "running",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+          {
+            "cancelRequested": false,
+            "collectionId": null,
+            "completedAt": "<date>",
+            "createdAt": "<date>",
+            "errorCode": null,
+            "errorDetails": null,
+            "evaluationConfigId": null,
+            "evaluationConfigSnapshot": null,
+            "finalResult": "error",
+            "id": "@run-done",
+            "metrics": {
+              "accuracy": 0.5,
+            },
+            "runAt": "<date>",
+            "runningInstanceId": null,
+            "status": "completed",
+            "testCaseCount": 3,
+            "updatedAt": "<date>",
+            "workflowId": "@personal workflow",
+            "workflowVersionId": null,
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "project admin": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project editor": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "project viewer": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+  },
+  "start with a body that is not valid": {
+    "admin": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+    "member": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+    "owner": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+    "project admin": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+    "project editor": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+    "project viewer": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 10,
+        "message": "Number must be less than or equal to 10",
+        "path": [
+          "concurrency",
+        ],
+        "type": "number",
+      },
+      "status": 400,
+    },
+  },
+}
+`;

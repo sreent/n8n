@@ -80,3 +80,16 @@ packages/@n8n/db/src/repositories/agent-eval-*.repository.ee.ts
 # The Evaluation and Evaluation Trigger nodes. The fork has its own files with the same names
 # (packages/nodes-base/nodes/Evaluation/FORK.md).
 packages/nodes-base/nodes/Evaluation/**/*.ee.*
+
+# The evaluation backend: the test runner, the REST API of test runs, configs and collections, the
+# insights, and the tables of test runs, cases, configs and collections. The fork has its own files
+# without `.ee` in packages/cli/src/evaluation and in @n8n/db (packages/cli/src/evaluation/FORK.md).
+packages/cli/src/evaluation.ee/
+packages/@n8n/db/src/entities/evaluation-collection.ee.ts
+packages/@n8n/db/src/entities/evaluation-config.ee.ts
+packages/@n8n/db/src/entities/test-case-execution.ee.ts
+packages/@n8n/db/src/entities/test-run.ee.ts
+packages/@n8n/db/src/repositories/test-case-execution.repository.ee.ts
+packages/@n8n/db/src/repositories/test-run.repository.ee.ts
+packages/@n8n/db/src/utils/__tests__/get-test-run-final-result.ee.test.ts
+packages/cli/test/integration/test-run.repository.ee.test.ts

@@ -31,8 +31,8 @@ import { ErrorReporter } from 'n8n-core';
 import { EVALUATION_TRIGGER_NODE_TYPE } from 'n8n-workflow';
 
 import { ConflictError, ForbiddenError, NotFoundError } from '@n8n/errors';
-import { EvaluationTestRunService } from '@/evaluation.ee/evaluation-test-run.service';
-import { TestRunnerService } from '@/evaluation.ee/test-runner/test-runner.service.ee';
+import { EvaluationTestRunService } from '@/evaluation/evaluation-test-run.service';
+import { TestRunnerService } from '@/evaluation/test-runner/test-runner.service';
 import {
 	encodeNextCursor,
 	resolveOffsetPagination,

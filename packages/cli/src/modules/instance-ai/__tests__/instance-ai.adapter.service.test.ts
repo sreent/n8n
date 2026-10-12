@@ -101,7 +101,7 @@ import {
 	redactExecuteNodeResult,
 	truncateResultData,
 } from '../instance-ai.adapter.service';
-import { LlmJudgeProviderRegistry } from '@/evaluation.ee/llm-judge-provider-registry';
+import { LlmJudgeProviderRegistry } from '@/evaluation/llm-judge-provider-registry';
 
 // ---------------------------------------------------------------------------
 // Helpers

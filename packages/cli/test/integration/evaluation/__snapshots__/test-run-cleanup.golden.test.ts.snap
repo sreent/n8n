@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the cleanup of interrupted test runs 1`] = `
+{
+  "changedCases": [],
+  "changedRuns": [
+    {
+      "completedAt": "<date>",
+      "errorCode": "INTERRUPTED",
+      "id": "run-new-none",
+      "status": "error",
+    },
+    {
+      "completedAt": "<date>",
+      "errorCode": "INTERRUPTED",
+      "id": "run-new-other",
+      "status": "error",
+    },
+    {
+      "completedAt": "<date>",
+      "errorCode": "INTERRUPTED",
+      "id": "run-new-this",
+      "status": "error",
+    },
+    {
+      "completedAt": "<date>",
+      "errorCode": "INTERRUPTED",
+      "id": "run-running-none",
+      "status": "error",
+    },
+    {
+      "completedAt": "<date>",
+      "errorCode": "INTERRUPTED",
+      "id": "run-running-other",
+      "status": "error",
+    },
+    {
+      "completedAt": "<date>",
+      "errorCode": "INTERRUPTED",
+      "id": "run-running-this",
+      "status": "error",
+    },
+  ],
+  "outcome": "<undefined>",
+  "removedRuns": 0,
+}
+`;

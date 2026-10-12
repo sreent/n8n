@@ -365,7 +365,7 @@ export const setupTestServer = ({
 						break;
 
 					case 'evaluation':
-						await import('@/evaluation.ee/test-runs.controller.ee.js');
+						await import('@/evaluation/test-runs.controller.js');
 						break;
 
 					case 'ai':

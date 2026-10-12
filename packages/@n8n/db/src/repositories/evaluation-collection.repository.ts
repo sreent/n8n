@@ -2,8 +2,8 @@ import { Service } from '@n8n/di';
 import { DataSource, In, Repository } from '@n8n/typeorm';
 import type { IDataObject } from 'n8n-workflow';
 
-import { EvaluationCollection } from '../entities/evaluation-collection.ee';
-import { TestRun } from '../entities/test-run.ee';
+import { EvaluationCollection } from '../entities/evaluation-collection';
+import { TestRun } from '../entities/test-run';
 
 export type EvaluationCollectionListItem = {
 	id: EvaluationCollection['id'];

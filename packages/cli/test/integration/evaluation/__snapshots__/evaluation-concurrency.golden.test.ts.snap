@@ -1,0 +1,974 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the evaluation concurrency limit 1`] = `
+{
+  "matrix": {
+    "configured -1, business plan": {
+      "limit": 3,
+      "source": "tier",
+    },
+    "configured -1, enterprise plan": {
+      "limit": 5,
+      "source": "tier",
+    },
+    "configured -1, env "", business plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "", enterprise plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "", no licence values": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "", one workflow with evaluations": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "", pro plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "", quota 0": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "", quota 3": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "", quota unlimited": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "", starter plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "", unlimited workflows with evaluations": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "-1", business plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "-1", enterprise plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "-1", no licence values": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "-1", one workflow with evaluations": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "-1", pro plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "-1", quota 0": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "-1", quota 3": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "-1", quota unlimited": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "-1", starter plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "-1", unlimited workflows with evaluations": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "0", business plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "0", enterprise plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "0", no licence values": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "0", one workflow with evaluations": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "0", pro plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "0", quota 0": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "0", quota 3": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "0", quota unlimited": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "0", starter plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "0", unlimited workflows with evaluations": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "abc", business plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "abc", enterprise plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "abc", no licence values": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "abc", one workflow with evaluations": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "abc", pro plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "abc", quota 0": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "abc", quota 3": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "abc", quota unlimited": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "abc", starter plan": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, env "abc", unlimited workflows with evaluations": {
+      "limit": -1,
+      "source": "env",
+    },
+    "configured -1, no licence values": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured -1, one workflow with evaluations": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured -1, pro plan": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured -1, quota 0": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured -1, quota 3": {
+      "limit": 3,
+      "source": "tier",
+    },
+    "configured -1, quota unlimited": {
+      "limit": -1,
+      "source": "tier",
+    },
+    "configured -1, starter plan": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured -1, unlimited workflows with evaluations": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 0, business plan": {
+      "limit": 3,
+      "source": "tier",
+    },
+    "configured 0, enterprise plan": {
+      "limit": 5,
+      "source": "tier",
+    },
+    "configured 0, env "", business plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "", enterprise plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "", no licence values": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "", one workflow with evaluations": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "", pro plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "", quota 0": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "", quota 3": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "", quota unlimited": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "", starter plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "", unlimited workflows with evaluations": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "0", business plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "0", enterprise plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "0", no licence values": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "0", one workflow with evaluations": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "0", pro plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "0", quota 0": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "0", quota 3": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "0", quota unlimited": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "0", starter plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "0", unlimited workflows with evaluations": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "abc", business plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "abc", enterprise plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "abc", no licence values": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "abc", one workflow with evaluations": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "abc", pro plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "abc", quota 0": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "abc", quota 3": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "abc", quota unlimited": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "abc", starter plan": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, env "abc", unlimited workflows with evaluations": {
+      "limit": 0,
+      "source": "env",
+    },
+    "configured 0, no licence values": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 0, one workflow with evaluations": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 0, pro plan": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 0, quota 0": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 0, quota 3": {
+      "limit": 3,
+      "source": "tier",
+    },
+    "configured 0, quota unlimited": {
+      "limit": -1,
+      "source": "tier",
+    },
+    "configured 0, starter plan": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 0, unlimited workflows with evaluations": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 1, business plan": {
+      "limit": 3,
+      "source": "tier",
+    },
+    "configured 1, enterprise plan": {
+      "limit": 5,
+      "source": "tier",
+    },
+    "configured 1, env "", business plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "", enterprise plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "", no licence values": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "", one workflow with evaluations": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "", pro plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "", quota 0": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "", quota 3": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "", quota unlimited": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "", starter plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "", unlimited workflows with evaluations": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "0", business plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "0", enterprise plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "0", no licence values": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "0", one workflow with evaluations": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "0", pro plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "0", quota 0": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "0", quota 3": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "0", quota unlimited": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "0", starter plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "0", unlimited workflows with evaluations": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "1", business plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "1", enterprise plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "1", no licence values": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "1", one workflow with evaluations": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "1", pro plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "1", quota 0": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "1", quota 3": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "1", quota unlimited": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "1", starter plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "1", unlimited workflows with evaluations": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "abc", business plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "abc", enterprise plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "abc", no licence values": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "abc", one workflow with evaluations": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "abc", pro plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "abc", quota 0": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "abc", quota 3": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "abc", quota unlimited": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "abc", starter plan": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, env "abc", unlimited workflows with evaluations": {
+      "limit": 1,
+      "source": "env",
+    },
+    "configured 1, no licence values": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 1, one workflow with evaluations": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 1, pro plan": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 1, quota 0": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 1, quota 3": {
+      "limit": 3,
+      "source": "tier",
+    },
+    "configured 1, quota unlimited": {
+      "limit": -1,
+      "source": "tier",
+    },
+    "configured 1, starter plan": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 1, unlimited workflows with evaluations": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 20, business plan": {
+      "limit": 3,
+      "source": "tier",
+    },
+    "configured 20, enterprise plan": {
+      "limit": 5,
+      "source": "tier",
+    },
+    "configured 20, env "", business plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "", enterprise plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "", no licence values": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "", one workflow with evaluations": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "", pro plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "", quota 0": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "", quota 3": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "", quota unlimited": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "", starter plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "", unlimited workflows with evaluations": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "0", business plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "0", enterprise plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "0", no licence values": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "0", one workflow with evaluations": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "0", pro plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "0", quota 0": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "0", quota 3": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "0", quota unlimited": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "0", starter plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "0", unlimited workflows with evaluations": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "20", business plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "20", enterprise plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "20", no licence values": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "20", one workflow with evaluations": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "20", pro plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "20", quota 0": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "20", quota 3": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "20", quota unlimited": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "20", starter plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "20", unlimited workflows with evaluations": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "abc", business plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "abc", enterprise plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "abc", no licence values": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "abc", one workflow with evaluations": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "abc", pro plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "abc", quota 0": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "abc", quota 3": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "abc", quota unlimited": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "abc", starter plan": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, env "abc", unlimited workflows with evaluations": {
+      "limit": 20,
+      "source": "env",
+    },
+    "configured 20, no licence values": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 20, one workflow with evaluations": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 20, pro plan": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 20, quota 0": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 20, quota 3": {
+      "limit": 3,
+      "source": "tier",
+    },
+    "configured 20, quota unlimited": {
+      "limit": -1,
+      "source": "tier",
+    },
+    "configured 20, starter plan": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 20, unlimited workflows with evaluations": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 4, business plan": {
+      "limit": 3,
+      "source": "tier",
+    },
+    "configured 4, enterprise plan": {
+      "limit": 5,
+      "source": "tier",
+    },
+    "configured 4, env "", business plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "", enterprise plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "", no licence values": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "", one workflow with evaluations": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "", pro plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "", quota 0": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "", quota 3": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "", quota unlimited": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "", starter plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "", unlimited workflows with evaluations": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "0", business plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "0", enterprise plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "0", no licence values": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "0", one workflow with evaluations": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "0", pro plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "0", quota 0": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "0", quota 3": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "0", quota unlimited": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "0", starter plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "0", unlimited workflows with evaluations": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "4", business plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "4", enterprise plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "4", no licence values": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "4", one workflow with evaluations": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "4", pro plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "4", quota 0": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "4", quota 3": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "4", quota unlimited": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "4", starter plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "4", unlimited workflows with evaluations": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "abc", business plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "abc", enterprise plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "abc", no licence values": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "abc", one workflow with evaluations": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "abc", pro plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "abc", quota 0": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "abc", quota 3": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "abc", quota unlimited": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "abc", starter plan": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, env "abc", unlimited workflows with evaluations": {
+      "limit": 4,
+      "source": "env",
+    },
+    "configured 4, no licence values": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 4, one workflow with evaluations": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 4, pro plan": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 4, quota 0": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 4, quota 3": {
+      "limit": 3,
+      "source": "tier",
+    },
+    "configured 4, quota unlimited": {
+      "limit": -1,
+      "source": "tier",
+    },
+    "configured 4, starter plan": {
+      "limit": 1,
+      "source": "tier",
+    },
+    "configured 4, unlimited workflows with evaluations": {
+      "limit": 1,
+      "source": "tier",
+    },
+  },
+  "tierDefaults": {
+    "Business": 3,
+    "Community": 1,
+    "Enterprise": 5,
+    "Pro": 1,
+  },
+}
+`;
