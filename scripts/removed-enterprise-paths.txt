@@ -51,3 +51,17 @@ packages/frontend/editor-ui/src/features/settings/orchestration.ee/
 # The entities of the workflow review tables. The fork has its own entities with the same names
 # (packages/@n8n/db/src/entities/FORK.md).
 packages/@n8n/db/src/entities/workflow-review-*.ee.ts
+
+# Execution annotations: the tags and the highlighted data of executions. The fork has its own
+# entities, repositories, service, controller and editor components with the same names
+# (packages/cli/src/executions/FORK.md).
+packages/@n8n/db/src/entities/annotation-tag-entity.ee.ts
+packages/@n8n/db/src/entities/annotation-tag-mapping.ee.ts
+packages/@n8n/db/src/entities/execution-annotation.ee.ts
+packages/@n8n/db/src/repositories/annotation-tag-mapping.repository.ee.ts
+packages/@n8n/db/src/repositories/annotation-tag.repository.ee.ts
+packages/cli/src/controllers/annotation-tags.controller.ee.ts
+packages/cli/src/services/annotation-tag.service.ee.ts
+packages/frontend/editor-ui/src/features/execution/executions/components/workflow/WorkflowExecutionAnnotation*.ee.*
+packages/frontend/editor-ui/src/features/shared/tags/components/AnnotationTagsDropdown.ee.*
+packages/frontend/editor-ui/src/features/shared/tags/components/TagsManager/AnnotationTagsManager.ee.vue
