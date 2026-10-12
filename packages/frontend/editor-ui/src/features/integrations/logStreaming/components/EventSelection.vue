@@ -4,9 +4,9 @@
  * subscribes the destination to the whole group, and an event checkbox to one event.
  * `../FORK.md` describes it.
  */
-import { N8nCheckbox, N8nInfoTip, N8nText } from '@n8n/design-system';
+import { N8nButton, N8nCheckbox, N8nInfoTip, N8nText } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import {
 	AUDIT_GROUP,
@@ -34,6 +34,16 @@ const i18n = useI18n();
 
 const groups = computed(() => eventGroups(props.eventNames));
 const groupNames = computed(() => groups.value.map(({ name }) => name));
+
+/** The groups that show their single events. */
+const expandedGroups = ref(new Set<string>());
+
+function toggleGroup(group: string) {
+	const expanded = new Set(expandedGroups.value);
+	if (expanded.has(group)) expanded.delete(group);
+	else expanded.add(group);
+	expandedGroups.value = expanded;
+}
 
 const groupLabel = (group: string) =>
 	textOrFallback(i18n, `settings.log-streaming.eventGroup.${group}`, group);
@@ -79,9 +89,27 @@ function onEventChange(eventName: string, on: boolean) {
 					data-test-id="destination-event-group-checkbox"
 					@update:model-value="onGroupChange(group.name, $event)"
 				/>
-				<N8nInfoTip v-if="groupInfo(group.name)" :bold="false">
+				<N8nInfoTip v-if="groupInfo(group.name)" type="tooltip" :bold="false">
 					{{ groupInfo(group.name) }}
 				</N8nInfoTip>
+				<N8nButton
+					variant="ghost"
+					size="small"
+					:icon="expandedGroups.has(group.name) ? 'chevron-down' : 'chevron-right'"
+					:label="
+						i18n.baseText(
+							expandedGroups.has(group.name)
+								? 'settings.log-streaming.tab.events.hide'
+								: 'settings.log-streaming.tab.events.show',
+							{
+								adjustToNumber: group.events.length,
+								interpolate: { count: String(group.events.length) },
+							},
+						)
+					"
+					data-test-id="destination-event-group-toggle"
+					@click="toggleGroup(group.name)"
+				/>
 			</div>
 			<div v-if="group.name === AUDIT_GROUP" :class="$style.anonymize">
 				<N8nCheckbox
@@ -91,11 +119,11 @@ function onEventChange(eventName: string, on: boolean) {
 					data-test-id="destination-anonymize-checkbox"
 					@update:model-value="emit('update:anonymizeAuditMessages', $event)"
 				/>
-				<N8nInfoTip :bold="false">
+				<N8nInfoTip type="tooltip" :bold="false">
 					{{ i18n.baseText('settings.log-streaming.tab.events.anonymize.info') }}
 				</N8nInfoTip>
 			</div>
-			<div :class="$style.events">
+			<div v-if="expandedGroups.has(group.name)" :class="$style.events">
 				<N8nCheckbox
 					v-for="event in group.events"
 					:key="event"
