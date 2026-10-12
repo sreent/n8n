@@ -71,3 +71,12 @@ packages/frontend/editor-ui/src/features/shared/tags/components/TagsManager/Anno
 # features/settings/environments (packages/cli/src/environments/variables/FORK.md).
 packages/cli/src/environments.ee/
 packages/frontend/editor-ui/src/features/settings/environments.ee/
+
+# The agent eval tables: the entities and the repositories of agent evals. The fork has its own
+# files with the same names (packages/@n8n/db/src/entities/FORK.md).
+packages/@n8n/db/src/entities/agent-eval-*.ee.ts
+packages/@n8n/db/src/repositories/agent-eval-*.repository.ee.ts
+
+# The Evaluation and Evaluation Trigger nodes. The fork has its own files with the same names
+# (packages/nodes-base/nodes/Evaluation/FORK.md).
+packages/nodes-base/nodes/Evaluation/**/*.ee.*
