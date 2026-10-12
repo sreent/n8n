@@ -1,9 +1,9 @@
 import { Container } from '@n8n/di';
 import type { Mock } from 'vitest';
 
-import { AgentEvalDataset } from '../../entities/agent-eval-dataset.ee';
+import { AgentEvalDataset } from '../../entities/agent-eval-dataset';
 import { mockEntityManager } from '../../utils/test-utils/mock-entity-manager';
-import { AgentEvalDatasetRepository } from '../agent-eval-dataset.repository.ee';
+import { AgentEvalDatasetRepository } from '../agent-eval-dataset.repository';
 
 describe('AgentEvalDatasetRepository', () => {
 	const entityManager = mockEntityManager(AgentEvalDataset);

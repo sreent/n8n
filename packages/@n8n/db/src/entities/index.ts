@@ -5,10 +5,10 @@ import {
 	type ActivityEventCategory,
 	type ActivityResourceType,
 } from './activity-event';
-import { AgentEvalDataset, type AgentEvalColumnMapping } from './agent-eval-dataset.ee';
-import { AgentEvalRating, type AgentEvalVote } from './agent-eval-rating.ee';
-import { AgentEvalResult, type AgentEvalResultStatus } from './agent-eval-result.ee';
-import { AgentEvalRun, type AgentEvalRunStatus } from './agent-eval-run.ee';
+import { AgentEvalDataset, type AgentEvalColumnMapping } from './agent-eval-dataset';
+import { AgentEvalRating, type AgentEvalVote } from './agent-eval-rating';
+import { AgentEvalResult, type AgentEvalResultStatus } from './agent-eval-result';
+import { AgentEvalRun, type AgentEvalRunStatus } from './agent-eval-run';
 import { AiBuilderTemporaryWorkflow } from './ai-builder-temporary-workflow';
 import { AiPreference } from './ai-preference';
 import { AnnotationTagEntity } from './annotation-tag-entity';

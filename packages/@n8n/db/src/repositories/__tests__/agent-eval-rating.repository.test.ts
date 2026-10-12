@@ -2,9 +2,9 @@ import { Container } from '@n8n/di';
 import { In } from '@n8n/typeorm';
 import type { Mock } from 'vitest';
 
-import { AgentEvalRating } from '../../entities/agent-eval-rating.ee';
+import { AgentEvalRating } from '../../entities/agent-eval-rating';
 import { mockEntityManager } from '../../utils/test-utils/mock-entity-manager';
-import { AgentEvalRatingRepository } from '../agent-eval-rating.repository.ee';
+import { AgentEvalRatingRepository } from '../agent-eval-rating.repository';
 
 describe('AgentEvalRatingRepository', () => {
 	const entityManager = mockEntityManager(AgentEvalRating);
