@@ -12,7 +12,7 @@ import {
 } from 'n8n-workflow';
 
 import { useResolvedExpression } from '@/app/composables/useResolvedExpression';
-import useEnvironmentsStore from '@/features/settings/environments.ee/environments.store';
+import useEnvironmentsStore from '@/features/settings/environments/environments.store';
 import { useExternalSecretsStore } from '@/features/integrations/externalSecrets/externalSecrets.store';
 import { injectNDVStoreIfProvided } from '@/features/ndv/shared/ndv.store';
 import { useBinaryDataAccessTooltip } from '@/features/ndv/shared/composables/useBinaryDataAccessTooltip';

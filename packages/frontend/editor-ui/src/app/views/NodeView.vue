@@ -93,7 +93,7 @@ import type {
 } from 'n8n-workflow';
 import { useToast } from '@n8n/composables/useToast';
 import { useCredentialsStore } from '@/features/credentials/credentials.store';
-import { useEnvironmentsStore } from '@/features/settings/environments.ee/environments.store';
+import { useEnvironmentsStore } from '@/features/settings/environments/environments.store';
 import { AddNodeGroupCommand, historyBus } from '@/app/models/history';
 import { useHistoryStore } from '@/app/stores/history.store';
 import { useCanvasOperations } from '@/app/composables/useCanvasOperations';

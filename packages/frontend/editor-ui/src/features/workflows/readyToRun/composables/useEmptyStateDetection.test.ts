@@ -34,7 +34,7 @@ vi.mock('@/features/credentials/credentials.store', () => ({
 	useCredentialsStore: () => credentialsStoreState,
 }));
 
-vi.mock('@/features/settings/environments.ee/environments.store', () => ({
+vi.mock('@/features/settings/environments/environments.store', () => ({
 	useEnvironmentsStore: () => environmentsStoreState,
 }));
 

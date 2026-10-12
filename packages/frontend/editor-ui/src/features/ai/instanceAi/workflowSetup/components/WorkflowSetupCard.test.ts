@@ -48,7 +48,7 @@ vi.mock('@/app/stores/nodeTypes.store', () => ({
 	useNodeTypesStore: () => nodeTypesStore,
 }));
 
-vi.mock('@/features/settings/environments.ee/environments.store', () => ({
+vi.mock('@/features/settings/environments/environments.store', () => ({
 	default: () => ({ variablesAsObject: {} }),
 }));
 

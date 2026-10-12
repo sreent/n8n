@@ -2,7 +2,7 @@
 import { useResolvedExpression } from '@/app/composables/useResolvedExpression';
 import { injectNDVStore } from '@/features/ndv/shared/ndv.store';
 import { useBinaryDataAccessTooltip } from '@/features/ndv/shared/composables/useBinaryDataAccessTooltip';
-import useEnvironmentsStore from '@/features/settings/environments.ee/environments.store';
+import useEnvironmentsStore from '@/features/settings/environments/environments.store';
 import type { IUpdateInformation } from '@/Interface';
 import { useI18n } from '@n8n/i18n';
 import type { AssignmentValue, INodeProperties } from 'n8n-workflow';

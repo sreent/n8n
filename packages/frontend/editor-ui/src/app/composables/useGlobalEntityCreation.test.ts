@@ -18,7 +18,7 @@ import {
 	PENDING_AGENT_ID_STATE,
 } from '@/features/agents/constants';
 import { INSTANCE_AI_VIEW } from '@/features/ai/instanceAi/constants';
-import { VARIABLE_MODAL_KEY } from '@/features/settings/environments.ee/environments.constants';
+import { VARIABLE_MODAL_KEY } from '@/features/settings/environments/environments.constants';
 import { PROJECT_DATA_TABLES } from '@/features/core/dataTable/constants';
 import { hasPermission } from '@/app/utils/rbac/permissions';
 import { useUsersStore } from '@n8n/stores/users.store';

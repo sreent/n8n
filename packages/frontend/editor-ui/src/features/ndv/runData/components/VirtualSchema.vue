@@ -39,7 +39,7 @@ import {
 import MappingPill from './MappingPill.vue';
 
 import { EnterpriseEditionFeature, PLACEHOLDER_FILLED_AT_EXECUTION_TIME } from '@/app/constants';
-import useEnvironmentsStore from '@/features/settings/environments.ee/environments.store';
+import useEnvironmentsStore from '@/features/settings/environments/environments.store';
 import { useSchemaPreviewStore } from '@/features/ndv/runData/schemaPreview.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { isEmpty } from '@/app/utils/typesUtils';

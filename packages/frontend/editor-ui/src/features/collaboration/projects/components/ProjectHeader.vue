@@ -24,7 +24,7 @@ import { useAgentPermissions } from '@/features/agents/composables/useAgentPermi
 import ReadyToRunButton from '@/features/workflows/readyToRun/components/ReadyToRunButton.vue';
 
 import { N8nButton, N8nHeading, N8nIconButton, N8nText, N8nTooltip } from '@n8n/design-system';
-import { VARIABLE_MODAL_KEY } from '@/features/settings/environments.ee/environments.constants';
+import { VARIABLE_MODAL_KEY } from '@/features/settings/environments/environments.constants';
 import { useTelemetry } from '@n8n/composables/useTelemetry';
 import { useCreateAgent } from '@/features/agents/composables/useCreateAgent';
 import { useUsersStore } from '@n8n/stores/users.store';

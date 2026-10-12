@@ -13,7 +13,7 @@ import {
 } from '@/features/credentials/credentials.store';
 import { useNodeHelpers } from '@/app/composables/useNodeHelpers';
 import { useNodeTypesStore } from '@/app/stores/nodeTypes.store';
-import { useEnvironmentsStore } from '@/features/settings/environments.ee/environments.store';
+import { useEnvironmentsStore } from '@/features/settings/environments/environments.store';
 import {
 	injectWorkflowDocumentStore,
 	createWorkflowDocumentId,
