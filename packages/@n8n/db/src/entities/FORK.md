@@ -145,6 +145,73 @@ the names of their base classes. The probe, its log and the recorder were delete
 does not use recording proxies any more. The fork rebuilds those two repositories with the
 evaluation backend, from the ordinary code and from black-box tests of the REST API.
 
+## The evaluation tables
+
+These tables keep the test runs of evaluations, their cases, the evaluation configs and the
+collections. The fork backend in `packages/cli/src/evaluation` uses them, see
+[its FORK.md](../../../../cli/src/evaluation/FORK.md). The fork replaced the four entities and
+two repositories in step 4 with its own files, with the same names and exports. The
+repositories of configs and collections are ordinary code and stay.
+
+| Fork file | Table | Enterprise file that it replaces |
+| --- | --- | --- |
+| `test-run.ts` | `test_run` | `test-run.ee.ts` |
+| `test-case-execution.ts` | `test_case_execution` | `test-case-execution.ee.ts` |
+| `evaluation-config.ts` | `evaluation_config` | `evaluation-config.ee.ts` |
+| `evaluation-collection.ts` | `evaluation_collection` | `evaluation-collection.ee.ts` |
+| `../repositories/test-run.repository.ts` | | `test-run.repository.ee.ts` |
+| `../repositories/test-case-execution.repository.ts` | | `test-case-execution.repository.ee.ts` |
+
+`test-run.ts` and `test-case-execution.ts` also export the types `TestRunStatus` and
+`TestCaseExecutionStatus`: the status types of `@n8n/api-types`. `test-run.repository.ts`
+exports the type `TestRunSummary`.
+
+### Sources
+
+- The columns, their types, their defaults, their foreign keys and their indexes: the ordinary
+  migrations of the four tables.
+- The mapping of the entities (the columns, the relations and the indexes that TypeORM builds at
+  run time), recorded black-box from the original entities.
+- The methods of the repositories: the ordinary callers (the public API controller, the ordinary
+  repositories of configs and collections, `license-metrics.repository.ts`), the ordinary tests,
+  the test helpers in `cli/test/integration/shared/db/evaluation.ts`, and the golden tests of the
+  backend.
+
+### Behaviour
+
+- A test run has a nano ID, `createdAt` and `updatedAt`, a relation `workflow` and a relation
+  `testCaseExecutions`. `finalResult` is not a column: the summary queries set it.
+- A test case has a nano ID and a relation `testRun`. The table has `createdAt` and `updatedAt`
+  with database defaults, but the entity does not map them, as in the original. `executionId` is
+  text in the entity and an integer in the table.
+- A config and a collection have a string ID that the service gives, `createdAt` and
+  `updatedAt`. A config has a relation `workflow` and is unique for its workflow and name.
+- `TestRunRepository` writes the states of a run: `createTestRun` (status `new`), `markAsRunning`
+  with the ID of the main instance, `markAsCompleted` with the metrics, `markAsError` with a code,
+  `markAsCancelled`, and `markAllIncompleteAsFailed` (the runs with the status `new` or `running`
+  become `error` with the code `INTERRUPTED`). It also keeps the flag of a cancellation. The lists
+  give the newest first, with the number of cases and the final result of each run. The final
+  result is the most severe status of the cases of a completed run.
+- `TestCaseExecutionRepository` writes the pending cases of a run in one call, marks a pending
+  case as running only once, keeps the result or the error of a case, and cancels the pending
+  cases of a run. The cases of a run are in the order of the dataset (`runIndex`).
+
+### Tests
+
+- `packages/cli/test/integration/evaluation/evaluation-entities.golden.test.ts` (fork test)
+  records the mapping of the four entities. The snapshot was recorded against the enterprise
+  entities, and the fork entities give the same snapshot.
+- The golden tests of the backend in the same folder record the rows of the four tables after
+  each call and each run.
+- The ordinary tests of the repositories of configs and collections, the ordinary tests of the
+  REST API and the public API, and the migration test of the scaling fields run on the fork
+  files.
+
+### Clean-room record
+
+The slip with the recording proxies on the enterprise repositories of these tables is described
+in the section of the agent eval tables. The fork repositories come from the sources above.
+
 ## Upstream updates
 
 `scripts/sync-upstream.sh` deletes the replaced enterprise files again. When an upstream migration

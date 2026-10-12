@@ -88,8 +88,11 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/cli/src/environments/variables/FORK.md](packages/cli/src/environments/variables/FORK.md)),
    evaluations (in parts: the agent eval tables are done, see
    [packages/@n8n/db/src/entities/FORK.md](packages/@n8n/db/src/entities/FORK.md#the-agent-eval-tables),
-   and the Evaluation nodes are done, see
-   [packages/nodes-base/nodes/Evaluation/FORK.md](packages/nodes-base/nodes/Evaluation/FORK.md)),
+   the Evaluation nodes are done, see
+   [packages/nodes-base/nodes/Evaluation/FORK.md](packages/nodes-base/nodes/Evaluation/FORK.md),
+   and the backend is done, see
+   [packages/cli/src/evaluation/FORK.md](packages/cli/src/evaluation/FORK.md); the editor comes
+   next),
    and the local parts of the AI workflow builder that the MCP tools of the workflow builder use.
    The chat of the AI builder needs a service of n8n, and goes. Then the source control editor,
    and last the enterprise files that fork code replaced.
@@ -176,12 +179,14 @@ them again after each upstream update, and container CI checks that they stay de
   (`packages/cli/test/integration/variables.api.test.ts` and the editor test in
   `packages/frontend/editor-ui/src/features/settings/environments`), and of the agent eval tables
   (`packages/cli/test/integration/database/repositories/agent-eval.repositories.test.ts`), and of
-  the Evaluation nodes (`packages/nodes-base/nodes/Evaluation/test/Evaluation.golden.test.ts`)
-  fail when an update changes
+  the Evaluation nodes (`packages/nodes-base/nodes/Evaluation/test/Evaluation.golden.test.ts`),
+  and of the evaluation backend (the `*.golden.test.ts` files in
+  `packages/cli/test/integration/evaluation`) fail when an update changes
   what a role may do, how projects, sharing, the sign-in method, the OIDC sign-in, the role
   provisioning, the SAML sign-in, the secrets providers, the queries of their connections, the
   external secrets module, the external secrets editor, the connections editor, the execution
-  annotations, the variables, the agent eval tables or the Evaluation nodes work.
+  annotations, the variables, the agent eval tables, the Evaluation nodes or the evaluation
+  backend work.
   Compare the change with the upstream change, then update the fork code or the snapshot. The
   FORK.md files there tell how to record a snapshot against the enterprise code.
 - When an upstream update changes the public API handler
