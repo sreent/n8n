@@ -14,7 +14,7 @@ import type { SimpleColumnType } from '@n8n/typeorm/driver/types/ColumnTypes';
 import { ExecutionStatus, WorkflowExecuteMode } from 'n8n-workflow';
 
 import { DateTimeColumn, datetimeColumnType, jsonColumnType } from './abstract-entity';
-import type { ExecutionAnnotation } from './execution-annotation.ee';
+import type { ExecutionAnnotation } from './execution-annotation';
 import type { ExecutionData } from './execution-data';
 import type { ExecutionMetadata } from './execution-metadata';
 import { WorkflowEntity } from './workflow-entity';

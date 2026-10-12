@@ -11,8 +11,8 @@ import { AgentEvalResult, type AgentEvalResultStatus } from './agent-eval-result
 import { AgentEvalRun, type AgentEvalRunStatus } from './agent-eval-run.ee';
 import { AiBuilderTemporaryWorkflow } from './ai-builder-temporary-workflow';
 import { AiPreference } from './ai-preference';
-import { AnnotationTagEntity } from './annotation-tag-entity.ee';
-import { AnnotationTagMapping } from './annotation-tag-mapping.ee';
+import { AnnotationTagEntity } from './annotation-tag-entity';
+import { AnnotationTagMapping } from './annotation-tag-mapping';
 import { ApiKey } from './api-key';
 import { AuthIdentity } from './auth-identity';
 import { AuthProviderSyncHistory } from './auth-provider-sync-history';
@@ -26,7 +26,7 @@ import { CredentialsEntity, type CredentialUsageScope } from './credentials-enti
 import { DeploymentKey, OAUTH_JWE_PRIVATE_KEY_TYPE } from './deployment-key';
 import { EvaluationCollection } from './evaluation-collection.ee';
 import { EvaluationConfig } from './evaluation-config.ee';
-import { ExecutionAnnotation } from './execution-annotation.ee';
+import { ExecutionAnnotation } from './execution-annotation';
 import { ExecutionData } from './execution-data';
 import { ExecutionEntity } from './execution-entity';
 import type { ExecutionDataStorageLocation } from './execution-entity';
