@@ -5,7 +5,7 @@ import { InstanceSettingsLoaderConfig } from '@n8n/config';
 import type { User } from '@n8n/db';
 import { OnPubSubEvent } from '@n8n/decorators';
 import { Service } from '@n8n/di';
-import { BadRequestError, ForbiddenError, NotFoundError } from '@n8n/errors';
+import { BadRequestError, ConflictError, ForbiddenError, NotFoundError } from '@n8n/errors';
 import { ensureError } from '@n8n/utils/errors/ensure-error';
 import { InstanceSettings } from 'n8n-core';
 import { jsonParse, type JsonObject } from 'n8n-workflow';
@@ -267,23 +267,23 @@ export class LogStreamingService {
 		return options;
 	}
 
-	async deleteDestination(id: string) {
+	/** Deletes a destination, and gives its options. */
+	async deleteDestination(id: string): Promise<DestinationOptions> {
 		this.assertNotManagedByEnv();
-		if (!(await this.repository.deleteDestination(id))) {
-			throw new NotFoundError(`There is no log streaming destination with the id "${id}"`);
-		}
+		const options = await this.findDestinationOrFail(id);
+		if (!(await this.repository.deleteDestination(id))) throw this.notFound(id);
 		await this.reloadEverywhere();
+		return options;
 	}
 
 	/**
 	 * Sends a test event to a destination, and tells if the destination took it. The test ignores
-	 * `enabled`, the subscriptions and the circuit breaker.
+	 * `enabled`, the subscriptions and the circuit breaker. The test sends the data of the
+	 * credential of the destination, so the user must have access to the credential.
 	 */
-	async testDestination(id: string): Promise<boolean> {
-		const [options] = await this.findDestinations(id);
-		if (!options) {
-			throw new NotFoundError(`There is no log streaming destination with the id "${id}"`);
-		}
+	async testDestination(id: string, user: User): Promise<boolean> {
+		const options = await this.findDestinationOrFail(id);
+		await this.assertCredentialAccess(options, user);
 		let destination: LogStreamingDestination;
 		try {
 			destination = this.factory.create(options);
@@ -303,9 +303,20 @@ export class LogStreamingService {
 		}
 	}
 
-	private assertNotManagedByEnv() {
+	async findDestinationOrFail(id: string): Promise<DestinationOptions> {
+		const [options] = await this.findDestinations(id);
+		if (!options) throw this.notFound(id);
+		return options;
+	}
+
+	private notFound(id: string) {
+		return new NotFoundError(`There is no log streaming destination with the id "${id}"`);
+	}
+
+	/** Throws a 409 error while the environment manages the destinations. */
+	assertNotManagedByEnv() {
 		if (this.managedByEnv) {
-			throw new BadRequestError(
+			throw new ConflictError(
 				`Environment variables manage the log streaming destinations. Change ${ENV_VARIABLE} instead.`,
 			);
 		}

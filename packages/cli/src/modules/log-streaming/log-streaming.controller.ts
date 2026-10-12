@@ -68,10 +68,10 @@ export class LogStreamingController {
 	@Get('/testmessage')
 	@GlobalScope('logStreaming:manage')
 	async sendTestMessage(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Query query: TestDestinationQueryDto,
 	) {
-		return await this.logStreamingService.testDestination(query.id);
+		return await this.logStreamingService.testDestination(query.id, req.user);
 	}
 }

@@ -156,7 +156,7 @@ describe('POST /eventbus/destination', () => {
 	it('rejects changes while the environment manages the destinations', async () => {
 		Container.get(InstanceSettingsLoaderConfig).logStreamingManagedByEnv = true;
 
-		await testServer.authAgentFor(owner).post('/eventbus/destination').send(webhook()).expect(400);
+		await testServer.authAgentFor(owner).post('/eventbus/destination').send(webhook()).expect(409);
 	});
 });
 

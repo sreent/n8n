@@ -2,7 +2,7 @@ import { mockLogger } from '@n8n/backend-test-utils';
 import type { CredentialsFinderService } from '@n8n/backend-services';
 import type { InstanceSettingsLoaderConfig } from '@n8n/config';
 import type { CredentialsEntity, User } from '@n8n/db';
-import { BadRequestError, ForbiddenError, NotFoundError } from '@n8n/errors';
+import { BadRequestError, ConflictError, ForbiddenError, NotFoundError } from '@n8n/errors';
 import type { InstanceSettings } from 'n8n-core';
 import { mock } from 'vitest-mock-extended';
 
@@ -291,8 +291,8 @@ describe('LogStreamingService', () => {
 					{ __type: '$$MessageEventBusDestinationSyslog', host: 'logs' },
 					user,
 				),
-			).rejects.toThrow(BadRequestError);
-			await expect(service.deleteDestination(ID_A)).rejects.toThrow(BadRequestError);
+			).rejects.toThrow(ConflictError);
+			await expect(service.deleteDestination(ID_A)).rejects.toThrow(ConflictError);
 			expect(repository.saveDestination).not.toHaveBeenCalled();
 		});
 
@@ -358,19 +358,19 @@ describe('LogStreamingService', () => {
 	});
 
 	describe('deleteDestination', () => {
-		it('deletes a destination, and asks the other instances to drop it', async () => {
+		it('deletes a destination, gives its options, and asks the other instances to drop it', async () => {
+			repository.findAllDestinations.mockResolvedValue([syslogRow(ID_A)]);
 			repository.deleteDestination.mockResolvedValue(true);
 
-			await service.deleteDestination(ID_A);
+			await expect(service.deleteDestination(ID_A)).resolves.toMatchObject({ id: ID_A });
 
 			expect(repository.deleteDestination).toHaveBeenCalledWith(ID_A);
 			expect(publisher.publishCommand).toHaveBeenCalledWith({ command: 'restart-event-bus' });
 		});
 
 		it('fails for an unknown destination', async () => {
-			repository.deleteDestination.mockResolvedValue(false);
-
 			await expect(service.deleteDestination(ID_A)).rejects.toThrow(NotFoundError);
+			expect(repository.deleteDestination).not.toHaveBeenCalled();
 		});
 	});
 
@@ -378,7 +378,7 @@ describe('LogStreamingService', () => {
 		it('sends the test event with a new destination, and closes it after', async () => {
 			repository.findAllDestinations.mockResolvedValue([syslogRow(ID_A)]);
 
-			await expect(service.testDestination(ID_A)).resolves.toBe(true);
+			await expect(service.testDestination(ID_A, user)).resolves.toBe(true);
 
 			const [destination] = factory.create.mock.results.map(({ value }) => value);
 			expect(destination.sendTest).toHaveBeenCalledWith(
@@ -388,7 +388,26 @@ describe('LogStreamingService', () => {
 		});
 
 		it('fails for an unknown destination', async () => {
-			await expect(service.testDestination(ID_A)).rejects.toThrow(NotFoundError);
+			await expect(service.testDestination(ID_A, user)).rejects.toThrow(NotFoundError);
+		});
+
+		it('fails when the user cannot read the credential of the destination', async () => {
+			repository.findAllDestinations.mockResolvedValue([
+				{
+					id: ID_A,
+					destination: {
+						__type: '$$MessageEventBusDestinationWebhook',
+						url: 'https://example.com',
+						authentication: 'genericCredentialType',
+						genericAuthType: 'httpHeaderAuth',
+						credentials: { httpHeaderAuth: { id: 'credential-1', name: 'Header' } },
+					},
+				},
+			]);
+			credentialsFinder.findCredentialForUser.mockResolvedValue(null);
+
+			await expect(service.testDestination(ID_A, user)).rejects.toThrow(ForbiddenError);
+			expect(factory.create).not.toHaveBeenCalled();
 		});
 	});
 

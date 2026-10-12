@@ -147,7 +147,37 @@ role can have it.
   body change the stored destination. A new destination gets the defaults of its kind, and is off
   until the body sets `enabled` to `true`. The id of a destination is a UUID.
 - The test ignores `enabled`, the subscriptions and the circuit breaker.
-- When the environment manages the destinations, `POST` and `DELETE` answer with the status 400.
+- When the environment manages the destinations, `POST` and `DELETE` answer with the status 409.
+- The test sends the data of the credential of the destination. Thus the user must have the scope
+  `credential:read` on the credential.
+
+## Public API
+
+The public API has the routes of upstream n8n under `/api/v1/settings/log-streaming`. The handler
+`packages/cli/src/public-api/v1/handlers/log-streaming/log-streaming.handler.ts` is fork code at
+the path of the upstream handler, and calls this module. The OpenAPI files next to it are the
+files of upstream.
+
+| Route | API key scope | Result |
+|---|---|---|
+| `GET /settings/log-streaming/event-types` | `eventBusDestination:list` | `{ data }`: the names of the events |
+| `GET /settings/log-streaming/destinations` | `eventBusDestination:list` | `{ data }`: the destinations |
+| `POST /settings/log-streaming/destinations` | `eventBusDestination:create` | Adds a destination, and gives it |
+| `GET /settings/log-streaming/destinations/{id}` | `eventBusDestination:read` | The destination |
+| `PUT /settings/log-streaming/destinations/{id}` | `eventBusDestination:update` | Changes a destination, and gives it |
+| `DELETE /settings/log-streaming/destinations/{id}` | `eventBusDestination:delete` | Deletes a destination, and gives it |
+| `POST /settings/log-streaming/destinations/{id}/test` | `eventBusDestination:test` | `{ success }`: whether the destination took the test event |
+
+- A destination of the public API has `type` (`webhook`, `syslog` or `sentry`) in place of
+  `__type`. The public API does not show or take the credentials and some other fields, for
+  example `sendPayload`.
+- A new destination is off, unless the body sets `enabled` to `true`.
+- `PUT` changes the fields of the body. The fields that the body leaves out keep their values, also
+  the fields that the public API does not show.
+- When the environment manages the destinations, `POST`, `PUT` and `DELETE` answer with the status
+  409.
+- The fork needs no licence for these routes, although the upstream OpenAPI text tells so. While
+  the module is off, the routes answer with the status 403.
 
 ## Limits
 
@@ -166,6 +196,7 @@ role can have it.
 | `log-streaming.module.ts` | The entrypoint |
 | `log-streaming.service.ts` | Loads the destinations, delivers the events and confirms them, and changes the destinations |
 | `log-streaming.controller.ts` | The REST API |
+| `packages/cli/src/public-api/v1/handlers/log-streaming/log-streaming.handler.ts` | The public API |
 | `log-streaming.constants.ts` | The limits and the defaults |
 | `destinations/log-streaming-destination.ts` | The base class: subscriptions, circuit breaker, queue, anonymization |
 | `destinations/webhook.destination.ts`, `syslog.destination.ts`, `sentry.destination.ts` | The kinds of destinations |
@@ -185,8 +216,18 @@ role can have it.
 - The ordinary migration `MessageEventBusDestinations1671535397530`, which creates the table.
 - The ordinary settings `InstanceSettingsLoaderConfig` (the environment variables) and
   `logStreaming.managedByEnv` in `frontend.service.ts`.
+- The ordinary public API files that the fork removed, at the upstream commit in
+  `scripts/sync-upstream.base`: the handler, the mapper and the OpenAPI files in
+  `packages/cli/src/public-api/v1/handlers/log-streaming`.
 - The ordinary Playwright API helper and the specs in
   `packages/quality/testing/playwright/tests/e2e/settings/log-streaming`, for the REST API and the
   delivery.
 - The public n8n documentation of log streaming, RFC 5424 and RFC 6587 for syslog, and the public
   Sentry documentation of envelopes.
+
+## Upstream updates
+
+- The OpenAPI files of the public API and the lines in `openapi.yml`, `eslint.config.mjs` and
+  `oxlint.config.mts` are the same as upstream. Take the upstream changes.
+- When an upstream update changes `log-streaming.handler.ts`, keep the fork version, which calls
+  this module. Then make the same change of behaviour in the fork version.

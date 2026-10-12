@@ -1,4 +1,4 @@
-import { CreateDestinationDto } from '@n8n/api-types';
+import { CreateDestinationDto, PublicDestinationResponseDto } from '@n8n/api-types';
 import type { PublicCreateDestination } from '@n8n/api-types';
 import {
 	defaultMessageEventBusDestinationSentryOptions,
@@ -79,6 +79,11 @@ export function isSubscribed(subscribedEvents: readonly string[] | undefined, ev
 		const group = entry.endsWith('.') ? entry : `${entry}.`;
 		return eventName === entry || eventName.startsWith(group);
 	});
+}
+
+/** A destination as the public API gives it: with `type`, and without the internal fields. */
+export function toPublicDestination(options: DestinationOptions) {
+	return PublicDestinationResponseDto.parse({ ...options, type: PUBLIC_TYPES[options.__type] });
 }
 
 /** A destination of the public API or of the environment, as the REST API takes it. */

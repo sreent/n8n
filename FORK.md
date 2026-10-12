@@ -68,9 +68,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/cli/src/modules/audit-log/README.md](packages/cli/src/modules/audit-log/README.md)),
    the settings page of the audit log (done, see
    [packages/modules/audit-log/frontend/README.md](packages/modules/audit-log/frontend/README.md)),
-   the backend of log streaming (done, see
+   the backend of log streaming and its public API (done, see
    [packages/cli/src/modules/log-streaming/README.md](packages/cli/src/modules/log-streaming/README.md)),
-   its public API, and its settings page.
+   and its settings page.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off.
@@ -154,6 +154,9 @@ them again after each upstream update, and container CI checks that they stay de
   external secrets module, the external secrets editor or the connections editor work.
   Compare the change with the upstream change, then update the fork code or the snapshot. The
   FORK.md files there tell how to record a snapshot against the enterprise code.
+- When an upstream update changes the public API handler
+  `packages/cli/src/public-api/v1/handlers/log-streaming/log-streaming.handler.ts`, keep the fork
+  version, as `packages/cli/src/modules/log-streaming/README.md` tells.
 - When an upstream update changes `packages/cli/test/shared/external-secrets/utils.ts`, make the
   same change in `fork-providers.ts` next to it. The ordinary tests of external secrets use that
   fork copy, and the enterprise tests use `utils.ts`.
