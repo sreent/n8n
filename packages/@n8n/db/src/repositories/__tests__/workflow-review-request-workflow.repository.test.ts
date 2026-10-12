@@ -4,7 +4,7 @@ import type { Mock } from 'vitest';
 import { mock } from 'vitest-mock-extended';
 
 import { WorkflowEntity } from '../../entities/workflow-entity';
-import { WorkflowReviewRequestWorkflow } from '../../entities/workflow-review-request-workflow.ee';
+import { WorkflowReviewRequestWorkflow } from '../../entities/workflow-review-request-workflow';
 import { TypeOrmTransaction } from '../../services/typeorm-transaction';
 import { mockEntityManager } from '../../utils/test-utils/mock-entity-manager';
 import { WorkflowReviewRequestWorkflowRepository } from '../workflow-review-request-workflow.repository';

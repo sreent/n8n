@@ -4,10 +4,10 @@ import type { Mock, Mocked } from 'vitest';
 import { mock } from 'vitest-mock-extended';
 
 import { SharedWorkflow } from '../../entities/shared-workflow';
-import { WorkflowReviewRequestAuthor } from '../../entities/workflow-review-request-author.ee';
-import { WorkflowReviewRequestReviewer } from '../../entities/workflow-review-request-reviewer.ee';
-import { WorkflowReviewRequestWorkflow } from '../../entities/workflow-review-request-workflow.ee';
-import { WorkflowReviewRequest } from '../../entities/workflow-review-request.ee';
+import { WorkflowReviewRequestAuthor } from '../../entities/workflow-review-request-author';
+import { WorkflowReviewRequestReviewer } from '../../entities/workflow-review-request-reviewer';
+import { WorkflowReviewRequestWorkflow } from '../../entities/workflow-review-request-workflow';
+import { WorkflowReviewRequest } from '../../entities/workflow-review-request';
 import { TypeOrmTransaction } from '../../services/typeorm-transaction';
 import { mockEntityManager } from '../../utils/test-utils/mock-entity-manager';
 import {

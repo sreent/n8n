@@ -11,8 +11,8 @@ import { Service } from '@n8n/di';
 import { DataSource, In, LessThan } from '@n8n/typeorm';
 
 import { BaseRepository } from './base-repository';
-import { WorkflowReviewActivityComment } from '../entities/workflow-review-activity-comment.ee';
-import { WorkflowReviewActivity } from '../entities/workflow-review-activity.ee';
+import { WorkflowReviewActivityComment } from '../entities/workflow-review-activity-comment';
+import { WorkflowReviewActivity } from '../entities/workflow-review-activity';
 import { type OperationContext, TransactionRunner } from '../services/transaction';
 
 export type WorkflowReviewActivityFeedEntry = {

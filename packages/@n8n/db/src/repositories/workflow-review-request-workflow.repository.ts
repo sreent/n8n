@@ -3,11 +3,11 @@ import { DataSource } from '@n8n/typeorm';
 
 import { BaseRepository } from './base-repository';
 import { WorkflowEntity } from '../entities/workflow-entity';
-import { WorkflowReviewRequestWorkflow } from '../entities/workflow-review-request-workflow.ee';
+import { WorkflowReviewRequestWorkflow } from '../entities/workflow-review-request-workflow';
 import {
 	WorkflowReviewRequest,
 	type WorkflowReviewRequestState,
-} from '../entities/workflow-review-request.ee';
+} from '../entities/workflow-review-request';
 import { type OperationContext, TransactionRunner } from '../services/transaction';
 
 /** The review's linked workflow as shown in cross-request lists (inbox). */

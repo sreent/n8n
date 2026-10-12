@@ -5,8 +5,8 @@ import { DiffMetaData, DiffRule, groupWorkflows, SKIP_RULES } from 'n8n-workflow
 import { WorkflowHistory, WorkflowEntity, WorkflowPublishedVersion } from '../entities';
 import { BaseRepository } from './base-repository';
 import { WorkflowPublishHistoryRepository } from './workflow-publish-history.repository';
-import { WorkflowReviewRequestWorkflow } from '../entities/workflow-review-request-workflow.ee';
-import { WorkflowReviewRequest } from '../entities/workflow-review-request.ee';
+import { WorkflowReviewRequestWorkflow } from '../entities/workflow-review-request-workflow';
+import { WorkflowReviewRequest } from '../entities/workflow-review-request';
 import type { OperationContext } from '../services/transaction';
 import { TransactionRunner } from '../services/transaction';
 

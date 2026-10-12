@@ -1,11 +1,13 @@
-import { Entity, Index, PrimaryColumn } from '@n8n/typeorm';
+import { Entity, PrimaryColumn } from '@n8n/typeorm';
 
+/**
+ * Fork code (not in upstream n8n): a user who reviews a review request. See `./FORK.md`.
+ */
 @Entity({ name: 'workflow_review_request_reviewers' })
-@Index('IDX_workflow_review_request_reviewers_user', ['userId', 'workflowReviewRequestId'])
 export class WorkflowReviewRequestReviewer {
 	@PrimaryColumn({ type: 'varchar', length: 36 })
 	workflowReviewRequestId: string;
 
-	@PrimaryColumn({ type: 'uuid' })
+	@PrimaryColumn('uuid')
 	userId: string;
 }

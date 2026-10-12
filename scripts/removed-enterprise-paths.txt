@@ -47,3 +47,7 @@ packages/cli/src/controllers/__tests__/project-pool-settings.controller.ee.test.
 packages/@n8n/db/src/entities/project-pool-settings.ee.ts
 packages/@n8n/db/src/repositories/project-pool-settings.repository.ee.ts
 packages/frontend/editor-ui/src/features/settings/orchestration.ee/
+
+# The entities of the workflow review tables. The fork has its own entities with the same names
+# (packages/@n8n/db/src/entities/FORK.md).
+packages/@n8n/db/src/entities/workflow-review-*.ee.ts
