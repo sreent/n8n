@@ -178,6 +178,9 @@ SHA=$(git rev-parse --short HEAD)
 OUT=${CONTAINER_CI_OUT:-/tmp/container-ci}/$SHA
 rm -rf "$OUT" && mkdir -p "$OUT"
 FAILED=0
+# The test setup of the CLI makes a folder with a database in n8n-tests for each test file, and
+# nothing removes it. In one cloud session, repeated runs fill the disk, so remove the old folders.
+rm -rf "${TMPDIR:-/tmp}/n8n-tests"
 
 step() {
 	local name=$1
