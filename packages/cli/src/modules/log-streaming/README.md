@@ -1,8 +1,9 @@
 # Log streaming
 
 Fork module (not in upstream n8n). Log streaming sends the events of n8n to external destinations:
-a webhook, a syslog server or Sentry. The instance owner and admins manage the destinations in the
-REST API.
+a webhook, a syslog server or Sentry. The instance owner and admins manage the destinations on the
+page **Settings > Log streaming**, in the REST API and in the public API. The settings page is in
+`packages/frontend/editor-ui/src/features/integrations/logStreaming`. Its FORK.md describes it.
 
 The repository owner chose this on 2026-10-11: the fork builds an audit log and a new log
 streaming, and both are on by default, without a licence check. The audit log is the module

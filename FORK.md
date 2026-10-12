@@ -13,7 +13,9 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   n8n for 90 days, and the frontend module `packages/modules/audit-log/frontend` shows them on the
   page Settings > Audit log. Their READMEs describe them.
 - **Log streaming**: the backend module `packages/cli/src/modules/log-streaming` sends the events
-  of n8n to webhook, syslog and Sentry destinations. Its README describes it.
+  of n8n to webhook, syslog and Sentry destinations, and the page Settings > Log streaming
+  (`packages/frontend/editor-ui/src/features/integrations/logStreaming`) manages them. The README
+  of the module and the FORK.md of the page describe them.
 - `deploy/`: runs the fork on a Linux server with Docker Compose.
 - `vendor/`: the wa-sqlite package that the editor app installs. Upstream installs it from
   GitHub, which a cloud session cannot do. `scripts/vendor-wa-sqlite.sh` packs it from the
@@ -70,7 +72,8 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/modules/audit-log/frontend/README.md](packages/modules/audit-log/frontend/README.md)),
    the backend of log streaming and its public API (done, see
    [packages/cli/src/modules/log-streaming/README.md](packages/cli/src/modules/log-streaming/README.md)),
-   and its settings page.
+   and its settings page (done, see
+   [the FORK.md of the page](packages/frontend/editor-ui/src/features/integrations/logStreaming/FORK.md)).
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off.
