@@ -60,10 +60,11 @@ flowchart LR
   or `*` for all events.
 - The module confirms a message when each destination that takes it delivered it. It confirms a
   message that no destination takes at once.
-- A message that a destination did not take stays unconfirmed in the event log. The event bus
-  sends it again at the next start of the process, and also every
-  `N8N_EVENTBUS_CHECKUNSENTINTERVAL` milliseconds when this variable is set. The delivery is thus
-  "at least once": a destination can get an event two times.
+- A message that a destination did not take stays unconfirmed in the event log of the process.
+  The event bus sends it again every `N8N_EVENTBUS_CHECKUNSENTINTERVAL` milliseconds when this
+  variable is set. A main instance also sends it again at its next start (see the limits for the
+  other processes). The delivery is thus "at least once": a destination can get an event two
+  times.
 - Each destination has a circuit breaker. The defaults come from `@n8n/constants`: after 5
   failures in 1 minute, the destination stops the deliveries for 3 minutes. Then it tries again
   with 1 delivery at a time, and 2 successes close the circuit. The option `circuitBreaker` of a
