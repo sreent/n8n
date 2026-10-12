@@ -9,7 +9,7 @@ import { generateNanoId, ProjectRepository, VariablesRepository } from '@n8n/db'
 import { Container } from '@n8n/di';
 import { jsonParse } from 'n8n-workflow';
 
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import { VariablesService } from '@/environments/variables/variables.service';
 import type { RelayEventMap } from '@/events/maps/relay.event-map';
 import { createMember, createOwner } from '@test-integration/db/users';
 import { createProjectVariable, createVariable } from '@test-integration/db/variables';

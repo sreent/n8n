@@ -10,7 +10,7 @@ import type { Project, User } from '@n8n/db';
 import { VariablesRepository, WorkflowRepository } from '@n8n/db';
 import { Container } from '@n8n/di';
 
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import { VariablesService } from '@/environments/variables/variables.service';
 import { type ConflictError, ForbiddenError } from '@n8n/errors';
 import { VariableCountLimitReachedError } from '@/errors/variable-count-limit-reached.error';
 import { WorkflowCreationService } from '@/workflows/workflow-creation.service';

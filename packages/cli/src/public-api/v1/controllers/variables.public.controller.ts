@@ -34,7 +34,7 @@ import {
 	paginateArray,
 	resolveOffsetPagination,
 } from '@/public-api/v1/shared/services/pagination.service';
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import { VariablesService } from '@/environments/variables/variables.service';
 
 const tags = ['Variables'];
 

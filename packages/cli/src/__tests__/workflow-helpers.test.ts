@@ -14,7 +14,7 @@ import type {
 	RelatedExecution,
 } from 'n8n-workflow';
 
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import { VariablesService } from '@/environments/variables/variables.service';
 import { ExecutionPersistence } from '@/executions/execution-persistence';
 import { NodeTypes } from '@/node-types';
 import { OwnershipService } from '@/services/ownership.service';

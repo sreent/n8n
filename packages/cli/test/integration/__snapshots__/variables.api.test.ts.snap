@@ -1,0 +1,5151 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`edge cases > deletes unknown variables, and orders the checks 1`] = `
+{
+  "duplicateInProjectWithZeroQuota": {
+    "body": {
+      "code": 400,
+      "message": "Variables limit reached",
+    },
+    "status": 400,
+  },
+  "duplicateWithZeroQuota": {
+    "body": {
+      "code": 400,
+      "message": "Variables limit reached",
+    },
+    "status": 400,
+  },
+  "events": [],
+  "memberCreatesGlobalWithZeroQuota": {
+    "body": {
+      "code": 403,
+      "message": "You are not allowed to create a variable",
+    },
+    "status": 403,
+  },
+  "memberDeletesUnknown": {
+    "body": {
+      "code": 403,
+      "message": "You are not allowed to delete this variable",
+    },
+    "status": 403,
+  },
+  "memberGetsUnknown": {
+    "body": {
+      "code": 404,
+      "message": "Variable with id unknown not found",
+    },
+    "status": 404,
+  },
+  "memberUpdatesUnknown": {
+    "body": {
+      "code": 404,
+      "message": "Variable with id unknown not found",
+    },
+    "status": 404,
+  },
+  "moveGlobalIntoProjectWithItsKey": {
+    "body": {
+      "code": 400,
+      "message": "A variable with key "IN_A" already exists in the specified project",
+    },
+    "status": 400,
+  },
+  "projectAdminDeletesUnknown": {
+    "body": {
+      "code": 403,
+      "message": "You are not allowed to delete this variable",
+    },
+    "status": 403,
+  },
+  "renameInProjectToGlobalKey": {
+    "body": {
+      "code": 400,
+      "message": "A variable with key "SHARED" already exists in the specified project",
+    },
+    "status": 400,
+  },
+  "unknownProjectWithZeroQuota": {
+    "body": {
+      "code": 403,
+      "message": "You are not allowed to create a variable in this project",
+    },
+    "status": 403,
+  },
+}
+`;
+
+exports[`edge cases > keeps an old key that starts with a number, and checks keys in the service 1`] = `
+{
+  "cache": [
+    {
+      "id": "<id 20 (16 chars)>",
+      "key": "1KEY",
+      "project": null,
+      "type": "string",
+      "value": "x",
+    },
+    {
+      "id": "<id 19 (16 chars)>",
+      "key": "BAD-KEY",
+      "project": null,
+      "type": "string",
+      "value": "x",
+    },
+    {
+      "id": "<id 21 (16 chars)>",
+      "key": "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+      "project": null,
+      "type": "string",
+      "value": "x",
+    },
+    {
+      "id": "<old>",
+      "key": "VALID",
+      "project": null,
+      "type": "string",
+      "value": "v",
+    },
+  ],
+  "keepKey": {
+    "body": {
+      "data": {
+        "id": "<old>",
+        "key": "1OLD",
+        "project": null,
+        "type": "string",
+        "value": "kept",
+      },
+    },
+    "status": 200,
+  },
+  "renameToNumber": {
+    "body": {
+      "code": 400,
+      "message": "When changing the variable key, it can only contain letters, numbers, and underscores (A-Za-z0-9_). Existing keys that don't follow this rule can be kept as-is for backwards-compatibility",
+    },
+    "status": 400,
+  },
+  "renameToValid": {
+    "body": {
+      "data": {
+        "id": "<old>",
+        "key": "VALID",
+        "project": null,
+        "type": "string",
+        "value": "v",
+      },
+    },
+    "status": 200,
+  },
+  "serviceCreatesInvalidKey": {
+    "result": {
+      "id": "<id 19 (16 chars)>",
+      "key": "BAD-KEY",
+      "project": null,
+      "type": "string",
+      "value": "x",
+    },
+  },
+  "serviceCreatesLongKey": {
+    "result": {
+      "id": "<id 21 (16 chars)>",
+      "key": "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+      "project": null,
+      "type": "string",
+      "value": "x",
+    },
+  },
+  "serviceCreatesNumberKey": {
+    "result": {
+      "id": "<id 20 (16 chars)>",
+      "key": "1KEY",
+      "project": null,
+      "type": "string",
+      "value": "x",
+    },
+  },
+  "serviceUpdatesInvalidKey": {
+    "error": "VariableValidationError",
+    "message": "When changing the variable key, it can only contain letters, numbers, and underscores (A-Za-z0-9_). Existing keys that don't follow this rule can be kept as-is for backwards-compatibility",
+  },
+  "valueOnly": {
+    "body": {
+      "data": {
+        "id": "<old>",
+        "key": "1OLD",
+        "project": null,
+        "type": "string",
+        "value": "v",
+      },
+    },
+    "status": 200,
+  },
+}
+`;
+
+exports[`the variables service > creates, updates and deletes variables 1`] = `
+{
+  "cache": [
+    {
+      "id": "<id 24 (16 chars)>",
+      "key": "CREATED",
+      "project": null,
+      "type": "string",
+      "value": "x",
+    },
+    {
+      "id": "<id 25 (16 chars)>",
+      "key": "CREATED_A",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project A>",
+        "name": "Project A",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "x",
+    },
+    {
+      "id": "<empty>",
+      "key": "EMPTY",
+      "project": null,
+      "type": "string",
+      "value": "",
+    },
+    {
+      "id": "<inA>",
+      "key": "IN_A",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project A>",
+        "name": "Project A",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "value in A",
+    },
+    {
+      "id": "<shared>",
+      "key": "SHARED",
+      "project": null,
+      "type": "string",
+      "value": "global shared",
+    },
+    {
+      "id": "<sharedInA>",
+      "key": "SHARED",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project A>",
+        "name": "Project A",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "shared in A",
+    },
+  ],
+  "create": {
+    "result": {
+      "id": "<id 24 (16 chars)>",
+      "key": "CREATED",
+      "project": null,
+      "type": "string",
+      "value": "x",
+    },
+  },
+  "createAsMember": {
+    "error": "ForbiddenError",
+    "message": "You are not allowed to create a variable",
+  },
+  "createDuplicate": {
+    "error": "VariableCountLimitReachedError",
+    "message": "A global variable with key "GLOBAL" already exists",
+  },
+  "createInA": {
+    "result": {
+      "id": "<id 25 (16 chars)>",
+      "key": "CREATED_A",
+      "project": {
+        "id": "<project A>",
+      },
+      "projectId": "<project A>",
+      "type": "string",
+      "value": "x",
+    },
+  },
+  "deleteAsEditor": {
+    "error": "ForbiddenError",
+    "message": "You are not allowed to delete this variable",
+  },
+  "deleteByIds": {
+    "result": undefined,
+  },
+  "deleteForUser": {
+    "result": undefined,
+  },
+  "deleteUnknown": {
+    "result": undefined,
+  },
+  "events": [
+    [
+      "variable-created",
+      {
+        "user": "<owner>",
+        "variableId": "<id 24 (16 chars)>",
+        "variableKey": "CREATED",
+      },
+    ],
+    [
+      "variable-created",
+      {
+        "projectId": "<project A>",
+        "user": "<project editor>",
+        "variableId": "<id 25 (16 chars)>",
+        "variableKey": "CREATED_A",
+      },
+    ],
+    [
+      "variable-updated",
+      {
+        "user": "<owner>",
+        "variableId": "<global>",
+        "variableKey": "GLOBAL",
+      },
+    ],
+    [
+      "variable-deleted",
+      {
+        "projectId": "<project B>",
+        "user": "<owner>",
+        "variableId": "<inB>",
+        "variableKey": "IN_B",
+      },
+    ],
+    [
+      "variable-deleted",
+      {
+        "user": "<owner>",
+        "variableId": "<id 26 (7 chars)>",
+        "variableKey": "",
+      },
+    ],
+  ],
+  "update": {
+    "result": {
+      "id": "<global>",
+      "key": "GLOBAL",
+      "project": null,
+      "type": "string",
+      "value": "updated",
+    },
+  },
+  "updateAsViewer": {
+    "error": "ForbiddenError",
+    "message": "You are not allowed to update this variable",
+  },
+  "updateUnknown": {
+    "error": "NotFoundError",
+    "message": "Variable with id unknown not found",
+  },
+}
+`;
+
+exports[`the variables service > lists the variables of a user 1`] = `
+{
+  "admin": {
+    "all": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<inB>",
+          "key": "IN_B",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project B>",
+            "name": "Project B",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in B",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+    "empty": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      ],
+    },
+    "global": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+      ],
+    },
+    "inA": {
+      "result": [
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+  },
+  "member": {
+    "all": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+      ],
+    },
+    "empty": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      ],
+    },
+    "global": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+      ],
+    },
+    "inA": {
+      "result": [],
+    },
+  },
+  "owner": {
+    "all": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<inB>",
+          "key": "IN_B",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project B>",
+            "name": "Project B",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in B",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+    "empty": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      ],
+    },
+    "global": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+      ],
+    },
+    "inA": {
+      "result": [
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+  },
+  "projectAdmin": {
+    "all": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+    "empty": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      ],
+    },
+    "global": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+      ],
+    },
+    "inA": {
+      "result": [
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+  },
+  "projectEditor": {
+    "all": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+    "empty": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      ],
+    },
+    "global": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+      ],
+    },
+    "inA": {
+      "result": [
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+  },
+  "projectViewer": {
+    "all": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+    "empty": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      ],
+    },
+    "global": {
+      "result": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+      ],
+    },
+    "inA": {
+      "result": [
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`the variables service > reads the variables from the cache 1`] = `
+{
+  "afterUpdateCache": {
+    "result": [
+      {
+        "id": "<direct>",
+        "key": "DIRECT",
+        "project": null,
+        "type": "string",
+        "value": "direct",
+      },
+      {
+        "id": "<empty>",
+        "key": "EMPTY",
+        "project": null,
+        "type": "string",
+        "value": "",
+      },
+      {
+        "id": "<global>",
+        "key": "GLOBAL",
+        "project": null,
+        "type": "string",
+        "value": "global value",
+      },
+      {
+        "id": "<inA>",
+        "key": "IN_A",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in A",
+      },
+      {
+        "id": "<inB>",
+        "key": "IN_B",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project B>",
+          "name": "Project B",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in B",
+      },
+      {
+        "id": "<shared>",
+        "key": "SHARED",
+        "project": null,
+        "type": "string",
+        "value": "global shared",
+      },
+      {
+        "id": "<sharedInA>",
+        "key": "SHARED",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "shared in A",
+      },
+    ],
+  },
+  "allCached": {
+    "result": [
+      {
+        "id": "<empty>",
+        "key": "EMPTY",
+        "project": null,
+        "type": "string",
+        "value": "",
+      },
+      {
+        "id": "<global>",
+        "key": "GLOBAL",
+        "project": null,
+        "type": "string",
+        "value": "global value",
+      },
+      {
+        "id": "<inA>",
+        "key": "IN_A",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in A",
+      },
+      {
+        "id": "<inB>",
+        "key": "IN_B",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project B>",
+          "name": "Project B",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in B",
+      },
+      {
+        "id": "<shared>",
+        "key": "SHARED",
+        "project": null,
+        "type": "string",
+        "value": "global shared",
+      },
+      {
+        "id": "<sharedInA>",
+        "key": "SHARED",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "shared in A",
+      },
+    ],
+  },
+  "beforeUpdateCache": {
+    "result": [
+      {
+        "id": "<empty>",
+        "key": "EMPTY",
+        "project": null,
+        "type": "string",
+        "value": "",
+      },
+      {
+        "id": "<global>",
+        "key": "GLOBAL",
+        "project": null,
+        "type": "string",
+        "value": "global value",
+      },
+      {
+        "id": "<inA>",
+        "key": "IN_A",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in A",
+      },
+      {
+        "id": "<inB>",
+        "key": "IN_B",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project B>",
+          "name": "Project B",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in B",
+      },
+      {
+        "id": "<shared>",
+        "key": "SHARED",
+        "project": null,
+        "type": "string",
+        "value": "global shared",
+      },
+      {
+        "id": "<sharedInA>",
+        "key": "SHARED",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "shared in A",
+      },
+    ],
+  },
+  "cachedGlobal": {
+    "result": {
+      "id": "<global>",
+      "key": "GLOBAL",
+      "project": null,
+      "type": "string",
+      "value": "global value",
+    },
+  },
+  "cachedInA": {
+    "result": {
+      "id": "<inA>",
+      "key": "IN_A",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project A>",
+        "name": "Project A",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "value in A",
+    },
+  },
+  "cachedUnknown": {
+    "result": null,
+  },
+  "events": [],
+}
+`;
+
+exports[`with the licence feature > counts the variables against the quota 1`] = `
+{
+  "afterTwo": {
+    "result": {
+      "limit": 3,
+      "remaining": 1,
+    },
+  },
+  "createWithZero": {
+    "body": {
+      "code": 400,
+      "message": "Variables limit reached",
+    },
+    "status": 400,
+  },
+  "emptyQuota": {
+    "result": {
+      "limit": 3,
+      "remaining": 3,
+    },
+  },
+  "events": [
+    [
+      "variable-created",
+      {
+        "user": "<owner>",
+        "variableId": "<id 18 (16 chars)>",
+        "variableKey": "FIRST",
+      },
+    ],
+    [
+      "variable-created",
+      {
+        "projectId": "<project A>",
+        "user": "<owner>",
+        "variableId": "<id 19 (16 chars)>",
+        "variableKey": "SECOND",
+      },
+    ],
+    [
+      "variable-created",
+      {
+        "user": "<owner>",
+        "variableId": "<id 20 (16 chars)>",
+        "variableKey": "THIRD",
+      },
+    ],
+    [
+      "variable-updated",
+      {
+        "user": "<owner>",
+        "variableId": "<id 18 (16 chars)>",
+        "variableKey": "FIRST",
+      },
+    ],
+  ],
+  "first": {
+    "body": {
+      "data": {
+        "id": "<id 18 (16 chars)>",
+        "key": "FIRST",
+        "project": null,
+        "type": "string",
+        "value": "x",
+      },
+    },
+    "status": 200,
+  },
+  "fourth": {
+    "body": {
+      "code": 400,
+      "message": "Variables limit reached",
+    },
+    "status": 400,
+  },
+  "fourthInProject": {
+    "body": {
+      "code": 400,
+      "message": "Variables limit reached",
+    },
+    "status": 400,
+  },
+  "full": {
+    "result": {
+      "limit": 3,
+      "remaining": 0,
+    },
+  },
+  "overQuota": {
+    "result": {
+      "limit": 2,
+      "remaining": 0,
+    },
+  },
+  "second": {
+    "body": {
+      "data": {
+        "id": "<id 19 (16 chars)>",
+        "key": "SECOND",
+        "project": {
+          "id": "<project A>",
+        },
+        "projectId": "<project A>",
+        "type": "string",
+        "value": "x",
+      },
+    },
+    "status": 200,
+  },
+  "third": {
+    "body": {
+      "data": {
+        "id": "<id 20 (16 chars)>",
+        "key": "THIRD",
+        "project": null,
+        "type": "string",
+        "value": "x",
+      },
+    },
+    "status": 200,
+  },
+  "unlimited": {
+    "result": null,
+  },
+  "updateWhenFull": {
+    "body": {
+      "data": {
+        "id": "<id 18 (16 chars)>",
+        "key": "FIRST",
+        "project": null,
+        "type": "string",
+        "value": "y",
+      },
+    },
+    "status": 200,
+  },
+  "zeroQuota": {
+    "result": {
+      "limit": 0,
+      "remaining": 0,
+    },
+  },
+}
+`;
+
+exports[`with the licence feature > creates variables, and checks the input 1`] = `
+{
+  "cache": [
+    {
+      "id": "<id 20 (16 chars)>",
+      "key": "EMPTY_VALUE",
+      "project": null,
+      "type": "string",
+      "value": "",
+    },
+    {
+      "id": "<id 18 (16 chars)>",
+      "key": "GOOD",
+      "project": null,
+      "type": "string",
+      "value": "good value",
+    },
+    {
+      "id": "<id 22 (16 chars)>",
+      "key": "GOOD",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project A>",
+        "name": "Project A",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "in A",
+    },
+    {
+      "id": "<id 23 (16 chars)>",
+      "key": "IN_A",
+      "project": null,
+      "type": "string",
+      "value": "global",
+    },
+    {
+      "id": "<id 21 (16 chars)>",
+      "key": "IN_A",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project A>",
+        "name": "Project A",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "in A",
+    },
+    {
+      "id": "<id 25 (16 chars)>",
+      "key": "MAX_VALUE",
+      "project": null,
+      "type": "string",
+      "value": "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv",
+    },
+    {
+      "id": "<id 24 (16 chars)>",
+      "key": "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+      "project": null,
+      "type": "string",
+      "value": "x",
+    },
+    {
+      "id": "<id 26 (16 chars)>",
+      "key": "PERSONAL",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": "<owner>",
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<personal project of owner>",
+        "name": "<name of owner>",
+        "type": "personal",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "x",
+    },
+    {
+      "id": "<id 19 (16 chars)>",
+      "key": "TYPED",
+      "project": null,
+      "type": "string",
+      "value": "typed",
+    },
+  ],
+  "duplicateGlobal": {
+    "body": {
+      "code": 400,
+      "message": "A global variable with key "GOOD" already exists",
+    },
+    "status": 400,
+  },
+  "duplicateInProject": {
+    "body": {
+      "code": 400,
+      "message": "A variable with key "IN_A" already exists in the specified project",
+    },
+    "status": 400,
+  },
+  "emptyKey": {
+    "body": {
+      "code": "too_small",
+      "exact": false,
+      "inclusive": true,
+      "message": "key must be at least 1 character long",
+      "minimum": 1,
+      "path": [
+        "key",
+      ],
+      "type": "string",
+    },
+    "status": 400,
+  },
+  "emptyValue": {
+    "body": {
+      "data": {
+        "id": "<id 20 (16 chars)>",
+        "key": "EMPTY_VALUE",
+        "project": null,
+        "type": "string",
+        "value": "",
+      },
+    },
+    "status": 200,
+  },
+  "events": [
+    [
+      "variable-created",
+      {
+        "user": "<owner>",
+        "variableId": "<id 23 (16 chars)>",
+        "variableKey": "IN_A",
+      },
+    ],
+    [
+      "variable-created",
+      {
+        "user": "<owner>",
+        "variableId": "<id 24 (16 chars)>",
+        "variableKey": "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+      },
+    ],
+    [
+      "variable-created",
+      {
+        "user": "<owner>",
+        "variableId": "<id 25 (16 chars)>",
+        "variableKey": "MAX_VALUE",
+      },
+    ],
+    [
+      "variable-created",
+      {
+        "projectId": "<personal project of owner>",
+        "user": "<owner>",
+        "variableId": "<id 26 (16 chars)>",
+        "variableKey": "PERSONAL",
+      },
+    ],
+  ],
+  "eventsOfCreates": [
+    [
+      "variable-created",
+      {
+        "user": "<owner>",
+        "variableId": "<id 18 (16 chars)>",
+        "variableKey": "GOOD",
+      },
+    ],
+    [
+      "variable-created",
+      {
+        "user": "<owner>",
+        "variableId": "<id 19 (16 chars)>",
+        "variableKey": "TYPED",
+      },
+    ],
+    [
+      "variable-created",
+      {
+        "user": "<owner>",
+        "variableId": "<id 20 (16 chars)>",
+        "variableKey": "EMPTY_VALUE",
+      },
+    ],
+    [
+      "variable-created",
+      {
+        "projectId": "<project A>",
+        "user": "<owner>",
+        "variableId": "<id 21 (16 chars)>",
+        "variableKey": "IN_A",
+      },
+    ],
+    [
+      "variable-created",
+      {
+        "projectId": "<project A>",
+        "user": "<owner>",
+        "variableId": "<id 22 (16 chars)>",
+        "variableKey": "GOOD",
+      },
+    ],
+  ],
+  "global": {
+    "body": {
+      "data": {
+        "id": "<id 18 (16 chars)>",
+        "key": "GOOD",
+        "project": null,
+        "type": "string",
+        "value": "good value",
+      },
+    },
+    "status": 200,
+  },
+  "globalKeyOfProjectVariable": {
+    "body": {
+      "data": {
+        "id": "<id 23 (16 chars)>",
+        "key": "IN_A",
+        "project": null,
+        "type": "string",
+        "value": "global",
+      },
+    },
+    "status": 200,
+  },
+  "inProject": {
+    "body": {
+      "data": {
+        "id": "<id 21 (16 chars)>",
+        "key": "IN_A",
+        "project": {
+          "id": "<project A>",
+        },
+        "projectId": "<project A>",
+        "type": "string",
+        "value": "in A",
+      },
+    },
+    "status": 200,
+  },
+  "invalidCharacter": {
+    "body": {
+      "code": "invalid_string",
+      "message": "key can only contain letters, numbers (not as first character), and underscores (A-Za-z0-9_)",
+      "path": [
+        "key",
+      ],
+      "validation": "regex",
+    },
+    "status": 400,
+  },
+  "longKey": {
+    "body": {
+      "code": "too_big",
+      "exact": false,
+      "inclusive": true,
+      "maximum": 50,
+      "message": "key cannot be longer than 50 characters",
+      "path": [
+        "key",
+      ],
+      "type": "string",
+    },
+    "status": 400,
+  },
+  "longProjectId": {
+    "body": {
+      "code": "too_big",
+      "exact": false,
+      "inclusive": true,
+      "maximum": 36,
+      "message": "String must contain at most 36 character(s)",
+      "path": [
+        "projectId",
+      ],
+      "type": "string",
+    },
+    "status": 400,
+  },
+  "longValue": {
+    "body": {
+      "code": "too_big",
+      "exact": false,
+      "inclusive": true,
+      "maximum": 1000,
+      "message": "value cannot be longer than 1000 characters",
+      "path": [
+        "value",
+      ],
+      "type": "string",
+    },
+    "status": 400,
+  },
+  "maxKey": {
+    "body": {
+      "data": {
+        "id": "<id 24 (16 chars)>",
+        "key": "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+        "project": null,
+        "type": "string",
+        "value": "x",
+      },
+    },
+    "status": 200,
+  },
+  "maxValue": {
+    "body": {
+      "data": {
+        "id": "<id 25 (16 chars)>",
+        "key": "MAX_VALUE",
+        "project": null,
+        "type": "string",
+        "value": "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv",
+      },
+    },
+    "status": 200,
+  },
+  "missingKey": {
+    "body": {
+      "code": "invalid_type",
+      "expected": "string",
+      "message": "Required",
+      "path": [
+        "key",
+      ],
+      "received": "undefined",
+    },
+    "status": 400,
+  },
+  "missingValue": {
+    "body": {
+      "code": "invalid_type",
+      "expected": "string",
+      "message": "Required",
+      "path": [
+        "value",
+      ],
+      "received": "undefined",
+    },
+    "status": 400,
+  },
+  "nullProjectId": {
+    "body": {
+      "code": "invalid_type",
+      "expected": "string",
+      "message": "Expected string, received null",
+      "path": [
+        "projectId",
+      ],
+      "received": "null",
+    },
+    "status": 400,
+  },
+  "otherType": {
+    "body": {
+      "code": "invalid_enum_value",
+      "message": "Invalid enum value. Expected 'string', received 'number'",
+      "options": [
+        "string",
+      ],
+      "path": [
+        "type",
+      ],
+      "received": "number",
+    },
+    "status": 400,
+  },
+  "personalProject": {
+    "body": {
+      "data": {
+        "id": "<id 26 (16 chars)>",
+        "key": "PERSONAL",
+        "project": {
+          "id": "<personal project of owner>",
+        },
+        "projectId": "<personal project of owner>",
+        "type": "string",
+        "value": "x",
+      },
+    },
+    "status": 200,
+  },
+  "sameKeyInProject": {
+    "body": {
+      "data": {
+        "id": "<id 22 (16 chars)>",
+        "key": "GOOD",
+        "project": {
+          "id": "<project A>",
+        },
+        "projectId": "<project A>",
+        "type": "string",
+        "value": "in A",
+      },
+    },
+    "status": 200,
+  },
+  "startsWithNumber": {
+    "body": {
+      "code": "invalid_string",
+      "message": "key can only contain letters, numbers (not as first character), and underscores (A-Za-z0-9_)",
+      "path": [
+        "key",
+      ],
+      "validation": "regex",
+    },
+    "status": 400,
+  },
+  "unknownProject": {
+    "body": {
+      "code": 403,
+      "message": "You are not allowed to create a variable in this project",
+    },
+    "status": 403,
+  },
+  "withType": {
+    "body": {
+      "data": {
+        "id": "<id 19 (16 chars)>",
+        "key": "TYPED",
+        "project": null,
+        "type": "string",
+        "value": "typed",
+      },
+    },
+    "status": 200,
+  },
+}
+`;
+
+exports[`with the licence feature > deletes variables 1`] = `
+{
+  "again": {
+    "body": {
+      "data": true,
+    },
+    "status": 200,
+  },
+  "cache": [
+    {
+      "id": "<empty>",
+      "key": "EMPTY",
+      "project": null,
+      "type": "string",
+      "value": "",
+    },
+    {
+      "id": "<inB>",
+      "key": "IN_B",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project B>",
+        "name": "Project B",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "value in B",
+    },
+    {
+      "id": "<shared>",
+      "key": "SHARED",
+      "project": null,
+      "type": "string",
+      "value": "global shared",
+    },
+    {
+      "id": "<sharedInA>",
+      "key": "SHARED",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project A>",
+        "name": "Project A",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "shared in A",
+    },
+  ],
+  "events": [
+    [
+      "variable-deleted",
+      {
+        "user": "<owner>",
+        "variableId": "<global>",
+        "variableKey": "GLOBAL",
+      },
+    ],
+    [
+      "variable-deleted",
+      {
+        "projectId": "<project A>",
+        "user": "<owner>",
+        "variableId": "<inA>",
+        "variableKey": "IN_A",
+      },
+    ],
+    [
+      "variable-deleted",
+      {
+        "user": "<owner>",
+        "variableId": "<global>",
+        "variableKey": "",
+      },
+    ],
+    [
+      "variable-deleted",
+      {
+        "user": "<owner>",
+        "variableId": "<id 24 (7 chars)>",
+        "variableKey": "",
+      },
+    ],
+  ],
+  "global": {
+    "body": {
+      "data": true,
+    },
+    "status": 200,
+  },
+  "inProject": {
+    "body": {
+      "data": true,
+    },
+    "status": 200,
+  },
+  "unknown": {
+    "body": {
+      "data": true,
+    },
+    "status": 200,
+  },
+}
+`;
+
+exports[`with the licence feature > lets each role create, update and delete 1`] = `
+{
+  "admin": {
+    "cache": [
+      {
+        "id": "<empty>",
+        "key": "EMPTY",
+        "project": null,
+        "type": "string",
+        "value": "",
+      },
+      {
+        "id": "<id 33 (16 chars)>",
+        "key": "NEW",
+        "project": null,
+        "type": "string",
+        "value": "x",
+      },
+      {
+        "id": "<id 34 (16 chars)>",
+        "key": "NEW_A",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "x",
+      },
+      {
+        "id": "<id 35 (16 chars)>",
+        "key": "NEW_B",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project B>",
+          "name": "Project B",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "x",
+      },
+      {
+        "id": "<shared>",
+        "key": "SHARED",
+        "project": null,
+        "type": "string",
+        "value": "global shared",
+      },
+      {
+        "id": "<sharedInA>",
+        "key": "SHARED",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "shared in A",
+      },
+    ],
+    "createGlobal": {
+      "body": {
+        "data": {
+          "id": "<id 33 (16 chars)>",
+          "key": "NEW",
+          "project": null,
+          "type": "string",
+          "value": "x",
+        },
+      },
+      "status": 200,
+    },
+    "createInA": {
+      "body": {
+        "data": {
+          "id": "<id 34 (16 chars)>",
+          "key": "NEW_A",
+          "project": {
+            "id": "<project A>",
+          },
+          "projectId": "<project A>",
+          "type": "string",
+          "value": "x",
+        },
+      },
+      "status": 200,
+    },
+    "createInB": {
+      "body": {
+        "data": {
+          "id": "<id 35 (16 chars)>",
+          "key": "NEW_B",
+          "project": {
+            "id": "<project B>",
+          },
+          "projectId": "<project B>",
+          "type": "string",
+          "value": "x",
+        },
+      },
+      "status": 200,
+    },
+    "deleteGlobal": {
+      "body": {
+        "data": true,
+      },
+      "status": 200,
+    },
+    "deleteInA": {
+      "body": {
+        "data": true,
+      },
+      "status": 200,
+    },
+    "deleteInB": {
+      "body": {
+        "data": true,
+      },
+      "status": 200,
+    },
+    "events": [
+      [
+        "variable-created",
+        {
+          "user": "<admin>",
+          "variableId": "<id 33 (16 chars)>",
+          "variableKey": "NEW",
+        },
+      ],
+      [
+        "variable-created",
+        {
+          "projectId": "<project A>",
+          "user": "<admin>",
+          "variableId": "<id 34 (16 chars)>",
+          "variableKey": "NEW_A",
+        },
+      ],
+      [
+        "variable-created",
+        {
+          "projectId": "<project B>",
+          "user": "<admin>",
+          "variableId": "<id 35 (16 chars)>",
+          "variableKey": "NEW_B",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "user": "<admin>",
+          "variableId": "<global>",
+          "variableKey": "GLOBAL",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "projectId": "<project A>",
+          "user": "<admin>",
+          "variableId": "<inA>",
+          "variableKey": "IN_A",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "projectId": "<project B>",
+          "user": "<admin>",
+          "variableId": "<inB>",
+          "variableKey": "IN_B",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "user": "<admin>",
+          "variableId": "<inA>",
+          "variableKey": "IN_A",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "projectId": "<project A>",
+          "user": "<admin>",
+          "variableId": "<global>",
+          "variableKey": "GLOBAL",
+        },
+      ],
+      [
+        "variable-deleted",
+        {
+          "projectId": "<project A>",
+          "user": "<admin>",
+          "variableId": "<global>",
+          "variableKey": "GLOBAL",
+        },
+      ],
+      [
+        "variable-deleted",
+        {
+          "user": "<admin>",
+          "variableId": "<inA>",
+          "variableKey": "IN_A",
+        },
+      ],
+      [
+        "variable-deleted",
+        {
+          "projectId": "<project B>",
+          "user": "<admin>",
+          "variableId": "<inB>",
+          "variableKey": "IN_B",
+        },
+      ],
+    ],
+    "moveGlobalToA": {
+      "body": {
+        "data": {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+    "moveInAToGlobal": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": null,
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+    "updateGlobal": {
+      "body": {
+        "data": {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+    "updateInA": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+    "updateInB": {
+      "body": {
+        "data": {
+          "id": "<inB>",
+          "key": "IN_B",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project B>",
+            "name": "Project B",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+  },
+  "member": {
+    "cache": [
+      {
+        "id": "<empty>",
+        "key": "EMPTY",
+        "project": null,
+        "type": "string",
+        "value": "",
+      },
+      {
+        "id": "<global>",
+        "key": "GLOBAL",
+        "project": null,
+        "type": "string",
+        "value": "global value",
+      },
+      {
+        "id": "<inA>",
+        "key": "IN_A",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in A",
+      },
+      {
+        "id": "<inB>",
+        "key": "IN_B",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project B>",
+          "name": "Project B",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in B",
+      },
+      {
+        "id": "<shared>",
+        "key": "SHARED",
+        "project": null,
+        "type": "string",
+        "value": "global shared",
+      },
+      {
+        "id": "<sharedInA>",
+        "key": "SHARED",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "shared in A",
+      },
+    ],
+    "createGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to create a variable",
+      },
+      "status": 403,
+    },
+    "createInA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to create a variable in this project",
+      },
+      "status": 403,
+    },
+    "createInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to create a variable in this project",
+      },
+      "status": 403,
+    },
+    "deleteGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to delete this variable",
+      },
+      "status": 403,
+    },
+    "deleteInA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to delete this variable",
+      },
+      "status": 403,
+    },
+    "deleteInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to delete this variable",
+      },
+      "status": 403,
+    },
+    "events": [],
+    "moveGlobalToA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "moveInAToGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "updateGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "updateInA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "updateInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+  },
+  "owner": {
+    "cache": [
+      {
+        "id": "<empty>",
+        "key": "EMPTY",
+        "project": null,
+        "type": "string",
+        "value": "",
+      },
+      {
+        "id": "<id 24 (16 chars)>",
+        "key": "NEW",
+        "project": null,
+        "type": "string",
+        "value": "x",
+      },
+      {
+        "id": "<id 25 (16 chars)>",
+        "key": "NEW_A",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "x",
+      },
+      {
+        "id": "<id 26 (16 chars)>",
+        "key": "NEW_B",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project B>",
+          "name": "Project B",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "x",
+      },
+      {
+        "id": "<shared>",
+        "key": "SHARED",
+        "project": null,
+        "type": "string",
+        "value": "global shared",
+      },
+      {
+        "id": "<sharedInA>",
+        "key": "SHARED",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "shared in A",
+      },
+    ],
+    "createGlobal": {
+      "body": {
+        "data": {
+          "id": "<id 24 (16 chars)>",
+          "key": "NEW",
+          "project": null,
+          "type": "string",
+          "value": "x",
+        },
+      },
+      "status": 200,
+    },
+    "createInA": {
+      "body": {
+        "data": {
+          "id": "<id 25 (16 chars)>",
+          "key": "NEW_A",
+          "project": {
+            "id": "<project A>",
+          },
+          "projectId": "<project A>",
+          "type": "string",
+          "value": "x",
+        },
+      },
+      "status": 200,
+    },
+    "createInB": {
+      "body": {
+        "data": {
+          "id": "<id 26 (16 chars)>",
+          "key": "NEW_B",
+          "project": {
+            "id": "<project B>",
+          },
+          "projectId": "<project B>",
+          "type": "string",
+          "value": "x",
+        },
+      },
+      "status": 200,
+    },
+    "deleteGlobal": {
+      "body": {
+        "data": true,
+      },
+      "status": 200,
+    },
+    "deleteInA": {
+      "body": {
+        "data": true,
+      },
+      "status": 200,
+    },
+    "deleteInB": {
+      "body": {
+        "data": true,
+      },
+      "status": 200,
+    },
+    "events": [
+      [
+        "variable-created",
+        {
+          "user": "<owner>",
+          "variableId": "<id 24 (16 chars)>",
+          "variableKey": "NEW",
+        },
+      ],
+      [
+        "variable-created",
+        {
+          "projectId": "<project A>",
+          "user": "<owner>",
+          "variableId": "<id 25 (16 chars)>",
+          "variableKey": "NEW_A",
+        },
+      ],
+      [
+        "variable-created",
+        {
+          "projectId": "<project B>",
+          "user": "<owner>",
+          "variableId": "<id 26 (16 chars)>",
+          "variableKey": "NEW_B",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "user": "<owner>",
+          "variableId": "<global>",
+          "variableKey": "GLOBAL",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "projectId": "<project A>",
+          "user": "<owner>",
+          "variableId": "<inA>",
+          "variableKey": "IN_A",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "projectId": "<project B>",
+          "user": "<owner>",
+          "variableId": "<inB>",
+          "variableKey": "IN_B",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "user": "<owner>",
+          "variableId": "<inA>",
+          "variableKey": "IN_A",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "projectId": "<project A>",
+          "user": "<owner>",
+          "variableId": "<global>",
+          "variableKey": "GLOBAL",
+        },
+      ],
+      [
+        "variable-deleted",
+        {
+          "projectId": "<project A>",
+          "user": "<owner>",
+          "variableId": "<global>",
+          "variableKey": "GLOBAL",
+        },
+      ],
+      [
+        "variable-deleted",
+        {
+          "user": "<owner>",
+          "variableId": "<inA>",
+          "variableKey": "IN_A",
+        },
+      ],
+      [
+        "variable-deleted",
+        {
+          "projectId": "<project B>",
+          "user": "<owner>",
+          "variableId": "<inB>",
+          "variableKey": "IN_B",
+        },
+      ],
+    ],
+    "moveGlobalToA": {
+      "body": {
+        "data": {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+    "moveInAToGlobal": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": null,
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+    "updateGlobal": {
+      "body": {
+        "data": {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+    "updateInA": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+    "updateInB": {
+      "body": {
+        "data": {
+          "id": "<inB>",
+          "key": "IN_B",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project B>",
+            "name": "Project B",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+  },
+  "projectAdmin": {
+    "cache": [
+      {
+        "id": "<empty>",
+        "key": "EMPTY",
+        "project": null,
+        "type": "string",
+        "value": "",
+      },
+      {
+        "id": "<global>",
+        "key": "GLOBAL",
+        "project": null,
+        "type": "string",
+        "value": "global value",
+      },
+      {
+        "id": "<inB>",
+        "key": "IN_B",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project B>",
+          "name": "Project B",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in B",
+      },
+      {
+        "id": "<id 48 (16 chars)>",
+        "key": "NEW_A",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "x",
+      },
+      {
+        "id": "<shared>",
+        "key": "SHARED",
+        "project": null,
+        "type": "string",
+        "value": "global shared",
+      },
+      {
+        "id": "<sharedInA>",
+        "key": "SHARED",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "shared in A",
+      },
+    ],
+    "createGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to create a variable",
+      },
+      "status": 403,
+    },
+    "createInA": {
+      "body": {
+        "data": {
+          "id": "<id 48 (16 chars)>",
+          "key": "NEW_A",
+          "project": {
+            "id": "<project A>",
+          },
+          "projectId": "<project A>",
+          "type": "string",
+          "value": "x",
+        },
+      },
+      "status": 200,
+    },
+    "createInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to create a variable in this project",
+      },
+      "status": 403,
+    },
+    "deleteGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to delete this variable",
+      },
+      "status": 403,
+    },
+    "deleteInA": {
+      "body": {
+        "data": true,
+      },
+      "status": 200,
+    },
+    "deleteInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to delete this variable",
+      },
+      "status": 403,
+    },
+    "events": [
+      [
+        "variable-created",
+        {
+          "projectId": "<project A>",
+          "user": "<project admin>",
+          "variableId": "<id 48 (16 chars)>",
+          "variableKey": "NEW_A",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "projectId": "<project A>",
+          "user": "<project admin>",
+          "variableId": "<inA>",
+          "variableKey": "IN_A",
+        },
+      ],
+      [
+        "variable-deleted",
+        {
+          "projectId": "<project A>",
+          "user": "<project admin>",
+          "variableId": "<inA>",
+          "variableKey": "IN_A",
+        },
+      ],
+    ],
+    "moveGlobalToA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "moveInAToGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to move this variable to the global scope",
+      },
+      "status": 403,
+    },
+    "updateGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "updateInA": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+    "updateInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+  },
+  "projectEditor": {
+    "cache": [
+      {
+        "id": "<empty>",
+        "key": "EMPTY",
+        "project": null,
+        "type": "string",
+        "value": "",
+      },
+      {
+        "id": "<global>",
+        "key": "GLOBAL",
+        "project": null,
+        "type": "string",
+        "value": "global value",
+      },
+      {
+        "id": "<inB>",
+        "key": "IN_B",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project B>",
+          "name": "Project B",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in B",
+      },
+      {
+        "id": "<id 55 (16 chars)>",
+        "key": "NEW_A",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "x",
+      },
+      {
+        "id": "<shared>",
+        "key": "SHARED",
+        "project": null,
+        "type": "string",
+        "value": "global shared",
+      },
+      {
+        "id": "<sharedInA>",
+        "key": "SHARED",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "shared in A",
+      },
+    ],
+    "createGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to create a variable",
+      },
+      "status": 403,
+    },
+    "createInA": {
+      "body": {
+        "data": {
+          "id": "<id 55 (16 chars)>",
+          "key": "NEW_A",
+          "project": {
+            "id": "<project A>",
+          },
+          "projectId": "<project A>",
+          "type": "string",
+          "value": "x",
+        },
+      },
+      "status": 200,
+    },
+    "createInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to create a variable in this project",
+      },
+      "status": 403,
+    },
+    "deleteGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to delete this variable",
+      },
+      "status": 403,
+    },
+    "deleteInA": {
+      "body": {
+        "data": true,
+      },
+      "status": 200,
+    },
+    "deleteInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to delete this variable",
+      },
+      "status": 403,
+    },
+    "events": [
+      [
+        "variable-created",
+        {
+          "projectId": "<project A>",
+          "user": "<project editor>",
+          "variableId": "<id 55 (16 chars)>",
+          "variableKey": "NEW_A",
+        },
+      ],
+      [
+        "variable-updated",
+        {
+          "projectId": "<project A>",
+          "user": "<project editor>",
+          "variableId": "<inA>",
+          "variableKey": "IN_A",
+        },
+      ],
+      [
+        "variable-deleted",
+        {
+          "projectId": "<project A>",
+          "user": "<project editor>",
+          "variableId": "<inA>",
+          "variableKey": "IN_A",
+        },
+      ],
+    ],
+    "moveGlobalToA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "moveInAToGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to move this variable to the global scope",
+      },
+      "status": 403,
+    },
+    "updateGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "updateInA": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "y",
+        },
+      },
+      "status": 200,
+    },
+    "updateInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+  },
+  "projectViewer": {
+    "cache": [
+      {
+        "id": "<empty>",
+        "key": "EMPTY",
+        "project": null,
+        "type": "string",
+        "value": "",
+      },
+      {
+        "id": "<global>",
+        "key": "GLOBAL",
+        "project": null,
+        "type": "string",
+        "value": "global value",
+      },
+      {
+        "id": "<inA>",
+        "key": "IN_A",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in A",
+      },
+      {
+        "id": "<inB>",
+        "key": "IN_B",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project B>",
+          "name": "Project B",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in B",
+      },
+      {
+        "id": "<shared>",
+        "key": "SHARED",
+        "project": null,
+        "type": "string",
+        "value": "global shared",
+      },
+      {
+        "id": "<sharedInA>",
+        "key": "SHARED",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "shared in A",
+      },
+    ],
+    "createGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to create a variable",
+      },
+      "status": 403,
+    },
+    "createInA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to create a variable in this project",
+      },
+      "status": 403,
+    },
+    "createInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to create a variable in this project",
+      },
+      "status": 403,
+    },
+    "deleteGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to delete this variable",
+      },
+      "status": 403,
+    },
+    "deleteInA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to delete this variable",
+      },
+      "status": 403,
+    },
+    "deleteInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to delete this variable",
+      },
+      "status": 403,
+    },
+    "events": [],
+    "moveGlobalToA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "moveInAToGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "updateGlobal": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "updateInA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+    "updateInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to update this variable",
+      },
+      "status": 403,
+    },
+  },
+}
+`;
+
+exports[`with the licence feature > lists and reads variables 1`] = `
+{
+  "admin": {
+    "getEmpty": {
+      "body": {
+        "data": {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      },
+      "status": 200,
+    },
+    "getGlobal": {
+      "body": {
+        "data": {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+      },
+      "status": 200,
+    },
+    "getInA": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+      },
+      "status": 200,
+    },
+    "getInB": {
+      "body": {
+        "data": {
+          "id": "<inB>",
+          "key": "IN_B",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project B>",
+            "name": "Project B",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in B",
+        },
+      },
+      "status": 200,
+    },
+    "getUnknown": {
+      "body": {
+        "code": 404,
+        "message": "Variable with id unknown not found",
+      },
+      "status": 404,
+    },
+    "list": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+          {
+            "id": "<global>",
+            "key": "GLOBAL",
+            "project": null,
+            "type": "string",
+            "value": "global value",
+          },
+          {
+            "id": "<inA>",
+            "key": "IN_A",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in A",
+          },
+          {
+            "id": "<inB>",
+            "key": "IN_B",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project B>",
+              "name": "Project B",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in B",
+          },
+          {
+            "id": "<shared>",
+            "key": "SHARED",
+            "project": null,
+            "type": "string",
+            "value": "global shared",
+          },
+          {
+            "id": "<sharedInA>",
+            "key": "SHARED",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "shared in A",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listEmpty": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInA": {
+      "body": {
+        "data": [
+          {
+            "id": "<inA>",
+            "key": "IN_A",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in A",
+          },
+          {
+            "id": "<sharedInA>",
+            "key": "SHARED",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "shared in A",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInB": {
+      "body": {
+        "data": [
+          {
+            "id": "<inB>",
+            "key": "IN_B",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project B>",
+              "name": "Project B",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in B",
+          },
+        ],
+      },
+      "status": 200,
+    },
+  },
+  "events": [],
+  "listNullProject": {
+    "body": {
+      "data": [],
+    },
+    "status": 200,
+  },
+  "listOtherState": {
+    "body": {
+      "code": "invalid_literal",
+      "expected": "empty",
+      "message": "Invalid literal value, expected "empty"",
+      "path": [
+        "state",
+      ],
+      "received": "full",
+    },
+    "status": 400,
+  },
+  "listUnknownProject": {
+    "body": {
+      "data": [],
+    },
+    "status": 200,
+  },
+  "member": {
+    "getEmpty": {
+      "body": {
+        "data": {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      },
+      "status": 200,
+    },
+    "getGlobal": {
+      "body": {
+        "data": {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+      },
+      "status": 200,
+    },
+    "getInA": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to access this variable",
+      },
+      "status": 403,
+    },
+    "getInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to access this variable",
+      },
+      "status": 403,
+    },
+    "getUnknown": {
+      "body": {
+        "code": 404,
+        "message": "Variable with id unknown not found",
+      },
+      "status": 404,
+    },
+    "list": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+          {
+            "id": "<global>",
+            "key": "GLOBAL",
+            "project": null,
+            "type": "string",
+            "value": "global value",
+          },
+          {
+            "id": "<shared>",
+            "key": "SHARED",
+            "project": null,
+            "type": "string",
+            "value": "global shared",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listEmpty": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInA": {
+      "body": {
+        "data": [],
+      },
+      "status": 200,
+    },
+    "listInB": {
+      "body": {
+        "data": [],
+      },
+      "status": 200,
+    },
+  },
+  "owner": {
+    "getEmpty": {
+      "body": {
+        "data": {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      },
+      "status": 200,
+    },
+    "getGlobal": {
+      "body": {
+        "data": {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+      },
+      "status": 200,
+    },
+    "getInA": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+      },
+      "status": 200,
+    },
+    "getInB": {
+      "body": {
+        "data": {
+          "id": "<inB>",
+          "key": "IN_B",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project B>",
+            "name": "Project B",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in B",
+        },
+      },
+      "status": 200,
+    },
+    "getUnknown": {
+      "body": {
+        "code": 404,
+        "message": "Variable with id unknown not found",
+      },
+      "status": 404,
+    },
+    "list": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+          {
+            "id": "<global>",
+            "key": "GLOBAL",
+            "project": null,
+            "type": "string",
+            "value": "global value",
+          },
+          {
+            "id": "<inA>",
+            "key": "IN_A",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in A",
+          },
+          {
+            "id": "<inB>",
+            "key": "IN_B",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project B>",
+              "name": "Project B",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in B",
+          },
+          {
+            "id": "<shared>",
+            "key": "SHARED",
+            "project": null,
+            "type": "string",
+            "value": "global shared",
+          },
+          {
+            "id": "<sharedInA>",
+            "key": "SHARED",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "shared in A",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listEmpty": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInA": {
+      "body": {
+        "data": [
+          {
+            "id": "<inA>",
+            "key": "IN_A",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in A",
+          },
+          {
+            "id": "<sharedInA>",
+            "key": "SHARED",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "shared in A",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInB": {
+      "body": {
+        "data": [
+          {
+            "id": "<inB>",
+            "key": "IN_B",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project B>",
+              "name": "Project B",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in B",
+          },
+        ],
+      },
+      "status": 200,
+    },
+  },
+  "projectAdmin": {
+    "getEmpty": {
+      "body": {
+        "data": {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      },
+      "status": 200,
+    },
+    "getGlobal": {
+      "body": {
+        "data": {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+      },
+      "status": 200,
+    },
+    "getInA": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+      },
+      "status": 200,
+    },
+    "getInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to access this variable",
+      },
+      "status": 403,
+    },
+    "getUnknown": {
+      "body": {
+        "code": 404,
+        "message": "Variable with id unknown not found",
+      },
+      "status": 404,
+    },
+    "list": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+          {
+            "id": "<global>",
+            "key": "GLOBAL",
+            "project": null,
+            "type": "string",
+            "value": "global value",
+          },
+          {
+            "id": "<inA>",
+            "key": "IN_A",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in A",
+          },
+          {
+            "id": "<shared>",
+            "key": "SHARED",
+            "project": null,
+            "type": "string",
+            "value": "global shared",
+          },
+          {
+            "id": "<sharedInA>",
+            "key": "SHARED",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "shared in A",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listEmpty": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInA": {
+      "body": {
+        "data": [
+          {
+            "id": "<inA>",
+            "key": "IN_A",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in A",
+          },
+          {
+            "id": "<sharedInA>",
+            "key": "SHARED",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "shared in A",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInB": {
+      "body": {
+        "data": [],
+      },
+      "status": 200,
+    },
+  },
+  "projectEditor": {
+    "getEmpty": {
+      "body": {
+        "data": {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      },
+      "status": 200,
+    },
+    "getGlobal": {
+      "body": {
+        "data": {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+      },
+      "status": 200,
+    },
+    "getInA": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+      },
+      "status": 200,
+    },
+    "getInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to access this variable",
+      },
+      "status": 403,
+    },
+    "getUnknown": {
+      "body": {
+        "code": 404,
+        "message": "Variable with id unknown not found",
+      },
+      "status": 404,
+    },
+    "list": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+          {
+            "id": "<global>",
+            "key": "GLOBAL",
+            "project": null,
+            "type": "string",
+            "value": "global value",
+          },
+          {
+            "id": "<inA>",
+            "key": "IN_A",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in A",
+          },
+          {
+            "id": "<shared>",
+            "key": "SHARED",
+            "project": null,
+            "type": "string",
+            "value": "global shared",
+          },
+          {
+            "id": "<sharedInA>",
+            "key": "SHARED",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "shared in A",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listEmpty": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInA": {
+      "body": {
+        "data": [
+          {
+            "id": "<inA>",
+            "key": "IN_A",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in A",
+          },
+          {
+            "id": "<sharedInA>",
+            "key": "SHARED",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "shared in A",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInB": {
+      "body": {
+        "data": [],
+      },
+      "status": 200,
+    },
+  },
+  "projectViewer": {
+    "getEmpty": {
+      "body": {
+        "data": {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+      },
+      "status": 200,
+    },
+    "getGlobal": {
+      "body": {
+        "data": {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+      },
+      "status": 200,
+    },
+    "getInA": {
+      "body": {
+        "data": {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+      },
+      "status": 200,
+    },
+    "getInB": {
+      "body": {
+        "code": 403,
+        "message": "You are not allowed to access this variable",
+      },
+      "status": 403,
+    },
+    "getUnknown": {
+      "body": {
+        "code": 404,
+        "message": "Variable with id unknown not found",
+      },
+      "status": 404,
+    },
+    "list": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+          {
+            "id": "<global>",
+            "key": "GLOBAL",
+            "project": null,
+            "type": "string",
+            "value": "global value",
+          },
+          {
+            "id": "<inA>",
+            "key": "IN_A",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in A",
+          },
+          {
+            "id": "<shared>",
+            "key": "SHARED",
+            "project": null,
+            "type": "string",
+            "value": "global shared",
+          },
+          {
+            "id": "<sharedInA>",
+            "key": "SHARED",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "shared in A",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listEmpty": {
+      "body": {
+        "data": [
+          {
+            "id": "<empty>",
+            "key": "EMPTY",
+            "project": null,
+            "type": "string",
+            "value": "",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInA": {
+      "body": {
+        "data": [
+          {
+            "id": "<inA>",
+            "key": "IN_A",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "value in A",
+          },
+          {
+            "id": "<sharedInA>",
+            "key": "SHARED",
+            "project": {
+              "createdAt": "<date>",
+              "creatorId": null,
+              "customTelemetryTags": [],
+              "description": null,
+              "icon": null,
+              "id": "<project A>",
+              "name": "Project A",
+              "type": "team",
+              "updatedAt": "<date>",
+            },
+            "type": "string",
+            "value": "shared in A",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "listInB": {
+      "body": {
+        "data": [],
+      },
+      "status": 200,
+    },
+  },
+}
+`;
+
+exports[`with the licence feature > updates variables, and checks the input 1`] = `
+{
+  "cache": [
+    {
+      "id": "<empty>",
+      "key": "FILLED",
+      "project": null,
+      "type": "string",
+      "value": "filled",
+    },
+    {
+      "id": "<inA>",
+      "key": "IN_A",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project B>",
+        "name": "Project B",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "value in A",
+    },
+    {
+      "id": "<inB>",
+      "key": "IN_B",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project B>",
+        "name": "Project B",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "value in B",
+    },
+    {
+      "id": "<global>",
+      "key": "RENAMED",
+      "project": null,
+      "type": "string",
+      "value": "new global value",
+    },
+    {
+      "id": "<shared>",
+      "key": "SHARED",
+      "project": null,
+      "type": "string",
+      "value": "global shared",
+    },
+    {
+      "id": "<sharedInA>",
+      "key": "SHARED",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project A>",
+        "name": "Project A",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "shared in A",
+    },
+  ],
+  "duplicateGlobalKey": {
+    "body": {
+      "code": 400,
+      "message": "A global variable with key "SHARED" already exists",
+    },
+    "status": 400,
+  },
+  "duplicateKeyInProject": {
+    "body": {
+      "code": 400,
+      "message": "A variable with key "SHARED" already exists in the specified project",
+    },
+    "status": 400,
+  },
+  "events": [],
+  "eventsOfUpdates": [
+    [
+      "variable-updated",
+      {
+        "user": "<owner>",
+        "variableId": "<global>",
+        "variableKey": "GLOBAL",
+      },
+    ],
+    [
+      "variable-updated",
+      {
+        "user": "<owner>",
+        "variableId": "<global>",
+        "variableKey": "RENAMED",
+      },
+    ],
+    [
+      "variable-updated",
+      {
+        "user": "<owner>",
+        "variableId": "<empty>",
+        "variableKey": "FILLED",
+      },
+    ],
+    [
+      "variable-updated",
+      {
+        "projectId": "<project A>",
+        "user": "<owner>",
+        "variableId": "<global>",
+        "variableKey": "RENAMED",
+      },
+    ],
+    [
+      "variable-updated",
+      {
+        "user": "<owner>",
+        "variableId": "<global>",
+        "variableKey": "RENAMED",
+      },
+    ],
+    [
+      "variable-updated",
+      {
+        "projectId": "<project B>",
+        "user": "<owner>",
+        "variableId": "<inA>",
+        "variableKey": "IN_A",
+      },
+    ],
+  ],
+  "invalidKey": {
+    "body": {
+      "code": "invalid_string",
+      "message": "key can only contain characters A-Za-z0-9_",
+      "path": [
+        "key",
+      ],
+      "validation": "regex",
+    },
+    "status": 400,
+  },
+  "key": {
+    "body": {
+      "data": {
+        "id": "<global>",
+        "key": "RENAMED",
+        "project": null,
+        "type": "string",
+        "value": "new global value",
+      },
+    },
+    "status": 200,
+  },
+  "keyAndValue": {
+    "body": {
+      "data": {
+        "id": "<empty>",
+        "key": "FILLED",
+        "project": null,
+        "type": "string",
+        "value": "filled",
+      },
+    },
+    "status": 200,
+  },
+  "keyStartsWithNumber": {
+    "body": {
+      "code": 400,
+      "message": "When changing the variable key, it can only contain letters, numbers, and underscores (A-Za-z0-9_). Existing keys that don't follow this rule can be kept as-is for backwards-compatibility",
+    },
+    "status": 400,
+  },
+  "longValue": {
+    "body": {
+      "code": "too_big",
+      "exact": false,
+      "inclusive": true,
+      "maximum": 1000,
+      "message": "value cannot be longer than 1000 characters",
+      "path": [
+        "value",
+      ],
+      "type": "string",
+    },
+    "status": 400,
+  },
+  "nothing": {
+    "body": {
+      "code": 0,
+      "message": "Cannot perform update query because update values are not defined. Call "qb.set(...)" method to specify updated values.",
+    },
+    "status": 500,
+  },
+  "otherType": {
+    "body": {
+      "code": "invalid_enum_value",
+      "message": "Invalid enum value. Expected 'string', received 'number'",
+      "options": [
+        "string",
+      ],
+      "path": [
+        "type",
+      ],
+      "received": "number",
+    },
+    "status": 400,
+  },
+  "toGlobal": {
+    "body": {
+      "data": {
+        "id": "<global>",
+        "key": "RENAMED",
+        "project": null,
+        "type": "string",
+        "value": "new global value",
+      },
+    },
+    "status": 200,
+  },
+  "toOtherProject": {
+    "body": {
+      "data": {
+        "id": "<inA>",
+        "key": "IN_A",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project B>",
+          "name": "Project B",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "value in A",
+      },
+    },
+    "status": 200,
+  },
+  "toProject": {
+    "body": {
+      "data": {
+        "id": "<global>",
+        "key": "RENAMED",
+        "project": {
+          "createdAt": "<date>",
+          "creatorId": null,
+          "customTelemetryTags": [],
+          "description": null,
+          "icon": null,
+          "id": "<project A>",
+          "name": "Project A",
+          "type": "team",
+          "updatedAt": "<date>",
+        },
+        "type": "string",
+        "value": "new global value",
+      },
+    },
+    "status": 200,
+  },
+  "toProjectWithSameKey": {
+    "body": {
+      "code": 400,
+      "message": "A variable with key "SHARED" already exists in the specified project",
+    },
+    "status": 400,
+  },
+  "unknownProject": {
+    "body": {
+      "code": 403,
+      "message": "You are not allowed to move this variable to the specified project",
+    },
+    "status": 403,
+  },
+  "unknownVariable": {
+    "body": {
+      "code": 404,
+      "message": "Variable with id unknown not found",
+    },
+    "status": 404,
+  },
+  "value": {
+    "body": {
+      "data": {
+        "id": "<global>",
+        "key": "GLOBAL",
+        "project": null,
+        "type": "string",
+        "value": "new global value",
+      },
+    },
+    "status": 200,
+  },
+}
+`;
+
+exports[`without the licence feature > answers each route 1`] = `
+{
+  "cache": [
+    {
+      "id": "<empty>",
+      "key": "EMPTY",
+      "project": null,
+      "type": "string",
+      "value": "",
+    },
+    {
+      "id": "<global>",
+      "key": "GLOBAL",
+      "project": null,
+      "type": "string",
+      "value": "global value",
+    },
+    {
+      "id": "<inA>",
+      "key": "IN_A",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project A>",
+        "name": "Project A",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "value in A",
+    },
+    {
+      "id": "<inB>",
+      "key": "IN_B",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project B>",
+        "name": "Project B",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "value in B",
+    },
+    {
+      "id": "<shared>",
+      "key": "SHARED",
+      "project": null,
+      "type": "string",
+      "value": "global shared",
+    },
+    {
+      "id": "<sharedInA>",
+      "key": "SHARED",
+      "project": {
+        "createdAt": "<date>",
+        "creatorId": null,
+        "customTelemetryTags": [],
+        "description": null,
+        "icon": null,
+        "id": "<project A>",
+        "name": "Project A",
+        "type": "team",
+        "updatedAt": "<date>",
+      },
+      "type": "string",
+      "value": "shared in A",
+    },
+  ],
+  "create": {
+    "body": {
+      "message": "Plan lacks license for this feature",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "delete": {
+    "body": {
+      "message": "Plan lacks license for this feature",
+      "status": "error",
+    },
+    "status": 403,
+  },
+  "events": [],
+  "get": {
+    "body": {
+      "data": {
+        "id": "<global>",
+        "key": "GLOBAL",
+        "project": null,
+        "type": "string",
+        "value": "global value",
+      },
+    },
+    "status": 200,
+  },
+  "list": {
+    "body": {
+      "data": [
+        {
+          "id": "<empty>",
+          "key": "EMPTY",
+          "project": null,
+          "type": "string",
+          "value": "",
+        },
+        {
+          "id": "<global>",
+          "key": "GLOBAL",
+          "project": null,
+          "type": "string",
+          "value": "global value",
+        },
+        {
+          "id": "<inA>",
+          "key": "IN_A",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in A",
+        },
+        {
+          "id": "<inB>",
+          "key": "IN_B",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project B>",
+            "name": "Project B",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "value in B",
+        },
+        {
+          "id": "<shared>",
+          "key": "SHARED",
+          "project": null,
+          "type": "string",
+          "value": "global shared",
+        },
+        {
+          "id": "<sharedInA>",
+          "key": "SHARED",
+          "project": {
+            "createdAt": "<date>",
+            "creatorId": null,
+            "customTelemetryTags": [],
+            "description": null,
+            "icon": null,
+            "id": "<project A>",
+            "name": "Project A",
+            "type": "team",
+            "updatedAt": "<date>",
+          },
+          "type": "string",
+          "value": "shared in A",
+        },
+      ],
+    },
+    "status": 200,
+  },
+  "update": {
+    "body": {
+      "message": "Plan lacks license for this feature",
+      "status": "error",
+    },
+    "status": 403,
+  },
+}
+`;

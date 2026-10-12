@@ -33,7 +33,7 @@ import {
 import { v4 as uuid } from 'uuid';
 
 import { BadRequestError } from '@n8n/errors';
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import { VariablesService } from '@/environments/variables/variables.service';
 import { ExecutionPersistence } from '@/executions/execution-persistence';
 import { NodeTypes } from '@/node-types';
 
