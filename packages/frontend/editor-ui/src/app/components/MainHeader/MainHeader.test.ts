@@ -3,7 +3,7 @@ import { type MockedStore, mockedStore } from '@/__tests__/utils';
 import { createTestingPinia } from '@pinia/testing';
 import MainHeader from '@/app/components/MainHeader/MainHeader.vue';
 import { useWorkflowsStore } from '@/app/stores/workflows.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { useCollaborationStore } from '@/features/collaboration/collaboration/collaboration.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { STORES } from '@n8n/stores';

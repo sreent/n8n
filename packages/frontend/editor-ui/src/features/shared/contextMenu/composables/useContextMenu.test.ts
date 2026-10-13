@@ -19,7 +19,7 @@ import {
 import { faker } from '@faker-js/faker';
 import { shallowRef } from 'vue';
 import { createPinia, setActivePinia } from 'pinia';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { useUIStore } from '@/app/stores/ui.store';
 import { useWorkflowsStore } from '@/app/stores/workflows.store';
 import { useFocusedNodesStore } from '@/features/ai/assistant/focusedNodes.store';

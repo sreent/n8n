@@ -10,7 +10,7 @@ import { useFoldersStore } from '@/features/core/folders/folders.store';
 import { useCredentialsStore } from '@/features/credentials/credentials.store';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { useTagsStore } from '@/features/shared/tags/tags.store';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { useWorkflowsListStore } from '@/app/stores/workflowsList.store';
@@ -25,7 +25,7 @@ import { useReadyToRunStore } from '@/features/workflows/readyToRun/stores/ready
 
 vi.mock('@/features/collaboration/projects/projects.api');
 vi.mock('@n8n/rest-api-client/api/users');
-vi.mock('@/features/integrations/sourceControl.ee/sourceControl.api');
+vi.mock('@/features/integrations/sourceControl/sourceControl.api');
 vi.mock('@/app/composables/useGlobalEntityCreation', () => ({
 	useGlobalEntityCreation: () => ({
 		menu: [],

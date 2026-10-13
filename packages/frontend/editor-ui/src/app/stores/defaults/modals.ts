@@ -63,7 +63,7 @@ import {
 	SOURCE_CONTROL_PULL_MODAL_KEY,
 	SOURCE_CONTROL_PULL_RESULT_MODAL_KEY,
 	SOURCE_CONTROL_PUSH_MODAL_KEY,
-} from '@/features/integrations/sourceControl.ee/sourceControl.constants';
+} from '@/features/integrations/sourceControl/sourceControl.constants';
 import {
 	ANNOTATION_TAGS_MANAGER_MODAL_KEY,
 	TAGS_MANAGER_MODAL_KEY,

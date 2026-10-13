@@ -4,7 +4,7 @@ import { createComponentRenderer } from '@/__tests__/render';
 import ReadyToRunButton from './ReadyToRunButton.vue';
 import { useReadyToRunStore } from '../stores/readyToRun.store';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { useFoldersStore } from '@/features/core/folders/folders.store';
 import type { Project } from '@/features/collaboration/projects/projects.types';
 

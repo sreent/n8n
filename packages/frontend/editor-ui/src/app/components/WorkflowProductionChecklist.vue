@@ -18,7 +18,7 @@ import {
 	ERROR_TRIGGER_NODE_TYPE,
 } from '@/app/constants';
 import { useTelemetry } from '@n8n/composables/useTelemetry';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { MCP_DOCS_PAGE_URL, MCP_SETTINGS_VIEW } from '@/features/ai/mcpAccess/mcp.constants';
 
 import { N8nSuggestedActions } from '@n8n/design-system';

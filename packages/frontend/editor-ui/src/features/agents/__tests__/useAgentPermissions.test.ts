@@ -4,7 +4,7 @@ import type { Scope } from '@n8n/permissions';
 import { mockedStore } from '@/__tests__/utils';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
 import { useUsersStore } from '@n8n/stores/users.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import type { ProjectListItem } from '@/features/collaboration/projects/projects.types';
 import { ProjectTypes } from '@/features/collaboration/projects/projects.types';
 import { useAgentPermissions } from '../composables/useAgentPermissions';

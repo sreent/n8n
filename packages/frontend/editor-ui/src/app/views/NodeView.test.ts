@@ -17,7 +17,7 @@ import { useWorkflowsStore } from '../stores/workflows.store';
 import { useWorkflowsListStore } from '../stores/workflowsList.store';
 import { useWorkflowExecutionStateStore } from '../stores/workflowExecutionState.store';
 import { useNodeTypesStore } from '../stores/nodeTypes.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { renderComponent } from '@/__tests__/render';
 import NodeView from './NodeView.vue';

@@ -14,7 +14,7 @@ import type { INodeTypeDescription } from 'n8n-workflow';
 import { useUIStore } from '@/app/stores/ui.store';
 import * as apiUtils from '@n8n/rest-api-client';
 import { createTestWorkflow, createTestWorkflowExecutionResponse } from '@/__tests__/mocks';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import type { WorkflowHistory } from '@n8n/rest-api-client';
 import type { WorkflowPublicationStatus } from '@n8n/api-types';
 
@@ -55,7 +55,7 @@ vi.mock('@vueuse/core', async (importOriginal) => {
 	};
 });
 
-vi.mock('@/features/integrations/sourceControl.ee/sourceControl.store', () => ({
+vi.mock('@/features/integrations/sourceControl/sourceControl.store', () => ({
 	useSourceControlStore: vi.fn(() => ({
 		preferences: {
 			branchReadOnly: false,

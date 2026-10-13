@@ -4,7 +4,7 @@ import * as permissionsModule from '@n8n/permissions';
 import { useDataTableNavigationCommands } from './useDataTableNavigationCommands';
 import { useDataTableStore } from '@/features/core/dataTable/dataTable.store';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { createTestingPinia } from '@pinia/testing';
 import { setActivePinia } from 'pinia';
 import type { DataTable } from '@/features/core/dataTable/dataTable.types';

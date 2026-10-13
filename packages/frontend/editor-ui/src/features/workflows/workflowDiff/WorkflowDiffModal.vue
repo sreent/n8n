@@ -6,7 +6,7 @@ import { WORKFLOW_DIFF_MODAL_KEY } from '@/app/constants';
 import type { IWorkflowDb } from '@/Interface';
 import type { SourceControlledFileStatus } from '@n8n/api-types';
 import { useNodeTypesStore } from '@/app/stores/nodeTypes.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { useWorkflowsListStore } from '@/app/stores/workflowsList.store';
 import { useI18n } from '@n8n/i18n';
 import type { EventBus } from '@n8n/utils/event-bus';

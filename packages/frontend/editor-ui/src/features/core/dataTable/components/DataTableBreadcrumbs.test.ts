@@ -7,7 +7,7 @@ import DataTableBreadcrumbs from '@/features/core/dataTable/components/DataTable
 import type { DataTable } from '@/features/core/dataTable/dataTable.types';
 import { type MockedStore, mockedStore } from '@/__tests__/utils';
 import { useDataTableStore } from '@/features/core/dataTable/dataTable.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 
 const mockRouter = {
 	push: vi.fn(),

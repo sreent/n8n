@@ -8,7 +8,7 @@ import { DATA_TABLE_DETAILS, PROJECT_DATA_TABLES } from '@/features/core/dataTab
 import type { CommandBarItem } from '../types';
 import type { DataTable } from '@/features/core/dataTable/dataTable.types';
 import { N8nIcon } from '@n8n/design-system';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import CommandBarItemTitle from '@/features/shared/commandBar/components/CommandBarItemTitle.vue';
 import { getResourcePermissions } from '@n8n/permissions';
 

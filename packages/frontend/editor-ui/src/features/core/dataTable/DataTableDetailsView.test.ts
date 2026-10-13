@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router';
 import type { DataTable } from '@/features/core/dataTable/dataTable.types';
 import { waitFor } from '@testing-library/vue';
 import { flushPromises } from '@vue/test-utils';
-import { sourceControlEventBus } from '@/features/integrations/sourceControl.ee/sourceControl.eventBus';
+import { sourceControlEventBus } from '@/features/integrations/sourceControl/sourceControl.eventBus';
 
 vi.mock('@n8n/composables/useToast');
 vi.mock('vue-router');
