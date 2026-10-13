@@ -35,6 +35,7 @@ const FORK_FEATURES = [
 	LICENSE_FEATURES.DATA_REDACTION,
 	LICENSE_FEATURES.OTEL_CUSTOM_SPAN_ATTRIBUTES,
 	LICENSE_FEATURES.TYPE_AVAILABILITY_POLICIES,
+	LICENSE_FEATURES.PERSONAL_SPACE_POLICY,
 ];
 
 const FORK_QUOTAS = [
@@ -131,6 +132,7 @@ describe('License with the fork features', () => {
 			expect(state.isDataRedactionLicensed()).toBe(true);
 			expect(state.isOtelCustomSpanAttributesLicensed()).toBe(true);
 			expect(state.isLicensed(LICENSE_FEATURES.TYPE_AVAILABILITY_POLICIES)).toBe(true);
+			expect(state.isPersonalSpacePolicyLicensed()).toBe(true);
 			expect(state.getMaxTeamProjects()).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(state.getMaxWorkflowsWithEvaluations()).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(state.getInsightsMaxHistory()).toBe(UNLIMITED_LICENSE_QUOTA);

@@ -48,8 +48,8 @@ services:
       # The features that the fork turns on without a licence: sharing, team projects, the project
       # roles, the admin role, custom roles, SSO, external secrets, variables, execution
       # annotations, evaluations, API key scopes, folders, debug in editor, insights, data
-      # redaction, the custom span attributes of OpenTelemetry and node type policies. They are on
-      # unless .env turns them off.
+      # redaction, the custom span attributes of OpenTelemetry, node type policies and the personal
+      # space policy. They are on unless .env turns them off.
       N8N_FORK_FEATURES_ENABLED: ${FORK_FEATURES_ENABLED:-true}
       # Node type policies also need their module, which upstream n8n does not load by default. An
       # empty ENABLED_MODULES in .env turns it off.
