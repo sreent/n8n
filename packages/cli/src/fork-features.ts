@@ -39,4 +39,14 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	// turns them on (the owner chose this on 2026-10-13).
 	[LICENSE_FEATURES.FOLDERS]: true,
 	[LICENSE_FEATURES.DEBUG_IN_EDITOR]: true,
+	// Ordinary code behind a licence check: insights (no limit of history), data redaction, the
+	// custom span attributes of OpenTelemetry and node type policies (the owner chose these on
+	// 2026-10-13). Node type policies also need N8N_ENABLED_MODULES=type-availability-policies.
+	[LICENSE_FEATURES.INSIGHTS_VIEW_SUMMARY]: true,
+	[LICENSE_FEATURES.INSIGHTS_VIEW_DASHBOARD]: true,
+	[LICENSE_FEATURES.INSIGHTS_VIEW_HOURLY_DATA]: true,
+	[LICENSE_QUOTAS.INSIGHTS_MAX_HISTORY_DAYS]: UNLIMITED_LICENSE_QUOTA,
+	[LICENSE_FEATURES.DATA_REDACTION]: true,
+	[LICENSE_FEATURES.OTEL_CUSTOM_SPAN_ATTRIBUTES]: true,
+	[LICENSE_FEATURES.TYPE_AVAILABILITY_POLICIES]: true,
 };

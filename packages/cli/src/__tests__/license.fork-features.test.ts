@@ -29,11 +29,18 @@ const FORK_FEATURES = [
 	LICENSE_FEATURES.API_KEY_SCOPES,
 	LICENSE_FEATURES.FOLDERS,
 	LICENSE_FEATURES.DEBUG_IN_EDITOR,
+	LICENSE_FEATURES.INSIGHTS_VIEW_SUMMARY,
+	LICENSE_FEATURES.INSIGHTS_VIEW_DASHBOARD,
+	LICENSE_FEATURES.INSIGHTS_VIEW_HOURLY_DATA,
+	LICENSE_FEATURES.DATA_REDACTION,
+	LICENSE_FEATURES.OTEL_CUSTOM_SPAN_ATTRIBUTES,
+	LICENSE_FEATURES.TYPE_AVAILABILITY_POLICIES,
 ];
 
 const FORK_QUOTAS = [
 	LICENSE_QUOTAS.TEAM_PROJECT_LIMIT,
 	LICENSE_QUOTAS.WORKFLOWS_WITH_EVALUATION_LIMIT,
+	LICENSE_QUOTAS.INSIGHTS_MAX_HISTORY_DAYS,
 ];
 
 describe('License with the fork features', () => {
@@ -118,8 +125,15 @@ describe('License with the fork features', () => {
 			expect(state.isApiKeyScopesLicensed()).toBe(true);
 			expect(state.isFoldersLicensed()).toBe(true);
 			expect(state.isDebugInEditorLicensed()).toBe(true);
+			expect(state.isInsightsSummaryLicensed()).toBe(true);
+			expect(state.isInsightsDashboardLicensed()).toBe(true);
+			expect(state.isInsightsHourlyDataLicensed()).toBe(true);
+			expect(state.isDataRedactionLicensed()).toBe(true);
+			expect(state.isOtelCustomSpanAttributesLicensed()).toBe(true);
+			expect(state.isLicensed(LICENSE_FEATURES.TYPE_AVAILABILITY_POLICIES)).toBe(true);
 			expect(state.getMaxTeamProjects()).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(state.getMaxWorkflowsWithEvaluations()).toBe(UNLIMITED_LICENSE_QUOTA);
+			expect(state.getInsightsMaxHistory()).toBe(UNLIMITED_LICENSE_QUOTA);
 		});
 
 		test.each(FORK_QUOTAS)('%s has no limit', (quota) => {
@@ -152,9 +166,11 @@ describe('License with the fork features', () => {
 			state.setLicenseProvider(license);
 			expect(state.getMaxTeamProjects()).toBe(0);
 			expect(state.getMaxWorkflowsWithEvaluations()).toBe(0);
+			expect(state.getInsightsMaxHistory()).toBe(7);
 			vi.mocked(manager.getFeatureValue).mockReturnValue(3);
 			expect(state.getMaxTeamProjects()).toBe(3);
 			expect(state.getMaxWorkflowsWithEvaluations()).toBe(3);
+			expect(state.getInsightsMaxHistory()).toBe(3);
 		});
 	});
 });

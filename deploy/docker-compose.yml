@@ -45,10 +45,15 @@ services:
       # Keep files from workflows in PostgreSQL, so that one database backup holds all data.
       N8N_DEFAULT_BINARY_DATA_MODE: database
       N8N_GIT_SYNC_ALLOWED_HOSTS: ${GIT_SYNC_ALLOWED_HOSTS:-}
-      # The features that the fork rebuilt: sharing, team projects, the project roles, the admin
-      # role, custom roles, SSO, external secrets, variables, execution annotations, evaluations,
-      # API key scopes, folders and debug in editor. They are on unless .env turns them off.
+      # The features that the fork turns on without a licence: sharing, team projects, the project
+      # roles, the admin role, custom roles, SSO, external secrets, variables, execution
+      # annotations, evaluations, API key scopes, folders, debug in editor, insights, data
+      # redaction, the custom span attributes of OpenTelemetry and node type policies. They are on
+      # unless .env turns them off.
       N8N_FORK_FEATURES_ENABLED: ${FORK_FEATURES_ENABLED:-true}
+      # Node type policies also need their module, which upstream n8n does not load by default. An
+      # empty ENABLED_MODULES in .env turns it off.
+      N8N_ENABLED_MODULES: ${ENABLED_MODULES-type-availability-policies}
       # The Code nodes run in the runners container (external mode). n8n waits for the runners on
       # port 5679. Only the containers of this stack can reach that port, and they need the token.
       N8N_RUNNERS_MODE: external
