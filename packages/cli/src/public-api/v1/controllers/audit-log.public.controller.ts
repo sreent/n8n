@@ -4,7 +4,6 @@ import {
 	AuditLogEventListPublicDto,
 	ExportAuditLogQueryPublicDto,
 	ListAuditLogEventsQueryPublicDto,
-	MAX_ITEMS_PER_PAGE,
 } from '@n8n/api-types';
 import { ModuleRegistry } from '@n8n/backend-common';
 import type { AuthenticatedRequest } from '@n8n/db';
@@ -21,10 +20,11 @@ import {
 	Query,
 } from '@n8n/decorators';
 import { Container } from '@n8n/di';
-import { BadRequestError, ServiceUnavailableError } from '@n8n/errors';
+import { ServiceUnavailableError } from '@n8n/errors';
 import type { Response } from 'express';
 import { pipeline } from 'node:stream/promises';
 
+import { assertOffsetPage } from '../shared/services/offset-page';
 import { encodeNextCursor, resolveOffsetPagination } from '../shared/services/pagination.service';
 
 const tags = ['AuditLog'];
@@ -39,17 +39,6 @@ const toFilter = ({ from, to, ...filter }: AuditLogFilterQuery) => ({
 	from: from ? new Date(from) : undefined,
 	to: to ? new Date(to) : undefined,
 });
-
-/**
- * A client can change the cursor, and `limit=0` reads without a limit. The table can hold many
- * events, so a page must have 1 to 250 events.
- */
-const isValidPage = ({ offset, limit }: { offset: number; limit: number }) =>
-	Number.isSafeInteger(offset) &&
-	offset >= 0 &&
-	Number.isSafeInteger(limit) &&
-	limit >= 1 &&
-	limit <= MAX_ITEMS_PER_PAGE;
 
 @PublicApiController('/audit-log')
 export class AuditLogPublicController {
@@ -80,11 +69,8 @@ export class AuditLogPublicController {
 		@Query query: ListAuditLogEventsQueryPublicDto,
 	): Promise<AuditLogEventListPublicDto> {
 		const { offset, limit } = resolveOffsetPagination({ cursor: query.cursor, limit: query.limit });
-		if (!isValidPage({ offset, limit })) {
-			throw new BadRequestError(
-				`The limit must be 1 to ${MAX_ITEMS_PER_PAGE}, and the cursor must come from a previous page`,
-			);
-		}
+		// The table can hold many events.
+		assertOffsetPage({ offset, limit });
 		const { count, events } = await (await this.service()).listEvents(
 			toFilter(query),
 			offset,

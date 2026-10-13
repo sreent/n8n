@@ -726,3 +726,11 @@ export {
 	auditLogEventPublicSchema,
 } from './audit-log/audit-log-public.dto';
 export type { AuditLogEventPublic } from './audit-log/audit-log-public.dto';
+
+// Fork: the insights by workflow in the public API.
+export {
+	InsightsByWorkflowPublicDto,
+	InsightsByWorkflowQueryPublicDto,
+	insightsByWorkflowItemPublicSchema,
+} from './insights/insights-by-workflow-public.dto';
+export type { InsightsByWorkflowItemPublic } from './insights/insights-by-workflow-public.dto';

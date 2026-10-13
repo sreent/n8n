@@ -15,6 +15,8 @@ import './evaluations.public.controller';
 import './executions.public.controller';
 import './folders.public.controller';
 import './insights.public.controller';
+// Fork: the insights of each workflow in the public API.
+import './insights-by-workflow.public.controller';
 import './node-type-policies.public.controller';
 import './otel.public.controller';
 import './projects.public.controller';

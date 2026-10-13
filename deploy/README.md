@@ -155,7 +155,9 @@ spaces. A user cannot hide a workflow from them.
 - **The public API.** With an API key of the owner or an admin, `GET /api/v1/workflows` lists all
   workflows, `GET /api/v1/projects` lists all projects (also the personal projects),
   `GET /api/v1/users` lists the users and their roles, and `GET /api/v1/executions` lists the
-  executions. Give an API key only the scopes that it needs.
+  executions. `GET /api/v1/insights/by-workflow` gives the executions, the failures, the run time
+  and the time saved of each workflow (scope `insights:read`). Give an API key only the scopes that
+  it needs.
 - **The audit log.** Settings > Audit log shows who created, changed, published, archived or deleted
   a workflow, and each execution, for 90 days. Each event keeps its project, so the filter
   **Project: Personal spaces** shows what users did in their personal spaces. An API key with the

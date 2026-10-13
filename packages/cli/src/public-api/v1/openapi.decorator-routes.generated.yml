@@ -161,6 +161,9 @@ paths:
   /insights/summary:
     get:
       $ref: ./handlers/insights/spec/paths/getInsightsSummary.generated.yml
+  /insights/by-workflow:
+    get:
+      $ref: ./handlers/insights/spec/paths/getInsightsByWorkflow.generated.yml
   /node-type-policies/instance:
     get:
       $ref: ./handlers/node-type-policies/spec/paths/getNodeTypeInstancePolicy.generated.yml
