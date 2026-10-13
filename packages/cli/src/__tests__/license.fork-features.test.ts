@@ -24,6 +24,14 @@ const FORK_FEATURES = [
 	LICENSE_FEATURES.SAML,
 	LICENSE_FEATURES.OIDC,
 	LICENSE_FEATURES.EXTERNAL_SECRETS,
+	LICENSE_FEATURES.VARIABLES,
+	LICENSE_FEATURES.ADVANCED_EXECUTION_FILTERS,
+	LICENSE_FEATURES.API_KEY_SCOPES,
+];
+
+const FORK_QUOTAS = [
+	LICENSE_QUOTAS.TEAM_PROJECT_LIMIT,
+	LICENSE_QUOTAS.WORKFLOWS_WITH_EVALUATION_LIMIT,
 ];
 
 describe('License with the fork features', () => {
@@ -75,10 +83,10 @@ describe('License with the fork features', () => {
 		}
 	});
 
-	test('the fork turns on the features and the quota of step 5', () => {
+	test('the fork turns on the features and the quotas that the owner chose', () => {
 		expect(FORK_FEATURE_VALUES).toEqual({
 			...Object.fromEntries(FORK_FEATURES.map((feature) => [feature, true])),
-			[LICENSE_QUOTAS.TEAM_PROJECT_LIMIT]: UNLIMITED_LICENSE_QUOTA,
+			...Object.fromEntries(FORK_QUOTAS.map((quota) => [quota, UNLIMITED_LICENSE_QUOTA])),
 		});
 	});
 
@@ -103,11 +111,15 @@ describe('License with the fork features', () => {
 			expect(state.isSamlLicensed()).toBe(true);
 			expect(state.isOidcLicensed()).toBe(true);
 			expect(state.isExternalSecretsLicensed()).toBe(true);
+			expect(state.isVariablesLicensed()).toBe(true);
+			expect(state.isAdvancedExecutionFiltersLicensed()).toBe(true);
+			expect(state.isApiKeyScopesLicensed()).toBe(true);
 			expect(state.getMaxTeamProjects()).toBe(UNLIMITED_LICENSE_QUOTA);
+			expect(state.getMaxWorkflowsWithEvaluations()).toBe(UNLIMITED_LICENSE_QUOTA);
 		});
 
-		test('team projects have no limit', () => {
-			expect(license.getValue(LICENSE_QUOTAS.TEAM_PROJECT_LIMIT)).toBe(UNLIMITED_LICENSE_QUOTA);
+		test.each(FORK_QUOTAS)('%s has no limit', (quota) => {
+			expect(license.getValue(quota)).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(manager.getFeatureValue).not.toHaveBeenCalled();
 		});
 
@@ -131,12 +143,14 @@ describe('License with the fork features', () => {
 			expect(license.isLicensed(feature)).toBe(true);
 		});
 
-		test('the licence decides the team project limit', () => {
+		test('the licence decides the quotas', () => {
 			const state = new LicenseState();
 			state.setLicenseProvider(license);
 			expect(state.getMaxTeamProjects()).toBe(0);
+			expect(state.getMaxWorkflowsWithEvaluations()).toBe(0);
 			vi.mocked(manager.getFeatureValue).mockReturnValue(3);
 			expect(state.getMaxTeamProjects()).toBe(3);
+			expect(state.getMaxWorkflowsWithEvaluations()).toBe(3);
 		});
 	});
 });

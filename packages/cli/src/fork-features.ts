@@ -13,8 +13,12 @@ export class ForkFeaturesConfig {
 	enabled: boolean = true;
 }
 
-/** The licence values that n8n uses while the features of the fork are on. */
+/**
+ * The licence values that n8n uses while the features of the fork are on. Add a value only when the
+ * owner chooses it (FORK.md, "Licence checks").
+ */
 export const FORK_FEATURE_VALUES: FeatureReturnType = {
+	// Step 5 of FORK.md.
 	[LICENSE_FEATURES.SHARING]: true,
 	[LICENSE_FEATURES.PROJECT_ROLE_ADMIN]: true,
 	[LICENSE_FEATURES.PROJECT_ROLE_EDITOR]: true,
@@ -25,4 +29,10 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	[LICENSE_FEATURES.OIDC]: true,
 	[LICENSE_FEATURES.EXTERNAL_SECRETS]: true,
 	[LICENSE_QUOTAS.TEAM_PROJECT_LIMIT]: UNLIMITED_LICENSE_QUOTA,
+	// The features that the fork rebuilt in step 4, and API key scopes (the owner chose these on
+	// 2026-10-13).
+	[LICENSE_FEATURES.VARIABLES]: true,
+	[LICENSE_FEATURES.ADVANCED_EXECUTION_FILTERS]: true,
+	[LICENSE_QUOTAS.WORKFLOWS_WITH_EVALUATION_LIMIT]: UNLIMITED_LICENSE_QUOTA,
+	[LICENSE_FEATURES.API_KEY_SCOPES]: true,
 };
