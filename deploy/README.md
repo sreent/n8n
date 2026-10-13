@@ -144,6 +144,35 @@ development, and pull in production. See the
   container gets no database password and no encryption key. It connects to n8n with
   `N8N_RUNNERS_AUTH_TOKEN`.
 
+## Governance
+
+The owner and the admins see all workflows, also the workflows that users build in their personal
+spaces. A user cannot hide a workflow from them.
+
+- **See what users build.** The Overview page lists all workflows, and each card shows the owner.
+  The filter **Owner** shows the workflows of one user. An admin can open each workflow, its
+  executions and its versions.
+- **The public API.** With an API key of the owner or an admin, `GET /api/v1/workflows` lists all
+  workflows, `GET /api/v1/projects` lists all projects (also the personal projects),
+  `GET /api/v1/users` lists the users and their roles, and `GET /api/v1/executions` lists the
+  executions. Give an API key only the scopes that it needs.
+- **The audit log.** Settings > Audit log shows who created, changed, published, archived or deleted
+  a workflow, and each execution, for 90 days. Log streaming sends the same events to your log
+  system.
+- **Rules for personal spaces.** On Settings > Security & policies, an admin can stop publishing and
+  sharing from personal spaces, and set the floor of data redaction for the instance. By default,
+  users can publish and share from their personal spaces, and no data is hidden. To set these rules
+  in the configuration instead, and lock the page, add `N8N_SECURITY_POLICY_MANAGED_BY_ENV=true`,
+  `N8N_PERSONAL_SPACE_PUBLISHING_ENABLED` and `N8N_PERSONAL_SPACE_SHARING_ENABLED` to the
+  environment of the `n8n` service.
+- **Node types.** Node type policies limit the node types and the credential types of a project or
+  of the instance. Write the rules with the public API (`/api/v1/node-type-policies` and
+  `/api/v1/credential-type-policies`). The editor shows a lock on a blocked node type.
+- **Team projects for users.** By default, only the owner and the admins can create team projects.
+  To let some users create them, add a role on Settings > Roles > Instance roles with the
+  permission **Projects: Create**, and give the role to these users. With SSO, a role mapping rule
+  can give the role to a group. The user who creates a team project becomes its admin.
+
 ## Files
 
 | File | Purpose |
