@@ -45,6 +45,9 @@ services:
       # Keep files from workflows in PostgreSQL, so that one database backup holds all data.
       N8N_DEFAULT_BINARY_DATA_MODE: database
       N8N_GIT_SYNC_ALLOWED_HOSTS: ${GIT_SYNC_ALLOWED_HOSTS:-}
+      # The features that the fork rebuilt: sharing, team projects, the project roles, the admin
+      # role, custom roles, SSO and external secrets. They are on unless .env turns them off.
+      N8N_FORK_FEATURES_ENABLED: ${FORK_FEATURES_ENABLED:-true}
       # The Code nodes run in the runners container (external mode). n8n waits for the runners on
       # port 5679. Only the containers of this stack can reach that port, and they need the token.
       N8N_RUNNERS_MODE: external

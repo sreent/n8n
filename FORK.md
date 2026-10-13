@@ -104,7 +104,13 @@ The fork removes the enterprise code step by step, and builds its own versions o
    now.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
-   environment variable turns them off. The upstream tests run with them off.
+   environment variable turns them off. The upstream tests run with them off. Done:
+   `packages/cli/src/fork-features.ts` lists the licence values of these features, and `License`
+   (`packages/cli/src/license.ts`) gives them while `N8N_FORK_FEATURES_ENABLED` is `true`, the
+   default. With `N8N_FORK_FEATURES_ENABLED=false`, the licence decides, as in upstream n8n. The
+   licence checks of ordinary code stay. The cli tests set the variable to `false`
+   (`packages/cli/test/setup-fork-features.ts`). A test or the e2e controller that replaces
+   `License.isLicensed` replaces the switch too.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.
@@ -123,10 +129,10 @@ back.
   ripgrep, the last glob that matches a file wins. To remove enterprise code, work with the file
   names and with the ordinary code that uses them. To build a replacement, use the public n8n
   documentation, the ordinary code and the behaviour of a running n8n.
-- **Licence checks.** Do not change or go around a licence check that turns on enterprise code
-  that is still in the fork. Also keep the licence checks around ordinary code until step 5: the
-  enterprise code that is still in the fork can read the same licence values, and the fork cannot
-  check this without reading that code. The owner chose this on 2026-10-09.
+- **Licence checks.** Keep the licence checks of ordinary code. The owner chose on 2026-10-09 to
+  keep them until step 5, and step 5 keeps them too: the fork turns on a feature with its licence
+  value in `packages/cli/src/fork-features.ts`, not by removing a check. Add a feature to that
+  list only when the owner chooses it.
 - **Permission scopes.** The scope list and the role maps are fork code now. They come from a
   running n8n through `scripts/permission-snapshot.mjs`. Do not edit
   `packages/@n8n/permissions/src/permission-data.generated.ts` by hand. A fork feature that needs a
@@ -225,6 +231,8 @@ back.
 - When an upstream update changes scopes or roles, make the permission data again, as
   [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md) tells. The scope
   snapshot test of `@n8n/permissions` fails when upstream adds a scope.
+- When an upstream update changes `isLicensed` or `getValue` of `packages/cli/src/license.ts`, or
+  the `setupFiles` of `packages/cli/vitest.config.base.ts`, keep the fork lines (step 5).
 - When an upstream update changes the wa-sqlite commit in
   `packages/frontend/editor-ui/package.json`, keep the upstream line. Then run
   `scripts/vendor-wa-sqlite.sh`.
