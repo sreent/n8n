@@ -143,3 +143,9 @@ packages/frontend/editor-ui/src/app/stores/workflows.ee.store.ts
 packages/frontend/editor-ui/src/features/credentials/credentials.ee.api.ts
 packages/frontend/editor-ui/src/features/credentials/components/CredentialEdit/CredentialSharing.ee.*
 packages/frontend/editor-ui/src/features/workflows/components/WorkflowShareModal.ee.*
+
+# All other enterprise code. The fork has no enterprise code now. scripts/sync-upstream.sh deletes
+# each enterprise file that an upstream update adds or changes, and container CI fails when one is
+# in the tree. When ordinary code uses a deleted file, change the ordinary code (FORK.md).
+**/*.ee.*
+**/*.ee/**

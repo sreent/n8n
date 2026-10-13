@@ -187,9 +187,9 @@ if [ "${#removed[@]}" -gt 0 ]; then
 	printf '%s\0' "${removed[@]}" |
 		git --literal-pathspecs rm -q --cached --pathspec-from-file=- --pathspec-file-nul
 	printf '%s\0' "${removed[@]}" | xargs -0 rm -f --
-	sed -n 's#^\([^#].*/\)$#\1#p' scripts/removed-enterprise-paths.txt | while read -r dir; do
-		if [ -d "$dir" ]; then find "$dir" -depth -type d -empty -delete; fi
-	done
+	# Remove the folders that are now empty, also the parent folders that become empty.
+	printf '%s\0' "${removed[@]}" | xargs -0 dirname -z -- | sort -zu |
+		xargs -0 -r rmdir -p --ignore-fail-on-non-empty -- 2>/dev/null || true
 	if [ "${#paths[@]}" -gt 0 ]; then
 		mapfile -t paths < <(printf '%s\n' "${paths[@]}" |
 			grep -vxF -f <(printf '%s\n' "${removed[@]}") || true)
