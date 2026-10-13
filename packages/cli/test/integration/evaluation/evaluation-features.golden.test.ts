@@ -76,7 +76,8 @@ function normalize(value: unknown, key = ''): unknown {
 		if (DATE_TEXT.test(value)) return '<date>';
 		let text = value
 			.replace(/\b\d{4}-\d{2}-\d{2}\b/g, '<day>')
-			.replace(/\b[A-Za-z0-9]{16}\b/g, (match) =>
+			// A 16-character id must not be a part of a longer id: a nano id can hold a hyphen.
+			.replace(/(?<![\w-])[A-Za-z0-9]{16}(?![\w-])/g, (match) =>
 				labels.has(match) ? `@${labels.get(match)}` : isGeneratedId(match) ? '<id>' : match,
 			);
 		// Short labels (execution IDs) match only a whole value, not a part of a text.

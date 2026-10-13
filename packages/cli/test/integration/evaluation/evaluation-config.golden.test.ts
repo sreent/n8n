@@ -39,11 +39,16 @@ function normalize(value: unknown): unknown {
 		if (DATE_TEXT.test(value)) return '<date>';
 		let text = value;
 		for (const [id, name] of labels) text = text.replaceAll(id, `@${name}`);
-		return text
-			.replace(/\b[A-Za-z0-9]{16}\b/g, (match) => (isGeneratedId(match) ? '<id>' : match))
-			.replace(/(?<![\w-])[\w-]{21}(?![\w-])/g, (match) =>
-				/[A-Z]/.test(match) && /[a-z0-9]/.test(match) ? '<nano id>' : match,
-			);
+		return (
+			text
+				// A 16-character id must not be a part of a longer id: a nano id can hold a hyphen.
+				.replace(/(?<![\w-])[A-Za-z0-9]{16}(?![\w-])/g, (match) =>
+					isGeneratedId(match) ? '<id>' : match,
+				)
+				.replace(/(?<![\w-])[\w-]{21}(?![\w-])/g, (match) =>
+					/[A-Z]/.test(match) && /[a-z0-9]/.test(match) ? '<nano id>' : match,
+				)
+		);
 	}
 	if (Array.isArray(value)) return value.map(normalize);
 	if (value && typeof value === 'object') {
