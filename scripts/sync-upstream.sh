@@ -197,6 +197,15 @@ if [ "${#removed[@]}" -gt 0 ]; then
 	echo "Deleted ${#removed[@]} upstream files in the removed enterprise areas."
 fi
 
+# The update can bring enterprise files outside the removed areas. List them by name only: the
+# owner decides about each one (FORK.md, "Upstream updates").
+mapfile -t enterprise < <(git ls-files | grep -E '\.ee(\.|/)' || true)
+if [ "${#enterprise[@]}" -gt 0 ]; then
+	echo "The fork has ${#enterprise[@]} enterprise files outside the removed areas:"
+	printf '  %s\n' "${enterprise[@]}"
+	echo "Decide about them with the owner, as FORK.md tells (\"Upstream updates\")."
+fi
+
 # Whether a path with conflicts matches the extended regex $1.
 conflicted() {
 	local path
