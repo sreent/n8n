@@ -17,6 +17,7 @@ import { useUIStore } from '@/app/stores/ui.store';
 
 import {
 	describeDom,
+	finishPages,
 	installRecorders,
 	loadNodeTypes,
 	normalize,
@@ -553,6 +554,8 @@ afterEach(() => {
 	vi.useRealTimers();
 	vi.restoreAllMocks();
 });
+
+afterAll(finishPages);
 
 describe('the evaluation page', () => {
 	test('the licence states', async () => {

@@ -272,6 +272,16 @@ export function unmountPrevious() {
 	}
 }
 
+/**
+ * Unmounts the last page of a test file. Some components (the tables of Element Plus) start a
+ * real timer of their own, so the file waits until those timers end, while the DOM is still there.
+ */
+export async function finishPages() {
+	unmountPrevious();
+	vi.useRealTimers();
+	await new Promise((resolve) => setTimeout(resolve, 200));
+}
+
 export async function setup(scenario: Scenario = {}) {
 	unmountPrevious();
 	pinia = createPinia();

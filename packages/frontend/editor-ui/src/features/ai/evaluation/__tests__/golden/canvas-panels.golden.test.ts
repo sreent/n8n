@@ -20,6 +20,7 @@ import { useUsageStore } from '@/features/settings/usage/usage.store';
 
 import {
 	describeDom,
+	finishPages,
 	installRecorders,
 	loadNodeTypes,
 	normalize,
@@ -1027,6 +1028,8 @@ afterEach(() => {
 	vi.useRealTimers();
 	vi.restoreAllMocks();
 });
+
+afterAll(finishPages);
 
 describe('the evaluation panels of the canvas', () => {
 	test('the evaluation page with evaluation configs', async () => {

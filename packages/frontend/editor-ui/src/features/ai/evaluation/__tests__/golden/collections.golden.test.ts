@@ -16,6 +16,7 @@ import { useUIStore } from '@/app/stores/ui.store';
 
 import {
 	describeDom,
+	finishPages,
 	installRecorders,
 	loadNodeTypes,
 	normalize,
@@ -622,6 +623,8 @@ afterEach(() => {
 	vi.useRealTimers();
 	vi.restoreAllMocks();
 });
+
+afterAll(finishPages);
 
 const LIST = { path: '/workflow/wf1/evaluation' };
 const compare = (collectionId: string) => ({
