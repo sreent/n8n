@@ -5,19 +5,19 @@ Fork document (not in upstream n8n). Read it with [FORK.md](../../../../../../..
 The evaluation editor shows the Evaluations tab of a workflow: the setup steps, the list of runs,
 the detail of a run, the collections and their comparison, and the panels on the canvas. It is
 part of the evaluations that the owner chose to rebuild on 2026-10-12. The fork files replace the
-enterprise folder `evaluation.ee` next to this folder. They keep the store IDs, the exports that
-ordinary code uses, the test IDs, the texts, the REST calls and the telemetry events of the
-original.
+enterprise folder `evaluation.ee` that was next to this folder. They keep the store IDs, the
+exports that ordinary code uses, the test IDs, the texts, the REST calls and the telemetry events
+of the original.
 
-The fork builds the editor in parts. Until the last part, the app still routes to the enterprise
-files, and only the golden tests use the fork files.
+The fork built the editor in parts. The last part switched the app to the fork files and deleted
+the enterprise folder.
 
 | Part | Fork files | Status |
 | --- | --- | --- |
 | The evaluation page | `evaluation.api.ts`, `evaluation.store.ts`, `parallelEval.store.ts`, `evaluation.constants.ts`, `evaluation.types.ts`, `evaluation.utils.ts`, `composables/useEvaluationsLicense.ts`, `composables/useWorkflowEvaluationState.ts`, `composables/useCyclingVerb.ts`, `views/EvaluationsRootView.vue`, `views/EvaluationsListSwitcher.vue`, `views/EvaluationsView.vue`, `views/TestRunDetailView.vue`, and the components in `components/SetupWizard`, `components/ListRuns`, `components/RunDetail` and `components/Paywall` | Done |
 | Collections and their comparison | `evalCollections.api.ts`, `evalCollections.store.ts`, `evalCollections.utils.ts`, `composables/useEvalCollectionsFlag.ts`, `composables/useAgentEvalsFlag.ts`, `composables/useCompareData.ts`, `views/EvalCollectionsListView.vue`, `views/CompareCollectionView.vue`, and the components in `components/Collections`, `components/Compare` and `components/shared` | Done |
 | The panels on the canvas and the dataset modal | `wizardSidepanel.store.ts`, `wizard.constants.ts`, `wizard.utils.ts`, `composables/useTestsPanel.ts`, `composables/useAiRootNodes.ts`, `composables/useAddExecutionToDataset.ts`, and the components in `components/Tests`, `components/EvaluationsCanvasInfoCard`, `components/EvaluationsEmptyState`, `components/WizardSidepanel` and `components/AddExecutionToDataset` | Done |
-| The switch of the app to the fork files | | Next |
+| The switch of the app to the fork files | The import paths of the ordinary callers and their tests. The enterprise folder is deleted, and `scripts/removed-enterprise-paths.txt` lists it. | Done |
 
 ## Sources
 
@@ -143,6 +143,11 @@ files, and only the golden tests use the fork files.
 
 ## Changes to ordinary files
 
+- The import paths of the ordinary callers and of their tests, from
+  `@/features/ai/evaluation.ee/` to `@/features/ai/evaluation/`: the router, `NodeView.vue`,
+  `Modals.vue`, `FocusSidebar.vue`, `WorkflowProductionChecklist.vue`, the node creator
+  (`useActionsGeneration.ts` and `viewsData.ts`), the executions preview, the agent builder
+  (`useAgentBuilderMainTabs.ts`) and the n8n Assistant (`InstanceAiThreadView.vue`).
 - `@n8n/i18n`: two texts that the original page had without a translation key,
   `evaluation.listRuns.runAt` ("Run at") and `evaluation.listRuns.selectMetric` ("Select metric").
 
@@ -177,11 +182,12 @@ AI Agent and the OpenAI chat model. To make it again, build `nodes-base` and
 package, and put the package name before each node name (`n8n-nodes-base.evaluation`,
 `@n8n/n8n-nodes-langchain.agent`).
 
-To record a snapshot again after an upstream update, use a checkout of the upstream commit in
-`scripts/sync-upstream.base`. Copy the folder `__tests__/golden` into
-`features/ai/evaluation.ee/__tests__/` there, point the exports of `subject.ts` and
-`panels-subject.ts` at the enterprise files, and run the test with `--update=all`. Use `--update=all` with the equals sign:
-`-u` takes the next argument as its value and then runs all tests of the package.
+The fork no longer has the enterprise files. To record a snapshot again after an upstream update,
+use a checkout of the upstream commit in `scripts/sync-upstream.base`. Copy the folder
+`__tests__/golden` into `features/ai/evaluation.ee/__tests__/` there, point the exports of
+`subject.ts` and `panels-subject.ts` at the enterprise files, and run the test with
+`--update=all`. Use `--update=all` with the equals sign: `-u` takes the next argument as its value
+and then runs all tests of the package.
 
 ## Clean-room record
 
