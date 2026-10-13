@@ -27,6 +27,8 @@ const FORK_FEATURES = [
 	LICENSE_FEATURES.VARIABLES,
 	LICENSE_FEATURES.ADVANCED_EXECUTION_FILTERS,
 	LICENSE_FEATURES.API_KEY_SCOPES,
+	LICENSE_FEATURES.FOLDERS,
+	LICENSE_FEATURES.DEBUG_IN_EDITOR,
 ];
 
 const FORK_QUOTAS = [
@@ -114,6 +116,8 @@ describe('License with the fork features', () => {
 			expect(state.isVariablesLicensed()).toBe(true);
 			expect(state.isAdvancedExecutionFiltersLicensed()).toBe(true);
 			expect(state.isApiKeyScopesLicensed()).toBe(true);
+			expect(state.isFoldersLicensed()).toBe(true);
+			expect(state.isDebugInEditorLicensed()).toBe(true);
 			expect(state.getMaxTeamProjects()).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(state.getMaxWorkflowsWithEvaluations()).toBe(UNLIMITED_LICENSE_QUOTA);
 		});

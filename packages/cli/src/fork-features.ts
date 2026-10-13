@@ -35,4 +35,8 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	[LICENSE_FEATURES.ADVANCED_EXECUTION_FILTERS]: true,
 	[LICENSE_QUOTAS.WORKFLOWS_WITH_EVALUATION_LIMIT]: UNLIMITED_LICENSE_QUOTA,
 	[LICENSE_FEATURES.API_KEY_SCOPES]: true,
+	// Folders and debug in editor: the fork has no registration and no licence keys, so the switch
+	// turns them on (the owner chose this on 2026-10-13).
+	[LICENSE_FEATURES.FOLDERS]: true,
+	[LICENSE_FEATURES.DEBUG_IN_EDITOR]: true,
 };
