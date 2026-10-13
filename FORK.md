@@ -10,8 +10,9 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   `packages/modules/git-sync/frontend` and `packages/modules/send-copy/frontend`. Their READMEs
   describe them.
 - **Audit log**: the backend module `packages/cli/src/modules/audit-log` keeps the audit events of
-  n8n for 90 days, and the frontend module `packages/modules/audit-log/frontend` shows them on the
-  page Settings > Audit log. Their READMEs describe them.
+  n8n for 90 days and gives them in the public API (`/api/v1/audit-log`), and the frontend module
+  `packages/modules/audit-log/frontend` shows them on the page Settings > Audit log. Their READMEs
+  describe them.
 - **Log streaming**: the backend module `packages/cli/src/modules/log-streaming` sends the events
   of n8n to webhook, syslog and Sentry destinations, and the page Settings > Log streaming
   (`packages/frontend/editor-ui/src/features/integrations/logStreaming`) manages them. The README

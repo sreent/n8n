@@ -1,5 +1,6 @@
 import type { z } from 'zod';
 
+import { FORK_API_KEY_SCOPES, type ForkApiKeyResource, type ForkApiKeyScope } from './fork-scopes';
 import type { API_KEY_RESOURCES, RESOURCES } from './permission-data.generated';
 import {
 	assignableProjectRoleSchema,
@@ -25,12 +26,18 @@ export type ResourceScope<
 /** Every scope as `resource:operation`. An operation is valid only for its own resource. */
 export type Scope = { [R in Resource]: ResourceScope<R> }[Resource];
 
-export type ApiKeyResource = keyof typeof API_KEY_RESOURCES;
+/** The resources of API key scopes: the generated ones and the ones of fork features. */
+export type ApiKeyResource = keyof typeof API_KEY_RESOURCES | ForkApiKeyResource;
 
-/** The scopes that an API key can hold. Some of them exist only for API keys. */
-export type ApiKeyScope = {
-	[R in ApiKeyResource]: `${R}:${(typeof API_KEY_RESOURCES)[R][number]}`;
-}[ApiKeyResource];
+/**
+ * The scopes that an API key can hold. Some of them exist only for API keys. The fork adds the
+ * scopes of `fork-scopes.ts`.
+ */
+export type ApiKeyScope =
+	| {
+			[R in keyof typeof API_KEY_RESOURCES]: `${R}:${(typeof API_KEY_RESOURCES)[R][number]}`;
+	  }[keyof typeof API_KEY_RESOURCES]
+	| ForkApiKeyScope;
 
 export type ScopeInformation = {
 	displayName: string;
@@ -86,7 +93,7 @@ export type AuthPrincipal = {
 };
 
 export function isApiKeyScope(scope: string): scope is ApiKeyScope {
-	return (ALL_API_KEY_SCOPES as ReadonlySet<string>).has(scope);
+	return (ALL_API_KEY_SCOPES as ReadonlySet<string>).has(scope) || FORK_API_KEY_SCOPES.has(scope);
 }
 
 /** Check if a user can get this project role. */

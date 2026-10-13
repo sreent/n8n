@@ -6,6 +6,12 @@ paths:
   /audit:
     post:
       $ref: ./handlers/audit/spec/paths/generateAudit.generated.yml
+  /audit-log/events:
+    get:
+      $ref: ./handlers/audit-log/spec/paths/getAuditLogEvents.generated.yml
+  /audit-log/export:
+    get:
+      $ref: ./handlers/audit-log/spec/paths/exportAuditLog.generated.yml
   /community-packages:
     get:
       $ref: ./handlers/community-packages/spec/paths/getInstalledPackages.generated.yml

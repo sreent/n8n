@@ -1,9 +1,9 @@
 # Audit log
 
 Fork module (not in upstream n8n). The audit log stores the audit events of n8n (`n8n.audit.*`) in
-the database. The instance owner and admins read them on the page **Settings > Audit log** and in
-the REST API, filter them, and export them as CSV or JSON. The module deletes an event after 90
-days.
+the database. The instance owner and admins read them on the page **Settings > Audit log**, in
+the REST API and in the public API, filter them, and export them as CSV or JSON. The module deletes
+an event after 90 days.
 
 The repository owner chose this on 2026-10-11: the fork builds an audit log and a new log
 streaming, the audit log is on by default, and it keeps the events for 90 days. The settings page is
@@ -36,6 +36,7 @@ flowchart LR
   collection -- batches --> table[("fork_audit_log_event")]
   task["AuditLogPruningTask"] -- daily delete --> table
   api["/rest/audit-log"] -- read --> table
+  publicApi["/api/v1/audit-log"] -- read --> table
 ```
 
 - The ordinary relay `LogStreamingEventRelay` sends the audit events to the event bus of each
@@ -90,6 +91,37 @@ that starts with `=`, `+`, `-`, `@`, a tab or a carriage return as a formula, so
 single quote before such a cell. The JSON file is an array of events. The export reads the
 database in batches of 1,000 events and streams the file.
 
+## Public API
+
+The public API gives the same events to scripts and tools, for example a SIEM that collects the
+audit events every hour. The routes need an API key with the scope `auditLogs:manage`, or the
+session cookie of the editor. The user of the key must hold the global scope `auditLogs:manage`
+too: the owner, an admin, or a user with a custom instance role that holds it. A member gets 403,
+also with the scope on the key. `packages/@n8n/permissions/FORK.md` ("Fork scopes") tells how the
+fork adds the scope to API keys.
+
+| Route | Result |
+|---|---|
+| `GET /api/v1/audit-log/events` | `{ data, nextCursor }`: one page of the events, newest first |
+| `GET /api/v1/audit-log/export` | A file with all events that match, newest first, as in the REST API |
+
+Both routes take the filters of the REST API: `from`, `to`, `eventName` and `userId`. `events`
+pages as the other routes of the public API: `limit` (default 100, at most 250) and `cursor` (the
+`nextCursor` of the previous page). `nextCursor` is null on the last page. The table can hold many
+events, so a page must have 1 to 250 events: the route answers 400 for `limit=0`, and for a cursor
+that a client changed to a larger page or to an offset that is not a whole number of 0 or more.
+`export` takes `format`: `csv` (the default) or `json`.
+
+When the module is off, the routes answer 503. The public API documentation
+(`/api/v1/docs`) lists the routes under the tag **AuditLog**.
+
+For example, read the workflow events of one day:
+
+```sh
+curl -H "X-N8N-API-KEY: $N8N_API_KEY" \
+  "https://n8n.example.com/api/v1/audit-log/events?eventName=n8n.audit.workflow.&from=2026-10-01T00:00:00Z&to=2026-10-01T23:59:59Z"
+```
+
 ## Files
 
 | File | Purpose |
@@ -100,6 +132,8 @@ database in batches of 1,000 events and streams the file.
 | `audit-log-pruning.service.ts`, `audit-log-pruning.task.ts` | Delete old events |
 | `audit-log.service.ts` | The list, the event names and the export |
 | `audit-log.controller.ts`, `audit-log.dto.ts` | The REST API |
+| `packages/cli/src/public-api/v1/controllers/audit-log.public.controller.ts` | The public API |
+| `packages/@n8n/api-types/src/dto/audit-log/` | The query and response types of the public API |
 | `database/` | The entity and the repository of the table |
 
 ## Sources

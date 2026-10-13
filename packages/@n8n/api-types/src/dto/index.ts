@@ -717,3 +717,12 @@ export {
 	promotePackageResultSchema,
 	promotionGitResultSchema,
 } from './promotions/promotion-operations.dto';
+
+// Fork: the audit log in the public API (packages/cli/src/modules/audit-log/README.md).
+export {
+	AuditLogEventListPublicDto,
+	ExportAuditLogQueryPublicDto,
+	ListAuditLogEventsQueryPublicDto,
+	auditLogEventPublicSchema,
+} from './audit-log/audit-log-public.dto';
+export type { AuditLogEventPublic } from './audit-log/audit-log-public.dto';

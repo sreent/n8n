@@ -91,8 +91,26 @@ scope, and the type check fails when ordinary code names a scope that the data d
 ## Fork scopes
 
 The generated data is only upstream data. A fork feature that needs a new scope adds it in a
-separate fork list next to the generated data, with a test, in the pull request of the feature. No
-fork feature needs a scope yet, so that list does not exist yet.
+separate fork list next to the generated data, with a test, in the pull request of the feature. Do
+not add it to the snapshot or to `permission-data.generated.ts`.
+
+`src/fork-scopes.ts` holds the list of the API key scopes that fork features add. It has one scope:
+
+| Scope | Feature | Why |
+|---|---|---|
+| `auditLogs:manage` | The audit log in the public API (`/api/v1/audit-log`), see [the README of the module](../../cli/src/modules/audit-log/README.md) | The scope is upstream data: the owner and the admins hold it, the option **Instance settings: Manage** of a custom instance role holds it, and the REST API of the audit log needs it. Upstream does not give it to API keys. The fork does, so that a key can read the audit log. |
+
+How the list works:
+
+- `ApiKeyResource` and `ApiKeyScope` (`types.ts`) join the generated types and the fork types.
+  `isApiKeyScope` accepts the scopes of both lists.
+- `getApiKeyScopesForRole` gives a key only the API key scopes that the role of the user holds. So
+  the owner, the admins and a custom role with the scope can give `auditLogs:manage` to a key. A
+  member cannot. `OWNER_API_KEY_SCOPES` and `getOwnerOnlyApiKeyScopes()` contain the scope too.
+- The API key modal of the editor shows the scope in the group **Instance operations**
+  (`packages/frontend/editor-ui/src/features/settings/apiKeys/apiKeys.constants.ts`).
+- `src/__tests__/fork-scopes.test.ts` checks the list. It fails when upstream makes a fork scope
+  an API key scope. Then remove the scope from the fork list.
 
 ## Acceptance of step 2
 

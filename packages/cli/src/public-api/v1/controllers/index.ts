@@ -4,6 +4,8 @@
  * scope-parity / discover run.
  */
 import './audit.public.controller';
+// Fork: the audit log in the public API (packages/cli/src/modules/audit-log/README.md).
+import './audit-log.public.controller';
 import './community-packages.public.controller';
 import './credential-type-policies.public.controller';
 import './credentials.public.controller';
