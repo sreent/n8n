@@ -158,6 +158,13 @@ spaces. A user cannot hide a workflow from them.
   executions. `GET /api/v1/insights/by-workflow` gives the executions, the failures, the run time
   and the time saved of each workflow (scope `insights:read`). Give an API key only the scopes that
   it needs.
+- **Reviews.** `GET /api/v1/inventory/workflows` gives each workflow in one call: its status, home
+  project, owner, shares, node types, credentials, triggers and newest executions (scopes
+  `workflow:list` and `execution:list`). `GET /api/v1/api-keys` lists the API keys of all users,
+  with the scopes, the expiry and the last use, but not the values of the keys (scope
+  `apiKey:manage`). `GET /api/v1/users` gives `lastActiveAt`, the day of the last request of each
+  user: an old day or null shows an unused account. See
+  [packages/cli/src/governance/README.md](../packages/cli/src/governance/README.md).
 - **The audit log.** Settings > Audit log shows who created, changed, published, archived or deleted
   a workflow, and each execution, for 90 days. Each event keeps its project, so the filter
   **Project: Personal spaces** shows what users did in their personal spaces. An API key with the
