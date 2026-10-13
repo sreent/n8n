@@ -95,3 +95,7 @@ packages/cli/test/integration/test-run.repository.ee.test.ts
 
 # The evaluation editor. The fork has its own files in features/ai/evaluation (the FORK.md there).
 packages/frontend/editor-ui/src/features/ai/evaluation.ee/
+
+# The AI workflow builder. The fork package packages/@n8n/ai-workflow-builder has the same package
+# name and the parts that the n8n server uses (its FORK.md).
+packages/@n8n/ai-workflow-builder.ee/
