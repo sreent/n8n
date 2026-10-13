@@ -17,7 +17,7 @@ import {
 	AnotherDummyProvider,
 	DummyProvider,
 	MockProviders,
-} from '../../shared/external-secrets/fork-providers';
+} from '../../shared/external-secrets/utils';
 
 const mockProvidersInstance = new MockProviders();
 mockInstance(ExternalSecretsProviders, mockProvidersInstance);

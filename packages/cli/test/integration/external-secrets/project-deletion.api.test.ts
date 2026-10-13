@@ -16,7 +16,7 @@ import { mock } from 'vitest-mock-extended';
 import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
 import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 
-import { MockProviders, createDummyProvider } from '../../shared/external-secrets/fork-providers';
+import { MockProviders, createDummyProvider } from '../../shared/external-secrets/utils';
 import { createMember, createOwner } from '../shared/db/users';
 import { setupTestServer } from '../shared/utils';
 

@@ -1,46 +1,6 @@
 # Test files that scripts/container-ci.sh leaves out: one path from the repository root on each
 # line. Only packages/cli files are supported.
 #
-# The enterprise SSO tests. The owner chose not to run them on the fork code (2026-10-09).
-packages/cli/src/modules/sso-oidc/__tests__/oidc.controller.ee.test.ts
-packages/cli/src/modules/sso-oidc/__tests__/oidc.service.ee.test.ts
-packages/cli/src/sso.ee/__tests__/sso-helpers.test.ts
-packages/cli/test/integration/oidc/oidc.service.ee.test.ts
-
-# The enterprise role provisioning tests. The owner chose not to run them on the fork code (2026-10-10).
-packages/cli/src/modules/provisioning.ee/__tests__/claims-context.builder.test.ts
-packages/cli/src/modules/provisioning.ee/__tests__/constants.test.ts
-packages/cli/src/modules/provisioning.ee/__tests__/provisioning.controller.ee.test.ts
-packages/cli/src/modules/provisioning.ee/__tests__/provisioning.service.ee.test.ts
-packages/cli/src/modules/provisioning.ee/__tests__/role-deletion-checker.ee.test.ts
-packages/cli/src/modules/provisioning.ee/__tests__/role-mapping-rule.controller.ee.test.ts
-packages/cli/src/modules/provisioning.ee/__tests__/role-mapping-rule.service.ee.test.ts
-packages/cli/src/modules/provisioning.ee/__tests__/role-mapping-rule.validation.test.ts
-packages/cli/src/modules/provisioning.ee/__tests__/role-resolver.service.ee.test.ts
-
-# The enterprise SAML tests. The owner chose not to run them on the fork code (2026-10-10).
-packages/cli/src/modules/sso-saml/__tests__/saml.controller.ee.test.ts
-packages/cli/src/modules/sso-saml/__tests__/saml.service.ee.test.ts
-
-# The enterprise external secrets tests. The owner chose not to run them on the fork code (2026-10-10).
-packages/cli/src/modules/external-secrets.ee/__tests__/external-secrets-manager.ee.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/external-secrets-provider-connection-manager.ee.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/external-secrets-providers.ee.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/external-secrets.config.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/external-secrets.service.ee.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/provider-lifecycle.service.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/provider-registry.service.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/redaction.service.ee.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/retry-manager.service.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/secret-provider-access-check.service.ee.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/secrets-cache.service.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/secrets-providers-connections.controller.ee.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/secrets-providers-connections.service.ee.test.ts
-packages/cli/src/modules/external-secrets.ee/__tests__/settings-store.service.test.ts
-packages/cli/src/modules/external-secrets.ee/errors/__tests__/secrets-provider-errors.test.ts
-packages/cli/src/modules/external-secrets.ee/providers/__tests__/aws-secrets-manager.test.ts
-packages/cli/src/modules/external-secrets.ee/providers/__tests__/azure-key-vault.test.ts
-packages/cli/src/modules/external-secrets.ee/providers/__tests__/gcp-secrets-manager.test.ts
-packages/cli/src/modules/external-secrets.ee/providers/__tests__/infisical.test.ts
-packages/cli/src/modules/external-secrets.ee/providers/__tests__/one-password.test.ts
-packages/cli/src/modules/external-secrets.ee/providers/__tests__/vault.test.ts
+# The list is empty. It held the enterprise SSO, role provisioning and external secrets tests,
+# which the owner chose not to run on the fork code (2026-10-09 and 2026-10-10). The fork deleted
+# those tests with the other enterprise files.

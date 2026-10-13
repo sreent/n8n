@@ -13,7 +13,7 @@ import {
 	createDummyProvider,
 	DummyProvider,
 	MockProviders,
-} from '../../shared/external-secrets/fork-providers';
+} from '../../shared/external-secrets/utils';
 import { createAdmin, createMember, createOwner } from '../shared/db/users';
 import type { SuperAgentTest } from '../shared/types';
 import { setupTestServer } from '../shared/utils';

@@ -25,7 +25,7 @@ import {
 	FailedProvider,
 	MockProviders,
 	TestFailProvider,
-} from '../../shared/external-secrets/fork-providers';
+} from '../../shared/external-secrets/utils';
 import { createOwner, createUser } from '../shared/db/users';
 import type { SuperAgentTest } from '../shared/types';
 import { setupTestServer } from '../shared/utils';
