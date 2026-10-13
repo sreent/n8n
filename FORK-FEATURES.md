@@ -51,7 +51,7 @@ The owner chose these on 2026-10-04:
 | Removed | The fork deleted the enterprise code (`scripts/removed-enterprise-paths.txt`). |
 | Kept, enterprise code | Enterprise files for the feature are still in the fork. They do nothing without a licence. |
 | Gated, ordinary code | Ordinary code behind a licence check. The fork keeps these checks. Since step 5 of FORK.md, `packages/cli/src/fork-features.ts` makes the licence give the features of step 5. |
-| Free with a key | n8n turns the feature on for free with a registered community key (**Settings > Usage and plan > Unlock**). |
+| Free with a key | Upstream n8n turns the feature on for free with a registered community key (**Settings > Usage and plan > Unlock**). The fork has no registration (`packages/cli/src/license/FORK.md`): the fork switch turns these features on. |
 | Fork | The fork has its own feature. |
 | Not checked | Nobody looked at the code of this feature yet. |
 

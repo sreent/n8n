@@ -82,7 +82,6 @@ import {
 	REPORTED_SOURCE_OTHER_KEY,
 	REPORTED_SOURCE_LLM,
 } from '../users.constants';
-import { COMMUNITY_PLUS_ENROLLMENT_MODAL } from '@/features/settings/usage/usage.constants';
 import { useToast } from '@n8n/composables/useToast';
 import Modal from '@/app/components/Modal.vue';
 import type { IFormInputs } from '@/Interface';
@@ -95,8 +94,6 @@ import { usePostHog } from '@/app/stores/posthog.store';
 import { useExternalHooks } from '@/app/composables/useExternalHooks';
 import { useI18n } from '@n8n/i18n';
 import { useRoute, useRouter } from 'vue-router';
-import { useUIStore } from '@/app/stores/ui.store';
-import { getResourcePermissions } from '@n8n/permissions';
 
 import { N8nButton, N8nFormInputs } from '@n8n/design-system';
 const SURVEY_VERSION = 'v4';
@@ -111,13 +108,9 @@ const usersStore = useUsersStore();
 const posthogStore = usePostHog();
 const route = useRoute();
 const router = useRouter();
-const uiStore = useUIStore();
 
 const formValues = ref<Record<string, string>>({});
 const isSaving = ref(false);
-const userPermissions = computed(() =>
-	getResourcePermissions(usersStore.currentUser?.globalScopes),
-);
 const survey = computed<IFormInputs>(
 	() =>
 		[
@@ -571,20 +564,11 @@ const closeCallback = () => {
 	}
 };
 
+// Fork: the fork does not offer the registration of the Community Edition after the survey
+// (packages/cli/src/license/FORK.md).
 const closeDialog = () => {
 	modalBus.emit('close');
-
-	if (userPermissions.value.community.register) {
-		uiStore.openModalWithData({
-			name: COMMUNITY_PLUS_ENROLLMENT_MODAL,
-			data: {
-				closeCallback,
-				customHeading: undefined,
-			},
-		});
-	} else {
-		closeCallback();
-	}
+	closeCallback();
 };
 
 const onSubmit = async (values: object) => {

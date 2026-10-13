@@ -37,7 +37,6 @@ import {
 	MODAL_CONFIRM,
 	VIEWS,
 } from '@/app/constants';
-import { COMMUNITY_PLUS_ENROLLMENT_MODAL } from '@/features/settings/usage/usage.constants';
 import { useAITemplatesStarterCollectionStore } from '@/experiments/aiTemplatesStarterCollection/stores/aiTemplatesStarterCollection.store';
 import SuggestedWorkflowCard from '@/experiments/personalizedTemplates/components/SuggestedWorkflowCard.vue';
 import SuggestedWorkflows from '@/experiments/personalizedTemplates/components/SuggestedWorkflows.vue';
@@ -111,7 +110,6 @@ import {
 	N8nOption,
 	N8nSelect,
 	N8nText,
-	N8nTooltip,
 } from '@n8n/design-system';
 
 const SEARCH_DEBOUNCE_TIME = getDebounceTime(DEBOUNCE_TIME.INPUT.SEARCH);
@@ -399,10 +397,6 @@ const currentBreadcrumbsProjectName = computed(() => {
 		: project.name;
 });
 
-const currentParentName = computed(
-	() => currentFolder.value?.name ?? currentBreadcrumbsProjectName.value,
-);
-
 const projectRootBreadcrumbsActions = computed<Array<UserAction<IUser>>>(() => {
 	const project = currentBreadcrumbsProject.value;
 	if (!project) return [];
@@ -592,16 +586,6 @@ const showArchivedOnlyHint = computed(() => {
 		foldersStore.totalWorkflowCount > 0
 	);
 });
-
-const isSelfHostedDeployment = computed(() => settingsStore.deploymentType === 'default');
-
-const canUserRegisterCommunityPlus = computed(
-	() => getResourcePermissions(usersStore.currentUser?.globalScopes).community.register,
-);
-
-const showRegisteredCommunityCTA = computed(
-	() => isSelfHostedDeployment.value && !foldersEnabled.value && canUserRegisterCommunityPlus.value,
-);
 
 const showAIStarterCollectionCallout = computed(() => {
 	return (
@@ -1842,14 +1826,6 @@ const renameFolder = async (folderId: string) => {
 };
 
 const createFolderInCurrent = async () => {
-	// Show the community plus enrollment modal if the user is self-hosted, and hasn't enabled folders
-	if (showRegisteredCommunityCTA.value) {
-		uiStore.openModalWithData({
-			name: COMMUNITY_PLUS_ENROLLMENT_MODAL,
-			data: { customHeading: i18n.baseText('folders.registeredCommunity.cta.heading') },
-		});
-		return;
-	}
 	if (!currentBreadcrumbsProject.value) return;
 	const currentParent = currentFolder.value?.name || currentBreadcrumbsProjectName.value;
 	if (!currentParent) return;
@@ -2010,13 +1986,6 @@ const moveWorkflowToFolder = async (payload: {
 	sharedWithProjects?: ProjectSharingData[];
 	homeProjectId?: string;
 }) => {
-	if (showRegisteredCommunityCTA.value) {
-		uiStore.openModalWithData({
-			name: COMMUNITY_PLUS_ENROLLMENT_MODAL,
-			data: { customHeading: i18n.baseText('folders.registeredCommunity.cta.heading') },
-		});
-		return;
-	}
 	uiStore.openMoveToFolderModal(
 		'workflow',
 		{
@@ -2243,30 +2212,6 @@ const onNameSubmit = async (name: string) => {
 					time-range="week"
 				/>
 			</ProjectHeader>
-		</template>
-		<template v-if="showRegisteredCommunityCTA" #add-button>
-			<N8nTooltip placement="top">
-				<template #content>
-					<span>
-						{{
-							currentParentName
-								? i18n.baseText('folders.add.to.parent.message', {
-										interpolate: { parent: currentParentName },
-									})
-								: i18n.baseText('folders.add.here.message')
-						}}
-					</span>
-				</template>
-				<N8nButton
-					variant="outline"
-					size="medium"
-					iconOnly
-					icon="folder-plus"
-					:aria-label="i18n.baseText('workflows.addFolder')"
-					data-test-id="add-folder-button"
-					@click="createFolderInCurrent"
-				/>
-			</N8nTooltip>
 		</template>
 		<template #callout>
 			<N8nCallout

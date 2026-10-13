@@ -53,7 +53,6 @@ import {
 	COMMUNITY_PACKAGE_INSTALL_MODAL_KEY,
 } from '@/features/settings/communityNodes/communityNodes.constants';
 import { VARIABLE_MODAL_KEY } from '@/features/settings/environments/environments.constants';
-import { COMMUNITY_PLUS_ENROLLMENT_MODAL } from '@/features/settings/usage/usage.constants';
 import {
 	DELETE_USER_MODAL_KEY,
 	INVITE_USER_MODAL_KEY,
@@ -102,12 +101,6 @@ export const SHELL_MODAL_INITIAL_STATE: Readonly<Record<string, ModalState>> = O
 		activeId: null,
 	},
 	[COMMUNITY_PACKAGE_INSTALL_MODAL_KEY]: { open: false },
-	[COMMUNITY_PLUS_ENROLLMENT_MODAL]: {
-		open: false,
-		data: {
-			customHeading: undefined,
-		},
-	},
 	[CREDENTIAL_EDIT_MODAL_KEY]: {
 		open: false,
 		mode: '',

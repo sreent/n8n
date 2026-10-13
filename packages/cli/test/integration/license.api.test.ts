@@ -1,10 +1,7 @@
 import { testDb } from '@n8n/backend-test-utils';
 import { GLOBAL_MEMBER_ROLE, GLOBAL_OWNER_ROLE, type User } from '@n8n/db';
-import nock from 'nock';
 
-import { RESPONSE_ERROR_MESSAGES } from '@/constants';
-import type { ILicensePostResponse, ILicenseReadResponse } from '@/interfaces';
-import { License } from '@/license';
+import type { ILicenseReadResponse } from '@/interfaces';
 
 import { createUserShell } from './shared/db/users';
 import type { SuperAgentTest } from './shared/types';
@@ -41,68 +38,16 @@ describe('GET /license', () => {
 	});
 });
 
-describe('POST /license/enterprise/request_trial', () => {
-	nock('https://enterprise.n8n.io').post('/enterprise-trial').reply(200);
-
-	test('should work for instance owner', async () => {
-		await authOwnerAgent.post('/license/enterprise/request_trial').expect(200);
-	});
-
-	test('does not work for regular users', async () => {
-		await authMemberAgent
-			.post('/license/enterprise/request_trial')
-			.expect(403, { status: 'error', message: RESPONSE_ERROR_MESSAGES.MISSING_SCOPE });
-	});
-});
-
-describe('POST /license/activate', () => {
-	test('should work for instance owner', async () => {
-		await authOwnerAgent
-			.post('/license/activate')
-			.send({ activationKey: 'abcde' })
-			.expect(200, DEFAULT_POST_RESPONSE);
-	});
-
-	test('does not work for regular users', async () => {
-		await authMemberAgent
-			.post('/license/activate')
-			.send({ activationKey: 'abcde' })
-			.expect(403, { status: 'error', message: RESPONSE_ERROR_MESSAGES.MISSING_SCOPE });
-	});
-
-	test('errors out properly', async () => {
-		License.prototype.activate = vi.fn().mockImplementation(() => {
-			throw new Error('some fake error');
-		});
-
-		await authOwnerAgent
-			.post('/license/activate')
-			.send({ activationKey: 'abcde' })
-			.expect(400, { code: 400, message: `${ACTIVATION_FAILED_MESSAGE}: some fake error` });
-	});
-});
-
-describe('POST /license/renew', () => {
-	test('should work for instance owner', async () => {
-		// No license defined so we just expect the result to be the defaults
-		await authOwnerAgent.post('/license/renew').expect(200, DEFAULT_POST_RESPONSE);
-	});
-
-	test('does not work for regular users', async () => {
-		await authMemberAgent
-			.post('/license/renew')
-			.expect(403, { status: 'error', message: RESPONSE_ERROR_MESSAGES.MISSING_SCOPE });
-	});
-
-	test('errors out properly', async () => {
-		License.prototype.getPlanName = vi.fn().mockReturnValue('Enterprise');
-		License.prototype.renew = vi.fn().mockImplementation(() => {
-			throw new Error(GENERIC_ERROR_MESSAGE);
-		});
-
-		await authOwnerAgent
-			.post('/license/renew')
-			.expect(400, { code: 400, message: `Failed to renew license: ${GENERIC_ERROR_MESSAGE}` });
+// Fork: the fork has no routes that request a trial, register the Community Edition, or activate or
+// renew a licence key (packages/cli/src/license/FORK.md).
+describe('removed licence routes', () => {
+	test.each([
+		'/license/enterprise/request_trial',
+		'/license/enterprise/community-registered',
+		'/license/activate',
+		'/license/renew',
+	])('POST %s is not found', async (path) => {
+		await authOwnerAgent.post(path).send({ activationKey: 'abcde', email: 'a@b.c' }).expect(404);
 	});
 });
 
@@ -125,27 +70,3 @@ const DEFAULT_LICENSE_RESPONSE: { data: ILicenseReadResponse } = {
 		},
 	},
 };
-
-const DEFAULT_POST_RESPONSE: { data: ILicensePostResponse } = {
-	data: {
-		usage: {
-			activeWorkflowTriggers: {
-				value: 0,
-				limit: -1,
-				warningThreshold: 0.8,
-			},
-			workflowsHavingEvaluations: {
-				value: 0,
-				limit: 0,
-			},
-		},
-		license: {
-			planId: '',
-			planName: 'Community',
-		},
-		managementToken: '',
-	},
-};
-
-const ACTIVATION_FAILED_MESSAGE = 'Failed to activate license';
-const GENERIC_ERROR_MESSAGE = 'Something went wrong';

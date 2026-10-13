@@ -69,7 +69,6 @@ const ALLOWED_CATALOGUE_KEYS = [
 	'chatEmbed',
 	'communityPackageInstall',
 	'communityPackageManageConfirm',
-	'communityPlusEnrollment',
 	'createOrEditApiKey',
 	'credentialResolverEdit',
 	'debugPaywall',

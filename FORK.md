@@ -16,6 +16,10 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   of n8n to webhook, syslog and Sentry destinations, and the page Settings > Log streaming
   (`packages/frontend/editor-ui/src/features/integrations/logStreaming`) manages them. The README
   of the module and the FORK.md of the page describe them.
+- **No registration and no licence keys**: the fork turns on its features with the switch of step 5
+  (below). It has no registration of the Community Edition, no request of an enterprise trial and
+  no entry of licence keys (the owner chose this on 2026-10-13).
+  [packages/cli/src/license/FORK.md](packages/cli/src/license/FORK.md) describes the change.
 - `deploy/`: runs the fork on a Linux server with Docker Compose.
 - `vendor/`: the wa-sqlite package that the editor app installs. Upstream installs it from
   GitHub, which a cloud session cannot do. `scripts/vendor-wa-sqlite.sh` packs it from the
@@ -237,6 +241,9 @@ update can bring new enterprise files: see "Upstream updates".
   snapshot test of `@n8n/permissions` fails when upstream adds a scope.
 - When an upstream update changes `isLicensed` or `getValue` of `packages/cli/src/license.ts`, or
   the `setupFiles` of `packages/cli/vitest.config.base.ts`, keep the fork lines (step 5).
+- When an upstream update changes the licence routes, the page Settings > Usage and plan or the
+  registration of the Community Edition, keep the fork removal, as
+  [packages/cli/src/license/FORK.md](packages/cli/src/license/FORK.md) tells.
 - When an upstream update changes the wa-sqlite commit in
   `packages/frontend/editor-ui/package.json`, keep the upstream line. Then run
   `scripts/vendor-wa-sqlite.sh`.
