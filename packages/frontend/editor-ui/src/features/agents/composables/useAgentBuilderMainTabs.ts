@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import type { LocationQueryValue } from 'vue-router';
 import { useI18n, type BaseTextKey } from '@n8n/i18n';
 
-import { useAgentEvalsFlag } from '@/features/ai/evaluation.ee/composables/useAgentEvalsFlag';
+import { useAgentEvalsFlag } from '@/features/ai/evaluation/composables/useAgentEvalsFlag';
 import { EXECUTIONS_SECTION_KEY } from '../constants';
 
 export type AgentBuilderMainTab = 'agent' | 'knowledge' | 'sessions' | 'settings' | 'evals';

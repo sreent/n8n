@@ -29,7 +29,7 @@ vi.mock('@n8n/composables/useToast', () => ({
 
 // Force the add-to-dataset action available so tests can assert the
 // execution status/mode gating in the component itself.
-vi.mock('@/features/ai/evaluation.ee/composables/useAddExecutionToDataset', () => ({
+vi.mock('@/features/ai/evaluation/composables/useAddExecutionToDataset', () => ({
 	useAddExecutionToDataset: () => ({
 		isFeatureEnabled: ref(true),
 		hasDataTableConfig: ref(true),

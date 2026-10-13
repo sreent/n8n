@@ -120,7 +120,7 @@ import NodeRecommendationModalV2 from '@/experiments/templateRecoV2/components/N
 import NodeRecommendationModalV3 from '@/experiments/personalizedTemplatesV3/components/NodeRecommendationModal.vue';
 import VariableModal from '@/features/settings/environments/components/VariableModal.vue';
 import StopManyExecutionsModal from '@/features/execution/executions/components/StopManyExecutionsModal.vue';
-import AddExecutionToDatasetModal from '@/features/ai/evaluation.ee/components/AddExecutionToDataset/AddExecutionToDatasetModal.vue';
+import AddExecutionToDatasetModal from '@/features/ai/evaluation/components/AddExecutionToDataset/AddExecutionToDatasetModal.vue';
 import WorkflowDescriptionModal from '@/features/workflows/components/WorkflowDescriptionModal.vue';
 import WorkflowPublishModal from '@/features/workflows/components/WorkflowPublishModal.vue';
 import MigrateWorkflowModal from '@/features/settings/migrationReport/MigrateWorkflowModal.vue';

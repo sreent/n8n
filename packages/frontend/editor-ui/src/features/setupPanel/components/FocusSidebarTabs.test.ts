@@ -18,7 +18,7 @@ vi.mock('@/experiments/evaluationsWizardSidepanel/useEvaluationsWizardSidepanelE
 }));
 
 const aiRootNodes = ref<Array<{ name: string; type: string }>>([]);
-vi.mock('@/features/ai/evaluation.ee/composables/useAiRootNodes', () => ({
+vi.mock('@/features/ai/evaluation/composables/useAiRootNodes', () => ({
 	useAiRootNodes: () => aiRootNodes,
 }));
 

@@ -66,7 +66,7 @@ import {
 import { useNodeTypesStore } from '@/app/stores/nodeTypes.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import type { NodeIconSource } from '@/app/utils/nodeIcon';
-import { useEvaluationStore } from '@/features/ai/evaluation.ee/evaluation.store';
+import { useEvaluationStore } from '@/features/ai/evaluation/evaluation.store';
 import { useTemplatesStore } from '@/features/workflows/templates/templates.store';
 import type {
 	CommandCreateElement,

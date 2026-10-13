@@ -103,13 +103,13 @@ const WorkflowHistory = async () =>
 	await import('@/features/workflows/workflowHistory/views/WorkflowHistory.vue');
 const WorkflowOnboardingView = async () => await import('@/app/views/WorkflowOnboardingView.vue');
 const EvaluationsListSwitcher = async () =>
-	await import('@/features/ai/evaluation.ee/views/EvaluationsListSwitcher.vue');
+	await import('@/features/ai/evaluation/views/EvaluationsListSwitcher.vue');
 const TestRunDetailView = async () =>
-	await import('@/features/ai/evaluation.ee/views/TestRunDetailView.vue');
+	await import('@/features/ai/evaluation/views/TestRunDetailView.vue');
 const CompareCollectionView = async () =>
-	await import('@/features/ai/evaluation.ee/views/CompareCollectionView.vue');
+	await import('@/features/ai/evaluation/views/CompareCollectionView.vue');
 const EvaluationRootView = async () =>
-	await import('@/features/ai/evaluation.ee/views/EvaluationsRootView.vue');
+	await import('@/features/ai/evaluation/views/EvaluationsRootView.vue');
 const SettingsAIView = async () => await import('@/features/ai/assistant/views/SettingsAIView.vue');
 const SettingsAiGatewayView = async () =>
 	await import('@/features/ai/gateway/views/SettingsAiGatewayView.vue');

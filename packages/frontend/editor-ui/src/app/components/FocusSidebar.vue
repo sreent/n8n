@@ -18,10 +18,10 @@ import { N8nResizeWrapper } from '@n8n/design-system';
 import FocusSidebarTabs from '@/features/setupPanel/components/FocusSidebarTabs.vue';
 import SetupPanel from '@/features/setupPanel/components/SetupPanel.vue';
 import FocusPanel from '@/app/components/FocusPanel.vue';
-import TestsPanel from '@/features/ai/evaluation.ee/components/Tests/TestsPanel.vue';
-import EvaluationsPaywall from '@/features/ai/evaluation.ee/components/Paywall/EvaluationsPaywall.vue';
+import TestsPanel from '@/features/ai/evaluation/components/Tests/TestsPanel.vue';
+import EvaluationsPaywall from '@/features/ai/evaluation/components/Paywall/EvaluationsPaywall.vue';
 import { useEvaluationsWizardSidepanelExperiment } from '@/experiments/evaluationsWizardSidepanel/useEvaluationsWizardSidepanelExperiment';
-import { useEvaluationsLicense } from '@/features/ai/evaluation.ee/composables/useEvaluationsLicense';
+import { useEvaluationsLicense } from '@/features/ai/evaluation/composables/useEvaluationsLicense';
 
 defineOptions({ name: 'FocusSidebar' });
 
