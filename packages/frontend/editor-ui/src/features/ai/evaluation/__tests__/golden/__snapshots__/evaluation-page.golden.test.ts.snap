@@ -1,0 +1,3431 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the evaluation page > a running run asks for its state again 1`] = `
+{
+  "detail, after 1000 ms more": {
+    "requests": [
+      "GET /workflows/wf1/test-runs/r3",
+      "GET /workflows/wf1/test-runs/r3/test-cases",
+    ],
+  },
+  "detail, after 3000 ms more": {
+    "requests": [
+      "GET /workflows/wf1/test-runs/r3",
+      "GET /workflows/wf1/test-runs/r3/test-cases",
+    ],
+  },
+  "detail, after 500 ms more": {
+    "requests": [
+      "GET /workflows/wf1/test-runs/r3",
+      "GET /workflows/wf1/test-runs/r3/test-cases",
+    ],
+  },
+  "list, after 1000 ms more": {
+    "requests": [
+      "GET /workflows/wf1/test-runs/r3",
+      "GET /workflows/wf1/test-runs/r3/test-cases",
+    ],
+  },
+  "list, after 3000 ms more": {
+    "requests": [
+      "GET /workflows/wf1/test-runs/r3",
+      "GET /workflows/wf1/test-runs/r3/test-cases",
+    ],
+  },
+  "list, after 500 ms more": {
+    "requests": [
+      "GET /workflows/wf1/test-runs/r3",
+      "GET /workflows/wf1/test-runs/r3/test-cases",
+    ],
+  },
+}
+`;
+
+exports[`the evaluation page > more details of runs 1`] = `
+{
+  "a better run with built-in metrics": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 1,
+              "has_previous_run": true,
+              "metric_count": 3,
+              "run_id": "r8",
+              "test_case_count": 2,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r8",
+        "GET /workflows/wf1/test-runs/r8/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+          "button #test-case-rerun-button: Re-run test",
+        ],
+        "icons": [
+          "arrow-left",
+          "circle-check",
+          "trending-up",
+          "external-link",
+          "circle-check",
+          "circle-check",
+          "circle-check",
+          "circle-x",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r8",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #2DoneAccuracy100%+25%Correctness80%Similarity50%Test #115t · 300msAccuracySet metrics100%CorrectnessCorrectness check80%SimilaritySimilarity check50%Test #2Re-run testFailedAn unknown",
+          "run-status-pill: Done",
+          "metric-summary-strip: Accuracy100%+25%Correctness80%Similarity50%",
+          "metric-summary-card: Accuracy100%+25%",
+          "trend-delta-badge: +25%",
+          "metric-summary-card: Correctness80%",
+          "metric-summary-card: Similarity50%",
+          "test-case-card: Test #115t · 300msAccuracySet metrics100%CorrectnessCorrectness check80%SimilaritySimilarity check50%",
+          "card-content: Test #115t · 300msAccuracySet metrics100%CorrectnessCorrectness check80%SimilaritySimilarity check50%",
+          "test-case-header: Test #115t · 300ms",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics100%",
+          "test-case-metric-row: CorrectnessCorrectness check80%",
+          "test-case-metric-row: SimilaritySimilarity check50%",
+          "test-case-card: Test #2Re-run testFailedAn unknown error occurred",
+          "card-content: Test #2Re-run testFailedAn unknown error occurred",
+          "test-case-header: Test #2Re-run test",
+          "test-case-rerun-button: Re-run test",
+          "test-case-metric-row: FailedAn unknown error occurred",
+        ],
+        "text": "Back to runsRun #2DoneAccuracy100%+25%Correctness80%Similarity50%Test #115t · 300msAccuracySet metrics100%CorrectnessCorrectness check80%SimilaritySimilarity check50%Test #2Re-run testFailedAn unknown error occurred",
+      },
+    },
+  ],
+  "a cancelled run": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 0,
+              "has_previous_run": true,
+              "metric_count": 0,
+              "run_id": "r6",
+              "test_case_count": 2,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r6",
+        "GET /workflows/wf1/test-runs/r6/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+        ],
+        "icons": [
+          "arrow-left",
+          "status-canceled",
+          "external-link",
+          "circle-check",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r6",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #2CancelledTest #1CancelledTest #22,000t · 1m 5sAccuracySet metrics100%",
+          "run-status-pill: Cancelled",
+          "test-case-card: Test #1Cancelled",
+          "card-content: Test #1Cancelled",
+          "test-case-header: Test #1Cancelled",
+          "test-case-card: Test #22,000t · 1m 5sAccuracySet metrics100%",
+          "card-content: Test #22,000t · 1m 5sAccuracySet metrics100%",
+          "test-case-header: Test #22,000t · 1m 5s",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics100%",
+        ],
+        "text": "Back to runsRun #2CancelledTest #1CancelledTest #22,000t · 1m 5sAccuracySet metrics100%",
+      },
+    },
+  ],
+  "a new run": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 0,
+              "has_previous_run": false,
+              "metric_count": 0,
+              "run_id": "r12",
+              "test_case_count": 1,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r12",
+        "GET /workflows/wf1/test-runs/r12/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-cancel-button: Cancel",
+        ],
+        "icons": [
+          "arrow-left",
+          "spinner",
+          "circle",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r12",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #1RunningTest #1Cancel",
+          "run-status-pill: Running",
+          "test-case-card: Test #1Cancel",
+          "card-content: Test #1Cancel",
+          "test-case-header: Test #1Cancel",
+          "test-case-cancel-button: Cancel",
+        ],
+        "text": "Back to runsRun #1RunningTest #1Cancel",
+      },
+    },
+  ],
+  "a run with the same score": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 0,
+              "has_previous_run": true,
+              "metric_count": 1,
+              "run_id": "r10",
+              "test_case_count": 1,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r10",
+        "GET /workflows/wf1/test-runs/r10/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+        ],
+        "icons": [
+          "arrow-left",
+          "circle-check",
+          "external-link",
+          "circle-check",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r10",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #2DoneAccuracy75%Test #1AccuracySet metrics75%",
+          "run-status-pill: Done",
+          "metric-summary-strip: Accuracy75%",
+          "metric-summary-card: Accuracy75%",
+          "test-case-card: Test #1AccuracySet metrics75%",
+          "card-content: Test #1AccuracySet metrics75%",
+          "test-case-header: Test #1",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics75%",
+        ],
+        "text": "Back to runsRun #2DoneAccuracy75%Test #1AccuracySet metrics75%",
+      },
+    },
+  ],
+  "cancel a pending case": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 0,
+              "has_previous_run": true,
+              "metric_count": 0,
+              "run_id": "r3",
+              "test_case_count": 3,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r3",
+        "GET /workflows/wf1/test-runs/r3/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+          "button #test-case-cancel-button: Cancel",
+        ],
+        "icons": [
+          "arrow-left",
+          "spinner",
+          "external-link",
+          "circle-check",
+          "spinner",
+          "circle",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r3",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #2RunningTest #175t · 700msAccuracySet metrics100%Test #2<verb>… Test #3Cancel",
+          "run-status-pill: Running",
+          "test-case-card: Test #175t · 700msAccuracySet metrics100%",
+          "card-content: Test #175t · 700msAccuracySet metrics100%",
+          "test-case-header: Test #175t · 700ms",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics100%",
+          "test-case-card: Test #2<verb>…",
+          "card-content: Test #2<verb>…",
+          "test-case-header: Test #2<verb>…",
+          "test-case-card: Test #3Cancel",
+          "card-content: Test #3Cancel",
+          "test-case-header: Test #3Cancel",
+          "test-case-cancel-button: Cancel",
+        ],
+        "text": "Back to runsRun #2RunningTest #175t · 700msAccuracySet metrics100%Test #2<verb>… Test #3Cancel",
+      },
+    },
+    {
+      "click": "test-case-cancel-button",
+      "requests": [
+        "POST /workflows/wf1/test-runs/r3/test-cases/c7/cancel",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+        ],
+        "icons": [
+          "arrow-left",
+          "spinner",
+          "external-link",
+          "circle-check",
+          "spinner",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r3",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #2RunningTest #175t · 700msAccuracySet metrics100%Test #2<verb>… Test #3Cancelled",
+          "run-status-pill: Running",
+          "test-case-card: Test #175t · 700msAccuracySet metrics100%",
+          "card-content: Test #175t · 700msAccuracySet metrics100%",
+          "test-case-header: Test #175t · 700ms",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics100%",
+          "test-case-card: Test #2<verb>…",
+          "card-content: Test #2<verb>…",
+          "test-case-header: Test #2<verb>…",
+          "test-case-card: Test #3Cancelled",
+          "card-content: Test #3Cancelled",
+          "test-case-header: Test #3Cancelled",
+        ],
+        "text": "Back to runsRun #2RunningTest #175t · 700msAccuracySet metrics100%Test #2<verb>… Test #3Cancelled",
+      },
+    },
+  ],
+  "metrics above 1": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 0,
+              "has_previous_run": true,
+              "metric_count": 4,
+              "run_id": "r11",
+              "test_case_count": 2,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r11",
+        "GET /workflows/wf1/test-runs/r11/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+        ],
+        "icons": [
+          "arrow-left",
+          "circle-check",
+          "trending-down",
+          "external-link",
+          "circle-check",
+          "circle-check",
+          "circle-check",
+          "circle-check",
+          "spinner",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r11",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #2DoneAccuracy50%-25%Score42%Ratio2%Flag100%Test #1AccuracySet metrics50%Score42%Ratio2%Flag100%Test #2<verb>…",
+          "run-status-pill: Done",
+          "metric-summary-strip: Accuracy50%-25%Score42%Ratio2%Flag100%",
+          "metric-summary-card: Accuracy50%-25%",
+          "trend-delta-badge: -25%",
+          "metric-summary-card: Score42%",
+          "metric-summary-card: Ratio2%",
+          "metric-summary-card: Flag100%",
+          "test-case-card: Test #1AccuracySet metrics50%Score42%Ratio2%Flag100%",
+          "card-content: Test #1AccuracySet metrics50%Score42%Ratio2%Flag100%",
+          "test-case-header: Test #1",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics50%",
+          "test-case-metric-row: Score42%",
+          "test-case-metric-row: Ratio2%",
+          "test-case-metric-row: Flag100%",
+          "test-case-card: Test #2<verb>…",
+          "card-content: Test #2<verb>…",
+          "test-case-header: Test #2<verb>…",
+        ],
+        "text": "Back to runsRun #2DoneAccuracy50%-25%Score42%Ratio2%Flag100%Test #1AccuracySet metrics50%Score42%Ratio2%Flag100%Test #2<verb>…",
+      },
+    },
+  ],
+  "the list with a new run and large metrics": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 3,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r12",
+        "GET /workflows/wf1/test-runs/r12/test-cases",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                  [
+                    "r13",
+                    0.5,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-new",
+          "status-completed",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (3) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTimescoreratio#1Mar 1, 2026, 12:00:00new#3Jan 11, 10:00:00completed0.5042.001.50#2Jan 1, 10:00:00completed0.75120.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (3) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTimescoreratio#1Mar 1, 2026, 12:00:00new#3Jan 11, 10:00:00completed0.5042.001.50#2Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+}
+`;
+
+exports[`the evaluation page > more lists of runs 1`] = `
+{
+  "an error run": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+          "triangle-alert",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 1, 10:00:00completed0.75120.0030.00150.001500.00#1Jan 1, 10:00:00No matching rows in datasetCheck any filt",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 1, 10:00:00completed0.75120.0030.00150.001500.00#1Jan 1, 10:00:00No matching rows in datasetCheck any filters or limits set in the evaluation trigger",
+      },
+    },
+    {
+      "click": "#2",
+      "effects": [
+        [
+          "navigate",
+          "/workflow/wf1/evaluation/test-runs/r1",
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 1,
+              "has_previous_run": false,
+              "metric_count": 1,
+              "run_id": "r1",
+              "test_case_count": 2,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "requests": [
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r1",
+        "GET /workflows/wf1/test-runs/r1/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+          "button #test-case-view-link: View",
+          "button #test-case-rerun-button: Re-run test",
+        ],
+        "icons": [
+          "arrow-left",
+          "circle-check",
+          "external-link",
+          "circle-check",
+          "external-link",
+          "circle-x",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r1",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #2DoneAccuracy75%Test #175t · 700msAccuracySet metrics100%Test #2Re-run testFailedFailed to execute workflow",
+          "run-status-pill: Done",
+          "metric-summary-strip: Accuracy75%",
+          "metric-summary-card: Accuracy75%",
+          "test-case-card: Test #175t · 700msAccuracySet metrics100%",
+          "card-content: Test #175t · 700msAccuracySet metrics100%",
+          "test-case-header: Test #175t · 700ms",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics100%",
+          "test-case-card: Test #2Re-run testFailedFailed to execute workflow",
+          "card-content: Test #2Re-run testFailedFailed to execute workflow",
+          "test-case-header: Test #2Re-run test",
+          "test-case-view-link: ",
+          "test-case-rerun-button: Re-run test",
+          "test-case-metric-row: FailedFailed to execute workflow",
+        ],
+        "text": "Back to runsRun #2DoneAccuracy75%Test #175t · 700msAccuracySet metrics100%Test #2Re-run testFailedFailed to execute workflow",
+      },
+    },
+  ],
+  "metrics in another order": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTimezetaalpha#2Jan 7, 10:00:00completed40.0010.0050.00900.002.000.25#1Jan 1, 10:00:00completed0.75120.0030.00150.001",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTimezetaalpha#2Jan 7, 10:00:00completed40.0010.0050.00900.002.000.25#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+  "no concurrency limit": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 1,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+    {
+      "click": "parallel-eval-toggle",
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "div role=slider: slider between 1 and 10",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "parallel-eval-controls: Concurrency3 of 10SequentialFaster · may hit rate limitsSet the number of tests you want to run in parallel. Setting a higher number speeds up runs, but can run into rate limits.",
+          "run-in-parallel-mode-label: 3 of 10",
+          "run-in-parallel-concurrency: ",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestConcurrency3 of 10SequentialFaster · may hit rate limitsSet the number of tests you want to run in parallel. Setting a higher number speeds up runs, but can run into rate limits.All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+  "the start fails": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 1,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+    {
+      "click": "Run Test",
+      "effects": [
+        [
+          "toast",
+          {
+            "appendTo": "#n8n-app",
+            "customClass": "content-toast",
+            "dangerouslyUseHTMLString": true,
+            "duration": 0,
+            "message": "
+					
+					<i>The runner is busy</i>
+					",
+            "position": "bottom-right",
+            "title": "Couldn’t start test run",
+            "type": "error",
+            "zIndex": 2100,
+          },
+        ],
+        [
+          "telemetry.track",
+          [
+            "Instance FE emitted error",
+            {
+              "caused_by_credential": false,
+              "error_description": "<undefined>",
+              "error_message": "The runner is busy",
+              "error_title": "Couldn’t start test run",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "requests": [
+        "GET /workflows/wf1/test-runs",
+        "POST /workflows/wf1/test-runs/new data {'concurrency':3}",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+  "the stop fails": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r3",
+        "GET /workflows/wf1/test-runs/r3/test-cases",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #stop-test-button: Stop Test",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "stop-test-button: Stop Test",
+          "past-runs-table: All runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 3, 10:00:00running#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Stop TestAll runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 3, 10:00:00running#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+    {
+      "click": "Stop Test",
+      "effects": [
+        [
+          "toast",
+          {
+            "appendTo": "#n8n-app",
+            "customClass": "content-toast",
+            "dangerouslyUseHTMLString": true,
+            "duration": 0,
+            "message": "
+					
+					<i>The run cannot be cancelled</i>
+					",
+            "position": "bottom-right",
+            "title": "Couldn’t stop test run",
+            "type": "error",
+            "zIndex": 2100,
+          },
+        ],
+        [
+          "telemetry.track",
+          [
+            "Instance FE emitted error",
+            {
+              "caused_by_credential": false,
+              "error_description": "<undefined>",
+              "error_message": "The run cannot be cancelled",
+              "error_title": "Couldn’t stop test run",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "requests": [
+        "POST /workflows/wf1/test-runs/r3/cancel",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #stop-test-button: Stop Test",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "stop-test-button: Stop Test",
+          "past-runs-table: All runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 3, 10:00:00running#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Stop TestAll runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 3, 10:00:00running#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+}
+`;
+
+exports[`the evaluation page > more setup steps 1`] = `
+{
+  "a limit of 0 workflows, with runs": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 1,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+  "a limit of 1 workflow, not used yet": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "metrics_set_up": false,
+              "output_set_up": true,
+              "quota_reached": false,
+              "test_type": "evaluation",
+              "trigger_set_up": true,
+              "view": "setup",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button: Add 'Set metrics' node",
+          "button: Skip",
+          "button: Run in editor",
+        ],
+        "icons": [
+          "check",
+          "check",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluation-setup-wizard: Wire up a test datasetWrite workflow outputs back to dataset3Set up a quality scoreOptionalCalculate a score, e.g. by comparing expected and actual outputsAdd a 'set metrics' operation to log the scor",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoWire up a test datasetWrite workflow outputs back to dataset3Set up a quality scoreOptionalCalculate a score, e.g. by comparing expected and actual outputsAdd a 'set metrics' operation to log the scoreAdd 'Set metrics' nodeSkipYour plan supports custom metrics for one workflow only. See plans4Run in editor",
+      },
+    },
+    {
+      "click": "See plans",
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User clicked upgrade CTA",
+            {
+              "deploymentType": "default",
+              "executionsLeft": -1,
+              "isTrial": false,
+              "source": "evaluations",
+              "trialDaysLeft": -1,
+              "workflowsLeft": -1,
+            },
+          ],
+        ],
+        [
+          "window.open",
+          [
+            "https://n8n.io/pricing?utm_campaign=upgrade-evaluations&source=evaluations",
+            "_blank",
+          ],
+        ],
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button: Add 'Set metrics' node",
+          "button: Skip",
+          "button: Run in editor",
+        ],
+        "icons": [
+          "check",
+          "check",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluation-setup-wizard: Wire up a test datasetWrite workflow outputs back to dataset3Set up a quality scoreOptionalCalculate a score, e.g. by comparing expected and actual outputsAdd a 'set metrics' operation to log the scor",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoWire up a test datasetWrite workflow outputs back to dataset3Set up a quality scoreOptionalCalculate a score, e.g. by comparing expected and actual outputsAdd a 'set metrics' operation to log the scoreAdd 'Set metrics' nodeSkipYour plan supports custom metrics for one workflow only. See plans4Run in editor",
+      },
+    },
+  ],
+  "run in the editor": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "metrics_set_up": false,
+              "output_set_up": true,
+              "quota_reached": false,
+              "test_type": "evaluation",
+              "trigger_set_up": true,
+              "view": "setup",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button: Add 'Set metrics' node",
+          "button: Skip",
+          "button: Run in editor",
+        ],
+        "icons": [
+          "check",
+          "check",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluation-setup-wizard: Wire up a test datasetWrite workflow outputs back to dataset3Set up a quality scoreOptionalCalculate a score, e.g. by comparing expected and actual outputsAdd a 'set metrics' operation to log the scor",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoWire up a test datasetWrite workflow outputs back to dataset3Set up a quality scoreOptionalCalculate a score, e.g. by comparing expected and actual outputsAdd a 'set metrics' operation to log the scoreAdd 'Set metrics' nodeSkip4Run in editor",
+      },
+    },
+    {
+      "click": "Run in editor",
+      "effects": [
+        [
+          "navigate",
+          "/workflow/wf1?action=executeEvaluation",
+        ],
+      ],
+      "view": {
+        "controls": [],
+        "icons": [],
+        "route": "/workflow/wf1?action=executeEvaluation",
+        "testIds": [],
+        "text": "",
+      },
+    },
+  ],
+}
+`;
+
+exports[`the evaluation page > the detail of a run 1`] = `
+{
+  "a completed run": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 1,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 1,
+              "has_previous_run": false,
+              "metric_count": 1,
+              "run_id": "r1",
+              "test_case_count": 2,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r1",
+        "GET /workflows/wf1/test-runs/r1/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+          "button #test-case-view-link: View",
+          "button #test-case-rerun-button: Re-run test",
+        ],
+        "icons": [
+          "arrow-left",
+          "circle-check",
+          "external-link",
+          "circle-check",
+          "external-link",
+          "circle-x",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r1",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #1DoneAccuracy75%Test #175t · 700msAccuracySet metrics100%Test #2Re-run testFailedFailed to execute workflow",
+          "run-status-pill: Done",
+          "metric-summary-strip: Accuracy75%",
+          "metric-summary-card: Accuracy75%",
+          "test-case-card: Test #175t · 700msAccuracySet metrics100%",
+          "card-content: Test #175t · 700msAccuracySet metrics100%",
+          "test-case-header: Test #175t · 700ms",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics100%",
+          "test-case-card: Test #2Re-run testFailedFailed to execute workflow",
+          "card-content: Test #2Re-run testFailedFailed to execute workflow",
+          "test-case-header: Test #2Re-run test",
+          "test-case-view-link: ",
+          "test-case-rerun-button: Re-run test",
+          "test-case-metric-row: FailedFailed to execute workflow",
+        ],
+        "text": "Back to runsRun #1DoneAccuracy75%Test #175t · 700msAccuracySet metrics100%Test #2Re-run testFailedFailed to execute workflow",
+      },
+    },
+    {
+      "click": "test-case-view-link",
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User opened execution from run detail",
+            {
+              "run_id": "r1",
+              "test_case_id": "c1",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "window.open",
+          [
+            "/workflow/wf1/executions/100",
+            "_blank",
+          ],
+        ],
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+          "button #test-case-view-link: View",
+          "button #test-case-rerun-button: Re-run test",
+        ],
+        "icons": [
+          "arrow-left",
+          "circle-check",
+          "external-link",
+          "circle-check",
+          "external-link",
+          "circle-x",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r1",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #1DoneAccuracy75%Test #175t · 700msAccuracySet metrics100%Test #2Re-run testFailedFailed to execute workflow",
+          "run-status-pill: Done",
+          "metric-summary-strip: Accuracy75%",
+          "metric-summary-card: Accuracy75%",
+          "test-case-card: Test #175t · 700msAccuracySet metrics100%",
+          "card-content: Test #175t · 700msAccuracySet metrics100%",
+          "test-case-header: Test #175t · 700ms",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics100%",
+          "test-case-card: Test #2Re-run testFailedFailed to execute workflow",
+          "card-content: Test #2Re-run testFailedFailed to execute workflow",
+          "test-case-header: Test #2Re-run test",
+          "test-case-view-link: ",
+          "test-case-rerun-button: Re-run test",
+          "test-case-metric-row: FailedFailed to execute workflow",
+        ],
+        "text": "Back to runsRun #1DoneAccuracy75%Test #175t · 700msAccuracySet metrics100%Test #2Re-run testFailedFailed to execute workflow",
+      },
+    },
+    {
+      "click": "Re-run test",
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User ran evaluation",
+            {
+              "run_id": "r9",
+              "run_type": "direct",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "navigate",
+          "/workflow/wf1/evaluation/test-runs/r9",
+        ],
+      ],
+      "requests": [
+        "GET /workflows/wf1/test-runs",
+        "POST /workflows/wf1/test-runs/new",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+        ],
+        "icons": [
+          "arrow-left",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r9",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #0",
+        ],
+        "text": "Back to runsRun #0",
+      },
+    },
+    {
+      "click": "Back to runs",
+      "effects": [
+        [
+          "navigate",
+          "/workflow/wf1/evaluation",
+        ],
+      ],
+      "requests": [
+        "GET /workflows/wf1/evaluation-configs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+  "a failed run": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 0,
+              "has_previous_run": false,
+              "metric_count": 0,
+              "run_id": "e1",
+              "test_case_count": 0,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/e1",
+        "GET /workflows/wf1/test-runs/e1/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+        ],
+        "icons": [
+          "arrow-left",
+          "triangle-alert",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/e1",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #1Failed",
+          "run-status-pill: Failed",
+        ],
+        "text": "Back to runsRun #1Failed",
+      },
+    },
+  ],
+  "a run after another run": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 0,
+              "has_previous_run": true,
+              "metric_count": 1,
+              "run_id": "r2",
+              "test_case_count": 2,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r2",
+        "GET /workflows/wf1/test-runs/r2/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+          "button #test-case-view-link: View",
+          "button #test-case-rerun-button: Re-run test",
+        ],
+        "icons": [
+          "arrow-left",
+          "circle-check",
+          "trending-down",
+          "external-link",
+          "circle-check",
+          "external-link",
+          "circle-x",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r2",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #2DoneAccuracy50%-25%Test #160t · 600msAccuracySet metrics50%Test #260t · 600msRe-run testFailedNo 'Set metrics' node executed",
+          "run-status-pill: Done",
+          "metric-summary-strip: Accuracy50%-25%",
+          "metric-summary-card: Accuracy50%-25%",
+          "trend-delta-badge: -25%",
+          "test-case-card: Test #160t · 600msAccuracySet metrics50%",
+          "card-content: Test #160t · 600msAccuracySet metrics50%",
+          "test-case-header: Test #160t · 600ms",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics50%",
+          "test-case-card: Test #260t · 600msRe-run testFailedNo 'Set metrics' node executed",
+          "card-content: Test #260t · 600msRe-run testFailedNo 'Set metrics' node executed",
+          "test-case-header: Test #260t · 600msRe-run test",
+          "test-case-view-link: ",
+          "test-case-rerun-button: Re-run test",
+          "test-case-metric-row: FailedNo 'Set metrics' node executed",
+        ],
+        "text": "Back to runsRun #2DoneAccuracy50%-25%Test #160t · 600msAccuracySet metrics50%Test #260t · 600msRe-run testFailedNo 'Set metrics' node executed",
+      },
+    },
+  ],
+  "a running run": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 0,
+              "has_previous_run": true,
+              "metric_count": 0,
+              "run_id": "r3",
+              "test_case_count": 3,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r3",
+        "GET /workflows/wf1/test-runs/r3/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+          "button #test-case-cancel-button: Cancel",
+        ],
+        "icons": [
+          "arrow-left",
+          "spinner",
+          "external-link",
+          "circle-check",
+          "spinner",
+          "circle",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r3",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #2RunningTest #175t · 700msAccuracySet metrics100%Test #2<verb>… Test #3Cancel",
+          "run-status-pill: Running",
+          "test-case-card: Test #175t · 700msAccuracySet metrics100%",
+          "card-content: Test #175t · 700msAccuracySet metrics100%",
+          "test-case-header: Test #175t · 700ms",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics100%",
+          "test-case-card: Test #2<verb>…",
+          "card-content: Test #2<verb>…",
+          "test-case-header: Test #2<verb>…",
+          "test-case-card: Test #3Cancel",
+          "card-content: Test #3Cancel",
+          "test-case-header: Test #3Cancel",
+          "test-case-cancel-button: Cancel",
+        ],
+        "text": "Back to runsRun #2RunningTest #175t · 700msAccuracySet metrics100%Test #2<verb>… Test #3Cancel",
+      },
+    },
+  ],
+  "an unknown run": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 1,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "toast",
+          {
+            "appendTo": "#n8n-app",
+            "customClass": "content-toast",
+            "dangerouslyUseHTMLString": true,
+            "duration": 0,
+            "message": "
+					
+					<i>Test run not found</i>
+					",
+            "position": "bottom-right",
+            "title": "Failed to load run details",
+            "type": "error",
+            "zIndex": 2100,
+          },
+        ],
+        [
+          "telemetry.track",
+          [
+            "Instance FE emitted error",
+            {
+              "caused_by_credential": false,
+              "error_description": "<undefined>",
+              "error_message": "Test run not found",
+              "error_title": "Failed to load run details",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/missing",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+        ],
+        "icons": [
+          "arrow-left",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/missing",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #0",
+        ],
+        "text": "Back to runsRun #0",
+      },
+    },
+  ],
+}
+`;
+
+exports[`the evaluation page > the licence state of the side panel 1`] = `
+{
+  "after": {
+    "ensureLicenseLoaded": "<function>",
+    "isLicensed": true,
+    "isResolved": true,
+  },
+  "again": {},
+  "before": {
+    "ensureLicenseLoaded": "<function>",
+    "isLicensed": false,
+    "isResolved": false,
+  },
+  "requests": [
+    "GET /license",
+  ],
+}
+`;
+
+exports[`the evaluation page > the licence states 1`] = `
+{
+  "a limit of 0 workflows": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "metrics_set_up": true,
+              "output_set_up": true,
+              "quota_reached": true,
+              "test_type": "evaluation",
+              "trigger_set_up": true,
+              "view": "setup",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button role=button: Register instance",
+        ],
+        "icons": [],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluations-unlicensed: Register to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoRegister to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+      },
+    },
+    {
+      "click": "Register instance",
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button role=button: Register instance",
+        ],
+        "icons": [],
+        "modals": [
+          "communityPlusEnrollment",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluations-unlicensed: Register to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoRegister to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+      },
+    },
+  ],
+  "a limit of 1 workflow, used by another workflow": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "metrics_set_up": true,
+              "output_set_up": true,
+              "quota_reached": true,
+              "test_type": "evaluation",
+              "trigger_set_up": true,
+              "view": "setup",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button: See plans",
+          "button: Skip",
+          "button: Run in editor",
+        ],
+        "icons": [
+          "check",
+          "check",
+          "check",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluation-setup-wizard: Wire up a test datasetWrite workflow outputs back to datasetSet up a quality scoreOptionalLimit reached. Your plan includes custom metrics for one workflow only. Upgrade for unlimited use or delete th",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoWire up a test datasetWrite workflow outputs back to datasetSet up a quality scoreOptionalLimit reached. Your plan includes custom metrics for one workflow only. Upgrade for unlimited use or delete the workflow with existing evaluation runs. See plansSkip4Run in editor",
+      },
+    },
+    {
+      "click": "See plans",
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User clicked upgrade CTA",
+            {
+              "deploymentType": "default",
+              "executionsLeft": -1,
+              "isTrial": false,
+              "source": "evaluations",
+              "trialDaysLeft": -1,
+              "workflowsLeft": -1,
+            },
+          ],
+        ],
+        [
+          "window.open",
+          [
+            "https://n8n.io/pricing?utm_campaign=upgrade-evaluations&source=evaluations",
+            "_blank",
+          ],
+        ],
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button: See plans",
+          "button: Skip",
+          "button: Run in editor",
+        ],
+        "icons": [
+          "check",
+          "check",
+          "check",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluation-setup-wizard: Wire up a test datasetWrite workflow outputs back to datasetSet up a quality scoreOptionalLimit reached. Your plan includes custom metrics for one workflow only. Upgrade for unlimited use or delete th",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoWire up a test datasetWrite workflow outputs back to datasetSet up a quality scoreOptionalLimit reached. Your plan includes custom metrics for one workflow only. Upgrade for unlimited use or delete the workflow with existing evaluation runs. See plansSkip4Run in editor",
+      },
+    },
+    {
+      "click": "Skip",
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button: Run in editor",
+        ],
+        "icons": [
+          "check",
+          "check",
+          "check",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluation-setup-wizard: Wire up a test datasetWrite workflow outputs back to datasetSet up a quality scoreOptional4Run in editor",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoWire up a test datasetWrite workflow outputs back to datasetSet up a quality scoreOptional4Run in editor",
+      },
+    },
+  ],
+  "a limit of 1 workflow, used by this workflow": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 1,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+  "the licence fails to load": [
+    {
+      "effects": [
+        [
+          "toast",
+          {
+            "appendTo": "#n8n-app",
+            "customClass": "content-toast",
+            "dangerouslyUseHTMLString": true,
+            "duration": 0,
+            "message": "
+					
+					<i>The licence server failed</i>
+					",
+            "position": "bottom-right",
+            "title": "Couldn’t fetch test runs",
+            "type": "error",
+            "zIndex": 2100,
+          },
+        ],
+        [
+          "telemetry.track",
+          [
+            "Instance FE emitted error",
+            {
+              "caused_by_credential": false,
+              "error_description": "<undefined>",
+              "error_message": "The licence server failed",
+              "error_title": "Couldn’t fetch test runs",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "metrics_set_up": true,
+              "output_set_up": true,
+              "quota_reached": true,
+              "test_type": "evaluation",
+              "trigger_set_up": true,
+              "view": "setup",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button role=button: Register instance",
+        ],
+        "icons": [],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluations-unlicensed: Register to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoRegister to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+      },
+    },
+  ],
+}
+`;
+
+exports[`the evaluation page > the list of runs 1`] = `
+{
+  "a concurrency limit of 1": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 1,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+    {
+      "click": "Run Test",
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User ran evaluation",
+            {
+              "run_type": "direct",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "requests": [
+        "GET /workflows/wf1/test-runs",
+        "POST /workflows/wf1/test-runs/new",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+  "a concurrency limit of 5": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 1,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+    {
+      "click": "parallel-eval-toggle",
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "div role=slider: slider between 1 and 5",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "parallel-eval-controls: Concurrency3 of 5SequentialFaster · may hit rate limitsSet the number of tests you want to run in parallel. Setting a higher number speeds up runs, but can run into rate limits.",
+          "run-in-parallel-mode-label: 3 of 5",
+          "run-in-parallel-concurrency: ",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestConcurrency3 of 5SequentialFaster · may hit rate limitsSet the number of tests you want to run in parallel. Setting a higher number speeds up runs, but can run into rate limits.All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+    {
+      "click": "Run Test",
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User ran evaluation",
+            {
+              "run_type": "direct",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "requests": [
+        "GET /workflows/wf1/test-runs",
+        "POST /workflows/wf1/test-runs/new data {'concurrency':3}",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "div role=slider: slider between 1 and 5",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "parallel-eval-controls: Concurrency3 of 5SequentialFaster · may hit rate limitsSet the number of tests you want to run in parallel. Setting a higher number speeds up runs, but can run into rate limits.",
+          "run-in-parallel-mode-label: 3 of 5",
+          "run-in-parallel-concurrency: ",
+          "past-runs-table: All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestConcurrency3 of 5SequentialFaster · may hit rate limitsSet the number of tests you want to run in parallel. Setting a higher number speeds up runs, but can run into rate limits.All runs (1) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+  "a running run": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r3",
+        "GET /workflows/wf1/test-runs/r3/test-cases",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #stop-test-button: Stop Test",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "stop-test-button: Stop Test",
+          "past-runs-table: All runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 3, 10:00:00running#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Stop TestAll runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 3, 10:00:00running#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+    {
+      "click": "Stop Test",
+      "requests": [
+        "POST /workflows/wf1/test-runs/r3/cancel",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button [disabled] #stop-test-button: Stop Test",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "arrow-up",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "stop-test-button [disabled]: Stop Test",
+          "past-runs-table: All runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 3, 10:00:00running#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Stop TestAll runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 3, 10:00:00running#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+  ],
+  "new and cancelled runs": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 3,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r5",
+        "GET /workflows/wf1/test-runs/r5/test-cases",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+          "status-canceled",
+          "status-new",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (3) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#3Jan 1, 10:00:00completed0.75120.0030.00150.001500.00#2Jan 1, 10:00:00cancelled#1Jan 1, 10:00:00new",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (3) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#3Jan 1, 10:00:00completed0.75120.0030.00150.001500.00#2Jan 1, 10:00:00cancelled#1Jan 1, 10:00:00new",
+      },
+    },
+  ],
+  "runs with each error code": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 13,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+          "triangle-alert",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (13) RunRun atStatus#13Feb 13, 10:00:00An unknown error occurred#12Feb 12, 10:00:00No matching rows in datasetCheck any filters or limits set in the evaluation trigger#11Feb 11, 10:00:00'Set ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (13) RunRun atStatus#13Feb 13, 10:00:00An unknown error occurred#12Feb 12, 10:00:00No matching rows in datasetCheck any filters or limits set in the evaluation trigger#11Feb 11, 10:00:00'Set outputs' node is not configured#10Feb 10, 10:00:00No 'Set metrics' node in workflow#9Feb 9, 10:00:00'Set metrics' node is not configured#8Feb 8, 10:00:00Finished with errors#7Feb 7, 10:00:00Test run was interrupted#6Feb 6, 10:00:00Evaluation trigger missing#5Feb 5, 10:00:00Evaluation trigger is not configured#4Feb 4, 10:00:00Evaluation trigger is disabled#3Feb 3, 10:00:00Evaluation configuration not found#2Feb 2, 10:00:00Couldn't compile the evaluation configurationReview your start/end nodes and dataset mapping in the evaluation setup, then try again.#1Feb 1, 10:00:00Couldn’t fetch test casesCheck the Google Sheet setup in the evaluation trigger",
+      },
+    },
+  ],
+  "two completed runs": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "run_count": 2,
+              "test_type": "evaluation",
+              "view": "overview",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                  [
+                    "r2",
+                    0.5,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #run-test-button: Run Test",
+          "button #parallel-eval-toggle: Configure parallel execution",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "chevron-down",
+          "arrow-up",
+          "status-completed",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "run-test-button: Run Test",
+          "parallel-eval-toggle: ",
+          "past-runs-table: All runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 2, 10:00:00completed0.50100.0020.00120.001200.00#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Run TestAll runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 2, 10:00:00completed0.50100.0020.00120.001200.00#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+    {
+      "click": "Run Test",
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User ran evaluation",
+            {
+              "run_type": "direct",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "requests": [
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r9",
+        "GET /workflows/wf1/test-runs/r9/test-cases",
+        "POST /workflows/wf1/test-runs/new data {'concurrency':3}",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [
+                  [
+                    "r1",
+                    0.75,
+                  ],
+                  [
+                    "r2",
+                    0.5,
+                  ],
+                ],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #stop-test-button: Stop Test",
+          "input type=text role=combobox value="accuracy": Select metric",
+        ],
+        "icons": [
+          "arrow-up",
+          "status-completed",
+          "status-completed",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "stop-test-button: Stop Test",
+          "past-runs-table: All runs (3) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#3Jan 2, 10:00:00completed0.50100.0020.00120.001200.00#2Jan 1, 10:00:00running#1Jan 1, 10:00:00completed0.75120.",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Stop TestAll runs (3) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#3Jan 2, 10:00:00completed0.50100.0020.00120.001200.00#2Jan 1, 10:00:00running#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+      },
+    },
+    {
+      "click": "#1",
+      "effects": [
+        [
+          "navigate",
+          "/workflow/wf1/evaluation/test-runs/r1",
+        ],
+        [
+          "telemetry.track",
+          [
+            "User viewed run detail",
+            {
+              "failed_test_case_count": 1,
+              "has_previous_run": false,
+              "metric_count": 1,
+              "run_id": "r1",
+              "test_case_count": 2,
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "requests": [
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r1",
+        "GET /workflows/wf1/test-runs/r1/test-cases",
+        "GET /workflows/wf1/test-runs/r9",
+        "GET /workflows/wf1/test-runs/r9/test-cases",
+      ],
+      "view": {
+        "controls": [
+          "button: Back to runs",
+          "button #test-case-view-link: View",
+          "button #test-case-view-link: View",
+          "button #test-case-rerun-button: Re-run test",
+        ],
+        "icons": [
+          "arrow-left",
+          "circle-check",
+          "external-link",
+          "circle-check",
+          "external-link",
+          "circle-x",
+        ],
+        "route": "/workflow/wf1/evaluation/test-runs/r1",
+        "testIds": [
+          "test-definition-run-detail: Back to runsRun #1DoneAccuracy75%Test #175t · 700msAccuracySet metrics100%Test #2Re-run testFailedFailed to execute workflow",
+          "run-status-pill: Done",
+          "metric-summary-strip: Accuracy75%",
+          "metric-summary-card: Accuracy75%",
+          "test-case-card: Test #175t · 700msAccuracySet metrics100%",
+          "card-content: Test #175t · 700msAccuracySet metrics100%",
+          "test-case-header: Test #175t · 700ms",
+          "test-case-view-link: ",
+          "test-case-metric-row: AccuracySet metrics100%",
+          "test-case-card: Test #2Re-run testFailedFailed to execute workflow",
+          "card-content: Test #2Re-run testFailedFailed to execute workflow",
+          "test-case-header: Test #2Re-run test",
+          "test-case-view-link: ",
+          "test-case-rerun-button: Re-run test",
+          "test-case-metric-row: FailedFailed to execute workflow",
+        ],
+        "text": "Back to runsRun #1DoneAccuracy75%Test #175t · 700msAccuracySet metrics100%Test #2Re-run testFailedFailed to execute workflow",
+      },
+    },
+  ],
+}
+`;
+
+exports[`the evaluation page > the pace of the polling 1`] = `
+{
+  "/workflow/wf1/evaluation": {
+    "counts": [
+      "900 ms: GET /workflows/wf1/test-runs/r3, GET /workflows/wf1/test-runs/r3/test-cases",
+      "1900 ms: GET /workflows/wf1/test-runs/r3, GET /workflows/wf1/test-runs/r3/test-cases",
+      "2900 ms: GET /workflows/wf1/test-runs/r3, GET /workflows/wf1/test-runs/r3/test-cases",
+    ],
+    "view": {
+      "charts": [
+        {
+          "datasets": [
+            {
+              "points": [
+                [
+                  "r1",
+                  0.75,
+                ],
+                [
+                  "r3",
+                  1,
+                ],
+              ],
+            },
+          ],
+          "type": "line",
+        },
+      ],
+      "controls": [
+        "button #run-test-button: Run Test",
+        "button #parallel-eval-toggle: Configure parallel execution",
+        "input type=text role=combobox value="accuracy": Select metric",
+      ],
+      "icons": [
+        "chevron-down",
+        "arrow-up",
+        "status-completed",
+        "status-completed",
+      ],
+      "route": "/workflow/wf1/evaluation",
+      "testIds": [
+        "run-test-button: Run Test",
+        "parallel-eval-toggle: ",
+        "past-runs-table: All runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 3, 10:00:00completed1.00#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+        "table-column: ",
+        "table-column: ",
+        "table-column: ",
+        "table-column: ",
+        "table-column: ",
+        "table-column: ",
+        "table-column: ",
+        "table-column: ",
+      ],
+      "text": "Run TestAll runs (2) RunRun atStatusaccuracypromptTokenscompletionTokenstotalTokensexecutionTime#2Jan 3, 10:00:00completed1.00#1Jan 1, 10:00:00completed0.75120.0030.00150.001500.00",
+    },
+  },
+  "/workflow/wf1/evaluation/test-runs/r3": {
+    "counts": [
+      "900 ms: GET /workflows/wf1/test-runs/r3, GET /workflows/wf1/test-runs/r3/test-cases, GET /workflows/wf1/test-runs/r3, GET /workflows/wf1/test-runs/r3/test-cases",
+      "1900 ms: GET /workflows/wf1/test-runs/r3, GET /workflows/wf1/test-runs/r3/test-cases, GET /workflows/wf1/test-runs/r3, GET /workflows/wf1/test-runs/r3/test-cases",
+      "2900 ms: GET /workflows/wf1/test-runs/r3, GET /workflows/wf1/test-runs/r3/test-cases, GET /workflows/wf1/test-runs/r3, GET /workflows/wf1/test-runs/r3/test-cases",
+    ],
+    "view": {
+      "controls": [
+        "button: Back to runs",
+        "button #test-case-view-link: View",
+        "button #test-case-cancel-button: Cancel",
+      ],
+      "icons": [
+        "arrow-left",
+        "circle-check",
+        "trending-up",
+        "external-link",
+        "circle-check",
+        "spinner",
+        "circle",
+      ],
+      "route": "/workflow/wf1/evaluation/test-runs/r3",
+      "testIds": [
+        "test-definition-run-detail: Back to runsRun #2DoneAccuracy100%+25%Test #175t · 700msAccuracySet metrics100%Test #2<verb>… Test #3Cancel",
+        "run-status-pill: Done",
+        "metric-summary-strip: Accuracy100%+25%",
+        "metric-summary-card: Accuracy100%+25%",
+        "trend-delta-badge: +25%",
+        "test-case-card: Test #175t · 700msAccuracySet metrics100%",
+        "card-content: Test #175t · 700msAccuracySet metrics100%",
+        "test-case-header: Test #175t · 700ms",
+        "test-case-view-link: ",
+        "test-case-metric-row: AccuracySet metrics100%",
+        "test-case-card: Test #2<verb>…",
+        "card-content: Test #2<verb>…",
+        "test-case-header: Test #2<verb>…",
+        "test-case-card: Test #3Cancel",
+        "card-content: Test #3Cancel",
+        "test-case-header: Test #3Cancel",
+        "test-case-cancel-button: Cancel",
+      ],
+      "text": "Back to runsRun #2DoneAccuracy100%+25%Test #175t · 700msAccuracySet metrics100%Test #2<verb>… Test #3Cancel",
+    },
+  },
+}
+`;
+
+exports[`the evaluation page > the setup steps 1`] = `
+{
+  "a trigger and outputs": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "metrics_set_up": false,
+              "output_set_up": true,
+              "quota_reached": false,
+              "test_type": "evaluation",
+              "trigger_set_up": true,
+              "view": "setup",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button: Add 'Set metrics' node",
+          "button: Skip",
+          "button: Run in editor",
+        ],
+        "icons": [
+          "check",
+          "check",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluation-setup-wizard: Wire up a test datasetWrite workflow outputs back to dataset3Set up a quality scoreOptionalCalculate a score, e.g. by comparing expected and actual outputsAdd a 'set metrics' operation to log the scor",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoWire up a test datasetWrite workflow outputs back to dataset3Set up a quality scoreOptionalCalculate a score, e.g. by comparing expected and actual outputsAdd a 'set metrics' operation to log the scoreAdd 'Set metrics' nodeSkip4Run in editor",
+      },
+    },
+    {
+      "click": "Add 'Set metrics' node",
+      "effects": [
+        [
+          "navigate",
+          "/workflow/wf1?action=addEvaluationNode",
+        ],
+      ],
+      "view": {
+        "controls": [],
+        "icons": [],
+        "route": "/workflow/wf1?action=addEvaluationNode",
+        "testIds": [],
+        "text": "",
+      },
+    },
+  ],
+  "a trigger only": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "metrics_set_up": false,
+              "output_set_up": false,
+              "quota_reached": false,
+              "test_type": "evaluation",
+              "trigger_set_up": true,
+              "view": "setup",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button: Add 'set outputs' node",
+          "button [disabled]: Run in editor",
+        ],
+        "icons": [
+          "check",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluation-setup-wizard: Wire up a test dataset2Write workflow outputs back to datasetAdd a 'Set Outputs' operation to log each output back to your tableAdd 'set outputs' node3Set up a quality scoreOptional4Run in editor",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoWire up a test dataset2Write workflow outputs back to datasetAdd a 'Set Outputs' operation to log each output back to your tableAdd 'set outputs' node3Set up a quality scoreOptional4Run in editor",
+      },
+    },
+    {
+      "click": "Add 'set outputs' node",
+      "effects": [
+        [
+          "navigate",
+          "/workflow/wf1?action=addEvaluationNode",
+        ],
+      ],
+      "view": {
+        "controls": [],
+        "icons": [],
+        "route": "/workflow/wf1?action=addEvaluationNode",
+        "testIds": [],
+        "text": "",
+      },
+    },
+  ],
+  "all nodes, then a first run": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "metrics_set_up": true,
+              "output_set_up": true,
+              "quota_reached": false,
+              "test_type": "evaluation",
+              "trigger_set_up": true,
+              "view": "setup",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button: Run evaluation",
+        ],
+        "icons": [
+          "check",
+          "check",
+          "check",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluation-setup-wizard: Wire up a test datasetWrite workflow outputs back to datasetSet up a quality scoreOptional4Run evaluation",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoWire up a test datasetWrite workflow outputs back to datasetSet up a quality scoreOptional4Run evaluation",
+      },
+    },
+    {
+      "click": "Run evaluation",
+      "requests": [
+        "GET /workflows/wf1/evaluation-configs",
+        "GET /workflows/wf1/test-runs",
+        "GET /workflows/wf1/test-runs/r9",
+        "GET /workflows/wf1/test-runs/r9/test-cases",
+        "POST /workflows/wf1/test-runs/new",
+      ],
+      "view": {
+        "charts": [
+          {
+            "datasets": [
+              {
+                "points": [],
+              },
+            ],
+            "type": "line",
+          },
+        ],
+        "controls": [
+          "button #stop-test-button: Stop Test",
+          "input type=text role=combobox value="": Select metric",
+        ],
+        "icons": [
+          "arrow-up",
+        ],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "stop-test-button: Stop Test",
+          "past-runs-table: All runs (1) RunRun atStatus#1Jan 1, 10:00:00running",
+          "table-column: ",
+          "table-column: ",
+          "table-column: ",
+        ],
+        "text": "Stop TestAll runs (1) RunRun atStatus#1Jan 1, 10:00:00running",
+      },
+    },
+  ],
+  "no evaluation nodes": [
+    {
+      "effects": [
+        [
+          "telemetry.track",
+          [
+            "User viewed tests tab",
+            {
+              "metrics_set_up": false,
+              "output_set_up": false,
+              "quota_reached": false,
+              "test_type": "evaluation",
+              "trigger_set_up": false,
+              "view": "setup",
+              "workflow_id": "wf1",
+            },
+          ],
+        ],
+      ],
+      "mounted": true,
+      "requests": [
+        "GET /license",
+        "GET /workflows/wf1/test-runs",
+      ],
+      "view": {
+        "controls": [
+          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
+          "button: Add evaluation trigger",
+          "button [disabled]: Run in editor",
+        ],
+        "icons": [],
+        "route": "/workflow/wf1/evaluation",
+        "testIds": [
+          "evaluation-setup-wizard: 1Wire up a test datasetCreate a Data table or Google Sheet with one input per rowAdd an evaluation trigger to your workflow and wire it upAdd evaluation trigger2Write workflow outputs back to dataset3",
+        ],
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More info1Wire up a test datasetCreate a Data table or Google Sheet with one input per rowAdd an evaluation trigger to your workflow and wire it upAdd evaluation trigger2Write workflow outputs back to dataset3Set up a quality scoreOptional4Run in editor",
+      },
+    },
+    {
+      "click": "Add evaluation trigger",
+      "effects": [
+        [
+          "navigate",
+          "/workflow/wf1?action=addEvaluationTrigger",
+        ],
+      ],
+      "view": {
+        "controls": [],
+        "icons": [],
+        "route": "/workflow/wf1?action=addEvaluationTrigger",
+        "testIds": [],
+        "text": "",
+      },
+    },
+  ],
+}
+`;
+
+exports[`the evaluation page > the state of other evaluation nodes 1`] = `
+{
+  "built-in metrics, and an output node with the default operation": {
+    "requests": "<undefined>",
+    "workflowState": {
+      "evaluationSetMetricsNodeExist": true,
+      "evaluationSetOutputsNodeExist": true,
+      "evaluationTriggerExists": true,
+      "metricSourceByKey": {
+        "Categorization": {
+          "category": "categorization",
+          "nodeName": "Category check",
+        },
+        "Correctness": {
+          "category": "aiBased",
+          "nodeName": "Correctness check",
+        },
+        "Helpful": {
+          "category": "aiBased",
+          "nodeName": "Helpfulness check",
+        },
+        "Similarity": {
+          "category": "stringSimilarity",
+          "nodeName": "Similarity check",
+        },
+        "Tools Used": {
+          "category": "toolsUsed",
+          "nodeName": "Tools check",
+        },
+        "ignored": {
+          "category": "custom",
+          "nodeName": "Disabled metrics",
+        },
+        "legacy": {
+          "category": "custom",
+          "nodeName": "Old metrics",
+        },
+      },
+    },
+  },
+  "disabled evaluation nodes": {
+    "requests": "<undefined>",
+    "workflowState": {
+      "evaluationSetMetricsNodeExist": true,
+      "evaluationSetOutputsNodeExist": true,
+      "evaluationTriggerExists": true,
+      "metricSourceByKey": {
+        "accuracy": {
+          "category": "custom",
+          "nodeName": "Set metrics",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`the evaluation page > the state that ordinary code reads 1`] = `
+{
+  "a trigger and outputs, quota 1": {
+    "isEvaluationEnabled": true,
+    "requests": "<undefined>",
+    "workflowState": {
+      "evaluationSetMetricsNodeExist": false,
+      "evaluationSetOutputsNodeExist": true,
+      "evaluationTriggerExists": true,
+      "metricSourceByKey": {},
+    },
+  },
+  "all nodes, quota -1": {
+    "isEvaluationEnabled": true,
+    "requests": "<undefined>",
+    "workflowState": {
+      "evaluationSetMetricsNodeExist": true,
+      "evaluationSetOutputsNodeExist": true,
+      "evaluationTriggerExists": true,
+      "metricSourceByKey": {
+        "accuracy": {
+          "category": "custom",
+          "nodeName": "Set metrics",
+        },
+      },
+    },
+  },
+  "no evaluation nodes, quota 0": {
+    "isEvaluationEnabled": false,
+    "requests": "<undefined>",
+    "workflowState": {
+      "evaluationSetMetricsNodeExist": false,
+      "evaluationSetOutputsNodeExist": false,
+      "evaluationTriggerExists": false,
+      "metricSourceByKey": {},
+    },
+  },
+}
+`;
