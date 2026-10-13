@@ -24,6 +24,8 @@ const filterSchema = {
 	/** An event name, or a prefix that ends with a dot, for example `n8n.audit.user.`. */
 	eventName: z.string().trim().min(1).max(128).optional(),
 	userId: z.string().trim().min(1).max(36).optional(),
+	projectId: z.string().trim().min(1).max(36).optional(),
+	projectType: z.enum(['personal', 'team']).optional(),
 };
 
 export class AuditLogEventsQueryDto extends Z.class({

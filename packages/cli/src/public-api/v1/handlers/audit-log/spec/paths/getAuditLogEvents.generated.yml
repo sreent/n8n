@@ -41,6 +41,24 @@ parameters:
     required: false
     name: userId
     in: query
+  - schema:
+      type: string
+      minLength: 1
+      maxLength: 36
+      description: Only the events of this project.
+      example: Xk3pV9qLm2Rt7wYz
+    required: false
+    name: projectId
+    in: query
+  - schema:
+      type: string
+      enum:
+        - personal
+        - team
+      description: Only the events of projects of this type. `personal` gives the events of the personal spaces of users.
+    required: false
+    name: projectType
+    in: query
 x-eov-operation-id: unreachable
 x-eov-operation-handler: v1/handlers/decorator-routed.handler
 x-decorator-routed: true
@@ -76,6 +94,15 @@ responses:
                     type: string
                     nullable: true
                     description: The email address of that user, or null.
+                  projectId:
+                    type: string
+                    nullable: true
+                    description: 'The project of the event: the project that the payload names, else the home project of the workflow or credential that it names. Null when the event names none of them, and for the events that the audit log stored before it recorded projects.'
+                  projectType:
+                    type: string
+                    nullable: true
+                    description: 'The type of that project: `personal` or `team`, or null.'
+                    example: personal
                   payload:
                     type: object
                     additionalProperties: {}
@@ -86,6 +113,8 @@ responses:
                   - timestamp
                   - userId
                   - userEmail
+                  - projectId
+                  - projectType
                   - payload
             nextCursor:
               type: string

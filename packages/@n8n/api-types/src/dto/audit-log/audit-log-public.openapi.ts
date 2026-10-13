@@ -19,6 +19,14 @@ export const auditLogQueryFieldDocs = {
 		description: 'Only the events of this user.',
 		example: '6b2c7f4e-1a2b-4c3d-8e9f-0a1b2c3d4e5f',
 	},
+	projectId: {
+		description: 'Only the events of this project.',
+		example: 'Xk3pV9qLm2Rt7wYz',
+	},
+	projectType: {
+		description:
+			'Only the events of projects of this type. `personal` gives the events of the personal spaces of users.',
+	},
 	format: {
 		description: 'The format of the file: `csv` (the default) or `json`.',
 	},
@@ -30,6 +38,14 @@ export const auditLogEventFieldDocs = {
 	timestamp: { description: 'The time of the event.' },
 	userId: { description: 'The id of the user that the event names, or null.' },
 	userEmail: { description: 'The email address of that user, or null.' },
+	projectId: {
+		description:
+			'The project of the event: the project that the payload names, else the home project of the workflow or credential that it names. Null when the event names none of them, and for the events that the audit log stored before it recorded projects.',
+	},
+	projectType: {
+		description: 'The type of that project: `personal` or `team`, or null.',
+		example: 'personal',
+	},
 	payload: { description: 'The payload of the event, as the event bus sends it.' },
 } as const satisfies Record<string, ZodOpenAPIMetadata>;
 

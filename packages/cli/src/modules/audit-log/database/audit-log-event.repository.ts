@@ -12,6 +12,9 @@ export interface AuditLogFilter {
 	/** An event name, or a prefix that ends with a dot, for example `n8n.audit.user.`. */
 	eventName?: string;
 	userId?: string;
+	projectId?: string;
+	/** `personal` or `team`. */
+	projectType?: string;
 }
 
 /** The last event of a batch of an export. The next batch starts after it. */
@@ -22,7 +25,14 @@ export interface AuditLogCursor {
 
 export type AuditLogEventRow = Pick<
 	AuditLogEvent,
-	'id' | 'eventName' | 'timestamp' | 'userId' | 'userEmail' | 'payload'
+	| 'id'
+	| 'eventName'
+	| 'timestamp'
+	| 'userId'
+	| 'userEmail'
+	| 'projectId'
+	| 'projectType'
+	| 'payload'
 >;
 
 @Service()
@@ -83,6 +93,12 @@ export class AuditLogEventRepository extends Repository<AuditLogEvent> {
 		}
 		if (filter.userId) {
 			query.andWhere('event.userId = :userId', { userId: filter.userId });
+		}
+		if (filter.projectId) {
+			query.andWhere('event.projectId = :projectId', { projectId: filter.projectId });
+		}
+		if (filter.projectType) {
+			query.andWhere('event.projectType = :projectType', { projectType: filter.projectType });
 		}
 		if (filter.eventName?.endsWith('.')) {
 			query.andWhere(`event.eventName LIKE :eventNamePrefix ${LIKE_ESCAPE_CLAUSE}`, {

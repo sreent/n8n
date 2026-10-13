@@ -2,7 +2,7 @@ operationId: exportAuditLog
 tags:
   - AuditLog
 summary: Export audit events
-description: 'Returns a file with all audit events that match the filter, newest first: a CSV file with the columns `timestamp`, `eventName`, `userId`, `userEmail` and `payload`, or a JSON array of events.'
+description: 'Returns a file with all audit events that match the filter, newest first: a CSV file with the columns `timestamp`, `eventName`, `userId`, `userEmail`, `payload`, `projectId` and `projectType`, or a JSON array of events.'
 x-required-scope: auditLogs:manage
 x-eov-operation-id: unreachable
 x-eov-operation-handler: v1/handlers/decorator-routed.handler
@@ -41,6 +41,24 @@ parameters:
       example: 6b2c7f4e-1a2b-4c3d-8e9f-0a1b2c3d4e5f
     required: false
     name: userId
+    in: query
+  - schema:
+      type: string
+      minLength: 1
+      maxLength: 36
+      description: Only the events of this project.
+      example: Xk3pV9qLm2Rt7wYz
+    required: false
+    name: projectId
+    in: query
+  - schema:
+      type: string
+      enum:
+        - personal
+        - team
+      description: Only the events of projects of this type. `personal` gives the events of the personal spaces of users.
+    required: false
+    name: projectType
     in: query
   - schema:
       type: string

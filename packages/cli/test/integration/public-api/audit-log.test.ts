@@ -44,6 +44,8 @@ beforeEach(async () => {
 			timestamp: new Date('2026-10-01T08:00:00.000Z'),
 			userId: owner.id,
 			userEmail: owner.email,
+			projectId: null,
+			projectType: null,
 			payload: { userId: owner.id, _email: owner.email },
 		},
 		{
@@ -52,6 +54,8 @@ beforeEach(async () => {
 			timestamp: new Date('2026-10-02T08:00:00.000Z'),
 			userId: admin.id,
 			userEmail: admin.email,
+			projectId: 'teamProject0001',
+			projectType: 'team',
 			payload: { userId: admin.id, workflowId: 'wf-1', workflowName: 'Invoices' },
 		},
 		{
@@ -60,6 +64,8 @@ beforeEach(async () => {
 			timestamp: new Date('2026-10-03T08:00:00.000Z'),
 			userId: admin.id,
 			userEmail: admin.email,
+			projectId: 'personalProj001',
+			projectType: 'personal',
 			payload: { userId: admin.id, workflowId: 'wf-2', workflowName: '=SUM(A1)' },
 		},
 	]);
@@ -96,6 +102,8 @@ describe('GET /audit-log/events', () => {
 				timestamp: '2026-10-02T08:00:00.000Z',
 				userId: admin.id,
 				userEmail: admin.email,
+				projectId: 'teamProject0001',
+				projectType: 'team',
 				payload: { userId: admin.id, workflowId: 'wf-1', workflowName: 'Invoices' },
 			});
 		}
@@ -133,6 +141,24 @@ describe('GET /audit-log/events', () => {
 			.query({ from: '2026-10-02T00:00:00.000Z', to: '2026-10-02T23:59:59.999Z' })
 			.expect(200);
 		expect(ids(byTime.body)).toEqual(['e2']);
+	});
+
+	test('filters by project and project type', async () => {
+		const agent = testServer.publicApiAgentFor(owner);
+
+		const personal = await agent
+			.get('/audit-log/events')
+			.query({ projectType: 'personal' })
+			.expect(200);
+		expect(ids(personal.body)).toEqual(['e3']);
+
+		const byProject = await agent
+			.get('/audit-log/events')
+			.query({ projectId: 'teamProject0001' })
+			.expect(200);
+		expect(ids(byProject.body)).toEqual(['e2']);
+
+		await agent.get('/audit-log/events').query({ projectType: 'shared' }).expect(400);
 	});
 
 	test('pages with limit and cursor', async () => {
@@ -201,11 +227,12 @@ describe('GET /audit-log/export', () => {
 			/^attachment; filename="audit-log-\d{4}-\d{2}-\d{2}\.csv"$/,
 		);
 		const lines = response.text.trim().split('\r\n');
-		expect(lines[0]).toBe('timestamp,eventName,userId,userEmail,payload');
+		expect(lines[0]).toBe('timestamp,eventName,userId,userEmail,payload,projectId,projectType');
 		expect(lines).toHaveLength(3);
 		expect(lines[1]).toContain('n8n.audit.workflow.created');
 		// The payload is one cell. A cell that a spreadsheet can read as a formula starts with a quote.
 		expect(lines[1]).toContain('""workflowName"":""=SUM(A1)""');
+		expect(lines[1]).toMatch(/,personalProj001,personal$/);
 		expect(lines[2]).toContain('n8n.audit.workflow.updated');
 	});
 

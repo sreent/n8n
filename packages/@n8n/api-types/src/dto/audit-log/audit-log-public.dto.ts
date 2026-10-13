@@ -9,6 +9,7 @@ import {
 	auditLogListFieldDocs,
 	auditLogQueryFieldDocs,
 } from './audit-log-public.openapi';
+import { projectTypeSchema } from '../../schemas/project.schema';
 import { Z } from '../../zod-class';
 import { publicApiPaginationSchema } from '../pagination/pagination.dto';
 
@@ -24,6 +25,8 @@ const auditLogFilterPublicSchema = {
 	to: dateTimeQuerySchema.optional().openapi(auditLogQueryFieldDocs.to),
 	eventName: z.string().trim().min(1).max(128).optional().openapi(auditLogQueryFieldDocs.eventName),
 	userId: z.string().trim().min(1).max(36).optional().openapi(auditLogQueryFieldDocs.userId),
+	projectId: z.string().trim().min(1).max(36).optional().openapi(auditLogQueryFieldDocs.projectId),
+	projectType: projectTypeSchema.optional().openapi(auditLogQueryFieldDocs.projectType),
 };
 
 export class ListAuditLogEventsQueryPublicDto extends Z.class({
@@ -43,6 +46,8 @@ export const auditLogEventPublicSchema = z.object({
 	timestamp: z.string().datetime().openapi(auditLogEventFieldDocs.timestamp),
 	userId: z.string().nullable().openapi(auditLogEventFieldDocs.userId),
 	userEmail: z.string().nullable().openapi(auditLogEventFieldDocs.userEmail),
+	projectId: z.string().nullable().openapi(auditLogEventFieldDocs.projectId),
+	projectType: z.string().nullable().openapi(auditLogEventFieldDocs.projectType),
 	payload: z.record(z.unknown()).openapi(auditLogEventFieldDocs.payload),
 });
 

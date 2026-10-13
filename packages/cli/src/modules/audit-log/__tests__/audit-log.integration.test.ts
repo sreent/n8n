@@ -1,9 +1,17 @@
+import { EventService } from '@n8n/backend-services';
+import {
+	createTeamProject,
+	createWorkflow,
+	getPersonalProject,
+	randomCredentialPayload,
+} from '@n8n/backend-test-utils';
 import type { User } from '@n8n/db';
 import { Container } from '@n8n/di';
 import { DateTime } from 'luxon';
 
 import type { EventMessageAuditOptions } from '@/eventbus/event-message-classes/event-message-audit';
 import { MessageEventBus } from '@/eventbus/message-event-bus/message-event-bus';
+import { saveCredential } from '@test-integration/db/credentials';
 import { createAdmin, createMember, createOwner } from '@test-integration/db/users';
 import { setupTestServer } from '@test-integration/utils';
 
@@ -76,6 +84,8 @@ describe('GET /audit-log/events', () => {
 				timestamp: '2026-10-03T08:00:00.000Z',
 				userId: null,
 				userEmail: 'unknown@example.com',
+				projectId: null,
+				projectType: null,
 				payload: { userEmail: 'unknown@example.com', reason: 'wrong password' },
 			},
 			expect.objectContaining({ id: 'e2', userId: member.id, userEmail: member.email }),
@@ -126,6 +136,108 @@ describe('GET /audit-log/events', () => {
 	});
 });
 
+describe('the project of an event', () => {
+	const projectOf = async (id: string) => {
+		const row = await Container.get(AuditLogEventRepository).findOneByOrFail({ id });
+		return [row.projectId, row.projectType];
+	};
+
+	it('records the home project of the workflow or credential that an event names', async () => {
+		const personalProject = await getPersonalProject(member);
+		const teamProject = await createTeamProject('Finance', admin);
+		const personalWorkflow = await createWorkflow({}, member);
+		const teamWorkflow = await createWorkflow({}, teamProject);
+		const teamCredential = await saveCredential(randomCredentialPayload(), {
+			project: teamProject,
+			role: 'credential:owner',
+		});
+
+		await sendAuditEvent({
+			id: 'p1',
+			eventName: 'n8n.audit.workflow.updated',
+			payload: { userId: member.id, workflowId: personalWorkflow.id },
+		});
+		await sendAuditEvent({
+			id: 'p2',
+			eventName: 'n8n.audit.workflow.created',
+			payload: { userId: admin.id, workflowId: teamWorkflow.id },
+		});
+		await sendAuditEvent({
+			id: 'p3',
+			eventName: 'n8n.audit.user.credentials.updated',
+			payload: { userId: admin.id, credentialId: teamCredential.id },
+		});
+		// The payload names the project, but not its type.
+		await sendAuditEvent({
+			id: 'p4',
+			eventName: 'n8n.audit.workflow.executed',
+			payload: { workflowId: teamWorkflow.id, projectId: teamProject.id, projectName: 'Finance' },
+		});
+		await sendAuditEvent({
+			id: 'p5',
+			eventName: 'n8n.audit.workflow.updated',
+			payload: { userId: member.id, workflowId: 'unknownWorkflow1' },
+		});
+		await sendAuditEvent({
+			id: 'p6',
+			eventName: 'n8n.audit.user.login.success',
+			payload: { userId: owner.id },
+		});
+
+		expect(await projectOf('p1')).toEqual([personalProject.id, 'personal']);
+		expect(await projectOf('p2')).toEqual([teamProject.id, 'team']);
+		expect(await projectOf('p3')).toEqual([teamProject.id, 'team']);
+		expect(await projectOf('p4')).toEqual([teamProject.id, 'team']);
+		expect(await projectOf('p5')).toEqual([null, null]);
+		expect(await projectOf('p6')).toEqual([null, null]);
+
+		const agent = testServer.authAgentFor(owner);
+		const ids = async (query: Record<string, string>) =>
+			(await agent.get('/audit-log/events').query(query).expect(200)).body.data.events
+				.map((event: { id: string }) => event.id)
+				.sort();
+		expect(await ids({ projectType: 'personal' })).toEqual(['p1']);
+		expect(await ids({ projectType: 'team' })).toEqual(['p2', 'p3', 'p4']);
+		expect(await ids({ projectId: personalProject.id })).toEqual(['p1']);
+		await agent.get('/audit-log/events').query({ projectType: 'shared' }).expect(400);
+	});
+
+	it('keeps the project of a deleted workflow or credential', async () => {
+		const teamProject = await createTeamProject('Operations', admin);
+		const eventService = Container.get(EventService);
+		const user = { id: admin.id };
+
+		// n8n sends these events after the delete. The audit events follow through the event bus.
+		eventService.emit('workflow-deleted', {
+			user,
+			workflowId: 'deletedWorkflow1',
+			workflowName: 'Old report',
+			projectId: teamProject.id,
+			publicApi: false,
+		});
+		eventService.emit('credentials-deleted', {
+			user,
+			credentialType: 'slackApi',
+			credentialId: 'deletedCredential1',
+			credentialName: 'Old Slack',
+			projectId: teamProject.id,
+		});
+		await sendAuditEvent({
+			id: 'd1',
+			eventName: 'n8n.audit.workflow.deleted',
+			payload: { userId: admin.id, workflowId: 'deletedWorkflow1' },
+		});
+		await sendAuditEvent({
+			id: 'd2',
+			eventName: 'n8n.audit.user.credentials.deleted',
+			payload: { userId: admin.id, credentialId: 'deletedCredential1' },
+		});
+
+		expect(await projectOf('d1')).toEqual([teamProject.id, 'team']);
+		expect(await projectOf('d2')).toEqual([teamProject.id, 'team']);
+	});
+});
+
 describe('GET /audit-log/event-names', () => {
 	it('gives the names of the audit events', async () => {
 		const response = await testServer.authAgentFor(owner).get('/audit-log/event-names').expect(200);
@@ -148,7 +260,7 @@ describe('GET /audit-log/export', () => {
 			/^attachment; filename="audit-log-\d{4}-\d{2}-\d{2}\.csv"$/,
 		);
 		const lines = response.text.split('\r\n');
-		expect(lines[0]).toBe('timestamp,eventName,userId,userEmail,payload');
+		expect(lines[0]).toBe('timestamp,eventName,userId,userEmail,payload,projectId,projectType');
 		expect(lines[1]).toMatch(
 			/^2026-10-03T08:00:00.000Z,n8n.audit.user.login.failed,,unknown@example.com,/,
 		);
@@ -183,6 +295,8 @@ describe('GET /audit-log/export', () => {
 			timestamp: new Date(Date.UTC(2026, 9, 1, 0, 0, Math.floor(index / 10))),
 			userId: null,
 			userEmail: null,
+			projectId: null,
+			projectType: null,
 			payload: {},
 		}));
 		const repository = Container.get(AuditLogEventRepository);

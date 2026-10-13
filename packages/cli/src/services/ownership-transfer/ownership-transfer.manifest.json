@@ -88,6 +88,11 @@
 			"name": "WorkflowSuggestion",
 			"path": "packages/cli/src/modules/instance-ai/workflow-suggestions/database/workflow-suggestion.entity.ts",
 			"reason": "Keeps the original project and baseline. A workflow transfer makes the proposal ineligible. Deleted with its activity via FK cascade when the original project, workflow, or background user is deleted."
+		},
+		{
+			"name": "AuditLogEvent",
+			"path": "packages/cli/src/modules/audit-log/database/audit-log-event.entity.ts",
+			"reason": "Fork audit log: an append-only record of what happened, with the project of the event at the time of the event. A transfer must not change the record. The projectId column has no foreign key, so the rows stay when the project is deleted, until the retention removes them."
 		}
 	]
 }

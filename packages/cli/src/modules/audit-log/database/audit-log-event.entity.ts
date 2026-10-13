@@ -25,6 +25,17 @@ export class AuditLogEvent extends BaseEntity {
 	@Column({ type: 'varchar', length: 254, nullable: true })
 	userEmail: string | null;
 
+	/**
+	 * The project of the event: the project that the payload names, else the home project of the
+	 * workflow or credential that it names. Null when the event names none of them.
+	 */
+	@Column({ type: 'varchar', length: 36, nullable: true })
+	projectId: string | null;
+
+	/** The type of that project: `personal` or `team`. */
+	@Column({ type: 'varchar', length: 36, nullable: true })
+	projectType: string | null;
+
 	/** The payload of the event message, as the event bus sends it. */
 	@JsonColumn()
 	payload: JsonObject;

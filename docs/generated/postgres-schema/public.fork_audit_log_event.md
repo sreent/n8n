@@ -7,6 +7,8 @@
 | eventName | varchar(128) |  | false |  |  |  |
 | id | varchar(36) |  | false |  |  | The id of the event message |
 | payload | json |  | false |  |  |  |
+| projectId | varchar(36) |  | true |  |  |  |
+| projectType | varchar(36) |  | true |  |  |  |
 | timestamp | timestamp(3) with time zone |  | false |  |  |  |
 | userEmail | varchar(254) |  | true |  |  |  |
 | userId | varchar(36) |  | true |  |  |  |
@@ -28,6 +30,8 @@
 | IDX_3d08a445b684c9698cfead467d | CREATE INDEX "IDX_3d08a445b684c9698cfead467d" ON public.fork_audit_log_event USING btree ("userId", "timestamp") |
 | IDX_adbe85b4f3d52a865176a360cd | CREATE INDEX "IDX_adbe85b4f3d52a865176a360cd" ON public.fork_audit_log_event USING btree ("timestamp") |
 | IDX_fbf7b8bff8580f21e76a36a58d | CREATE INDEX "IDX_fbf7b8bff8580f21e76a36a58d" ON public.fork_audit_log_event USING btree ("eventName", "timestamp") |
+| IDX_fork_audit_log_event_projectId_timestamp | CREATE INDEX "IDX_fork_audit_log_event_projectId_timestamp" ON public.fork_audit_log_event USING btree ("projectId", "timestamp") |
+| IDX_fork_audit_log_event_projectType_timestamp | CREATE INDEX "IDX_fork_audit_log_event_projectType_timestamp" ON public.fork_audit_log_event USING btree ("projectType", "timestamp") |
 | PK_36ee34e83b07b2c7d2a01c8bb0d | CREATE UNIQUE INDEX "PK_36ee34e83b07b2c7d2a01c8bb0d" ON public.fork_audit_log_event USING btree (id) |
 
 ## Relations
@@ -40,6 +44,8 @@ erDiagram
   varchar_128_ eventName
   varchar_36_ id
   json payload
+  varchar_36_ projectId
+  varchar_36_ projectType
   timestamp_3__with_time_zone timestamp
   varchar_254_ userEmail
   varchar_36_ userId

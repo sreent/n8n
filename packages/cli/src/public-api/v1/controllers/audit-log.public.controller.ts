@@ -31,14 +31,13 @@ const tags = ['AuditLog'];
 
 type AuditLogFilterQuery = Pick<
 	ListAuditLogEventsQueryPublicDto,
-	'from' | 'to' | 'eventName' | 'userId'
+	'from' | 'to' | 'eventName' | 'userId' | 'projectId' | 'projectType'
 >;
 
-const toFilter = ({ from, to, eventName, userId }: AuditLogFilterQuery) => ({
+const toFilter = ({ from, to, ...filter }: AuditLogFilterQuery) => ({
+	...filter,
 	from: from ? new Date(from) : undefined,
 	to: to ? new Date(to) : undefined,
-	eventName,
-	userId,
 });
 
 /**
@@ -103,7 +102,7 @@ export class AuditLogPublicController {
 	@GlobalScope('auditLogs:manage')
 	@ApiSummary('Export audit events')
 	@ApiDescription(
-		'Returns a file with all audit events that match the filter, newest first: a CSV file with the columns `timestamp`, `eventName`, `userId`, `userEmail` and `payload`, or a JSON array of events.',
+		'Returns a file with all audit events that match the filter, newest first: a CSV file with the columns `timestamp`, `eventName`, `userId`, `userEmail`, `payload`, `projectId` and `projectType`, or a JSON array of events.',
 	)
 	@ApiTags(tags)
 	@ApiResponse(200)

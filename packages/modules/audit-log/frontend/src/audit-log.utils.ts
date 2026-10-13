@@ -1,4 +1,5 @@
 import type { DateValue } from '@n8n/design-system';
+import { useI18n } from '@n8n/i18n';
 
 import { AUDIT_EVENT_PREFIX } from './audit-log.constants';
 
@@ -54,6 +55,19 @@ export function formatTimestamp(timestamp: string, locale?: string) {
 /** A calendar day in the format of the locale of the browser. */
 export function formatDay(day: DateValue, locale?: string) {
 	return new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(localDate(day));
+}
+
+/**
+ * The label of the type of the project of an event: a personal space or a team project. An event
+ * without a project gets null.
+ */
+export function useProjectTypeLabel() {
+	const i18n = useI18n();
+	return (projectType: string | null) => {
+		if (projectType === 'personal') return i18n.baseText('settings.auditLog.project.personal');
+		if (projectType === 'team') return i18n.baseText('settings.auditLog.project.team');
+		return projectType;
+	};
 }
 
 /** How long the browser keeps the file of a download, so that the download can start. */

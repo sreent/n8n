@@ -30,10 +30,16 @@ describe('audit log API', () => {
 	it('reads a page of events with the filters that are set', async () => {
 		makeRestApiRequest.mockResolvedValue({ count: 0, events: [] });
 
-		await getAuditLogEvents(context, { eventName: 'n8n.audit.user.', userId: '' }, 50, 25);
+		await getAuditLogEvents(
+			context,
+			{ eventName: 'n8n.audit.user.', userId: '', projectType: 'personal' },
+			50,
+			25,
+		);
 
 		expect(makeRestApiRequest).toHaveBeenCalledWith(context, 'GET', '/audit-log/events', {
 			eventName: 'n8n.audit.user.',
+			projectType: 'personal',
 			skip: 50,
 			take: 25,
 		});
