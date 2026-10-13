@@ -30,6 +30,7 @@ import {
 } from '@n8n/db';
 import { ModuleMetadata } from '@n8n/decorators';
 import { Container } from '@n8n/di';
+import { ALL_API_KEY_SCOPES, getApiKeyScopesForRole } from '@n8n/permissions';
 import type { AssignableProjectRole } from '@n8n/permissions';
 import { exportJWK, generateKeyPair, SignJWT, type JWK } from 'jose';
 import { InstanceSettings } from 'n8n-core';
@@ -652,7 +653,11 @@ beforeAll(async () => {
 	admin = await createFixtureUser('admin', { role: GLOBAL_ADMIN_ROLE });
 	member = await createFixtureUser('member', { role: GLOBAL_MEMBER_ROLE });
 	chatUser = await createFixtureUser('chat', { role: GLOBAL_CHAT_USER_ROLE });
-	const apiKey = await addApiKey(owner);
+	// Only the API key scopes of upstream n8n: the snapshot comes from upstream, which has no fork
+	// API key scopes (packages/@n8n/permissions/src/fork-scopes.ts).
+	const apiKey = await addApiKey(owner, {
+		scopes: getApiKeyScopesForRole(owner).filter((scope) => ALL_API_KEY_SCOPES.has(scope)),
+	});
 	owner.apiKeys = [apiKey];
 	// A generated id without a digit does not get the `<id>` placeholder, so the key needs a label.
 	label(apiKey.id, 'id of the api key of the owner');
