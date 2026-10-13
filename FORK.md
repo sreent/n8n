@@ -94,9 +94,11 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/cli/src/evaluation/FORK.md](packages/cli/src/evaluation/FORK.md), and the editor,
    see
    [the FORK.md of the editor folder](packages/frontend/editor-ui/src/features/ai/evaluation/FORK.md)),
-   and the local parts of the AI workflow builder that the MCP tools of the workflow builder use.
-   The chat of the AI builder needs a service of n8n, and goes. Then the source control editor,
-   and last the enterprise files that fork code replaced.
+   and the local parts of the AI workflow builder that the MCP tools of the workflow builder use
+   (done, see
+   [packages/@n8n/ai-workflow-builder/FORK.md](packages/@n8n/ai-workflow-builder/FORK.md)). The
+   chat of the AI builder needs a service of n8n, and goes. Then the source control editor, and
+   last the enterprise files that fork code replaced.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off.
@@ -183,12 +185,14 @@ them again after each upstream update, and container CI checks that they stay de
   the Evaluation nodes (`packages/nodes-base/nodes/Evaluation/test/Evaluation.golden.test.ts`),
   and of the evaluation backend (the `*.golden.test.ts` files in
   `packages/cli/test/integration/evaluation`), and of the evaluation editor (the golden tests in
-  `packages/frontend/editor-ui/src/features/ai/evaluation/__tests__/golden`) fail when an update
-  changes what a role may do, how projects, sharing, the sign-in method, the OIDC sign-in, the
-  role provisioning, the SAML sign-in, the secrets providers, the queries of their connections,
-  the external secrets module, the external secrets editor, the connections editor, the
-  execution annotations, the variables, the agent eval tables, the Evaluation nodes, the
-  evaluation backend or the evaluation editor work.
+  `packages/frontend/editor-ui/src/features/ai/evaluation/__tests__/golden`), and of the local
+  parts of the AI workflow builder
+  (`packages/cli/src/services/__tests__/golden/ai-workflow-builder.golden.test.ts`) fail when an
+  update changes what a role may do, how projects, sharing, the sign-in method, the OIDC sign-in,
+  the role provisioning, the SAML sign-in, the secrets providers, the queries of their
+  connections, the external secrets module, the external secrets editor, the connections editor,
+  the execution annotations, the variables, the agent eval tables, the Evaluation nodes, the
+  evaluation backend, the evaluation editor or the local parts of the AI workflow builder work.
   Compare the change with the upstream change, then update the fork code or the snapshot. The
   FORK.md files there tell how to record a snapshot against the enterprise code.
 - When an upstream update changes the public API handler
@@ -198,6 +202,9 @@ them again after each upstream update, and container CI checks that they stay de
   `@n8n/blob-storage` or the scaling classes `MultiMainSetup`, `WorkerStatusService` and
   `PoolConfigService`, change the fork stand-ins. When an upstream migration changes a workflow
   review table, change the fork entity. The FORK.md files of step 4 tell how.
+- When an upstream update makes ordinary code import a new name from `@n8n/ai-workflow-builder`,
+  add it to the fork package, as
+  [packages/@n8n/ai-workflow-builder/FORK.md](packages/@n8n/ai-workflow-builder/FORK.md) tells.
 - When an upstream update changes `packages/cli/test/shared/external-secrets/utils.ts`, make the
   same change in `fork-providers.ts` next to it. The ordinary tests of external secrets use that
   fork copy, and the enterprise tests use `utils.ts`.
