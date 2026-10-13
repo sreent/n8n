@@ -25,6 +25,8 @@ servers:
 tags:
   - name: Audit
     description: Operations about security audit
+  - name: AuditLog
+    description: Operations about the audit log
   - name: CommunityPackage
     description: Operations about community packages
   - name: Credential

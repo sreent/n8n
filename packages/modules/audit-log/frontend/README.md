@@ -17,7 +17,8 @@ owner chose on 2026-10-11 that the audit log is on by default.
 - The description tells how long the audit log keeps an event. The value comes from the module
   settings (`retentionDays`).
 - The table shows one page of the events, newest first: the time in the locale of the browser,
-  the event name, and the user (the e-mail address, else the user id). The page sizes are 25, 50,
+  the event name, the user (the e-mail address, else the user id), and the type of the project of
+  the event: **Personal space** or **Team project**. The tooltip of the project shows its id. The page sizes are 25, 50,
   100 and 250 events. A click on a row, or on its eye button, opens the details of the event
   (`components/AuditLogEventDetails.vue`) with the payload as JSON.
 - The filters:
@@ -25,6 +26,8 @@ owner chose on 2026-10-11 that the audit log is on by default.
     from `GET /rest/audit-log/event-names`. Each group of two or more events gets a group option.
   - **User**: only for users who may list the users (`user:list`). The select searches the users
     of the instance.
+  - **Project**: **Personal spaces** or **Team projects** (`projectType`). **Personal spaces**
+    shows what users did in their personal spaces.
   - **Date**: a range of whole days in the local time zone. Both days are included.
   - A change to a filter goes back to the first page. "Clear filters" removes all filters.
 - **Export**: CSV or JSON, with the filters of the page. A download link cannot send the

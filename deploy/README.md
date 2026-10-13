@@ -155,10 +155,15 @@ spaces. A user cannot hide a workflow from them.
 - **The public API.** With an API key of the owner or an admin, `GET /api/v1/workflows` lists all
   workflows, `GET /api/v1/projects` lists all projects (also the personal projects),
   `GET /api/v1/users` lists the users and their roles, and `GET /api/v1/executions` lists the
-  executions. Give an API key only the scopes that it needs.
+  executions. `GET /api/v1/insights/by-workflow` gives the executions, the failures, the run time
+  and the time saved of each workflow (scope `insights:read`). Give an API key only the scopes that
+  it needs.
 - **The audit log.** Settings > Audit log shows who created, changed, published, archived or deleted
-  a workflow, and each execution, for 90 days. Log streaming sends the same events to your log
-  system.
+  a workflow, and each execution, for 90 days. Each event keeps its project, so the filter
+  **Project: Personal spaces** shows what users did in their personal spaces. An API key with the
+  scope `auditLogs:manage` reads the same events with `GET /api/v1/audit-log/events` and
+  `GET /api/v1/audit-log/export` (filter `projectType=personal`). Log streaming sends the same
+  events to your log system.
 - **Rules for personal spaces.** On Settings > Security & policies, an admin can stop publishing and
   sharing from personal spaces, and set the floor of data redaction for the instance. By default,
   users can publish and share from their personal spaces, and no data is hidden. To set these rules

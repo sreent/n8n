@@ -13,6 +13,8 @@ const event = (index: number, overrides: Partial<AuditLogEvent> = {}): AuditLogE
 		timestamp: new Date(Date.UTC(2026, 9, 1, 10, 0, 0) - index * 1000),
 		userId: 'user-1',
 		userEmail: 'ann@example.com',
+		projectId: 'project-1',
+		projectType: 'personal',
 		payload: { workflowId: 'wf-1', workflowName: 'Report' },
 		...overrides,
 	}) as AuditLogEvent;
@@ -41,6 +43,8 @@ describe('AuditLogService', () => {
 					timestamp: '2026-10-01T10:00:00.000Z',
 					userId: 'user-1',
 					userEmail: 'ann@example.com',
+					projectId: 'project-1',
+					projectType: 'personal',
 					payload: { workflowId: 'wf-1', workflowName: 'Report' },
 				},
 			],
@@ -72,15 +76,15 @@ describe('AuditLogService', () => {
 		it('writes a CSV file with quoted cells and safe formulas', async () => {
 			repository.findBatch.mockResolvedValueOnce([
 				event(0, { userEmail: '=HYPERLINK("x")', payload: { note: 'a,b' } }),
-				event(1, { userId: null, userEmail: null }),
+				event(1, { userId: null, userEmail: null, projectId: null, projectType: null }),
 			]);
 
 			const csv = await text(service.exportEvents({}, 'csv', now).stream);
 
 			expect(csv.split('\r\n')).toEqual([
-				'timestamp,eventName,userId,userEmail,payload',
-				'2026-10-01T10:00:00.000Z,n8n.audit.workflow.updated,user-1,"\'=HYPERLINK(""x"")","{""note"":""a,b""}"',
-				'2026-10-01T09:59:59.000Z,n8n.audit.workflow.updated,,,"{""workflowId"":""wf-1"",""workflowName"":""Report""}"',
+				'timestamp,eventName,userId,userEmail,payload,projectId,projectType',
+				'2026-10-01T10:00:00.000Z,n8n.audit.workflow.updated,user-1,"\'=HYPERLINK(""x"")","{""note"":""a,b""}",project-1,personal',
+				'2026-10-01T09:59:59.000Z,n8n.audit.workflow.updated,,,"{""workflowId"":""wf-1"",""workflowName"":""Report""}",,',
 				'',
 			]);
 		});

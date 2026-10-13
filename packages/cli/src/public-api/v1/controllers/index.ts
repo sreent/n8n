@@ -4,6 +4,8 @@
  * scope-parity / discover run.
  */
 import './audit.public.controller';
+// Fork: the audit log in the public API (packages/cli/src/modules/audit-log/README.md).
+import './audit-log.public.controller';
 import './community-packages.public.controller';
 import './credential-type-policies.public.controller';
 import './credentials.public.controller';
@@ -13,6 +15,8 @@ import './evaluations.public.controller';
 import './executions.public.controller';
 import './folders.public.controller';
 import './insights.public.controller';
+// Fork: the insights of each workflow in the public API.
+import './insights-by-workflow.public.controller';
 import './node-type-policies.public.controller';
 import './otel.public.controller';
 import './projects.public.controller';

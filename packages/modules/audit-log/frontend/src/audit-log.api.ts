@@ -11,6 +11,10 @@ export interface AuditLogEvent {
 	timestamp: string;
 	userId: string | null;
 	userEmail: string | null;
+	/** The project of the event, for example the home project of the workflow that it names. */
+	projectId: string | null;
+	/** `personal` or `team`. */
+	projectType: string | null;
 	payload: Record<string, unknown>;
 }
 
@@ -30,7 +34,11 @@ export interface AuditLogFilters {
 	/** An event name, or a prefix that ends with a dot, for example `n8n.audit.user.`. */
 	eventName?: string;
 	userId?: string;
+	/** `personal` gives the events of the personal spaces of users. */
+	projectType?: AuditLogProjectType;
 }
+
+export type AuditLogProjectType = 'personal' | 'team';
 
 export type AuditLogExportFormat = 'csv' | 'json';
 
@@ -39,7 +47,7 @@ export interface AuditLogExportFile {
 	fileName: string;
 }
 
-const FILTER_KEYS = ['from', 'to', 'eventName', 'userId'] as const;
+const FILTER_KEYS = ['from', 'to', 'eventName', 'userId', 'projectType'] as const;
 
 const definedFilters = (filters: AuditLogFilters) => {
 	const defined: Partial<Record<(typeof FILTER_KEYS)[number], string>> = {};

@@ -23,10 +23,16 @@ import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { computed, onMounted, ref, shallowRef, watch } from 'vue';
 
-import type { AuditLogEvent, AuditLogExportFormat } from '../audit-log.api';
+import type { AuditLogEvent, AuditLogExportFormat, AuditLogProjectType } from '../audit-log.api';
 import { AUDIT_LOG_MODULE_ID, PAGE_SIZES, USER_SEARCH_SIZE } from '../audit-log.constants';
 import { useAuditLogStore } from '../audit-log.store';
-import { formatDay, formatTimestamp, saveFile, toEventNameOptions } from '../audit-log.utils';
+import {
+	formatDay,
+	formatTimestamp,
+	saveFile,
+	toEventNameOptions,
+	useProjectTypeLabel,
+} from '../audit-log.utils';
 import AuditLogEventDetails from '../components/AuditLogEventDetails.vue';
 
 const i18n = useI18n();
@@ -35,6 +41,7 @@ const settingsStore = useSettingsStore();
 const usersStore = useUsersStore();
 const rbacStore = useRBACStore();
 const store = useAuditLogStore();
+const projectTypeLabel = useProjectTypeLabel();
 const documentTitle = useDocumentTitle({ releaseChannel: settingsStore.settings.releaseChannel });
 
 /** The locale of the browser, for the times and the date picker. */
@@ -98,6 +105,13 @@ const headers = computed<Array<TableHeader<AuditLogEvent>>>(() => [
 		value: (event) => event.userEmail ?? event.userId ?? '',
 		disableSort: true,
 		minWidth: 220,
+	},
+	{
+		title: i18n.baseText('settings.auditLog.column.project'),
+		key: 'project',
+		value: (event) => projectTypeLabel(event.projectType) ?? '',
+		disableSort: true,
+		minWidth: 140,
 	},
 	{
 		title: '',
@@ -170,6 +184,16 @@ async function searchUsers(query: string) {
 
 function onUserChange(value: unknown) {
 	store.setFilters({ userId: selectValue(value) });
+}
+
+const projectTypeOptions = computed<Array<{ value: AuditLogProjectType; label: string }>>(() => [
+	{ value: 'personal', label: i18n.baseText('settings.auditLog.filter.project.personal') },
+	{ value: 'team', label: i18n.baseText('settings.auditLog.filter.project.team') },
+]);
+
+function onProjectTypeChange(value: unknown) {
+	const projectType = projectTypeOptions.value.find((option) => option.value === value)?.value;
+	store.setFilters({ projectType });
 }
 
 const isDateFilterOpen = ref(false);
@@ -283,6 +307,23 @@ onMounted(async () => {
 					/>
 				</N8nSelect>
 
+				<N8nSelect
+					:model-value="store.filters.projectType ?? ''"
+					:class="$style.projectFilter"
+					size="medium"
+					clearable
+					:placeholder="i18n.baseText('settings.auditLog.filter.project.placeholder')"
+					data-test-id="audit-log-project-filter"
+					@update:model-value="onProjectTypeChange"
+				>
+					<N8nOption
+						v-for="option in projectTypeOptions"
+						:key="option.value"
+						:value="option.value"
+						:label="option.label"
+					/>
+				</N8nSelect>
+
 				<N8nDateRangePicker v-model="draftRange" v-model:open="isDateFilterOpen" :locale="locale">
 					<template #trigger>
 						<N8nButton
@@ -364,6 +405,11 @@ onMounted(async () => {
 			<template #[`item.user`]="{ item }">
 				<span :title="item.userId ?? undefined">{{ item.userEmail ?? item.userId ?? '—' }}</span>
 			</template>
+			<template #[`item.project`]="{ item }">
+				<span :title="item.projectId ?? undefined">{{
+					projectTypeLabel(item.projectType) ?? '—'
+				}}</span>
+			</template>
 			<template #[`item.actions`]="{ item }">
 				<N8nIconButton
 					icon="eye"
@@ -425,6 +471,10 @@ onMounted(async () => {
 
 .userFilter {
 	width: 16rem;
+}
+
+.projectFilter {
+	width: 12rem;
 }
 
 .dateFooter {

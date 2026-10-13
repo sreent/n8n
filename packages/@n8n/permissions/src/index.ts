@@ -28,3 +28,5 @@ export { getRoleScopes, getAuthPrincipalScopes } from './utilities/get-role-scop
 export { getResourcePermissions } from './utilities/get-resource-permissions';
 export type { PermissionsRecord } from './utilities/get-resource-permissions';
 export * from './public-api-permissions';
+// Fork: the scopes that fork features add (see ../FORK.md, "Fork scopes").
+export * from './fork-scopes';

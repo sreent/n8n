@@ -29,6 +29,8 @@ const page = (ids: string[], count = ids.length): AuditLogEventsPage => ({
 		timestamp: '2026-10-01T08:00:00.000Z',
 		userId: 'user-1',
 		userEmail: 'ann@example.com',
+		projectId: null,
+		projectType: null,
 		payload: {},
 	})),
 });

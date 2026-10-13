@@ -44,6 +44,8 @@ const login: AuditLogEvent = {
 	timestamp: '2026-10-02T08:00:00.000Z',
 	userId: 'user-1',
 	userEmail: 'ann@example.com',
+	projectId: null,
+	projectType: null,
 	payload: { userId: 'user-1', _email: 'ann@example.com', authenticationMethod: 'email' },
 };
 
@@ -53,7 +55,20 @@ const installed: AuditLogEvent = {
 	timestamp: '2026-10-01T08:00:00.000Z',
 	userId: null,
 	userEmail: null,
+	projectId: null,
+	projectType: null,
 	payload: {},
+};
+
+const workflowUpdated: AuditLogEvent = {
+	id: 'e3',
+	eventName: 'n8n.audit.workflow.updated',
+	timestamp: '2026-10-03T08:00:00.000Z',
+	userId: 'user-1',
+	userEmail: 'ann@example.com',
+	projectId: 'project-1',
+	projectType: 'personal',
+	payload: { userId: 'user-1', workflowId: 'wf-1' },
 };
 
 const page = (events: AuditLogEvent[]): AuditLogEventsPage => ({ count: events.length, events });
@@ -186,6 +201,27 @@ describe('SettingsAuditLogView', () => {
 		await waitFor(() => expect(lastFilters()).toEqual({ userId: 'user-1' }));
 	});
 
+	it('shows the project of each event, and filters by personal spaces', async () => {
+		getEventsMock.mockResolvedValue(page([workflowUpdated, login]));
+		const { pinia } = setUp();
+		render(pinia);
+		const table = await screen.findByTestId('audit-log-table');
+		await within(table).findByText(workflowUpdated.eventName);
+
+		const rows = within(table).getAllByRole('row').slice(1);
+		expect(rows[0]).toHaveTextContent('Personal space');
+		expect(within(rows[0]).getByTitle('project-1')).toBeInTheDocument();
+		expect(rows[1]).not.toHaveTextContent('Personal space');
+
+		await pickOption('audit-log-project-filter', 'Personal spaces');
+
+		await waitFor(() => expect(lastFilters()).toEqual({ projectType: 'personal' }));
+
+		await pickOption('audit-log-project-filter', 'Team projects');
+
+		await waitFor(() => expect(lastFilters()).toEqual({ projectType: 'team' }));
+	});
+
 	it('hides the user filter from a user who cannot list users', async () => {
 		const { pinia, fetchUsers } = setUp();
 		render(pinia);
@@ -214,6 +250,7 @@ describe('SettingsAuditLogView', () => {
 			'ann@example.com',
 		);
 		expect(within(dialog).getByTestId('audit-log-event-details-id')).toHaveTextContent('e2');
+		expect(within(dialog).getByTestId('audit-log-event-details-project')).toHaveTextContent('—');
 		expect(within(dialog).getByTestId('audit-log-event-details-payload')).toHaveTextContent(
 			'"authenticationMethod": "email"',
 		);

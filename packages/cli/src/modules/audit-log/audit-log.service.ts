@@ -16,7 +16,7 @@ export type AuditLogExportFormat = 'csv' | 'json';
 /** An audit event as the REST API gives it. */
 export type AuditLogEventResponse = Pick<
 	AuditLogEvent,
-	'id' | 'eventName' | 'userId' | 'userEmail' | 'payload'
+	'id' | 'eventName' | 'userId' | 'userEmail' | 'projectId' | 'projectType' | 'payload'
 > & { timestamp: string };
 
 const toResponse = (event: AuditLogEvent): AuditLogEventResponse => ({
@@ -25,10 +25,21 @@ const toResponse = (event: AuditLogEvent): AuditLogEventResponse => ({
 	timestamp: event.timestamp.toISOString(),
 	userId: event.userId,
 	userEmail: event.userEmail,
+	projectId: event.projectId,
+	projectType: event.projectType,
 	payload: event.payload,
 });
 
-const CSV_COLUMNS = ['timestamp', 'eventName', 'userId', 'userEmail', 'payload'] as const;
+/** The project columns come last, so that a reader of the older files finds the same columns. */
+const CSV_COLUMNS = [
+	'timestamp',
+	'eventName',
+	'userId',
+	'userEmail',
+	'payload',
+	'projectId',
+	'projectType',
+] as const;
 
 /**
  * A CSV cell. A spreadsheet reads a cell that starts with `=`, `+`, `-`, `@`, a tab or a carriage
@@ -47,6 +58,8 @@ function toCsvLine(event: AuditLogEventResponse) {
 		event.userId,
 		event.userEmail,
 		JSON.stringify(event.payload),
+		event.projectId,
+		event.projectType,
 	];
 	return `${cells.map(toCsvCell).join(',')}\r\n`;
 }

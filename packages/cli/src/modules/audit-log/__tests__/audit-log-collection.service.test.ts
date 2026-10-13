@@ -1,3 +1,4 @@
+import type { Logger } from '@n8n/backend-common';
 import { mockLogger } from '@n8n/backend-test-utils';
 import { DateTime } from 'luxon';
 import { mock } from 'vitest-mock-extended';
@@ -7,6 +8,7 @@ import { EventMessageWorkflow } from '@/eventbus/event-message-classes/event-mes
 import type { MessageEventBus } from '@/eventbus/message-event-bus/message-event-bus';
 
 import { AuditLogCollectionService, toAuditLogEventRow } from '../audit-log-collection.service';
+import type { AuditLogProjectsService } from '../audit-log-projects.service';
 import { AuditLogConfig } from '../audit-log.config';
 import { FLUSH_BATCH_SIZE, MAX_BUFFERED_EVENTS } from '../audit-log.constants';
 import type { AuditLogEventRepository } from '../database/audit-log-event.repository';
@@ -32,6 +34,8 @@ describe('toAuditLogEventRow', () => {
 			timestamp: new Date('2026-10-01T10:00:00.000Z'),
 			userId: 'user-1',
 			userEmail: 'ann@example.com',
+			projectId: null,
+			projectType: null,
 			payload: {
 				userId: 'user-1',
 				_email: 'ann@example.com',
@@ -39,6 +43,34 @@ describe('toAuditLogEventRow', () => {
 				authenticationMethod: 'email',
 			},
 		});
+	});
+
+	it('keeps the project that the payload names', () => {
+		const event = new EventMessageAudit({
+			eventName: 'n8n.audit.user.credentials.created',
+			payload: { credentialId: 'cred-1', projectId: 'project-1', projectType: 'personal' },
+		});
+		expect(toAuditLogEventRow(event)).toMatchObject({
+			projectId: 'project-1',
+			projectType: 'personal',
+		});
+	});
+
+	it('keeps no project type without a project, and no id that does not fit its column', () => {
+		const withoutProject = new EventMessageAudit({
+			eventName: 'n8n.audit.user.credentials.created',
+			payload: { projectType: 'team' },
+		});
+		expect(toAuditLogEventRow(withoutProject)).toMatchObject({
+			projectId: null,
+			projectType: null,
+		});
+
+		const longProjectId = new EventMessageAudit({
+			eventName: 'n8n.audit.workflow.executed',
+			payload: { projectId: 'p'.repeat(37) },
+		});
+		expect(toAuditLogEventRow(longProjectId)).toMatchObject({ projectId: null });
 	});
 
 	it('takes the e-mail address from userEmail when the payload has no _email', () => {
@@ -76,13 +108,15 @@ describe('AuditLogCollectionService', () => {
 	let config: AuditLogConfig;
 	let repository: ReturnType<typeof mock<AuditLogEventRepository>>;
 	let eventBus: ReturnType<typeof mock<MessageEventBus>>;
+	let projects: ReturnType<typeof mock<AuditLogProjectsService>>;
 	let service: AuditLogCollectionService;
 
 	beforeEach(() => {
 		config = new AuditLogConfig();
 		repository = mock<AuditLogEventRepository>();
 		eventBus = mock<MessageEventBus>();
-		service = new AuditLogCollectionService(mockLogger(), eventBus, repository, config);
+		projects = mock<AuditLogProjectsService>();
+		service = new AuditLogCollectionService(mockLogger(), eventBus, repository, config, projects);
 	});
 
 	afterEach(async () => {
@@ -92,9 +126,46 @@ describe('AuditLogCollectionService', () => {
 	it('listens to each sent message of the event bus, and stops on shutdown', async () => {
 		service.init();
 		expect(eventBus.on).toHaveBeenCalledWith('metrics.eventBus.event', expect.any(Function));
+		expect(projects.init).toHaveBeenCalled();
 
 		await service.shutdown();
 		expect(eventBus.off).toHaveBeenCalledWith('metrics.eventBus.event', expect.any(Function));
+		expect(projects.shutdown).toHaveBeenCalled();
+	});
+
+	it('finds the projects of a batch before it writes the batch', async () => {
+		projects.addProjects.mockImplementation(async (rows) => {
+			for (const row of rows) {
+				row.projectId = 'project-1';
+				row.projectType = 'team';
+			}
+		});
+		service.collect(loginEvent());
+		await service.flush();
+
+		expect(projects.addProjects).toHaveBeenCalledTimes(1);
+		expect(repository.insertIgnoringDuplicates).toHaveBeenCalledWith([
+			expect.objectContaining({ id: 'event-1', projectId: 'project-1', projectType: 'team' }),
+		]);
+	});
+
+	it('stores the events without a project when the search for the projects fails', async () => {
+		const scopedLogger = mock<Logger>();
+		const logger = mock<Logger>({ scoped: vi.fn().mockReturnValue(scopedLogger) });
+		service = new AuditLogCollectionService(logger, eventBus, repository, config, projects);
+		projects.addProjects.mockRejectedValue(new Error('query failed'));
+		service.collect(loginEvent('event-1'));
+		await service.flush();
+		service.collect(loginEvent('event-2'));
+		await service.flush();
+
+		const stored = repository.insertIgnoringDuplicates.mock.calls.flatMap(([batch]) => batch);
+		expect(stored).toEqual([
+			expect.objectContaining({ id: 'event-1', projectId: null }),
+			expect.objectContaining({ id: 'event-2', projectId: null }),
+		]);
+		// One warning until a search works again, not one for each flush.
+		expect(scopedLogger.warn).toHaveBeenCalledTimes(1);
 	});
 
 	it('stores audit events and leaves out other events', async () => {

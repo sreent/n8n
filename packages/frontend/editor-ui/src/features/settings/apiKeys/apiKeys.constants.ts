@@ -1,8 +1,9 @@
-import type { API_KEY_RESOURCES } from '@n8n/permissions';
+import type { API_KEY_RESOURCES, ForkApiKeyResource } from '@n8n/permissions';
 
 export const API_KEY_CREATE_OR_EDIT_MODAL_KEY = 'createOrEditApiKey';
 
-type ApiKeyResource = keyof typeof API_KEY_RESOURCES;
+// Fork: the resources of fork features too (packages/@n8n/permissions/src/fork-scopes.ts).
+type ApiKeyResource = keyof typeof API_KEY_RESOURCES | ForkApiKeyResource;
 
 export const API_KEY_SCOPE_GROUPS: Array<{ key: string; resources: ApiKeyResource[] }> = [
 	{
@@ -23,6 +24,8 @@ export const API_KEY_SCOPE_GROUPS: Array<{ key: string; resources: ApiKeyResourc
 			'insights',
 			'nodeTypePolicy',
 			'credentialTypePolicy',
+			// Fork: the audit log of the public API.
+			'auditLogs',
 		],
 	},
 ];

@@ -10,8 +10,12 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   `packages/modules/git-sync/frontend` and `packages/modules/send-copy/frontend`. Their READMEs
   describe them.
 - **Audit log**: the backend module `packages/cli/src/modules/audit-log` keeps the audit events of
-  n8n for 90 days, and the frontend module `packages/modules/audit-log/frontend` shows them on the
-  page Settings > Audit log. Their READMEs describe them.
+  n8n for 90 days and gives them in the public API (`/api/v1/audit-log`), and the frontend module
+  `packages/modules/audit-log/frontend` shows them on the page Settings > Audit log. Their READMEs
+  describe them.
+- **Public API routes**: `/api/v1/audit-log` (see the audit log) and `/api/v1/insights/by-workflow`,
+  the insights of each workflow
+  (`packages/cli/src/public-api/v1/controllers/insights-by-workflow.public.controller.ts`).
 - **Log streaming**: the backend module `packages/cli/src/modules/log-streaming` sends the events
   of n8n to webhook, syslog and Sentry destinations, and the page Settings > Log streaming
   (`packages/frontend/editor-ui/src/features/integrations/logStreaming`) manages them. The README
@@ -235,6 +239,8 @@ update can bring new enterprise files: see "Upstream updates".
   `@n8n/blob-storage` or the scaling classes `MultiMainSetup`, `WorkerStatusService` and
   `PoolConfigService`, change the fork stand-ins. When an upstream migration changes a workflow
   review table, change the fork entity. The FORK.md files of step 4 tell how.
+- When an upstream update adds a public route for the audit log or for the insights of each
+  workflow, compare it with the fork route. Keep one of them.
 - When an upstream update makes ordinary code import a new name from `@n8n/ai-workflow-builder`,
   add it to the fork package, as
   [packages/@n8n/ai-workflow-builder/FORK.md](packages/@n8n/ai-workflow-builder/FORK.md) tells.

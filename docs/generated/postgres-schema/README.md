@@ -71,7 +71,7 @@ Auto-generated from the PostgreSQL migrations in @n8n/db. Do not edit by hand.
 | [public.execution_metadata](public.execution_metadata.md) | 4 |  | BASE TABLE |
 | [public.folder](public.folder.md) | 6 |  | BASE TABLE |
 | [public.folder_tag](public.folder_tag.md) | 2 |  | BASE TABLE |
-| [public.fork_audit_log_event](public.fork_audit_log_event.md) | 6 |  | BASE TABLE |
+| [public.fork_audit_log_event](public.fork_audit_log_event.md) | 8 |  | BASE TABLE |
 | [public.insights_by_period](public.insights_by_period.md) | 6 |  | BASE TABLE |
 | [public.insights_metadata](public.insights_metadata.md) | 5 |  | BASE TABLE |
 | [public.insights_raw](public.insights_raw.md) | 5 |  | BASE TABLE |
@@ -1082,6 +1082,8 @@ erDiagram
   varchar_128_ eventName
   varchar_36_ id
   json payload
+  varchar_36_ projectId
+  varchar_36_ projectType
   timestamp_3__with_time_zone timestamp
   varchar_254_ userEmail
   varchar_36_ userId

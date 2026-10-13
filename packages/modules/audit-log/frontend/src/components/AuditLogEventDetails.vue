@@ -4,7 +4,7 @@ import { useI18n } from '@n8n/i18n';
 import { computed } from 'vue';
 
 import type { AuditLogEvent } from '../audit-log.api';
-import { formatTimestamp } from '../audit-log.utils';
+import { formatTimestamp, useProjectTypeLabel } from '../audit-log.utils';
 
 const props = defineProps<{
 	/** The event to show. The dialog is closed when there is none. */
@@ -15,6 +15,7 @@ const props = defineProps<{
 const emit = defineEmits<{ close: [] }>();
 
 const i18n = useI18n();
+const projectTypeLabel = useProjectTypeLabel();
 
 const fields = computed(() => {
 	const { event } = props;
@@ -39,6 +40,16 @@ const fields = computed(() => {
 			id: 'user-id',
 			label: i18n.baseText('settings.auditLog.details.userId'),
 			value: event.userId,
+		},
+		{
+			id: 'project',
+			label: i18n.baseText('settings.auditLog.details.project'),
+			value: projectTypeLabel(event.projectType),
+		},
+		{
+			id: 'project-id',
+			label: i18n.baseText('settings.auditLog.details.projectId'),
+			value: event.projectId,
 		},
 		{ id: 'id', label: i18n.baseText('settings.auditLog.details.id'), value: event.id },
 	];

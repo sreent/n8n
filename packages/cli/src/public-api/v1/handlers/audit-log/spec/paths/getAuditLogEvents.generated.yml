@@ -1,0 +1,134 @@
+operationId: getAuditLogEvents
+tags:
+  - AuditLog
+summary: Retrieve audit events
+description: Returns one page of the audit events, newest first. The audit log keeps the events for 90 days by default (`N8N_AUDIT_LOG_RETENTION_DAYS`).
+x-required-scope: auditLogs:manage
+parameters:
+  - $ref: ../../../../shared/spec/parameters/limit.yml
+  - $ref: ../../../../shared/spec/parameters/cursor.yml
+  - schema:
+      type: string
+      format: date-time
+      description: Only the events at or after this time, in ISO 8601 with an offset.
+      example: 2026-10-01T00:00:00.000Z
+    required: false
+    name: from
+    in: query
+  - schema:
+      type: string
+      format: date-time
+      description: Only the events at or before this time, in ISO 8601 with an offset.
+      example: 2026-10-31T23:59:59.999Z
+    required: false
+    name: to
+    in: query
+  - schema:
+      type: string
+      minLength: 1
+      maxLength: 128
+      description: An event name, or a prefix that ends with a dot.
+      example: n8n.audit.workflow.
+    required: false
+    name: eventName
+    in: query
+  - schema:
+      type: string
+      minLength: 1
+      maxLength: 36
+      description: Only the events of this user.
+      example: 6b2c7f4e-1a2b-4c3d-8e9f-0a1b2c3d4e5f
+    required: false
+    name: userId
+    in: query
+  - schema:
+      type: string
+      minLength: 1
+      maxLength: 36
+      description: Only the events of this project.
+      example: Xk3pV9qLm2Rt7wYz
+    required: false
+    name: projectId
+    in: query
+  - schema:
+      type: string
+      enum:
+        - personal
+        - team
+      description: Only the events of projects of this type. `personal` gives the events of the personal spaces of users.
+    required: false
+    name: projectType
+    in: query
+x-eov-operation-id: unreachable
+x-eov-operation-handler: v1/handlers/decorator-routed.handler
+x-decorator-routed: true
+responses:
+  '200':
+    description: Operation successful.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The id of the event.
+                  eventName:
+                    type: string
+                    description: The name of the event.
+                    example: n8n.audit.workflow.updated
+                  timestamp:
+                    type: string
+                    format: date-time
+                    description: The time of the event.
+                  userId:
+                    type: string
+                    nullable: true
+                    description: The id of the user that the event names, or null.
+                  userEmail:
+                    type: string
+                    nullable: true
+                    description: The email address of that user, or null.
+                  projectId:
+                    type: string
+                    nullable: true
+                    description: 'The project of the event: the project that the payload names, else the home project of the workflow or credential that it names. Null when the event names none of them, and for the events that the audit log stored before it recorded projects.'
+                  projectType:
+                    type: string
+                    nullable: true
+                    description: 'The type of that project: `personal` or `team`, or null.'
+                    example: personal
+                  payload:
+                    type: object
+                    additionalProperties: {}
+                    description: The payload of the event, as the event bus sends it.
+                required:
+                  - id
+                  - eventName
+                  - timestamp
+                  - userId
+                  - userEmail
+                  - projectId
+                  - projectType
+                  - payload
+            nextCursor:
+              type: string
+              nullable: true
+              description: Paginate through the events by setting the cursor parameter to a nextCursor attribute returned by a previous request. Default value fetches the first "page" of the collection.
+              example: eyJvZmZzZXQiOjEwMCwibGltaXQiOjEwMH0=
+          required:
+            - data
+            - nextCursor
+  '400':
+    $ref: ../../../../shared/spec/responses/badRequest.yml
+  '401':
+    $ref: ../../../../shared/spec/responses/unauthorized.yml
+  '403':
+    $ref: ../../../../shared/spec/responses/forbidden.yml
+  '503':
+    $ref: ../../../../shared/spec/responses/serviceUnavailable.yml

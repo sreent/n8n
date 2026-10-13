@@ -1,0 +1,133 @@
+operationId: getInsightsByWorkflow
+tags:
+  - Insights
+summary: Retrieve insights by workflow
+description: 'Returns one page of the workflows with their production executions in the date range: the number of executions and failures, the failure rate, the run time and the time saved. Most executions first, by default. The user of the key gets only the workflows that the user can read. The workflows that were deleted have `workflowId: null`.'
+x-required-scope: insights:read
+parameters:
+  - $ref: ../../../../shared/spec/parameters/limit.yml
+  - $ref: ../../../../shared/spec/parameters/cursor.yml
+  - schema:
+      type: string
+      format: date-time
+      description: ISO 8601 start date. Defaults to 7 days ago.
+    required: false
+    name: startDate
+    in: query
+  - schema:
+      type: string
+      format: date-time
+      description: ISO 8601 end date. Defaults to now.
+    required: false
+    name: endDate
+    in: query
+  - schema:
+      type: string
+      description: Only the workflows of this project.
+      example: VmwOO9HeTEj20kxM
+    required: false
+    name: projectId
+    in: query
+  - schema:
+      type: string
+      enum:
+        - total:asc
+        - total:desc
+        - succeeded:asc
+        - succeeded:desc
+        - failed:asc
+        - failed:desc
+        - failureRate:asc
+        - failureRate:desc
+        - timeSaved:asc
+        - timeSaved:desc
+        - runTime:asc
+        - runTime:desc
+        - averageRunTime:asc
+        - averageRunTime:desc
+        - workflowName:asc
+        - workflowName:desc
+      description: 'The order of the workflows: a metric or `workflowName`, then `asc` or `desc`.'
+    required: false
+    name: sortBy
+    in: query
+x-eov-operation-id: unreachable
+x-eov-operation-handler: v1/handlers/decorator-routed.handler
+x-decorator-routed: true
+responses:
+  '200':
+    description: Operation successful.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  workflowId:
+                    type: string
+                    nullable: true
+                    description: The id of the workflow, or null when it was deleted.
+                  workflowName:
+                    type: string
+                    description: The name of the workflow.
+                  projectId:
+                    type: string
+                    nullable: true
+                    description: The id of the home project of the workflow, or null when it was deleted.
+                  projectName:
+                    type: string
+                    description: The name of the home project of the workflow.
+                  total:
+                    type: number
+                    description: The number of production executions.
+                  succeeded:
+                    type: number
+                    description: The number of executions that succeeded.
+                  failed:
+                    type: number
+                    description: The number of executions that failed.
+                  failureRate:
+                    type: number
+                    description: The share of failed executions, from 0 to 1.
+                    example: 0.25
+                  runTime:
+                    type: number
+                    description: The run time of all executions, in milliseconds.
+                  averageRunTime:
+                    type: number
+                    description: The average run time of an execution, in milliseconds.
+                  timeSaved:
+                    type: number
+                    description: The time that the executions saved, in minutes.
+                required:
+                  - workflowId
+                  - workflowName
+                  - projectId
+                  - projectName
+                  - total
+                  - succeeded
+                  - failed
+                  - failureRate
+                  - runTime
+                  - averageRunTime
+                  - timeSaved
+            nextCursor:
+              type: string
+              nullable: true
+              description: Paginate through the workflows by setting the cursor parameter to a nextCursor attribute returned by a previous request. Send the same filters again. Default value fetches the first "page" of the collection.
+              example: eyJvZmZzZXQiOjEwMCwibGltaXQiOjEwMH0=
+          required:
+            - data
+            - nextCursor
+  '400':
+    $ref: ../../../../shared/spec/responses/badRequest.yml
+  '401':
+    $ref: ../../../../shared/spec/responses/unauthorized.yml
+  '403':
+    $ref: ../../../../shared/spec/responses/forbidden.yml
+  '503':
+    $ref: ../../../../shared/spec/responses/serviceUnavailable.yml
