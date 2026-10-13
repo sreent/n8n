@@ -115,8 +115,10 @@ The fork removes the enterprise code step by step, and builds its own versions o
    licence checks of ordinary code stay. The cli tests set the variable to `false`
    (`packages/cli/test/setup-fork-features.ts`). A test or the e2e controller that replaces
    `License.isLicensed` replaces the switch too. On 2026-10-13 the owner added variables, execution
-   annotations and filters, evaluations (no limit of workflows), API key scopes, folders and debug
-   in editor to the list.
+   annotations and filters, evaluations (no limit of workflows), API key scopes, folders, debug in
+   editor, insights (no limit of history), data redaction, the custom span attributes of
+   OpenTelemetry and node type policies to the list. Node type policies also need their module
+   (`N8N_ENABLED_MODULES=type-availability-policies`), which `deploy/` sets.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.
