@@ -1,7 +1,11 @@
 // Fork code (not in upstream n8n): the store of test runs, their cases and the evaluation configs
 // of a workflow. It replaces the enterprise store of the same name and keeps its ID and members.
 // See `FORK.md` in this folder.
-import type { AddDatasetRowDto, StartTestRunPayload } from '@n8n/api-types';
+import type {
+	AddDatasetRowDto,
+	StartTestRunPayload,
+	UpsertEvaluationConfigDto,
+} from '@n8n/api-types';
 import { useRootStore } from '@n8n/stores/useRootStore';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { STORES } from '@n8n/stores';
@@ -23,8 +27,8 @@ export const useEvaluationStore = defineStore(STORES.EVALUATION, () => {
 	const evaluationConfigsByWorkflowId = ref<Record<string, EvaluationConfig[]>>({});
 
 	// The timers of the runs that the store asks for again, and a counter for each run that ends
-	// the older polling of the run. They are not state of the page.
-	const pollingTimers = new Map<string, ReturnType<typeof setTimeout>>();
+	// all polling of the run. They are not state of the page.
+	const pollingTimers = new Map<string, Set<ReturnType<typeof setTimeout>>>();
 	const pollingGenerations = new Map<string, number>();
 
 	/** Evaluations are on unless the licence gives a quota of 0 workflows. */
@@ -119,6 +123,27 @@ export const useEvaluationStore = defineStore(STORES.EVALUATION, () => {
 		return configs;
 	}
 
+	async function createEvaluationConfig(workflowId: string, payload: UpsertEvaluationConfigDto) {
+		return await evaluationsApi.createEvaluationConfig(
+			rootStore.restApiContext,
+			workflowId,
+			payload,
+		);
+	}
+
+	async function updateEvaluationConfig(
+		workflowId: string,
+		configId: string,
+		payload: UpsertEvaluationConfigDto,
+	) {
+		return await evaluationsApi.updateEvaluationConfig(
+			rootStore.restApiContext,
+			workflowId,
+			configId,
+			payload,
+		);
+	}
+
 	async function getDatasetCandidate(params: {
 		workflowId: string;
 		configId: string;
@@ -146,14 +171,13 @@ export const useEvaluationStore = defineStore(STORES.EVALUATION, () => {
 	}
 
 	/**
-	 * Asks for a run and its cases now, and then each second while the run is active. A new start
-	 * replaces the earlier polling of the run.
+	 * Asks for a run and its cases now, and then each second while the run is active. Each start
+	 * adds a polling of its own, as the original does: a second load of the runs asks twice. A
+	 * polling ends when it finds the run done or fails, and the other pollings of the run go on.
 	 */
 	function startPolling(workflowId: string, runId: string) {
-		stopPolling(runId);
-		const generation = (pollingGenerations.get(runId) ?? 0) + 1;
-		pollingGenerations.set(runId, generation);
-		const isCurrent = () => pollingGenerations.get(runId) === generation;
+		const generation = pollingGenerations.get(runId) ?? 0;
+		const isCurrent = () => (pollingGenerations.get(runId) ?? 0) === generation;
 
 		const poll = async () => {
 			try {
@@ -161,26 +185,23 @@ export const useEvaluationStore = defineStore(STORES.EVALUATION, () => {
 					getTestRun({ workflowId, runId }),
 					fetchTestCaseExecutions({ workflowId, runId }),
 				]);
-				if (!isCurrent()) return;
-				if (!isActiveRun(testRun)) {
-					stopPolling(runId);
-					return;
-				}
-				pollingTimers.set(
-					runId,
-					setTimeout(() => {
-						void poll();
-					}, POLLING_INTERVAL_MS),
-				);
+				if (!isCurrent() || !isActiveRun(testRun)) return;
+				const timers = pollingTimers.get(runId) ?? new Set();
+				pollingTimers.set(runId, timers);
+				const timer = setTimeout(() => {
+					timers.delete(timer);
+					void poll();
+				}, POLLING_INTERVAL_MS);
+				timers.add(timer);
 			} catch {
-				if (isCurrent()) stopPolling(runId);
+				// This polling ends. The page shows the error of the next load.
 			}
 		};
 		void poll();
 	}
 
 	function stopPolling(runId: string) {
-		clearTimeout(pollingTimers.get(runId));
+		for (const timer of pollingTimers.get(runId) ?? []) clearTimeout(timer);
 		pollingTimers.delete(runId);
 		pollingGenerations.set(runId, (pollingGenerations.get(runId) ?? 0) + 1);
 	}
@@ -204,6 +225,8 @@ export const useEvaluationStore = defineStore(STORES.EVALUATION, () => {
 		cancelTestCase,
 		deleteTestRun,
 		fetchEvaluationConfigs,
+		createEvaluationConfig,
+		updateEvaluationConfig,
 		getDatasetCandidate,
 		addExecutionToDataset,
 		cleanupPolling,

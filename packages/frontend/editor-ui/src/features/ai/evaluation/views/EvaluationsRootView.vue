@@ -1,7 +1,8 @@
 <script setup lang="ts">
 // Fork code (not in upstream n8n): the Evaluations tab of a workflow. Before the first run it
-// shows the setup steps (or the paywall without a licence), and after it the page of the child
-// route: the list of runs, the detail of a run or a comparison. It replaces the enterprise view of
+// shows the setup steps (or the paywall without a licence), or the empty state when the
+// evaluation configs are on. After the first run it shows the page of the child route: the list
+// of runs, the detail of a run or a comparison. It replaces the enterprise view of
 // the same name. See `../FORK.md`.
 import { useTelemetry } from '@n8n/composables/useTelemetry';
 import { useToast } from '@n8n/composables/useToast';
@@ -12,6 +13,9 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useWorkflowsStore } from '@/app/stores/workflows.store';
 import { useUsageStore } from '@/features/settings/usage/usage.store';
 
+import { useEvaluationsWizardSidepanelExperiment } from '@/experiments/evaluationsWizardSidepanel/useEvaluationsWizardSidepanelExperiment';
+
+import EvaluationsEmptyState from '../components/EvaluationsEmptyState/EvaluationsEmptyState.vue';
 import EvaluationsPaywall from '../components/Paywall/EvaluationsPaywall.vue';
 import SetupWizard from '../components/SetupWizard/SetupWizard.vue';
 import { useWorkflowEvaluationState } from '../composables/useWorkflowEvaluationState';
@@ -28,6 +32,8 @@ const workflowsStore = useWorkflowsStore();
 const evaluationStore = useEvaluationStore();
 const { evaluationTriggerExists, evaluationSetOutputsNodeExist, evaluationSetMetricsNodeExist } =
 	useWorkflowEvaluationState();
+
+const { isFeatureEnabled: isConfigEvalsEnabled } = useEvaluationsWizardSidepanelExperiment();
 
 const isReady = ref(false);
 
@@ -100,7 +106,11 @@ onUnmounted(() => {
 <template>
 	<div :class="$style.container">
 		<template v-if="isReady">
-			<div v-if="showSetup" :class="$style.setup">
+			<template v-if="showSetup && isConfigEvalsEnabled">
+				<EvaluationsPaywall v-if="!isLicensed" />
+				<EvaluationsEmptyState v-else :workflow-id="workflowId" />
+			</template>
+			<div v-else-if="showSetup" :class="$style.setup">
 				<div :class="$style.intro">
 					<N8nText tag="h3" size="xlarge" color="text-dark" bold>{{
 						i18n.baseText('evaluations.setupWizard.title')

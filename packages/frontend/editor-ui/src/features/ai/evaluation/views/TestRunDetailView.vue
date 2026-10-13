@@ -6,7 +6,7 @@ import { useTelemetry } from '@n8n/composables/useTelemetry';
 import { useToast } from '@n8n/composables/useToast';
 import { N8nIcon, N8nText } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { VIEWS } from '@/app/constants';
@@ -15,15 +15,9 @@ import MetricSummaryStrip from '../components/RunDetail/MetricSummaryStrip.vue';
 import RunStatusPill from '../components/RunDetail/RunStatusPill.vue';
 import TestCaseCard from '../components/RunDetail/TestCaseCard.vue';
 import { useWorkflowEvaluationState } from '../composables/useWorkflowEvaluationState';
-import { POLLING_INTERVAL_MS } from '../evaluation.constants';
 import { useEvaluationStore } from '../evaluation.store';
 import type { TestCaseExecutionRecord } from '../evaluation.types';
-import {
-	indexTestRuns,
-	isActiveRun,
-	sortTestCases,
-	userDefinedMetricKeys,
-} from '../evaluation.utils';
+import { indexTestRuns, sortTestCases, userDefinedMetricKeys } from '../evaluation.utils';
 
 const props = defineProps<{ workflowId: string; runId: string }>();
 
@@ -38,8 +32,6 @@ const workflowId = computed(() => props.workflowId);
 const runId = computed(() => props.runId);
 
 const cancellingCaseIds = ref(new Set<string>());
-let pollTimer: ReturnType<typeof setTimeout> | undefined;
-let unmounted = false;
 
 const runs = computed(() =>
 	indexTestRuns(evaluationStore.testRunsByWorkflowId[workflowId.value] ?? []),
@@ -69,18 +61,6 @@ async function loadRun() {
 		runId: runId.value,
 	});
 	return testRun;
-}
-
-/** Asks for the run and its cases each second while it is active. */
-function schedulePoll() {
-	pollTimer = setTimeout(async () => {
-		try {
-			const testRun = await loadRun();
-			if (!unmounted && isActiveRun(testRun)) schedulePoll();
-		} catch {
-			// The next visit of the page shows the error.
-		}
-	}, POLLING_INTERVAL_MS);
 }
 
 function trackView() {
@@ -147,22 +127,14 @@ async function rerun() {
 	}
 }
 
+// The load of the runs makes the store ask again for an active run each second.
 onMounted(async () => {
 	try {
-		const [, testRun] = await Promise.all([
-			evaluationStore.fetchTestRuns(workflowId.value),
-			loadRun(),
-		]);
+		await Promise.all([evaluationStore.fetchTestRuns(workflowId.value), loadRun()]);
 		trackView();
-		if (isActiveRun(testRun)) schedulePoll();
 	} catch (error) {
 		toast.showError(error, i18n.baseText('evaluation.listRuns.toast.error.fetchTestCases'));
 	}
-});
-
-onUnmounted(() => {
-	unmounted = true;
-	clearTimeout(pollTimer);
 });
 </script>
 
