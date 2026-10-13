@@ -59,18 +59,19 @@ answers with `globalOnly`, and checks that a transaction gives the same answers.
 
 The snapshot was recorded against the original function, and the fork function gives the same
 snapshot. One intended difference: the message of the `UnexpectedError` for a route without an id
-has the fork's own words. Only developers see it. To record the snapshot again after an upstream
-update, point the import of the test at `@/permissions.ee/check-access` and run the test with
-`-u`. Then point the import back and run the test with `-u` again. The second run may change only
-that message.
+has the fork's own words. Only developers see it. The fork no longer has the original file. To
+record the snapshot again after an upstream update, use a checkout of the upstream commit in
+`scripts/sync-upstream.base`: copy the test there, point its import at
+`@/permissions.ee/check-access`, and run it with `-u`. Then use its snapshot in the fork and run the
+test with `-u` again. The second run may change only that message.
 
 The enterprise unit test `permissions.ee/__tests__/check-access.test.ts` replaces the database with
 mocks of the original's repository calls, so it cannot check another implementation. Its counts:
 26 of 26 pass against the original, 26 of 26 fail against the fork.
 
-## What stays
+## Removed enterprise files and the lint allowlist
 
-- `permissions.ee/check-access.ts` stays, unused by ordinary code: the enterprise evaluation code
-  (`evaluation.ee/`) still imports it. It goes with that code.
+- The fork deleted `permissions.ee/check-access.ts` and its test in step 4.
 - The CLI lint allowlist for `EntityManager` imports from `@n8n/db` lists the fork file next to the
-  enterprise file. Both entries go when the transaction parameter becomes an `OperationContext`.
+  upstream entry of the enterprise file. Both entries go when the transaction parameter becomes an
+  `OperationContext`.

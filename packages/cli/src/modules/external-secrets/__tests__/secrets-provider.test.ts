@@ -12,8 +12,8 @@ const timeouts = vi.hoisted(() => {
 import { sleep } from '@n8n/utils/sleep';
 import type { IDataObject, INodeProperties } from 'n8n-workflow';
 
-// The code under test. To record the snapshot against the original files, point this import at
-// `@/modules/external-secrets.ee/types`.
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, point this import at `@/modules/external-secrets.ee/types`.
 import { SecretsProvider, type SecretsProviderSettings } from '@/modules/external-secrets/types';
 
 import { outcome } from './fakes/drive';

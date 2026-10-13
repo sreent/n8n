@@ -20,8 +20,9 @@ import { Publisher } from '@/scaling/pubsub/publisher.service';
 import { GoldenRecorder } from '@test-integration/golden-recorder';
 import type { SuperAgentTest } from '@test-integration/types';
 
-// The code under test. To record the snapshots against the original files, point these imports
-// at the files of `@/modules/external-secrets.ee` (FORK.md lists the paths).
+// The code under test. To record the snapshots against the original files in a checkout of upstream
+// n8n, point these imports at the files of `@/modules/external-secrets.ee` (FORK.md lists the
+// paths).
 import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
 import { SecretsProvider, type SecretsProviderSettings } from '@/modules/external-secrets/types';
 

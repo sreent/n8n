@@ -14,8 +14,9 @@ import { CredentialsRepository, ProjectRepository, SharedCredentialsRepository }
 import { Container } from '@n8n/di';
 import { mock } from 'vitest-mock-extended';
 
-// The code under test. To record the snapshot against the original files, import
-// `SecretsProviderConnectionRepository` and `ProjectSecretsProviderAccessRepository` here.
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, import `SecretsProviderConnectionRepository` and `ProjectSecretsProviderAccessRepository`
+// here.
 import {
 	ExternalSecretsConnectionRepository as ConnectionRepository,
 	ExternalSecretsProjectAccessRepository as AccessRepository,

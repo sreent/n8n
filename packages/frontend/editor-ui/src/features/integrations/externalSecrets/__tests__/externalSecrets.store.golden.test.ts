@@ -18,8 +18,8 @@ import { createMemoryHistory, createRouter, type Router } from 'vue-router';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
 import type { Project, ProjectListItem } from '@/features/collaboration/projects/projects.types';
 
-// The code under test. To record the snapshot against the original file, point this import at
-// `@/features/integrations/externalSecrets.ee/externalSecrets.ee.store`.
+// The code under test. To record the snapshot against the original file in a checkout of upstream
+// n8n, point this import at `@/features/integrations/externalSecrets.ee/externalSecrets.ee.store`.
 import { useExternalSecretsStore } from '@/features/integrations/externalSecrets/externalSecrets.store';
 
 // #region Recording

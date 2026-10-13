@@ -44,8 +44,8 @@ import { useUIStore } from '@/app/stores/ui.store';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
 import { useExternalSecretsStore } from '@/features/integrations/externalSecrets/externalSecrets.store';
 
-// The code under test. To record the snapshot against the original files, point these imports at
-// the files in `@/features/integrations/secretsProviders.ee/`.
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, point these imports at the files in `@/features/integrations/secretsProviders.ee/`.
 import SettingsSecretsProviders from '@/features/integrations/secretsProviders/views/SettingsSecretsProviders.vue';
 import SecretsProviderConnectionModal from '@/features/integrations/secretsProviders/components/SecretsProviderConnectionModal.vue';
 import DeleteSecretsProviderModal from '@/features/integrations/secretsProviders/components/DeleteSecretsProviderModal.vue';

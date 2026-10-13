@@ -37,8 +37,8 @@ import type {
 	ProjectSharingData,
 } from '@/features/collaboration/projects/projects.types';
 
-// The modules under test. To record the snapshot against the original files, point these imports
-// at `WorkflowShareModal.ee.vue` and `CredentialSharing.ee.vue`.
+// The modules under test. To record the snapshot against the original files in a checkout of
+// upstream n8n, point these imports at `WorkflowShareModal.ee.vue` and `CredentialSharing.ee.vue`.
 import WorkflowShareModal from '@/features/workflows/components/WorkflowShareModal.vue';
 import CredentialSharing from '@/features/credentials/components/CredentialEdit/CredentialSharing.vue';
 

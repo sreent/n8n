@@ -42,8 +42,9 @@ import { createUser } from '@test-integration/db/users';
 import { GoldenRecorder } from '@test-integration/golden-recorder';
 import { setupTestServer } from '@test-integration/utils';
 
-// The code under test. To record the snapshot against the original files, point these imports at
-// `@/modules/sso-oidc/oidc.service.ee` and `@/modules/sso-oidc/oidc.controller.ee`.
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, point these imports at `@/modules/sso-oidc/oidc.service.ee` and
+// `@/modules/sso-oidc/oidc.controller.ee`.
 import { OidcService } from '@/modules/sso-oidc/oidc.service';
 import '@/modules/sso-oidc/oidc.controller';
 

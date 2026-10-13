@@ -23,8 +23,9 @@ import { License } from '@/license';
 import { PubSubEventBus } from '@/scaling/pubsub/pubsub.eventbus';
 import { PubSubRegistry } from '@/scaling/pubsub/pubsub.registry';
 
-// The code under test. To record the snapshot against the original files, point these imports at
-// the files of `@/modules/external-secrets.ee` (FORK.md lists the paths).
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, point these imports at the files of `@/modules/external-secrets.ee` (FORK.md lists the
+// paths).
 import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
 import { ExternalSecretsModule } from '@/modules/external-secrets/external-secrets.module';

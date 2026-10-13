@@ -201,16 +201,15 @@ The test runs with the role provisioning at its defaults (off). The golden test 
 provisioning (`modules/provisioning/__tests__/provisioning.integration.test.ts`) covers OIDC
 sign-ins that give roles.
 
-The snapshot was recorded against the original files. The fork files give the same snapshot. To
-record it again after an upstream update, point the two imports of the code under test at
-`@/modules/sso-oidc/oidc.service.ee` and `@/modules/sso-oidc/oidc.controller.ee`, run the test with
-`-u`, and point the imports back.
+The snapshot was recorded against the original files. The fork files give the same snapshot. The
+fork no longer has the original files. To record the snapshot again after an upstream update, record
+it in a checkout of upstream n8n, as FORK.md tells ("Upstream updates"), with the two imports of the
+code under test at `@/modules/sso-oidc/oidc.service.ee` and `@/modules/sso-oidc/oidc.controller.ee`.
 
 `__tests__/oidc.service.test.ts` checks the transport that the fork gives `openid-client`, which the
 golden test replaces.
 
-## What stays
+## Removed enterprise files
 
-- `oidc.service.ee.ts`, `oidc.controller.ee.ts` and their tests stay, unused by ordinary code. They
-  go with the enterprise code.
-- `scripts/container-ci-skipped-tests.txt` still leaves out the enterprise OIDC tests.
+- The fork deleted `oidc.service.ee.ts`, `oidc.controller.ee.ts` and their tests in step 4. Before,
+  container CI left out these tests.

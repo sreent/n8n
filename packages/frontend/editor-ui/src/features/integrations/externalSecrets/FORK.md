@@ -231,17 +231,16 @@ Mutation checks changed one detail of the fork at a time (for example the rule o
 button, the hidden fields, the values for older settings, the close dialog and the order of the
 cards). The golden tests failed for each change.
 
-To record a snapshot again after an upstream update, point the imports of the code under test at
-the top of the test at the enterprise files. Run the test with `-u`, then point the imports back.
-The test of the page needs the enterprise page and modal (`externalSecrets.ee/views/` and
+The fork no longer has the enterprise files. To record a snapshot again after an upstream update,
+record it in a checkout of upstream n8n, as the root FORK.md tells ("Upstream updates"), with the
+imports of the code under test at the top of the test at the enterprise files. The test of the page
+needs the enterprise page and modal (`externalSecrets.ee/views/` and
 `ExternalSecretsProviderModal.ee.vue`) and the enterprise store. Keep the output of the run to test
 names, counts, error names and snapshot lines. With the original files, the run ends with two
 unhandled errors (see the differences above).
 
-## What stays
+## Removed enterprise files
 
-- The enterprise folder `externalSecrets.ee`, its tests, and the enterprise REST clients
-  `externalSecrets.ee.ts` and `secretsProvider.ee.ts` stay, for the recordings of the golden tests
-  after upstream updates. Ordinary code does not import them. They go with the enterprise code.
-- The index of `@n8n/rest-api-client` gives the fork clients, also to enterprise files that import
-  it. The enterprise store and the fork store have the same id, so they share one state.
+- The fork deleted the enterprise folder `externalSecrets.ee`, its tests, and the enterprise REST
+  clients `externalSecrets.ee.ts` and `secretsProvider.ee.ts` in step 4.
+- The index of `@n8n/rest-api-client` gives the fork clients.

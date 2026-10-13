@@ -221,12 +221,12 @@ service provider once in a process. It stores a config with signed requests, run
 a restart, and records the metadata and the login requests of both bindings, also of the connection
 test. The fake identity provider checks the signature of each login request that n8n makes.
 
-The snapshots were recorded against the original files. The fork files give the same snapshots. To
-record them again after an upstream update: in a copy of each test, point the imports of the code
-under test at the `.ee` files, run the copy with `-u`, and use its snapshot.
+The snapshots were recorded against the original files. The fork files give the same snapshots.
+The fork no longer has the original files. To record the snapshots again after an upstream update,
+record them in a checkout of upstream n8n, as FORK.md tells ("Upstream updates"), with the imports
+of the code under test at the `.ee` files that the comments of the tests name.
 
-## What stays
+## Removed enterprise files
 
-- `saml.service.ee.ts`, `saml.controller.ee.ts`, `service-provider.ee.ts` and their tests stay,
-  unused by ordinary code. They go with the enterprise code.
-- `scripts/container-ci-skipped-tests.txt` leaves out the two enterprise SAML tests.
+- The fork deleted `saml.service.ee.ts`, `saml.controller.ee.ts`, `service-provider.ee.ts` and their
+  tests in step 4. Before, container CI left out the two enterprise SAML tests.

@@ -1,6 +1,6 @@
 // Fork test (not in upstream n8n): the code under test of `source-control.golden.test.ts`. To
-// record the snapshot against the enterprise files, point these exports at the same paths in
-// `@/features/integrations/sourceControl/`. See `../../FORK.md`.
+// record the snapshot against the enterprise files in a checkout of upstream n8n, point these
+// exports at the same paths in `@/features/integrations/sourceControl.ee/`. See `../../FORK.md`.
 export { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 export {
 	SOURCE_CONTROL_PULL_MODAL_KEY,

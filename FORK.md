@@ -100,7 +100,8 @@ The fork removes the enterprise code step by step, and builds its own versions o
    chat of the AI builder needs a service of n8n, and goes. Then the source control editor
    (removed, with stand-ins, see
    [the FORK.md of the folder](packages/frontend/editor-ui/src/features/integrations/sourceControl/FORK.md)),
-   and last the enterprise files that fork code replaced.
+   and last the enterprise files that fork code replaced (done). The fork has no enterprise code
+   now.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off.
@@ -109,7 +110,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
 fork, the plan, and the clean-room sources for a rebuild.
 
 `scripts/removed-enterprise-paths.txt` lists the removed areas. `scripts/sync-upstream.sh` deletes
-them again after each upstream update, and container CI checks that they stay deleted.
+them again after each upstream update, and container CI checks that they stay deleted. The last
+lines of the list cover all enterprise files, so an upstream update cannot bring enterprise code
+back.
 
 ## Rules
 
@@ -143,9 +146,8 @@ them again after each upstream update, and container CI checks that they stay de
   when a repository that it downloads from is not attached.
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
   `--plan` to see which tests it selects. It leaves out the test files in
-  `scripts/container-ci-skipped-tests.txt`: the enterprise SSO, role provisioning and external
-  secrets tests, which the owner chose not to run on the fork code. It runs the integration tests
-  with 2 workers, because more time out on the 4 CPUs of a cloud session.
+  `scripts/container-ci-skipped-tests.txt` (none now). It runs the integration tests with 2
+  workers, because more time out on the 4 CPUs of a cloud session.
 
 ## Docker images
 
@@ -164,9 +166,12 @@ them again after each upstream update, and container CI checks that they stay de
   Then run `scripts/container-ci.sh --fork`, and open a pull request.
 - `scripts/sync-upstream.base` holds the upstream commit that the fork matches. Only
   `scripts/sync-upstream.sh` changes it.
-- The script deletes the upstream files in the removed enterprise areas again. When an update
-  breaks the build because ordinary code uses a removed area, change the ordinary code. Do not
-  restore the enterprise files.
+- The script deletes the enterprise files of the update by name: the changed ones and the new
+  ones. When an update breaks the build because ordinary code uses a removed area, change the
+  ordinary code. Do not restore the enterprise files. To see which enterprise files an update
+  changed or added, list only their names, for example
+  `git diff --name-status <old base> <new base> | grep -E '\.ee(\.|/)'`. A new enterprise
+  feature stays out of the fork until the owner chooses to rebuild it.
 - The snapshot tests of `packages/cli/src/permissions`, of the project service
   (`packages/cli/src/services`), of the sharing services (`packages/cli/src/workflows`), of the
   execution view (`packages/cli/src/executions`), of the SSO helpers (`packages/cli/src/sso`), of
@@ -198,8 +203,15 @@ them again after each upstream update, and container CI checks that they stay de
   the execution annotations, the variables, the agent eval tables, the Evaluation nodes, the
   evaluation backend, the evaluation editor, the local parts of the AI workflow builder or the
   source control stand-ins work.
-  Compare the change with the upstream change, then update the fork code or the snapshot. The
-  FORK.md files there tell how to record a snapshot against the enterprise code.
+  Compare the change with the upstream change, then update the fork code or the snapshot.
+- To record a snapshot against the enterprise code, use a checkout of the upstream commit in
+  `scripts/sync-upstream.base`, outside this repository, because the fork has no enterprise files.
+  Build the checkout. Copy the test, its snapshot and the fork test helpers that it imports (for
+  example `packages/cli/test/integration/shared/golden-recorder.ts`, or the harness that the
+  FORK.md of an editor test names) to the same paths in the checkout. Point the imports of the
+  code under test at the enterprise files that the comments of the test and the FORK.md files
+  name. Run the test there with `-u`, copy the snapshot back, and compare it with the old
+  snapshot. Keep the output of the run to test names, counts, error headlines and snapshot lines.
 - When an upstream update changes the public API handler
   `packages/cli/src/public-api/v1/handlers/log-streaming/log-streaming.handler.ts`, keep the fork
   version, as `packages/cli/src/modules/log-streaming/README.md` tells.
@@ -210,9 +222,6 @@ them again after each upstream update, and container CI checks that they stay de
 - When an upstream update makes ordinary code import a new name from `@n8n/ai-workflow-builder`,
   add it to the fork package, as
   [packages/@n8n/ai-workflow-builder/FORK.md](packages/@n8n/ai-workflow-builder/FORK.md) tells.
-- When an upstream update changes `packages/cli/test/shared/external-secrets/utils.ts`, make the
-  same change in `fork-providers.ts` next to it. The ordinary tests of external secrets use that
-  fork copy, and the enterprise tests use `utils.ts`.
 - When an upstream update changes scopes or roles, make the permission data again, as
   [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md) tells. The scope
   snapshot test of `@n8n/permissions` fails when upstream adds a scope.

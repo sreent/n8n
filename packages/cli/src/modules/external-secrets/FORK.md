@@ -30,9 +30,9 @@ The work comes in five pull requests:
      [the FORK.md of the connections folder](../../../../frontend/editor-ui/src/features/integrations/secretsProviders/FORK.md).)
 
 Ordinary code uses this folder. The module registry loads
-`external-secrets/external-secrets.module.ts`. It tries the enterprise folder only when that file is
-not there, so n8n starts the fork module and not the enterprise module. The editor uses the fork
-files of pull requests 5a and 5b.
+`external-secrets/external-secrets.module.ts`. The editor uses the fork files of pull requests 5a
+and 5b. The fork deleted the enterprise module, the enterprise repositories, the enterprise REST
+clients and the enterprise editor folders in step 4.
 
 ## Behaviour
 
@@ -243,8 +243,8 @@ The provider uses the GCP SDK (`@google-cloud/secret-manager`), which makes its 
 repositories in `@n8n/db`. The fork module and ordinary code use them in place of the enterprise
 `SecretsProviderConnectionRepository` and `ProjectSecretsProviderAccessRepository`. Ordinary code
 imports them under the names of the enterprise repositories, so only the import lines of the
-upstream files change. The enterprise module still uses the enterprise repositories: it uses more
-methods than ordinary code, and the fork does not know them.
+upstream files change. The enterprise repositories had more methods, which only the enterprise
+module used.
 
 A connection without access rows is global. A connection loads its access rows, and each row loads
 its project (eager relations of the entities). The queries of the connection repository:
@@ -600,11 +600,11 @@ personal project, and credentials with owner and user sharing. The snapshot reco
 with each list sorted.
 
 The snapshots were recorded twice against the original files, with the same result. The fork files
-give the same snapshots. To record them again after an upstream update: in a copy of a test, point
-the import that the test marks at the original (the `.ee` file of the module, or for the
-repositories the classes `SecretsProviderConnectionRepository` and
-`ProjectSecretsProviderAccessRepository` of `@n8n/db`), run the copy with `-u`, and use its
-snapshot.
+give the same snapshots. The fork no longer has the original files. To record the snapshots again
+after an upstream update, record them in a checkout of upstream n8n, as FORK.md tells ("Upstream
+updates"), with the import that the test marks at the original: the `.ee` file of the module, or
+for the repositories the classes `SecretsProviderConnectionRepository` and
+`ProjectSecretsProviderAccessRepository` of `@n8n/db`.
 
 The golden tests of the module are in `__tests__/module`. They run the module in the integration
 test server with a database. The provider types are fakes (`harness.ts`): they log each call, and
@@ -637,9 +637,11 @@ order of the registry, the delay of the retries, the scopes in a project, the or
 connections of a project, the state of a test, the reload command after a delete, and the
 `connected` value of new settings) each made a golden test fail.
 
-To record the module snapshots again after an upstream update:
+The fork no longer has the original files. To record the module snapshots again after an upstream
+update, use a checkout of upstream n8n, as FORK.md tells ("Upstream updates"):
 
-1. Copy `__tests__/module` to a temporary folder next to it.
+1. Copy `__tests__/module` to a temporary folder in `packages/cli/src/modules/external-secrets.ee`
+   of the checkout.
 2. In the copy, point the imports that the tests mark at the original files:
 
    | Fork import | Original file |
@@ -653,25 +655,17 @@ To record the module snapshots again after an upstream update:
    | `@/modules/external-secrets/secret-provider-access-check.service` | `@/modules/external-secrets.ee/secret-provider-access-check.service.ee` |
    | `@/modules/external-secrets/provider-registry.service` | `@/modules/external-secrets.ee/provider-registry.service` |
 
-3. Move `external-secrets.module.ts` of this folder away for the run, so that the module registry
-   loads the enterprise module. In `test/integration/shared/utils/test-server.ts`, point the import
-   of `external-secrets.module.js` at the enterprise folder.
-4. Run the copy with `-u`, use its snapshots, and restore the three changes.
+3. Run the copy with `-u`, and copy its snapshots back. The checkout has no fork module, so the
+   module registry and the test server load the enterprise module.
 
 Keep the output of the run to test names, counts, error headlines and snapshot lines.
 
-## What stays
+## Removed enterprise files
 
-- The enterprise module `modules/external-secrets.ee` and its tests stay, for the recordings of the
-  golden tests after upstream updates. n8n does not start the enterprise module. Only these files
-  import it: the enterprise tests, `credentials/credentials.service.ee.ts` and
-  `services/project.service.ee.ts` (ordinary code does not use these two enterprise files), and the
-  upstream test helper `test/shared/external-secrets/utils.ts`, which only the enterprise tests use.
-- Container CI leaves out the enterprise tests of external secrets
-  (`scripts/container-ci-skipped-tests.txt`).
-- `test/shared/external-secrets/fork-providers.ts` is a copy of the upstream `utils.ts` on the fork
-  base class. The ordinary tests of external secrets use it. When an upstream update changes
-  `utils.ts`, make the same change in the copy.
-- The enterprise repositories `secrets-provider-connection.repository.ee.ts` and
-  `project-secrets-provider-access.repository.ee.ts` of `@n8n/db` stay, with their exports. The
-  enterprise module uses them.
+- The fork deleted the enterprise module `modules/external-secrets.ee` and its tests, and the
+  enterprise repositories `secrets-provider-connection.repository.ee.ts` and
+  `project-secrets-provider-access.repository.ee.ts` of `@n8n/db` with their exports and their
+  test, in step 4. Before, container CI left out the enterprise tests of external secrets.
+- The upstream test helper `test/shared/external-secrets/utils.ts` imports the base class and the
+  provider list of this folder. The ordinary tests of external secrets use it. Before step 4, the
+  fork had a copy of it on the fork base class (`fork-providers.ts`).

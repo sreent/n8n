@@ -64,12 +64,13 @@ may read, the result (with the run data parsed) or the error, and the rows that 
 (none). Ids become labels and dates become placeholders.
 
 The snapshot was recorded against the original service. The fork service gives the same
-snapshot. To record it again after an upstream update, point the service import of the test at
-`@/executions/execution.service.ee`, run the test with `-u`, and point the import back.
+snapshot. The fork no longer has the original file. To record the snapshot again after an upstream
+update, record it in a checkout of upstream n8n, as FORK.md tells ("Upstream updates"), with the
+service import of the test at `@/executions/execution.service.ee`.
 
-## What stays
+## Removed enterprise files
 
-- `execution.service.ee.ts` stays, unused by ordinary code. It goes with the enterprise code.
+- The fork deleted `execution.service.ee.ts` in step 4.
 
 ## Execution annotations
 

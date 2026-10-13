@@ -12,8 +12,9 @@ import { ProjectRelationRepository, ProjectRepository } from '@n8n/db';
 import { Container } from '@n8n/di';
 import type { AssignableProjectRole } from '@n8n/permissions';
 
-// The code under test. To record the snapshot against the original files, point these imports at
-// the files of `@/modules/external-secrets.ee` (FORK.md lists the paths).
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, point these imports at the files of `@/modules/external-secrets.ee` (FORK.md lists the
+// paths).
 import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
 
