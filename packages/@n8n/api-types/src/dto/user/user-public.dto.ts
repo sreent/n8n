@@ -22,6 +22,14 @@ export const userPublicSchema = z.object({
 		example: false,
 	}),
 	role: z.string().optional().openapi({ readOnly: true, example: 'global:owner' }),
+	// Fork: the last activity, for reviews of unused accounts (packages/cli/src/governance/README.md).
+	lastActiveAt: z.string().nullable().optional().openapi({
+		readOnly: true,
+		format: 'date',
+		description:
+			'The day of the last request of the user to n8n, in the time zone of the server, or null when the user never signed in. n8n changes it at most once a day.',
+		example: '2026-10-13',
+	}),
 });
 
 export class UserPublicDto extends Z.class(userPublicSchema.shape) {}

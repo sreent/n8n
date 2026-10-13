@@ -1,0 +1,224 @@
+operationId: getWorkflowInventory
+tags:
+  - Workflow
+summary: Retrieve the inventory of workflows
+description: 'Returns one page of the workflows that the user of the key can read, sorted by workflow id, with what a review needs in one call: the status, the home project and the owner, the projects that the workflow is shared with, the node types, the credentials and the triggers of the saved version, and the newest executions. The owner and the admins get all workflows.'
+x-required-scope: workflow:list,execution:list
+parameters:
+  - $ref: ../../../../shared/spec/parameters/limit.yml
+  - $ref: ../../../../shared/spec/parameters/cursor.yml
+  - schema:
+      type: string
+      minLength: 1
+      maxLength: 36
+      description: Only the workflows of this project.
+      example: VmwOO9HeTEj20kxM
+    required: false
+    name: projectId
+    in: query
+  - schema:
+      type: integer
+      nullable: true
+      minimum: 0
+      maximum: 20
+      default: 5
+      description: 'How many of the newest executions to give for each workflow: 0 to 20.'
+    required: false
+    name: executions
+    in: query
+x-eov-operation-id: unreachable
+x-eov-operation-handler: v1/handlers/decorator-routed.handler
+x-decorator-routed: true
+responses:
+  '200':
+    description: Operation successful.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - published
+                      - unpublished
+                      - archived
+                    description: '`published` (the workflow runs in production), `unpublished`, or `archived`. n8n v1 called a published workflow active.'
+                  hasUnpublishedChanges:
+                    type: boolean
+                    description: Whether the saved version differs from the published version.
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                  homeProject:
+                    type: object
+                    nullable: true
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      type:
+                        type: string
+                        example: personal
+                    required:
+                      - id
+                      - name
+                      - type
+                    description: The project that owns the workflow.
+                  owner:
+                    type: object
+                    nullable: true
+                    properties:
+                      id:
+                        type: string
+                      email:
+                        type: string
+                        nullable: true
+                      firstName:
+                        type: string
+                        nullable: true
+                      lastName:
+                        type: string
+                        nullable: true
+                    required:
+                      - id
+                      - email
+                      - firstName
+                      - lastName
+                    description: The user of the personal space that owns the workflow, or null when a team project owns it.
+                  sharedWith:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        type:
+                          type: string
+                          example: personal
+                        role:
+                          type: string
+                          example: workflow:editor
+                      required:
+                        - id
+                        - name
+                        - type
+                        - role
+                    description: The other projects that the workflow is shared with.
+                  nodeCount:
+                    type: integer
+                  nodeTypes:
+                    type: array
+                    items:
+                      type: string
+                    description: The node types of the saved version, each once, sorted.
+                  credentials:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          nullable: true
+                        name:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                        - id
+                        - name
+                        - type
+                    description: The credentials that the nodes of the saved version use, each once.
+                  triggers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        type:
+                          type: string
+                        disabled:
+                          type: boolean
+                      required:
+                        - name
+                        - type
+                        - disabled
+                    description: The trigger nodes of the saved version.
+                  recentExecutions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        status:
+                          type: string
+                          example: success
+                        mode:
+                          type: string
+                          example: trigger
+                        startedAt:
+                          type: string
+                          nullable: true
+                          format: date-time
+                        stoppedAt:
+                          type: string
+                          nullable: true
+                          format: date-time
+                      required:
+                        - id
+                        - status
+                        - mode
+                        - startedAt
+                        - stoppedAt
+                    description: The newest executions of the workflow, newest first.
+                required:
+                  - id
+                  - name
+                  - status
+                  - hasUnpublishedChanges
+                  - createdAt
+                  - updatedAt
+                  - tags
+                  - homeProject
+                  - owner
+                  - sharedWith
+                  - nodeCount
+                  - nodeTypes
+                  - credentials
+                  - triggers
+                  - recentExecutions
+            nextCursor:
+              type: string
+              nullable: true
+              description: Paginate through the workflows by setting the cursor parameter to a nextCursor attribute returned by a previous request. Send the same filters again. Default value fetches the first "page" of the collection.
+              example: eyJvZmZzZXQiOjUwLCJsaW1pdCI6NTB9
+          required:
+            - data
+            - nextCursor
+  '400':
+    $ref: ../../../../shared/spec/responses/badRequest.yml
+  '401':
+    $ref: ../../../../shared/spec/responses/unauthorized.yml
+  '403':
+    $ref: ../../../../shared/spec/responses/forbidden.yml

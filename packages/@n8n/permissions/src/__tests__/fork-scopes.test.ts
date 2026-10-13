@@ -21,9 +21,9 @@ const principal = (slug: string, scopes: Scope[]) => ({
 });
 
 describe('fork API key scopes', () => {
-	test('the fork adds the audit log scope', () => {
-		expect([...FORK_API_KEY_SCOPES]).toEqual(['auditLogs:manage']);
-		expect(FORK_API_KEY_RESOURCES).toEqual({ auditLogs: ['manage'] });
+	test('the fork adds the scopes of the audit log and of the list of API keys', () => {
+		expect([...FORK_API_KEY_SCOPES]).toEqual(['auditLogs:manage', 'apiKey:manage']);
+		expect(FORK_API_KEY_RESOURCES).toEqual({ auditLogs: ['manage'], apiKey: ['manage'] });
 	});
 
 	test('each fork scope is a scope that a role can hold', () => {
@@ -41,25 +41,32 @@ describe('fork API key scopes', () => {
 
 	test('a fork scope is an API key scope', () => {
 		expect(isApiKeyScope('auditLogs:manage')).toBe(true);
+		expect(isApiKeyScope('apiKey:manage')).toBe(true);
 		expect(isApiKeyScope('auditLogs:read')).toBe(false);
+		expect(isApiKeyScope('apiKey:create')).toBe(false);
 		expect(isApiKeyScope('workflow:read')).toBe(true);
 	});
 
-	test('the owner and the admins can give it to an API key', () => {
-		expect(getApiKeyScopesForRole(principal('global:owner', GLOBAL_OWNER_SCOPES))).toContain(
-			'auditLogs:manage',
-		);
-		expect(getApiKeyScopesForRole(principal('global:admin', GLOBAL_ADMIN_SCOPES))).toContain(
-			'auditLogs:manage',
-		);
-		expect(OWNER_API_KEY_SCOPES).toContain('auditLogs:manage');
-	});
+	test.each(['auditLogs:manage', 'apiKey:manage'] as const)(
+		'the owner and the admins can give %s to an API key',
+		(scope) => {
+			expect(getApiKeyScopesForRole(principal('global:owner', GLOBAL_OWNER_SCOPES))).toContain(
+				scope,
+			);
+			expect(getApiKeyScopesForRole(principal('global:admin', GLOBAL_ADMIN_SCOPES))).toContain(
+				scope,
+			);
+			expect(OWNER_API_KEY_SCOPES).toContain(scope);
+		},
+	);
 
 	test('a member and a chat user cannot', () => {
-		expect(getApiKeyScopesForRole(principal('global:member', GLOBAL_MEMBER_SCOPES))).not.toContain(
-			'auditLogs:manage',
-		);
-		expect(MEMBER_API_KEY_SCOPES).not.toContain('auditLogs:manage');
+		for (const scope of FORK_API_KEY_SCOPES) {
+			expect(
+				getApiKeyScopesForRole(principal('global:member', GLOBAL_MEMBER_SCOPES)),
+			).not.toContain(scope);
+			expect(MEMBER_API_KEY_SCOPES).not.toContain(scope);
+		}
 		expect(getApiKeyScopesForRole(principal('global:chatUser', GLOBAL_CHAT_USER_SCOPES))).toEqual(
 			[],
 		);
@@ -71,7 +78,7 @@ describe('fork API key scopes', () => {
 		).toContain('auditLogs:manage');
 	});
 
-	test('an owner or admin who becomes a member loses it from their API keys', () => {
-		expect(getOwnerOnlyApiKeyScopes()).toContain('auditLogs:manage');
+	test('an owner or admin who becomes a member loses them from their API keys', () => {
+		expect(getOwnerOnlyApiKeyScopes()).toEqual(expect.arrayContaining([...FORK_API_KEY_SCOPES]));
 	});
 });

@@ -24,8 +24,9 @@ export const API_KEY_SCOPE_GROUPS: Array<{ key: string; resources: ApiKeyResourc
 			'insights',
 			'nodeTypePolicy',
 			'credentialTypePolicy',
-			// Fork: the audit log of the public API.
+			// Fork: the audit log and the list of API keys of the public API.
 			'auditLogs',
+			'apiKey',
 		],
 	},
 ];

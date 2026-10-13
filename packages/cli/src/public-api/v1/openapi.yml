@@ -23,6 +23,8 @@ servers:
       url:
         default: https://example.com
 tags:
+  - name: ApiKey
+    description: Operations about API keys
   - name: Audit
     description: Operations about security audit
   - name: AuditLog
