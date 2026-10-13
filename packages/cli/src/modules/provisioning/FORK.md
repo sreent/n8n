@@ -215,16 +215,17 @@ For each case, the snapshot records the result, the events, the pub/sub commands
 changed. Where n8n gives no fixed order (rules with the same order value, the projects of a rule),
 the test sorts.
 
-The snapshot was recorded against the original files. The fork files give the same snapshot. To
-record it again after an upstream update: in a copy of the test, point the imports of the code under
-test at the `.ee` files (`@/modules/provisioning.ee/...` and `@/modules/sso-oidc/oidc.*.ee`), add
-`vi.mock` redirects from the fork paths that ordinary code imports
-(`@/modules/provisioning/provisioning.service`, `role-mapping-rule.service`, `role-deletion-checker`
-and `constants`) to the `.ee` files, run the copy with `-u`, and use its snapshot.
+The snapshot was recorded against the original files. The fork files give the same snapshot. The
+fork no longer has the original files. To record the snapshot again after an upstream update, record
+it in a checkout of upstream n8n, as FORK.md tells ("Upstream updates"), with the imports of the
+code under test at the `.ee` files (`@/modules/provisioning.ee/...` and
+`@/modules/sso-oidc/oidc.*.ee`). In the fork, the recording also needed `vi.mock` redirects from the
+fork paths that ordinary code imports to the `.ee` files. Upstream code imports the `.ee` files, so
+a recording there needs no redirects.
 
-## What stays
+## Notes
 
-- The files of `provisioning.ee` and their tests stay, unused by ordinary code. They go with the
-  enterprise code. `scripts/container-ci-skipped-tests.txt` leaves out their 9 tests.
+- The fork deleted the files of `provisioning.ee` and their tests in step 4. Before, container CI
+  left out their 9 tests.
 - No lint allowlist or code-health baseline changes. The queries are in
   `database/provisioning-rule.repository.ts`, not in the services.

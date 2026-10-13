@@ -20,6 +20,7 @@ import { InstanceSettings } from 'n8n-core';
 import { LicenseMetricsService } from '@/metrics/license-metrics.service';
 
 import { N8N_VERSION, SETTINGS_LICENSE_CERT_KEY } from './constants';
+import { FORK_FEATURE_VALUES, ForkFeaturesConfig } from './fork-features';
 
 const LICENSE_RENEWAL_DISABLED_WARNING =
 	'Automatic license renewal is disabled. The license will not renew automatically, and access to licensed features may be lost!';
@@ -285,6 +286,7 @@ export class License implements LicenseProvider {
 	}
 
 	isLicensed(feature: BooleanLicenseFeature) {
+		if (this.getForkFeatureValue(feature) === true) return true;
 		return this.manager?.hasFeatureEnabled(feature) ?? false;
 	}
 
@@ -416,7 +418,15 @@ export class License implements LicenseProvider {
 	}
 
 	getValue<T extends keyof FeatureReturnType>(feature: T): FeatureReturnType[T] {
+		const forkValue = this.getForkFeatureValue(feature);
+		if (forkValue !== undefined) return forkValue;
 		return this.manager?.getFeatureValue(feature) as FeatureReturnType[T];
+	}
+
+	/** Fork: a value that the fork turns on while its features are on (FORK.md, step 5). */
+	private getForkFeatureValue<T extends keyof FeatureReturnType>(feature: T): FeatureReturnType[T] {
+		if (!Container.get(ForkFeaturesConfig).enabled) return undefined;
+		return FORK_FEATURE_VALUES[feature];
 	}
 
 	getManagementJwt(): string {

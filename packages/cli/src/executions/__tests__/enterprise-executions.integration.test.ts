@@ -47,8 +47,8 @@ import { GoldenRecorder } from '@test-integration/golden-recorder';
 import { LicenseMocker } from '@test-integration/license';
 import { initNodeTypes } from '@test-integration/utils';
 
-// The module under test. To record the snapshot against the original service, point this import
-// at `@/executions/execution.service.ee`.
+// The module under test. To record the snapshot against the original service in a checkout of
+// upstream n8n, point this import at `@/executions/execution.service.ee`.
 import { EnterpriseExecutionsService } from '@/executions/enterprise-execution.service';
 
 mockInstance(WaitTracker);

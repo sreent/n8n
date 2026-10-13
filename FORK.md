@@ -16,6 +16,10 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   of n8n to webhook, syslog and Sentry destinations, and the page Settings > Log streaming
   (`packages/frontend/editor-ui/src/features/integrations/logStreaming`) manages them. The README
   of the module and the FORK.md of the page describe them.
+- **No registration and no licence keys**: the fork turns on its features with the switch of step 5
+  (below). It has no registration of the Community Edition, no request of an enterprise trial and
+  no entry of licence keys (the owner chose this on 2026-10-13).
+  [packages/cli/src/license/FORK.md](packages/cli/src/license/FORK.md) describes the change.
 - `deploy/`: runs the fork on a Linux server with Docker Compose.
 - `vendor/`: the wa-sqlite package that the editor app installs. Upstream installs it from
   GitHub, which a cloud session cannot do. `scripts/vendor-wa-sqlite.sh` packs it from the
@@ -94,18 +98,32 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/cli/src/evaluation/FORK.md](packages/cli/src/evaluation/FORK.md), and the editor,
    see
    [the FORK.md of the editor folder](packages/frontend/editor-ui/src/features/ai/evaluation/FORK.md)),
-   and the local parts of the AI workflow builder that the MCP tools of the workflow builder use.
-   The chat of the AI builder needs a service of n8n, and goes. Then the source control editor,
-   and last the enterprise files that fork code replaced.
+   and the local parts of the AI workflow builder that the MCP tools of the workflow builder use
+   (done, see
+   [packages/@n8n/ai-workflow-builder/FORK.md](packages/@n8n/ai-workflow-builder/FORK.md)). The
+   chat of the AI builder needs a service of n8n, and goes. Then the source control editor
+   (removed, with stand-ins, see
+   [the FORK.md of the folder](packages/frontend/editor-ui/src/features/integrations/sourceControl/FORK.md)),
+   and last the enterprise files that fork code replaced (done). The fork has no enterprise code
+   now.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
-   environment variable turns them off. The upstream tests run with them off.
+   environment variable turns them off. The upstream tests run with them off. Done:
+   `packages/cli/src/fork-features.ts` lists the licence values of these features, and `License`
+   (`packages/cli/src/license.ts`) gives them while `N8N_FORK_FEATURES_ENABLED` is `true`, the
+   default. With `N8N_FORK_FEATURES_ENABLED=false`, the licence decides, as in upstream n8n. The
+   licence checks of ordinary code stay. The cli tests set the variable to `false`
+   (`packages/cli/test/setup-fork-features.ts`). A test or the e2e controller that replaces
+   `License.isLicensed` replaces the switch too. On 2026-10-13 the owner added variables, execution
+   annotations and filters, evaluations (no limit of workflows), API key scopes, folders and debug
+   in editor to the list.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.
 
 `scripts/removed-enterprise-paths.txt` lists the removed areas. `scripts/sync-upstream.sh` deletes
-them again after each upstream update, and container CI checks that they stay deleted.
+them again after each upstream update, and container CI checks that they stay deleted. An upstream
+update can bring new enterprise files: see "Upstream updates".
 
 ## Rules
 
@@ -116,10 +134,10 @@ them again after each upstream update, and container CI checks that they stay de
   ripgrep, the last glob that matches a file wins. To remove enterprise code, work with the file
   names and with the ordinary code that uses them. To build a replacement, use the public n8n
   documentation, the ordinary code and the behaviour of a running n8n.
-- **Licence checks.** Do not change or go around a licence check that turns on enterprise code
-  that is still in the fork. Also keep the licence checks around ordinary code until step 5: the
-  enterprise code that is still in the fork can read the same licence values, and the fork cannot
-  check this without reading that code. The owner chose this on 2026-10-09.
+- **Licence checks.** Keep the licence checks of ordinary code. The owner chose on 2026-10-09 to
+  keep them until step 5, and step 5 keeps them too: the fork turns on a feature with its licence
+  value in `packages/cli/src/fork-features.ts`, not by removing a check. Add a feature to that
+  list only when the owner chooses it.
 - **Permission scopes.** The scope list and the role maps are fork code now. They come from a
   running n8n through `scripts/permission-snapshot.mjs`. Do not edit
   `packages/@n8n/permissions/src/permission-data.generated.ts` by hand. A fork feature that needs a
@@ -139,9 +157,8 @@ them again after each upstream update, and container CI checks that they stay de
   when a repository that it downloads from is not attached.
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
   `--plan` to see which tests it selects. It leaves out the test files in
-  `scripts/container-ci-skipped-tests.txt`: the enterprise SSO, role provisioning and external
-  secrets tests, which the owner chose not to run on the fork code. It runs the integration tests
-  with 2 workers, because more time out on the 4 CPUs of a cloud session.
+  `scripts/container-ci-skipped-tests.txt` (none now). It runs the integration tests with 2
+  workers, because more time out on the 4 CPUs of a cloud session.
 
 ## Docker images
 
@@ -163,6 +180,12 @@ them again after each upstream update, and container CI checks that they stay de
 - The script deletes the upstream files in the removed enterprise areas again. When an update
   breaks the build because ordinary code uses a removed area, change the ordinary code. Do not
   restore the enterprise files.
+- An update can bring new enterprise files outside the removed areas. The owner chose on
+  2026-10-13 not to delete them all. The script lists them by name. The owner decides about each
+  one: delete it (add its path to `scripts/removed-enterprise-paths.txt`) or keep it. While the
+  fork has enterprise files, keep the fork features off on a server
+  (`N8N_FORK_FEATURES_ENABLED=false`): the switch can turn on enterprise code that checks one of
+  the licence values of `packages/cli/src/fork-features.ts`.
 - The snapshot tests of `packages/cli/src/permissions`, of the project service
   (`packages/cli/src/services`), of the sharing services (`packages/cli/src/workflows`), of the
   execution view (`packages/cli/src/executions`), of the SSO helpers (`packages/cli/src/sso`), of
@@ -183,14 +206,26 @@ them again after each upstream update, and container CI checks that they stay de
   the Evaluation nodes (`packages/nodes-base/nodes/Evaluation/test/Evaluation.golden.test.ts`),
   and of the evaluation backend (the `*.golden.test.ts` files in
   `packages/cli/test/integration/evaluation`), and of the evaluation editor (the golden tests in
-  `packages/frontend/editor-ui/src/features/ai/evaluation/__tests__/golden`) fail when an update
-  changes what a role may do, how projects, sharing, the sign-in method, the OIDC sign-in, the
-  role provisioning, the SAML sign-in, the secrets providers, the queries of their connections,
-  the external secrets module, the external secrets editor, the connections editor, the
-  execution annotations, the variables, the agent eval tables, the Evaluation nodes, the
-  evaluation backend or the evaluation editor work.
-  Compare the change with the upstream change, then update the fork code or the snapshot. The
-  FORK.md files there tell how to record a snapshot against the enterprise code.
+  `packages/frontend/editor-ui/src/features/ai/evaluation/__tests__/golden`), and of the local
+  parts of the AI workflow builder
+  (`packages/cli/src/services/__tests__/golden/ai-workflow-builder.golden.test.ts`), and of the
+  source control stand-ins (the golden test in
+  `packages/frontend/editor-ui/src/features/integrations/sourceControl/__tests__/golden`) fail
+  when an update changes what a role may do, how projects, sharing, the sign-in method, the OIDC
+  sign-in, the role provisioning, the SAML sign-in, the secrets providers, the queries of their
+  connections, the external secrets module, the external secrets editor, the connections editor,
+  the execution annotations, the variables, the agent eval tables, the Evaluation nodes, the
+  evaluation backend, the evaluation editor, the local parts of the AI workflow builder or the
+  source control stand-ins work.
+  Compare the change with the upstream change, then update the fork code or the snapshot.
+- To record a snapshot against the enterprise code, use a checkout of the upstream commit in
+  `scripts/sync-upstream.base`, outside this repository, because the fork has no enterprise files.
+  Build the checkout. Copy the test, its snapshot and the fork test helpers that it imports (for
+  example `packages/cli/test/integration/shared/golden-recorder.ts`, or the harness that the
+  FORK.md of an editor test names) to the same paths in the checkout. Point the imports of the
+  code under test at the enterprise files that the comments of the test and the FORK.md files
+  name. Run the test there with `-u`, copy the snapshot back, and compare it with the old
+  snapshot. Keep the output of the run to test names, counts, error headlines and snapshot lines.
 - When an upstream update changes the public API handler
   `packages/cli/src/public-api/v1/handlers/log-streaming/log-streaming.handler.ts`, keep the fork
   version, as `packages/cli/src/modules/log-streaming/README.md` tells.
@@ -198,12 +233,17 @@ them again after each upstream update, and container CI checks that they stay de
   `@n8n/blob-storage` or the scaling classes `MultiMainSetup`, `WorkerStatusService` and
   `PoolConfigService`, change the fork stand-ins. When an upstream migration changes a workflow
   review table, change the fork entity. The FORK.md files of step 4 tell how.
-- When an upstream update changes `packages/cli/test/shared/external-secrets/utils.ts`, make the
-  same change in `fork-providers.ts` next to it. The ordinary tests of external secrets use that
-  fork copy, and the enterprise tests use `utils.ts`.
+- When an upstream update makes ordinary code import a new name from `@n8n/ai-workflow-builder`,
+  add it to the fork package, as
+  [packages/@n8n/ai-workflow-builder/FORK.md](packages/@n8n/ai-workflow-builder/FORK.md) tells.
 - When an upstream update changes scopes or roles, make the permission data again, as
   [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md) tells. The scope
   snapshot test of `@n8n/permissions` fails when upstream adds a scope.
+- When an upstream update changes `isLicensed` or `getValue` of `packages/cli/src/license.ts`, or
+  the `setupFiles` of `packages/cli/vitest.config.base.ts`, keep the fork lines (step 5).
+- When an upstream update changes the licence routes, the page Settings > Usage and plan or the
+  registration of the Community Edition, keep the fork removal, as
+  [packages/cli/src/license/FORK.md](packages/cli/src/license/FORK.md) tells.
 - When an upstream update changes the wa-sqlite commit in
   `packages/frontend/editor-ui/package.json`, keep the upstream line. Then run
   `scripts/vendor-wa-sqlite.sh`.

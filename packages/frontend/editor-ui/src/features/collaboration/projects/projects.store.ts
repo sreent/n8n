@@ -29,7 +29,7 @@ import type {
 	UpdateProjectDto,
 	UpdateProjectPoolSettingsDto,
 } from '@n8n/api-types';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { hasRole } from '@/app/utils/rbac/checks';
 import { useFavoritesStore } from '@/app/stores/favorites.store';
 

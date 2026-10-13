@@ -187,14 +187,23 @@ if [ "${#removed[@]}" -gt 0 ]; then
 	printf '%s\0' "${removed[@]}" |
 		git --literal-pathspecs rm -q --cached --pathspec-from-file=- --pathspec-file-nul
 	printf '%s\0' "${removed[@]}" | xargs -0 rm -f --
-	sed -n 's#^\([^#].*/\)$#\1#p' scripts/removed-enterprise-paths.txt | while read -r dir; do
-		if [ -d "$dir" ]; then find "$dir" -depth -type d -empty -delete; fi
-	done
+	# Remove the folders that are now empty, also the parent folders that become empty.
+	printf '%s\0' "${removed[@]}" | xargs -0 dirname -z -- | sort -zu |
+		xargs -0 -r rmdir -p --ignore-fail-on-non-empty -- 2>/dev/null || true
 	if [ "${#paths[@]}" -gt 0 ]; then
 		mapfile -t paths < <(printf '%s\n' "${paths[@]}" |
 			grep -vxF -f <(printf '%s\n' "${removed[@]}") || true)
 	fi
 	echo "Deleted ${#removed[@]} upstream files in the removed enterprise areas."
+fi
+
+# The update can bring enterprise files outside the removed areas. List them by name only: the
+# owner decides about each one (FORK.md, "Upstream updates").
+mapfile -t enterprise < <(git ls-files | grep -E '\.ee(\.|/)' || true)
+if [ "${#enterprise[@]}" -gt 0 ]; then
+	echo "The fork has ${#enterprise[@]} enterprise files outside the removed areas:"
+	printf '  %s\n' "${enterprise[@]}"
+	echo "Decide about them with the owner, as FORK.md tells (\"Upstream updates\")."
 fi
 
 # Whether a path with conflicts matches the extended regex $1.

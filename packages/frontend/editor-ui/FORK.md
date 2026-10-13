@@ -170,11 +170,12 @@ the props of the modal frame and of `ProjectSharing`, the requests, the toasts, 
 telemetry, the events and the store state. The first step of a case is complete. The later steps
 record only what changed.
 
-The snapshot was recorded against the original files. The fork modules give the same snapshot. To
-record it again after an upstream update, point the five imports at the top of the test at the
-enterprise files (`WorkflowShareModal.ee.vue`, `CredentialSharing.ee.vue`,
-`@/app/api/workflows.ee`, `@/features/credentials/credentials.ee.api` and
-`@/app/stores/workflows.ee.store`). Run the test with `-u`, then point the imports back.
+The snapshot was recorded against the original files. The fork modules give the same snapshot. The
+fork no longer has the enterprise files. To record the snapshot again after an upstream update,
+record it in a checkout of upstream n8n, as the root FORK.md tells ("Upstream updates"), with the
+five imports at the top of the test at the enterprise files (`WorkflowShareModal.ee.vue`,
+`CredentialSharing.ee.vue`, `@/app/api/workflows.ee`, `@/features/credentials/credentials.ee.api`
+and `@/app/stores/workflows.ee.store`).
 
 ### The stubbed-store golden test
 
@@ -197,9 +198,9 @@ Each step records what a user sees, the props of the modal frame and of `Project
 toasts, the dialogs, and each call to a stubbed store action or to a mocked composable.
 
 The snapshot was recorded against the original files. The fork modules give the same snapshot. To
-record it again, point the two imports of the UI at the top of the test at
-`WorkflowShareModal.ee.vue` and `CredentialSharing.ee.vue`. Run the test with `-u`, then point the
-imports back.
+record it again, use a checkout of upstream n8n, as the root FORK.md tells ("Upstream updates"),
+with the two imports of the UI at the top of the test at `WorkflowShareModal.ee.vue` and
+`CredentialSharing.ee.vue`.
 
 ## The enterprise component tests
 
@@ -207,7 +208,8 @@ The enterprise component tests pass 25 of 26 on the fork modules (26 of 26 on th
 The tests of the credential tab pass 20 of 20. One of the 9 known titles fails: the save after the
 first load when the modal closes. The two golden tests show the same behaviour as the original
 files for all their cases, also for what this title names. The failing test probably makes a state
-that the golden tests do not make. The fork did not read it, so this is not known.
+that the golden tests do not make. The fork did not read it, so this is not known. The fork
+deleted these tests with the enterprise files in step 4.
 
 ## The `EnterpriseEdition` gate
 
@@ -226,12 +228,11 @@ stays, so that the callers change only their import.
 `src/app/components/__tests__/EnterpriseEdition.golden.test.ts` renders the gate for 6 licence
 states, 5 feature lists and 4 sets of slots, with the attributes of a caller, and with a licence
 that changes. It records the HTML. The snapshot was recorded against the enterprise file, and the
-fork component gives the same snapshot. To record it again, point the import of the test at
-`EnterpriseEdition.ee.vue`, run the test with `-u`, and point the import back. The enterprise file
-was not read. It has no enterprise test.
+fork component gives the same snapshot. To record it again, use a checkout of upstream n8n, as the
+root FORK.md tells ("Upstream updates"), with the import of the test at `EnterpriseEdition.ee.vue`.
+The enterprise file was not read. It has no enterprise test.
 
-## What stays
+## Removed enterprise files
 
-- The five enterprise files of the sharing UI and their tests stay, unused by ordinary code.
-  `EnterpriseEdition.ee.vue` stays too, unused by ordinary code. They go with the enterprise
-  code.
+- The fork deleted the five enterprise files of the sharing UI, their tests and
+  `EnterpriseEdition.ee.vue` in step 4.

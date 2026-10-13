@@ -9,7 +9,7 @@ import { useProjectsStore } from '@/features/collaboration/projects/projects.sto
 import { useUIStore } from '@/app/stores/ui.store';
 import type { CommandBarItem } from '../types';
 import { VIEWS } from '@/app/constants';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import CredentialIcon from '@/features/credentials/components/CredentialIcon.vue';
 import CommandBarItemTitle from '@/features/shared/commandBar/components/CommandBarItemTitle.vue';
 import { getResourcePermissions } from '@n8n/permissions';

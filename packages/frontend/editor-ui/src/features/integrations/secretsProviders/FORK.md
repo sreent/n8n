@@ -200,11 +200,11 @@ record only what changed.
 The snapshot was recorded against the original files. The fork files give the same snapshot. The
 golden test and the probes found no difference in behaviour.
 
-To record the snapshot again after an upstream update, point the imports of the code under test at
-the top of the test at the enterprise files. Run the test with `-u`, then point the imports back.
-Keep the output of the run to test names, counts, error names and snapshot lines.
+The fork no longer has the enterprise files. To record the snapshot again after an upstream update,
+record it in a checkout of upstream n8n, as the root FORK.md tells ("Upstream updates"), with the
+imports of the code under test at the top of the test at the enterprise files. Keep the output of
+the run to test names, counts, error names and snapshot lines.
 
-## What stays
+## Removed enterprise files
 
-The enterprise folder `secretsProviders.ee` and its tests stay, for the recordings of the golden
-test after upstream updates. Ordinary code does not import them. They go with the enterprise code.
+The fork deleted the enterprise folder `secretsProviders.ee` and its tests in step 4.

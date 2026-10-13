@@ -137,14 +137,18 @@ the events, the policy calls, the calls to `ActiveWorkflowManager`, and each row
 to or removes from any table. Ids become labels and dates become placeholders.
 
 The snapshot was recorded against the original services. The fork services give the same
-snapshot. To record it again after an upstream update, point the two service imports of the test
-at `@/workflows/workflow.service.ee` and `@/credentials/credentials.service.ee`, run the test with
-`-u`, and point the imports back.
+snapshot. The fork no longer has the original files. To record the snapshot again after an
+upstream update, record it in a checkout of upstream n8n, as FORK.md tells ("Upstream updates"),
+with the two service imports of the test at `@/workflows/workflow.service.ee` and
+`@/credentials/credentials.service.ee`.
 
-## What stays
+## Notes
 
-- `workflow.service.ee.ts` and `credentials.service.ee.ts` stay, unused by ordinary code. They go
-  with the enterprise code.
+- The fork deleted `workflow.service.ee.ts`, `credentials.service.ee.ts` and their enterprise tests
+  in step 4: the unit tests of the two files, and the integration tests
+  `credentials/credentials.api.ee.test.ts`, `public-api/users.ee.test.ts` and the three
+  `workflows/*.ee.test.ts`. The integration tests ran on the fork services. The golden test above
+  and the ordinary tests of the controllers and the public API still cover the fork services.
 - The CLI lint allowlist for `EntityManager` imports from `@n8n/db` lists the two fork services:
   the `entityManager` parameters of `shareWithProjects` keep the type that their callers pass.
   Remove the entries when the transaction becomes an `OperationContext`.

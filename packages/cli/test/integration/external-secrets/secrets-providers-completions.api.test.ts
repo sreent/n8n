@@ -20,7 +20,7 @@ import { ExternalSecretsProviders } from '@/modules/external-secrets/external-se
 import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 import { mockCipher } from '@test/mocking';
 
-import { createDummyProvider, MockProviders } from '../../shared/external-secrets/fork-providers';
+import { createDummyProvider, MockProviders } from '../../shared/external-secrets/utils';
 import { createCustomRoleWithScopeSlugs } from '../shared/db/roles';
 import { createAdmin, createMember, createOwner } from '../shared/db/users';
 import type { SuperAgentTest } from '../shared/types';

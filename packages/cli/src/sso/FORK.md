@@ -55,10 +55,12 @@ of the SAML checks and the order of those checks, a database write that fails, a
 that differs from the config. For each call, the snapshot records the result or the error (class
 chain, message, status code), the config, and the rows that the call changed.
 
-The snapshot was recorded against the original helpers. The fork helpers give the same snapshot. To
-record it again after an upstream update, point the helpers import of the test at
-`@/sso.ee/sso-helpers`, run the test with `-u`, and point the import back.
+The snapshot was recorded against the original helpers. The fork helpers give the same snapshot. The
+fork no longer has the original file. To record the snapshot again after an upstream update, use a
+checkout of the upstream commit in `scripts/sync-upstream.base`: copy the test there, point its
+helpers import at `@/sso.ee/sso-helpers`, run it with `-u`, and use its snapshot.
 
-## What stays
+## Removed enterprise files
 
-- `sso.ee/sso-helpers.ts` stays. The enterprise SAML and OIDC files use it. It goes with them.
+- The fork deleted `sso.ee/sso-helpers.ts` and its test with the enterprise SAML and OIDC files in
+  step 4.

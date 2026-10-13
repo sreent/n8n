@@ -10,7 +10,7 @@ import { isNodeItemRestricted } from '@/features/shared/nodeCreator/nodeCreator.
 import { canvasEventBus } from '@/features/workflows/canvas/canvas.eventBus';
 import { type CommandBarItem } from '@n8n/design-system';
 import type { CommandGroup } from '../types';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { useWorkflowsStore } from '@/app/stores/workflows.store';
 import { injectWorkflowDocumentStore } from '@/app/stores/workflowDocument.store';
 import { useCollaborationStore } from '@/features/collaboration/collaboration/collaboration.store';

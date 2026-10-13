@@ -62,9 +62,9 @@ import { createUser } from '@test-integration/db/users';
 import { GoldenRecorder } from '@test-integration/golden-recorder';
 import { setupTestServer } from '@test-integration/utils';
 
-// The code under test. To record the snapshot against the original files, point these imports at
-// `@/modules/provisioning.ee/provisioning.service.ee`, `@/modules/sso-saml/saml.service.ee` and
-// `@/modules/sso-saml/saml.controller.ee`.
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, point these imports at `@/modules/provisioning.ee/provisioning.service.ee`,
+// `@/modules/sso-saml/saml.service.ee` and `@/modules/sso-saml/saml.controller.ee`.
 import { PROVISIONING_PREFERENCES_DB_KEY } from '@/modules/provisioning/constants';
 import { ProvisioningService } from '@/modules/provisioning/provisioning.service';
 import { SamlService } from '@/modules/sso-saml/saml.service';

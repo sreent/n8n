@@ -22,8 +22,8 @@ import { Container } from '@n8n/di';
 import type { IDataObject } from 'n8n-workflow';
 import net from 'node:net';
 
-// The code under test. To record the snapshot against the original files, point this import at
-// `@/modules/external-secrets.ee/external-secrets-providers.ee`.
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, point this import at `@/modules/external-secrets.ee/external-secrets-providers.ee`.
 import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
 
 import { drive, outcome, sortedByStep, type DrivenProvider } from './fakes/drive';

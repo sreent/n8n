@@ -16,8 +16,8 @@ import { useDocumentTitle } from '@/app/composables/useDocumentTitle';
 import DataTableTable from './components/dataGrid/DataTableTable.vue';
 import { useDebounce } from '@n8n/composables/useDebounce';
 import AddColumnButton from './components/dataGrid/AddColumnButton.vue';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
-import { sourceControlEventBus } from '@/features/integrations/sourceControl.ee/sourceControl.eventBus';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
+import { sourceControlEventBus } from '@/features/integrations/sourceControl/sourceControl.eventBus';
 import {
 	N8nButton,
 	N8nInput,

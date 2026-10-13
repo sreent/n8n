@@ -9,8 +9,8 @@ import { h, nextTick, type Slot } from 'vue';
 import { createComponentRenderer } from '@/__tests__/render';
 import type { EnterpriseEditionFeatureValue } from '@/Interface';
 
-// The module under test. To record the snapshot against the original file, point this import at
-// `@/app/components/EnterpriseEdition.ee.vue`.
+// The module under test. To record the snapshot against the original file in a checkout of upstream
+// n8n, point this import at `@/app/components/EnterpriseEdition.ee.vue`.
 import EnterpriseEdition from '@/app/components/EnterpriseEdition.vue';
 
 const renderComponent = createComponentRenderer(EnterpriseEdition);

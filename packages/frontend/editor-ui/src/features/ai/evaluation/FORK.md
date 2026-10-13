@@ -42,7 +42,7 @@ the enterprise folder.
 
 - The root view loads the licence usage and, for a saved workflow, the runs. A workflow without
   runs shows the setup steps. Without evaluations in the licence (a limit of 0 workflows), it
-  shows the paywall, which opens the registration of a Community instance. A workflow with runs
+  shows the paywall: "Evaluations are off", without a button (difference 3). A workflow with runs
   shows the child page. The view sends `User viewed tests tab` once.
 - The setup steps check for an evaluation trigger, a Set Outputs node and a Set Metrics node.
   Disabled nodes count. An Evaluation node without an operation is a Set Outputs node. The buttons
@@ -140,6 +140,12 @@ the enterprise folder.
 2. **Runs with the same start time.** When the collections list loads the runs again, the list
    of runs of the original can show runs with the same start time in another order. The fork
    keeps the order. The golden test of the collections gives each run its own start time.
+3. **The paywall has no button.** The paywall of the original said "Register to enable
+   evaluation", and its button "Register instance" opened the registration of a Community instance.
+   The fork has no registration (the owner chose this on 2026-10-13, see
+   `packages/cli/src/license/FORK.md`). The paywall says "Evaluations are off" and that an
+   administrator can turn them on with `N8N_FORK_FEATURES_ENABLED`. It has no button. The
+   snapshots of the paywall were recorded again after this change.
 
 ## Changes to ordinary files
 

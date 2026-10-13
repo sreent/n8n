@@ -16,9 +16,9 @@ import type { Scope } from '@n8n/permissions';
 import type { EnvironmentVariable } from '@/features/settings/environments/environments.types';
 import useEnvironmentsStore from '@/features/settings/environments/environments.store';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import type { Project } from '@/features/collaboration/projects/projects.types';
-import type { SourceControlPreferences } from '@/features/integrations/sourceControl.ee/sourceControl.types';
+import type { SourceControlPreferences } from '@/features/integrations/sourceControl/sourceControl.types';
 
 const router = createRouter({
 	history: createWebHistory(),

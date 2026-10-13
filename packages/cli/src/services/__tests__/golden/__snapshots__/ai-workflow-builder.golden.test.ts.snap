@@ -1,0 +1,4435 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the local parts of the AI workflow builder > a handler without node types 1`] = `
+{
+  "parse": {
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Fetch Data": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Shape",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Fetch Data",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-1",
+        "name": "Linear",
+        "nodes": [
+          {
+            "id": "0752c083-25dd-40cf-ac20-77e0954e725b",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "00005719-2289-4319-9627-bdd6b3963fb9",
+            "name": "Fetch Data",
+            "parameters": {
+              "method": "GET",
+              "url": "https://example.com/items",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+          },
+          {
+            "id": "5fd5c83f-b1f2-4936-b9ba-dd6b52314e12",
+            "name": "Shape",
+            "parameters": {
+              "assignments": {
+                "assignments": [
+                  {
+                    "id": "a1",
+                    "name": "title",
+                    "type": "string",
+                    "value": "={{ $json.title }}",
+                  },
+                ],
+              },
+              "mode": "manual",
+            },
+            "position": [
+              448,
+              0,
+            ],
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+          },
+        ],
+        "settings": {},
+      },
+    },
+  },
+  "validate": {
+    "result": [],
+  },
+}
+`;
+
+exports[`the local parts of the AI workflow builder > createPassthroughSsrfGuard 1`] = `
+{
+  "calls": {
+    "createSecureLookup": {
+      "result": "a function",
+    },
+    "validateRedirectSync": {
+      "result": undefined,
+    },
+    "validateUrl of a private address": {
+      "result": {
+        "ok": true,
+        "result": undefined,
+      },
+    },
+    "validateUrl of a public address": {
+      "result": {
+        "ok": true,
+        "result": undefined,
+      },
+    },
+  },
+  "members": [
+    "createSecureLookup",
+    "validateRedirectSync",
+    "validateUrl",
+  ],
+}
+`;
+
+exports[`the local parts of the AI workflow builder > getWarningKey 1`] = `
+{
+  "a code and a message": {
+    "result": "MISSING_TRIGGER||",
+  },
+  "an empty object": {
+    "result": "undefined||",
+  },
+  "only a message": {
+    "result": "undefined||",
+  },
+  "the same code and node, another message": {
+    "result": "MISSING_PARAMETER|Call API|",
+  },
+  "with a node name": {
+    "result": "MISSING_PARAMETER|Call API|",
+  },
+  "with a parameter path": {
+    "result": "INVALID_PARAMETER|Shape|mode",
+  },
+  "with a severity": {
+    "result": "X|Z|",
+  },
+}
+`;
+
+exports[`the local parts of the AI workflow builder > isLangchainMessagesArray 1`] = `
+{
+  "a message": false,
+  "a message and a string": false,
+  "a plain object": false,
+  "a string": false,
+  "all message kinds": true,
+  "an empty list": true,
+  "an object": false,
+  "null": false,
+  "one human message": true,
+}
+`;
+
+exports[`the local parts of the AI workflow builder > parseAndValidate 1`] = `
+{
+  "a code node": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Code",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-12",
+        "name": "Code",
+        "nodes": [
+          {
+            "id": "cd9ae70a-e69e-4c4c-b5dc-a6970e9e00c6",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "44961b11-0d7a-431f-affc-3edf14304617",
+            "name": "Code",
+            "parameters": {
+              "jsCode": "return items.map((item) => ({ json: { ...item.json, done: true } }));",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "a credential with newCredential": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [
+        {
+          "code": "PLAIN_GENERIC_AUTH",
+          "message": "'Call API' creates a new httpHeaderAuth credential. Set genericAuthType to 'httpTemplatedCustomAuth' instead — \`Authorization: Bearer <token>\` becomes the template {"headers":{"Authorization":"Bearer {{api_key}}"}} — or credential setup will reject it. Plain generic types are only for reusing an existing credential.",
+          "nodeName": "Call API",
+        },
+      ],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Call API",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-10",
+        "name": "Credential",
+        "nodes": [
+          {
+            "id": "d335cdc1-74fc-4024-aca8-d3bb439b8322",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "credentials": {
+              "httpHeaderAuth": undefined,
+            },
+            "id": "e32ab6dc-ade4-4d6c-bf44-2418347e7bad",
+            "name": "Call API",
+            "parameters": {
+              "authentication": "genericCredentialType",
+              "genericAuthType": "httpHeaderAuth",
+              "method": "GET",
+              "url": "https://example.com",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [
+      "PLAIN_GENERIC_AUTH|Call API|",
+    ],
+  },
+  "a default export that is not a workflow": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Failed to parse generated workflow code: Code must export a workflow built with the workflow() SDK function.",
+      "name": "WorkflowCodeParseError",
+      "ownKeys": [
+        "name",
+      ],
+    },
+  },
+  "a linear chain": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Fetch Data": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Shape",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Fetch Data",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-1",
+        "name": "Linear",
+        "nodes": [
+          {
+            "id": "0752c083-25dd-40cf-ac20-77e0954e725b",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "00005719-2289-4319-9627-bdd6b3963fb9",
+            "name": "Fetch Data",
+            "parameters": {
+              "method": "GET",
+              "url": "https://example.com/items",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+          },
+          {
+            "id": "5fd5c83f-b1f2-4936-b9ba-dd6b52314e12",
+            "name": "Shape",
+            "parameters": {
+              "assignments": {
+                "assignments": [
+                  {
+                    "id": "a1",
+                    "name": "title",
+                    "type": "string",
+                    "value": "={{ $json.title }}",
+                  },
+                ],
+              },
+              "mode": "manual",
+            },
+            "position": [
+              448,
+              0,
+            ],
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "a loop over batches": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Loop": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Done",
+                  "type": "main",
+                },
+              ],
+              [
+                {
+                  "index": 0,
+                  "node": "Work",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Loop",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Work": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Loop",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-7",
+        "name": "Loop",
+        "nodes": [
+          {
+            "id": "ea914be7-98aa-4ea3-bd0e-a30a466a7498",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              144,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "8a3090e3-643e-4a0b-b25d-d593586899ca",
+            "name": "Done",
+            "parameters": {},
+            "position": [
+              448,
+              0,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+          {
+            "id": "8e13353c-34f8-49f5-9770-16d82b501258",
+            "name": "Work",
+            "parameters": {},
+            "position": [
+              448,
+              192,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+          {
+            "id": "3aa97764-f218-422a-8747-7e532d497123",
+            "name": "Loop",
+            "parameters": {
+              "batchSize": 10,
+            },
+            "position": [
+              224,
+              144,
+            ],
+            "type": "n8n-nodes-base.splitInBatches",
+            "typeVersion": 3,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "a merge with one input": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [
+        {
+          "code": "MERGE_SINGLE_INPUT",
+          "message": "'Join' has only 1 input connection(s). Merge nodes require at least 2 inputs. Wire each upstream branch to a distinct input via \`.to(mergeNode.input(0))\`, \`.to(mergeNode.input(1))\`, etc.",
+          "nodeName": "Join",
+        },
+      ],
+      "workflow": {
+        "connections": {
+          "A": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Join",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "A",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-32",
+        "name": "Merge",
+        "nodes": [
+          {
+            "id": "b81362fb-4ccc-4487-b326-c14afbaa4955",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "7de1dd9d-705a-4bc8-974a-783f329f8969",
+            "name": "A",
+            "parameters": {},
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+          {
+            "id": "e54f13f6-95e4-4748-93cc-f4568ddd0228",
+            "name": "Join",
+            "parameters": {
+              "mode": "append",
+            },
+            "position": [
+              448,
+              0,
+            ],
+            "type": "n8n-nodes-base.merge",
+            "typeVersion": 3.2,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [
+      "MERGE_SINGLE_INPUT|Join|",
+    ],
+  },
+  "a missing required parameter": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Call API",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-17",
+        "name": "Required",
+        "nodes": [
+          {
+            "id": "86f164b5-9ff1-4e2b-937a-5aae432f9d23",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "a931f6ca-098f-4b73-a2e7-0e15a9844033",
+            "name": "Call API",
+            "parameters": {
+              "method": "GET",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "a node without a connection": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [
+        {
+          "code": "DISCONNECTED_NODE",
+          "message": "'Orphan' [n8n-nodes-base.noOp] is not connected to any input. It will not receive data.",
+          "nodeName": "Orphan",
+        },
+      ],
+      "workflow": {
+        "connections": {},
+        "id": "wf-19",
+        "name": "Orphan",
+        "nodes": [
+          {
+            "id": "57305f5c-52e8-4144-9431-0941ca68d2c2",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "86531d19-1622-4399-9bd3-eb01282caa0e",
+            "name": "Orphan",
+            "parameters": {},
+            "position": [
+              0,
+              224,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [
+      "DISCONNECTED_NODE|Orphan|",
+    ],
+  },
+  "a parameter of the wrong type": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [
+        {
+          "code": "SET_INVALID_MODE",
+          "message": "'Shape' [n8n-nodes-base.set] uses unsupported Set node mode "123". Use "manual" for field mapping or "raw" for JSON output. To keep existing input fields while mapping fields, use mode: "manual" with includeOtherFields: true.",
+          "nodeName": "Shape",
+        },
+      ],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Shape",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-18",
+        "name": "Types",
+        "nodes": [
+          {
+            "id": "eaaa59fe-989c-4139-a1c1-d57dca7efd65",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "d9c60dc1-539b-4ff0-a5f7-7afd2398d2f1",
+            "name": "Shape",
+            "parameters": {
+              "includeOtherFields": "yes",
+              "mode": 123,
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [
+      "SET_INVALID_MODE|Shape|",
+    ],
+  },
+  "a plain workflow object": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "End",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "",
+        "name": "Plain",
+        "nodes": [
+          {
+            "id": "b4f0fa42-393a-4704-8c7c-54b69e7229ec",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "0e240a4d-1219-430b-898f-046f6c979b59",
+            "name": "End",
+            "parameters": {},
+            "position": [
+              200,
+              0,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "a require call": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Failed to parse generated workflow code: Failed to parse workflow code: Security violation: 'require()' is not allowed
+
+> 1 | const fs = require('fs');
+    |            ^
+  2 | export default workflow('wf-29', 'Require');. This code contains patterns that are not allowed for security reasons.",
+      "name": "WorkflowCodeParseError",
+      "ownKeys": [
+        "name",
+      ],
+    },
+  },
+  "a sticky note and a placeholder": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Call API",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-8",
+        "name": "Notes",
+        "nodes": [
+          {
+            "id": "<id-1>",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "<id-2>",
+            "name": "Call API",
+            "parameters": {
+              "method": "GET",
+              "url": "<__PLACEHOLDER_VALUE__Your API URL__>",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+          },
+          {
+            "id": "<id-3>",
+            "name": "Sticky Note <suffix>",
+            "parameters": {
+              "color": 4,
+              "content": "## Calls the API",
+              "height": 224,
+              "width": 160,
+            },
+            "position": [
+              192,
+              -96,
+            ],
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": false,
+    "warningKeys": [],
+  },
+  "a switch into a merge": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "A": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Join",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "B": {
+            "main": [
+              [
+                {
+                  "index": 1,
+                  "node": "Join",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Route": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "A",
+                  "type": "main",
+                },
+              ],
+              [
+                {
+                  "index": 0,
+                  "node": "B",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Route",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-6",
+        "name": "Switch",
+        "nodes": [
+          {
+            "id": "37711254-46c5-4549-8f83-c97b97e18e36",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              96,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "c4106eef-8ad5-4efc-a001-2583d3e9a865",
+            "name": "Route",
+            "parameters": {
+              "mode": "expression",
+              "numberOutputs": 2,
+              "output": "={{ $json.n % 2 }}",
+            },
+            "position": [
+              224,
+              96,
+            ],
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 3.2,
+          },
+          {
+            "id": "bf21f6a6-96a4-4f9d-8f58-28b324cb38b1",
+            "name": "A",
+            "parameters": {},
+            "position": [
+              448,
+              0,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+          {
+            "id": "12a30db7-79c2-4bf7-9525-712041cdd890",
+            "name": "Join",
+            "parameters": {
+              "mode": "append",
+            },
+            "position": [
+              672,
+              96,
+            ],
+            "type": "n8n-nodes-base.merge",
+            "typeVersion": 3.2,
+          },
+          {
+            "id": "5df0434e-28b7-41d1-8847-470dbc67cc3f",
+            "name": "B",
+            "parameters": {},
+            "position": [
+              448,
+              192,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "a syntax error": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Failed to parse generated workflow code: Failed to parse workflow code: Syntax error: Unexpected token (2:57)
+
+  1 | const start = trigger({ type: 'n8n-nodes-base.manualTrigger', version: 1, config: { name: 'Start' } });
+> 2 | export default workflow('wf-23', 'Broken').add(start).to(
+    |                                                          ^. Common causes include unclosed template literals, missing commas, or unbalanced brackets.",
+      "name": "WorkflowCodeParseError",
+      "ownKeys": [
+        "name",
+      ],
+    },
+  },
+  "a webhook with a response": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Webhook": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Reply",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-11",
+        "name": "Webhook",
+        "nodes": [
+          {
+            "id": "00da6a5d-2e9f-4b43-8968-c50bdbd93306",
+            "name": "Webhook",
+            "parameters": {
+              "httpMethod": "POST",
+              "path": "orders",
+              "responseMode": "responseNode",
+            },
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 2,
+            "webhookId": "<webhook-id>",
+          },
+          {
+            "id": "7777c7d0-8b90-421f-b924-48c277aa846c",
+            "name": "Reply",
+            "parameters": {
+              "respondWith": "json",
+              "responseBody": "={{ { ok: true } }}",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1.1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "a workflow without nodes": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [
+        {
+          "code": "NO_NODES",
+          "message": "Workflow has no nodes",
+          "nodeName": undefined,
+        },
+        {
+          "code": "MISSING_TRIGGER",
+          "message": "Workflow has no trigger node. It will need to be started manually.",
+          "nodeName": undefined,
+        },
+      ],
+      "workflow": {
+        "connections": {},
+        "id": "wf-30",
+        "name": "Empty",
+        "nodes": [],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [
+      "NO_NODES||",
+      "MISSING_TRIGGER||",
+    ],
+  },
+  "a wrong option value": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Call API",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-34",
+        "name": "Option",
+        "nodes": [
+          {
+            "id": "2bc47eb2-cef9-490f-91e3-1c99de12d854",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "d8f52371-c810-47bf-85a8-1b06c3b72975",
+            "name": "Call API",
+            "parameters": {
+              "method": "FETCH",
+              "url": "https://example.com",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "an AI agent with a model, a memory and a tool": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Calculator": {
+            "ai_tool": [
+              [
+                {
+                  "index": 0,
+                  "node": "Agent",
+                  "type": "ai_tool",
+                },
+              ],
+            ],
+          },
+          "Chat": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Agent",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Memory": {
+            "ai_memory": [
+              [
+                {
+                  "index": 0,
+                  "node": "Agent",
+                  "type": "ai_memory",
+                },
+              ],
+            ],
+          },
+          "Model": {
+            "ai_languageModel": [
+              [
+                {
+                  "index": 0,
+                  "node": "Agent",
+                  "type": "ai_languageModel",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-2",
+        "name": "Agent",
+        "nodes": [
+          {
+            "id": "3b23d87c-b30a-4faa-aa2b-b2ffdad92cf7",
+            "name": "Chat",
+            "parameters": {},
+            "position": [
+              0,
+              112,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+            "typeVersion": 1.1,
+          },
+          {
+            "id": "cecd15b6-25ff-4a9d-b757-9b81512a4133",
+            "name": "Agent",
+            "parameters": {
+              "promptType": "auto",
+            },
+            "position": [
+              288,
+              112,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 1.7,
+          },
+          {
+            "credentials": {
+              "openAiApi": undefined,
+            },
+            "id": "62baf785-402a-4010-8f59-de822dfa380f",
+            "name": "Model",
+            "parameters": {
+              "model": {
+                "__rl": true,
+                "mode": "list",
+                "value": "gpt-4o-mini",
+              },
+            },
+            "position": [
+              224,
+              336,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+            "typeVersion": 1.2,
+          },
+          {
+            "id": "a9254940-a9b4-4808-a674-1606deb35986",
+            "name": "Memory",
+            "parameters": {
+              "contextWindowLength": 5,
+            },
+            "position": [
+              352,
+              336,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+            "typeVersion": 1.3,
+          },
+          {
+            "id": "27ef0f18-78d9-416f-9e13-b9c6261ce165",
+            "name": "Calculator",
+            "parameters": {},
+            "position": [
+              480,
+              336,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+            "typeVersion": 1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "an IF with two branches": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [
+        {
+          "code": "FILTER_MISSING_OPTIONS",
+          "message": "'Check' [n8n-nodes-base.if] is missing 'options' in conditions. Add: options: { caseSensitive: false, leftValue: '', typeValidation: 'strict' }",
+          "nodeName": "Check",
+        },
+      ],
+      "workflow": {
+        "connections": {
+          "Check": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Yes",
+                  "type": "main",
+                },
+              ],
+              [
+                {
+                  "index": 0,
+                  "node": "No",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Check",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-5",
+        "name": "Branch",
+        "nodes": [
+          {
+            "id": "11351632-7267-435e-9b9e-d7433d3d8723",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              96,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "027fc64b-2a78-4131-887d-24d754058330",
+            "name": "Check",
+            "parameters": {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.ok }}",
+                    "operator": {
+                      "operation": "true",
+                      "singleValue": true,
+                      "type": "boolean",
+                    },
+                    "rightValue": true,
+                  },
+                ],
+              },
+            },
+            "position": [
+              224,
+              96,
+            ],
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.2,
+          },
+          {
+            "id": "2a30afe6-b2e4-4819-81f0-a8fa10e37276",
+            "name": "Yes",
+            "parameters": {},
+            "position": [
+              448,
+              0,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+          {
+            "id": "69d02897-912c-4ff1-9412-30b8fdd502bb",
+            "name": "No",
+            "parameters": {},
+            "position": [
+              448,
+              192,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [
+      "FILTER_MISSING_OPTIONS|Check|",
+    ],
+  },
+  "an agent with a tool that uses fromAi": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Chat": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Agent",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Model": {
+            "ai_languageModel": [
+              [
+                {
+                  "index": 0,
+                  "node": "Agent",
+                  "type": "ai_languageModel",
+                },
+              ],
+            ],
+          },
+          "Wikipedia": {
+            "ai_tool": [
+              [
+                {
+                  "index": 0,
+                  "node": "Agent",
+                  "type": "ai_tool",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-4",
+        "name": "From AI",
+        "nodes": [
+          {
+            "id": "40a8a0bb-cc80-4cf8-9d48-7c7b8c46b878",
+            "name": "Chat",
+            "parameters": {},
+            "position": [
+              0,
+              112,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+            "typeVersion": 1.1,
+          },
+          {
+            "id": "034397b6-b444-4381-8075-8c2568cf9e3e",
+            "name": "Agent",
+            "parameters": {
+              "promptType": "auto",
+            },
+            "position": [
+              224,
+              112,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 1.7,
+          },
+          {
+            "id": "d0c0287a-00ed-46a0-a62b-ffa2fa110eba",
+            "name": "Model",
+            "parameters": {
+              "model": {
+                "__rl": true,
+                "mode": "list",
+                "value": "gpt-4o-mini",
+              },
+            },
+            "position": [
+              240,
+              336,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+            "typeVersion": 1.2,
+          },
+          {
+            "id": "a4c1c91c-05cc-47ba-a388-192f77378f78",
+            "name": "Wikipedia",
+            "parameters": {
+              "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', 'The search term') }}",
+            },
+            "position": [
+              368,
+              336,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+            "typeVersion": 1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "an agent without a model": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [
+        {
+          "code": "MISSING_REQUIRED_INPUT",
+          "message": "'Agent' requires a model subnode connected to its ai_languageModel input, but none is connected.",
+          "nodeName": "Agent",
+        },
+      ],
+      "workflow": {
+        "connections": {
+          "Chat": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Agent",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-3",
+        "name": "No model",
+        "nodes": [
+          {
+            "id": "802c3e81-1745-4a35-be7e-afd21bd37700",
+            "name": "Chat",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+            "typeVersion": 1.1,
+          },
+          {
+            "id": "892c9664-9d77-43e6-b4fc-cf519f8460df",
+            "name": "Agent",
+            "parameters": {},
+            "position": [
+              224,
+              0,
+            ],
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 1.7,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [
+      "MISSING_REQUIRED_INPUT|Agent|",
+    ],
+  },
+  "an expression with expr": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Shape",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-9",
+        "name": "Expr",
+        "nodes": [
+          {
+            "id": "acbe062d-49ce-4a1c-abda-50c8964baab4",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "28e64294-45a7-43c5-ae67-c6cc7b8f15a2",
+            "name": "Shape",
+            "parameters": {
+              "assignments": {
+                "assignments": [
+                  {
+                    "id": "a1",
+                    "name": "when",
+                    "type": "string",
+                    "value": "={{ $now.toISO() }}",
+                  },
+                ],
+              },
+              "mode": "manual",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "an expression without the equals sign": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [
+        {
+          "code": "MISSING_EXPRESSION_PREFIX",
+          "message": "'Shape' has parameter "assignments.assignments[0].value" containing {{ $... }} without '=' prefix. n8n expressions must start with '=' like '={{ $json.field }}'.",
+          "nodeName": "Shape",
+        },
+      ],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Shape",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-31",
+        "name": "Prefix",
+        "nodes": [
+          {
+            "id": "47b28ac6-b2ac-4361-b350-009bb199d1f7",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "eea236b4-2792-4631-9dcb-8078c52762b4",
+            "name": "Shape",
+            "parameters": {
+              "assignments": {
+                "assignments": [
+                  {
+                    "id": "a1",
+                    "name": "title",
+                    "type": "string",
+                    "value": "{{ $json.title }}",
+                  },
+                ],
+              },
+              "mode": "manual",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [
+      "MISSING_EXPRESSION_PREFIX|Shape|",
+    ],
+  },
+  "an unknown identifier": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Failed to parse generated workflow code: Failed to parse workflow code: Unknown identifier: 'missingThing' is not defined
+
+> 1 | export default workflow('wf-26', 'Missing').add(missingThing);
+    |                                                 ^. Common causes include unclosed template literals, missing commas, or unbalanced brackets.",
+      "name": "WorkflowCodeParseError",
+      "ownKeys": [
+        "name",
+      ],
+    },
+  },
+  "an unknown node type": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Failed to parse generated workflow code: Unrecognized node type: n8n-nodes-base.doesNotExist",
+      "name": "WorkflowCodeParseError",
+      "ownKeys": [
+        "name",
+      ],
+    },
+  },
+  "an unknown parameter of a node": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Call API",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-33",
+        "name": "Unknown parameter",
+        "nodes": [
+          {
+            "id": "50577d06-f7c3-4bc0-b1af-66d3812bbde4",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "fce71205-96d9-4e95-8a6e-2e2322380987",
+            "name": "Call API",
+            "parameters": {
+              "method": "GET",
+              "notAParameter": true,
+              "url": "https://example.com",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "an unknown version": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Shape",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-16",
+        "name": "Version",
+        "nodes": [
+          {
+            "id": "d4a721a6-dcec-4186-82a0-c76b8281a780",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "e99f7439-1059-411d-a9fb-690bec19bd10",
+            "name": "Shape",
+            "parameters": {},
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 99,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "code that throws": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Failed to parse generated workflow code: Failed to parse workflow code: Unsupported syntax: 'ThrowStatement: Throw statements are not allowed in SDK code' is not allowed in SDK code
+
+> 1 | throw new Error('boom');
+    | ^. Common causes include unclosed template literals, missing commas, or unbalanced brackets.",
+      "name": "WorkflowCodeParseError",
+      "ownKeys": [
+        "name",
+      ],
+    },
+  },
+  "empty code": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Failed to parse generated workflow code: Code must export a workflow built with the workflow() SDK function.",
+      "name": "WorkflowCodeParseError",
+      "ownKeys": [
+        "name",
+      ],
+    },
+  },
+  "no default export": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Failed to parse generated workflow code: Code must export a workflow built with the workflow() SDK function.",
+      "name": "WorkflowCodeParseError",
+      "ownKeys": [
+        "name",
+      ],
+    },
+  },
+  "no trigger": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [
+        {
+          "code": "MISSING_TRIGGER",
+          "message": "Workflow has no trigger node. It will need to be started manually.",
+          "nodeName": undefined,
+        },
+        {
+          "code": "DISCONNECTED_NODE",
+          "message": "'Only' [n8n-nodes-base.noOp] is not connected to any input. It will not receive data.",
+          "nodeName": "Only",
+        },
+      ],
+      "workflow": {
+        "connections": {},
+        "id": "wf-20",
+        "name": "No trigger",
+        "nodes": [
+          {
+            "id": "ba984560-ab5b-4b4b-a576-dc5482c63be2",
+            "name": "Only",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [
+      "MISSING_TRIGGER||",
+      "DISCONNECTED_NODE|Only|",
+    ],
+  },
+  "positions in the config": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "End",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-14",
+        "name": "Positions",
+        "nodes": [
+          {
+            "id": "5dcfac6d-377f-4635-bed8-0c46eceec898",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              240,
+              300,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "bf1c87fb-2691-4261-bd3e-1dbf2dd19764",
+            "name": "End",
+            "parameters": {},
+            "position": [
+              540,
+              300,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "sample output data": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Fetch Data",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-13",
+        "name": "Output",
+        "nodes": [
+          {
+            "id": "53984e85-3561-40a4-b49c-050492ec0fd0",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "38737e7d-e065-46aa-bedd-3f85acb33ac9",
+            "name": "Fetch Data",
+            "parameters": {
+              "method": "GET",
+              "url": "https://example.com/items",
+            },
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+  "two nodes with the same name": {
+    "keys": [
+      "warnings",
+      "workflow",
+    ],
+    "result": {
+      "warnings": [],
+      "workflow": {
+        "connections": {
+          "Same": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Same 1",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+          "Start": {
+            "main": [
+              [
+                {
+                  "index": 0,
+                  "node": "Same",
+                  "type": "main",
+                },
+              ],
+            ],
+          },
+        },
+        "id": "wf-21",
+        "name": "Duplicate",
+        "nodes": [
+          {
+            "id": "dc581a26-a10b-4f3f-8e28-75254772de09",
+            "name": "Start",
+            "parameters": {},
+            "position": [
+              0,
+              0,
+            ],
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+          },
+          {
+            "id": "b95f722b-c124-4d44-b55b-87bfa88c0008",
+            "name": "Same",
+            "parameters": {},
+            "position": [
+              224,
+              0,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+          {
+            "id": "88658b8d-a7c5-4277-ac77-32084f01d417",
+            "name": "Same 1",
+            "parameters": {},
+            "position": [
+              448,
+              0,
+            ],
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+          },
+        ],
+        "settings": {},
+      },
+    },
+    "stableIds": true,
+    "warningKeys": [],
+  },
+}
+`;
+
+exports[`the local parts of the AI workflow builder > stripImportStatements 1`] = `
+{
+  "Windows line ends": "const a = 1;",
+  "a commented import": "// import { a } from 'b';
+const a = 1;",
+  "a default import": "const a = 1;",
+  "a dynamic import": "const m = await import('x');
+const a = 1;",
+  "a namespace import": "const a = 1;",
+  "a re-export": "export { a } from 'b';
+const a = 1;",
+  "a side-effect import": "const a = 1;",
+  "a type import": "const a = 1;",
+  "an import after code": "const a = 1;
+
+export default workflow('a', 'b');",
+  "an import in a string": "const text = "import x from 'y'";
+const a = 1;",
+  "an import over lines": "export default workflow('a', 'b');",
+  "double quotes without a semicolon": "const a = 1;",
+  "empty code": "",
+  "indented imports": "const a = 1;",
+  "leading blank lines": "const a = 1;",
+  "no import": "const a = 1;
+export default workflow('a', 'b');",
+  "one import": "export default workflow('a', 'b');",
+  "only whitespace": "",
+  "two imports on one line": "const c = 1;",
+}
+`;
+
+exports[`the local parts of the AI workflow builder > the constants 1`] = `
+{
+  "sdkImportStatement": "import { workflow, node, trigger, sticky, placeholder, newCredential, ifElse, switchCase, merge, splitInBatches, nextBatch, languageModel, memory, tool, outputParser, embedding, embeddings, vectorStore, retriever, documentLoader, textSplitter, reranker, fromAi, expr } from '@n8n/workflow-sdk';",
+  "tools": {
+    "CODE_BUILDER_GET_NODE_TYPES_TOOL": {
+      "displayTitle": "Getting node definitions",
+      "toolName": "get_node_types",
+    },
+    "CODE_BUILDER_GET_SUGGESTED_NODES_TOOL": {
+      "displayTitle": "Getting suggested nodes",
+      "toolName": "get_suggested_nodes",
+    },
+    "CODE_BUILDER_SEARCH_NODES_TOOL": {
+      "displayTitle": "Searching nodes",
+      "toolName": "search_nodes",
+    },
+    "CODE_BUILDER_VALIDATE_NODE_TOOL": {
+      "displayTitle": "Validating node config",
+      "toolName": "validate_node_config",
+    },
+    "CODE_BUILDER_VALIDATE_TOOL": {
+      "displayTitle": "Validating workflow",
+      "toolName": "validate_workflow",
+    },
+    "MCP_ARCHIVE_WORKFLOW_TOOL": {
+      "displayTitle": "Archiving workflow",
+      "toolName": "archive_workflow",
+    },
+    "MCP_CREATE_WORKFLOW_FROM_CODE_TOOL": {
+      "displayTitle": "Creating workflow from code",
+      "toolName": "create_workflow_from_code",
+    },
+    "MCP_EXPLORE_NODE_RESOURCES_TOOL": {
+      "displayTitle": "Exploring node resources",
+      "toolName": "explore_node_resources",
+    },
+    "MCP_GET_SDK_REFERENCE_TOOL": {
+      "displayTitle": "Getting workflow SDK reference",
+      "toolName": "get_workflow_sdk_reference",
+    },
+    "MCP_GET_WORKFLOW_BEST_PRACTICES_TOOL": {
+      "displayTitle": "Getting workflow best practices",
+      "toolName": "get_workflow_best_practices",
+    },
+    "MCP_UPDATE_WORKFLOW_TOOL": {
+      "displayTitle": "Updating workflow",
+      "toolName": "update_workflow",
+    },
+  },
+}
+`;
+
+exports[`the local parts of the AI workflow builder > validateJSON 1`] = `
+{
+  "a connection to a missing node": {
+    "result": [],
+  },
+  "a missing required parameter": {
+    "result": [],
+  },
+  "a node without a connection": {
+    "result": [
+      {
+        "code": "DISCONNECTED_NODE",
+        "message": "'Orphan' [n8n-nodes-base.noOp] is not connected to any input. It will not receive data.",
+        "nodeName": "Orphan",
+      },
+    ],
+  },
+  "a parameter of the wrong type": {
+    "result": [
+      {
+        "code": "SET_INVALID_MODE",
+        "message": "'Shape' [n8n-nodes-base.set] uses unsupported Set node mode "123". Use "manual" for field mapping or "raw" for JSON output. To keep existing input fields while mapping fields, use mode: "manual" with includeOtherFields: true.",
+        "nodeName": "Shape",
+      },
+    ],
+  },
+  "a valid chain": {
+    "result": [],
+  },
+  "an AI connection into a main input": {
+    "result": [
+      {
+        "code": "DISCONNECTED_NODE",
+        "message": "'End' [n8n-nodes-base.noOp] is not connected to any input. It will not receive data.",
+        "nodeName": "End",
+      },
+    ],
+  },
+  "an agent with a model": {
+    "result": [],
+  },
+  "an agent without a model": {
+    "result": [
+      {
+        "code": "MISSING_REQUIRED_INPUT",
+        "message": "'Agent' requires a model subnode connected to its ai_languageModel input, but none is connected.",
+        "nodeName": "Agent",
+      },
+    ],
+  },
+  "an unknown node type": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Unrecognized node type: n8n-nodes-base.doesNotExist",
+      "name": "Error",
+      "ownKeys": [],
+    },
+  },
+  "no connections": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Cannot convert undefined or null to object",
+      "name": "TypeError",
+      "ownKeys": [],
+    },
+  },
+  "no nodes": {
+    "result": [],
+  },
+  "nodes that are not a list": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Cannot read properties of undefined (reading 'length')",
+      "name": "TypeError",
+      "ownKeys": [],
+    },
+  },
+  "nodes without IDs": {
+    "result": [],
+  },
+  "only a sticky note": {
+    "result": [
+      {
+        "code": "MISSING_TRIGGER",
+        "message": "Workflow has no trigger node. It will need to be started manually.",
+        "nodeName": undefined,
+      },
+    ],
+  },
+  "two nodes with the same name": {
+    "result": [
+      {
+        "code": "DISCONNECTED_NODE",
+        "message": "'Same 2' (originally 'Same') [n8n-nodes-base.noOp] is not connected to any input. It will not receive data.",
+        "nodeName": "Same 2",
+      },
+    ],
+  },
+}
+`;
+
+exports[`the local parts of the AI workflow builder > with the node definitions of the n8n server > parseAndValidate 1`] = `
+{
+  "results": {
+    "a code node": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Code",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-12",
+          "name": "Code",
+          "nodes": [
+            {
+              "id": "cd9ae70a-e69e-4c4c-b5dc-a6970e9e00c6",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "44961b11-0d7a-431f-affc-3edf14304617",
+              "name": "Code",
+              "parameters": {
+                "jsCode": "return items.map((item) => ({ json: { ...item.json, done: true } }));",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.code",
+              "typeVersion": 2,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "a credential with newCredential": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "PLAIN_GENERIC_AUTH",
+            "message": "'Call API' creates a new httpHeaderAuth credential. Set genericAuthType to 'httpTemplatedCustomAuth' instead — \`Authorization: Bearer <token>\` becomes the template {"headers":{"Authorization":"Bearer {{api_key}}"}} — or credential setup will reject it. Plain generic types are only for reusing an existing credential.",
+            "nodeName": "Call API",
+          },
+        ],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Call API",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-10",
+          "name": "Credential",
+          "nodes": [
+            {
+              "id": "d335cdc1-74fc-4024-aca8-d3bb439b8322",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "credentials": {
+                "httpHeaderAuth": undefined,
+              },
+              "id": "e32ab6dc-ade4-4d6c-bf44-2418347e7bad",
+              "name": "Call API",
+              "parameters": {
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "method": "GET",
+                "url": "https://example.com",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "PLAIN_GENERIC_AUTH|Call API|",
+      ],
+    },
+    "a default export that is not a workflow": {
+      "error": {
+        "isSyntaxError": false,
+        "message": "Failed to parse generated workflow code: Code must export a workflow built with the workflow() SDK function.",
+        "name": "WorkflowCodeParseError",
+        "ownKeys": [
+          "name",
+        ],
+      },
+    },
+    "a linear chain": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Fetch Data": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Shape",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Fetch Data",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-1",
+          "name": "Linear",
+          "nodes": [
+            {
+              "id": "0752c083-25dd-40cf-ac20-77e0954e725b",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "00005719-2289-4319-9627-bdd6b3963fb9",
+              "name": "Fetch Data",
+              "parameters": {
+                "method": "GET",
+                "url": "https://example.com/items",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+            },
+            {
+              "id": "5fd5c83f-b1f2-4936-b9ba-dd6b52314e12",
+              "name": "Shape",
+              "parameters": {
+                "assignments": {
+                  "assignments": [
+                    {
+                      "id": "a1",
+                      "name": "title",
+                      "type": "string",
+                      "value": "={{ $json.title }}",
+                    },
+                  ],
+                },
+                "mode": "manual",
+              },
+              "position": [
+                448,
+                0,
+              ],
+              "type": "n8n-nodes-base.set",
+              "typeVersion": 3.4,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "a loop over batches": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Loop": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Done",
+                    "type": "main",
+                  },
+                ],
+                [
+                  {
+                    "index": 0,
+                    "node": "Work",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Loop",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "Work": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Loop",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-7",
+          "name": "Loop",
+          "nodes": [
+            {
+              "id": "ea914be7-98aa-4ea3-bd0e-a30a466a7498",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                144,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "8a3090e3-643e-4a0b-b25d-d593586899ca",
+              "name": "Done",
+              "parameters": {},
+              "position": [
+                448,
+                0,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+            {
+              "id": "8e13353c-34f8-49f5-9770-16d82b501258",
+              "name": "Work",
+              "parameters": {},
+              "position": [
+                448,
+                192,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+            {
+              "id": "3aa97764-f218-422a-8747-7e532d497123",
+              "name": "Loop",
+              "parameters": {
+                "batchSize": 10,
+              },
+              "position": [
+                224,
+                144,
+              ],
+              "type": "n8n-nodes-base.splitInBatches",
+              "typeVersion": 3,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "a merge with one input": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "MERGE_SINGLE_INPUT",
+            "message": "'Join' has only 1 input connection(s). Merge nodes require at least 2 inputs. Wire each upstream branch to a distinct input via \`.to(mergeNode.input(0))\`, \`.to(mergeNode.input(1))\`, etc.",
+            "nodeName": "Join",
+          },
+        ],
+        "workflow": {
+          "connections": {
+            "A": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Join",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "A",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-32",
+          "name": "Merge",
+          "nodes": [
+            {
+              "id": "b81362fb-4ccc-4487-b326-c14afbaa4955",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "7de1dd9d-705a-4bc8-974a-783f329f8969",
+              "name": "A",
+              "parameters": {},
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+            {
+              "id": "e54f13f6-95e4-4748-93cc-f4568ddd0228",
+              "name": "Join",
+              "parameters": {
+                "mode": "append",
+              },
+              "position": [
+                448,
+                0,
+              ],
+              "type": "n8n-nodes-base.merge",
+              "typeVersion": 3.2,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "MERGE_SINGLE_INPUT|Join|",
+      ],
+    },
+    "a missing required parameter": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "INVALID_PARAMETER",
+            "message": "Node "Call API": Required field "parameters.url" is missing. Expected string.",
+            "nodeName": "Call API",
+          },
+        ],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Call API",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-17",
+          "name": "Required",
+          "nodes": [
+            {
+              "id": "86f164b5-9ff1-4e2b-937a-5aae432f9d23",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "a931f6ca-098f-4b73-a2e7-0e15a9844033",
+              "name": "Call API",
+              "parameters": {
+                "method": "GET",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "INVALID_PARAMETER|Call API|",
+      ],
+    },
+    "a node without a connection": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "DISCONNECTED_NODE",
+            "message": "'Orphan' [n8n-nodes-base.noOp] is not connected to any input. It will not receive data.",
+            "nodeName": "Orphan",
+          },
+        ],
+        "workflow": {
+          "connections": {},
+          "id": "wf-19",
+          "name": "Orphan",
+          "nodes": [
+            {
+              "id": "57305f5c-52e8-4144-9431-0941ca68d2c2",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "86531d19-1622-4399-9bd3-eb01282caa0e",
+              "name": "Orphan",
+              "parameters": {},
+              "position": [
+                0,
+                224,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "DISCONNECTED_NODE|Orphan|",
+      ],
+    },
+    "a parameter of the wrong type": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "SET_INVALID_MODE",
+            "message": "'Shape' [n8n-nodes-base.set] uses unsupported Set node mode "123". Use "manual" for field mapping or "raw" for JSON output. To keep existing input fields while mapping fields, use mode: "manual" with includeOtherFields: true.",
+            "nodeName": "Shape",
+          },
+          {
+            "code": "INVALID_PARAMETER",
+            "message": "Node "Shape": Invalid value for "parameters.mode": got "123", expected one of: "manual", "raw".",
+            "nodeName": "Shape",
+          },
+        ],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Shape",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-18",
+          "name": "Types",
+          "nodes": [
+            {
+              "id": "eaaa59fe-989c-4139-a1c1-d57dca7efd65",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "d9c60dc1-539b-4ff0-a5f7-7afd2398d2f1",
+              "name": "Shape",
+              "parameters": {
+                "includeOtherFields": "yes",
+                "mode": 123,
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.set",
+              "typeVersion": 3.4,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "SET_INVALID_MODE|Shape|",
+        "INVALID_PARAMETER|Shape|",
+      ],
+    },
+    "a plain workflow object": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "End",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "",
+          "name": "Plain",
+          "nodes": [
+            {
+              "id": "b4f0fa42-393a-4704-8c7c-54b69e7229ec",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "0e240a4d-1219-430b-898f-046f6c979b59",
+              "name": "End",
+              "parameters": {},
+              "position": [
+                200,
+                0,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "a require call": {
+      "error": {
+        "isSyntaxError": false,
+        "message": "Failed to parse generated workflow code: Failed to parse workflow code: Security violation: 'require()' is not allowed
+
+> 1 | const fs = require('fs');
+    |            ^
+  2 | export default workflow('wf-29', 'Require');. This code contains patterns that are not allowed for security reasons.",
+        "name": "WorkflowCodeParseError",
+        "ownKeys": [
+          "name",
+        ],
+      },
+    },
+    "a sticky note and a placeholder": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Call API",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-8",
+          "name": "Notes",
+          "nodes": [
+            {
+              "id": "<id-1>",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "<id-2>",
+              "name": "Call API",
+              "parameters": {
+                "method": "GET",
+                "url": "<__PLACEHOLDER_VALUE__Your API URL__>",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+            },
+            {
+              "id": "<id-3>",
+              "name": "Sticky Note <suffix>",
+              "parameters": {
+                "color": 4,
+                "content": "## Calls the API",
+                "height": 224,
+                "width": 160,
+              },
+              "position": [
+                192,
+                -96,
+              ],
+              "type": "n8n-nodes-base.stickyNote",
+              "typeVersion": 1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": false,
+      "warningKeys": [],
+    },
+    "a switch into a merge": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "A": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Join",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "B": {
+              "main": [
+                [
+                  {
+                    "index": 1,
+                    "node": "Join",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "Route": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "A",
+                    "type": "main",
+                  },
+                ],
+                [
+                  {
+                    "index": 0,
+                    "node": "B",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Route",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-6",
+          "name": "Switch",
+          "nodes": [
+            {
+              "id": "37711254-46c5-4549-8f83-c97b97e18e36",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                96,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "c4106eef-8ad5-4efc-a001-2583d3e9a865",
+              "name": "Route",
+              "parameters": {
+                "mode": "expression",
+                "numberOutputs": 2,
+                "output": "={{ $json.n % 2 }}",
+              },
+              "position": [
+                224,
+                96,
+              ],
+              "type": "n8n-nodes-base.switch",
+              "typeVersion": 3.2,
+            },
+            {
+              "id": "bf21f6a6-96a4-4f9d-8f58-28b324cb38b1",
+              "name": "A",
+              "parameters": {},
+              "position": [
+                448,
+                0,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+            {
+              "id": "12a30db7-79c2-4bf7-9525-712041cdd890",
+              "name": "Join",
+              "parameters": {
+                "mode": "append",
+              },
+              "position": [
+                672,
+                96,
+              ],
+              "type": "n8n-nodes-base.merge",
+              "typeVersion": 3.2,
+            },
+            {
+              "id": "5df0434e-28b7-41d1-8847-470dbc67cc3f",
+              "name": "B",
+              "parameters": {},
+              "position": [
+                448,
+                192,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "a syntax error": {
+      "error": {
+        "isSyntaxError": false,
+        "message": "Failed to parse generated workflow code: Failed to parse workflow code: Syntax error: Unexpected token (2:57)
+
+  1 | const start = trigger({ type: 'n8n-nodes-base.manualTrigger', version: 1, config: { name: 'Start' } });
+> 2 | export default workflow('wf-23', 'Broken').add(start).to(
+    |                                                          ^. Common causes include unclosed template literals, missing commas, or unbalanced brackets.",
+        "name": "WorkflowCodeParseError",
+        "ownKeys": [
+          "name",
+        ],
+      },
+    },
+    "a webhook with a response": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Webhook": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Reply",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-11",
+          "name": "Webhook",
+          "nodes": [
+            {
+              "id": "00da6a5d-2e9f-4b43-8968-c50bdbd93306",
+              "name": "Webhook",
+              "parameters": {
+                "httpMethod": "POST",
+                "path": "orders",
+                "responseMode": "responseNode",
+              },
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.webhook",
+              "typeVersion": 2,
+              "webhookId": "<webhook-id>",
+            },
+            {
+              "id": "7777c7d0-8b90-421f-b924-48c277aa846c",
+              "name": "Reply",
+              "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ { ok: true } }}",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.respondToWebhook",
+              "typeVersion": 1.1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "a workflow without nodes": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "NO_NODES",
+            "message": "Workflow has no nodes",
+            "nodeName": undefined,
+          },
+          {
+            "code": "MISSING_TRIGGER",
+            "message": "Workflow has no trigger node. It will need to be started manually.",
+            "nodeName": undefined,
+          },
+        ],
+        "workflow": {
+          "connections": {},
+          "id": "wf-30",
+          "name": "Empty",
+          "nodes": [],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "NO_NODES||",
+        "MISSING_TRIGGER||",
+      ],
+    },
+    "a wrong option value": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "INVALID_PARAMETER",
+            "message": "Node "Call API": Field "parameters.method": Must be an n8n expression (={{...}})",
+            "nodeName": "Call API",
+          },
+        ],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Call API",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-34",
+          "name": "Option",
+          "nodes": [
+            {
+              "id": "2bc47eb2-cef9-490f-91e3-1c99de12d854",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "d8f52371-c810-47bf-85a8-1b06c3b72975",
+              "name": "Call API",
+              "parameters": {
+                "method": "FETCH",
+                "url": "https://example.com",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "INVALID_PARAMETER|Call API|",
+      ],
+    },
+    "an AI agent with a model, a memory and a tool": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Calculator": {
+              "ai_tool": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Agent",
+                    "type": "ai_tool",
+                  },
+                ],
+              ],
+            },
+            "Chat": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Agent",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "Memory": {
+              "ai_memory": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Agent",
+                    "type": "ai_memory",
+                  },
+                ],
+              ],
+            },
+            "Model": {
+              "ai_languageModel": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Agent",
+                    "type": "ai_languageModel",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-2",
+          "name": "Agent",
+          "nodes": [
+            {
+              "id": "3b23d87c-b30a-4faa-aa2b-b2ffdad92cf7",
+              "name": "Chat",
+              "parameters": {},
+              "position": [
+                0,
+                112,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+              "typeVersion": 1.1,
+            },
+            {
+              "id": "cecd15b6-25ff-4a9d-b757-9b81512a4133",
+              "name": "Agent",
+              "parameters": {
+                "promptType": "auto",
+              },
+              "position": [
+                288,
+                112,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.agent",
+              "typeVersion": 1.7,
+            },
+            {
+              "credentials": {
+                "openAiApi": undefined,
+              },
+              "id": "62baf785-402a-4010-8f59-de822dfa380f",
+              "name": "Model",
+              "parameters": {
+                "model": {
+                  "__rl": true,
+                  "mode": "list",
+                  "value": "gpt-4o-mini",
+                },
+              },
+              "position": [
+                224,
+                336,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+              "typeVersion": 1.2,
+            },
+            {
+              "id": "a9254940-a9b4-4808-a674-1606deb35986",
+              "name": "Memory",
+              "parameters": {
+                "contextWindowLength": 5,
+              },
+              "position": [
+                352,
+                336,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+              "typeVersion": 1.3,
+            },
+            {
+              "id": "27ef0f18-78d9-416f-9e13-b9c6261ce165",
+              "name": "Calculator",
+              "parameters": {},
+              "position": [
+                480,
+                336,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+              "typeVersion": 1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "an IF with two branches": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "FILTER_MISSING_OPTIONS",
+            "message": "'Check' [n8n-nodes-base.if] is missing 'options' in conditions. Add: options: { caseSensitive: false, leftValue: '', typeValidation: 'strict' }",
+            "nodeName": "Check",
+          },
+        ],
+        "workflow": {
+          "connections": {
+            "Check": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Yes",
+                    "type": "main",
+                  },
+                ],
+                [
+                  {
+                    "index": 0,
+                    "node": "No",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Check",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-5",
+          "name": "Branch",
+          "nodes": [
+            {
+              "id": "11351632-7267-435e-9b9e-d7433d3d8723",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                96,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "027fc64b-2a78-4131-887d-24d754058330",
+              "name": "Check",
+              "parameters": {
+                "conditions": {
+                  "combinator": "and",
+                  "conditions": [
+                    {
+                      "leftValue": "={{ $json.ok }}",
+                      "operator": {
+                        "operation": "true",
+                        "singleValue": true,
+                        "type": "boolean",
+                      },
+                      "rightValue": true,
+                    },
+                  ],
+                },
+              },
+              "position": [
+                224,
+                96,
+              ],
+              "type": "n8n-nodes-base.if",
+              "typeVersion": 2.2,
+            },
+            {
+              "id": "2a30afe6-b2e4-4819-81f0-a8fa10e37276",
+              "name": "Yes",
+              "parameters": {},
+              "position": [
+                448,
+                0,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+            {
+              "id": "69d02897-912c-4ff1-9412-30b8fdd502bb",
+              "name": "No",
+              "parameters": {},
+              "position": [
+                448,
+                192,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "FILTER_MISSING_OPTIONS|Check|",
+      ],
+    },
+    "an agent with a tool that uses fromAi": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Chat": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Agent",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "Model": {
+              "ai_languageModel": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Agent",
+                    "type": "ai_languageModel",
+                  },
+                ],
+              ],
+            },
+            "Wikipedia": {
+              "ai_tool": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Agent",
+                    "type": "ai_tool",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-4",
+          "name": "From AI",
+          "nodes": [
+            {
+              "id": "40a8a0bb-cc80-4cf8-9d48-7c7b8c46b878",
+              "name": "Chat",
+              "parameters": {},
+              "position": [
+                0,
+                112,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+              "typeVersion": 1.1,
+            },
+            {
+              "id": "034397b6-b444-4381-8075-8c2568cf9e3e",
+              "name": "Agent",
+              "parameters": {
+                "promptType": "auto",
+              },
+              "position": [
+                224,
+                112,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.agent",
+              "typeVersion": 1.7,
+            },
+            {
+              "id": "d0c0287a-00ed-46a0-a62b-ffa2fa110eba",
+              "name": "Model",
+              "parameters": {
+                "model": {
+                  "__rl": true,
+                  "mode": "list",
+                  "value": "gpt-4o-mini",
+                },
+              },
+              "position": [
+                240,
+                336,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+              "typeVersion": 1.2,
+            },
+            {
+              "id": "a4c1c91c-05cc-47ba-a388-192f77378f78",
+              "name": "Wikipedia",
+              "parameters": {
+                "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', 'The search term') }}",
+              },
+              "position": [
+                368,
+                336,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+              "typeVersion": 1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "an agent without a model": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "MISSING_REQUIRED_INPUT",
+            "message": "'Agent' requires a model subnode connected to its ai_languageModel input, but none is connected.",
+            "nodeName": "Agent",
+          },
+          {
+            "code": "INVALID_PARAMETER",
+            "message": "Node "Agent": Required field "subnodes" is missing. Expected object.",
+            "nodeName": "Agent",
+          },
+        ],
+        "workflow": {
+          "connections": {
+            "Chat": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Agent",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-3",
+          "name": "No model",
+          "nodes": [
+            {
+              "id": "802c3e81-1745-4a35-be7e-afd21bd37700",
+              "name": "Chat",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+              "typeVersion": 1.1,
+            },
+            {
+              "id": "892c9664-9d77-43e6-b4fc-cf519f8460df",
+              "name": "Agent",
+              "parameters": {},
+              "position": [
+                224,
+                0,
+              ],
+              "type": "@n8n/n8n-nodes-langchain.agent",
+              "typeVersion": 1.7,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "MISSING_REQUIRED_INPUT|Agent|",
+        "INVALID_PARAMETER|Agent|",
+      ],
+    },
+    "an expression with expr": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Shape",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-9",
+          "name": "Expr",
+          "nodes": [
+            {
+              "id": "acbe062d-49ce-4a1c-abda-50c8964baab4",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "28e64294-45a7-43c5-ae67-c6cc7b8f15a2",
+              "name": "Shape",
+              "parameters": {
+                "assignments": {
+                  "assignments": [
+                    {
+                      "id": "a1",
+                      "name": "when",
+                      "type": "string",
+                      "value": "={{ $now.toISO() }}",
+                    },
+                  ],
+                },
+                "mode": "manual",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.set",
+              "typeVersion": 3.4,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "an expression without the equals sign": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "MISSING_EXPRESSION_PREFIX",
+            "message": "'Shape' has parameter "assignments.assignments[0].value" containing {{ $... }} without '=' prefix. n8n expressions must start with '=' like '={{ $json.field }}'.",
+            "nodeName": "Shape",
+          },
+        ],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Shape",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-31",
+          "name": "Prefix",
+          "nodes": [
+            {
+              "id": "47b28ac6-b2ac-4361-b350-009bb199d1f7",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "eea236b4-2792-4631-9dcb-8078c52762b4",
+              "name": "Shape",
+              "parameters": {
+                "assignments": {
+                  "assignments": [
+                    {
+                      "id": "a1",
+                      "name": "title",
+                      "type": "string",
+                      "value": "{{ $json.title }}",
+                    },
+                  ],
+                },
+                "mode": "manual",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.set",
+              "typeVersion": 3.4,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "MISSING_EXPRESSION_PREFIX|Shape|",
+      ],
+    },
+    "an unknown identifier": {
+      "error": {
+        "isSyntaxError": false,
+        "message": "Failed to parse generated workflow code: Failed to parse workflow code: Unknown identifier: 'missingThing' is not defined
+
+> 1 | export default workflow('wf-26', 'Missing').add(missingThing);
+    |                                                 ^. Common causes include unclosed template literals, missing commas, or unbalanced brackets.",
+        "name": "WorkflowCodeParseError",
+        "ownKeys": [
+          "name",
+        ],
+      },
+    },
+    "an unknown node type": {
+      "error": {
+        "isSyntaxError": false,
+        "message": "Failed to parse generated workflow code: Unrecognized node type: n8n-nodes-base.doesNotExist",
+        "name": "WorkflowCodeParseError",
+        "ownKeys": [
+          "name",
+        ],
+      },
+    },
+    "an unknown parameter of a node": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Call API",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-33",
+          "name": "Unknown parameter",
+          "nodes": [
+            {
+              "id": "50577d06-f7c3-4bc0-b1af-66d3812bbde4",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "fce71205-96d9-4e95-8a6e-2e2322380987",
+              "name": "Call API",
+              "parameters": {
+                "method": "GET",
+                "notAParameter": true,
+                "url": "https://example.com",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "an unknown version": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Shape",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-16",
+          "name": "Version",
+          "nodes": [
+            {
+              "id": "d4a721a6-dcec-4186-82a0-c76b8281a780",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "e99f7439-1059-411d-a9fb-690bec19bd10",
+              "name": "Shape",
+              "parameters": {},
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.set",
+              "typeVersion": 99,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "code that throws": {
+      "error": {
+        "isSyntaxError": false,
+        "message": "Failed to parse generated workflow code: Failed to parse workflow code: Unsupported syntax: 'ThrowStatement: Throw statements are not allowed in SDK code' is not allowed in SDK code
+
+> 1 | throw new Error('boom');
+    | ^. Common causes include unclosed template literals, missing commas, or unbalanced brackets.",
+        "name": "WorkflowCodeParseError",
+        "ownKeys": [
+          "name",
+        ],
+      },
+    },
+    "empty code": {
+      "error": {
+        "isSyntaxError": false,
+        "message": "Failed to parse generated workflow code: Code must export a workflow built with the workflow() SDK function.",
+        "name": "WorkflowCodeParseError",
+        "ownKeys": [
+          "name",
+        ],
+      },
+    },
+    "no default export": {
+      "error": {
+        "isSyntaxError": false,
+        "message": "Failed to parse generated workflow code: Code must export a workflow built with the workflow() SDK function.",
+        "name": "WorkflowCodeParseError",
+        "ownKeys": [
+          "name",
+        ],
+      },
+    },
+    "no trigger": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [
+          {
+            "code": "MISSING_TRIGGER",
+            "message": "Workflow has no trigger node. It will need to be started manually.",
+            "nodeName": undefined,
+          },
+          {
+            "code": "DISCONNECTED_NODE",
+            "message": "'Only' [n8n-nodes-base.noOp] is not connected to any input. It will not receive data.",
+            "nodeName": "Only",
+          },
+        ],
+        "workflow": {
+          "connections": {},
+          "id": "wf-20",
+          "name": "No trigger",
+          "nodes": [
+            {
+              "id": "ba984560-ab5b-4b4b-a576-dc5482c63be2",
+              "name": "Only",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [
+        "MISSING_TRIGGER||",
+        "DISCONNECTED_NODE|Only|",
+      ],
+    },
+    "positions in the config": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "End",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-14",
+          "name": "Positions",
+          "nodes": [
+            {
+              "id": "5dcfac6d-377f-4635-bed8-0c46eceec898",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                240,
+                300,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "bf1c87fb-2691-4261-bd3e-1dbf2dd19764",
+              "name": "End",
+              "parameters": {},
+              "position": [
+                540,
+                300,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "sample output data": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Fetch Data",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-13",
+          "name": "Output",
+          "nodes": [
+            {
+              "id": "53984e85-3561-40a4-b49c-050492ec0fd0",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "38737e7d-e065-46aa-bedd-3f85acb33ac9",
+              "name": "Fetch Data",
+              "parameters": {
+                "method": "GET",
+                "url": "https://example.com/items",
+              },
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.httpRequest",
+              "typeVersion": 4.2,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+    "two nodes with the same name": {
+      "keys": [
+        "warnings",
+        "workflow",
+      ],
+      "result": {
+        "warnings": [],
+        "workflow": {
+          "connections": {
+            "Same": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Same 1",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+            "Start": {
+              "main": [
+                [
+                  {
+                    "index": 0,
+                    "node": "Same",
+                    "type": "main",
+                  },
+                ],
+              ],
+            },
+          },
+          "id": "wf-21",
+          "name": "Duplicate",
+          "nodes": [
+            {
+              "id": "dc581a26-a10b-4f3f-8e28-75254772de09",
+              "name": "Start",
+              "parameters": {},
+              "position": [
+                0,
+                0,
+              ],
+              "type": "n8n-nodes-base.manualTrigger",
+              "typeVersion": 1,
+            },
+            {
+              "id": "b95f722b-c124-4d44-b55b-87bfa88c0008",
+              "name": "Same",
+              "parameters": {},
+              "position": [
+                224,
+                0,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+            {
+              "id": "88658b8d-a7c5-4277-ac77-32084f01d417",
+              "name": "Same 1",
+              "parameters": {},
+              "position": [
+                448,
+                0,
+              ],
+              "type": "n8n-nodes-base.noOp",
+              "typeVersion": 1,
+            },
+          ],
+          "settings": {},
+        },
+      },
+      "stableIds": true,
+      "warningKeys": [],
+    },
+  },
+  "schemaDirs": 2,
+}
+`;
+
+exports[`the local parts of the AI workflow builder > with the node definitions of the n8n server > validateJSON 1`] = `
+{
+  "a connection to a missing node": {
+    "result": [],
+  },
+  "a missing required parameter": {
+    "result": [
+      {
+        "code": "INVALID_PARAMETER",
+        "message": "Node "Call API": Required field "parameters.url" is missing. Expected string.",
+        "nodeName": "Call API",
+      },
+    ],
+  },
+  "a node without a connection": {
+    "result": [
+      {
+        "code": "DISCONNECTED_NODE",
+        "message": "'Orphan' [n8n-nodes-base.noOp] is not connected to any input. It will not receive data.",
+        "nodeName": "Orphan",
+      },
+    ],
+  },
+  "a parameter of the wrong type": {
+    "result": [
+      {
+        "code": "SET_INVALID_MODE",
+        "message": "'Shape' [n8n-nodes-base.set] uses unsupported Set node mode "123". Use "manual" for field mapping or "raw" for JSON output. To keep existing input fields while mapping fields, use mode: "manual" with includeOtherFields: true.",
+        "nodeName": "Shape",
+      },
+      {
+        "code": "INVALID_PARAMETER",
+        "message": "Node "Shape": Invalid value for "parameters.mode": got "123", expected one of: "manual", "raw".",
+        "nodeName": "Shape",
+      },
+    ],
+  },
+  "a valid chain": {
+    "result": [],
+  },
+  "an AI connection into a main input": {
+    "result": [
+      {
+        "code": "DISCONNECTED_NODE",
+        "message": "'End' [n8n-nodes-base.noOp] is not connected to any input. It will not receive data.",
+        "nodeName": "End",
+      },
+    ],
+  },
+  "an agent with a model": {
+    "result": [],
+  },
+  "an agent without a model": {
+    "result": [
+      {
+        "code": "MISSING_REQUIRED_INPUT",
+        "message": "'Agent' requires a model subnode connected to its ai_languageModel input, but none is connected.",
+        "nodeName": "Agent",
+      },
+      {
+        "code": "INVALID_PARAMETER",
+        "message": "Node "Agent": Required field "subnodes" is missing. Expected object.",
+        "nodeName": "Agent",
+      },
+    ],
+  },
+  "an unknown node type": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Unrecognized node type: n8n-nodes-base.doesNotExist",
+      "name": "Error",
+      "ownKeys": [],
+    },
+  },
+  "no connections": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Cannot convert undefined or null to object",
+      "name": "TypeError",
+      "ownKeys": [],
+    },
+  },
+  "no nodes": {
+    "result": [],
+  },
+  "nodes that are not a list": {
+    "error": {
+      "isSyntaxError": false,
+      "message": "Cannot read properties of undefined (reading 'length')",
+      "name": "TypeError",
+      "ownKeys": [],
+    },
+  },
+  "nodes without IDs": {
+    "result": [],
+  },
+  "only a sticky note": {
+    "result": [
+      {
+        "code": "MISSING_TRIGGER",
+        "message": "Workflow has no trigger node. It will need to be started manually.",
+        "nodeName": undefined,
+      },
+    ],
+  },
+  "two nodes with the same name": {
+    "result": [
+      {
+        "code": "DISCONNECTED_NODE",
+        "message": "'Same 2' (originally 'Same') [n8n-nodes-base.noOp] is not connected to any input. It will not receive data.",
+        "nodeName": "Same 2",
+      },
+    ],
+  },
+}
+`;

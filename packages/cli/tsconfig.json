@@ -28,7 +28,7 @@
 		{ "path": "../nodes-base/tsconfig.build.cjs.json" },
 		{ "path": "../workflow/tsconfig.build.esm.json" },
 		{ "path": "../@n8n/ai-utilities/tsconfig.build.cjs.json" },
-		{ "path": "../@n8n/ai-workflow-builder.ee/tsconfig.build.json" },
+		{ "path": "../@n8n/ai-workflow-builder/tsconfig.build.json" },
 		{ "path": "../@n8n/instance-ai/tsconfig.build.json" },
 		{ "path": "../@n8n/api-types/tsconfig.build.json" },
 		{ "path": "../@n8n/client-oauth2/tsconfig.build.json" },

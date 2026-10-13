@@ -1,8 +1,8 @@
 import type { IDataObject, INodeProperties } from 'n8n-workflow';
 
-import { ExternalSecretsProviders } from '@/modules/external-secrets.ee/external-secrets-providers.ee';
-import { SecretsProvider } from '@/modules/external-secrets.ee/types';
-import type { SecretsProviderSettings } from '@/modules/external-secrets.ee/types';
+import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
+import { SecretsProvider } from '@/modules/external-secrets/types';
+import type { SecretsProviderSettings } from '@/modules/external-secrets/types';
 
 export class MockProviders extends ExternalSecretsProviders {
 	override providers: Record<string, { new (): SecretsProvider }> = {

@@ -43,6 +43,8 @@ export const baseConfig = mergeConfig(createVitestConfigWithDecorators(), {
 			'./test/setup-mocks.ts',
 			'./test/setup-encryption-key.ts',
 			'./test/extend-expect.ts',
+			// Fork: the upstream tests run with the fork features off (FORK.md, step 5).
+			'./test/setup-fork-features.ts',
 		],
 		// Vitest's default exclude does not cover dist; compiled test files left in
 		// dist would otherwise be collected and fail as CJS.

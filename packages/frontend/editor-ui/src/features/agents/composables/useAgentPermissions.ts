@@ -2,7 +2,7 @@ import { computed, toValue, type ComputedRef, type MaybeRefOrGetter } from 'vue'
 import { getResourcePermissions } from '@n8n/permissions';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
 import { useUsersStore } from '@n8n/stores/users.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 
 type AgentMutationKey = 'create' | 'update' | 'delete' | 'publish' | 'unpublish';
 type AgentPermissionKey = AgentMutationKey | 'execute';

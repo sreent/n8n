@@ -53,16 +53,10 @@ import {
 	INVITE_USER_MODAL_KEY,
 	PERSONALIZATION_MODAL_KEY,
 } from '@/features/settings/users/users.constants';
-import { COMMUNITY_PLUS_ENROLLMENT_MODAL } from '@/features/settings/usage/usage.constants';
 import {
 	DELETE_FOLDER_MODAL_KEY,
 	MOVE_FOLDER_MODAL_KEY,
 } from '@/features/core/folders/folders.constants';
-import {
-	SOURCE_CONTROL_PULL_MODAL_KEY,
-	SOURCE_CONTROL_PULL_RESULT_MODAL_KEY,
-	SOURCE_CONTROL_PUSH_MODAL_KEY,
-} from '@/features/integrations/sourceControl.ee/sourceControl.constants';
 import { PROJECT_MOVE_RESOURCE_MODAL } from '@/features/collaboration/projects/projects.constants';
 import {
 	COMMUNITY_PACKAGE_CONFIRM_MODAL_KEY,
@@ -77,7 +71,6 @@ import NewAssistantSessionModal from '@/features/ai/assistant/components/Chat/Ne
 import ChatEmbedModal from '@/app/components/ChatEmbedModal.vue';
 import CommunityPackageInstallModal from '@/features/settings/communityNodes/components/CommunityPackageInstallModal.vue';
 import CommunityPackageManageConfirmModal from '@/features/settings/communityNodes/components/CommunityPackageManageConfirmModal.vue';
-import CommunityPlusEnrollmentModal from '@/features/settings/usage/components/CommunityPlusEnrollmentModal.vue';
 import CredentialEdit from '@/features/credentials/components/CredentialEdit/CredentialEdit.vue';
 import CredentialsSelectModal from '@/features/credentials/components/CredentialsSelectModal.vue';
 import DebugPaywallModal from '@/features/execution/executions/components/DebugPaywallModal.vue';
@@ -99,9 +92,6 @@ import PersonalizationModal from '@/features/settings/users/components/Personali
 import ProjectMoveResourceModal from '@/features/collaboration/projects/components/ProjectMoveResourceModal.vue';
 import EventDestinationSettingsModal from '@/features/integrations/logStreaming/components/EventDestinationSettingsModal.vue';
 import SetupWorkflowCredentialsModal from '@/features/workflows/templates/components/SetupWorkflowCredentialsModal.vue';
-import SourceControlPullModal from '@/features/integrations/sourceControl.ee/components/SourceControlPullModal.vue';
-import SourceControlPullResultModal from '@/features/integrations/sourceControl.ee/components/SourceControlPullResultModal.vue';
-import SourceControlPushModal from '@/features/integrations/sourceControl.ee/components/SourceControlPushModal.vue';
 import AnnotationTagsManager from '@/features/shared/tags/components/TagsManager/AnnotationTagsManager.vue';
 import WorkflowTagsManager from '@/features/shared/tags/components/TagsManager/WorkflowTagsManager.vue';
 import WhatsNewModal from '@/app/components/WhatsNewModal.vue';
@@ -274,24 +264,6 @@ const TrialIntroModal = defineAsyncComponent(
 			</template>
 		</ModalRoot>
 
-		<ModalRoot :name="SOURCE_CONTROL_PUSH_MODAL_KEY">
-			<template #default="{ modalName, data }">
-				<SourceControlPushModal :modal-name="modalName" :data="data" />
-			</template>
-		</ModalRoot>
-
-		<ModalRoot :name="SOURCE_CONTROL_PULL_MODAL_KEY">
-			<template #default="{ modalName, data }">
-				<SourceControlPullModal :modal-name="modalName" :data="data" />
-			</template>
-		</ModalRoot>
-
-		<ModalRoot :name="SOURCE_CONTROL_PULL_RESULT_MODAL_KEY">
-			<template #default="{ modalName, data }">
-				<SourceControlPullResultModal :modal-name="modalName" :data="data" />
-			</template>
-		</ModalRoot>
-
 		<ModalRoot :name="WORKFLOW_DIFF_MODAL_KEY">
 			<template #default="{ modalName, data }">
 				<WorkflowDiffModal :modal-name="modalName" :data="data" />
@@ -373,12 +345,6 @@ const TrialIntroModal = defineAsyncComponent(
 		<ModalRoot :name="NEW_ASSISTANT_SESSION_MODAL">
 			<template #default="{ modalName, data }">
 				<NewAssistantSessionModal :name="modalName" :data="data" />
-			</template>
-		</ModalRoot>
-
-		<ModalRoot :name="COMMUNITY_PLUS_ENROLLMENT_MODAL">
-			<template #default="{ modalName, data }">
-				<CommunityPlusEnrollmentModal :modal-name="modalName" :data="data" />
 			</template>
 		</ModalRoot>
 

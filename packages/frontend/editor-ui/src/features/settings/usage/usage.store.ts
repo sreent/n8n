@@ -3,15 +3,9 @@ import { defineStore } from 'pinia';
 import type { UsageState } from '@n8n/api-types';
 import * as usageApi from '@n8n/rest-api-client/api/usage';
 import { useRootStore } from '@n8n/stores/useRootStore';
-import { useSettingsStore } from '@n8n/stores/settings.store';
 
-export type UsageTelemetry = {
-	instance_id: string;
-	action: 'view_plans' | 'manage_plan' | 'add_activation_key' | 'desktop_view_plans';
-	plan_name_current: string;
-	usage: number;
-	quota: number;
-};
+// Fork: the store reads the licence data only. The fork has no registration of the Community
+// Edition, no licence key entry and no plan links (packages/cli/src/license/FORK.md).
 
 const DEFAULT_PLAN_NAME = 'Community';
 const DEFAULT_STATE: UsageState = {
@@ -37,7 +31,6 @@ const DEFAULT_STATE: UsageState = {
 
 export const useUsageStore = defineStore('usage', () => {
 	const rootStore = useRootStore();
-	const settingsStore = useSettingsStore();
 
 	const state = reactive<UsageState>({ ...DEFAULT_STATE });
 	const hasLoadedLicense = ref(false);
@@ -55,17 +48,6 @@ export const useUsageStore = defineStore('usage', () => {
 	const executionPercentage = computed(
 		() => (activeWorkflowTriggersCount.value / activeWorkflowTriggersLimit.value) * 100,
 	);
-	const instanceId = computed(() => settingsStore.settings.instanceId);
-	const managementToken = computed(() => state.data.managementToken);
-	const appVersion = computed(() => settingsStore.settings.versionCli);
-	const commonSubscriptionAppUrlQueryParams = computed(
-		() => `instanceid=${instanceId.value}&version=${appVersion.value}`,
-	);
-	const subscriptionAppUrl = computed(() =>
-		settingsStore.settings.license.environment === 'production'
-			? 'https://subscription.n8n.io'
-			: 'https://staging-subscription.n8n.io',
-	);
 
 	const setLoading = (loading: boolean) => {
 		state.loading = loading;
@@ -81,40 +63,10 @@ export const useUsageStore = defineStore('usage', () => {
 		setData(data);
 	};
 
-	const activateLicense = async (activationKey: string, eulaUri?: string) => {
-		const data = await usageApi.activateLicenseKey(rootStore.restApiContext, {
-			activationKey,
-			eulaUri,
-		});
-		setData(data);
-		await settingsStore.getSettings();
-		await settingsStore.getModuleSettings();
-	};
-
-	const refreshLicenseManagementToken = async () => {
-		try {
-			const data = await usageApi.renewLicense(rootStore.restApiContext);
-			setData(data);
-		} catch (error) {
-			await getLicenseInfo();
-		}
-	};
-
-	const requestEnterpriseLicenseTrial = async () => {
-		await usageApi.requestLicenseTrial(rootStore.restApiContext);
-	};
-
-	const registerCommunityEdition = async (email: string) =>
-		await usageApi.registerCommunityEdition(rootStore.restApiContext, { email });
-
 	return {
 		setLoading,
 		getLicenseInfo,
 		setData,
-		activateLicense,
-		refreshLicenseManagementToken,
-		requestEnterpriseLicenseTrial,
-		registerCommunityEdition,
 		hasLoadedLicense,
 		planName,
 		planId,
@@ -123,29 +75,12 @@ export const useUsageStore = defineStore('usage', () => {
 		workflowsWithEvaluationsLimit,
 		workflowsWithEvaluationsCount,
 		executionPercentage,
-		instanceId,
-		managementToken,
-		appVersion,
 		isCloseToLimit: computed(() =>
 			state.data.usage.activeWorkflowTriggers.limit < 0
 				? false
 				: activeWorkflowTriggersCount.value / activeWorkflowTriggersLimit.value >=
 					state.data.usage.activeWorkflowTriggers.warningThreshold,
 		),
-		viewPlansUrl: computed(
-			() => `${subscriptionAppUrl.value}?${commonSubscriptionAppUrlQueryParams.value}`,
-		),
-		managePlanUrl: computed(
-			() =>
-				`${subscriptionAppUrl.value}/manage?token=${managementToken.value}&${commonSubscriptionAppUrlQueryParams.value}`,
-		),
 		isLoading: computed(() => state.loading),
-		telemetryPayload: computed<UsageTelemetry>(() => ({
-			instance_id: instanceId.value,
-			action: 'view_plans',
-			plan_name_current: planName.value,
-			usage: activeWorkflowTriggersCount.value,
-			quota: activeWorkflowTriggersLimit.value,
-		})),
 	};
 });

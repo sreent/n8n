@@ -1946,32 +1946,13 @@ exports[`the evaluation page > the licence states 1`] = `
       "view": {
         "controls": [
           "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
-          "button role=button: Register instance",
         ],
         "icons": [],
         "route": "/workflow/wf1/evaluation",
         "testIds": [
-          "evaluations-unlicensed: Register to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+          "evaluations-unlicensed: Evaluations are offAn administrator can turn on evaluations with the setting N8N_FORK_FEATURES_ENABLED.",
         ],
-        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoRegister to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
-      },
-    },
-    {
-      "click": "Register instance",
-      "view": {
-        "controls": [
-          "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
-          "button role=button: Register instance",
-        ],
-        "icons": [],
-        "modals": [
-          "communityPlusEnrollment",
-        ],
-        "route": "/workflow/wf1/evaluation",
-        "testIds": [
-          "evaluations-unlicensed: Register to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
-        ],
-        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoRegister to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoEvaluations are offAn administrator can turn on evaluations with the setting N8N_FORK_FEATURES_ENABLED.",
       },
     },
   ],
@@ -2205,14 +2186,13 @@ exports[`the evaluation page > the licence states 1`] = `
       "view": {
         "controls": [
           "a href=https://docs.n8n.io/advanced-ai/evaluations/overview/: More info",
-          "button role=button: Register instance",
         ],
         "icons": [],
         "route": "/workflow/wf1/evaluation",
         "testIds": [
-          "evaluations-unlicensed: Register to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+          "evaluations-unlicensed: Evaluations are offAn administrator can turn on evaluations with the setting N8N_FORK_FEATURES_ENABLED.",
         ],
-        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoRegister to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+        "text": "Test your AI workflow over multiple inputsEvaluations measure performance against a test dataset. More infoEvaluations are offAn administrator can turn on evaluations with the setting N8N_FORK_FEATURES_ENABLED.",
       },
     },
   ],

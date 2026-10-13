@@ -8,8 +8,8 @@ import axios from 'axios';
 
 import type { IRestApiContext } from '../../types';
 
-// The code under test. To record the snapshot against the original files, point these imports at
-// `../externalSecrets.ee` and `../secretsProvider.ee`.
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, point these imports at `../externalSecrets.ee` and `../secretsProvider.ee`.
 import * as externalSecretsApi from '../externalSecrets';
 import * as secretsProviderApi from '../secretsProvider';
 

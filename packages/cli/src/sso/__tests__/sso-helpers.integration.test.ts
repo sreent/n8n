@@ -15,8 +15,8 @@ import { License } from '@/license';
 import { GoldenRecorder } from '@test-integration/golden-recorder';
 import { LicenseMocker } from '@test-integration/license';
 
-// The module under test. To record the snapshot against the original file, point this import at
-// `@/sso.ee/sso-helpers`.
+// The module under test. To record the snapshot against the original file in a checkout of upstream
+// n8n, point this import at `@/sso.ee/sso-helpers`.
 import * as helpers from '@/sso/sso-helpers';
 
 const license = new LicenseMocker();

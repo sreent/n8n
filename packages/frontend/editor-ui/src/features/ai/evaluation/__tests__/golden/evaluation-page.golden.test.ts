@@ -564,10 +564,10 @@ describe('the evaluation page', () => {
 				{ path: '/workflow/wf1/evaluation' },
 				server({ licenseFails: true }),
 			),
+			// Fork: the paywall has no button, because the fork has no registration (FORK.md).
 			'a limit of 0 workflows': await steps(
 				{ path: '/workflow/wf1/evaluation', evaluation: { quota: 0 } },
 				server({ limit: 0, count: 0 }),
-				['Register instance'],
 			),
 			'a limit of 1 workflow, used by another workflow': await steps(
 				{ path: '/workflow/wf1/evaluation', evaluation: { quota: 1 } },

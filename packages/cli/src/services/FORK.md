@@ -118,13 +118,13 @@ the events, the calls to `ActiveWorkflowManager`, and each row that the call add
 from any table. Ids become labels and dates become placeholders.
 
 The snapshot was recorded against the original service. The fork service gives the same snapshot.
-To record it again after an upstream update, point the import of the test at
-`@/services/project.service.ee`, run the test with `-u`, and point the import back.
+The fork no longer has the original file. To record the snapshot again after an upstream update, use
+a checkout of the upstream commit in `scripts/sync-upstream.base`: copy the test there, point its
+import at `@/services/project.service.ee`, run it with `-u`, and use its snapshot.
 
-## What stays
+## Notes
 
-- `project.service.ee.ts` stays, unused by ordinary code: enterprise code still imports it. It goes
-  with that code.
+- The fork deleted `project.service.ee.ts` and its test in step 4.
 - The CLI lint allowlist for `EntityManager` imports from `@n8n/db` lists this file: the
   `trx` parameters of `getProjectWithScope` and `addUser` keep the type that their callers pass.
   Remove the entry when they become an `OperationContext`. The migration in `deleteProject` uses
@@ -132,5 +132,5 @@ To record it again after an upstream update, point the import of the test at
   handlers take an `EntityManager`, as in `OwnershipTransferService`.
 - `TeamProjectRepository` (`packages/@n8n/db/src/repositories/team-project.repository.ts`) holds
   the two transactions: the replacement of the members and the project deletion. For the secrets
-  provider connections, it uses the enterprise repositories through their public names and their
-  `target`, so the rollback tests of `project-deletion.api.test.ts` still apply.
+  provider connections, it uses the fork repositories of the connections and their `target`, so
+  the rollback tests of `project-deletion.api.test.ts` still apply.

@@ -12,8 +12,9 @@ import { Container } from '@n8n/di';
 import { InstanceSettings } from 'n8n-core';
 import { CREDENTIAL_BLANKING_VALUE } from 'n8n-workflow';
 
-// The code under test. To record the snapshot against the original files, point these imports at
-// the files of `@/modules/external-secrets.ee` (FORK.md lists the paths).
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, point these imports at the files of `@/modules/external-secrets.ee` (FORK.md lists the
+// paths).
 import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
 

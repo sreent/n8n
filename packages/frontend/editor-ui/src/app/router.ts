@@ -84,7 +84,7 @@ const SettingsEncryptionKeys = async () =>
 const SignoutView = async () => await import('@/features/core/auth/views/SignoutView.vue');
 const SamlOnboarding = async () => await import('@/features/settings/sso/views/SamlOnboarding.vue');
 const SettingsSourceControl = async () =>
-	await import('@/features/integrations/sourceControl.ee/views/SettingsSourceControl.vue');
+	await import('@/features/integrations/sourceControl/views/SettingsSourceControl.vue');
 const SettingsExternalSecrets = async () => {
 	const settingsStore = useSettingsStore();
 	const moduleConfig = settingsStore.moduleSettings['external-secrets'];

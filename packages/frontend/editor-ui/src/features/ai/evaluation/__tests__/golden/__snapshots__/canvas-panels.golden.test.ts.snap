@@ -7479,16 +7479,14 @@ exports[`the evaluation panels of the canvas > the evaluation page with evaluati
         "GET /workflows/wf1/test-runs",
       ],
       "view": {
-        "controls": [
-          "button role=button: Register instance",
-        ],
+        "controls": [],
         "focusPanel": "closed",
         "icons": [],
         "route": "/workflow/wf1/evaluation",
         "testIds": [
-          "evaluations-unlicensed: Register to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+          "evaluations-unlicensed: Evaluations are offAn administrator can turn on evaluations with the setting N8N_FORK_FEATURES_ENABLED.",
         ],
-        "text": "Register to enable evaluationRegister your Community instance to unlock the evaluation featureRegister instance",
+        "text": "Evaluations are offAn administrator can turn on evaluations with the setting N8N_FORK_FEATURES_ENABLED.",
       },
     },
   ],

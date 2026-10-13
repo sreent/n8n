@@ -13,7 +13,7 @@ import { mock } from 'vitest-mock-extended';
 import { ExternalSecretsProviders } from '@/modules/external-secrets/external-secrets-providers';
 import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 
-import { MockProviders, createDummyProvider } from '../../shared/external-secrets/fork-providers';
+import { MockProviders, createDummyProvider } from '../../shared/external-secrets/utils';
 import { createAdmin, createMember, createOwner } from '../shared/db/users';
 import type { SuperAgentTest } from '../shared/types';
 import * as utils from '../shared/utils';
@@ -759,12 +759,12 @@ describe('Secret Providers Connections API', () => {
 
 	describe('Reload connection secrets', () => {
 		beforeAll(async () => {
-			const { DummyProvider } = await import('../../shared/external-secrets/fork-providers.js');
+			const { DummyProvider } = await import('../../shared/external-secrets/utils.js');
 			mockProvidersInstance.setProviders({ awsSecretsManager: DummyProvider });
 		});
 
 		afterEach(async () => {
-			const { DummyProvider } = await import('../../shared/external-secrets/fork-providers.js');
+			const { DummyProvider } = await import('../../shared/external-secrets/utils.js');
 			mockProvidersInstance.setProviders({ awsSecretsManager: DummyProvider });
 		});
 
@@ -846,12 +846,12 @@ describe('Secret Providers Connections API', () => {
 
 	describe('Test connection', () => {
 		beforeAll(async () => {
-			const { DummyProvider } = await import('../../shared/external-secrets/fork-providers.js');
+			const { DummyProvider } = await import('../../shared/external-secrets/utils.js');
 			mockProvidersInstance.setProviders({ awsSecretsManager: DummyProvider });
 		});
 
 		afterEach(async () => {
-			const { DummyProvider } = await import('../../shared/external-secrets/fork-providers.js');
+			const { DummyProvider } = await import('../../shared/external-secrets/utils.js');
 			mockProvidersInstance.setProviders({ awsSecretsManager: DummyProvider });
 		});
 
@@ -874,7 +874,7 @@ describe('Secret Providers Connections API', () => {
 		});
 
 		test('should return failure when provider test fails', async () => {
-			const { TestFailProvider } = await import('../../shared/external-secrets/fork-providers.js');
+			const { TestFailProvider } = await import('../../shared/external-secrets/utils.js');
 
 			mockProvidersInstance.setProviders({ awsSecretsManager: TestFailProvider });
 
@@ -896,7 +896,7 @@ describe('Secret Providers Connections API', () => {
 		});
 
 		test('should return error when connection fails', async () => {
-			const { FailedProvider } = await import('../../shared/external-secrets/fork-providers.js');
+			const { FailedProvider } = await import('../../shared/external-secrets/utils.js');
 
 			mockProvidersInstance.setProviders({ awsSecretsManager: FailedProvider });
 

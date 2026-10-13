@@ -1,27 +1,22 @@
+// Fork: the licence controller has only the route that reads the licence data. The fork has no
+// routes that register the Community Edition, request a trial, or activate or renew a licence key
+// (packages/cli/src/license/FORK.md).
 import { ControllerRegistryMetadata, type Controller } from '@n8n/decorators';
 import { Container } from '@n8n/di';
 
 import { LicenseController } from '../license.controller';
 
-describe('LicenseController route access scopes', () => {
+describe('LicenseController routes', () => {
 	const metadata = Container.get(ControllerRegistryMetadata).getControllerMetadata(
 		LicenseController as Controller,
 	);
 
-	it('gates registerCommunityEdition behind license:manage', () => {
-		expect(metadata.routes.get('registerCommunityEdition')?.accessScope).toEqual({
-			scope: 'license:manage',
-			globalOnly: true,
-		});
+	it('has only the route that reads the licence data', () => {
+		const routes = [...metadata.routes.entries()].map(([handler, route]) => ({
+			handler,
+			method: route.method,
+			path: route.path,
+		}));
+		expect(routes).toEqual([{ handler: 'getLicenseData', method: 'get', path: '/' }]);
 	});
-
-	it.each(['requestEnterpriseTrial', 'activateLicense', 'renewLicense'])(
-		'%s is gated behind license:manage',
-		(handler) => {
-			expect(metadata.routes.get(handler)?.accessScope).toEqual({
-				scope: 'license:manage',
-				globalOnly: true,
-			});
-		},
-	);
 });

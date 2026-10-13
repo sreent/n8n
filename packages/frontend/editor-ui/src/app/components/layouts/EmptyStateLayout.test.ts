@@ -4,7 +4,7 @@ import EmptyStateLayout from './EmptyStateLayout.vue';
 import { createTestingPinia } from '@pinia/testing';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { useReadyToRunStore } from '@/features/workflows/readyToRun/stores/readyToRun.store';
 import { useBannersStore } from '@/features/shared/banners/banners.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';

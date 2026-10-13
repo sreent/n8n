@@ -1,0 +1,338 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the source control editor > the modal keys and the event bus 1`] = `
+{
+  "calls": [
+    [
+      "first",
+      {
+        "id": 1,
+      },
+    ],
+    [
+      "once",
+      {
+        "id": 1,
+      },
+    ],
+    [
+      "first",
+      {
+        "id": 2,
+      },
+    ],
+  ],
+  "eventBusMembers": [
+    "emit",
+    "off",
+    "on",
+    "once",
+  ],
+  "modalKeys": {
+    "pull": "sourceControlPull",
+    "pullResult": "sourceControlPullResult",
+    "push": "sourceControlPush",
+  },
+}
+`;
+
+exports[`the source control editor > the settings page without the licence feature 1`] = `
+{
+  "See plans": {
+    "effects": [
+      [
+        "telemetry.track",
+        [
+          "User clicked upgrade CTA",
+          {
+            "deploymentType": "default",
+            "executionsLeft": -1,
+            "isTrial": false,
+            "source": "source-control",
+            "trialDaysLeft": -1,
+            "workflowsLeft": -1,
+          },
+        ],
+      ],
+      [
+        "window.open",
+        [
+          "https://n8n.io/pricing?utm_campaign=upgrade-source-control&source=source-control",
+          "_blank",
+        ],
+      ],
+    ],
+    "found": true,
+  },
+  "without enterprise settings": {
+    "effects": [],
+    "page": {
+      "controls": [
+        "a href=https://docs.n8n.io/source-control-environments/: More info",
+        "button role=button: See plans",
+      ],
+      "icons": [],
+      "testIds": [
+        "source-control-content-unlicensed: Available on the Enterprise planUse multiple instances for different environments (dev, prod, etc.), deploying between them via a Git repository. More infoSee plans",
+      ],
+      "text": "EnvironmentsAvailable on the Enterprise planUse multiple instances for different environments (dev, prod, etc.), deploying between them via a Git repository. More infoSee plans",
+    },
+  },
+  "without the licence feature": {
+    "effects": [],
+    "page": {
+      "controls": [
+        "a href=https://docs.n8n.io/source-control-environments/: More info",
+        "button role=button: See plans",
+      ],
+      "icons": [],
+      "testIds": [
+        "source-control-content-unlicensed: Available on the Enterprise planUse multiple instances for different environments (dev, prod, etc.), deploying between them via a Git repository. More infoSee plans",
+      ],
+      "text": "EnvironmentsAvailable on the Enterprise planUse multiple instances for different environments (dev, prod, etc.), deploying between them via a Git repository. More infoSee plans",
+    },
+  },
+}
+`;
+
+exports[`the source control editor > the start-up error message 1`] = `
+{
+  "Git configuration": {
+    "effects": [],
+    "found": true,
+    "route": "/home/workflows",
+  },
+  "effects": [],
+  "message": {
+    "controls": [],
+    "icons": [],
+    "testIds": [],
+    "text": "We couldn't find the repository connected to this instance. Please double-check your Git configuration on this instance.",
+  },
+}
+`;
+
+exports[`the source control editor > the store 1`] = `
+{
+  "getPreferences": {
+    "effects": [
+      [
+        "request",
+        "GET /source-control/preferences",
+      ],
+    ],
+    "outcome": {
+      "result": "<undefined>",
+    },
+    "preferences": {
+      "branchColor": "#ff0000",
+      "branchName": "main",
+      "branchReadOnly": true,
+      "branches": [
+        "main",
+        "dev",
+      ],
+      "connected": true,
+      "connectionType": "ssh",
+      "keyGeneratorType": "ed25519",
+      "publicKey": "ssh-ed25519 AAA",
+      "repositoryUrl": "git@github.com:acme/flows.git",
+    },
+  },
+  "getPreferences with some fields": {
+    "effects": [
+      [
+        "request",
+        "GET /source-control/preferences",
+      ],
+    ],
+    "outcome": {
+      "result": "<undefined>",
+    },
+    "preferences": {
+      "branchColor": "#ff0000",
+      "branchName": "dev",
+      "branchReadOnly": true,
+      "branches": [
+        "main",
+        "dev",
+      ],
+      "connected": true,
+      "connectionType": "ssh",
+      "keyGeneratorType": "ed25519",
+      "publicKey": "ssh-ed25519 AAA",
+      "repositoryUrl": "git@github.com:acme/flows.git",
+    },
+  },
+  "getPreferences without the route": {
+    "effects": [
+      [
+        "request",
+        "GET /source-control/preferences",
+      ],
+    ],
+    "outcome": {
+      "error": {
+        "message": "Not found",
+        "name": "ResponseError",
+      },
+    },
+    "preferences": {
+      "branchColor": "#ff0000",
+      "branchName": "dev",
+      "branchReadOnly": true,
+      "branches": [
+        "main",
+        "dev",
+      ],
+      "connected": true,
+      "connectionType": "ssh",
+      "keyGeneratorType": "ed25519",
+      "publicKey": "ssh-ed25519 AAA",
+      "repositoryUrl": "git@github.com:acme/flows.git",
+    },
+  },
+  "getRemoteWorkflow": {
+    "effects": [
+      [
+        "request",
+        "GET /source-control/remote-content/workflow/w1",
+      ],
+    ],
+    "outcome": {
+      "result": {
+        "content": {
+          "connections": {},
+          "id": "w1",
+          "name": "Remote",
+          "nodes": [],
+        },
+        "type": "workflow",
+      },
+    },
+  },
+  "getRemoteWorkflow without the route": {
+    "effects": [
+      [
+        "request",
+        "GET /source-control/remote-content/workflow/w2",
+      ],
+    ],
+    "outcome": {
+      "error": {
+        "message": "Not found",
+        "name": "ResponseError",
+      },
+    },
+  },
+  "pullWorkfolder with a conflict": {
+    "effects": [
+      [
+        "request",
+        "POST /source-control/pull-workfolder data {'autoPublish':'all','force':false}",
+      ],
+    ],
+    "outcome": {
+      "error": {
+        "message": "Conflict",
+        "name": "ResponseError",
+      },
+    },
+  },
+  "pullWorkfolder with force and no publish": {
+    "effects": [
+      [
+        "request",
+        "POST /source-control/pull-workfolder data {'autoPublish':'none','force':true}",
+      ],
+    ],
+    "outcome": {
+      "result": [
+        {
+          "id": "w1",
+          "name": "A",
+          "status": "modified",
+          "type": "workflow",
+        },
+      ],
+    },
+  },
+  "pullWorkfolder without the publish mode": {
+    "effects": [
+      [
+        "request",
+        "POST /source-control/pull-workfolder data {'autoPublish':'<undefined>','force':false}",
+      ],
+    ],
+    "outcome": {
+      "result": [
+        {
+          "id": "w1",
+          "name": "A",
+          "status": "modified",
+          "type": "workflow",
+        },
+      ],
+    },
+  },
+  "setPreferences": {
+    "effects": [],
+    "preferences": {
+      "branchColor": "#5296D6",
+      "branchName": "x",
+      "branchReadOnly": false,
+      "branches": [],
+      "connected": true,
+      "connectionType": "ssh",
+      "keyGeneratorType": "ed25519",
+      "publicKey": "",
+      "repositoryUrl": "",
+    },
+  },
+  "with the licence feature": {
+    "id": "sourceControl",
+    "isEnterpriseSourceControlEnabled": true,
+    "preferences": {
+      "branchColor": "#5296D6",
+      "branchName": "",
+      "branchReadOnly": false,
+      "branches": [],
+      "connected": false,
+      "connectionType": "ssh",
+      "keyGeneratorType": "ed25519",
+      "publicKey": "",
+      "repositoryUrl": "",
+    },
+  },
+  "without enterprise settings": {
+    "id": "sourceControl",
+    "isEnterpriseSourceControlEnabled": undefined,
+    "preferences": {
+      "branchColor": "#5296D6",
+      "branchName": "",
+      "branchReadOnly": false,
+      "branches": [],
+      "connected": false,
+      "connectionType": "ssh",
+      "keyGeneratorType": "ed25519",
+      "publicKey": "",
+      "repositoryUrl": "",
+    },
+  },
+  "without the licence feature": {
+    "id": "sourceControl",
+    "isEnterpriseSourceControlEnabled": false,
+    "preferences": {
+      "branchColor": "#5296D6",
+      "branchName": "",
+      "branchReadOnly": false,
+      "branches": [],
+      "connected": false,
+      "connectionType": "ssh",
+      "keyGeneratorType": "ed25519",
+      "publicKey": "",
+      "repositoryUrl": "",
+    },
+  },
+}
+`;

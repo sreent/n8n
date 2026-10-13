@@ -7,7 +7,7 @@ import { WORKFLOW_DIFF_MODAL_KEY } from '@/app/constants';
 import {
 	SOURCE_CONTROL_PULL_MODAL_KEY,
 	SOURCE_CONTROL_PUSH_MODAL_KEY,
-} from '@/features/integrations/sourceControl.ee/sourceControl.constants';
+} from '@/features/integrations/sourceControl/sourceControl.constants';
 
 /**
  * Composable that handles source control modal state based on URL query parameters

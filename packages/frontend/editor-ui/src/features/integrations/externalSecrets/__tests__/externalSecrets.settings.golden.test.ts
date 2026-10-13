@@ -35,8 +35,8 @@ import { EXTERNAL_SECRETS_PROVIDER_MODAL_KEY } from '@/app/constants';
 import { APP_MODALS_ELEMENT_ID } from '@/app/constants/selectors';
 import { useUIStore } from '@/app/stores/ui.store';
 
-// The code under test. To record the snapshot against the original files, point these imports at
-// the files in `@/features/integrations/externalSecrets.ee/`.
+// The code under test. To record the snapshot against the original files in a checkout of upstream
+// n8n, point these imports at the files in `@/features/integrations/externalSecrets.ee/`.
 import SettingsExternalSecrets from '@/features/integrations/externalSecrets/views/SettingsExternalSecrets.vue';
 import ExternalSecretsProviderModal from '@/features/integrations/externalSecrets/components/ExternalSecretsProviderModal.vue';
 import { useExternalSecretsStore } from '@/features/integrations/externalSecrets/externalSecrets.store';

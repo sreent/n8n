@@ -6,8 +6,7 @@
 # folder and everything in it. In a path, ** matches any characters and * matches any characters
 # except /. Lines that start with # are comments.
 
-# Backend modules that do nothing without an enterprise license. The external-secrets and
-# provisioning modules stay for now: other enterprise files that the fork still has use them.
+# Backend modules that do nothing without an enterprise license.
 packages/cli/src/modules/dynamic-credentials.ee/
 packages/cli/src/modules/instance-reporting.ee/
 packages/cli/src/modules/ldap.ee/
@@ -19,8 +18,7 @@ packages/cli/src/modules/workflow-reviews.ee/
 packages/cli/test/integration/dynamic-credentials.ee/
 packages/cli/test/integration/eventbus.ee.test.ts
 
-# Editor folders of removed features. The editor keeps sourceControl.ee for now: ordinary files
-# use it. externalSecrets.ee and secretsProviders.ee stay with the backend module.
+# Editor folders of removed features.
 packages/frontend/editor-ui/src/features/integrations/logStreaming.ee/
 packages/frontend/editor-ui/src/features/integrations/promotions.ee/
 # The REST client of log streaming. The fork's client is eventbus.ts in the same folder.
@@ -95,3 +93,53 @@ packages/cli/test/integration/test-run.repository.ee.test.ts
 
 # The evaluation editor. The fork has its own files in features/ai/evaluation (the FORK.md there).
 packages/frontend/editor-ui/src/features/ai/evaluation.ee/
+
+# The AI workflow builder. The fork package packages/@n8n/ai-workflow-builder has the same package
+# name and the parts that the n8n server uses (its FORK.md).
+packages/@n8n/ai-workflow-builder.ee/
+
+# The source control editor. The fork has stand-ins for what ordinary code uses in
+# features/integrations/sourceControl (the FORK.md there).
+packages/frontend/editor-ui/src/features/integrations/sourceControl.ee/
+
+# The enterprise files that fork code replaced in steps 3 and 4 of FORK.md, with their enterprise
+# tests. The FORK.md files named here describe the fork code.
+# The permission check (packages/cli/src/permissions/FORK.md).
+packages/cli/src/permissions.ee/
+# The project service (packages/cli/src/services/FORK.md).
+packages/cli/src/services/project.service.ee.ts
+packages/cli/src/services/__tests__/project.service.ee.test.ts
+# The sharing services (packages/cli/src/workflows/FORK.md).
+packages/cli/src/workflows/workflow.service.ee.ts
+packages/cli/src/workflows/__tests__/workflow.service.ee.test.ts
+packages/cli/src/credentials/credentials.service.ee.ts
+packages/cli/src/credentials/__tests__/credentials.service.ee.test.ts
+packages/cli/test/integration/credentials/credentials.api.ee.test.ts
+packages/cli/test/integration/public-api/users.ee.test.ts
+packages/cli/test/integration/workflows/*.ee.test.ts
+# The execution view (packages/cli/src/executions/FORK.md).
+packages/cli/src/executions/execution.service.ee.ts
+# The SSO helpers, OIDC, role provisioning and SAML (the FORK.md files of packages/cli/src/sso and
+# of the modules sso-oidc, provisioning and sso-saml).
+packages/cli/src/sso.ee/
+packages/cli/src/modules/sso-oidc/**/*.ee.*
+packages/cli/test/integration/oidc/oidc.service.ee.test.ts
+packages/cli/src/modules/provisioning.ee/
+packages/cli/src/modules/sso-saml/**/*.ee.*
+# External secrets: the module, the repositories of the connections, the REST clients and the
+# editor folders (packages/cli/src/modules/external-secrets/FORK.md).
+packages/cli/src/modules/external-secrets.ee/
+packages/@n8n/db/src/repositories/secrets-provider-connection.repository.ee.ts
+packages/@n8n/db/src/repositories/project-secrets-provider-access.repository.ee.ts
+packages/@n8n/db/src/repositories/__tests__/secrets-provider-connection.repository.ee.test.ts
+packages/frontend/@n8n/rest-api-client/src/api/externalSecrets.ee.ts
+packages/frontend/@n8n/rest-api-client/src/api/secretsProvider.ee.ts
+packages/frontend/editor-ui/src/features/integrations/externalSecrets.ee/
+packages/frontend/editor-ui/src/features/integrations/secretsProviders.ee/
+# The sharing UI and the EnterpriseEdition gate of the editor (packages/frontend/editor-ui/FORK.md).
+packages/frontend/editor-ui/src/app/api/workflows.ee.ts
+packages/frontend/editor-ui/src/app/components/EnterpriseEdition.ee.vue
+packages/frontend/editor-ui/src/app/stores/workflows.ee.store.ts
+packages/frontend/editor-ui/src/features/credentials/credentials.ee.api.ts
+packages/frontend/editor-ui/src/features/credentials/components/CredentialEdit/CredentialSharing.ee.*
+packages/frontend/editor-ui/src/features/workflows/components/WorkflowShareModal.ee.*

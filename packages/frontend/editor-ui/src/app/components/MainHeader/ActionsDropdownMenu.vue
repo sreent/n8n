@@ -27,7 +27,7 @@ import {
 import { hasPermission } from '@/app/utils/rbac/permissions';
 import { useRoute } from 'vue-router';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import type { PermissionsRecord } from '@n8n/permissions';
 import { useUIStore } from '@/app/stores/ui.store';
 import type { IWorkflowToShare, IWorkflowDb } from '@/Interface';
