@@ -15,7 +15,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 import * as collectionsApi from './evalCollections.api';
-import { POLLING_INTERVAL_MS } from './evaluation.constants';
+import { COLLECTION_POLLING_INTERVAL_MS } from './evaluation.constants';
 
 const isActiveStatus = (status: string) => status === 'running' || status === 'new';
 
@@ -185,33 +185,40 @@ export const useEvalCollectionsStore = defineStore(STORES.EVAL_COLLECTIONS, () =
 		}
 	}
 
-	/** Asks for the detail of a collection each second while one of its runs is active. */
-	function startPolling(workflowId: string, collectionId: string) {
+	/**
+	 * Asks for the detail of a collection every 3 seconds while one of its runs is active. After each
+	 * answer, it calls `onPolled` with the detail before and after the answer.
+	 */
+	function startPolling(
+		workflowId: string,
+		collectionId: string,
+		onPolled?: (
+			previous: EvaluationCollectionDetail | undefined,
+			current: EvaluationCollectionDetail,
+		) => Promise<void> | void,
+	) {
 		stopPolling(collectionId);
+		const schedule = () => {
+			pollingTimers.set(
+				collectionId,
+				setTimeout(() => {
+					void poll();
+				}, COLLECTION_POLLING_INTERVAL_MS),
+			);
+		};
 		const poll = async () => {
+			const previous = collectionDetailById.value[collectionId];
 			try {
 				const detail = await fetchCollectionDetail(workflowId, collectionId);
 				if (!pollingTimers.has(collectionId)) return;
-				if (!isActiveCollection(detail)) {
-					stopPolling(collectionId);
-					return;
-				}
-				pollingTimers.set(
-					collectionId,
-					setTimeout(() => {
-						void poll();
-					}, POLLING_INTERVAL_MS),
-				);
+				await onPolled?.(previous, detail);
+				if (isActiveCollection(detail)) schedule();
+				else stopPolling(collectionId);
 			} catch {
 				stopPolling(collectionId);
 			}
 		};
-		pollingTimers.set(
-			collectionId,
-			setTimeout(() => {
-				void poll();
-			}, POLLING_INTERVAL_MS),
-		);
+		schedule();
 	}
 
 	function stopPolling(collectionId: string) {

@@ -1,6 +1,6 @@
 // Fork code (not in upstream n8n): the shapes of the evaluation REST API that the editor reads.
 // See `FORK.md` in this folder.
-import type { EvaluationConfigDto } from '@n8n/api-types';
+import type { EvaluationConfigDto, MetricScale } from '@n8n/api-types';
 
 export type TestRunStatus = 'new' | 'running' | 'completed' | 'error' | 'cancelled';
 
@@ -14,9 +14,6 @@ export type TestCaseExecutionStatus =
 	| 'cancelled';
 
 export type MetricValues = Record<string, number | boolean>;
-
-/** The scale of a metric of a run: a score from 0 to 1, or from 1 to 5. */
-export type MetricScale = 'unit' | 'fivePoint';
 
 export interface TestRunRecord {
 	id: string;
@@ -36,7 +33,7 @@ export interface TestRunRecord {
 	collectionId?: string | null;
 	testCaseCount?: number;
 	finalResult?: 'success' | 'error' | 'warning' | null;
-	metricScales?: Record<string, string>;
+	metricScales?: Record<string, MetricScale>;
 }
 
 export interface TestCaseExecutionRecord {

@@ -5,7 +5,8 @@
 export { default as EvaluationsRootView } from '@/features/ai/evaluation/views/EvaluationsRootView.vue';
 export { default as EvaluationsListSwitcher } from '@/features/ai/evaluation/views/EvaluationsListSwitcher.vue';
 export { default as TestRunDetailView } from '@/features/ai/evaluation/views/TestRunDetailView.vue';
-export { default as CompareCollectionView } from '@/features/ai/evaluation.ee/views/CompareCollectionView.vue';
+export { default as CompareCollectionView } from '@/features/ai/evaluation/views/CompareCollectionView.vue';
+export { default as EvalCollectionsListView } from '@/features/ai/evaluation/views/EvalCollectionsListView.vue';
 export { useEvaluationStore } from '@/features/ai/evaluation/evaluation.store';
 export { useWorkflowEvaluationState } from '@/features/ai/evaluation/composables/useWorkflowEvaluationState';
 export { useEvaluationsLicense } from '@/features/ai/evaluation/composables/useEvaluationsLicense';

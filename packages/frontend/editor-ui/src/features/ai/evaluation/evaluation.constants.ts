@@ -8,6 +8,9 @@ import type { MetricCategory, TestRunStatus } from './evaluation.types';
 /** How long the editor waits before it asks for the state of an active run again. */
 export const POLLING_INTERVAL_MS = 1000;
 
+/** How often a page asks again for a collection while one of its runs is active. */
+export const COLLECTION_POLLING_INTERVAL_MS = 3000;
+
 export const EVALUATION_DOCS_URL = 'https://docs.n8n.io/advanced-ai/evaluations/overview/';
 
 /** The metrics that the runner adds to each run. They are not scores. */

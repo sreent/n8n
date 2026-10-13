@@ -8,17 +8,30 @@ import { computed } from 'vue';
 
 import { useParallelEvalStore } from '../../parallelEval.store';
 
+const props = defineProps<{ workflowId: string }>();
+
 const i18n = useI18n();
 const parallelEvalStore = useParallelEvalStore();
 
 const concurrency = computed({
-	get: () => parallelEvalStore.concurrencyValue,
-	set: (value: number) => parallelEvalStore.setConcurrencyValue(value),
+	get: () => parallelEvalStore.concurrencyValue(props.workflowId),
+	set: (value: number) => parallelEvalStore.setConcurrencyValue(props.workflowId, value),
 });
+
+/** To open the controls is to run the cases of the workflow in parallel. */
+function onOpen(open: boolean) {
+	if (open) parallelEvalStore.setParallel(props.workflowId, true);
+}
 </script>
 
 <template>
-	<N8nPopover :teleported="false" :enable-scrolling="false" align="end" width="320px">
+	<N8nPopover
+		:teleported="false"
+		:enable-scrolling="false"
+		align="end"
+		width="320px"
+		@update:open="onOpen"
+	>
 		<template #trigger>
 			<N8nButton
 				data-test-id="parallel-eval-toggle"

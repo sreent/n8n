@@ -15,8 +15,8 @@ files, and only the golden tests use the fork files.
 | Part | Fork files | Status |
 | --- | --- | --- |
 | The evaluation page | `evaluation.api.ts`, `evaluation.store.ts`, `parallelEval.store.ts`, `evaluation.constants.ts`, `evaluation.types.ts`, `evaluation.utils.ts`, `composables/useEvaluationsLicense.ts`, `composables/useWorkflowEvaluationState.ts`, `composables/useCyclingVerb.ts`, `views/EvaluationsRootView.vue`, `views/EvaluationsListSwitcher.vue`, `views/EvaluationsView.vue`, `views/TestRunDetailView.vue`, and the components in `components/SetupWizard`, `components/ListRuns`, `components/RunDetail` and `components/Paywall` | Done |
-| Collections and their comparison | | Next |
-| The panels on the canvas and the dataset modal | | After the collections |
+| Collections and their comparison | `evalCollections.api.ts`, `evalCollections.store.ts`, `evalCollections.utils.ts`, `composables/useEvalCollectionsFlag.ts`, `composables/useAgentEvalsFlag.ts`, `composables/useCompareData.ts`, `views/EvalCollectionsListView.vue`, `views/CompareCollectionView.vue`, and the components in `components/Collections`, `components/Compare` and `components/shared` | Done |
+| The panels on the canvas and the dataset modal | | Next |
 
 ## Sources
 
@@ -30,7 +30,8 @@ files, and only the golden tests use the fork files.
 - The public documentation of
   [evaluations](https://docs.n8n.io/advanced-ai/evaluations/overview/).
 - The behaviour of the original files, recorded black-box: the exports and the store members at
-  run time, and the golden tests below. The enterprise files were not read.
+  run time, the rendered DOM (an outline of the elements and the text nodes), the local storage,
+  the requests, and the golden tests below. The enterprise files were not read.
 
 ## Behaviour of the evaluation page
 
@@ -45,7 +46,9 @@ files, and only the golden tests use the fork files.
   the metrics shows a callout and a link to the plans, and the last step runs only in the editor.
 - The list of runs numbers the runs from the oldest by their start time, and shows the newest
   first. "Run Test" starts a run with the chosen concurrency (3 by default, up to the licence
-  limit or 10). A limit of 1 sends no body. "Stop Test" cancels the running run.
+  limit or 10). A limit of 1 sends no body. "Stop Test" cancels the running run. The browser
+  keeps the concurrency of each workflow in the local storage key `N8N_PARALLEL_EVAL_BY_WORKFLOW`,
+  as the original does. To open the concurrency controls turns on parallel runs for the workflow.
 - The store asks for each active run (`new` or `running`) and its cases now and then each
   second, until the run ends. Each load of the list starts this again. The detail page of an
   active run also asks each second.
@@ -55,10 +58,45 @@ files, and only the golden tests use the fork files.
   and a value above 1 as a percentage. "Re-run test" starts a new run of the workflow and opens
   it. The detail page loads its data only when it opens.
 
+## Behaviour of the collections
+
+- The collections show when the setting `evaluation.collectionsEnabled` or the PostHog flag
+  `084_eval_collections` is on. The default child page then shows the collections list below the
+  list of runs. It loads the list view only for these users.
+- The list loads the collections, the evaluation configs and the runs, and then the detail of
+  each collection. A collection runs while one of its runs is `new` or `running`, failed when all
+  its runs failed, and is done in the other cases. The list asks again for the detail of a running
+  collection every 3 seconds, until it ends. The runs that no collection holds show below, the
+  newest first.
+- The dialog of a new collection loads the evaluation configs (the datasets) each time it opens,
+  and the versions of the chosen dataset. The current draft stays on top of the versions. The
+  others go by the time of their last run, and a version without a run counts as the oldest.
+  The letters of the versions, the source filter and the request keep the order of the server. A
+  version with a run on the dataset reuses it, and a version without one gets a new run. The
+  dialog needs a name and two or more versions. After the create, the list loads the collections,
+  the new collection and the runs again.
+- The comparison loads the collection, then the cases of each run, the licence and the evaluation
+  configs. It sends `Eval collection compared opened`. A collection with two or more runs that
+  all completed asks for its insights. A running collection asks again for itself and for the
+  cases of its running runs every 3 seconds. When the last run ends, it asks for the insights.
+  "Re-run" starts the runs again, loads the collection once more, and asks again every 3
+  seconds until the runs end. A collection that is not there shows a message, and an error other
+  than "not found" also shows a toast.
+- The comparison shows a score from 0 to 1 as a percentage and a score of an AI-based metric
+  (1 to 5) as a share of 5, by the metric scales of the collection. A case that a version did
+  not run shows `⊘`. The cases table sorts by the largest fall from the best version first. The
+  notice about other case counts counts the cases of the completed runs only.
+- `useEvaluationsLicense` loads the licence once for the whole app, as the original does. The
+  pages that load the licence on their own do not count, so the first comparison asks for it
+  once more.
+
 ## Differences from the original
 
 1. **Booleans in the list of runs.** The list of the original fails with a type error when a run
    has a boolean metric. The fork shows `1.00` or `0.00`. The golden test leaves out this case.
+2. **Runs with the same start time.** When the collections list loads the runs again, the list
+   of runs of the original can show runs with the same start time in another order. The fork
+   keeps the order. The golden test of the collections gives each run its own start time.
 
 ## Changes to ordinary files
 
@@ -74,6 +112,11 @@ files, and the fork files give the same snapshot:
   error codes, the concurrency, the polling, the detail of a run, the state that ordinary code
   reads (`useWorkflowEvaluationState`, `useEvaluationStore().isEvaluationEnabled` and
   `useEvaluationsLicense`).
+- `collections.golden.test.ts`: the collections flag, the list of collections and runs, the
+  polling of a running collection, the dialog of a new collection (the dataset, the versions,
+  the filter, the sort, the create and its errors), and the comparison (the scores, the insights,
+  the cases, the outputs, the metrics, the workflow diff, the re-run and the errors). The
+  switcher loads the list view on demand, so the test keeps that module loaded.
 
 `harness.ts` gives a fake REST server, a router with the names and paths of the app routes, and a
 description of what a user sees: the text, the test IDs, the controls, the icons, the data of

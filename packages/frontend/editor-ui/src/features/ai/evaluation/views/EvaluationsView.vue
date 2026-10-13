@@ -38,7 +38,7 @@ watch(
 );
 
 async function runTest() {
-	const concurrency = parallelEvalStore.effectiveConcurrency;
+	const concurrency = parallelEvalStore.effectiveConcurrency(props.workflowId);
 	try {
 		await evaluationStore.startTestRun(
 			props.workflowId,
@@ -95,7 +95,10 @@ onMounted(async () => {
 					:label="i18n.baseText('evaluation.runTest')"
 					@click="runTest"
 				/>
-				<ParallelEvalControls v-if="parallelEvalStore.isConcurrencyAvailable" />
+				<ParallelEvalControls
+					v-if="parallelEvalStore.isConcurrencyAvailable"
+					:workflow-id="workflowId"
+				/>
 			</template>
 		</div>
 		<RunsSection v-model:selected-metric="selectedMetric" :runs="runs" :workflow-id="workflowId" />
