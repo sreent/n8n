@@ -2,7 +2,7 @@ import type { Project, SharedWorkflowRepository, User, Variables } from '@n8n/db
 import { jsonParse } from 'n8n-workflow';
 import { mock } from 'vitest-mock-extended';
 
-import type { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import type { VariablesService } from '@/environments/variables/variables.service';
 
 import { CapturingWriter } from '../../../io/__tests__/utils/capturing-writer';
 import { PackageExportBlockedError } from '../../package-export.errors';

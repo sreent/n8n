@@ -2,7 +2,7 @@ import type { UpsertEvaluationConfigDto } from '@n8n/api-types';
 import { Service } from '@n8n/di';
 import { DataSource, Repository } from '@n8n/typeorm';
 
-import { EvaluationConfig } from '../entities/evaluation-config.ee';
+import { EvaluationConfig } from '../entities/evaluation-config';
 
 @Service()
 export class EvaluationConfigRepository extends Repository<EvaluationConfig> {
@@ -58,5 +58,16 @@ export class EvaluationConfigRepository extends Repository<EvaluationConfig> {
 			.select('evaluation_config.workflowId')
 			.distinct(true)
 			.getCount();
+	}
+
+	/**
+	 * Fork method (not in upstream n8n): the number of workflows with configs. `getCount()` above
+	 * counts the configs, because TypeORM counts distinct primary keys.
+	 */
+	async countWorkflowsWithConfigs(): Promise<number> {
+		const row = await this.createQueryBuilder('evaluation_config')
+			.select('COUNT(DISTINCT evaluation_config.workflowId)', 'count')
+			.getRawOne<{ count: string | number }>();
+		return Number(row?.count ?? 0);
 	}
 }

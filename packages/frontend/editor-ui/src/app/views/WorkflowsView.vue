@@ -77,7 +77,7 @@ import { useUsersStore } from '@n8n/stores/users.store';
 import { useWorkflowsStore } from '@/app/stores/workflows.store';
 import { useWorkflowsListStore } from '@/app/stores/workflowsList.store';
 import { useCredentialsStore } from '@/features/credentials/credentials.store';
-import { useEnvironmentsStore } from '@/features/settings/environments.ee/environments.store';
+import { useEnvironmentsStore } from '@/features/settings/environments/environments.store';
 import { useDataTableStore } from '@/features/core/dataTable/dataTable.store';
 import { MCP_SETTINGS_VIEW } from '@/features/ai/mcpAccess/mcp.constants';
 import { useMCPStore } from '@/features/ai/mcpAccess/mcp.store';

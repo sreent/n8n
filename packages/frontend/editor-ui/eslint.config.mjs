@@ -374,7 +374,7 @@ export default defineConfig(
 		files: [
 			'src/features/shared/editors/components/CodeNodeEditor/**',
 			'src/features/shared/editors/plugins/codemirror/completions/**',
-			'src/features/settings/environments.ee/completions/**',
+			'src/features/settings/environments/completions/**',
 		],
 		rules: {
 			'n8n-local-rules/no-dynamic-regexp': 'off',

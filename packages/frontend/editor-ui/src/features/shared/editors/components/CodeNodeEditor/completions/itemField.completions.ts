@@ -1,5 +1,5 @@
 import { addInfoRenderer, escape } from '../utils';
-import { addVarType } from '@/features/settings/environments.ee/completions/variables.completions';
+import { addVarType } from '@/features/settings/environments/completions/variables.completions';
 import type { Completion, CompletionContext, CompletionResult } from '@codemirror/autocomplete';
 import { useI18n } from '@n8n/i18n';
 

@@ -2,7 +2,7 @@ import type { Variables } from '@n8n/db';
 import { hasGlobalScope } from '@n8n/permissions';
 import { mock } from 'vitest-mock-extended';
 
-import type { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import type { VariablesService } from '@/environments/variables/variables.service';
 import { VariableCountLimitReachedError } from '@/errors/variable-count-limit-reached.error';
 import { userHasScopes } from '@/permissions/check-access';
 

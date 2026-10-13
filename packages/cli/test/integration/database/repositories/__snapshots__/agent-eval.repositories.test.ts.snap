@@ -1,0 +1,1653 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AgentEvalDatasetRepository > creates, lists, reads, updates and deletes datasets 1`] = `
+{
+  "create for an unknown agent": {
+    "error": "QueryFailedError: SQLITE_CONSTRAINT: FOREIGN KEY constraint failed",
+    "rows": {},
+  },
+  "create full": {
+    "result": {
+      "<class>": "AgentEvalDataset",
+      "agentId": "@agent A",
+      "columnMapping": {
+        "criteria": "c",
+        "expectedOutput": "a",
+        "input": "q",
+      },
+      "createdAt": "<Date>",
+      "createdById": "@owner",
+      "datasetRef": {
+        "credentialId": "cred-1",
+        "sheetName": "Cases",
+        "spreadsheetId": "sheet-1",
+      },
+      "datasetSource": "google_sheets",
+      "description": "All fields",
+      "id": "@dataset full",
+      "name": "full",
+      "updatedAt": "<Date>",
+    },
+    "rows": {
+      "agent_eval_dataset": {
+        "added": [
+          {
+            "agentId": "@agent A",
+            "columnMapping": "{"input":"q","expectedOutput":"a","criteria":"c"}",
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "createdById": "@owner",
+            "datasetRef": "{"credentialId":"cred-1","spreadsheetId":"sheet-1","sheetName":"Cases"}",
+            "datasetSource": "google_sheets",
+            "description": "All fields",
+            "id": "@dataset full",
+            "name": "full",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+          },
+        ],
+      },
+    },
+  },
+  "create minimal": {
+    "result": {
+      "<class>": "AgentEvalDataset",
+      "agentId": "@agent A",
+      "columnMapping": null,
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetRef": {
+        "dataTableId": "dt-1",
+      },
+      "datasetSource": "data_table",
+      "description": null,
+      "id": "@dataset minimal",
+      "name": "minimal",
+      "updatedAt": "<Date>",
+    },
+    "rows": {
+      "agent_eval_dataset": {
+        "added": [
+          {
+            "agentId": "@agent A",
+            "columnMapping": null,
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "createdById": null,
+            "datasetRef": "{"dataTableId":"dt-1"}",
+            "datasetSource": "data_table",
+            "description": null,
+            "id": "@dataset minimal",
+            "name": "minimal",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+          },
+        ],
+      },
+    },
+  },
+  "create with an unknown source": {
+    "error": "QueryFailedError: SQLITE_CONSTRAINT: CHECK constraint failed: CHK_agent_eval_dataset_datasetSource",
+    "rows": {},
+  },
+  "delete again": {
+    "result": false,
+    "rows": {},
+  },
+  "delete foreign": {
+    "result": false,
+    "rows": {},
+  },
+  "delete own": {
+    "result": true,
+    "rows": {
+      "agent_eval_dataset": {
+        "removed": [
+          "@dataset minimal",
+        ],
+      },
+    },
+  },
+  "findByAgentId A": {
+    "result": [
+      {
+        "<class>": "AgentEvalDataset",
+        "agentId": "@agent A",
+        "columnMapping": {
+          "criteria": "c",
+          "expectedOutput": "a",
+          "input": "q",
+        },
+        "createdAt": "<Date>",
+        "createdById": "@owner",
+        "datasetRef": {
+          "credentialId": "cred-1",
+          "sheetName": "Cases",
+          "spreadsheetId": "sheet-1",
+        },
+        "datasetSource": "google_sheets",
+        "description": "All fields",
+        "id": "@dataset full",
+        "name": "full",
+        "updatedAt": "<Date>",
+      },
+      {
+        "<class>": "AgentEvalDataset",
+        "agentId": "@agent A",
+        "columnMapping": null,
+        "createdAt": "<Date>",
+        "createdById": null,
+        "datasetRef": {
+          "dataTableId": "dt-1",
+        },
+        "datasetSource": "data_table",
+        "description": null,
+        "id": "@dataset minimal",
+        "name": "minimal",
+        "updatedAt": "<Date>",
+      },
+    ],
+    "rows": {},
+  },
+  "findByAgentId unknown": {
+    "result": [],
+    "rows": {},
+  },
+  "findById": {
+    "result": {
+      "<class>": "AgentEvalDataset",
+      "agentId": "@agent A",
+      "columnMapping": null,
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetRef": {
+        "dataTableId": "dt-1",
+      },
+      "datasetSource": "data_table",
+      "description": null,
+      "id": "@dataset minimal",
+      "name": "minimal",
+      "updatedAt": "<Date>",
+    },
+    "rows": {},
+  },
+  "findById unknown": {
+    "result": null,
+    "rows": {},
+  },
+  "findByIdAndAgentId foreign": {
+    "result": null,
+    "rows": {},
+  },
+  "findByIdAndAgentId own": {
+    "result": {
+      "<class>": "AgentEvalDataset",
+      "agentId": "@agent A",
+      "columnMapping": null,
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetRef": {
+        "dataTableId": "dt-1",
+      },
+      "datasetSource": "data_table",
+      "description": null,
+      "id": "@dataset minimal",
+      "name": "minimal",
+      "updatedAt": "<Date>",
+    },
+    "rows": {},
+  },
+  "update all fields": {
+    "result": {
+      "<class>": "AgentEvalDataset",
+      "agentId": "@agent A",
+      "columnMapping": {
+        "input": "question",
+      },
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetRef": {
+        "dataTableId": "dt-1",
+      },
+      "datasetSource": "data_table",
+      "description": "set",
+      "id": "@dataset minimal",
+      "name": "all",
+      "updatedAt": "<Date>",
+    },
+    "rows": {
+      "agent_eval_dataset": {
+        "changed": {
+          "@dataset minimal": {
+            "columnMapping": "{"input":"question"}",
+            "description": "set",
+            "name": "all",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "update foreign": {
+    "result": null,
+    "rows": {},
+  },
+  "update name": {
+    "result": {
+      "<class>": "AgentEvalDataset",
+      "agentId": "@agent A",
+      "columnMapping": null,
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetRef": {
+        "dataTableId": "dt-1",
+      },
+      "datasetSource": "data_table",
+      "description": null,
+      "id": "@dataset minimal",
+      "name": "renamed",
+      "updatedAt": "<Date>",
+    },
+    "rows": {
+      "agent_eval_dataset": {
+        "changed": {
+          "@dataset minimal": {
+            "name": "renamed",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "update to null": {
+    "result": {
+      "<class>": "AgentEvalDataset",
+      "agentId": "@agent A",
+      "columnMapping": null,
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetRef": {
+        "dataTableId": "dt-1",
+      },
+      "datasetSource": "data_table",
+      "description": null,
+      "id": "@dataset minimal",
+      "name": "all",
+      "updatedAt": "<Date>",
+    },
+    "rows": {
+      "agent_eval_dataset": {
+        "changed": {
+          "@dataset minimal": {
+            "columnMapping": null,
+            "description": null,
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "update unknown": {
+    "result": null,
+    "rows": {},
+  },
+  "update with undefined fields": {
+    "result": {
+      "<class>": "AgentEvalDataset",
+      "agentId": "@agent A",
+      "columnMapping": null,
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetRef": {
+        "dataTableId": "dt-1",
+      },
+      "datasetSource": "data_table",
+      "description": null,
+      "id": "@dataset minimal",
+      "name": "all",
+      "updatedAt": "<Date>",
+    },
+    "rows": {},
+  },
+  "update without fields": {
+    "result": {
+      "<class>": "AgentEvalDataset",
+      "agentId": "@agent A",
+      "columnMapping": null,
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetRef": {
+        "dataTableId": "dt-1",
+      },
+      "datasetSource": "data_table",
+      "description": null,
+      "id": "@dataset minimal",
+      "name": "all",
+      "updatedAt": "<Date>",
+    },
+    "rows": {},
+  },
+}
+`;
+
+exports[`AgentEvalResultRepository and AgentEvalRatingRepository > seed results, record their outcomes, and rate them 1`] = `
+{
+  "countByStatus mixed": {
+    "result": {
+      "cancelled": 1,
+      "error": 1,
+      "new": 0,
+      "running": 0,
+      "success": 2,
+    },
+    "rows": {},
+  },
+  "countByStatus new": {
+    "result": {
+      "cancelled": 0,
+      "error": 0,
+      "new": 4,
+      "running": 0,
+      "success": 0,
+    },
+    "rows": {},
+  },
+  "countByStatus unknown run": {
+    "result": {
+      "cancelled": 0,
+      "error": 0,
+      "new": 0,
+      "running": 0,
+      "success": 0,
+    },
+    "rows": {},
+  },
+  "createRating for an unknown result": {
+    "error": "QueryFailedError: SQLITE_CONSTRAINT: FOREIGN KEY constraint failed",
+    "rows": {},
+  },
+  "createRating full": {
+    "result": {
+      "<class>": "AgentEvalRating",
+      "comment": "wrong tone",
+      "correction": {
+        "finalText": "better",
+      },
+      "createdAt": "<Date>",
+      "id": "@rating 2",
+      "ratedById": "@owner",
+      "resultId": "@result 0",
+      "updatedAt": "<Date>",
+      "vote": "down",
+    },
+    "rows": {
+      "agent_eval_rating": {
+        "added": [
+          {
+            "comment": "wrong tone",
+            "correction": "{"finalText":"better"}",
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "id": "@rating 2",
+            "ratedById": "@owner",
+            "resultId": "@result 0",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "vote": "down",
+          },
+        ],
+      },
+    },
+  },
+  "createRating minimal": {
+    "result": {
+      "<class>": "AgentEvalRating",
+      "comment": null,
+      "correction": null,
+      "createdAt": "<Date>",
+      "id": "@rating 1",
+      "ratedById": null,
+      "resultId": "@result 0",
+      "updatedAt": "<Date>",
+      "vote": "up",
+    },
+    "rows": {
+      "agent_eval_rating": {
+        "added": [
+          {
+            "comment": null,
+            "correction": null,
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "id": "@rating 1",
+            "ratedById": null,
+            "resultId": "@result 0",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "vote": "up",
+          },
+        ],
+      },
+    },
+  },
+  "createRating with an unknown vote": {
+    "error": "QueryFailedError: SQLITE_CONSTRAINT: CHECK constraint failed: CHK_agent_eval_rating_vote",
+    "rows": {},
+  },
+  "delete the run cascades": {
+    "result": {
+      "<class>": "DeleteResult",
+      "affected": 1,
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_rating": {
+        "removed": [
+          "@rating 1",
+          "@rating 2",
+          "@rating 3",
+        ],
+      },
+      "agent_eval_result": {
+        "removed": [
+          "@result 0",
+          "@result 1",
+          "@result 2",
+          "@result 3",
+        ],
+      },
+      "agent_eval_run": {
+        "removed": [
+          "@run",
+        ],
+      },
+    },
+  },
+  "findAndCountByRunId default": {
+    "result": [
+      [
+        {
+          "<class>": "AgentEvalResult",
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "id": "@result 1",
+          "input": {
+            "q": "2",
+          },
+          "metrics": {
+            "usage": {
+              "inputTokens": 1,
+            },
+          },
+          "output": {
+            "answer": "43",
+          },
+          "runAt": null,
+          "runId": "@run",
+          "runIndex": 0,
+          "sourceRowId": "row-b",
+          "status": "success",
+          "toolCalls": {
+            "calls": [],
+          },
+          "updatedAt": "<Date>",
+        },
+        {
+          "<class>": "AgentEvalResult",
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "errorCode": "execution_failed",
+          "errorDetails": {
+            "message": "boom",
+          },
+          "id": "@result 2",
+          "input": null,
+          "metrics": null,
+          "output": null,
+          "runAt": null,
+          "runId": "@run",
+          "runIndex": 2,
+          "sourceRowId": null,
+          "status": "error",
+          "toolCalls": null,
+          "updatedAt": "<Date>",
+        },
+        {
+          "<class>": "AgentEvalResult",
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "id": "@result 0",
+          "input": {
+            "q": "1",
+          },
+          "metrics": null,
+          "output": {
+            "answer": "42",
+          },
+          "runAt": "<Date>",
+          "runId": "@run",
+          "runIndex": 5,
+          "sourceRowId": "row-a",
+          "status": "success",
+          "toolCalls": null,
+          "updatedAt": "<Date>",
+        },
+        {
+          "<class>": "AgentEvalResult",
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "id": "@result 3",
+          "input": null,
+          "metrics": null,
+          "output": null,
+          "runAt": null,
+          "runId": "@run",
+          "runIndex": 7,
+          "sourceRowId": null,
+          "status": "cancelled",
+          "toolCalls": null,
+          "updatedAt": "<Date>",
+        },
+      ],
+      4,
+    ],
+    "rows": {},
+  },
+  "findAndCountByRunId page": {
+    "result": [
+      [
+        {
+          "<class>": "AgentEvalResult",
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "errorCode": "execution_failed",
+          "errorDetails": {
+            "message": "boom",
+          },
+          "id": "@result 2",
+          "input": null,
+          "metrics": null,
+          "output": null,
+          "runAt": null,
+          "runId": "@run",
+          "runIndex": 2,
+          "sourceRowId": null,
+          "status": "error",
+          "toolCalls": null,
+          "updatedAt": "<Date>",
+        },
+        {
+          "<class>": "AgentEvalResult",
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "errorCode": null,
+          "errorDetails": null,
+          "id": "@result 0",
+          "input": {
+            "q": "1",
+          },
+          "metrics": null,
+          "output": {
+            "answer": "42",
+          },
+          "runAt": "<Date>",
+          "runId": "@run",
+          "runIndex": 5,
+          "sourceRowId": "row-a",
+          "status": "success",
+          "toolCalls": null,
+          "updatedAt": "<Date>",
+        },
+      ],
+      4,
+    ],
+    "rows": {},
+  },
+  "findById": {
+    "result": {
+      "<class>": "AgentEvalResult",
+      "completedAt": "<Date>",
+      "createdAt": "<Date>",
+      "errorCode": null,
+      "errorDetails": null,
+      "id": "@result 1",
+      "input": {
+        "q": "2",
+      },
+      "metrics": {
+        "usage": {
+          "inputTokens": 1,
+        },
+      },
+      "output": {
+        "answer": "43",
+      },
+      "runAt": null,
+      "runId": "@run",
+      "runIndex": 0,
+      "sourceRowId": "row-b",
+      "status": "success",
+      "toolCalls": {
+        "calls": [],
+      },
+      "updatedAt": "<Date>",
+    },
+    "rows": {},
+  },
+  "findById unknown": {
+    "result": null,
+    "rows": {},
+  },
+  "findByResultId": {
+    "result": [
+      {
+        "<class>": "AgentEvalRating",
+        "comment": "wrong tone",
+        "correction": {
+          "finalText": "better",
+        },
+        "createdAt": "<Date>",
+        "id": "@rating 2",
+        "ratedById": "@owner",
+        "resultId": "@result 0",
+        "updatedAt": "<Date>",
+        "vote": "down",
+      },
+      {
+        "<class>": "AgentEvalRating",
+        "comment": null,
+        "correction": null,
+        "createdAt": "<Date>",
+        "id": "@rating 1",
+        "ratedById": null,
+        "resultId": "@result 0",
+        "updatedAt": "<Date>",
+        "vote": "up",
+      },
+    ],
+    "rows": {},
+  },
+  "findByResultId unrated": {
+    "result": [],
+    "rows": {},
+  },
+  "findLatestByRunId": {
+    "result": [
+      {
+        "<class>": "AgentEvalRating",
+        "comment": "wrong tone",
+        "correction": {
+          "finalText": "better",
+        },
+        "createdAt": "<Date>",
+        "id": "@rating 2",
+        "ratedById": "@owner",
+        "resultId": "@result 0",
+        "updatedAt": "<Date>",
+        "vote": "down",
+      },
+      {
+        "<class>": "AgentEvalRating",
+        "comment": null,
+        "correction": null,
+        "createdAt": "<Date>",
+        "id": "@rating 3",
+        "ratedById": null,
+        "resultId": "@result 1",
+        "updatedAt": "<Date>",
+        "vote": "up",
+      },
+    ],
+    "rows": {},
+  },
+  "findLatestByRunId unknown": {
+    "result": [],
+    "rows": {},
+  },
+  "markAsCancelled": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_result": {
+        "changed": {
+          "@result 3": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "status": "cancelled",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsCompleted full": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_result": {
+        "changed": {
+          "@result 1": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "metrics": "{"usage":{"inputTokens":1}}",
+            "output": "{"answer":"43"}",
+            "status": "success",
+            "toolCalls": "{"calls":[]}",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsCompleted minimal": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_result": {
+        "changed": {
+          "@result 0": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "output": "{"answer":"42"}",
+            "status": "success",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsError": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_result": {
+        "changed": {
+          "@result 2": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "errorCode": "execution_failed",
+            "errorDetails": "{"message":"boom"}",
+            "status": "error",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsRunning": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_result": {
+        "changed": {
+          "@result 0": {
+            "runAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "status": "running",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "seed": {
+    "result": [
+      {
+        "<class>": "AgentEvalResult",
+        "completedAt": null,
+        "createdAt": "<Date>",
+        "errorCode": null,
+        "errorDetails": null,
+        "id": "@result 0",
+        "input": {
+          "q": "1",
+        },
+        "metrics": null,
+        "output": null,
+        "runAt": null,
+        "runId": "@run",
+        "runIndex": 5,
+        "sourceRowId": "row-a",
+        "status": "new",
+        "toolCalls": null,
+        "updatedAt": "<Date>",
+      },
+      {
+        "<class>": "AgentEvalResult",
+        "completedAt": null,
+        "createdAt": "<Date>",
+        "errorCode": null,
+        "errorDetails": null,
+        "id": "@result 1",
+        "input": {
+          "q": "2",
+        },
+        "metrics": null,
+        "output": null,
+        "runAt": null,
+        "runId": "@run",
+        "runIndex": 0,
+        "sourceRowId": "row-b",
+        "status": "new",
+        "toolCalls": null,
+        "updatedAt": "<Date>",
+      },
+      {
+        "<class>": "AgentEvalResult",
+        "completedAt": null,
+        "createdAt": "<Date>",
+        "errorCode": null,
+        "errorDetails": null,
+        "id": "@result 2",
+        "input": null,
+        "metrics": null,
+        "output": null,
+        "runAt": null,
+        "runId": "@run",
+        "runIndex": 2,
+        "sourceRowId": null,
+        "status": "new",
+        "toolCalls": null,
+        "updatedAt": "<Date>",
+      },
+      {
+        "<class>": "AgentEvalResult",
+        "completedAt": null,
+        "createdAt": "<Date>",
+        "errorCode": null,
+        "errorDetails": null,
+        "id": "@result 3",
+        "input": null,
+        "metrics": null,
+        "output": null,
+        "runAt": null,
+        "runId": "@run",
+        "runIndex": 7,
+        "sourceRowId": null,
+        "status": "new",
+        "toolCalls": null,
+        "updatedAt": "<Date>",
+      },
+    ],
+    "rows": {
+      "agent_eval_result": {
+        "added": [
+          {
+            "completedAt": null,
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "errorCode": null,
+            "errorDetails": null,
+            "id": "@result 0",
+            "input": "{"q":"1"}",
+            "metrics": null,
+            "output": null,
+            "runAt": null,
+            "runId": "@run",
+            "runIndex": 5,
+            "sourceRowId": "row-a",
+            "status": "new",
+            "toolCalls": null,
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+          },
+          {
+            "completedAt": null,
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "errorCode": null,
+            "errorDetails": null,
+            "id": "@result 1",
+            "input": "{"q":"2"}",
+            "metrics": null,
+            "output": null,
+            "runAt": null,
+            "runId": "@run",
+            "runIndex": 0,
+            "sourceRowId": "row-b",
+            "status": "new",
+            "toolCalls": null,
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+          },
+          {
+            "completedAt": null,
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "errorCode": null,
+            "errorDetails": null,
+            "id": "@result 2",
+            "input": null,
+            "metrics": null,
+            "output": null,
+            "runAt": null,
+            "runId": "@run",
+            "runIndex": 2,
+            "sourceRowId": null,
+            "status": "new",
+            "toolCalls": null,
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+          },
+          {
+            "completedAt": null,
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "errorCode": null,
+            "errorDetails": null,
+            "id": "@result 3",
+            "input": null,
+            "metrics": null,
+            "output": null,
+            "runAt": null,
+            "runId": "@run",
+            "runIndex": 7,
+            "sourceRowId": null,
+            "status": "new",
+            "toolCalls": null,
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+          },
+        ],
+      },
+    },
+  },
+  "seed for an unknown run": {
+    "error": "QueryFailedError: SQLITE_CONSTRAINT: FOREIGN KEY constraint failed",
+    "rows": {},
+  },
+  "seed none": {
+    "result": [],
+    "rows": {},
+  },
+}
+`;
+
+exports[`AgentEvalRunRepository > creates runs and moves them through their states 1`] = `
+{
+  "create for an unknown dataset": {
+    "error": "QueryFailedError: SQLITE_CONSTRAINT: FOREIGN KEY constraint failed",
+    "rows": {},
+  },
+  "create full": {
+    "result": {
+      "<class>": "AgentEvalRun",
+      "agentVersionId": "v-1",
+      "cancelRequested": false,
+      "completedAt": null,
+      "createdAt": "<Date>",
+      "createdById": "@owner",
+      "datasetId": "@dataset of agent R",
+      "errorCode": null,
+      "errorDetails": null,
+      "id": "@run 2",
+      "metrics": null,
+      "runAt": null,
+      "runningInstanceId": null,
+      "status": "new",
+      "updatedAt": "<Date>",
+    },
+    "rows": {
+      "agent_eval_run": {
+        "added": [
+          {
+            "agentVersionId": "v-1",
+            "cancelRequested": 0,
+            "completedAt": null,
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "createdById": "@owner",
+            "datasetId": "@dataset of agent R",
+            "errorCode": null,
+            "errorDetails": null,
+            "id": "@run 2",
+            "metrics": null,
+            "runAt": null,
+            "runningInstanceId": null,
+            "status": "new",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+          },
+        ],
+      },
+    },
+  },
+  "create minimal": {
+    "result": {
+      "<class>": "AgentEvalRun",
+      "agentVersionId": null,
+      "cancelRequested": false,
+      "completedAt": null,
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetId": "@dataset of agent R",
+      "errorCode": null,
+      "errorDetails": null,
+      "id": "@run 1",
+      "metrics": null,
+      "runAt": null,
+      "runningInstanceId": null,
+      "status": "new",
+      "updatedAt": "<Date>",
+    },
+    "rows": {
+      "agent_eval_run": {
+        "added": [
+          {
+            "agentVersionId": null,
+            "cancelRequested": 0,
+            "completedAt": null,
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "createdById": null,
+            "datasetId": "@dataset of agent R",
+            "errorCode": null,
+            "errorDetails": null,
+            "id": "@run 1",
+            "metrics": null,
+            "runAt": null,
+            "runningInstanceId": null,
+            "status": "new",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+          },
+        ],
+      },
+    },
+  },
+  "create with null version": {
+    "result": {
+      "<class>": "AgentEvalRun",
+      "agentVersionId": null,
+      "cancelRequested": false,
+      "completedAt": null,
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetId": "@dataset of agent R",
+      "errorCode": null,
+      "errorDetails": null,
+      "id": "@run 3",
+      "metrics": null,
+      "runAt": null,
+      "runningInstanceId": null,
+      "status": "new",
+      "updatedAt": "<Date>",
+    },
+    "rows": {
+      "agent_eval_run": {
+        "added": [
+          {
+            "agentVersionId": null,
+            "cancelRequested": 0,
+            "completedAt": null,
+            "createdAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "createdById": null,
+            "datasetId": "@dataset of agent R",
+            "errorCode": null,
+            "errorDetails": null,
+            "id": "@run 3",
+            "metrics": null,
+            "runAt": null,
+            "runningInstanceId": null,
+            "status": "new",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+          },
+        ],
+      },
+    },
+  },
+  "findAndCount default": {
+    "result": [
+      [
+        {
+          "<class>": "AgentEvalRun",
+          "agentVersionId": null,
+          "cancelRequested": false,
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "createdById": null,
+          "datasetId": "@dataset of agent R",
+          "errorCode": null,
+          "errorDetails": null,
+          "id": "@run 5",
+          "metrics": null,
+          "runAt": "<Date>",
+          "runningInstanceId": null,
+          "status": "cancelled",
+          "updatedAt": "<Date>",
+        },
+        {
+          "<class>": "AgentEvalRun",
+          "agentVersionId": null,
+          "cancelRequested": true,
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "createdById": null,
+          "datasetId": "@dataset of agent R",
+          "errorCode": null,
+          "errorDetails": null,
+          "id": "@run 4",
+          "metrics": {
+            "total": 1,
+          },
+          "runAt": null,
+          "runningInstanceId": null,
+          "status": "cancelled",
+          "updatedAt": "<Date>",
+        },
+        {
+          "<class>": "AgentEvalRun",
+          "agentVersionId": null,
+          "cancelRequested": false,
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "createdById": null,
+          "datasetId": "@dataset of agent R",
+          "errorCode": "timeout",
+          "errorDetails": {
+            "message": "late",
+          },
+          "id": "@run 3",
+          "metrics": {
+            "total": 3,
+          },
+          "runAt": null,
+          "runningInstanceId": null,
+          "status": "error",
+          "updatedAt": "<Date>",
+        },
+        {
+          "<class>": "AgentEvalRun",
+          "agentVersionId": "v-1",
+          "cancelRequested": false,
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "createdById": "@owner",
+          "datasetId": "@dataset of agent R",
+          "errorCode": "run_failed",
+          "errorDetails": {
+            "message": "boom",
+          },
+          "id": "@run 2",
+          "metrics": null,
+          "runAt": "<Date>",
+          "runningInstanceId": null,
+          "status": "error",
+          "updatedAt": "<Date>",
+        },
+        {
+          "<class>": "AgentEvalRun",
+          "agentVersionId": null,
+          "cancelRequested": false,
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "createdById": null,
+          "datasetId": "@dataset of agent R",
+          "errorCode": null,
+          "errorDetails": null,
+          "id": "@run 1",
+          "metrics": {
+            "success": 2,
+            "total": 2,
+          },
+          "runAt": "<Date>",
+          "runningInstanceId": null,
+          "status": "completed",
+          "updatedAt": "<Date>",
+        },
+      ],
+      5,
+    ],
+    "rows": {},
+  },
+  "findAndCount foreign": {
+    "result": [
+      [],
+      0,
+    ],
+    "rows": {},
+  },
+  "findAndCount page": {
+    "result": [
+      [
+        {
+          "<class>": "AgentEvalRun",
+          "agentVersionId": null,
+          "cancelRequested": true,
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "createdById": null,
+          "datasetId": "@dataset of agent R",
+          "errorCode": null,
+          "errorDetails": null,
+          "id": "@run 4",
+          "metrics": {
+            "total": 1,
+          },
+          "runAt": null,
+          "runningInstanceId": null,
+          "status": "cancelled",
+          "updatedAt": "<Date>",
+        },
+        {
+          "<class>": "AgentEvalRun",
+          "agentVersionId": null,
+          "cancelRequested": false,
+          "completedAt": "<Date>",
+          "createdAt": "<Date>",
+          "createdById": null,
+          "datasetId": "@dataset of agent R",
+          "errorCode": "timeout",
+          "errorDetails": {
+            "message": "late",
+          },
+          "id": "@run 3",
+          "metrics": {
+            "total": 3,
+          },
+          "runAt": null,
+          "runningInstanceId": null,
+          "status": "error",
+          "updatedAt": "<Date>",
+        },
+      ],
+      5,
+    ],
+    "rows": {},
+  },
+  "findByDatasetId": {
+    "result": [
+      {
+        "<class>": "AgentEvalRun",
+        "agentVersionId": null,
+        "cancelRequested": false,
+        "completedAt": "<Date>",
+        "createdAt": "<Date>",
+        "createdById": null,
+        "datasetId": "@dataset of agent R",
+        "errorCode": null,
+        "errorDetails": null,
+        "id": "@run 5",
+        "metrics": null,
+        "runAt": "<Date>",
+        "runningInstanceId": null,
+        "status": "cancelled",
+        "updatedAt": "<Date>",
+      },
+      {
+        "<class>": "AgentEvalRun",
+        "agentVersionId": null,
+        "cancelRequested": true,
+        "completedAt": "<Date>",
+        "createdAt": "<Date>",
+        "createdById": null,
+        "datasetId": "@dataset of agent R",
+        "errorCode": null,
+        "errorDetails": null,
+        "id": "@run 4",
+        "metrics": {
+          "total": 1,
+        },
+        "runAt": null,
+        "runningInstanceId": null,
+        "status": "cancelled",
+        "updatedAt": "<Date>",
+      },
+      {
+        "<class>": "AgentEvalRun",
+        "agentVersionId": null,
+        "cancelRequested": false,
+        "completedAt": "<Date>",
+        "createdAt": "<Date>",
+        "createdById": null,
+        "datasetId": "@dataset of agent R",
+        "errorCode": "timeout",
+        "errorDetails": {
+          "message": "late",
+        },
+        "id": "@run 3",
+        "metrics": {
+          "total": 3,
+        },
+        "runAt": null,
+        "runningInstanceId": null,
+        "status": "error",
+        "updatedAt": "<Date>",
+      },
+      {
+        "<class>": "AgentEvalRun",
+        "agentVersionId": "v-1",
+        "cancelRequested": false,
+        "completedAt": "<Date>",
+        "createdAt": "<Date>",
+        "createdById": "@owner",
+        "datasetId": "@dataset of agent R",
+        "errorCode": "run_failed",
+        "errorDetails": {
+          "message": "boom",
+        },
+        "id": "@run 2",
+        "metrics": null,
+        "runAt": "<Date>",
+        "runningInstanceId": null,
+        "status": "error",
+        "updatedAt": "<Date>",
+      },
+      {
+        "<class>": "AgentEvalRun",
+        "agentVersionId": null,
+        "cancelRequested": false,
+        "completedAt": "<Date>",
+        "createdAt": "<Date>",
+        "createdById": null,
+        "datasetId": "@dataset of agent R",
+        "errorCode": null,
+        "errorDetails": null,
+        "id": "@run 1",
+        "metrics": {
+          "success": 2,
+          "total": 2,
+        },
+        "runAt": "<Date>",
+        "runningInstanceId": null,
+        "status": "completed",
+        "updatedAt": "<Date>",
+      },
+    ],
+    "rows": {},
+  },
+  "findById": {
+    "result": {
+      "<class>": "AgentEvalRun",
+      "agentVersionId": null,
+      "cancelRequested": false,
+      "completedAt": "<Date>",
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetId": "@dataset of agent R",
+      "errorCode": null,
+      "errorDetails": null,
+      "id": "@run 1",
+      "metrics": {
+        "success": 2,
+        "total": 2,
+      },
+      "runAt": "<Date>",
+      "runningInstanceId": null,
+      "status": "completed",
+      "updatedAt": "<Date>",
+    },
+    "rows": {},
+  },
+  "findById unknown": {
+    "result": null,
+    "rows": {},
+  },
+  "findByIdAndAgentId foreign": {
+    "result": null,
+    "rows": {},
+  },
+  "findByIdAndAgentId own": {
+    "result": {
+      "<class>": "AgentEvalRun",
+      "agentVersionId": null,
+      "cancelRequested": false,
+      "completedAt": "<Date>",
+      "createdAt": "<Date>",
+      "createdById": null,
+      "datasetId": "@dataset of agent R",
+      "errorCode": null,
+      "errorDetails": null,
+      "id": "@run 1",
+      "metrics": {
+        "success": 2,
+        "total": 2,
+      },
+      "runAt": "<Date>",
+      "runningInstanceId": null,
+      "status": "completed",
+      "updatedAt": "<Date>",
+    },
+    "rows": {},
+  },
+  "isCancellationRequested no": {
+    "result": false,
+    "rows": {},
+  },
+  "isCancellationRequested unknown": {
+    "result": false,
+    "rows": {},
+  },
+  "isCancellationRequested yes": {
+    "result": true,
+    "rows": {},
+  },
+  "markAllIncompleteAsError": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 2,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_run": {
+        "changed": {
+          "@run 6": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "errorCode": "interrupted",
+            "status": "error",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+          "@run 7": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "errorCode": "interrupted",
+            "runningInstanceId": null,
+            "status": "error",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAllIncompleteAsError again": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 0,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {},
+  },
+  "markAsCancelled with metrics": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_run": {
+        "changed": {
+          "@run 4": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "metrics": "{"total":1}",
+            "status": "cancelled",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsCancelled without metrics": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_run": {
+        "changed": {
+          "@run 5": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "runningInstanceId": null,
+            "status": "cancelled",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsCompleted": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_run": {
+        "changed": {
+          "@run 1": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "metrics": "{"total":2,"success":2}",
+            "runningInstanceId": null,
+            "status": "completed",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsError": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_run": {
+        "changed": {
+          "@run 2": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "errorCode": "run_failed",
+            "errorDetails": "{"message":"boom"}",
+            "status": "error",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsError with metrics": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_run": {
+        "changed": {
+          "@run 3": {
+            "completedAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "errorCode": "timeout",
+            "errorDetails": "{"message":"late"}",
+            "metrics": "{"total":3}",
+            "status": "error",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsRunning run 5": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_run": {
+        "changed": {
+          "@run 5": {
+            "runAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "runningInstanceId": "main-2",
+            "status": "running",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsRunning with instance": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_run": {
+        "changed": {
+          "@run 1": {
+            "runAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "runningInstanceId": "main-1",
+            "status": "running",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "markAsRunning without instance": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_run": {
+        "changed": {
+          "@run 2": {
+            "runAt": "<date dddd-dd-dd dd:dd:dd.ddd>",
+            "status": "running",
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "requestCancellation": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 1,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {
+      "agent_eval_run": {
+        "changed": {
+          "@run 4": {
+            "cancelRequested": 1,
+            "updatedAt": "<date dddd-dd-dd dd:dd:dd>",
+          },
+        },
+      },
+    },
+  },
+  "requestCancellation unknown": {
+    "result": {
+      "<class>": "UpdateResult",
+      "affected": 0,
+      "generatedMaps": [],
+      "raw": [],
+    },
+    "rows": {},
+  },
+}
+`;

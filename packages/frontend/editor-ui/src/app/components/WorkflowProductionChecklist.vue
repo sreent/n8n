@@ -2,7 +2,7 @@
 import { computed, inject, ref, onMounted, watch } from 'vue';
 import { useI18n } from '@n8n/i18n';
 import { useRouter } from 'vue-router';
-import { useEvaluationStore } from '@/features/ai/evaluation.ee/evaluation.store';
+import { useEvaluationStore } from '@/features/ai/evaluation/evaluation.store';
 import { useNodeTypesStore } from '@/app/stores/nodeTypes.store';
 import type { ActionType, WorkflowSettings } from '@/app/composables/useWorkflowsCache';
 import { useWorkflowSettingsCache } from '@/app/composables/useWorkflowsCache';
@@ -25,7 +25,7 @@ import { N8nSuggestedActions } from '@n8n/design-system';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { WorkflowDocumentStoreKey } from '@/app/constants/injectionKeys';
-import { useWorkflowEvaluationState } from '@/features/ai/evaluation.ee/composables/useWorkflowEvaluationState';
+import { useWorkflowEvaluationState } from '@/features/ai/evaluation/composables/useWorkflowEvaluationState';
 
 defineProps<{
 	hideTrigger?: boolean;

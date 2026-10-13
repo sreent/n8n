@@ -2,7 +2,7 @@ import { computed } from 'vue';
 import type { RouteLocationNormalized } from 'vue-router';
 import { useFoldersStore } from '@/features/core/folders/folders.store';
 import { useCredentialsStore } from '@/features/credentials/credentials.store';
-import { useEnvironmentsStore } from '@/features/settings/environments.ee/environments.store';
+import { useEnvironmentsStore } from '@/features/settings/environments/environments.store';
 import { useDataTableStore } from '@/features/core/dataTable/dataTable.store';
 import { useProjectPages } from '@/features/collaboration/projects/composables/useProjectPages';
 import { useRoute } from 'vue-router';

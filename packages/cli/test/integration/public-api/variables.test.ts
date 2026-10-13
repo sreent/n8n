@@ -3,7 +3,7 @@ import type { Project, User, Variables } from '@n8n/db';
 import { ProjectRepository, VariablesRepository } from '@n8n/db';
 import { Container } from '@n8n/di';
 
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import { VariablesService } from '@/environments/variables/variables.service';
 import { FeatureNotLicensedError } from '@/errors/feature-not-licensed.error';
 import { createMemberWithApiKey, createOwnerWithApiKey } from '@test-integration/db/users';
 import {

@@ -1,9 +1,9 @@
 import { Container } from '@n8n/di';
 import type { Mock } from 'vitest';
 
-import { AgentEvalRun } from '../../entities/agent-eval-run.ee';
+import { AgentEvalRun } from '../../entities/agent-eval-run';
 import { mockEntityManager } from '../../utils/test-utils/mock-entity-manager';
-import { AgentEvalRunRepository } from '../agent-eval-run.repository.ee';
+import { AgentEvalRunRepository } from '../agent-eval-run.repository';
 
 describe('AgentEvalRunRepository', () => {
 	const entityManager = mockEntityManager(AgentEvalRun);

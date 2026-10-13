@@ -252,7 +252,7 @@ vi.mock('../agentEvals.api', () => ({
 }));
 
 const agentEvalsFlagMock = vi.hoisted(() => ({ enabled: false }));
-vi.mock('@/features/ai/evaluation.ee/composables/useAgentEvalsFlag', () => ({
+vi.mock('@/features/ai/evaluation/composables/useAgentEvalsFlag', () => ({
 	useAgentEvalsFlag: () => ({
 		get value() {
 			return agentEvalsFlagMock.enabled;

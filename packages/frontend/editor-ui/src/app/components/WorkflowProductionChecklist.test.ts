@@ -9,7 +9,7 @@ import {
 	createWorkflowDocumentId,
 } from '@/app/stores/workflowDocument.store';
 import { WorkflowDocumentStoreKey } from '@/app/constants/injectionKeys';
-import { useEvaluationStore } from '@/features/ai/evaluation.ee/evaluation.store';
+import { useEvaluationStore } from '@/features/ai/evaluation/evaluation.store';
 import { useNodeTypesStore } from '@/app/stores/nodeTypes.store';
 import { useWorkflowSettingsCache } from '@/app/composables/useWorkflowsCache';
 import { useUIStore } from '@/app/stores/ui.store';
@@ -52,7 +52,7 @@ vi.mock('@n8n/composables/useTelemetry', () => ({
 vi.mock('@/features/ai/mcpAccess/composables/useMcp', () => ({}));
 
 const mockEvaluationSetOutputsNodeExist = ref(false);
-vi.mock('@/features/ai/evaluation.ee/composables/useWorkflowEvaluationState', () => ({
+vi.mock('@/features/ai/evaluation/composables/useWorkflowEvaluationState', () => ({
 	useWorkflowEvaluationState: () => ({
 		evaluationTriggerExists: ref(false),
 		evaluationSetMetricsNodeExist: ref(false),

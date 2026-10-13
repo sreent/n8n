@@ -9,7 +9,7 @@ import {
 } from 'n8n-workflow';
 
 import { GoogleSheet } from '../../Google/Sheet/v2/helpers/GoogleSheet';
-import { Evaluation } from '../Evaluation/Evaluation.node.ee';
+import { Evaluation } from '../Evaluation/Evaluation.node';
 import type { Mock } from 'vitest';
 
 describe('Test Evaluation', () => {

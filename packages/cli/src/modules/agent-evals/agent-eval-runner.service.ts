@@ -21,7 +21,7 @@ import pLimit from 'p-limit';
 
 import { ConcurrencyControlService } from '@/concurrency/concurrency-control.service';
 import { BadRequestError, ForbiddenError, NotFoundError } from '@n8n/errors';
-import { resolveEvaluationConcurrencyLimit } from '@/evaluation.ee/evaluation-concurrency.helper';
+import { resolveEvaluationConcurrencyLimit } from '@/evaluation/evaluation-concurrency.helper';
 import { License } from '@/license';
 import { AgentsSettingsService } from '@/modules/agents/agents-settings.service';
 import { AgentRepository } from '@/modules/agents/repositories/agent.repository';

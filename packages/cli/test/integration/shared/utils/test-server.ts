@@ -227,7 +227,7 @@ export const setupTestServer = ({
 						break;
 
 					case 'variables':
-						await import('@/environments.ee/variables/variables.controller.ee.js');
+						await import('@/environments/variables/variables.controller.js');
 						break;
 
 					case 'ai-preferences':
@@ -365,7 +365,7 @@ export const setupTestServer = ({
 						break;
 
 					case 'evaluation':
-						await import('@/evaluation.ee/test-runs.controller.ee.js');
+						await import('@/evaluation/test-runs.controller.js');
 						break;
 
 					case 'ai':

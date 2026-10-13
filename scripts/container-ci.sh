@@ -178,6 +178,9 @@ SHA=$(git rev-parse --short HEAD)
 OUT=${CONTAINER_CI_OUT:-/tmp/container-ci}/$SHA
 rm -rf "$OUT" && mkdir -p "$OUT"
 FAILED=0
+# The test setup of the CLI makes a folder with a database in n8n-tests for each test file, and
+# nothing removes it. In one cloud session, repeated runs fill the disk, so remove the old folders.
+rm -rf "${TMPDIR:-/tmp}/n8n-tests"
 
 step() {
 	local name=$1
@@ -215,7 +218,9 @@ if [ "${#TESTED_FILTERS[@]}" -gt 0 ]; then
 	# come from a run with other code in a dependency. So the steps that read the code of other
 	# packages use --force, which does not read the cache.
 	step typecheck "$TURBO" run typecheck "${TESTED_FILTERS[@]}" --only --force --continue --concurrency=1
-	step lint "$TURBO" run lint "${TESTED_FILTERS[@]}" --only --force --continue --concurrency=2
+	# One lint at a time: the type-aware lints of cli and of the editor need about 11 GB and 8 GB,
+	# and together they run out of the memory of a cloud session.
+	step lint "$TURBO" run lint "${TESTED_FILTERS[@]}" --only --force --continue --concurrency=1
 	step lint-styles "$TURBO" run lint:styles "${TESTED_FILTERS[@]}" --only --continue --concurrency=2
 fi
 

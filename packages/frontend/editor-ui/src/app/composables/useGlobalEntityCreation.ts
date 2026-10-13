@@ -15,7 +15,7 @@ import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/
 import { useUsersStore } from '@n8n/stores/users.store';
 import { useUIStore } from '@/app/stores/ui.store';
 import { useTelemetry } from '@n8n/composables/useTelemetry';
-import { VARIABLE_MODAL_KEY } from '@/features/settings/environments.ee/environments.constants';
+import { VARIABLE_MODAL_KEY } from '@/features/settings/environments/environments.constants';
 import { PROJECT_DATA_TABLES } from '@/features/core/dataTable/constants';
 import { getResourcePermissions } from '@n8n/permissions';
 import { usePageRedirectionHelper } from '@/app/composables/usePageRedirectionHelper';

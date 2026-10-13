@@ -4,7 +4,7 @@ import { Service } from '@n8n/di';
 import { pickVariableForProject } from 'n8n-workflow';
 import { ZodError } from 'zod';
 
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import { VariablesService } from '@/environments/variables/variables.service';
 
 import { VariableSerializer } from './variable.serializer';
 import type {

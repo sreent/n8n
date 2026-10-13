@@ -13,7 +13,7 @@ import { mock, type MockProxy } from 'vitest-mock-extended';
 
 import type { ConcurrencyControlService } from '@/concurrency/concurrency-control.service';
 import { ForbiddenError, NotFoundError } from '@n8n/errors';
-import { resolveEvaluationConcurrencyLimit } from '@/evaluation.ee/evaluation-concurrency.helper';
+import { resolveEvaluationConcurrencyLimit } from '@/evaluation/evaluation-concurrency.helper';
 import type { License } from '@/license';
 import type { AgentsSettingsService } from '@/modules/agents/agents-settings.service';
 import type { Agent } from '@/modules/agents/entities/agent.entity';
@@ -31,7 +31,7 @@ vi.mock('@/concurrency/concurrency-control.service', () => ({
 	ConcurrencyControlService: class ConcurrencyControlService {},
 }));
 vi.mock('@/license', () => ({ License: class License {} }));
-vi.mock('@/evaluation.ee/evaluation-concurrency.helper', () => ({
+vi.mock('@/evaluation/evaluation-concurrency.helper', () => ({
 	// Fixed per-run limit keeps the pool deterministic (serial) in unit tests.
 	resolveEvaluationConcurrencyLimit: vi.fn().mockReturnValue(1),
 }));

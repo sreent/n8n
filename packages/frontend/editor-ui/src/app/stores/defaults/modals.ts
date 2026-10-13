@@ -52,7 +52,7 @@ import {
 	COMMUNITY_PACKAGE_CONFIRM_MODAL_KEY,
 	COMMUNITY_PACKAGE_INSTALL_MODAL_KEY,
 } from '@/features/settings/communityNodes/communityNodes.constants';
-import { VARIABLE_MODAL_KEY } from '@/features/settings/environments.ee/environments.constants';
+import { VARIABLE_MODAL_KEY } from '@/features/settings/environments/environments.constants';
 import { COMMUNITY_PLUS_ENROLLMENT_MODAL } from '@/features/settings/usage/usage.constants';
 import {
 	DELETE_USER_MODAL_KEY,

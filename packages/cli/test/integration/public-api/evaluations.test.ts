@@ -10,7 +10,7 @@ import { ErrorReporter } from 'n8n-core';
 import { EVALUATION_TRIGGER_NODE_TYPE } from 'n8n-workflow';
 import type { INode } from 'n8n-workflow';
 
-import { TestRunnerService } from '@/evaluation.ee/test-runner/test-runner.service.ee';
+import { TestRunnerService } from '@/evaluation/test-runner/test-runner.service';
 import { Telemetry } from '@/telemetry';
 
 import { createTestCaseExecution, createTestRun } from '../shared/db/evaluation';

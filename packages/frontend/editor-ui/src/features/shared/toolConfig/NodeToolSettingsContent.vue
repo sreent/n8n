@@ -44,7 +44,7 @@ import {
 	WorkflowDocumentStoreKey,
 } from '@/app/constants';
 import type { ExpressionLocalResolveContext } from '@/app/types/expressions';
-import useEnvironmentsStore from '@/features/settings/environments.ee/environments.store';
+import useEnvironmentsStore from '@/features/settings/environments/environments.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import {
 	createWorkflowDocumentId,

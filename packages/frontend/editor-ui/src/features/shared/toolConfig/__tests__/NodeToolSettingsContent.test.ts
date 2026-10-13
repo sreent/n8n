@@ -5,7 +5,7 @@ import { mockedStore } from '@/__tests__/utils';
 import { useNodeTypesStore } from '@/app/stores/nodeTypes.store';
 import { useCredentialsStore } from '@/features/credentials/credentials.store';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
-import useEnvironmentsStore from '@/features/settings/environments.ee/environments.store';
+import useEnvironmentsStore from '@/features/settings/environments/environments.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { ToolConfigCredentialSelectedKey } from '@/app/constants';
 import { createWorkflowDocumentId } from '@/app/stores/workflowDocument.store';

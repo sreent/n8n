@@ -84,9 +84,19 @@ The fork removes the enterprise code step by step, and builds its own versions o
    Then the features that the owner chose to rebuild on 2026-10-12, in this order: execution
    annotations (done, see
    [packages/cli/src/executions/FORK.md](packages/cli/src/executions/FORK.md#execution-annotations)),
-   variables, evaluations, and the local parts of the AI workflow builder that the MCP tools of
-   the workflow builder use. The chat of the AI builder needs a service of n8n, and goes. Then the
-   source control editor, and last the enterprise files that fork code replaced.
+   variables (done, see
+   [packages/cli/src/environments/variables/FORK.md](packages/cli/src/environments/variables/FORK.md)),
+   evaluations (done, in four parts: the agent eval tables, see
+   [packages/@n8n/db/src/entities/FORK.md](packages/@n8n/db/src/entities/FORK.md#the-agent-eval-tables),
+   the Evaluation nodes, see
+   [packages/nodes-base/nodes/Evaluation/FORK.md](packages/nodes-base/nodes/Evaluation/FORK.md),
+   the backend, see
+   [packages/cli/src/evaluation/FORK.md](packages/cli/src/evaluation/FORK.md), and the editor,
+   see
+   [the FORK.md of the editor folder](packages/frontend/editor-ui/src/features/ai/evaluation/FORK.md)),
+   and the local parts of the AI workflow builder that the MCP tools of the workflow builder use.
+   The chat of the AI builder needs a service of n8n, and goes. Then the source control editor,
+   and last the enterprise files that fork code replaced.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off.
@@ -166,10 +176,19 @@ them again after each upstream update, and container CI checks that they stay de
   `packages/frontend/editor-ui/src/features/integrations/secretsProviders`), of the sharing UI
   and the `EnterpriseEdition` gate (`packages/frontend/editor-ui`), and of the execution
   annotations (`packages/cli/test/integration/annotation-tags.api.test.ts` and the two editor
-  tests that `packages/cli/src/executions/FORK.md` names) fail when an update changes what a role
-  may do, how projects, sharing, the sign-in method, the OIDC sign-in, the role provisioning, the
-  SAML sign-in, the secrets providers, the queries of their connections, the external secrets
-  module, the external secrets editor, the connections editor or the execution annotations work.
+  tests that `packages/cli/src/executions/FORK.md` names), and of variables
+  (`packages/cli/test/integration/variables.api.test.ts` and the editor test in
+  `packages/frontend/editor-ui/src/features/settings/environments`), and of the agent eval tables
+  (`packages/cli/test/integration/database/repositories/agent-eval.repositories.test.ts`), and of
+  the Evaluation nodes (`packages/nodes-base/nodes/Evaluation/test/Evaluation.golden.test.ts`),
+  and of the evaluation backend (the `*.golden.test.ts` files in
+  `packages/cli/test/integration/evaluation`), and of the evaluation editor (the golden tests in
+  `packages/frontend/editor-ui/src/features/ai/evaluation/__tests__/golden`) fail when an update
+  changes what a role may do, how projects, sharing, the sign-in method, the OIDC sign-in, the
+  role provisioning, the SAML sign-in, the secrets providers, the queries of their connections,
+  the external secrets module, the external secrets editor, the connections editor, the
+  execution annotations, the variables, the agent eval tables, the Evaluation nodes, the
+  evaluation backend or the evaluation editor work.
   Compare the change with the upstream change, then update the fork code or the snapshot. The
   FORK.md files there tell how to record a snapshot against the enterprise code.
 - When an upstream update changes the public API handler

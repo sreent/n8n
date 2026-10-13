@@ -1,0 +1,401 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the LLM judge providers 1`] = `
+{
+  "get """: "<undefined>",
+  "get "@n8n/n8n-nodes-langchain.lmChatUnknown"": "<undefined>",
+  "get "httpBasicAuth"": "<undefined>",
+  "get @n8n/n8n-nodes-langchain.lmChatAlibabaCloud": {
+    "credentialTypes": [
+      {
+        "displayName": "Qwen Cloud",
+        "name": "alibabaCloudApi",
+      },
+    ],
+    "displayName": "Qwen Cloud Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatAlibabaCloud",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatAnthropic": {
+    "credentialTypes": [
+      {
+        "displayName": "Anthropic",
+        "name": "anthropicApi",
+      },
+    ],
+    "displayName": "Anthropic Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatAwsBedrock": {
+    "credentialTypes": [
+      {
+        "displayName": "AWS",
+        "name": "aws",
+      },
+    ],
+    "displayName": "AWS Bedrock Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatAzureOpenAi": {
+    "credentialTypes": [
+      {
+        "displayName": "Azure OpenAI",
+        "name": "azureOpenAiApi",
+      },
+      {
+        "displayName": "Azure Entra (Cognitive Services)",
+        "name": "azureEntraCognitiveServicesOAuth2Api",
+      },
+    ],
+    "displayName": "Azure AI Foundry Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatCohere": {
+    "credentialTypes": [
+      {
+        "displayName": "Cohere",
+        "name": "cohereApi",
+      },
+    ],
+    "displayName": "Cohere Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatCohere",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatDeepSeek": {
+    "credentialTypes": [
+      {
+        "displayName": "DeepSeek",
+        "name": "deepSeekApi",
+      },
+    ],
+    "displayName": "DeepSeek Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatDeepSeek",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatGoogleGemini": {
+    "credentialTypes": [
+      {
+        "displayName": "Google Gemini (PaLM) API",
+        "name": "googlePalmApi",
+      },
+    ],
+    "displayName": "Google Gemini Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatGoogleVertex": {
+    "credentialTypes": [
+      {
+        "displayName": "Google Service Account",
+        "name": "googleApi",
+      },
+    ],
+    "displayName": "Google Vertex Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatGoogleVertex",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatGroq": {
+    "credentialTypes": [
+      {
+        "displayName": "Groq",
+        "name": "groqApi",
+      },
+    ],
+    "displayName": "Groq Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatGroq",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatLemonade": {
+    "credentialTypes": [
+      {
+        "displayName": "Lemonade",
+        "name": "lemonadeApi",
+      },
+    ],
+    "displayName": "Lemonade Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatLemonade",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatMinimax": {
+    "credentialTypes": [
+      {
+        "displayName": "MiniMax",
+        "name": "minimaxApi",
+      },
+    ],
+    "displayName": "MiniMax Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatMinimax",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatMistralCloud": {
+    "credentialTypes": [
+      {
+        "displayName": "Mistral Cloud",
+        "name": "mistralCloudApi",
+      },
+    ],
+    "displayName": "Mistral Cloud Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatMoonshot": {
+    "credentialTypes": [
+      {
+        "displayName": "Moonshot",
+        "name": "moonshotApi",
+      },
+    ],
+    "displayName": "Moonshot Kimi Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatMoonshot",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatOllama": {
+    "credentialTypes": [
+      {
+        "displayName": "Ollama",
+        "name": "ollamaApi",
+      },
+    ],
+    "displayName": "Ollama Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatOllama",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatOpenAi": {
+    "credentialTypes": [
+      {
+        "displayName": "OpenAI",
+        "name": "openAiApi",
+      },
+    ],
+    "displayName": "OpenAI Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatOpenRouter": {
+    "credentialTypes": [
+      {
+        "displayName": "OpenRouter",
+        "name": "openRouterApi",
+      },
+    ],
+    "displayName": "OpenRouter Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatVercelAiGateway": {
+    "credentialTypes": [
+      {
+        "displayName": "Vercel AI Gateway",
+        "name": "vercelAiGatewayApi",
+      },
+    ],
+    "displayName": "Vercel AI Gateway Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatVercelAiGateway",
+  },
+  "get @n8n/n8n-nodes-langchain.lmChatXAiGrok": {
+    "credentialTypes": [
+      {
+        "displayName": "xAI",
+        "name": "xAiApi",
+      },
+    ],
+    "displayName": "xAI Grok Chat Model",
+    "nodeType": "@n8n/n8n-nodes-langchain.lmChatXAiGrok",
+  },
+  "getByCredentialType """: "<undefined>",
+  "getByCredentialType "@n8n/n8n-nodes-langchain.lmChatUnknown"": "<undefined>",
+  "getByCredentialType "httpBasicAuth"": "<undefined>",
+  "getByCredentialType alibabaCloudApi": "@n8n/n8n-nodes-langchain.lmChatAlibabaCloud",
+  "getByCredentialType anthropicApi": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+  "getByCredentialType aws": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+  "getByCredentialType azureEntraCognitiveServicesOAuth2Api": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+  "getByCredentialType azureOpenAiApi": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+  "getByCredentialType cohereApi": "@n8n/n8n-nodes-langchain.lmChatCohere",
+  "getByCredentialType deepSeekApi": "@n8n/n8n-nodes-langchain.lmChatDeepSeek",
+  "getByCredentialType googleApi": "@n8n/n8n-nodes-langchain.lmChatGoogleVertex",
+  "getByCredentialType googlePalmApi": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+  "getByCredentialType groqApi": "@n8n/n8n-nodes-langchain.lmChatGroq",
+  "getByCredentialType lemonadeApi": "@n8n/n8n-nodes-langchain.lmChatLemonade",
+  "getByCredentialType minimaxApi": "@n8n/n8n-nodes-langchain.lmChatMinimax",
+  "getByCredentialType mistralCloudApi": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+  "getByCredentialType moonshotApi": "@n8n/n8n-nodes-langchain.lmChatMoonshot",
+  "getByCredentialType ollamaApi": "@n8n/n8n-nodes-langchain.lmChatOllama",
+  "getByCredentialType openAiApi": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+  "getByCredentialType openRouterApi": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+  "getByCredentialType vercelAiGatewayApi": "@n8n/n8n-nodes-langchain.lmChatVercelAiGateway",
+  "getByCredentialType xAiApi": "@n8n/n8n-nodes-langchain.lmChatXAiGrok",
+  "listProviders": [
+    {
+      "credentialTypes": [
+        {
+          "displayName": "OpenAI",
+          "name": "openAiApi",
+        },
+      ],
+      "displayName": "OpenAI Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Anthropic",
+          "name": "anthropicApi",
+        },
+      ],
+      "displayName": "Anthropic Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Google Gemini (PaLM) API",
+          "name": "googlePalmApi",
+        },
+      ],
+      "displayName": "Google Gemini Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Google Service Account",
+          "name": "googleApi",
+        },
+      ],
+      "displayName": "Google Vertex Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatGoogleVertex",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Azure OpenAI",
+          "name": "azureOpenAiApi",
+        },
+        {
+          "displayName": "Azure Entra (Cognitive Services)",
+          "name": "azureEntraCognitiveServicesOAuth2Api",
+        },
+      ],
+      "displayName": "Azure AI Foundry Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "AWS",
+          "name": "aws",
+        },
+      ],
+      "displayName": "AWS Bedrock Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Ollama",
+          "name": "ollamaApi",
+        },
+      ],
+      "displayName": "Ollama Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatOllama",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Vercel AI Gateway",
+          "name": "vercelAiGatewayApi",
+        },
+      ],
+      "displayName": "Vercel AI Gateway Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatVercelAiGateway",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "xAI",
+          "name": "xAiApi",
+        },
+      ],
+      "displayName": "xAI Grok Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatXAiGrok",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Groq",
+          "name": "groqApi",
+        },
+      ],
+      "displayName": "Groq Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatGroq",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "OpenRouter",
+          "name": "openRouterApi",
+        },
+      ],
+      "displayName": "OpenRouter Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "DeepSeek",
+          "name": "deepSeekApi",
+        },
+      ],
+      "displayName": "DeepSeek Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatDeepSeek",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Cohere",
+          "name": "cohereApi",
+        },
+      ],
+      "displayName": "Cohere Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatCohere",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Mistral Cloud",
+          "name": "mistralCloudApi",
+        },
+      ],
+      "displayName": "Mistral Cloud Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Qwen Cloud",
+          "name": "alibabaCloudApi",
+        },
+      ],
+      "displayName": "Qwen Cloud Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatAlibabaCloud",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "MiniMax",
+          "name": "minimaxApi",
+        },
+      ],
+      "displayName": "MiniMax Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatMinimax",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Moonshot",
+          "name": "moonshotApi",
+        },
+      ],
+      "displayName": "Moonshot Kimi Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatMoonshot",
+    },
+    {
+      "credentialTypes": [
+        {
+          "displayName": "Lemonade",
+          "name": "lemonadeApi",
+        },
+      ],
+      "displayName": "Lemonade Chat Model",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatLemonade",
+    },
+  ],
+}
+`;

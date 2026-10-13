@@ -34,14 +34,14 @@ vi.mock('@/experiments/evaluationsWizardSidepanel/useEvaluationsWizardSidepanelE
 }));
 
 const mockAiRootNodes = ref<string[]>([]);
-vi.mock('@/features/ai/evaluation.ee/composables/useAiRootNodes', () => ({
+vi.mock('@/features/ai/evaluation/composables/useAiRootNodes', () => ({
 	useAiRootNodes: () => computed(() => mockAiRootNodes.value),
 }));
 
 const mockIsLicensed = ref(true);
 const mockIsResolved = ref(true);
 const mockEnsureLicenseLoaded = vi.fn().mockResolvedValue(undefined);
-vi.mock('@/features/ai/evaluation.ee/composables/useEvaluationsLicense', () => ({
+vi.mock('@/features/ai/evaluation/composables/useEvaluationsLicense', () => ({
 	useEvaluationsLicense: () => ({
 		isLicensed: computed(() => mockIsLicensed.value),
 		isResolved: computed(() => mockIsResolved.value),

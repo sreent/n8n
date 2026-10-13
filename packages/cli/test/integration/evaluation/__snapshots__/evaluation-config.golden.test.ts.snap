@@ -1,0 +1,626 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`creates, reads, updates and deletes configs, and validates them 1`] = `
+{
+  "create: a Google Sheet": {
+    "code": "UNSUPPORTED_DATASET_SOURCE",
+    "details": {
+      "field": "datasetSource",
+    },
+    "error": "EvaluationApiError",
+    "message": "Google Sheets datasets are accepted by the schema but not yet runnable",
+    "name": "EvaluationApiError",
+  },
+  "create: a judge": {
+    "result": {
+      "<class>": "EvaluationConfig",
+      "createdAt": "<Date>",
+      "datasetRef": {
+        "dataTableId": "@table",
+      },
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config a judge",
+      "invalidReason": null,
+      "metrics": [
+        {
+          "config": {
+            "credentialId": "@openai credential",
+            "inputs": {
+              "actualAnswer": "={{ $json.answer }}",
+              "expectedAnswer": "={{ $json.expected }}",
+            },
+            "model": "gpt-4o",
+            "outputType": "numeric",
+            "preset": "correctness",
+            "provider": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+          },
+          "id": "judge",
+          "name": "Correctness",
+          "type": "llm_judge",
+        },
+      ],
+      "name": "I",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<Date>",
+      "workflowId": "@workflow",
+    },
+  },
+  "create: a judge with a credential of another type": {
+    "code": "LLM_CREDENTIAL_TYPE_MISMATCH",
+    "details": {
+      "credentialId": "@slack credential",
+      "metricId": "judge",
+      "metricName": "Correctness",
+      "nodeType": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+    },
+    "error": "EvaluationApiError",
+    "message": "Credential type "slackApi" does not match provider "@n8n/n8n-nodes-langchain.lmChatOpenAi" (expected one of: openAiApi)",
+    "name": "EvaluationApiError",
+  },
+  "create: a judge with an input of spaces": {
+    "code": "METRIC_INPUT_EMPTY",
+    "details": {
+      "field": "config.inputs.actualAnswer",
+      "metricId": "judge",
+      "metricName": "Correctness",
+    },
+    "error": "EvaluationApiError",
+    "message": "Metric "Correctness" input "actualAnswer" must not be empty",
+    "name": "EvaluationApiError",
+  },
+  "create: a judge with an unknown credential": {
+    "code": "LLM_CREDENTIAL_ACCESS_DENIED",
+    "details": {
+      "credentialId": "missing",
+      "metricId": "judge",
+      "metricName": "Correctness",
+    },
+    "error": "EvaluationApiError",
+    "message": "Credential "missing" is not accessible to the user",
+    "name": "EvaluationApiError",
+  },
+  "create: a member without access": {
+    "result": {
+      "<class>": "EvaluationConfig",
+      "createdAt": "<Date>",
+      "datasetRef": {
+        "dataTableId": "@table",
+      },
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config a member without access",
+      "invalidReason": null,
+      "metrics": [
+        {
+          "config": {
+            "expression": "={{ $json.answer === $json.expected }}",
+            "outputType": "boolean",
+          },
+          "id": "m1",
+          "name": "Exact match",
+          "type": "expression",
+        },
+      ],
+      "name": "M",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<Date>",
+      "workflowId": "@workflow",
+    },
+  },
+  "create: a table of another project": {
+    "result": {
+      "<class>": "EvaluationConfig",
+      "createdAt": "<Date>",
+      "datasetRef": {
+        "dataTableId": "@foreign table",
+      },
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config a table of another project",
+      "invalidReason": null,
+      "metrics": [
+        {
+          "config": {
+            "expression": "={{ $json.answer === $json.expected }}",
+            "outputType": "boolean",
+          },
+          "id": "m1",
+          "name": "Exact match",
+          "type": "expression",
+        },
+      ],
+      "name": "G",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<Date>",
+      "workflowId": "@workflow",
+    },
+  },
+  "create: an end node that the start does not reach": {
+    "code": "END_NODE_UNREACHABLE",
+    "details": {
+      "field": "endNodeName",
+      "nodeName": "Island",
+    },
+    "error": "EvaluationApiError",
+    "message": "End node "Island" is not reachable from start node "Start"",
+    "name": "EvaluationApiError",
+  },
+  "create: an unknown end node": {
+    "code": "END_NODE_NOT_FOUND",
+    "details": {
+      "field": "endNodeName",
+      "nodeName": "Missing",
+    },
+    "error": "EvaluationApiError",
+    "message": "End node "Missing" was not found on the workflow",
+    "name": "EvaluationApiError",
+  },
+  "create: an unknown start node": {
+    "code": "START_NODE_NOT_FOUND",
+    "details": {
+      "field": "startNodeName",
+      "nodeName": "Missing",
+    },
+    "error": "EvaluationApiError",
+    "message": "Start node "Missing" was not found on the workflow",
+    "name": "EvaluationApiError",
+  },
+  "create: an unknown table": {
+    "code": "DATASET_NOT_FOUND",
+    "details": {
+      "field": "datasetRef.dataTableId",
+    },
+    "error": "EvaluationApiError",
+    "message": "Data table "missing" was not found",
+    "name": "EvaluationApiError",
+  },
+  "create: the same name again": {
+    "code": "SQLITE_CONSTRAINT",
+    "errno": 19,
+    "error": "QueryFailedError < TypeORMError",
+    "message": "SQLITE_CONSTRAINT: UNIQUE constraint failed: evaluation_config.workflowId, evaluation_config.name",
+  },
+  "create: two metrics with one id": {
+    "code": "DUPLICATE_METRIC_ID",
+    "details": {
+      "metricId": "x",
+    },
+    "error": "EvaluationApiError",
+    "message": "Metric id "x" appears 2 times",
+    "name": "EvaluationApiError",
+  },
+  "create: two metrics with one name": {
+    "code": "DUPLICATE_METRIC_NAME",
+    "details": {
+      "metricName": "Same",
+    },
+    "error": "EvaluationApiError",
+    "message": "Metric name "Same" appears 2 times",
+    "name": "EvaluationApiError",
+  },
+  "create: valid": {
+    "result": {
+      "<class>": "EvaluationConfig",
+      "createdAt": "<Date>",
+      "datasetRef": {
+        "dataTableId": "@table",
+      },
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config valid",
+      "invalidReason": null,
+      "metrics": [
+        {
+          "config": {
+            "expression": "={{ $json.answer === $json.expected }}",
+            "outputType": "boolean",
+          },
+          "id": "m1",
+          "name": "Exact match",
+          "type": "expression",
+        },
+      ],
+      "name": "Config",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<Date>",
+      "workflowId": "@workflow",
+    },
+  },
+  "delete": {
+    "result": "<undefined>",
+  },
+  "delete unknown": {
+    "result": "<undefined>",
+  },
+  "get": {
+    "result": {
+      "<class>": "EvaluationConfig",
+      "createdAt": "<Date>",
+      "datasetRef": {
+        "dataTableId": "@table",
+      },
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config valid",
+      "invalidReason": null,
+      "metrics": [
+        {
+          "config": {
+            "expression": "={{ $json.answer === $json.expected }}",
+            "outputType": "boolean",
+          },
+          "id": "m1",
+          "name": "Exact match",
+          "type": "expression",
+        },
+      ],
+      "name": "Config",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<Date>",
+      "workflowId": "@workflow",
+    },
+  },
+  "get from another workflow": {
+    "result": null,
+  },
+  "get unknown": {
+    "result": null,
+  },
+  "list": {
+    "result": [
+      {
+        "<class>": "EvaluationConfig",
+        "createdAt": "<Date>",
+        "datasetRef": {
+          "dataTableId": "@table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Answer",
+        "id": "@config valid",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "expression": "={{ $json.answer === $json.expected }}",
+              "outputType": "boolean",
+            },
+            "id": "m1",
+            "name": "Exact match",
+            "type": "expression",
+          },
+        ],
+        "name": "Config",
+        "startNodeName": "Start",
+        "status": "valid",
+        "updatedAt": "<Date>",
+        "workflowId": "@workflow",
+      },
+      {
+        "<class>": "EvaluationConfig",
+        "createdAt": "<Date>",
+        "datasetRef": {
+          "dataTableId": "@foreign table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Answer",
+        "id": "@config a table of another project",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "expression": "={{ $json.answer === $json.expected }}",
+              "outputType": "boolean",
+            },
+            "id": "m1",
+            "name": "Exact match",
+            "type": "expression",
+          },
+        ],
+        "name": "G",
+        "startNodeName": "Start",
+        "status": "valid",
+        "updatedAt": "<Date>",
+        "workflowId": "@workflow",
+      },
+      {
+        "<class>": "EvaluationConfig",
+        "createdAt": "<Date>",
+        "datasetRef": {
+          "dataTableId": "@table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Answer",
+        "id": "@config a judge",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "credentialId": "@openai credential",
+              "inputs": {
+                "actualAnswer": "={{ $json.answer }}",
+                "expectedAnswer": "={{ $json.expected }}",
+              },
+              "model": "gpt-4o",
+              "outputType": "numeric",
+              "preset": "correctness",
+              "provider": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+            },
+            "id": "judge",
+            "name": "Correctness",
+            "type": "llm_judge",
+          },
+        ],
+        "name": "I",
+        "startNodeName": "Start",
+        "status": "valid",
+        "updatedAt": "<Date>",
+        "workflowId": "@workflow",
+      },
+      {
+        "<class>": "EvaluationConfig",
+        "createdAt": "<Date>",
+        "datasetRef": {
+          "dataTableId": "@table",
+        },
+        "datasetSource": "data_table",
+        "endNodeName": "Answer",
+        "id": "@config a member without access",
+        "invalidReason": null,
+        "metrics": [
+          {
+            "config": {
+              "expression": "={{ $json.answer === $json.expected }}",
+              "outputType": "boolean",
+            },
+            "id": "m1",
+            "name": "Exact match",
+            "type": "expression",
+          },
+        ],
+        "name": "M",
+        "startNodeName": "Start",
+        "status": "valid",
+        "updatedAt": "<Date>",
+        "workflowId": "@workflow",
+      },
+    ],
+  },
+  "list of another workflow": {
+    "result": [],
+  },
+  "rows": [
+    {
+      "createdAt": "<date>",
+      "datasetRef": "{"dataTableId":"@foreign table"}",
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config a table of another project",
+      "invalidReason": null,
+      "metrics": "[{"id":"m1","name":"Exact match","type":"expression","config":{"expression":"={{ $json.answer === $json.expected }}","outputType":"boolean"}}]",
+      "name": "G",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<date>",
+      "workflowId": "@workflow",
+    },
+    {
+      "createdAt": "<date>",
+      "datasetRef": "{"dataTableId":"@table"}",
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config a judge",
+      "invalidReason": null,
+      "metrics": "[{"id":"judge","name":"Correctness","type":"llm_judge","config":{"preset":"correctness","provider":"@n8n/n8n-nodes-langchain.lmChatOpenAi","credentialId":"@openai credential","model":"gpt-4o","outputType":"numeric","inputs":{"actualAnswer":"={{ $json.answer }}","expectedAnswer":"={{ $json.expected }}"}}}]",
+      "name": "I",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<date>",
+      "workflowId": "@workflow",
+    },
+    {
+      "createdAt": "<date>",
+      "datasetRef": "{"dataTableId":"@table"}",
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config a member without access",
+      "invalidReason": null,
+      "metrics": "[{"id":"m1","name":"Exact match","type":"expression","config":{"expression":"={{ $json.answer === $json.expected }}","outputType":"boolean"}}]",
+      "name": "M",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<date>",
+      "workflowId": "@workflow",
+    },
+    {
+      "createdAt": "<date>",
+      "datasetRef": "{"dataTableId":"@table"}",
+      "datasetSource": "data_table",
+      "endNodeName": "Agent",
+      "id": "@config valid",
+      "invalidReason": null,
+      "metrics": "[{"id":"m1","name":"Exact match","type":"expression","config":{"expression":"={{ $json.answer === $json.expected }}","outputType":"boolean"}}]",
+      "name": "Renamed",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<date>",
+      "workflowId": "@workflow",
+    },
+  ],
+  "rows after the delete": [
+    {
+      "createdAt": "<date>",
+      "datasetRef": "{"dataTableId":"@foreign table"}",
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config a table of another project",
+      "invalidReason": null,
+      "metrics": "[{"id":"m1","name":"Exact match","type":"expression","config":{"expression":"={{ $json.answer === $json.expected }}","outputType":"boolean"}}]",
+      "name": "G",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<date>",
+      "workflowId": "@workflow",
+    },
+    {
+      "createdAt": "<date>",
+      "datasetRef": "{"dataTableId":"@table"}",
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config a judge",
+      "invalidReason": null,
+      "metrics": "[{"id":"judge","name":"Correctness","type":"llm_judge","config":{"preset":"correctness","provider":"@n8n/n8n-nodes-langchain.lmChatOpenAi","credentialId":"@openai credential","model":"gpt-4o","outputType":"numeric","inputs":{"actualAnswer":"={{ $json.answer }}","expectedAnswer":"={{ $json.expected }}"}}}]",
+      "name": "I",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<date>",
+      "workflowId": "@workflow",
+    },
+    {
+      "createdAt": "<date>",
+      "datasetRef": "{"dataTableId":"@table"}",
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "@config a member without access",
+      "invalidReason": null,
+      "metrics": "[{"id":"m1","name":"Exact match","type":"expression","config":{"expression":"={{ $json.answer === $json.expected }}","outputType":"boolean"}}]",
+      "name": "M",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<date>",
+      "workflowId": "@workflow",
+    },
+  ],
+  "update": {
+    "result": {
+      "<class>": "EvaluationConfig",
+      "createdAt": "<Date>",
+      "datasetRef": {
+        "dataTableId": "@table",
+      },
+      "datasetSource": "data_table",
+      "endNodeName": "Agent",
+      "id": "@config valid",
+      "invalidReason": null,
+      "metrics": [
+        {
+          "config": {
+            "expression": "={{ $json.answer === $json.expected }}",
+            "outputType": "boolean",
+          },
+          "id": "m1",
+          "name": "Exact match",
+          "type": "expression",
+        },
+      ],
+      "name": "Renamed",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<Date>",
+      "workflowId": "@workflow",
+    },
+  },
+  "update to an unknown node": {
+    "code": "START_NODE_NOT_FOUND",
+    "details": {
+      "field": "startNodeName",
+      "nodeName": "Missing",
+    },
+    "error": "EvaluationApiError",
+    "message": "Start node "Missing" was not found on the workflow",
+    "name": "EvaluationApiError",
+  },
+  "update unknown": {
+    "code": "CONFIG_NOT_FOUND",
+    "details": undefined,
+    "error": "EvaluationApiError",
+    "message": "Evaluation config "missing" not found",
+    "name": "EvaluationApiError",
+  },
+}
+`;
+
+exports[`the quota of workflows with evaluations 1`] = `
+{
+  "quota 0, first workflow": {
+    "result": {
+      "<class>": "EvaluationConfig",
+      "createdAt": "<Date>",
+      "datasetRef": {
+        "dataTableId": "@table",
+      },
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "<nano id>",
+      "invalidReason": null,
+      "metrics": [
+        {
+          "config": {
+            "expression": "={{ $json.answer === $json.expected }}",
+            "outputType": "boolean",
+          },
+          "id": "m1",
+          "name": "Exact match",
+          "type": "expression",
+        },
+      ],
+      "name": "q0",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<Date>",
+      "workflowId": "@workflow",
+    },
+  },
+  "quota 0, second workflow": {
+    "code": "END_NODE_UNREACHABLE",
+    "details": {
+      "field": "endNodeName",
+      "nodeName": "Agent",
+    },
+    "error": "EvaluationApiError",
+    "message": "End node "Agent" is not reachable from start node "Start"",
+    "name": "EvaluationApiError",
+  },
+  "quota 1, first workflow": {
+    "result": {
+      "<class>": "EvaluationConfig",
+      "createdAt": "<Date>",
+      "datasetRef": {
+        "dataTableId": "@table",
+      },
+      "datasetSource": "data_table",
+      "endNodeName": "Answer",
+      "id": "<nano id>",
+      "invalidReason": null,
+      "metrics": [
+        {
+          "config": {
+            "expression": "={{ $json.answer === $json.expected }}",
+            "outputType": "boolean",
+          },
+          "id": "m1",
+          "name": "Exact match",
+          "type": "expression",
+        },
+      ],
+      "name": "q1",
+      "startNodeName": "Start",
+      "status": "valid",
+      "updatedAt": "<Date>",
+      "workflowId": "@workflow",
+    },
+  },
+  "quota 1, second workflow": {
+    "code": "EVALUATION_QUOTA_EXCEEDED",
+    "details": undefined,
+    "error": "EvaluationApiError",
+    "message": "Evaluation quota exceeded: 2/1 workflows already have evaluations",
+    "name": "EvaluationApiError",
+  },
+}
+`;

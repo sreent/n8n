@@ -35,7 +35,7 @@ import type { AbstractServer } from '@/abstract-server';
 import * as CrashJournal from '@/crash-journal';
 import { getDataDeduplicationService } from '@/deduplication';
 import { EncryptionBootstrapService } from '@/encryption/encryption-bootstrap.service';
-import { TestRunCleanupService } from '@/evaluation.ee/test-runner/test-run-cleanup.service.ee';
+import { TestRunCleanupService } from '@/evaluation/test-runner/test-run-cleanup.service';
 import { MessageEventBus } from '@/eventbus/message-event-bus/message-event-bus';
 import { ActivityEventRelay } from '@/events/relays/activity.event-relay';
 import { TelemetryEventRelay } from '@/events/relays/telemetry.event-relay';

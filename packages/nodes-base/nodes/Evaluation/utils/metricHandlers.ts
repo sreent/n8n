@@ -20,7 +20,7 @@ import {
 	CORRECTNESS_INPUT_PROMPT,
 	HELPFULNESS_PROMPT,
 	HELPFULNESS_INPUT_PROMPT,
-} from '../Evaluation/CannedMetricPrompts.ee';
+} from '../Evaluation/CannedMetricPrompts';
 
 export const metricHandlers = {
 	async customMetrics(this: IExecuteFunctions, i: number): Promise<IDataObject> {

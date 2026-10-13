@@ -6,10 +6,10 @@ export {
 	type ActivityFeedQuery,
 	type ActivityProjectScope,
 } from './activity-event.repository';
-export { AgentEvalDatasetRepository } from './agent-eval-dataset.repository.ee';
-export { AgentEvalRunRepository } from './agent-eval-run.repository.ee';
-export { AgentEvalResultRepository } from './agent-eval-result.repository.ee';
-export { AgentEvalRatingRepository } from './agent-eval-rating.repository.ee';
+export { AgentEvalDatasetRepository } from './agent-eval-dataset.repository';
+export { AgentEvalRunRepository } from './agent-eval-run.repository';
+export { AgentEvalResultRepository } from './agent-eval-result.repository';
+export { AgentEvalRatingRepository } from './agent-eval-rating.repository';
 export { AiPreferenceRepository } from './ai-preference.repository';
 export type { ReadableProjects } from './ai-preference.repository';
 export { AnnotationTagMappingRepository } from './annotation-tag-mapping.repository';
@@ -91,8 +91,8 @@ export {
 export { ProcessedDataRepository } from './processed-data.repository';
 export { SettingsRepository } from './settings.repository';
 export { TagRepository } from './tag.repository';
-export { TestCaseExecutionRepository } from './test-case-execution.repository.ee';
-export { TestRunRepository, type TestRunSummary } from './test-run.repository.ee';
+export { TestCaseExecutionRepository } from './test-case-execution.repository';
+export { TestRunRepository, type TestRunSummary } from './test-run.repository';
 export { VariablesRepository, type VariableKeyScope } from './variables.repository';
 export { WorkflowHistoryRepository } from './workflow-history.repository';
 export { WorkflowStatisticsRepository } from './workflow-statistics.repository';

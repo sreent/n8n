@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { VariableModalOptions } from '@/features/settings/environments.ee/environments.types';
+import type { VariableModalOptions } from '@/features/settings/environments/environments.types';
 import {
 	ABOUT_MODAL_KEY,
 	CHAT_EMBED_MODAL_KEY,
@@ -43,7 +43,7 @@ import {
 	TAGS_MANAGER_MODAL_KEY,
 } from '@/features/shared/tags/tags.constants';
 import { DEBUG_PAYWALL_MODAL_KEY } from '@/features/execution/executions/executions.constants';
-import { VARIABLE_MODAL_KEY } from '@/features/settings/environments.ee/environments.constants';
+import { VARIABLE_MODAL_KEY } from '@/features/settings/environments/environments.constants';
 import {
 	CREDENTIAL_EDIT_MODAL_KEY,
 	CREDENTIAL_SELECT_MODAL_KEY,
@@ -118,9 +118,9 @@ import type { EventBus } from '@n8n/utils/event-bus';
 import DynamicModalLoader from './DynamicModalLoader.vue';
 import NodeRecommendationModalV2 from '@/experiments/templateRecoV2/components/NodeRecommendationModal.vue';
 import NodeRecommendationModalV3 from '@/experiments/personalizedTemplatesV3/components/NodeRecommendationModal.vue';
-import VariableModal from '@/features/settings/environments.ee/components/VariableModal.vue';
+import VariableModal from '@/features/settings/environments/components/VariableModal.vue';
 import StopManyExecutionsModal from '@/features/execution/executions/components/StopManyExecutionsModal.vue';
-import AddExecutionToDatasetModal from '@/features/ai/evaluation.ee/components/AddExecutionToDataset/AddExecutionToDatasetModal.vue';
+import AddExecutionToDatasetModal from '@/features/ai/evaluation/components/AddExecutionToDataset/AddExecutionToDatasetModal.vue';
 import WorkflowDescriptionModal from '@/features/workflows/components/WorkflowDescriptionModal.vue';
 import WorkflowPublishModal from '@/features/workflows/components/WorkflowPublishModal.vue';
 import MigrateWorkflowModal from '@/features/settings/migrationReport/MigrateWorkflowModal.vue';

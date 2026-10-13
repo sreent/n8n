@@ -25,7 +25,7 @@ import { i18n } from '@n8n/i18n';
 import { getCredentialOnlyNodeType } from '@/app/utils/credentialOnlyNodes';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { formatTriggerActionName } from '../nodeCreator.utils';
-import { useEvaluationStore } from '@/features/ai/evaluation.ee/evaluation.store';
+import { useEvaluationStore } from '@/features/ai/evaluation/evaluation.store';
 
 const PLACEHOLDER_RECOMMENDED_ACTION_KEY = 'placeholder_recommended';
 

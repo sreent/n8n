@@ -37,7 +37,7 @@ import type { WorkflowData, WorkflowDataUpdate } from '@n8n/rest-api-client/api/
 
 import get from 'lodash/get';
 
-import { useEnvironmentsStore } from '@/features/settings/environments.ee/environments.store';
+import { useEnvironmentsStore } from '@/features/settings/environments/environments.store';
 import { useRootStore } from '@n8n/stores/useRootStore';
 import { useNDVStore } from '@/features/ndv/shared/ndv.store';
 import { useNodeTypesStore } from '@/app/stores/nodeTypes.store';

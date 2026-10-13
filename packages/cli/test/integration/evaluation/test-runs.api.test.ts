@@ -15,7 +15,7 @@ import { Container } from '@n8n/di';
 import { mockInstance } from 'n8n-core/test/utils';
 import type { IWorkflowBase } from 'n8n-workflow';
 
-import { TestRunnerService } from '@/evaluation.ee/test-runner/test-runner.service.ee';
+import { TestRunnerService } from '@/evaluation/test-runner/test-runner.service';
 import { createTestRun, createTestCaseExecution } from '@test-integration/db/evaluation';
 import { createUserShell } from '@test-integration/db/users';
 import type { SuperAgentTest } from '@test-integration/types';

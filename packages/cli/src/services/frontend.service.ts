@@ -21,7 +21,7 @@ import { inE2ETests, N8N_VERSION } from '@/constants';
 import { isCredSharingEnabled } from '@/constants/credential-sharing';
 import { CredentialTypes } from '@/credential-types';
 import { CredentialsOverwrites } from '@/credentials-overwrites';
-import { resolveEvaluationConcurrencyLimit } from '@/evaluation.ee/evaluation-concurrency.helper';
+import { resolveEvaluationConcurrencyLimit } from '@/evaluation/evaluation-concurrency.helper';
 import { License } from '@/license';
 import { LoadNodesAndCredentials } from '@/load-nodes-and-credentials';
 import { MfaService } from '@/mfa/mfa.service';

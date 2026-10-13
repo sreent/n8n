@@ -37,7 +37,7 @@ import { mock } from 'vitest-mock-extended';
 import { z } from 'zod';
 
 import { CredentialsHelper } from '@/credentials-helper';
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import { VariablesService } from '@/environments/variables/variables.service';
 import { WebhookResponseTooLargeError } from '@/errors/webhook-response-too-large.error';
 import type { ExecutionPersistence } from '@/executions/execution-persistence';
 import { ExternalHooks } from '@/external-hooks';
