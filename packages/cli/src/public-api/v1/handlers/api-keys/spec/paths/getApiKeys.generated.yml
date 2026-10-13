@@ -1,0 +1,133 @@
+operationId: getApiKeys
+tags:
+  - ApiKey
+summary: Retrieve all API keys
+description: 'Returns one page of the API keys of all users, newest first, for reviews: the user, the label, the scopes, the expiry and the last use. It never gives the value of a key.'
+x-required-scope: apiKey:manage
+parameters:
+  - $ref: ../../../../shared/spec/parameters/limit.yml
+  - $ref: ../../../../shared/spec/parameters/cursor.yml
+  - schema:
+      type: string
+      minLength: 1
+      maxLength: 36
+      description: Only the API keys of this user.
+      example: 6b2c7f4e-1a2b-4c3d-8e9f-0a1b2c3d4e5f
+    required: false
+    name: userId
+    in: query
+  - schema:
+      type: string
+      enum:
+        - public-api
+        - mcp-server-api
+      description: 'Only the API keys of this audience: `public-api` (the public API) or `mcp-server-api` (the MCP server of n8n).'
+    required: false
+    name: audience
+    in: query
+x-eov-operation-id: unreachable
+x-eov-operation-handler: v1/handlers/decorator-routed.handler
+x-decorator-routed: true
+responses:
+  '200':
+    description: Operation successful.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The id of the API key.
+                  label:
+                    type: string
+                    description: The label that the user gave the API key.
+                    example: SIEM export
+                  audience:
+                    type: string
+                    enum:
+                      - public-api
+                      - mcp-server-api
+                    description: 'What the API key opens: `public-api` or `mcp-server-api`.'
+                  scopes:
+                    type: array
+                    items:
+                      type: string
+                    description: The scopes of the API key. A key of the MCP server can have no scopes.
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      email:
+                        type: string
+                        nullable: true
+                      firstName:
+                        type: string
+                        nullable: true
+                      lastName:
+                        type: string
+                        nullable: true
+                      role:
+                        type: string
+                        nullable: true
+                        description: The instance role of the user.
+                        example: global:member
+                    required:
+                      - id
+                      - email
+                      - firstName
+                      - lastName
+                      - role
+                    description: The user of the API key. The key acts as this user.
+                  createdAt:
+                    type: string
+                    format: date-time
+                    description: The time that the user created the API key.
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    description: The time of the last change of the API key, for example a rotation.
+                  expiresAt:
+                    type: string
+                    nullable: true
+                    format: date-time
+                    description: The time that the API key expires, or null when it does not expire.
+                  expired:
+                    type: boolean
+                    description: Whether the API key expired.
+                  lastUsedAt:
+                    type: string
+                    nullable: true
+                    format: date-time
+                    description: The time of the last use of the API key, or null.
+                required:
+                  - id
+                  - label
+                  - audience
+                  - scopes
+                  - user
+                  - createdAt
+                  - updatedAt
+                  - expiresAt
+                  - expired
+                  - lastUsedAt
+            nextCursor:
+              type: string
+              nullable: true
+              description: Paginate through the API keys by setting the cursor parameter to a nextCursor attribute returned by a previous request. Send the same filters again. Default value fetches the first "page" of the collection.
+              example: eyJvZmZzZXQiOjEwMCwibGltaXQiOjEwMH0=
+          required:
+            - data
+            - nextCursor
+  '400':
+    $ref: ../../../../shared/spec/responses/badRequest.yml
+  '401':
+    $ref: ../../../../shared/spec/responses/unauthorized.yml
+  '403':
+    $ref: ../../../../shared/spec/responses/forbidden.yml

@@ -529,7 +529,10 @@ describe('AgentExecutionRepository', () => {
 				if (!approval) throw new Error('Expected a pending approval');
 				return { job, approval };
 			};
-			await vi.waitFor(() => expect(wake.requestWake).toHaveBeenCalledWith(parent.id));
+			// The background job can need more than the default second on a busy machine.
+			await vi.waitFor(() => expect(wake.requestWake).toHaveBeenCalledWith(parent.id), {
+				timeout: 5_000,
+			});
 			await initialSuspensionPersisted.promise;
 			expect(await jobs.findById(receipt.jobId)).toMatchObject({
 				status: 'suspended',

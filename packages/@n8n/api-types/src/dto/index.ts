@@ -734,3 +734,22 @@ export {
 	insightsByWorkflowItemPublicSchema,
 } from './insights/insights-by-workflow-public.dto';
 export type { InsightsByWorkflowItemPublic } from './insights/insights-by-workflow-public.dto';
+
+// Fork: the list of API keys in the public API, for reviews.
+export {
+	ApiKeyReviewListPublicDto,
+	ListApiKeysQueryPublicDto,
+	apiKeyAudienceSchema,
+	apiKeyReviewPublicSchema,
+} from './api-keys/api-key-review-public.dto';
+export type { ApiKeyReviewPublic } from './api-keys/api-key-review-public.dto';
+
+// Fork: the inventory of workflows in the public API.
+export {
+	MAX_INVENTORY_EXECUTIONS,
+	MAX_INVENTORY_PAGE_SIZE,
+	WorkflowInventoryListPublicDto,
+	WorkflowInventoryQueryPublicDto,
+	workflowInventoryItemPublicSchema,
+} from './workflows/workflow-inventory-public.dto';
+export type { WorkflowInventoryItemPublic } from './workflows/workflow-inventory-public.dto';

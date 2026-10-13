@@ -45,11 +45,25 @@ const tags = ['User'];
 
 const userProperties = ['id', 'email', 'firstName', 'lastName', 'isPending', 'mfaEnabled'] as const;
 
+/**
+ * Fork: the day of the last activity, as `YYYY-MM-DD`. The column has the type `date`. TypeORM
+ * gives it as a string; a `Date` gets the local day, as TypeORM writes it.
+ */
+function toLastActiveDay(lastActiveAt: unknown): string | null {
+	if (typeof lastActiveAt === 'string') return lastActiveAt.slice(0, 10);
+	if (lastActiveAt instanceof Date) {
+		const pad = (value: number) => String(value).padStart(2, '0');
+		return `${lastActiveAt.getFullYear()}-${pad(lastActiveAt.getMonth() + 1)}-${pad(lastActiveAt.getDate())}`;
+	}
+	return null;
+}
+
 function toPublicApiUser(user: User, options?: { includeRole: boolean }): UserPublicDto {
 	const publicApiUser = {
 		...pick(user, ...userProperties),
 		createdAt: user.createdAt.toISOString(),
 		updatedAt: user.updatedAt.toISOString(),
+		lastActiveAt: toLastActiveDay(user.lastActiveAt),
 	};
 
 	return options?.includeRole ? { ...publicApiUser, role: user.role?.slug } : publicApiUser;

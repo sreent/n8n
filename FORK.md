@@ -15,7 +15,11 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   describe them.
 - **Public API routes**: `/api/v1/audit-log` (see the audit log) and `/api/v1/insights/by-workflow`,
   the insights of each workflow
-  (`packages/cli/src/public-api/v1/controllers/insights-by-workflow.public.controller.ts`).
+  (`packages/cli/src/public-api/v1/controllers/insights-by-workflow.public.controller.ts`). For
+  reviews: `/api/v1/inventory/workflows` (each workflow with its owner, status, node types,
+  credentials, triggers and newest executions), `/api/v1/api-keys` (the API keys of all users) and
+  the field `lastActiveAt` of `/api/v1/users`.
+  [packages/cli/src/governance/README.md](packages/cli/src/governance/README.md) describes them.
 - **Log streaming**: the backend module `packages/cli/src/modules/log-streaming` sends the events
   of n8n to webhook, syslog and Sentry destinations, and the page Settings > Log streaming
   (`packages/frontend/editor-ui/src/features/integrations/logStreaming`) manages them. The README
@@ -239,8 +243,13 @@ update can bring new enterprise files: see "Upstream updates".
   `@n8n/blob-storage` or the scaling classes `MultiMainSetup`, `WorkerStatusService` and
   `PoolConfigService`, change the fork stand-ins. When an upstream migration changes a workflow
   review table, change the fork entity. The FORK.md files of step 4 tell how.
-- When an upstream update adds a public route for the audit log or for the insights of each
-  workflow, compare it with the fork route. Keep one of them.
+- When an upstream update adds a public route for the audit log, for the insights of each
+  workflow, for an inventory of workflows or for a list of all API keys, compare it with the fork
+  route. Keep one of them.
+- When an upstream update changes `packages/@n8n/api-types/src/dto/user/user-public.dto.ts` or
+  `packages/cli/src/public-api/v1/controllers/users.public.controller.ts`, keep the fork field
+  `lastActiveAt`, as [packages/cli/src/governance/README.md](packages/cli/src/governance/README.md)
+  tells.
 - When an upstream update makes ordinary code import a new name from `@n8n/ai-workflow-builder`,
   add it to the fork package, as
   [packages/@n8n/ai-workflow-builder/FORK.md](packages/@n8n/ai-workflow-builder/FORK.md) tells.

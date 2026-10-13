@@ -77,6 +77,13 @@ responses:
                     type: string
                     readOnly: true
                     example: global:owner
+                  lastActiveAt:
+                    type: string
+                    nullable: true
+                    format: date
+                    description: The day of the last request of the user to n8n, in the time zone of the server, or null when the user never signed in. n8n changes it at most once a day.
+                    readOnly: true
+                    example: 2026-10-13
                 required:
                   - id
                   - email

@@ -3,6 +3,9 @@ info:
   title: decorator-routes
   version: 0.0.0
 paths:
+  /api-keys:
+    get:
+      $ref: ./handlers/api-keys/spec/paths/getApiKeys.generated.yml
   /audit:
     post:
       $ref: ./handlers/audit/spec/paths/generateAudit.generated.yml
@@ -164,6 +167,9 @@ paths:
   /insights/by-workflow:
     get:
       $ref: ./handlers/insights/spec/paths/getInsightsByWorkflow.generated.yml
+  /inventory/workflows:
+    get:
+      $ref: ./handlers/inventory/spec/paths/getWorkflowInventory.generated.yml
   /node-type-policies/instance:
     get:
       $ref: ./handlers/node-type-policies/spec/paths/getNodeTypeInstancePolicy.generated.yml

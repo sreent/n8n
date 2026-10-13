@@ -7,9 +7,12 @@
  *
  * - `auditLogs:manage`: the audit log of the public API (`/api/v1/audit-log`). The owner and the
  *   admins hold this scope, and a custom instance role can hold it.
+ * - `apiKey:manage`: the list of all API keys of the public API (`/api/v1/api-keys`), for reviews.
+ *   The owner and the admins hold this scope, and a custom instance role can hold it.
  */
 export const FORK_API_KEY_RESOURCES = {
 	auditLogs: ['manage'],
+	apiKey: ['manage'],
 } as const;
 
 export type ForkApiKeyResource = keyof typeof FORK_API_KEY_RESOURCES;
