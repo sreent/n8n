@@ -97,8 +97,10 @@ The fork removes the enterprise code step by step, and builds its own versions o
    and the local parts of the AI workflow builder that the MCP tools of the workflow builder use
    (done, see
    [packages/@n8n/ai-workflow-builder/FORK.md](packages/@n8n/ai-workflow-builder/FORK.md)). The
-   chat of the AI builder needs a service of n8n, and goes. Then the source control editor, and
-   last the enterprise files that fork code replaced.
+   chat of the AI builder needs a service of n8n, and goes. Then the source control editor
+   (removed, with stand-ins, see
+   [the FORK.md of the folder](packages/frontend/editor-ui/src/features/integrations/sourceControl/FORK.md)),
+   and last the enterprise files that fork code replaced.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off.
@@ -187,12 +189,15 @@ them again after each upstream update, and container CI checks that they stay de
   `packages/cli/test/integration/evaluation`), and of the evaluation editor (the golden tests in
   `packages/frontend/editor-ui/src/features/ai/evaluation/__tests__/golden`), and of the local
   parts of the AI workflow builder
-  (`packages/cli/src/services/__tests__/golden/ai-workflow-builder.golden.test.ts`) fail when an
-  update changes what a role may do, how projects, sharing, the sign-in method, the OIDC sign-in,
-  the role provisioning, the SAML sign-in, the secrets providers, the queries of their
+  (`packages/cli/src/services/__tests__/golden/ai-workflow-builder.golden.test.ts`), and of the
+  source control stand-ins (the golden test in
+  `packages/frontend/editor-ui/src/features/integrations/sourceControl/__tests__/golden`) fail
+  when an update changes what a role may do, how projects, sharing, the sign-in method, the OIDC
+  sign-in, the role provisioning, the SAML sign-in, the secrets providers, the queries of their
   connections, the external secrets module, the external secrets editor, the connections editor,
   the execution annotations, the variables, the agent eval tables, the Evaluation nodes, the
-  evaluation backend, the evaluation editor or the local parts of the AI workflow builder work.
+  evaluation backend, the evaluation editor, the local parts of the AI workflow builder or the
+  source control stand-ins work.
   Compare the change with the upstream change, then update the fork code or the snapshot. The
   FORK.md files there tell how to record a snapshot against the enterprise code.
 - When an upstream update changes the public API handler
