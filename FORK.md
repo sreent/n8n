@@ -110,15 +110,15 @@ The fork removes the enterprise code step by step, and builds its own versions o
    default. With `N8N_FORK_FEATURES_ENABLED=false`, the licence decides, as in upstream n8n. The
    licence checks of ordinary code stay. The cli tests set the variable to `false`
    (`packages/cli/test/setup-fork-features.ts`). A test or the e2e controller that replaces
-   `License.isLicensed` replaces the switch too.
+   `License.isLicensed` replaces the switch too. On 2026-10-13 the owner added variables, execution
+   annotations and filters, evaluations (no limit of workflows) and API key scopes to the list.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.
 
 `scripts/removed-enterprise-paths.txt` lists the removed areas. `scripts/sync-upstream.sh` deletes
-them again after each upstream update, and container CI checks that they stay deleted. The last
-lines of the list cover all enterprise files, so an upstream update cannot bring enterprise code
-back.
+them again after each upstream update, and container CI checks that they stay deleted. An upstream
+update can bring new enterprise files: see "Upstream updates".
 
 ## Rules
 
@@ -172,12 +172,15 @@ back.
   Then run `scripts/container-ci.sh --fork`, and open a pull request.
 - `scripts/sync-upstream.base` holds the upstream commit that the fork matches. Only
   `scripts/sync-upstream.sh` changes it.
-- The script deletes the enterprise files of the update by name: the changed ones and the new
-  ones. When an update breaks the build because ordinary code uses a removed area, change the
-  ordinary code. Do not restore the enterprise files. To see which enterprise files an update
-  changed or added, list only their names, for example
-  `git diff --name-status <old base> <new base> | grep -E '\.ee(\.|/)'`. A new enterprise
-  feature stays out of the fork until the owner chooses to rebuild it.
+- The script deletes the upstream files in the removed enterprise areas again. When an update
+  breaks the build because ordinary code uses a removed area, change the ordinary code. Do not
+  restore the enterprise files.
+- An update can bring new enterprise files outside the removed areas. The owner chose on
+  2026-10-13 not to delete them all. The script lists them by name. The owner decides about each
+  one: delete it (add its path to `scripts/removed-enterprise-paths.txt`) or keep it. While the
+  fork has enterprise files, keep the fork features off on a server
+  (`N8N_FORK_FEATURES_ENABLED=false`): the switch can turn on enterprise code that checks one of
+  the licence values of `packages/cli/src/fork-features.ts`.
 - The snapshot tests of `packages/cli/src/permissions`, of the project service
   (`packages/cli/src/services`), of the sharing services (`packages/cli/src/workflows`), of the
   execution view (`packages/cli/src/executions`), of the SSO helpers (`packages/cli/src/sso`), of
