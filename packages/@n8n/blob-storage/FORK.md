@@ -40,6 +40,10 @@ them, set `AWS_REQUEST_CHECKSUM_CALCULATION=WHEN_REQUIRED` and
 `AWS_RESPONSE_CHECKSUM_VALIDATION=WHEN_REQUIRED`. The SDK reads these variables, as the enterprise
 classes let it do.
 
+A native mode for Google Cloud Storage, with a service account and without HMAC keys, is a
+planned fork feature. The owner chose on 2026-10-14 to build it after the six rebuilds of
+[FORK-FEATURES.md](../../../FORK-FEATURES.md#parity-with-the-enterprise-edition).
+
 ## Sources
 
 The fork wrote these classes from these sources only:

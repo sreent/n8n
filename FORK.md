@@ -111,7 +111,7 @@ The fork removes the enterprise code step by step, and builds its own versions o
    (done, see
    [packages/@n8n/ai-workflow-builder/FORK.md](packages/@n8n/ai-workflow-builder/FORK.md)). The
    chat of the AI builder needs a service of n8n, and goes. Then the source control editor
-   (removed, with stand-ins, see
+   (removed, with stand-ins, and rebuilt later, see
    [the FORK.md of the folder](packages/frontend/editor-ui/src/features/integrations/sourceControl/FORK.md)),
    and last the enterprise files that fork code replaced (done). The fork has no enterprise code
    now. On 2026-10-14 the owner chose to rebuild the six features that the fork removed without a
@@ -122,7 +122,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/@n8n/blob-storage/FORK.md](packages/@n8n/blob-storage/FORK.md)), then source control:
    the backend and its public API (done, see
    [packages/cli/src/modules/source-control/README.md](packages/cli/src/modules/source-control/README.md)),
-   then the editor of source control and Git connections.
+   and the editor of source control (done, see
+   [the FORK.md of the folder](packages/frontend/editor-ui/src/features/integrations/sourceControl/FORK.md)),
+   then Git connections.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off. Done:
@@ -237,7 +239,7 @@ update can bring new enterprise files: see "Upstream updates".
   `packages/frontend/editor-ui/src/features/ai/evaluation/__tests__/golden`), and of the local
   parts of the AI workflow builder
   (`packages/cli/src/services/__tests__/golden/ai-workflow-builder.golden.test.ts`), and of the
-  source control stand-ins (the golden test in
+  source control editor (the golden tests in
   `packages/frontend/editor-ui/src/features/integrations/sourceControl/__tests__/golden`), and of
   the workflow reviews
   (`packages/cli/test/integration/workflow-reviews/workflow-reviews.golden.test.ts`), and of the
@@ -248,7 +250,7 @@ update can bring new enterprise files: see "Upstream updates".
   their connections, the external secrets module, the external secrets editor, the connections
   editor, the execution annotations, the variables, the agent eval tables, the Evaluation nodes,
   the evaluation backend, the evaluation editor, the local parts of the AI workflow builder, the
-  source control stand-ins, the workflow reviews, the S3 and Azure Blob storage or source control
+  source control editor, the workflow reviews, the S3 and Azure Blob storage or source control
   work.
   Compare the change with the upstream change, then update the fork code or the snapshot.
 - To record a snapshot against the enterprise code, use a checkout of the upstream commit in
