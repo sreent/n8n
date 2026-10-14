@@ -1,0 +1,3504 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the dependencies in the change list of Git connections 1`] = `
+[
+  {
+    "branches": {
+      "acme/flows main": {
+        "files": {
+          "README.md": "# Flows
+",
+        },
+        "log": [
+          "Initial commit|Remote User <remote@example.com>|Remote User <remote@example.com>",
+        ],
+      },
+    },
+    "change": "the data of the instance",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "token",
+        "password": "git-token",
+        "username": "git-user",
+      },
+      "name": "Bot user",
+      "type": "git",
+    },
+    "request": "POST /promotions/providers",
+    "response": {
+      "provider": {
+        "authType": "token",
+        "config": {
+          "schemaVersion": 1,
+        },
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "publicKey": null,
+    },
+    "status": 201,
+    "step": "create the provider",
+  },
+  {
+    "body": {
+      "configs": {
+        "apply": {
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+        },
+        "promote": {
+          "settings": {
+            "baseBranchName": "main",
+            "createBranchOnPromotion": false,
+            "schemaVersion": 1,
+          },
+        },
+      },
+      "name": "Deployments",
+      "providerId": "@provider Bot user",
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "POST /promotions/connections",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": false,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments apply",
+          "name": "Apply",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": false,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments promote",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "main",
+            "createBranchOnPromotion": false,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 201,
+    "step": "create the instance connection",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/promote/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "direction": "promote",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone promote",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/apply/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config Deployments apply",
+      "connectionId": "@connection Deployments",
+      "direction": "apply",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone apply",
+  },
+  {
+    "body": {
+      "commitMessage": "All projects",
+    },
+    "branches": {
+      "acme/flows main": {
+        "files": {
+          "README.md": "# Flows
+",
+          "n8n-export/manifest.json": {
+            "credentials": [
+              {
+                "id": "@Cred A",
+                "name": "Cred A",
+                "target": "projects/team-a-@Team A/credentials/cred-a-@Cred A",
+              },
+              {
+                "id": "@Cred X",
+                "name": "Cred X",
+                "target": "projects/team-b-@Team B/credentials/cred-x-@Cred X",
+              },
+            ],
+            "dataTables": [
+              {
+                "id": "@Table A",
+                "name": "Table A",
+                "target": "projects/team-a-@Team A/data-tables/table-a-@Table A",
+              },
+            ],
+            "exportedAt": "<date>",
+            "folders": [
+              {
+                "id": "@Folder 1",
+                "name": "Folder 1",
+                "target": "projects/team-a-@Team A/folders/folder-1-@Folder 1",
+              },
+            ],
+            "packageFormatVersion": "1",
+            "projects": [
+              {
+                "id": "@Team A",
+                "name": "Team A",
+                "target": "projects/team-a-@Team A",
+              },
+              {
+                "id": "@Team B",
+                "name": "Team B",
+                "target": "projects/team-b-@Team B",
+              },
+            ],
+            "requirements": {
+              "credentials": [
+                {
+                  "id": "@Cred A",
+                  "name": "Cred A",
+                  "type": "httpBasicAuth",
+                  "usedByWorkflows": [
+                    "@W1 cred A",
+                  ],
+                },
+                {
+                  "id": "@Cred X",
+                  "name": "Cred X",
+                  "type": "httpHeaderAuth",
+                  "usedByWorkflows": [
+                    "@W6 cred X",
+                  ],
+                },
+              ],
+              "dataTables": [
+                {
+                  "id": "@Table A",
+                  "name": "Table A",
+                  "usedByWorkflows": [
+                    "@W5 table",
+                  ],
+                },
+              ],
+              "nodeTypes": [
+                {
+                  "type": "n8n-nodes-base.httpRequest",
+                  "typeVersion": 1,
+                  "usedByWorkflows": [
+                    "@W10 in folder",
+                    "@W1 cred A",
+                    "@W2 global var",
+                    "@W3 project var",
+                    "@W4 tag",
+                    "@W6 cred X",
+                    "@W7 plain",
+                    "@W9 child",
+                  ],
+                },
+                {
+                  "type": "n8n-nodes-base.dataTable",
+                  "typeVersion": 1,
+                  "usedByWorkflows": [
+                    "@W5 table",
+                  ],
+                },
+                {
+                  "type": "n8n-nodes-base.executeWorkflow",
+                  "typeVersion": 1.2,
+                  "usedByWorkflows": [
+                    "@W8 parent",
+                  ],
+                },
+              ],
+              "tags": [
+                {
+                  "id": "@tag prod",
+                  "name": "prod",
+                  "usedByWorkflows": [
+                    "@W4 tag",
+                  ],
+                },
+              ],
+              "variables": [
+                {
+                  "name": "GV",
+                  "usedByWorkflows": [
+                    "@W2 global var",
+                  ],
+                },
+                {
+                  "name": "PV",
+                  "usedByWorkflows": [
+                    "@W3 project var",
+                  ],
+                },
+              ],
+              "workflows": [
+                {
+                  "id": "@W9 child",
+                  "name": "W9 child",
+                  "usedByWorkflows": [
+                    "@W8 parent",
+                  ],
+                },
+              ],
+            },
+            "sourceId": "<sha256>",
+            "sourceN8nVersion": "2.42.0",
+            "tags": [
+              {
+                "id": "@tag prod",
+                "name": "prod",
+                "target": "tags/prod-@tag prod",
+              },
+            ],
+            "variables": [
+              {
+                "id": "@GV",
+                "name": "GV",
+                "target": "variables/gv-@GV",
+              },
+              {
+                "id": "@PV",
+                "name": "PV",
+                "target": "projects/team-a-@Team A/variables/pv-@PV",
+              },
+            ],
+            "workflows": [
+              {
+                "id": "@W10 in folder",
+                "name": "W10 in folder",
+                "target": "projects/team-a-@Team A/folders/folder-1-@Folder 1/workflows/w10-in-folder-@W10 in folder",
+              },
+              {
+                "id": "@W1 cred A",
+                "name": "W1 cred A",
+                "target": "projects/team-a-@Team A/workflows/w1-cred-a-@W1 cred A",
+              },
+              {
+                "id": "@W2 global var",
+                "name": "W2 global var",
+                "target": "projects/team-a-@Team A/workflows/w2-global-var-@W2 global var",
+              },
+              {
+                "id": "@W3 project var",
+                "name": "W3 project var",
+                "target": "projects/team-a-@Team A/workflows/w3-project-var-@W3 project var",
+              },
+              {
+                "id": "@W4 tag",
+                "name": "W4 tag",
+                "target": "projects/team-a-@Team A/workflows/w4-tag-@W4 tag",
+              },
+              {
+                "id": "@W5 table",
+                "name": "W5 table",
+                "target": "projects/team-a-@Team A/workflows/w5-table-@W5 table",
+              },
+              {
+                "id": "@W6 cred X",
+                "name": "W6 cred X",
+                "target": "projects/team-a-@Team A/workflows/w6-cred-x-@W6 cred X",
+              },
+              {
+                "id": "@W7 plain",
+                "name": "W7 plain",
+                "target": "projects/team-a-@Team A/workflows/w7-plain-@W7 plain",
+              },
+              {
+                "id": "@W8 parent",
+                "name": "W8 parent",
+                "target": "projects/team-a-@Team A/workflows/w8-parent-@W8 parent",
+              },
+              {
+                "id": "@W9 child",
+                "name": "W9 child",
+                "target": "projects/team-a-@Team A/workflows/w9-child-@W9 child",
+              },
+            ],
+          },
+          "n8n-export/projects/team-a-@Team A/credentials/cred-a-@Cred A/credential.json": {
+            "id": "@Cred A",
+            "name": "Cred A",
+            "type": "httpBasicAuth",
+          },
+          "n8n-export/projects/team-a-@Team A/data-tables/table-a-@Table A/data-table.json": {
+            "columns": [
+              {
+                "index": 0,
+                "name": "city",
+                "type": "string",
+              },
+            ],
+            "id": "@Table A",
+            "name": "Table A",
+          },
+          "n8n-export/projects/team-a-@Team A/folders/folder-1-@Folder 1/folder.json": {
+            "id": "@Folder 1",
+            "name": "Folder 1",
+            "parentFolderId": null,
+          },
+          "n8n-export/projects/team-a-@Team A/folders/folder-1-@Folder 1/workflows/w10-in-folder-@W10 in folder/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/folders/folder-1-@Folder 1/workflows/w10-in-folder-@W10 in folder/workflow.json": {
+            "connections": {},
+            "id": "@W10 in folder",
+            "isArchived": false,
+            "name": "W10 in folder",
+            "nodes": [
+              {
+                "id": "node-1",
+                "name": "HTTP Request",
+                "parameters": {
+                  "url": "https://ten.example.com",
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": "@Folder 1",
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/projects/team-a-@Team A/project.json": {
+            "id": "@Team A",
+            "name": "Team A",
+          },
+          "n8n-export/projects/team-a-@Team A/variables/pv-@PV/variable.json": {
+            "name": "PV",
+            "type": "string",
+            "value": "team one",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w1-cred-a-@W1 cred A/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w1-cred-a-@W1 cred A/workflow.json": {
+            "connections": {},
+            "id": "@W1 cred A",
+            "isArchived": false,
+            "name": "W1 cred A",
+            "nodes": [
+              {
+                "credentials": {
+                  "httpBasicAuth": {
+                    "id": "@Cred A",
+                    "name": "Cred A",
+                  },
+                },
+                "id": "node-1",
+                "name": "HTTP Request",
+                "parameters": {
+                  "url": "https://one.example.com",
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w2-global-var-@W2 global var/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w2-global-var-@W2 global var/workflow.json": {
+            "connections": {},
+            "id": "@W2 global var",
+            "isArchived": false,
+            "name": "W2 global var",
+            "nodes": [
+              {
+                "id": "node-1",
+                "name": "HTTP Request",
+                "parameters": {
+                  "url": "={{ $vars.GV }}",
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w3-project-var-@W3 project var/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w3-project-var-@W3 project var/workflow.json": {
+            "connections": {},
+            "id": "@W3 project var",
+            "isArchived": false,
+            "name": "W3 project var",
+            "nodes": [
+              {
+                "id": "node-1",
+                "name": "HTTP Request",
+                "parameters": {
+                  "url": "={{ $vars.PV }}",
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w4-tag-@W4 tag/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w4-tag-@W4 tag/workflow.json": {
+            "connections": {},
+            "id": "@W4 tag",
+            "isArchived": false,
+            "name": "W4 tag",
+            "nodes": [
+              {
+                "id": "node-1",
+                "name": "HTTP Request",
+                "parameters": {
+                  "url": "https://four.example.com",
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [
+              "@tag prod",
+            ],
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w5-table-@W5 table/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w5-table-@W5 table/workflow.json": {
+            "connections": {},
+            "id": "@W5 table",
+            "isArchived": false,
+            "name": "W5 table",
+            "nodes": [
+              {
+                "id": "node-1",
+                "name": "Data table",
+                "parameters": {
+                  "dataTableId": {
+                    "__rl": true,
+                    "mode": "id",
+                    "value": "@Table A",
+                  },
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.dataTable",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w6-cred-x-@W6 cred X/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w6-cred-x-@W6 cred X/workflow.json": {
+            "connections": {},
+            "id": "@W6 cred X",
+            "isArchived": false,
+            "name": "W6 cred X",
+            "nodes": [
+              {
+                "credentials": {
+                  "httpHeaderAuth": {
+                    "id": "@Cred X",
+                    "name": "Cred X",
+                  },
+                },
+                "id": "node-1",
+                "name": "HTTP Request",
+                "parameters": {
+                  "url": "https://six.example.com",
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w7-plain-@W7 plain/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w7-plain-@W7 plain/workflow.json": {
+            "connections": {},
+            "id": "@W7 plain",
+            "isArchived": false,
+            "name": "W7 plain",
+            "nodes": [
+              {
+                "id": "node-1",
+                "name": "HTTP Request",
+                "parameters": {
+                  "url": "https://seven.example.com",
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w8-parent-@W8 parent/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w8-parent-@W8 parent/workflow.json": {
+            "connections": {},
+            "id": "@W8 parent",
+            "isArchived": false,
+            "name": "W8 parent",
+            "nodes": [
+              {
+                "id": "node-1",
+                "name": "Execute Workflow",
+                "parameters": {
+                  "source": "database",
+                  "workflowId": {
+                    "__rl": true,
+                    "mode": "id",
+                    "value": "@W9 child",
+                  },
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.executeWorkflow",
+                "typeVersion": 1.2,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w9-child-@W9 child/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/w9-child-@W9 child/workflow.json": {
+            "connections": {},
+            "id": "@W9 child",
+            "isArchived": false,
+            "name": "W9 child",
+            "nodes": [
+              {
+                "id": "node-1",
+                "name": "HTTP Request",
+                "parameters": {
+                  "url": "https://nine.example.com",
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/projects/team-b-@Team B/credentials/cred-x-@Cred X/credential.json": {
+            "id": "@Cred X",
+            "name": "Cred X",
+            "type": "httpHeaderAuth",
+          },
+          "n8n-export/projects/team-b-@Team B/project.json": {
+            "id": "@Team B",
+            "name": "Team B",
+          },
+          "n8n-export/tags/prod-@tag prod/tag.json": {
+            "id": "@tag prod",
+            "name": "prod",
+          },
+          "n8n-export/variables/gv-@GV/variable.json": {
+            "name": "GV",
+            "type": "string",
+            "value": "one",
+          },
+        },
+        "log": [
+          "All projects|@owner|@owner",
+          "Initial commit|Remote User <remote@example.com>|Remote User <remote@example.com>",
+        ],
+      },
+    },
+    "request": "POST /promotions/connections/@connection Deployments/promote",
+    "response": {
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "counts": {
+        "credentials": 2,
+        "dataTables": 1,
+        "folders": 1,
+        "tags": 1,
+        "variables": 2,
+        "workflows": 10,
+      },
+      "git": {
+        "branchName": "main",
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "after the promote: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "after the promote: changes to apply",
+  },
+  {
+    "change": "change the value of GV",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="two" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the value of GV: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the value of GV: changes to apply",
+  },
+  {
+    "change": "revert the value of GV",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change the value of PV",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team two" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the value of PV: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the value of PV: changes to apply",
+  },
+  {
+    "change": "revert the value of PV",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change GV with another name",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV_RENAMED="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W2 global var",
+          "name": "W2 global var",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "GV with another name: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W2 global var",
+          "name": "W2 global var",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "GV with another name: changes to apply",
+  },
+  {
+    "change": "revert GV with another name",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change GV deleted",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W2 global var",
+          "name": "W2 global var",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "GV deleted: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W2 global var",
+          "name": "W2 global var",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "GV deleted: changes to apply",
+  },
+  {
+    "change": "revert GV deleted",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change GV made again with another id",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "GV made again with another id: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "GV made again with another id: changes to apply",
+  },
+  {
+    "change": "revert GV made again with another id",
+  },
+  {
+    "change": "change PV made again with another id",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "PV made again with another id: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "PV made again with another id: changes to apply",
+  },
+  {
+    "change": "revert PV made again with another id",
+  },
+  {
+    "change": "change a variable of Team A with the name GV",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "GV="team" in @Team A",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W2 global var",
+          "name": "W2 global var",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "a variable of Team A with the name GV: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "a variable of Team A with the name GV: changes to apply",
+  },
+  {
+    "change": "revert a variable of Team A with the name GV",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change PV as a global variable",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in -",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W3 project var",
+          "name": "W3 project var",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "PV as a global variable: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W3 project var",
+          "name": "W3 project var",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "PV as a global variable: changes to apply",
+  },
+  {
+    "change": "revert PV as a global variable",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change the name of Cred A",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A renamed" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W1 cred A",
+          "name": "W1 cred A",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of Cred A: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W1 cred A",
+          "name": "W1 cred A",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of Cred A: changes to apply",
+  },
+  {
+    "change": "revert the name of Cred A",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change an expression in the data of Cred A",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W1 cred A",
+          "name": "W1 cred A",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "an expression in the data of Cred A: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W1 cred A",
+          "name": "W1 cred A",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "an expression in the data of Cred A: changes to apply",
+  },
+  {
+    "change": "revert an expression in the data of Cred A",
+  },
+  {
+    "change": "change the password of Cred A",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the password of Cred A: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the password of Cred A: changes to apply",
+  },
+  {
+    "change": "revert the password of Cred A",
+  },
+  {
+    "change": "change the type of Cred A",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpHeaderAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W1 cred A",
+          "name": "W1 cred A",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the type of Cred A: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W1 cred A",
+          "name": "W1 cred A",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the type of Cred A: changes to apply",
+  },
+  {
+    "change": "revert the type of Cred A",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change the name of Cred X",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X renamed" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of Cred X: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of Cred X: changes to apply",
+  },
+  {
+    "change": "revert the name of Cred X",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change the name of the tag",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "production",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags production active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W4 tag",
+          "name": "W4 tag",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of the tag: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W4 tag",
+          "name": "W4 tag",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of the tag: changes to apply",
+  },
+  {
+    "change": "revert the name of the tag",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change the name of the table",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A renamed" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W5 table",
+          "name": "W5 table",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of the table: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W5 table",
+          "name": "W5 table",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of the table: changes to apply",
+  },
+  {
+    "change": "revert the name of the table",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change the nodes of the child",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://child.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W9 child",
+          "name": "W9 child",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the nodes of the child: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W9 child",
+          "name": "W9 child",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the nodes of the child: changes to apply",
+  },
+  {
+    "change": "revert the nodes of the child",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change the name of the child",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child renamed" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W9 child",
+          "name": "W9 child renamed",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 3,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of the child: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W9 child",
+          "name": "W9 child",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 3,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of the child: changes to apply",
+  },
+  {
+    "change": "revert the name of the child",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change the version id of W7",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the version id of W7: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the version id of W7: changes to apply",
+  },
+  {
+    "change": "revert the version id of W7",
+  },
+  {
+    "change": "change the name of W7",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 renamed" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W7 plain",
+          "name": "W7 renamed",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of W7: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W7 plain",
+          "name": "W7 plain",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of W7: changes to apply",
+  },
+  {
+    "change": "revert the name of W7",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change the name of the folder",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder renamed" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@W10 in folder",
+          "name": "W10 in folder",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of the folder: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@W10 in folder",
+          "name": "W10 in folder",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of the folder: changes to apply",
+  },
+  {
+    "change": "revert the name of the folder",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "change": "change the name of the project",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A local"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W1 cred A",
+          "name": "W1 cred A",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W10 in folder",
+          "name": "W10 in folder",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W2 global var",
+          "name": "W2 global var",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W3 project var",
+          "name": "W3 project var",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W4 tag",
+          "name": "W4 tag",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W5 table",
+          "name": "W5 table",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W7 plain",
+          "name": "W7 plain",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W8 parent",
+          "name": "W8 parent",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W9 child",
+          "name": "W9 child",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 3,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of the project: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W1 cred A",
+          "name": "W1 cred A",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W10 in folder",
+          "name": "W10 in folder",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W2 global var",
+          "name": "W2 global var",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W3 project var",
+          "name": "W3 project var",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W4 tag",
+          "name": "W4 tag",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W5 table",
+          "name": "W5 table",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W7 plain",
+          "name": "W7 plain",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W8 parent",
+          "name": "W8 parent",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@W9 child",
+          "name": "W9 child",
+          "status": "renamed",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 3,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "the name of the project: changes to apply",
+  },
+  {
+    "change": "revert the name of the project",
+    "instance": {
+      "credentials": [
+        "@Cred A "Cred A" httpBasicAuth in @Team A data set",
+        "@Cred X "Cred X" httpHeaderAuth in @Team A data set",
+      ],
+      "dataTables": [
+        "@Table A "Table A" in @Team A",
+      ],
+      "folders": [
+        "@Folder 1 "Folder 1" in @Team A",
+      ],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+        "team @Team B "Team B"",
+      ],
+      "tags": [
+        "prod",
+      ],
+      "variables": [
+        "GV="one" in -",
+        "PV="team one" in @Team A",
+      ],
+      "workflows": [
+        "@W1 cred A "W1 cred A" in @Team A nodes [{"url":"https://one.example.com"}] tags  active no",
+        "@W10 in folder "W10 in folder" in @Team A / @Folder 1 nodes [{"url":"https://ten.example.com"}] tags  active no",
+        "@W2 global var "W2 global var" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@W3 project var "W3 project var" in @Team A nodes [{"url":"={{ $vars.PV }}"}] tags  active no",
+        "@W4 tag "W4 tag" in @Team A nodes [{"url":"https://four.example.com"}] tags prod active no",
+        "@W5 table "W5 table" in @Team A nodes [{"dataTableId":{"__rl":true,"mode":"id","value":"@Table A"}}] tags  active no",
+        "@W6 cred X "W6 cred X" in @Team A nodes [{"url":"https://six.example.com"}] tags  active no",
+        "@W7 plain "W7 plain" in @Team A nodes [{"url":"https://seven.example.com"}] tags  active no",
+        "@W8 parent "W8 parent" in @Team A nodes [{"source":"database","workflowId":{"__rl":true,"mode":"id","value":"@W9 child"}}] tags  active no",
+        "@W9 child "W9 child" in @Team A nodes [{"url":"https://nine.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "after the reverts: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "after the reverts: changes to apply",
+  },
+  {
+    "change": "add a column to the table",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W5 table",
+          "name": "W5 table",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "a new column of the table: changes to promote",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@W5 table",
+          "name": "W5 table",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@W6 cred X",
+          "name": "W6 cred X",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "a new column of the table: changes to apply",
+  },
+]
+`;

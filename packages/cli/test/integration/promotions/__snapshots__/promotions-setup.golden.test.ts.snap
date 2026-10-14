@@ -1,0 +1,3665 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the set-up of Git connections 1`] = `
+[
+  {
+    "body": {
+      "auth": {
+        "authType": "token",
+        "password": "git-token",
+        "username": "git-user",
+      },
+      "name": "Bot user",
+      "type": "git",
+    },
+    "request": "owner POST /promotions/providers",
+    "response": {
+      "provider": {
+        "authType": "token",
+        "config": {
+          "schemaVersion": 1,
+        },
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "publicKey": null,
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "create a token provider",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "ssh-key",
+      },
+      "name": "Deploy key",
+      "type": "git",
+    },
+    "request": "owner POST /promotions/providers",
+    "response": {
+      "provider": {
+        "authType": "ssh-key",
+        "config": {
+          "keyType": "ed25519",
+          "publicKey": "ssh-ed25519 <key 1, 68 characters> n8n promotions",
+          "schemaVersion": 1,
+        },
+        "createdAt": "<date>",
+        "id": "@provider Deploy key",
+        "name": "Deploy key",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "publicKey": "ssh-ed25519 <key 1, 68 characters> n8n promotions",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 1, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "create an SSH provider",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "ssh-key",
+        "keyType": "rsa",
+      },
+      "name": "RSA key",
+      "type": "git",
+    },
+    "request": "admin POST /promotions/providers",
+    "response": {
+      "provider": {
+        "authType": "ssh-key",
+        "config": {
+          "keyType": "rsa",
+          "publicKey": "ssh-rsa <key 2, 716 characters> n8n promotions",
+          "schemaVersion": 1,
+        },
+        "createdAt": "<date>",
+        "id": "@provider RSA key",
+        "name": "RSA key",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "publicKey": "ssh-rsa <key 2, 716 characters> n8n promotions",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 1, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider RSA key","name":"RSA key","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-rsa <key 2, 716 characters> n8n promotions","keyType":"rsa"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "create an RSA provider",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "ssh-key",
+      },
+      "name": "  ",
+      "type": "git",
+    },
+    "request": "owner POST /promotions/providers",
+    "response": {
+      "message": "request/body/name String must contain at least 1 character(s)",
+    },
+    "status": 400,
+    "step": "create without a name",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "ssh-key",
+      },
+      "name": "GitLab",
+      "type": "gitlab",
+    },
+    "request": "owner POST /promotions/providers",
+    "response": {
+      "message": "request/body/type Invalid enum value. Expected 'git', received 'gitlab'",
+    },
+    "status": 400,
+    "step": "create a gitlab provider",
+  },
+  {
+    "request": "owner GET /promotions/providers",
+    "response": {
+      "<order>": "id asc",
+      "<page is the slice of the order>": true,
+      "data": [
+        {
+          "authType": "token",
+          "createdAt": "<date>",
+          "id": "@provider Bot user",
+          "name": "Bot user",
+          "type": "git",
+          "updatedAt": "<date>",
+        },
+        {
+          "authType": "ssh-key",
+          "createdAt": "<date>",
+          "id": "@provider Deploy key",
+          "name": "Deploy key",
+          "type": "git",
+          "updatedAt": "<date>",
+        },
+        {
+          "authType": "ssh-key",
+          "createdAt": "<date>",
+          "id": "@provider RSA key",
+          "name": "RSA key",
+          "type": "git",
+          "updatedAt": "<date>",
+        },
+      ],
+      "nextCursor": null,
+    },
+    "status": 200,
+    "step": "list the providers",
+  },
+  {
+    "request": "owner GET /promotions/providers?limit=1",
+    "response": {
+      "<order>": "id asc",
+      "<page is the slice of the order>": true,
+      "data": "1 of 3 rows",
+      "nextCursor": "eyJsaW1pdCI6MSwib2Zmc2V0IjoxfQ==",
+    },
+    "status": 200,
+    "step": "list one provider",
+  },
+  {
+    "request": "owner GET /promotions/providers?limit=1&cursor=eyJsaW1pdCI6MSwib2Zmc2V0IjoxfQ%3D%3D",
+    "response": {
+      "<order>": "id asc",
+      "<page is the slice of the order>": true,
+      "data": "1 of 3 rows",
+      "nextCursor": "eyJsaW1pdCI6MSwib2Zmc2V0IjoyfQ==",
+    },
+    "status": 200,
+    "step": "list the next provider",
+  },
+  {
+    "request": "owner GET /promotions/providers?limit=0",
+    "response": {
+      "<order>": "id asc",
+      "<page is the slice of the order>": true,
+      "data": "0 of 3 rows",
+      "nextCursor": null,
+    },
+    "status": 200,
+    "step": "list no provider",
+  },
+  {
+    "request": "owner GET /promotions/providers?cursor=nope",
+    "response": {
+      "message": "An invalid cursor was provided",
+    },
+    "status": 400,
+    "step": "list with a bad cursor",
+  },
+  {
+    "request": "owner GET /promotions/providers?limit=-1",
+    "response": {
+      "message": "request/query/limit Param \`limit\` must be a non-negative integer",
+    },
+    "status": 400,
+    "step": "list with a bad limit",
+  },
+  {
+    "request": "owner GET /promotions/providers/@provider Deploy key",
+    "response": {
+      "authType": "ssh-key",
+      "config": {
+        "keyType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 1, 68 characters> n8n promotions",
+        "schemaVersion": 1,
+      },
+      "createdAt": "<date>",
+      "id": "@provider Deploy key",
+      "name": "Deploy key",
+      "type": "git",
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "get the SSH provider",
+  },
+  {
+    "request": "owner GET /promotions/providers/@provider Bot user",
+    "response": {
+      "authType": "token",
+      "config": {
+        "schemaVersion": 1,
+      },
+      "createdAt": "<date>",
+      "id": "@provider Bot user",
+      "name": "Bot user",
+      "type": "git",
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "get the token provider",
+  },
+  {
+    "request": "owner GET /promotions/providers/unknown1",
+    "response": {
+      "message": "Promotion provider not found",
+    },
+    "status": 404,
+    "step": "get an unknown provider",
+  },
+  {
+    "body": {
+      "name": "Deploy key 2",
+    },
+    "request": "owner PUT /promotions/providers/@provider Deploy key",
+    "response": {
+      "authType": "ssh-key",
+      "config": {
+        "keyType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 1, 68 characters> n8n promotions",
+        "schemaVersion": 1,
+      },
+      "createdAt": "<date>",
+      "id": "@provider Deploy key",
+      "name": "Deploy key 2",
+      "type": "git",
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 1, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider RSA key","name":"RSA key","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-rsa <key 2, 716 characters> n8n promotions","keyType":"rsa"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "rename the SSH provider",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "ssh-key",
+      },
+    },
+    "request": "owner PUT /promotions/providers/@provider Deploy key",
+    "response": {
+      "authType": "ssh-key",
+      "config": {
+        "keyType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 3, 68 characters> n8n promotions",
+        "schemaVersion": 1,
+      },
+      "createdAt": "<date>",
+      "id": "@provider Deploy key",
+      "name": "Deploy key 2",
+      "type": "git",
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider RSA key","name":"RSA key","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-rsa <key 2, 716 characters> n8n promotions","keyType":"rsa"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "rotate the SSH key",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "ssh-key",
+        "keyType": "ed25519",
+      },
+    },
+    "request": "owner PUT /promotions/providers/@provider RSA key",
+    "response": {
+      "authType": "ssh-key",
+      "config": {
+        "keyType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 4, 68 characters> n8n promotions",
+        "schemaVersion": 1,
+      },
+      "createdAt": "<date>",
+      "id": "@provider RSA key",
+      "name": "RSA key",
+      "type": "git",
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider RSA key","name":"RSA key","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 4, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "change the RSA key to ed25519",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "token",
+        "password": "other-token",
+        "username": "other",
+      },
+    },
+    "request": "owner PUT /promotions/providers/@provider Bot user",
+    "response": {
+      "authType": "token",
+      "config": {
+        "schemaVersion": 1,
+      },
+      "createdAt": "<date>",
+      "id": "@provider Bot user",
+      "name": "Bot user",
+      "type": "git",
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "change the token",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "token",
+        "username": "only-a-name",
+      },
+    },
+    "request": "owner PUT /promotions/providers/@provider Bot user",
+    "response": {
+      "message": "request/body/auth must have required property 'password'",
+    },
+    "status": 400,
+    "step": "give half a token",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "ssh-key",
+      },
+    },
+    "request": "owner PUT /promotions/providers/@provider Bot user",
+    "response": {
+      "message": "A provider cannot change its authentication method. Create another provider instead.",
+    },
+    "status": 400,
+    "step": "change the method",
+  },
+  {
+    "body": {},
+    "request": "owner PUT /promotions/providers/@provider Bot user",
+    "response": {
+      "message": "request/body At least one field is required",
+    },
+    "status": 400,
+    "step": "update nothing",
+  },
+  {
+    "body": {
+      "type": "git",
+    },
+    "request": "owner PUT /promotions/providers/@provider Bot user",
+    "response": {
+      "message": "request/body Unrecognized key(s) in object: 'type'",
+    },
+    "status": 400,
+    "step": "update the type",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "token",
+        "password": "git-token",
+        "username": "git-user",
+      },
+      "name": "Bot user",
+    },
+    "request": "owner PUT /promotions/providers/@provider Bot user",
+    "response": {
+      "authType": "token",
+      "config": {
+        "schemaVersion": 1,
+      },
+      "createdAt": "<date>",
+      "id": "@provider Bot user",
+      "name": "Bot user",
+      "type": "git",
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "restore the token",
+  },
+  {
+    "request": "owner DELETE /promotions/providers/@provider RSA key",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the RSA provider",
+  },
+  {
+    "request": "owner DELETE /promotions/providers/unknown1",
+    "response": {
+      "message": "Promotion provider not found",
+    },
+    "status": 404,
+    "step": "delete an unknown provider",
+  },
+  {
+    "body": {
+      "name": "Deployments",
+      "providerId": "@provider Bot user",
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "create the instance connection",
+  },
+  {
+    "body": {
+      "name": "Second",
+      "providerId": "@provider Deploy key",
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "git@remote.test:acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "An instance promotion connection already exists",
+    },
+    "status": 409,
+    "step": "create a second instance connection",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "http://example.com/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection URL check",
+      "name": "URL check",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "http://example.com/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection URL check","name":"URL check","providerId":"@provider Bot user","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"http://example.com/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "check the URL http://example.com/acme/flows.git",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection URL check",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the URL check",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://example.com/acme/flows",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection URL check",
+      "name": "URL check",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://example.com/acme/flows",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection URL check","name":"URL check","providerId":"@provider Bot user","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"https://example.com/acme/flows"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "check the URL https://example.com/acme/flows",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection URL check",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the URL check",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": " https://example.com/acme/flows.git ",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection URL check",
+      "name": "URL check",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://example.com/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection URL check","name":"URL check","providerId":"@provider Bot user","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"https://example.com/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "check the URL  https://example.com/acme/flows.git ",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection URL check",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the URL check",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://user:pass@example.com/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "Remote URL must not contain credentials",
+    },
+    "status": 400,
+    "step": "check the URL https://user:pass@example.com/acme/flows.git",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://user@example.com/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "Remote URL must not contain credentials",
+    },
+    "status": 400,
+    "step": "check the URL https://user@example.com/acme/flows.git",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "git://example.com/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "Username and password providers require an HTTP(S) remote URL",
+    },
+    "status": 400,
+    "step": "check the URL git://example.com/acme/flows.git",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "file://<tmp>",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "Username and password providers require an HTTP(S) remote URL",
+    },
+    "status": 400,
+    "step": "check the URL file:///tmp/flows.git",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "ssh://git@example.com/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "Username and password providers require an HTTP(S) remote URL",
+    },
+    "status": 400,
+    "step": "check the URL ssh://git@example.com/acme/flows.git",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "git@example.com:acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "Remote URL must be a valid HTTP or HTTPS URL",
+    },
+    "status": 400,
+    "step": "check the URL git@example.com:acme/flows.git",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "example.com/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "Remote URL must be a valid HTTP or HTTPS URL",
+    },
+    "status": 400,
+    "step": "check the URL example.com/acme/flows.git",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "-uhttps://example.com/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "Remote URL must be a valid HTTP or HTTPS URL",
+    },
+    "status": 400,
+    "step": "check the URL -uhttps://example.com/acme/flows.git",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://example.com",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection URL check",
+      "name": "URL check",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://example.com",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection URL check","name":"URL check","providerId":"@provider Bot user","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"https://example.com"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "check the URL https://example.com",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection URL check",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the URL check",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Deploy key",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "git@remote.test:acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection URL check",
+      "name": "URL check",
+      "provider": {
+        "authType": "ssh-key",
+        "createdAt": "<date>",
+        "id": "@provider Deploy key",
+        "name": "Deploy key 2",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "git@remote.test:acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection URL check","name":"URL check","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"git@remote.test:acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "check the URL git@remote.test:acme/flows.git",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection URL check",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the URL check",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Deploy key",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "ssh://git@remote.test/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection URL check",
+      "name": "URL check",
+      "provider": {
+        "authType": "ssh-key",
+        "createdAt": "<date>",
+        "id": "@provider Deploy key",
+        "name": "Deploy key 2",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "ssh://git@remote.test/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection URL check","name":"URL check","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "check the URL ssh://git@remote.test/acme/flows.git",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection URL check",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the URL check",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Deploy key",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "ssh://git@remote.test:2222/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection URL check",
+      "name": "URL check",
+      "provider": {
+        "authType": "ssh-key",
+        "createdAt": "<date>",
+        "id": "@provider Deploy key",
+        "name": "Deploy key 2",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "ssh://git@remote.test:2222/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection URL check","name":"URL check","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test:2222/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "check the URL ssh://git@remote.test:2222/acme/flows.git",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection URL check",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the URL check",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Deploy key",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "remote.test:acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection URL check",
+      "name": "URL check",
+      "provider": {
+        "authType": "ssh-key",
+        "createdAt": "<date>",
+        "id": "@provider Deploy key",
+        "name": "Deploy key 2",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "remote.test:acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection URL check","name":"URL check","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"remote.test:acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "check the URL remote.test:acme/flows.git",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection URL check",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the URL check",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Deploy key",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "git@remote.test:",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "SSH key providers require an ssh:// or [user@]host:path remote URL",
+    },
+    "status": 400,
+    "step": "check the URL git@remote.test:",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Deploy key",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://example.com/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "SSH key providers require an ssh:// or [user@]host:path remote URL",
+    },
+    "status": 400,
+    "step": "check the URL https://example.com/acme/flows.git",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Deploy key",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "ssh://git:secret@remote.test/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "Remote URL must not contain credentials",
+    },
+    "status": 400,
+    "step": "check the URL ssh://git:secret@remote.test/acme/flows.git",
+  },
+  {
+    "body": {
+      "name": "URL check",
+      "providerId": "@provider Deploy key",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "ext::ssh -o x remote.test %S acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "SSH key providers require an ssh:// or [user@]host:path remote URL",
+    },
+    "status": 400,
+    "step": "check the URL ext::ssh -o x remote.test %S acme/flows.git",
+  },
+  {
+    "body": {
+      "configs": {
+        "apply": {
+          "name": "From main",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+        },
+      },
+      "name": "Team connection",
+      "providerId": "@provider Deploy key",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "git@remote.test:acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": false,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config apply of connection Team connection",
+          "name": "From main",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Team connection",
+      "name": "Team connection",
+      "provider": {
+        "authType": "ssh-key",
+        "createdAt": "<date>",
+        "id": "@provider Deploy key",
+        "name": "Deploy key 2",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "git@remote.test:acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"git@remote.test:acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 201,
+    "step": "create the team connection",
+  },
+  {
+    "body": {
+      "name": "Unknown",
+      "providerId": "unknown1",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "Promotion provider not found",
+    },
+    "status": 404,
+    "step": "create with an unknown provider",
+  },
+  {
+    "body": {
+      "configs": {
+        "sync": {},
+      },
+      "name": "Sync",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner POST /promotions/connections",
+    "response": {
+      "message": "request/body/configs Unrecognized key(s) in object: 'sync'",
+    },
+    "status": 400,
+    "step": "create with a sync config",
+  },
+  {
+    "request": "owner GET /promotions/connections",
+    "response": {
+      "<order>": "id asc",
+      "<page is the slice of the order>": true,
+      "data": [
+        {
+          "configs": {},
+          "createdAt": "<date>",
+          "id": "@connection Deployments",
+          "name": "Deployments",
+          "provider": {
+            "authType": "token",
+            "createdAt": "<date>",
+            "id": "@provider Bot user",
+            "name": "Bot user",
+            "type": "git",
+            "updatedAt": "<date>",
+          },
+          "scope": "instance",
+          "target": {
+            "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        {
+          "configs": {
+            "apply": {
+              "createdAt": "<date>",
+              "id": "@config apply of connection Team connection",
+              "name": "From main",
+              "settings": {
+                "branchName": "main",
+                "schemaVersion": 1,
+              },
+              "updatedAt": "<date>",
+            },
+          },
+          "createdAt": "<date>",
+          "id": "@connection Team connection",
+          "name": "Team connection",
+          "provider": {
+            "authType": "ssh-key",
+            "createdAt": "<date>",
+            "id": "@provider Deploy key",
+            "name": "Deploy key 2",
+            "type": "git",
+            "updatedAt": "<date>",
+          },
+          "scope": "projects",
+          "target": {
+            "remoteUrl": "git@remote.test:acme/flows.git",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      ],
+      "nextCursor": null,
+    },
+    "status": 200,
+    "step": "list the connections",
+  },
+  {
+    "request": "owner GET /promotions/connections?scope=instance",
+    "response": {
+      "<order>": "any",
+      "<page is the slice of the order>": true,
+      "data": [
+        {
+          "configs": {},
+          "createdAt": "<date>",
+          "id": "@connection Deployments",
+          "name": "Deployments",
+          "provider": {
+            "authType": "token",
+            "createdAt": "<date>",
+            "id": "@provider Bot user",
+            "name": "Bot user",
+            "type": "git",
+            "updatedAt": "<date>",
+          },
+          "scope": "instance",
+          "target": {
+            "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      ],
+      "nextCursor": null,
+    },
+    "status": 200,
+    "step": "list the instance connection",
+  },
+  {
+    "request": "owner GET /promotions/connections?providerId=@provider Deploy key",
+    "response": {
+      "<order>": "any",
+      "<page is the slice of the order>": true,
+      "data": [
+        {
+          "configs": {
+            "apply": {
+              "createdAt": "<date>",
+              "id": "@config apply of connection Team connection",
+              "name": "From main",
+              "settings": {
+                "branchName": "main",
+                "schemaVersion": 1,
+              },
+              "updatedAt": "<date>",
+            },
+          },
+          "createdAt": "<date>",
+          "id": "@connection Team connection",
+          "name": "Team connection",
+          "provider": {
+            "authType": "ssh-key",
+            "createdAt": "<date>",
+            "id": "@provider Deploy key",
+            "name": "Deploy key 2",
+            "type": "git",
+            "updatedAt": "<date>",
+          },
+          "scope": "projects",
+          "target": {
+            "remoteUrl": "git@remote.test:acme/flows.git",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      ],
+      "nextCursor": null,
+    },
+    "status": 200,
+    "step": "list the connections of the SSH provider",
+  },
+  {
+    "request": "owner GET /promotions/connections?limit=1",
+    "response": {
+      "<order>": "id asc",
+      "<page is the slice of the order>": true,
+      "data": "1 of 2 rows",
+      "nextCursor": "eyJsaW1pdCI6MSwib2Zmc2V0IjoxfQ==",
+    },
+    "status": 200,
+    "step": "list one connection",
+  },
+  {
+    "request": "owner GET /promotions/connections?scope=team",
+    "response": {
+      "message": "request/query/scope Invalid enum value. Expected 'instance' | 'projects', received 'team'",
+    },
+    "status": 400,
+    "step": "list a bad scope",
+  },
+  {
+    "request": "owner GET /promotions/connections/@connection Deployments",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "get the instance connection",
+  },
+  {
+    "request": "owner GET /promotions/connections/unknown1",
+    "response": {
+      "message": "Promotion connection not found",
+    },
+    "status": 404,
+    "step": "get an unknown connection",
+  },
+  {
+    "body": {
+      "name": "Team connection 2",
+    },
+    "request": "owner PUT /promotions/connections/@connection Team connection",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": false,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config apply of connection Team connection",
+          "name": "From main",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Team connection",
+      "name": "Team connection 2",
+      "provider": {
+        "authType": "ssh-key",
+        "createdAt": "<date>",
+        "id": "@provider Deploy key",
+        "name": "Deploy key 2",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "git@remote.test:acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection 2","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"git@remote.test:acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "rename the team connection",
+  },
+  {
+    "body": {
+      "providerId": "@provider Bot user",
+    },
+    "request": "owner PUT /promotions/connections/@connection Team connection",
+    "response": {
+      "message": "Remote URL must be a valid HTTP or HTTPS URL",
+    },
+    "status": 400,
+    "step": "move the team connection to the token provider",
+  },
+  {
+    "body": {
+      "scope": "instance",
+    },
+    "request": "owner PUT /promotions/connections/@connection Team connection",
+    "response": {
+      "message": "request/body Unrecognized key(s) in object: 'scope'",
+    },
+    "status": 400,
+    "step": "change the scope",
+  },
+  {
+    "body": {
+      "name": "Team connection",
+      "target": {
+        "remoteUrl": "ssh://git@remote.test/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Team connection",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": false,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config apply of connection Team connection",
+          "name": "From main",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Team connection",
+      "name": "Team connection",
+      "provider": {
+        "authType": "ssh-key",
+        "createdAt": "<date>",
+        "id": "@provider Deploy key",
+        "name": "Deploy key 2",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "ssh://git@remote.test/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "change the target",
+  },
+  {
+    "request": "owner DELETE /promotions/providers/@provider Deploy key",
+    "response": {
+      "message": "This provider is used by a connection",
+    },
+    "status": 409,
+    "step": "delete the SSH provider in use",
+  },
+  {
+    "body": {
+      "settings": {
+        "branchName": "main",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": false,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config apply of connection Deployments",
+      "name": "Apply",
+      "settings": {
+        "branchName": "main",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "set the apply config",
+  },
+  {
+    "body": {
+      "name": "To production",
+      "settings": {
+        "baseBranchName": "main",
+        "createBranchOnPromotion": false,
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/promote",
+    "response": {
+      "checkout": {
+        "hasCheckout": false,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config promote of connection Deployments",
+      "name": "To production",
+      "settings": {
+        "baseBranchName": "main",
+        "createBranchOnPromotion": false,
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"To production","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":false},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "set the promote config",
+  },
+  {
+    "body": {
+      "name": "Apply",
+      "settings": {
+        "branchName": "bad..name",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "message": "Invalid Git branch name: bad..name",
+    },
+    "status": 400,
+    "step": "set the apply branch bad..name",
+  },
+  {
+    "body": {
+      "name": "Apply",
+      "settings": {
+        "branchName": "feature/x",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": false,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config apply of connection Deployments",
+      "name": "Apply",
+      "settings": {
+        "branchName": "feature/x",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"feature/x"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"To production","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":false},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "set the apply branch feature/x",
+  },
+  {
+    "body": {
+      "name": "Apply",
+      "settings": {
+        "branchName": "-dash",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "message": "Invalid Git branch name: -dash",
+    },
+    "status": 400,
+    "step": "set the apply branch -dash",
+  },
+  {
+    "body": {
+      "name": "Apply",
+      "settings": {
+        "branchName": "a b",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "message": "Invalid Git branch name: a b",
+    },
+    "status": 400,
+    "step": "set the apply branch a b",
+  },
+  {
+    "body": {
+      "name": "Apply",
+      "settings": {
+        "branchName": "refs/heads/main",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": false,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config apply of connection Deployments",
+      "name": "Apply",
+      "settings": {
+        "branchName": "refs/heads/main",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"refs/heads/main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"To production","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":false},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "set the apply branch refs/heads/main",
+  },
+  {
+    "body": {
+      "name": "Apply",
+      "settings": {
+        "branchName": "end.lock",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "message": "Invalid Git branch name: end.lock",
+    },
+    "status": 400,
+    "step": "set the apply branch end.lock",
+  },
+  {
+    "body": {
+      "name": "Apply",
+      "settings": {
+        "branchName": "HEAD",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "message": "Invalid Git branch name: HEAD",
+    },
+    "status": 400,
+    "step": "set the apply branch HEAD",
+  },
+  {
+    "body": {
+      "name": "Apply",
+      "settings": {
+        "branchName": "@",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": false,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config apply of connection Deployments",
+      "name": "Apply",
+      "settings": {
+        "branchName": "@",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"@"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"To production","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":false},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "set the apply branch @",
+  },
+  {
+    "body": {
+      "name": "Apply",
+      "settings": {
+        "branchName": "x~1",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "message": "Invalid Git branch name: x~1",
+    },
+    "status": 400,
+    "step": "set the apply branch x~1",
+  },
+  {
+    "body": {
+      "settings": {
+        "branchName": "main",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": false,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config apply of connection Deployments",
+      "name": "Apply",
+      "settings": {
+        "branchName": "main",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"To production","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":false},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "set the apply config again",
+  },
+  {
+    "body": {
+      "settings": {
+        "baseBranchName": "main",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/promote",
+    "response": {
+      "message": "request/body/settings must have required property 'createBranchOnPromotion'",
+    },
+    "status": 400,
+    "step": "set a promote config without the flag",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection Deployments/configs/promote",
+    "response": {},
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the promote config",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection Deployments/configs/sideways",
+    "response": {
+      "message": "Unknown promotion direction: sideways",
+    },
+    "status": 404,
+    "step": "delete a sideways config",
+  },
+  {
+    "body": {
+      "settings": {
+        "baseBranchName": "main",
+        "createBranchOnPromotion": true,
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/promote",
+    "response": {
+      "checkout": {
+        "hasCheckout": false,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config promote of connection Deployments",
+      "name": "Promote",
+      "settings": {
+        "baseBranchName": "main",
+        "createBranchOnPromotion": true,
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"Promote","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":true},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "set the promote config again",
+  },
+  {
+    "request": "owner POST /promotions/connections/@connection Team connection/projects/@Team A",
+    "response": {
+      "connectionId": "@connection Team connection",
+      "projectId": "@Team A",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"Promote","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":true},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [
+        "{"projectId":"@Team A","connectionId":"@connection Team connection","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "link Team A",
+  },
+  {
+    "request": "owner POST /promotions/connections/@connection Team connection/projects/@Team A",
+    "response": {
+      "connectionId": "@connection Team connection",
+      "projectId": "@Team A",
+    },
+    "status": 200,
+    "step": "link Team A again",
+  },
+  {
+    "request": "owner GET /promotions/connections/@connection Team connection/projects",
+    "response": {
+      "projectIds": [
+        "@Team A",
+      ],
+    },
+    "status": 200,
+    "step": "list the linked projects",
+  },
+  {
+    "request": "owner POST /promotions/connections/@connection Deployments/projects/@Team B",
+    "response": {
+      "message": "Only a project-scoped connection can have project links",
+    },
+    "status": 400,
+    "step": "link Team B to the instance connection",
+  },
+  {
+    "request": "owner POST /promotions/connections/@connection Team connection/projects/@personal owner",
+    "response": {
+      "message": "Only team projects can be linked to a promotion connection",
+    },
+    "status": 400,
+    "step": "link the personal project",
+  },
+  {
+    "request": "owner POST /promotions/connections/@connection Team connection/projects/unknown1",
+    "response": {
+      "message": "Project not found",
+    },
+    "status": 404,
+    "step": "link an unknown project",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection Deployments/projects/@Team A",
+    "response": {
+      "message": "This project is linked to another promotion connection",
+    },
+    "status": 409,
+    "step": "unlink Team A through the instance connection",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection Team connection/projects/@Team A",
+    "response": {},
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"Promote","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":true},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "unlink Team A",
+  },
+  {
+    "request": "owner DELETE /promotions/connections/@connection Team connection/projects/@Team A",
+    "response": {},
+    "status": 204,
+    "step": "unlink Team A again",
+  },
+  {
+    "request": "owner POST /promotions/connections/@connection Team connection/projects/@Team B",
+    "response": {
+      "connectionId": "@connection Team connection",
+      "projectId": "@Team B",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"Promote","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":true},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [
+        "{"projectId":"@Team B","connectionId":"@connection Team connection","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "link Team B",
+  },
+  {
+    "request": "owner POST /promotions/connections/@connection Deployments/apply/disconnect",
+    "response": {
+      "branchName": "main",
+      "configId": "@config apply of connection Deployments",
+      "connectionId": "@connection Deployments",
+      "direction": "apply",
+      "hasCheckout": false,
+    },
+    "status": 200,
+    "step": "disconnect before a clone",
+  },
+  {
+    "checkouts": [
+      {
+        "branch": "main",
+        "config": [
+          "remote.origin.url=https://127.0.0.1:<port>/acme/flows.git",
+          "remote.origin.tagopt=--no-tags",
+          "remote.origin.fetch=+refs/heads/main:refs/remotes/origin/main",
+          "branch.main.remote=origin",
+          "branch.main.merge=refs/heads/main",
+        ],
+        "dir": "<n8n>/promotions/configs/@config apply of connection Deployments/repository",
+        "files": [
+          "README.md",
+        ],
+        "head": "Initial commit",
+        "remotes": "origin	https://127.0.0.1:<port>/acme/flows.git (fetch)
+origin	https://127.0.0.1:<port>/acme/flows.git (push)",
+        "status": "",
+      },
+    ],
+    "files": [
+      "<n8n>/promotions/configs/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/cache.json {"schemaVersion":1,"connectionId":"@connection Deployments","configId":"@config apply of connection Deployments","remoteUrl":"https://127.0.0.1:<port>/acme/flows.git","checkoutBranchName":"main"}",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/repository/",
+    ],
+    "git": [
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+    ],
+    "request": "owner POST /promotions/connections/@connection Deployments/apply/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config apply of connection Deployments",
+      "connectionId": "@connection Deployments",
+      "direction": "apply",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone the apply branch",
+  },
+  {
+    "request": "owner GET /promotions/connections/@connection Deployments",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": true,
+          },
+          "createdAt": "<date>",
+          "id": "@config apply of connection Deployments",
+          "name": "Apply",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": false,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config promote of connection Deployments",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "main",
+            "createBranchOnPromotion": true,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "get the connection after the clone",
+  },
+  {
+    "git": [
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+    ],
+    "request": "owner POST /promotions/connections/@connection Deployments/apply/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config apply of connection Deployments",
+      "connectionId": "@connection Deployments",
+      "direction": "apply",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone the apply branch again",
+  },
+  {
+    "checkouts": [
+      {
+        "branch": "main",
+        "config": [
+          "remote.origin.url=https://127.0.0.1:<port>/acme/flows.git",
+          "remote.origin.tagopt=--no-tags",
+          "remote.origin.fetch=+refs/heads/main:refs/remotes/origin/main",
+          "branch.main.remote=origin",
+          "branch.main.merge=refs/heads/main",
+        ],
+        "dir": "<n8n>/promotions/configs/@config apply of connection Deployments/repository",
+        "files": [
+          "README.md",
+        ],
+        "head": "Initial commit",
+        "remotes": "origin	https://127.0.0.1:<port>/acme/flows.git (fetch)
+origin	https://127.0.0.1:<port>/acme/flows.git (push)",
+        "status": "",
+      },
+      {
+        "branch": "main",
+        "config": [
+          "remote.origin.url=https://127.0.0.1:<port>/acme/flows.git",
+          "remote.origin.tagopt=--no-tags",
+          "remote.origin.fetch=+refs/heads/main:refs/remotes/origin/main",
+          "branch.main.remote=origin",
+          "branch.main.merge=refs/heads/main",
+        ],
+        "dir": "<n8n>/promotions/configs/@config promote of connection Deployments/repository",
+        "files": [
+          "README.md",
+        ],
+        "head": "Initial commit",
+        "remotes": "origin	https://127.0.0.1:<port>/acme/flows.git (fetch)
+origin	https://127.0.0.1:<port>/acme/flows.git (push)",
+        "status": "",
+      },
+    ],
+    "files": [
+      "<n8n>/promotions/configs/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/cache.json {"schemaVersion":1,"connectionId":"@connection Deployments","configId":"@config apply of connection Deployments","remoteUrl":"https://127.0.0.1:<port>/acme/flows.git","checkoutBranchName":"main"}",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/repository/",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/cache.json {"schemaVersion":1,"connectionId":"@connection Deployments","configId":"@config promote of connection Deployments","remoteUrl":"https://127.0.0.1:<port>/acme/flows.git","checkoutBranchName":"main"}",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/repository/",
+    ],
+    "git": [
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+    ],
+    "request": "owner POST /promotions/connections/@connection Deployments/promote/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config promote of connection Deployments",
+      "connectionId": "@connection Deployments",
+      "direction": "promote",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone the promote branch",
+  },
+  {
+    "request": "owner POST /promotions/connections/@connection Deployments/sideways/clone",
+    "response": {
+      "message": "Unknown promotion direction: sideways",
+    },
+    "status": 404,
+    "step": "clone a sideways direction",
+  },
+  {
+    "body": {
+      "settings": {
+        "branchName": "dev",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": true,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config apply of connection Deployments",
+      "name": "Apply",
+      "settings": {
+        "branchName": "dev",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"dev"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"Promote","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":true},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [
+        "{"projectId":"@Team B","connectionId":"@connection Team connection","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "move the apply branch to dev",
+  },
+  {
+    "request": "owner GET /promotions/connections/@connection Deployments",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config apply of connection Deployments",
+          "name": "Apply",
+          "settings": {
+            "branchName": "dev",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": true,
+          },
+          "createdAt": "<date>",
+          "id": "@config promote of connection Deployments",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "main",
+            "createBranchOnPromotion": true,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "get the connection after the branch change",
+  },
+  {
+    "checkouts": [
+      {
+        "branch": "dev",
+        "config": [
+          "remote.origin.url=https://127.0.0.1:<port>/acme/flows.git",
+          "remote.origin.tagopt=--no-tags",
+          "remote.origin.fetch=+refs/heads/dev:refs/remotes/origin/dev",
+          "branch.dev.remote=origin",
+          "branch.dev.merge=refs/heads/dev",
+        ],
+        "dir": "<n8n>/promotions/configs/@config apply of connection Deployments/repository",
+        "files": [
+          "README.md",
+          "dev.txt",
+        ],
+        "head": "Dev branch",
+        "remotes": "origin	https://127.0.0.1:<port>/acme/flows.git (fetch)
+origin	https://127.0.0.1:<port>/acme/flows.git (push)",
+        "status": "",
+      },
+      {
+        "branch": "main",
+        "config": [
+          "remote.origin.url=https://127.0.0.1:<port>/acme/flows.git",
+          "remote.origin.tagopt=--no-tags",
+          "remote.origin.fetch=+refs/heads/main:refs/remotes/origin/main",
+          "branch.main.remote=origin",
+          "branch.main.merge=refs/heads/main",
+        ],
+        "dir": "<n8n>/promotions/configs/@config promote of connection Deployments/repository",
+        "files": [
+          "README.md",
+        ],
+        "head": "Initial commit",
+        "remotes": "origin	https://127.0.0.1:<port>/acme/flows.git (fetch)
+origin	https://127.0.0.1:<port>/acme/flows.git (push)",
+        "status": "",
+      },
+    ],
+    "files": [
+      "<n8n>/promotions/configs/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/cache.json {"schemaVersion":1,"connectionId":"@connection Deployments","configId":"@config apply of connection Deployments","remoteUrl":"https://127.0.0.1:<port>/acme/flows.git","checkoutBranchName":"dev"}",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/repository/",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/cache.json {"schemaVersion":1,"connectionId":"@connection Deployments","configId":"@config promote of connection Deployments","remoteUrl":"https://127.0.0.1:<port>/acme/flows.git","checkoutBranchName":"main"}",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/repository/",
+    ],
+    "git": [
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+    ],
+    "request": "owner POST /promotions/connections/@connection Deployments/apply/clone",
+    "response": {
+      "branchName": "dev",
+      "configId": "@config apply of connection Deployments",
+      "connectionId": "@connection Deployments",
+      "direction": "apply",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone the dev branch",
+  },
+  {
+    "body": {
+      "settings": {
+        "branchName": "missing",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": true,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config apply of connection Deployments",
+      "name": "Apply",
+      "settings": {
+        "branchName": "missing",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"missing"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"Promote","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":true},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [
+        "{"projectId":"@Team B","connectionId":"@connection Team connection","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "move the apply branch to a missing branch",
+  },
+  {
+    "git": [
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+    ],
+    "request": "owner POST /promotions/connections/@connection Deployments/apply/clone",
+    "response": {
+      "message": "Remote branch does not exist: missing",
+    },
+    "status": 400,
+    "step": "clone the missing branch",
+  },
+  {
+    "body": {
+      "settings": {
+        "branchName": "main",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": true,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config apply of connection Deployments",
+      "name": "Apply",
+      "settings": {
+        "branchName": "main",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"Promote","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":true},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [
+        "{"projectId":"@Team B","connectionId":"@connection Team connection","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "move the apply branch back to main",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "token",
+        "password": "wrong",
+        "username": "git-user",
+      },
+    },
+    "request": "owner PUT /promotions/providers/@provider Bot user",
+    "response": {
+      "authType": "token",
+      "config": {
+        "schemaVersion": 1,
+      },
+      "createdAt": "<date>",
+      "id": "@provider Bot user",
+      "name": "Bot user",
+      "type": "git",
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "give a wrong token",
+  },
+  {
+    "git": [
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "invalid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+    ],
+    "request": "owner POST /promotions/connections/@connection Deployments/apply/clone",
+    "response": {
+      "message": "Could not complete the Git operation",
+    },
+    "status": 400,
+    "step": "clone with the wrong token",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "token",
+        "password": "git-token",
+        "username": "git-user",
+      },
+    },
+    "request": "owner PUT /promotions/providers/@provider Bot user",
+    "response": {
+      "authType": "token",
+      "config": {
+        "schemaVersion": 1,
+      },
+      "createdAt": "<date>",
+      "id": "@provider Bot user",
+      "name": "Bot user",
+      "type": "git",
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "restore the right token",
+  },
+  {
+    "checkouts": [
+      {
+        "branch": "main",
+        "config": [
+          "remote.origin.url=https://127.0.0.1:<port>/acme/flows.git",
+          "remote.origin.tagopt=--no-tags",
+          "remote.origin.fetch=+refs/heads/main:refs/remotes/origin/main",
+          "branch.main.remote=origin",
+          "branch.main.merge=refs/heads/main",
+        ],
+        "dir": "<n8n>/promotions/configs/@config apply of connection Deployments/repository",
+        "files": [
+          "README.md",
+        ],
+        "head": "Initial commit",
+        "remotes": "origin	https://127.0.0.1:<port>/acme/flows.git (fetch)
+origin	https://127.0.0.1:<port>/acme/flows.git (push)",
+        "status": "",
+      },
+      {
+        "branch": "main",
+        "config": [
+          "remote.origin.url=https://127.0.0.1:<port>/acme/flows.git",
+          "remote.origin.tagopt=--no-tags",
+          "remote.origin.fetch=+refs/heads/main:refs/remotes/origin/main",
+          "branch.main.remote=origin",
+          "branch.main.merge=refs/heads/main",
+        ],
+        "dir": "<n8n>/promotions/configs/@config promote of connection Deployments/repository",
+        "files": [
+          "README.md",
+        ],
+        "head": "Initial commit",
+        "remotes": "origin	https://127.0.0.1:<port>/acme/flows.git (fetch)
+origin	https://127.0.0.1:<port>/acme/flows.git (push)",
+        "status": "",
+      },
+    ],
+    "files": [
+      "<n8n>/promotions/configs/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/cache.json {"schemaVersion":1,"connectionId":"@connection Deployments","configId":"@config apply of connection Deployments","remoteUrl":"https://127.0.0.1:<port>/acme/flows.git","checkoutBranchName":"main"}",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/repository/",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/cache.json {"schemaVersion":1,"connectionId":"@connection Deployments","configId":"@config promote of connection Deployments","remoteUrl":"https://127.0.0.1:<port>/acme/flows.git","checkoutBranchName":"main"}",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/repository/",
+    ],
+    "git": [
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "none",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 401,
+      },
+      {
+        "auth": "valid",
+        "method": "GET",
+        "path": "/acme/flows.git/info/refs",
+        "service": "git-upload-pack",
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+      {
+        "auth": "valid",
+        "method": "POST",
+        "path": "/acme/flows.git/git-upload-pack",
+        "service": null,
+        "status": 200,
+      },
+    ],
+    "request": "owner POST /promotions/connections/@connection Deployments/apply/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config apply of connection Deployments",
+      "connectionId": "@connection Deployments",
+      "direction": "apply",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone the main branch",
+  },
+  {
+    "body": {
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/other.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config apply of connection Deployments",
+          "name": "Apply",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config promote of connection Deployments",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "main",
+            "createBranchOnPromotion": true,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/other.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"Promote","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":true},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/other.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [
+        "{"projectId":"@Team B","connectionId":"@connection Team connection","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "point the instance connection at another repository",
+  },
+  {
+    "request": "owner GET /promotions/connections/@connection Deployments",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config apply of connection Deployments",
+          "name": "Apply",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config promote of connection Deployments",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "main",
+            "createBranchOnPromotion": true,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/other.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "get the connection after the target change",
+  },
+  {
+    "body": {
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "owner PUT /promotions/connections/@connection Deployments",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": true,
+          },
+          "createdAt": "<date>",
+          "id": "@config apply of connection Deployments",
+          "name": "Apply",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": true,
+          },
+          "createdAt": "<date>",
+          "id": "@config promote of connection Deployments",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "main",
+            "createBranchOnPromotion": true,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config promote of connection Deployments","connectionId":"@connection Deployments","name":"Promote","direction":"promote","settings":{"schemaVersion":1,"baseBranchName":"main","createBranchOnPromotion":true},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [
+        "{"projectId":"@Team B","connectionId":"@connection Team connection","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 200,
+    "step": "point the instance connection back",
+  },
+  {
+    "files": [
+      "<n8n>/promotions/configs/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/cache.json {"schemaVersion":1,"connectionId":"@connection Deployments","configId":"@config apply of connection Deployments","remoteUrl":"https://127.0.0.1:<port>/acme/flows.git","checkoutBranchName":"main"}",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/repository/",
+      "<n8n>/promotions/configs/@config apply of connection Team connection/",
+      "<n8n>/promotions/configs/@config apply of connection Team connection/.ssh/",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/cache.json {"schemaVersion":1,"connectionId":"@connection Deployments","configId":"@config promote of connection Deployments","remoteUrl":"https://127.0.0.1:<port>/acme/flows.git","checkoutBranchName":"main"}",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/repository/",
+    ],
+    "request": "owner POST /promotions/connections/@connection Team connection/apply/clone",
+    "response": {
+      "message": "Could not complete the Git operation",
+    },
+    "status": 400,
+    "step": "clone the team apply branch over SSH",
+  },
+  {
+    "body": {
+      "providerId": "@provider Deploy key",
+    },
+    "request": "owner PUT /promotions/connections/@connection Team connection",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": false,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config apply of connection Team connection",
+          "name": "From main",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Team connection",
+      "name": "Team connection",
+      "provider": {
+        "authType": "ssh-key",
+        "createdAt": "<date>",
+        "id": "@provider Deploy key",
+        "name": "Deploy key 2",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "ssh://git@remote.test/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "move the team connection to the SSH provider",
+  },
+  {
+    "request": "owner POST /promotions/connections/@connection Team connection/apply/clone",
+    "response": {
+      "message": "Could not complete the Git operation",
+    },
+    "status": 400,
+    "step": "clone the team apply branch over SSH again",
+  },
+  {
+    "checkouts": [
+      {
+        "branch": "main",
+        "config": [
+          "remote.origin.url=https://127.0.0.1:<port>/acme/flows.git",
+          "remote.origin.tagopt=--no-tags",
+          "remote.origin.fetch=+refs/heads/main:refs/remotes/origin/main",
+          "branch.main.remote=origin",
+          "branch.main.merge=refs/heads/main",
+        ],
+        "dir": "<n8n>/promotions/configs/@config promote of connection Deployments/repository",
+        "files": [
+          "README.md",
+        ],
+        "head": "Initial commit",
+        "remotes": "origin	https://127.0.0.1:<port>/acme/flows.git (fetch)
+origin	https://127.0.0.1:<port>/acme/flows.git (push)",
+        "status": "",
+      },
+    ],
+    "files": [
+      "<n8n>/promotions/configs/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/",
+      "<n8n>/promotions/configs/@config apply of connection Team connection/",
+      "<n8n>/promotions/configs/@config apply of connection Team connection/.ssh/",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/cache.json {"schemaVersion":1,"connectionId":"@connection Deployments","configId":"@config promote of connection Deployments","remoteUrl":"https://127.0.0.1:<port>/acme/flows.git","checkoutBranchName":"main"}",
+      "<n8n>/promotions/configs/@config promote of connection Deployments/repository/",
+    ],
+    "request": "owner POST /promotions/connections/@connection Deployments/apply/disconnect",
+    "response": {
+      "branchName": "main",
+      "configId": "@config apply of connection Deployments",
+      "connectionId": "@connection Deployments",
+      "direction": "apply",
+      "hasCheckout": false,
+    },
+    "status": 200,
+    "step": "disconnect the apply checkout",
+  },
+  {
+    "checkouts": [],
+    "files": [
+      "<n8n>/promotions/configs/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/",
+      "<n8n>/promotions/configs/@config apply of connection Team connection/",
+      "<n8n>/promotions/configs/@config apply of connection Team connection/.ssh/",
+    ],
+    "request": "owner DELETE /promotions/connections/@connection Deployments/configs/promote",
+    "response": {},
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@config apply of connection Team connection","connectionId":"@connection Team connection","name":"From main","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@connection Team connection","name":"Team connection","providerId":"@provider Deploy key","scope":"projects","target":{"schemaVersion":1,"remoteUrl":"ssh://git@remote.test/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [
+        "{"projectId":"@Team B","connectionId":"@connection Team connection","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the promote config with its checkout",
+  },
+  {
+    "request": "admin GET /promotions/connections",
+    "response": {
+      "<order>": "id asc",
+      "<page is the slice of the order>": true,
+      "data": [
+        {
+          "configs": {
+            "apply": {
+              "createdAt": "<date>",
+              "id": "@config apply of connection Deployments",
+              "name": "Apply",
+              "settings": {
+                "branchName": "main",
+                "schemaVersion": 1,
+              },
+              "updatedAt": "<date>",
+            },
+          },
+          "createdAt": "<date>",
+          "id": "@connection Deployments",
+          "name": "Deployments",
+          "provider": {
+            "authType": "token",
+            "createdAt": "<date>",
+            "id": "@provider Bot user",
+            "name": "Bot user",
+            "type": "git",
+            "updatedAt": "<date>",
+          },
+          "scope": "instance",
+          "target": {
+            "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        {
+          "configs": {
+            "apply": {
+              "createdAt": "<date>",
+              "id": "@config apply of connection Team connection",
+              "name": "From main",
+              "settings": {
+                "branchName": "main",
+                "schemaVersion": 1,
+              },
+              "updatedAt": "<date>",
+            },
+          },
+          "createdAt": "<date>",
+          "id": "@connection Team connection",
+          "name": "Team connection",
+          "provider": {
+            "authType": "ssh-key",
+            "createdAt": "<date>",
+            "id": "@provider Deploy key",
+            "name": "Deploy key 2",
+            "type": "git",
+            "updatedAt": "<date>",
+          },
+          "scope": "projects",
+          "target": {
+            "remoteUrl": "ssh://git@remote.test/acme/flows.git",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      ],
+      "nextCursor": null,
+    },
+    "status": 200,
+    "step": "list the connections as admin",
+  },
+  {
+    "request": "member GET /promotions/connections",
+    "response": {
+      "message": "Forbidden",
+    },
+    "status": 403,
+    "step": "list the connections as member",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "ssh-key",
+      },
+      "name": "Member",
+      "type": "git",
+    },
+    "request": "member POST /promotions/providers",
+    "response": {
+      "message": "Forbidden",
+    },
+    "status": 403,
+    "step": "create a provider as member",
+  },
+  {
+    "request": "owner GET /promotions/connections",
+    "response": {
+      "message": "Your license does not allow for feat:gitConnections. To enable feat:gitConnections, please upgrade to a license that supports this feature.",
+    },
+    "status": 403,
+    "step": "list the connections without the licence",
+  },
+  {
+    "files": [
+      "<n8n>/promotions/configs/",
+      "<n8n>/promotions/configs/@config apply of connection Deployments/",
+    ],
+    "request": "owner DELETE /promotions/connections/@connection Team connection",
+    "response": {},
+    "rows": {
+      "promotion_config": [
+        "{"id":"@config apply of connection Deployments","connectionId":"@connection Deployments","name":"Apply","direction":"apply","settings":{"schemaVersion":1,"branchName":"main"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection": [
+        "{"id":"@connection Deployments","name":"Deployments","providerId":"@provider Bot user","scope":"instance","target":{"schemaVersion":1,"remoteUrl":"https://127.0.0.1:<port>/acme/flows.git"},"createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the team connection",
+  },
+  {
+    "files": [
+      "<n8n>/promotions/configs/",
+    ],
+    "request": "owner DELETE /promotions/connections/@connection Deployments",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Bot user","name":"Bot user","type":"git","authType":"token","config":{"schemaVersion":1},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the instance connection",
+  },
+  {
+    "request": "owner DELETE /promotions/providers/@provider Bot user",
+    "response": {},
+    "rows": {
+      "promotion_config": [],
+      "promotion_connection": [],
+      "promotion_connection_project": [],
+      "promotion_provider": [
+        "{"id":"@provider Deploy key","name":"Deploy key 2","type":"git","authType":"ssh-key","config":{"schemaVersion":1,"publicKey":"ssh-ed25519 <key 3, 68 characters> n8n promotions","keyType":"ed25519"},"auth":"<set>","createdAt":"<date>","updatedAt":"<date>"}",
+      ],
+    },
+    "status": 204,
+    "step": "delete the token provider",
+  },
+  {
+    "request": "owner GET /promotions/providers",
+    "response": {
+      "<order>": "any",
+      "<page is the slice of the order>": true,
+      "data": [
+        {
+          "authType": "ssh-key",
+          "createdAt": "<date>",
+          "id": "@provider Deploy key",
+          "name": "Deploy key 2",
+          "type": "git",
+          "updatedAt": "<date>",
+        },
+      ],
+      "nextCursor": null,
+    },
+    "status": 200,
+    "step": "list the providers at the end",
+  },
+]
+`;

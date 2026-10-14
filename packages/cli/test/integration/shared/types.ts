@@ -74,6 +74,7 @@ type ModuleName =
 	| 'log-streaming'
 	| 'redaction'
 	| 'source-control'
+	| 'promotions'
 	| 'n8n-packages'
 	| 'token-exchange'
 	| 'policy-infrastructure'

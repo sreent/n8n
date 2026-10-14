@@ -59,9 +59,9 @@ services:
       # The npm registry of community nodes, and its token. Empty values use the public registry.
       N8N_COMMUNITY_PACKAGES_REGISTRY: ${COMMUNITY_PACKAGES_REGISTRY:-https://registry.npmjs.org}
       N8N_COMMUNITY_PACKAGES_AUTH_TOKEN: ${COMMUNITY_PACKAGES_AUTH_TOKEN:-}
-      # Node type policies also need their module, which upstream n8n does not load by default. An
-      # empty ENABLED_MODULES in .env turns it off.
-      N8N_ENABLED_MODULES: ${ENABLED_MODULES-type-availability-policies}
+      # Node type policies and Git connections also need their modules, which upstream n8n does not
+      # load by default. An empty ENABLED_MODULES in .env turns them off.
+      N8N_ENABLED_MODULES: ${ENABLED_MODULES-type-availability-policies,promotions}
       # The Code nodes run in the runners container (external mode). n8n waits for the runners on
       # port 5679. Only the containers of this stack can reach that port, and they need the token.
       N8N_RUNNERS_MODE: external

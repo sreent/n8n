@@ -124,7 +124,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/cli/src/modules/source-control/README.md](packages/cli/src/modules/source-control/README.md)),
    and the editor of source control (done, see
    [the FORK.md of the folder](packages/frontend/editor-ui/src/features/integrations/sourceControl/FORK.md)),
-   then Git connections.
+   then Git connections: the backend and its public API (done, see
+   [packages/cli/src/modules/promotions/README.md](packages/cli/src/modules/promotions/README.md)),
+   then their editor.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off. Done:
@@ -145,8 +147,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    non-production instance is not in the list: an instance turns it on with
    `N8N_FORK_NON_PRODUCTION_BANNER=true`. The owner chose parity with the Enterprise Edition on
    2026-10-14: each of the six rebuilt features goes into the list when it is done. Workflow
-   reviews, the S3 and Azure Blob storage of binary data and execution data, and source control
-   are in the list.
+   reviews, the S3 and Azure Blob storage of binary data and execution data, source control and
+   Git connections are in the list. Git connections also need their module
+   (`N8N_ENABLED_MODULES=promotions`), which `deploy/` sets.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.
@@ -244,14 +247,15 @@ update can bring new enterprise files: see "Upstream updates".
   the workflow reviews
   (`packages/cli/test/integration/workflow-reviews/workflow-reviews.golden.test.ts`), and of the
   S3 and Azure Blob storage (the golden tests in `packages/@n8n/blob-storage/src/__tests__/golden`),
-  and of source control (the golden tests in `packages/cli/test/integration/source-control`)
-  fail when an update changes what a role may do, how projects, sharing, the sign-in method, the
+  and of source control (the golden tests in `packages/cli/test/integration/source-control`),
+  and of Git connections (the golden tests in `packages/cli/test/integration/promotions`) fail
+  when an update changes what a role may do, how projects, sharing, the sign-in method, the
   OIDC sign-in, the role provisioning, the SAML sign-in, the secrets providers, the queries of
   their connections, the external secrets module, the external secrets editor, the connections
   editor, the execution annotations, the variables, the agent eval tables, the Evaluation nodes,
   the evaluation backend, the evaluation editor, the local parts of the AI workflow builder, the
-  source control editor, the workflow reviews, the S3 and Azure Blob storage or source control
-  work.
+  source control editor, the workflow reviews, the S3 and Azure Blob storage, source control or
+  Git connections work.
   Compare the change with the upstream change, then update the fork code or the snapshot.
 - To record a snapshot against the enterprise code, use a checkout of the upstream commit in
   `scripts/sync-upstream.base`, outside this repository, because the fork has no enterprise files.
@@ -267,6 +271,9 @@ update can bring new enterprise files: see "Upstream updates".
 - When an upstream update changes the public API controller
   `packages/cli/src/public-api/v1/controllers/source-control.public.controller.ts`, keep the import
   paths of the fork module, as `packages/cli/src/modules/source-control/README.md` tells.
+- When an upstream update changes the public API controller
+  `packages/cli/src/public-api/v1/controllers/promotions.public.controller.ts`, keep the import
+  paths of the fork module, as `packages/cli/src/modules/promotions/README.md` tells.
 - When an upstream update changes how ordinary code uses the S3 and Azure classes of
   `@n8n/blob-storage`, change the fork classes. When it changes how ordinary code uses the scaling
   classes `MultiMainSetup`, `WorkerStatusService` and `PoolConfigService`, change the fork

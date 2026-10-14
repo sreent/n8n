@@ -1,0 +1,1649 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the edge cases of the operations of Git connections 1`] = `
+[
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "message": "No promotion connection is configured for this instance",
+    },
+    "status": 404,
+    "step": "changes to promote without a connection",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "message": "No promotion connection is configured for this instance",
+    },
+    "status": 404,
+    "step": "changes to apply without a connection",
+  },
+  {
+    "body": {
+      "workflowIds": [
+        "@Flow 1",
+      ],
+    },
+    "request": "POST /promotions/projects/@Team A/promote",
+    "response": {
+      "message": "No promotion connection is configured for this instance",
+    },
+    "status": 404,
+    "step": "promote a selection without a connection",
+  },
+  {
+    "body": {
+      "commitMessage": "Unknown",
+    },
+    "request": "POST /promotions/connections/unknown1/promote",
+    "response": {
+      "message": "Promotion connection not found",
+    },
+    "status": 404,
+    "step": "promote with an unknown connection",
+  },
+  {
+    "request": "POST /promotions/connections/unknown1/apply",
+    "response": {
+      "message": "Promotion connection not found",
+    },
+    "status": 404,
+    "step": "apply with an unknown connection",
+  },
+  {
+    "request": "POST /promotions/connections/unknown1/apply/clone",
+    "response": {
+      "message": "Promotion connection not found",
+    },
+    "status": 404,
+    "step": "clone with an unknown connection",
+  },
+  {
+    "request": "POST /promotions/connections/unknown1/apply/disconnect",
+    "response": {
+      "message": "Promotion connection not found",
+    },
+    "status": 404,
+    "step": "disconnect with an unknown connection",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "token",
+        "password": "git-token",
+        "username": "git-user",
+      },
+      "name": "Bot user",
+      "type": "git",
+    },
+    "request": "POST /promotions/providers",
+    "response": {
+      "provider": {
+        "authType": "token",
+        "config": {
+          "schemaVersion": 1,
+        },
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "publicKey": null,
+    },
+    "status": 201,
+    "step": "create the provider",
+  },
+  {
+    "body": {
+      "name": "Deployments",
+      "providerId": "@provider Bot user",
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 201,
+    "step": "create the instance connection without configurations",
+  },
+  {
+    "body": {
+      "commitMessage": "No configuration",
+    },
+    "request": "POST /promotions/connections/@connection Deployments/promote",
+    "response": {
+      "message": "This connection has no promote configuration",
+    },
+    "status": 404,
+    "step": "promote without a promote configuration",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/apply",
+    "response": {
+      "message": "This connection has no apply configuration",
+    },
+    "status": 404,
+    "step": "apply without an apply configuration",
+  },
+  {
+    "body": {
+      "expectedSource": {
+        "branchName": "main",
+        "commitSha": "<sha>",
+        "configId": "config1",
+      },
+    },
+    "request": "POST /promotions/connections/@connection Deployments/apply/continue",
+    "response": {
+      "message": "This connection has no apply configuration",
+    },
+    "status": 404,
+    "step": "continue without an apply configuration",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/promote/clone",
+    "response": {
+      "message": "This connection has no promote configuration",
+    },
+    "status": 404,
+    "step": "clone without a promote configuration",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/apply/disconnect",
+    "response": {
+      "message": "This connection has no apply configuration",
+    },
+    "status": 404,
+    "step": "disconnect without an apply configuration",
+  },
+  {
+    "request": "DELETE /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "message": "Promotion configuration not found",
+    },
+    "status": 404,
+    "step": "delete a configuration that does not exist",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "message": "The instance promotion connection has no promote configuration",
+    },
+    "status": 400,
+    "step": "changes to promote without a promote configuration",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "message": "The instance promotion connection has no apply configuration",
+    },
+    "status": 400,
+    "step": "changes to apply without an apply configuration",
+  },
+  {
+    "body": {
+      "workflowIds": [
+        "@Flow 1",
+      ],
+    },
+    "request": "POST /promotions/projects/@Team A/promote",
+    "response": {
+      "message": "The instance promotion connection has no promote configuration",
+    },
+    "status": 400,
+    "step": "promote a selection without a promote configuration",
+  },
+  {
+    "body": {
+      "name": "Team B repository",
+      "providerId": "@provider Bot user",
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "POST /promotions/connections",
+    "response": {
+      "configs": {},
+      "createdAt": "<date>",
+      "id": "@connection Team B repository",
+      "name": "Team B repository",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "projects",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 201,
+    "step": "create a project connection without configurations",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Team B repository/projects/@Team B",
+    "response": {
+      "connectionId": "@connection Team B repository",
+      "projectId": "@Team B",
+    },
+    "status": 200,
+    "step": "link Team B",
+  },
+  {
+    "body": {
+      "settings": {
+        "baseBranchName": "main",
+        "createBranchOnPromotion": false,
+        "schemaVersion": 1,
+      },
+    },
+    "request": "PUT /promotions/connections/@connection Deployments/configs/promote",
+    "response": {
+      "checkout": {
+        "hasCheckout": false,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config Deployments promote",
+      "name": "Promote",
+      "settings": {
+        "baseBranchName": "main",
+        "createBranchOnPromotion": false,
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "set the promote configuration of the instance connection",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/promote/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "direction": "promote",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone promote on the instance connection",
+  },
+  {
+    "request": "GET /promotions/projects/@Team B/changes/promote",
+    "response": {
+      "message": "The promotion connection for this project has no promote configuration",
+    },
+    "status": 400,
+    "step": "changes to promote for Team B with a project connection without configurations",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to promote for Team A on the instance connection",
+  },
+  {
+    "body": {
+      "workflowIds": [
+        "@Flow 1",
+      ],
+    },
+    "request": "POST /promotions/projects/@Team B/promote",
+    "response": {
+      "message": "The promotion connection for this project has no promote configuration",
+    },
+    "status": 400,
+    "step": "promote a selection for Team B with a project connection without configurations",
+  },
+  {
+    "body": {
+      "settings": {
+        "branchName": "main",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": false,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config Deployments apply",
+      "name": "Apply",
+      "settings": {
+        "branchName": "main",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "set the apply configuration",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/apply/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config Deployments apply",
+      "connectionId": "@connection Deployments",
+      "direction": "apply",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone apply",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "message": "Could not complete the Git operation",
+    },
+    "status": 400,
+    "step": "changes to apply on main",
+  },
+  {
+    "body": {
+      "settings": {
+        "branchName": "dev",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": true,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config Deployments apply",
+      "name": "Apply",
+      "settings": {
+        "branchName": "dev",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "move the apply branch to dev",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "message": "This apply configuration is not cloned. Clone it before listing branch files.",
+    },
+    "status": 400,
+    "step": "changes to apply after the branch change",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/apply",
+    "response": {
+      "message": "This apply configuration is not cloned. Clone it before applying.",
+    },
+    "status": 400,
+    "step": "apply after the branch change",
+  },
+  {
+    "body": {
+      "expectedSource": {
+        "branchName": "main",
+        "commitSha": "<sha>",
+        "configId": "@config Deployments apply",
+      },
+    },
+    "request": "POST /promotions/connections/@connection Deployments/apply/continue",
+    "response": {
+      "message": "This apply configuration is not cloned. Clone it before applying.",
+    },
+    "status": 400,
+    "step": "continue after the branch change",
+  },
+  {
+    "body": {
+      "settings": {
+        "baseBranchName": "dev",
+        "createBranchOnPromotion": false,
+        "schemaVersion": 1,
+      },
+    },
+    "request": "PUT /promotions/connections/@connection Deployments/configs/promote",
+    "response": {
+      "checkout": {
+        "hasCheckout": true,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config Deployments promote",
+      "name": "Promote",
+      "settings": {
+        "baseBranchName": "dev",
+        "createBranchOnPromotion": false,
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "move the promote branch to dev",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "message": "This promote configuration is not cloned. Clone it before listing branch files.",
+    },
+    "status": 400,
+    "step": "changes to promote after the branch change",
+  },
+  {
+    "body": {
+      "commitMessage": "After the branch change",
+    },
+    "request": "POST /promotions/connections/@connection Deployments/promote",
+    "response": {
+      "message": "This promote configuration is not cloned. Clone it before promoting.",
+    },
+    "status": 400,
+    "step": "promote after the branch change",
+  },
+  {
+    "body": {
+      "workflowIds": [
+        "@Flow 1",
+      ],
+    },
+    "request": "POST /promotions/projects/@Team A/promote",
+    "response": {
+      "message": "This promote configuration is not cloned. Clone it before promoting.",
+    },
+    "status": 400,
+    "step": "promote a selection after the branch change",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/promote/clone",
+    "response": {
+      "branchName": "dev",
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "direction": "promote",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone promote on dev",
+  },
+  {
+    "body": {
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/other.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "PUT /promotions/connections/@connection Deployments",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments apply",
+          "name": "Apply",
+          "settings": {
+            "branchName": "dev",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments promote",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "dev",
+            "createBranchOnPromotion": false,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/other.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "point the connection at another repository",
+  },
+  {
+    "body": {
+      "commitMessage": "After the remote change",
+    },
+    "request": "POST /promotions/connections/@connection Deployments/promote",
+    "response": {
+      "message": "This promote configuration is not cloned. Clone it before promoting.",
+    },
+    "status": 400,
+    "step": "promote after the remote change",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "message": "This promote configuration is not cloned. Clone it before listing branch files.",
+    },
+    "status": 400,
+    "step": "changes to promote after the remote change",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/apply",
+    "response": {
+      "message": "This apply configuration is not cloned. Clone it before applying.",
+    },
+    "status": 400,
+    "step": "apply after the remote change",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/promote/clone",
+    "response": {
+      "message": "Could not complete the Git operation",
+    },
+    "status": 400,
+    "step": "clone promote after the remote change",
+  },
+  {
+    "request": "GET /promotions/connections/@connection Deployments",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments apply",
+          "name": "Apply",
+          "settings": {
+            "branchName": "dev",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments promote",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "dev",
+            "createBranchOnPromotion": false,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/other.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "get the connection after the remote change",
+  },
+  {
+    "body": {
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "PUT /promotions/connections/@connection Deployments",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments apply",
+          "name": "Apply",
+          "settings": {
+            "branchName": "dev",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": true,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments promote",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "dev",
+            "createBranchOnPromotion": false,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "point the connection back",
+  },
+  {
+    "body": {
+      "settings": {
+        "baseBranchName": "main",
+        "createBranchOnPromotion": false,
+        "schemaVersion": 1,
+      },
+    },
+    "request": "PUT /promotions/connections/@connection Deployments/configs/promote",
+    "response": {
+      "checkout": {
+        "hasCheckout": true,
+        "matchesConfig": false,
+      },
+      "createdAt": "<date>",
+      "id": "@config Deployments promote",
+      "name": "Promote",
+      "settings": {
+        "baseBranchName": "main",
+        "createBranchOnPromotion": false,
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "set the promote configuration to main",
+  },
+  {
+    "body": {
+      "settings": {
+        "branchName": "main",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "PUT /promotions/connections/@connection Deployments/configs/apply",
+    "response": {
+      "checkout": {
+        "hasCheckout": true,
+        "matchesConfig": true,
+      },
+      "createdAt": "<date>",
+      "id": "@config Deployments apply",
+      "name": "Apply",
+      "settings": {
+        "branchName": "main",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "set the apply configuration to main",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/promote/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "direction": "promote",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone promote on main",
+  },
+  {
+    "body": {
+      "commitMessage": "Package",
+    },
+    "request": "POST /promotions/connections/@connection Deployments/promote",
+    "response": {
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "counts": {
+        "credentials": 0,
+        "dataTables": 0,
+        "folders": 0,
+        "tags": 0,
+        "variables": 0,
+        "workflows": 1,
+      },
+      "git": {
+        "branchName": "main",
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "promote the package",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/apply/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config Deployments apply",
+      "connectionId": "@connection Deployments",
+      "direction": "apply",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone apply on main",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 2",
+          "name": "Flow 2",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to apply after a commit elsewhere",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 2",
+          "name": "Flow 2",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to promote after a commit elsewhere",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/apply",
+    "response": {
+      "configId": "@config Deployments apply",
+      "connectionId": "@connection Deployments",
+      "counts": {
+        "credentials": {
+          "matched": 0,
+          "stubbed": 0,
+        },
+        "dataTables": {
+          "created": 0,
+          "matched": 0,
+        },
+        "folders": {
+          "created": 0,
+          "removed": 0,
+          "skipped": 0,
+        },
+        "projects": {
+          "created": 0,
+          "deleted": 0,
+          "skipped": 0,
+          "updated": 2,
+        },
+        "tags": {
+          "created": 0,
+          "matched": 0,
+          "reconciled": 0,
+          "renamed": 0,
+          "skipped": 0,
+        },
+        "variables": {
+          "created": 0,
+          "matched": 0,
+          "missing": 0,
+          "stubbed": 0,
+          "updated": 0,
+        },
+        "workflows": {
+          "archived": 0,
+          "created": 0,
+          "deleted": 1,
+          "publishing": {
+            "blocked": 0,
+            "failed": 0,
+            "published": 0,
+            "unchanged": 1,
+            "unpublished": 0,
+          },
+          "skipped": 0,
+          "updated": 1,
+        },
+      },
+      "git": {
+        "branchName": "main",
+        "commitSha": "<sha>",
+      },
+      "status": "applied",
+      "warnings": [],
+    },
+    "status": 200,
+    "step": "apply after a commit elsewhere",
+  },
+  {
+    "apply": "the newest commit of the remote",
+    "changesToApply": "the newest commit of the remote",
+    "changesToPromote": "the newest commit of the remote",
+    "check": "the commit that each operation reads",
+  },
+  {
+    "body": {
+      "commitMessage": "After a commit elsewhere",
+    },
+    "request": "POST /promotions/connections/@connection Deployments/promote",
+    "response": {
+      "message": "Could not complete the Git operation",
+    },
+    "status": 400,
+    "step": "promote after a commit elsewhere",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/promote/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "direction": "promote",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone promote for the order",
+  },
+  {
+    "body": {
+      "commitMessage": "Flow 4 and Flow 5",
+    },
+    "request": "POST /promotions/connections/@connection Deployments/promote",
+    "response": {
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "counts": {
+        "credentials": 0,
+        "dataTables": 0,
+        "folders": 0,
+        "tags": 0,
+        "variables": 0,
+        "workflows": 3,
+      },
+      "git": {
+        "branchName": "main",
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "promote Flow 4 and Flow 5",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote?sort=name&order=asc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "flow-5",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to promote sorted by name asc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote?sort=name&order=desc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "flow-5",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to promote sorted by name desc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote?sort=status&order=asc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "flow-5",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to promote sorted by status asc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote?sort=status&order=desc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "flow-5",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to promote sorted by status desc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote?sort=updatedAt&order=asc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "flow-5",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to promote sorted by updatedAt asc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote?sort=updatedAt&order=desc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "flow-5",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to promote sorted by updatedAt desc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply?sort=name&order=asc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "Flow 5",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to apply sorted by name asc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply?sort=name&order=desc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "Flow 5",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to apply sorted by name desc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply?sort=status&order=asc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "Flow 5",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to apply sorted by status asc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply?sort=status&order=desc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "Flow 5",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to apply sorted by status desc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply?sort=updatedAt&order=asc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "Flow 5",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to apply sorted by updatedAt asc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply?sort=updatedAt&order=desc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "Flow 5",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to apply sorted by updatedAt desc",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote?search=%20FLOW%20",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 6",
+          "name": "Flow 6",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 5",
+          "name": "flow-5",
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": null,
+          "updatedBy": null,
+          "version": null,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "changes to promote that match FLOW",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/promote/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "direction": "promote",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone promote again",
+  },
+  {
+    "body": {
+      "commitMessage": "Team C",
+    },
+    "request": "POST /promotions/connections/@connection Deployments/promote",
+    "response": {
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "counts": {
+        "credentials": 0,
+        "dataTables": 0,
+        "folders": 0,
+        "tags": 0,
+        "variables": 1,
+        "workflows": 4,
+      },
+      "git": {
+        "branchName": "main",
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "promote Team C",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/apply",
+    "response": {
+      "configId": "@config Deployments apply",
+      "connectionId": "@connection Deployments",
+      "git": {
+        "branchName": "main",
+        "commitSha": "<sha>",
+      },
+      "preflight": {
+        "accessRequirements": [],
+        "conflicts": [],
+        "missingBindings": [
+          {
+            "consumers": [
+              {
+                "project": {
+                  "id": "@Team C",
+                  "name": "Team C",
+                },
+                "workflows": [
+                  {
+                    "id": "@Flow C",
+                    "name": "Flow C",
+                  },
+                ],
+              },
+            ],
+            "kind": "variable",
+            "name": "EDGE_VAR",
+            "scope": {
+              "kind": "global",
+            },
+            "sourceValue": "edge",
+            "variableType": "string",
+          },
+        ],
+        "missingProjects": [
+          {
+            "description": "The team C",
+            "icon": {
+              "type": "emoji",
+              "value": "🚀",
+            },
+            "id": "@Team C",
+            "name": "Team C",
+          },
+        ],
+        "warnings": [],
+      },
+      "status": "blocked",
+    },
+    "status": 200,
+    "step": "apply with a missing project and a missing variable",
+  },
+  {
+    "request": "GET /promotions/connections/@connection Deployments",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": true,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments apply",
+          "name": "Apply",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": true,
+            "matchesConfig": true,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments promote",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "main",
+            "createBranchOnPromotion": false,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 200,
+    "step": "get the connection at the end",
+  },
+]
+`;
