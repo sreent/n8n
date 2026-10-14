@@ -29,6 +29,7 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   no entry of licence keys (the owner chose this on 2026-10-13).
   [packages/cli/src/license/FORK.md](packages/cli/src/license/FORK.md) describes the change.
 - `deploy/`: runs the fork on a Linux server with Docker Compose.
+  `deploy/workflows/governance-report.json` is a workflow that sends a weekly governance report.
 - `vendor/`: the wa-sqlite package that the editor app installs. Upstream installs it from
   GitHub, which a cloud session cannot do. `scripts/vendor-wa-sqlite.sh` packs it from the
   upstream commit and gives the same file again.
@@ -113,7 +114,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    (removed, with stand-ins, see
    [the FORK.md of the folder](packages/frontend/editor-ui/src/features/integrations/sourceControl/FORK.md)),
    and last the enterprise files that fork code replaced (done). The fork has no enterprise code
-   now.
+   now. On 2026-10-14 the owner chose to rebuild the six features that the fork removed without a
+   replacement, in the order of [FORK-FEATURES.md](FORK-FEATURES.md#parity-with-the-enterprise-edition):
+   workflow reviews first.
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off. Done:
