@@ -64,6 +64,25 @@ repositories of upstream n8n. They add no table and no module.
 - To find unused accounts, list the users, and look for an old day or null. Compare with
   `createdAt`, so that you do not flag a new user.
 
+## A weekly report
+
+`deploy/workflows/governance-report.json` is an n8n workflow that uses the three routes. Each
+Monday at 08:00, in the time zone of the instance, it reads all pages of each route and sends a
+report by email:
+
+- the published workflows in personal spaces;
+- the published workflows with failed executions in their last 5 executions;
+- the published workflows with unpublished changes;
+- the expired API keys, and the API keys that nobody used for 90 days;
+- the users who were not active for 90 days, and the invitations that are open for more than
+  14 days.
+
+The node **Settings** holds the URL of the API, the addresses and the numbers of days. The three
+**Get** nodes use an **n8n API** credential. Its key needs the scopes `workflow:list`,
+`execution:list`, `apiKey:manage` and `user:list`, so only the owner, an admin or a custom role
+with these scopes can make it. The node **Build report** writes the report as text and as HTML.
+The report never holds the values of API keys.
+
 ## Changes outside this folder
 
 - `packages/@n8n/api-types/src/dto/workflows/workflow-inventory-public.*.ts` and
@@ -88,3 +107,5 @@ repositories of upstream n8n. They add no table and no module.
 - `packages/cli/test/integration/public-api/api-keys-review.test.ts`
 - `packages/cli/test/integration/public-api/users-last-active.test.ts`
 - `packages/@n8n/permissions/src/__tests__/fork-scopes.test.ts`
+- `deploy/workflows/governance-report.test.mjs`, for the report workflow. Run it with
+  `node --test deploy/workflows/governance-report.test.mjs`.

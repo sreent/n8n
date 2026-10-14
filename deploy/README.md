@@ -165,6 +165,12 @@ spaces. A user cannot hide a workflow from them.
   `apiKey:manage`). `GET /api/v1/users` gives `lastActiveAt`, the day of the last request of each
   user: an old day or null shows an unused account. See
   [packages/cli/src/governance/README.md](../packages/cli/src/governance/README.md).
+- **A weekly report.** The workflow `workflows/governance-report.json` uses these routes. Each
+  Monday at 08:00 (in the time zone `TIMEZONE` of `.env`), it sends an email with the published
+  workflows in personal spaces, the published workflows with failed executions or unpublished
+  changes, the expired and unused API keys, the inactive users and the old invitations. To use
+  it, open a new workflow and select **⋯ > Import > From file**. The note on the workflow tells
+  how to set it up.
 - **The audit log.** Settings > Audit log shows who created, changed, published, archived or deleted
   a workflow, and each execution, for 90 days. Each event keeps its project, so the filter
   **Project: Personal spaces** shows what users did in their personal spaces. An API key with the
@@ -194,3 +200,4 @@ spaces. A user cannot hide a workflow from them.
 | `.env.example` | The settings. Copy it to `.env` |
 | `backup.sh` | Makes a database backup |
 | `restore.sh` | Restores a backup |
+| `workflows/governance-report.json` | A workflow that sends a weekly governance report by email |
