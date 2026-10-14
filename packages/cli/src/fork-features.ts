@@ -70,6 +70,9 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	// marks it experimental, and N8N_TOKEN_EXCHANGE_ENABLED=true with trusted keys.
 	[LICENSE_FEATURES.COMMUNITY_NODES_CUSTOM_REGISTRY]: true,
 	[LICENSE_FEATURES.TOKEN_EXCHANGE]: true,
+	// Workflow reviews: the fork module of the rebuild (the owner chose this on 2026-10-14). An
+	// admin turns the reviews on at Settings > Security & policies.
+	[LICENSE_FEATURES.WORKFLOW_REVIEWS]: true,
 };
 
 const FORK_FEATURE_VALUES_WITH_BANNER: FeatureReturnType = {

@@ -6,7 +6,8 @@ Fork document (not in upstream n8n). Read it with [FORK.md](../../../../../FORK.
 
 The enterprise module of workflow reviews is gone (step 1 of FORK.md). Its six database entities
 stayed, because ordinary repositories use them. The fork replaced them in step 4 with its own
-entities, with the same names and exports:
+entities, with the same names and exports. Later in step 4, the fork rebuilt the module
+(`packages/cli/src/modules/workflow-reviews`), which uses the ordinary repositories:
 
 | Fork file | Table | Enterprise file that it replaces |
 | --- | --- | --- |

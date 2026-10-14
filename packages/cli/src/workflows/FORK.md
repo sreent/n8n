@@ -73,13 +73,17 @@ A node references a credential in three places. The checks below cover all of th
   5. An active workflow stops before the transfer and starts again after it. When the start fails,
      the workflow stays inactive and the publish history records the deactivation by the user. A
      `WorkflowActivationError` is the result (`{ error }`). Another error goes to the caller.
+  6. When the project changes, the service calls `afterWorkflowsTransferred` of
+     `WorkflowMutationHooksProxy` after the move and before the start, as the fork module of
+     workflow reviews needs (`packages/cli/src/modules/workflow-reviews/README.md`). A move to
+     another folder of the same project does not call it.
 - `transferFolder(user, sourceProjectId, folderId, projectId, parentFolderId, shareCredentials?)`
   moves the folder, its subfolders and their workflows (archived ones too). The user needs
   `workflow:create` in the destination project. A folder outside its project gives the
   `EntityNotFoundError` of the database layer, as in the original. A workflow that the destination
   project owns already gives `TransferWorkflowError`. The shares, the credentials and the active
   workflows work as for one workflow, but an activation error does not stop the transfer and gives
-  no result.
+  no result. After the move, the service calls `afterWorkflowsTransferred` with all the workflows.
 
 ### Credentials
 
