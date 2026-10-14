@@ -200,6 +200,9 @@ spaces. A user cannot hide a workflow from them.
   saved each version, compares two versions, and can give a version a name. By default, n8n keeps
   all versions. `WORKFLOW_HISTORY_PRUNE_TIME` in `.env` sets the hours that n8n keeps old
   versions.
+- **Community nodes from your own registry.** To install community nodes only from a registry
+  that you control, for example AWS CodeArtifact, Azure Artifacts or Google Artifact Registry, set
+  `COMMUNITY_PACKAGES_REGISTRY` and `COMMUNITY_PACKAGES_AUTH_TOKEN` in `.env`.
 - **Team projects for users.** By default, only the owner and the admins can create team projects.
   To let some users create them, add a role on Settings > Roles > Instance roles with the
   permission **Projects: Create**, and give the role to these users. With SSO, a role mapping rule

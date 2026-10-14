@@ -39,6 +39,8 @@ const FORK_FEATURES = [
 	LICENSE_FEATURES.MFA_ENFORCEMENT,
 	LICENSE_FEATURES.WORKFLOW_DIFFS,
 	LICENSE_FEATURES.NAMED_VERSIONS,
+	LICENSE_FEATURES.COMMUNITY_NODES_CUSTOM_REGISTRY,
+	LICENSE_FEATURES.TOKEN_EXCHANGE,
 ];
 
 const FORK_QUOTAS = [
@@ -164,6 +166,8 @@ describe('License with the fork features', () => {
 			expect(state.isMFAEnforcementLicensed()).toBe(true);
 			expect(state.isWorkflowDiffsLicensed()).toBe(true);
 			expect(state.isLicensed(LICENSE_FEATURES.NAMED_VERSIONS)).toBe(true);
+			expect(state.isCustomNpmRegistryLicensed()).toBe(true);
+			expect(state.isLicensed(LICENSE_FEATURES.TOKEN_EXCHANGE)).toBe(true);
 			expect(state.getMaxTeamProjects()).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(state.getMaxWorkflowsWithEvaluations()).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(state.getInsightsMaxHistory()).toBe(UNLIMITED_LICENSE_QUOTA);

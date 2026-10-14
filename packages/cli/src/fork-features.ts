@@ -65,6 +65,11 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	[LICENSE_FEATURES.WORKFLOW_DIFFS]: true,
 	[LICENSE_FEATURES.NAMED_VERSIONS]: true,
 	[LICENSE_QUOTAS.WORKFLOW_HISTORY_PRUNE_LIMIT]: UNLIMITED_LICENSE_QUOTA,
+	// The private registry of community nodes and token exchange (the owner chose these on
+	// 2026-10-14). Token exchange also needs N8N_ENV_FEAT_TOKEN_EXCHANGE=true, because upstream n8n
+	// marks it experimental, and N8N_TOKEN_EXCHANGE_ENABLED=true with trusted keys.
+	[LICENSE_FEATURES.COMMUNITY_NODES_CUSTOM_REGISTRY]: true,
+	[LICENSE_FEATURES.TOKEN_EXCHANGE]: true,
 };
 
 const FORK_FEATURE_VALUES_WITH_BANNER: FeatureReturnType = {
