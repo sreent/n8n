@@ -43,7 +43,11 @@ const HEX_COLOR = /^#?([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 /** The preferences that a request may send. A client may send other keys too: they go. */
 const preferencesSchema = z.object({
 	connected: z.boolean().optional(),
-	repositoryUrl: z.string().optional(),
+	// A repository URL does not start with `-`.
+	repositoryUrl: z
+		.string()
+		.refine((url) => !url.startsWith('-'))
+		.optional(),
 	branchName: z.string().optional(),
 	branchReadOnly: z.boolean().optional(),
 	branchColor: z.string().regex(HEX_COLOR).optional(),

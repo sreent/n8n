@@ -103,10 +103,11 @@ export class SourceControlGitService {
 		if (!this.isRepository()) await this.run(call, ['init']);
 		const url = String(this.preferencesService.getPreferences().repositoryUrl);
 		const remotes = (await this.run(call, ['remote'])).split('\n').filter(Boolean);
+		// `--` ends the options of Git before the URL.
 		if (remotes.includes(SOURCE_CONTROL_ORIGIN)) {
-			await this.run(call, ['remote', 'set-url', SOURCE_CONTROL_ORIGIN, url]);
+			await this.run(call, ['remote', 'set-url', '--', SOURCE_CONTROL_ORIGIN, url]);
 		} else {
-			await this.run(call, ['remote', 'add', SOURCE_CONTROL_ORIGIN, url]);
+			await this.run(call, ['remote', 'add', '--', SOURCE_CONTROL_ORIGIN, url]);
 		}
 		await this.setUserConfig(call, user);
 		await this.run(call, ['fetch', SOURCE_CONTROL_ORIGIN]);
@@ -134,7 +135,7 @@ export class SourceControlGitService {
 		if (!this.isRepository()) return;
 		const call = await this.prepareCall();
 		const url = String(this.preferencesService.getPreferences().repositoryUrl);
-		await this.run(call, ['remote', 'set-url', SOURCE_CONTROL_ORIGIN, url]);
+		await this.run(call, ['remote', 'set-url', '--', SOURCE_CONTROL_ORIGIN, url]);
 		if (user) await this.setUserConfig(call, user);
 	}
 
@@ -292,7 +293,8 @@ export class SourceControlGitService {
 	private async prepareCall(): Promise<GitCall> {
 		const preferences = this.preferencesService.getPreferences();
 		const env: NodeJS.ProcessEnv = { GIT_TERMINAL_PROMPT: '0', PATH: GIT_PATH };
-		const config: string[] = [];
+		// Source control uses only the SSH and HTTPS transports of Git.
+		const config: string[] = ['-c', 'protocol.ext.allow=never'];
 		if (preferences.connectionType === 'https') {
 			const { username, password } = await this.preferencesService.getDecryptedHttpsCredentials();
 			env[USERNAME_VARIABLE] = username;

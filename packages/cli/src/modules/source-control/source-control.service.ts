@@ -121,6 +121,69 @@ export class SourceControlService {
 		await this.publisher.publishCommand({ command: 'reload-source-control-config' });
 	}
 
+	// #region Work folder lock
+
+	/** The work folder takes one operation at a time: two Git commands in one folder can fail. */
+	private workFolderQueue: Promise<unknown> = Promise.resolve();
+
+	private async exclusive<T>(operation: () => Promise<T>): Promise<T> {
+		const result = this.workFolderQueue.then(operation);
+		this.workFolderQueue = result.catch(() => undefined);
+		return await result;
+	}
+
+	// The operations of the work folder. Each one runs its `do*` method under the lock.
+
+	async connect(user: User, body: unknown) {
+		return await this.exclusive(async () => await this.doConnect(user, body));
+	}
+
+	async updatePreferences(body: unknown) {
+		return await this.exclusive(async () => await this.doUpdatePreferences(body));
+	}
+
+	async setBranch(branch: string) {
+		return await this.exclusive(async () => await this.doSetBranch(branch));
+	}
+
+	async disconnect(options: { keepKeyPair?: boolean } = {}) {
+		return await this.exclusive(async () => await this.doDisconnect(options));
+	}
+
+	async getBranches() {
+		return await this.exclusive(async () => await this.doGetBranches());
+	}
+
+	async getStatus(user: User, options: SourceControlGetStatusOptions) {
+		return await this.exclusive(async () => await this.doGetStatus(user, options));
+	}
+
+	async pushWorkfolder(
+		user: User,
+		options: PushWorkfolderOptions,
+		origin: 'ui' | 'publicApi' = 'ui',
+	) {
+		return await this.exclusive(async () => await this.doPushWorkfolder(user, options, origin));
+	}
+
+	async pullWorkfolder(
+		user: User,
+		options: { force?: boolean; autoPublish?: AutoPublishMode },
+		origin: 'ui' | 'publicApi' = 'ui',
+	) {
+		return await this.exclusive(async () => await this.doPullWorkfolder(user, options, origin));
+	}
+
+	async resetWorkfolder() {
+		return await this.exclusive(async () => await this.doResetWorkfolder());
+	}
+
+	async getRemoteFileEntity(type: string, id: string) {
+		return await this.exclusive(async () => await this.doGetRemoteFileEntity(type, id));
+	}
+
+	// #endregion
+
 	// #region Set-up
 
 	/** Runs `ssh -V` and checks the HTTPS credentials. A missing credential is an error. */
@@ -166,7 +229,7 @@ export class SourceControlService {
 	 * of the remote, and marks the connection. With `initRepo: false` it only saves the
 	 * preferences. A failed connection resets the preferences, except the connection type.
 	 */
-	async connect(user: User, body: unknown) {
+	private async doConnect(user: User, body: unknown) {
 		if (this.preferencesService.isSourceControlConnected()) {
 			throw new BadRequestError(
 				'Cannot change preferences while connected to a source control provider. Please disconnect first.',
@@ -189,7 +252,7 @@ export class SourceControlService {
 				await this.preferencesService.setPreferences({ branchName: branch, connected: true });
 			} catch (error) {
 				// The disconnection keeps the connection type and the key pair.
-				await this.disconnect({ keepKeyPair: true });
+				await this.doDisconnect({ keepKeyPair: true });
 				throw new BadRequestError(errorMessage(error));
 			}
 		}
@@ -204,7 +267,7 @@ export class SourceControlService {
 	 * Changes the preferences of a connection. A new branch must exist in the remote. The URL of
 	 * the repository does not change: a new URL needs a new connection.
 	 */
-	async updatePreferences(body: unknown) {
+	private async doUpdatePreferences(body: unknown) {
 		const {
 			connected: _connected,
 			publicKey: _publicKey,
@@ -213,7 +276,7 @@ export class SourceControlService {
 			branchName,
 			...preferences
 		} = this.parse(body);
-		if (branchName) await this.setBranch(branchName);
+		if (branchName) await this.doSetBranch(branchName);
 		await this.preferencesService.setPreferences(preferences);
 
 		try {
@@ -247,7 +310,7 @@ export class SourceControlService {
 	}
 
 	/** Saves the branch, then checks it out. The preferences keep a branch that the remote lacks. */
-	async setBranch(branch: string) {
+	private async doSetBranch(branch: string) {
 		await this.preferencesService.setPreferences({ branchName: branch });
 		try {
 			await this.gitService.setBranch(branch);
@@ -260,7 +323,7 @@ export class SourceControlService {
 	 * Ends the connection: resets the preferences, deletes the HTTPS credentials and the work
 	 * folder. The key pair stays.
 	 */
-	async disconnect(options: { keepKeyPair?: boolean } = {}) {
+	private async doDisconnect(options: { keepKeyPair?: boolean } = {}) {
 		await this.preferencesService.setPreferences({
 			connected: false,
 			branchName: '',
@@ -284,7 +347,7 @@ export class SourceControlService {
 		return { ...preferences, publicKey: await this.preferencesService.getPublicKey() };
 	}
 
-	async getBranches() {
+	private async doGetBranches() {
 		await this.sanityCheck();
 		try {
 			return await this.gitService.getBranches();
@@ -301,7 +364,7 @@ export class SourceControlService {
 	 * Fetches the branch and compares it with the instance. A status for a push or a pull emits a
 	 * telemetry event. `verbose` gives all the lists of the comparison.
 	 */
-	async getStatus(
+	private async doGetStatus(
 		user: User,
 		options: SourceControlGetStatusOptions,
 	): Promise<SourceControlledFile[] | SourceControlVerboseStatus> {
@@ -348,7 +411,7 @@ export class SourceControlService {
 	 * pushes all of them. An entry in conflict needs `force`. Each push writes `tags.json` again.
 	 * A selected variable or folder writes all variables or folders.
 	 */
-	async pushWorkfolder(
+	private async doPushWorkfolder(
 		user: User,
 		options: PushWorkfolderOptions,
 		origin: 'ui' | 'publicApi' = 'ui',
@@ -446,7 +509,7 @@ export class SourceControlService {
 	 * Pulls the branch: the instance gets the resources of the branch, and loses the ones that
 	 * the branch does not have, except projects. An entry in conflict needs `force`.
 	 */
-	async pullWorkfolder(
+	private async doPullWorkfolder(
 		user: User,
 		options: { force?: boolean; autoPublish?: AutoPublishMode },
 		origin: 'ui' | 'publicApi' = 'ui',
@@ -567,7 +630,7 @@ export class SourceControlService {
 	// #region Work folder
 
 	/** Moves the work folder to the branch of the remote. */
-	async resetWorkfolder() {
+	private async doResetWorkfolder() {
 		await this.sanityCheck();
 		try {
 			await this.gitService.pull();
@@ -577,7 +640,7 @@ export class SourceControlService {
 	}
 
 	/** The content of a file of the branch. Only workflows have one. */
-	async getRemoteFileEntity(type: string, id: string) {
+	private async doGetRemoteFileEntity(type: string, id: string) {
 		if (type !== 'workflow') throw new BadRequestError(`Unsupported file type: ${type}`);
 		await this.sanityCheck();
 		const path = `${SOURCE_CONTROL_WORKFLOW_EXPORT_FOLDER}/${id}.json`;
