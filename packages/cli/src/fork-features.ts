@@ -11,6 +11,13 @@ export class ForkFeaturesConfig {
 	/** Whether the features of the fork are on without a licence. */
 	@Env('N8N_FORK_FEATURES_ENABLED')
 	enabled: boolean = true;
+
+	/**
+	 * Whether the editor shows the banner "This n8n instance is not licensed for production
+	 * purposes". Set it on development and test instances, not on production. It needs `enabled`.
+	 */
+	@Env('N8N_FORK_NON_PRODUCTION_BANNER')
+	nonProductionBanner: boolean = false;
 }
 
 /**
@@ -51,4 +58,29 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	[LICENSE_FEATURES.OTEL_CUSTOM_SPAN_ATTRIBUTES]: true,
 	[LICENSE_FEATURES.TYPE_AVAILABILITY_POLICIES]: true,
 	[LICENSE_FEATURES.PERSONAL_SPACE_POLICY]: true,
+	// MFA enforcement, the diffs and the names of workflow versions, and the workflow history
+	// without a time limit (the owner chose these on 2026-10-14). N8N_WORKFLOW_HISTORY_PRUNE_TIME
+	// can still limit the history.
+	[LICENSE_FEATURES.MFA_ENFORCEMENT]: true,
+	[LICENSE_FEATURES.WORKFLOW_DIFFS]: true,
+	[LICENSE_FEATURES.NAMED_VERSIONS]: true,
+	[LICENSE_QUOTAS.WORKFLOW_HISTORY_PRUNE_LIMIT]: UNLIMITED_LICENSE_QUOTA,
+	// The private registry of community nodes and token exchange (the owner chose these on
+	// 2026-10-14). Token exchange also needs N8N_ENV_FEAT_TOKEN_EXCHANGE=true, because upstream n8n
+	// marks it experimental, and N8N_TOKEN_EXCHANGE_ENABLED=true with trusted keys.
+	[LICENSE_FEATURES.COMMUNITY_NODES_CUSTOM_REGISTRY]: true,
+	[LICENSE_FEATURES.TOKEN_EXCHANGE]: true,
 };
+
+const FORK_FEATURE_VALUES_WITH_BANNER: FeatureReturnType = {
+	...FORK_FEATURE_VALUES,
+	[LICENSE_FEATURES.SHOW_NON_PROD_BANNER]: true,
+};
+
+/**
+ * The licence values of the fork for this instance. The banner of a non-production instance is
+ * not in FORK_FEATURE_VALUES: each instance turns it on with N8N_FORK_NON_PRODUCTION_BANNER.
+ */
+export function forkFeatureValues(config: ForkFeaturesConfig): FeatureReturnType {
+	return config.nonProductionBanner ? FORK_FEATURE_VALUES_WITH_BANNER : FORK_FEATURE_VALUES;
+}

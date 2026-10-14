@@ -48,9 +48,17 @@ services:
       # The features that the fork turns on without a licence: sharing, team projects, the project
       # roles, the admin role, custom roles, SSO, external secrets, variables, execution
       # annotations, evaluations, API key scopes, folders, debug in editor, insights, data
-      # redaction, the custom span attributes of OpenTelemetry, node type policies and the personal
-      # space policy. They are on unless .env turns them off.
+      # redaction, the custom span attributes of OpenTelemetry, node type policies, the personal
+      # space policy, MFA enforcement, the diffs and the names of workflow versions, the private
+      # registry of community nodes and token exchange. They are on unless .env turns them off.
       N8N_FORK_FEATURES_ENABLED: ${FORK_FEATURES_ENABLED:-true}
+      # A banner on each page that tells that this instance is not for production.
+      N8N_FORK_NON_PRODUCTION_BANNER: ${NON_PRODUCTION_BANNER:-false}
+      # The hours that n8n keeps old workflow versions. -1 keeps all versions.
+      N8N_WORKFLOW_HISTORY_PRUNE_TIME: ${WORKFLOW_HISTORY_PRUNE_TIME:--1}
+      # The npm registry of community nodes, and its token. Empty values use the public registry.
+      N8N_COMMUNITY_PACKAGES_REGISTRY: ${COMMUNITY_PACKAGES_REGISTRY:-https://registry.npmjs.org}
+      N8N_COMMUNITY_PACKAGES_AUTH_TOKEN: ${COMMUNITY_PACKAGES_AUTH_TOKEN:-}
       # Node type policies also need their module, which upstream n8n does not load by default. An
       # empty ENABLED_MODULES in .env turns it off.
       N8N_ENABLED_MODULES: ${ENABLED_MODULES-type-availability-policies}

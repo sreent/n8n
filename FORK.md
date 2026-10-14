@@ -127,6 +127,12 @@ The fork removes the enterprise code step by step, and builds its own versions o
    editor, insights (no limit of history), data redaction, the custom span attributes of
    OpenTelemetry, node type policies and the personal space policy to the list. Node type policies
    also need their module (`N8N_ENABLED_MODULES=type-availability-policies`), which `deploy/` sets.
+   On 2026-10-14 the owner added MFA enforcement, the diffs and the names of workflow versions, the
+   workflow history without a time limit, the private registry of community nodes and token
+   exchange. Token exchange also needs `N8N_ENV_FEAT_TOKEN_EXCHANGE=true`, because upstream n8n marks
+   it experimental, and `N8N_TOKEN_EXCHANGE_ENABLED=true` with trusted keys. The banner of a
+   non-production instance is not in the list: an instance turns it on with
+   `N8N_FORK_NON_PRODUCTION_BANNER=true`.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.

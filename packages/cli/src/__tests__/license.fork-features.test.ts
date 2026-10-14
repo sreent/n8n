@@ -36,12 +36,18 @@ const FORK_FEATURES = [
 	LICENSE_FEATURES.OTEL_CUSTOM_SPAN_ATTRIBUTES,
 	LICENSE_FEATURES.TYPE_AVAILABILITY_POLICIES,
 	LICENSE_FEATURES.PERSONAL_SPACE_POLICY,
+	LICENSE_FEATURES.MFA_ENFORCEMENT,
+	LICENSE_FEATURES.WORKFLOW_DIFFS,
+	LICENSE_FEATURES.NAMED_VERSIONS,
+	LICENSE_FEATURES.COMMUNITY_NODES_CUSTOM_REGISTRY,
+	LICENSE_FEATURES.TOKEN_EXCHANGE,
 ];
 
 const FORK_QUOTAS = [
 	LICENSE_QUOTAS.TEAM_PROJECT_LIMIT,
 	LICENSE_QUOTAS.WORKFLOWS_WITH_EVALUATION_LIMIT,
 	LICENSE_QUOTAS.INSIGHTS_MAX_HISTORY_DAYS,
+	LICENSE_QUOTAS.WORKFLOW_HISTORY_PRUNE_LIMIT,
 ];
 
 describe('License with the fork features', () => {
@@ -75,6 +81,7 @@ describe('License with the fork features', () => {
 
 	afterEach(() => {
 		config.enabled = false;
+		config.nonProductionBanner = false;
 		vi.clearAllMocks();
 	});
 
@@ -83,13 +90,36 @@ describe('License with the fork features', () => {
 		expect(config.enabled).toBe(false);
 	});
 
+	/**
+	 * The config that n8n makes from the environment at start. The container reads the environment
+	 * when it makes the config, so this makes a new one, then puts back the config of the tests.
+	 */
+	function configFromEnvironment() {
+		Container.reset();
+		try {
+			return Container.get(ForkFeaturesConfig);
+		} finally {
+			Container.set(ForkFeaturesConfig, config);
+		}
+	}
+
 	test('the switch is on by default', () => {
 		const previous = process.env.N8N_FORK_FEATURES_ENABLED;
 		delete process.env.N8N_FORK_FEATURES_ENABLED;
 		try {
-			expect(new ForkFeaturesConfig().enabled).toBe(true);
+			expect(configFromEnvironment().enabled).toBe(true);
 		} finally {
 			process.env.N8N_FORK_FEATURES_ENABLED = previous;
+		}
+	});
+
+	test('the banner of a non-production instance is off by default, and an instance turns it on', () => {
+		expect(configFromEnvironment().nonProductionBanner).toBe(false);
+		process.env.N8N_FORK_NON_PRODUCTION_BANNER = 'true';
+		try {
+			expect(configFromEnvironment().nonProductionBanner).toBe(true);
+		} finally {
+			delete process.env.N8N_FORK_NON_PRODUCTION_BANNER;
 		}
 	});
 
@@ -133,9 +163,30 @@ describe('License with the fork features', () => {
 			expect(state.isOtelCustomSpanAttributesLicensed()).toBe(true);
 			expect(state.isLicensed(LICENSE_FEATURES.TYPE_AVAILABILITY_POLICIES)).toBe(true);
 			expect(state.isPersonalSpacePolicyLicensed()).toBe(true);
+			expect(state.isMFAEnforcementLicensed()).toBe(true);
+			expect(state.isWorkflowDiffsLicensed()).toBe(true);
+			expect(state.isLicensed(LICENSE_FEATURES.NAMED_VERSIONS)).toBe(true);
+			expect(state.isCustomNpmRegistryLicensed()).toBe(true);
+			expect(state.isLicensed(LICENSE_FEATURES.TOKEN_EXCHANGE)).toBe(true);
 			expect(state.getMaxTeamProjects()).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(state.getMaxWorkflowsWithEvaluations()).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(state.getInsightsMaxHistory()).toBe(UNLIMITED_LICENSE_QUOTA);
+			expect(state.getWorkflowHistoryPruneQuota()).toBe(UNLIMITED_LICENSE_QUOTA);
+		});
+
+		test('the workflow history has no time limit', () => {
+			// The prune of the workflow history reads this value (workflow-history-helper.ts).
+			expect(license.getWorkflowHistoryPruneLimit()).toBe(UNLIMITED_LICENSE_QUOTA);
+		});
+
+		test('the banner of a non-production instance shows only when the instance turns it on', () => {
+			expect(license.isLicensed(LICENSE_FEATURES.SHOW_NON_PROD_BANNER)).toBe(false);
+			expect(manager.hasFeatureEnabled).toHaveBeenCalledWith(LICENSE_FEATURES.SHOW_NON_PROD_BANNER);
+
+			config.nonProductionBanner = true;
+			expect(license.isLicensed(LICENSE_FEATURES.SHOW_NON_PROD_BANNER)).toBe(true);
+			// The other fork features stay on.
+			expect(license.isLicensed(LICENSE_FEATURES.SHARING)).toBe(true);
 		});
 
 		test.each(FORK_QUOTAS)('%s has no limit', (quota) => {
@@ -169,10 +220,18 @@ describe('License with the fork features', () => {
 			expect(state.getMaxTeamProjects()).toBe(0);
 			expect(state.getMaxWorkflowsWithEvaluations()).toBe(0);
 			expect(state.getInsightsMaxHistory()).toBe(7);
+			expect(license.getWorkflowHistoryPruneLimit()).toBe(24);
 			vi.mocked(manager.getFeatureValue).mockReturnValue(3);
 			expect(state.getMaxTeamProjects()).toBe(3);
 			expect(state.getMaxWorkflowsWithEvaluations()).toBe(3);
 			expect(state.getInsightsMaxHistory()).toBe(3);
+			expect(license.getWorkflowHistoryPruneLimit()).toBe(3);
+		});
+
+		test('the licence decides the banner of a non-production instance', () => {
+			config.nonProductionBanner = true;
+			expect(license.isLicensed(LICENSE_FEATURES.SHOW_NON_PROD_BANNER)).toBe(false);
+			expect(manager.hasFeatureEnabled).toHaveBeenCalledWith(LICENSE_FEATURES.SHOW_NON_PROD_BANNER);
 		});
 	});
 });
