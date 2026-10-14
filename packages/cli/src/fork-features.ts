@@ -73,6 +73,12 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	// Workflow reviews: the fork module of the rebuild (the owner chose this on 2026-10-14). An
 	// admin turns the reviews on at Settings > Security & policies.
 	[LICENSE_FEATURES.WORKFLOW_REVIEWS]: true,
+	// The S3 and Azure Blob storage of binary data and execution data: the fork classes of the
+	// rebuild in @n8n/blob-storage (the owner chose this on 2026-10-14).
+	[LICENSE_FEATURES.BINARY_DATA_S3]: true,
+	[LICENSE_FEATURES.BINARY_DATA_AZURE]: true,
+	[LICENSE_FEATURES.EXECUTION_DATA_S3]: true,
+	[LICENSE_FEATURES.EXECUTION_DATA_AZURE]: true,
 };
 
 const FORK_FEATURE_VALUES_WITH_BANNER: FeatureReturnType = {

@@ -88,7 +88,7 @@ The fork removes the enterprise code step by step, and builds its own versions o
    and its settings page (done, see
    [the FORK.md of the page](packages/frontend/editor-ui/src/features/integrations/logStreaming/FORK.md)).
    The rest of the enterprise code, first the parts that need no decision of the owner: the S3
-   and Azure Blob storage (removed, with stand-ins, see
+   and Azure Blob storage (removed, with stand-ins, and rebuilt later, see
    [packages/@n8n/blob-storage/FORK.md](packages/@n8n/blob-storage/FORK.md)), the multi-main
    setup, the worker view and the worker pools (removed, with stand-ins, see
    [packages/cli/src/scaling/FORK.md](packages/cli/src/scaling/FORK.md)), and the entities of the
@@ -117,7 +117,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    now. On 2026-10-14 the owner chose to rebuild the six features that the fork removed without a
    replacement, in the order of [FORK-FEATURES.md](FORK-FEATURES.md#parity-with-the-enterprise-edition):
    workflow reviews first (done, see
-   [packages/cli/src/modules/workflow-reviews/README.md](packages/cli/src/modules/workflow-reviews/README.md)).
+   [packages/cli/src/modules/workflow-reviews/README.md](packages/cli/src/modules/workflow-reviews/README.md)),
+   then the S3 and Azure Blob storage (done, see
+   [packages/@n8n/blob-storage/FORK.md](packages/@n8n/blob-storage/FORK.md)).
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off. Done:
@@ -138,7 +140,7 @@ The fork removes the enterprise code step by step, and builds its own versions o
    non-production instance is not in the list: an instance turns it on with
    `N8N_FORK_NON_PRODUCTION_BANNER=true`. The owner chose parity with the Enterprise Edition on
    2026-10-14: each of the six rebuilt features goes into the list when it is done. Workflow
-   reviews are in the list.
+   reviews and the S3 and Azure Blob storage of binary data and execution data are in the list.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.
@@ -234,13 +236,14 @@ update can bring new enterprise files: see "Upstream updates".
   source control stand-ins (the golden test in
   `packages/frontend/editor-ui/src/features/integrations/sourceControl/__tests__/golden`), and of
   the workflow reviews
-  (`packages/cli/test/integration/workflow-reviews/workflow-reviews.golden.test.ts`) fail when an
-  update changes what a role may do, how projects, sharing, the sign-in method, the OIDC sign-in,
-  the role provisioning, the SAML sign-in, the secrets providers, the queries of their
-  connections, the external secrets module, the external secrets editor, the connections editor,
-  the execution annotations, the variables, the agent eval tables, the Evaluation nodes, the
-  evaluation backend, the evaluation editor, the local parts of the AI workflow builder, the
-  source control stand-ins or the workflow reviews work.
+  (`packages/cli/test/integration/workflow-reviews/workflow-reviews.golden.test.ts`), and of the
+  S3 and Azure Blob storage (the golden tests in `packages/@n8n/blob-storage/src/__tests__/golden`)
+  fail when an update changes what a role may do, how projects, sharing, the sign-in method, the
+  OIDC sign-in, the role provisioning, the SAML sign-in, the secrets providers, the queries of
+  their connections, the external secrets module, the external secrets editor, the connections
+  editor, the execution annotations, the variables, the agent eval tables, the Evaluation nodes,
+  the evaluation backend, the evaluation editor, the local parts of the AI workflow builder, the
+  source control stand-ins, the workflow reviews or the S3 and Azure Blob storage work.
   Compare the change with the upstream change, then update the fork code or the snapshot.
 - To record a snapshot against the enterprise code, use a checkout of the upstream commit in
   `scripts/sync-upstream.base`, outside this repository, because the fork has no enterprise files.
@@ -254,9 +257,10 @@ update can bring new enterprise files: see "Upstream updates".
   `packages/cli/src/public-api/v1/handlers/log-streaming/log-streaming.handler.ts`, keep the fork
   version, as `packages/cli/src/modules/log-streaming/README.md` tells.
 - When an upstream update changes how ordinary code uses the S3 and Azure classes of
-  `@n8n/blob-storage` or the scaling classes `MultiMainSetup`, `WorkerStatusService` and
-  `PoolConfigService`, change the fork stand-ins. When an upstream migration changes a workflow
-  review table, change the fork entity. The FORK.md files of step 4 tell how.
+  `@n8n/blob-storage`, change the fork classes. When it changes how ordinary code uses the scaling
+  classes `MultiMainSetup`, `WorkerStatusService` and `PoolConfigService`, change the fork
+  stand-ins. When an upstream migration changes a workflow review table, change the fork entity.
+  The FORK.md files of step 4 tell how.
 - When an upstream update adds a public route for the audit log, for the insights of each
   workflow, for an inventory of workflows or for a list of all API keys, compare it with the fork
   route. Keep one of them.
