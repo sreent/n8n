@@ -258,6 +258,15 @@ paths:
       $ref: ./handlers/settings/spec/paths/getOidcConfiguration.generated.yml
     put:
       $ref: ./handlers/settings/spec/paths/setOidcConfiguration.generated.yml
+  /source-control/status:
+    get:
+      $ref: ./handlers/source-control/spec/paths/getSourceControlStatus.generated.yml
+  /source-control/push:
+    post:
+      $ref: ./handlers/source-control/spec/paths/pushSourceControl.generated.yml
+  /source-control/pull:
+    post:
+      $ref: ./handlers/source-control/spec/paths/pullSourceControl.generated.yml
   /settings/sso/saml:
     get:
       $ref: ./handlers/settings/spec/paths/getSamlConfiguration.generated.yml

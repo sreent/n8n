@@ -13,6 +13,7 @@ import { z } from 'zod/v4';
 
 import type { License } from '@/license';
 import { USER_CALLED_MCP_TOOL_EVENT } from '@/modules/mcp/mcp.constants';
+import { SourceControlPreferencesService } from '@/modules/source-control/source-control-preferences.service';
 import { PostHogClient } from '@/posthog';
 import { Telemetry } from '@/telemetry';
 
@@ -1361,6 +1362,9 @@ describe('Telemetry', () => {
 				quota: 400,
 				usage: 7,
 				role_count: { owner: 1 },
+				source_control_set_up: 'main',
+				branchName: 'main',
+				read_only_instance: true,
 				team_projects: 2,
 				project_role_count: {
 					'project:admin': 4,
@@ -1411,6 +1415,10 @@ describe('Telemetry', () => {
 
 /** Registers the services the pulse packet reads its counters from. */
 const mockPulsePacketSources = () => {
+	mockInstance(SourceControlPreferencesService, {
+		getPreferences: () => mock({ branchName: 'main', branchReadOnly: true }),
+		isSourceControlSetup: () => 'main',
+	});
 	mockInstance(UserRepository, { countUsersByRole: async () => ({ owner: 1 }) });
 	mockInstance(ProjectRepository, { getProjectCounts: async () => ({ personal: 3, team: 2 }) });
 	mockInstance(ProjectRelationRepository, {

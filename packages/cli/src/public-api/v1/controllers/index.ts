@@ -28,6 +28,7 @@ import './role-mapping-rules.public.controller';
 import './roles.public.controller';
 import './security-policy.public.controller';
 import './sso-oidc.public.controller';
+import './source-control.public.controller';
 import './sso-saml.public.controller';
 import './tags.public.controller';
 import './users.public.controller';

@@ -56,6 +56,7 @@ export class ModuleRegistry {
 		'mcp',
 		'provisioning',
 		'breaking-changes',
+		'source-control',
 		'chat-hub',
 		'sso-oidc',
 		'sso-saml',

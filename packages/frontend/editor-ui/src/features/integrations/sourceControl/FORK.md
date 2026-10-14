@@ -2,10 +2,12 @@
 
 Fork document (not in upstream n8n). Read it with [FORK.md](../../../../../../../FORK.md).
 
-The fork removed the source control backend (Settings > Environments) in step 1. Git sync replaces
-it: see `packages/modules/git-sync/frontend/README.md`. This folder replaces the enterprise editor
-folder `sourceControl.ee`. It keeps only what ordinary code uses, with the same store ID, exports,
-texts, REST calls and test IDs.
+The fork removed the source control backend (Settings > Environments) in step 1, and rebuilt it
+on 2026-10-14 (see `packages/cli/src/modules/source-control/README.md`). The editor of source
+control is the next part of the rebuild. Until then, Git sync is the editor feature for Git: see
+`packages/modules/git-sync/frontend/README.md`. This folder replaces the enterprise editor folder
+`sourceControl.ee`. It keeps only what ordinary code uses, with the same store ID, exports, texts,
+REST calls and test IDs.
 
 ## Files
 
@@ -39,8 +41,9 @@ texts, REST calls and test IDs.
 ## Differences from the original
 
 1. **No source control UI.** The original had the connection form of the settings page, the push,
-   pull and pull result modals, and their composables and helpers. They need the removed backend.
-   The fork deletes them, and `Modals.vue` no longer registers the three modals. With the licence
+   pull and pull result modals, and their composables and helpers. The fork deleted them with the
+   backend, and `Modals.vue` no longer registers the three modals. The rebuild of the editor brings
+   them back. With the licence
    feature, the settings page shows the same box as without it.
 2. **Fewer store members.** The store has 6 of the 13 members of the original. Ordinary code uses no
    other one.
