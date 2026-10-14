@@ -126,6 +126,10 @@ its own `.env`. Connect both to the same Git branch in **Settings > Git sync**: 
 development, and pull in production. See the
 [Git sync README](../packages/cli/src/modules/git-sync/README.md).
 
+On the development server, set `NON_PRODUCTION_BANNER=true` in `.env`. Each page then shows a
+banner that tells that the instance is not for production, so that users do not mix up the two
+servers.
+
 ## Limits
 
 - The scripts of the Code node can import only some modules: `crypto` and `moment` in
@@ -186,6 +190,16 @@ spaces. A user cannot hide a workflow from them.
 - **Node types.** Node type policies limit the node types and the credential types of a project or
   of the instance. Write the rules with the public API (`/api/v1/node-type-policies` and
   `/api/v1/credential-type-policies`). The editor shows a lock on a blocked node type.
+- **Two-factor sign-in.** On Settings > Security & policies, an admin can require two-factor
+  authentication (2FA) for all users who sign in with email and password. The admin must use 2FA
+  first. Users without 2FA then must set it up before they can work. SSO users sign in through
+  your identity provider, which handles their second factor. To set the rule in the configuration
+  instead, add `N8N_SECURITY_POLICY_MANAGED_BY_ENV=true` and `N8N_MFA_ENFORCED_ENABLED=true` to
+  the environment of the `n8n` service.
+- **Workflow history.** n8n keeps each saved version of a workflow. The workflow history shows who
+  saved each version, compares two versions, and can give a version a name. By default, n8n keeps
+  all versions. `WORKFLOW_HISTORY_PRUNE_TIME` in `.env` sets the hours that n8n keeps old
+  versions.
 - **Team projects for users.** By default, only the owner and the admins can create team projects.
   To let some users create them, add a role on Settings > Roles > Instance roles with the
   permission **Projects: Create**, and give the role to these users. With SSO, a role mapping rule
