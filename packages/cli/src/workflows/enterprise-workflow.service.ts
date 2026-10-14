@@ -47,6 +47,7 @@ import { OwnershipService } from '@/services/ownership.service';
 import { ProjectService } from '@/services/project.service';
 
 import { WorkflowFinderService } from './workflow-finder.service';
+import { WorkflowMutationHooksProxy } from './workflow-mutation-hooks-proxy.service';
 
 /** The ids of the credentials that the nodes reference. References by name only have no id. */
 function credentialIdsOf(nodes: INode[] = []) {
@@ -151,6 +152,7 @@ export class EnterpriseWorkflowService {
 		private readonly workflowFinderService: WorkflowFinderService,
 		private readonly activeWorkflowManager: ActiveWorkflowManager,
 		private readonly policyEnforcementService: PolicyEnforcementService,
+		private readonly workflowMutationHooks: WorkflowMutationHooksProxy,
 	) {}
 
 	/**
@@ -384,6 +386,10 @@ export class EnterpriseWorkflowService {
 			credentialIds,
 		);
 		await this.ownershipService.invalidateWorkflowProjectCacheByIds([workflowId]);
+		// A move inside the same project changes only the folder, not the owner.
+		if (sourceProject?.id !== destinationProject.id) {
+			await this.workflowMutationHooks.afterWorkflowsTransferred([workflowId], user.id);
+		}
 
 		if (activeVersionId) return await this.activateAgain(user, workflowId, activeVersionId);
 		return undefined;
@@ -441,6 +447,7 @@ export class EnterpriseWorkflowService {
 			credentialIds,
 		);
 		await this.ownershipService.invalidateWorkflowProjectCacheByIds(workflowIds);
+		await this.workflowMutationHooks.afterWorkflowsTransferred(workflowIds, user.id);
 
 		for (const { id, activeVersionId } of activeWorkflows) {
 			await this.activateAgain(user, id, activeVersionId);

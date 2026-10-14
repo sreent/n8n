@@ -58,6 +58,7 @@ type EndpointGroup =
 	| 'mcp'
 	| 'workflowDependencies'
 	| 'encryption-keys'
+	| 'workflow-reviews'
 	| 'test-webhooks'
 	| 'type-availability-policies';
 
@@ -74,6 +75,7 @@ type ModuleName =
 	| 'n8n-packages'
 	| 'token-exchange'
 	| 'policy-infrastructure'
+	| 'workflow-reviews'
 	| 'type-availability-policies'
 	// Fork modules (not in upstream n8n)
 	| 'send-copy'

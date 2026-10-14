@@ -73,6 +73,7 @@ export class ModuleRegistry {
 		'n8n-packages',
 		'runtime-credentials',
 		'mcp-registry',
+		'workflow-reviews',
 		'instance-ai',
 		'agents',
 		'inbound-auth-core',
