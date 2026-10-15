@@ -1,0 +1,1162 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the worker status service > the worker view 1`] = `
+{
+  "a pool name while pools are off": [
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "2x Fake CPU 3000",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": true,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 4000000,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-3",
+              "runningJobsSummary": [],
+              "senderId": "worker-b",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-b",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "a worker with a pool name while pools are off",
+    },
+  ],
+  "the CPUs of a worker": [
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "1x Solo",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": true,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 4000000,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [],
+              "senderId": "worker-c",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-c",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "one CPU",
+    },
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "3x Big core",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": true,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 4000000,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [],
+              "senderId": "worker-c",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-c",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "mixed CPUs",
+    },
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "no CPU info",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": true,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 4000000,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [],
+              "senderId": "worker-c",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-c",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "no CPU information",
+    },
+  ],
+  "the answer of a worker": [
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "2x Fake CPU 3000",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": true,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 4000000,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [
+                {
+                  "executionId": "101",
+                  "mode": "trigger",
+                  "startedAt": "2026-03-01T11:59:00.000Z",
+                  "status": "running",
+                  "workflowId": "wf1",
+                  "workflowName": "Nightly import",
+                },
+                {
+                  "executionId": "102",
+                  "mode": "retry",
+                  "retryOf": "99",
+                  "startedAt": "2026-03-01T11:58:30.000Z",
+                  "status": "running",
+                  "workflowId": "wf2",
+                  "workflowName": "Retry of a sync",
+                },
+              ],
+              "senderId": "worker-a",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-a",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "a worker answers",
+    },
+  ],
+  "the answer of a worker in a pool": [
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "2x Fake CPU 3000",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": true,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "gpu",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 4000000,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs-gpu",
+              "requestingUserId": "user-2",
+              "runningJobsSummary": [],
+              "senderId": "worker-gpu",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-gpu",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "a worker of a pool without jobs answers",
+    },
+  ],
+  "the answer on the main instance": [
+    {
+      "calls": [
+        [
+          "push",
+          "sendToUsers",
+          {
+            "data": {
+              "status": {
+                "arch": "arm64",
+                "cpus": "Fake CPU",
+                "freeMem": 8,
+                "host": {
+                  "memory": {
+                    "free": 8,
+                    "total": 7,
+                  },
+                },
+                "hostname": "worker-host",
+                "interfaces": [],
+                "isInContainer": false,
+                "loadAvg": [
+                  1,
+                  2,
+                  3,
+                ],
+                "platform": "darwin",
+                "poolName": "",
+                "process": {
+                  "memory": {
+                    "available": 1,
+                    "constraint": 2,
+                    "heapTotal": 4,
+                    "heapUsed": 5,
+                    "rss": 3,
+                  },
+                  "uptime": 6,
+                },
+                "queueName": "jobs",
+                "requestingUserId": "user-1",
+                "runningJobsSummary": [],
+                "senderId": "worker-a",
+                "totalMem": 7,
+                "uptime": 9,
+                "version": "1.2.3",
+              },
+              "workerId": "worker-a",
+            },
+            "type": "sendWorkerStatusMessage",
+          },
+          [
+            "user-1",
+          ],
+        ],
+      ],
+      "outcome": "done",
+      "step": "the main instance gets an answer",
+    },
+    {
+      "calls": [
+        [
+          "push",
+          "sendToUsers",
+          {
+            "data": {
+              "status": {
+                "arch": "arm64",
+                "cpus": "Fake CPU",
+                "freeMem": 8,
+                "host": {
+                  "memory": {
+                    "free": 8,
+                    "total": 7,
+                  },
+                },
+                "hostname": "worker-host",
+                "interfaces": [],
+                "isInContainer": false,
+                "loadAvg": [
+                  1,
+                  2,
+                  3,
+                ],
+                "platform": "darwin",
+                "poolName": "",
+                "process": {
+                  "memory": {
+                    "available": 1,
+                    "constraint": 2,
+                    "heapTotal": 4,
+                    "heapUsed": 5,
+                    "rss": 3,
+                  },
+                  "uptime": 6,
+                },
+                "queueName": "jobs",
+                "requestingUserId": "user-2",
+                "runningJobsSummary": [],
+                "senderId": "worker-b",
+                "totalMem": 7,
+                "uptime": 9,
+                "version": "1.2.3",
+              },
+              "workerId": "worker-b",
+            },
+            "type": "sendWorkerStatusMessage",
+          },
+          [
+            "user-2",
+          ],
+        ],
+      ],
+      "outcome": "done",
+      "step": "an answer for another user",
+    },
+  ],
+  "the handlers of the pub/sub events": [
+    {
+      "eventName": "response-to-get-worker-status",
+      "filter": {
+        "instanceType": "main",
+      },
+      "methodName": "handleWorkerStatusResponse",
+    },
+    {
+      "eventName": "get-worker-status",
+      "filter": {
+        "instanceType": "worker",
+      },
+      "methodName": "publishWorkerResponse",
+    },
+  ],
+  "the memory constraint of a worker": [
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "no CPU info",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": false,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 0,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [],
+              "senderId": "worker-d",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-d",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "no memory constraint",
+    },
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "no CPU info",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": true,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 8000000,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [],
+              "senderId": "worker-d",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-d",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "a constraint as large as the host memory",
+    },
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "no CPU info",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": false,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 9007199254740992,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [],
+              "senderId": "worker-d",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-d",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "a constraint above the host memory",
+    },
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "no CPU info",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": true,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 1000,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [],
+              "senderId": "worker-d",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-d",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "a small constraint",
+    },
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "no CPU info",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": true,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 9000000,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [],
+              "senderId": "worker-d",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-d",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "a constraint a little above the host memory",
+    },
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "no CPU info",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": true,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 4503599627370496,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [],
+              "senderId": "worker-d",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-d",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "a large constraint",
+    },
+    {
+      "calls": [
+        [
+          "jobProcessor",
+          "getRunningJobsSummary",
+        ],
+        [
+          "publisher",
+          "publishWorkerResponse",
+          {
+            "payload": {
+              "arch": "os-arch",
+              "cpus": "no CPU info",
+              "freeMem": 1000000,
+              "host": {
+                "memory": {
+                  "free": 1000000,
+                  "total": 8000000,
+                },
+              },
+              "hostname": "worker-host",
+              "interfaces": [
+                {
+                  "address": "127.0.0.1",
+                  "family": "IPv4",
+                  "internal": true,
+                },
+                {
+                  "address": "10.0.0.2",
+                  "family": "IPv4",
+                  "internal": false,
+                },
+                {
+                  "address": "fe80::42:acff:fe11:2",
+                  "family": "IPv6",
+                  "internal": false,
+                },
+              ],
+              "isInContainer": false,
+              "loadAvg": [
+                0.5,
+                0.25,
+                0.125,
+              ],
+              "platform": "os-platform",
+              "poolName": "",
+              "process": {
+                "memory": {
+                  "arrayBuffers": 5000,
+                  "available": 2000000,
+                  "constraint": 9007199254740991,
+                  "external": 10000,
+                  "heapTotal": 200000,
+                  "heapUsed": 100000,
+                  "rss": 300000,
+                },
+                "uptime": 4321,
+              },
+              "queueName": "jobs",
+              "requestingUserId": "user-1",
+              "runningJobsSummary": [],
+              "senderId": "worker-d",
+              "totalMem": 8000000,
+              "uptime": 4321,
+              "version": "<n8n version>",
+            },
+            "response": "response-to-get-worker-status",
+            "senderId": "worker-d",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "the largest safe integer",
+    },
+  ],
+  "the request of the status": [
+    {
+      "calls": [
+        [
+          "publisher",
+          "publishCommand",
+          {
+            "command": "get-worker-status",
+            "payload": {
+              "requestingUserId": "user-1",
+            },
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "a main instance asks the workers",
+    },
+    {
+      "calls": [
+        [
+          "publisher",
+          "publishCommand",
+          {
+            "command": "get-worker-status",
+            "payload": {
+              "requestingUserId": "user-2",
+            },
+          },
+        ],
+      ],
+      "outcome": "done",
+      "step": "a second request",
+    },
+  ],
+}
+`;
