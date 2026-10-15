@@ -8,6 +8,7 @@ import { WorkflowReviewsModule } from '@/features/workflow-reviews/module.descri
 import { InstanceRegistryModule } from '@n8n/frontend-module-instance-registry';
 import { OtelModule } from '@n8n/frontend-module-otel';
 import { InsightsModule } from '@n8n/frontend-module-insights/insights.module';
+import { PromotionsModule } from '@/features/integrations/promotions/module.descriptor';
 import { ContextModule } from '@/features/settings/context/module.descriptor';
 import { TypeAvailabilityPoliciesModule } from '@n8n/frontend-module-type-availability-policies';
 import { SendCopyModule } from '@n8n/frontend-module-send-copy';
@@ -40,6 +41,7 @@ export const modules: FrontendModuleDescription[] = [
 	WorkflowReviewsModule,
 	InstanceRegistryModule,
 	InsightsModule,
+	PromotionsModule,
 	ContextModule,
 	TypeAvailabilityPoliciesModule,
 	SendCopyModule,

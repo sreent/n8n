@@ -3,6 +3,8 @@
  * `FORK.md` in this folder.
  */
 
+import type { ResourceEditorDestination } from '@/features/collaboration/projects/projects.types';
+
 /** A variable as the REST API gives it. A variable without a project is global. */
 export interface EnvironmentVariable {
 	id: string;
@@ -13,10 +15,26 @@ export interface EnvironmentVariable {
 }
 
 /** The data of the variable modal: a new variable, optionally in a project, or a variable to edit. */
-export interface VariableModalOptions {
+export type VariableModalOptions = {
 	mode: 'new' | 'edit';
 	variable?: EnvironmentVariable;
-	projectId?: string;
+	/** The project of a new variable. `null` is a global variable. */
+	projectId?: string | null;
+	/** The key cannot change. */
+	fixedKey?: boolean;
+	initialValues?: { key?: string; value?: string };
+	/** The project that the new variable goes to. */
+	destination?: ResourceEditorDestination;
+	/** Creates the variable in place of the store, for example for a binding of Git connections. */
+	onCreate?: (values: VariableBindingValues) => Promise<unknown>;
+	appendToBody?: boolean;
+};
+
+/** The fields of a new variable that the modal gives to `onCreate`. */
+export interface VariableBindingValues {
+	key: string;
+	value: string;
+	projectId: string | null;
 }
 
 /** The fields that the modal sends for a new variable. */

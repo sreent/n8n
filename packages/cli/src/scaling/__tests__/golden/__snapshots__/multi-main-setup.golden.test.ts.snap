@@ -1,0 +1,1193 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the multi-main setup > the leader election 1`] = `
+{
+  "a failed claim at init": [
+    {
+      "calls": [
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Connection is closed.",
+            },
+            "ok": false,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "Failed to set leader key in Redis during init: Connection is closed.",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Connection is closed.",
+            },
+          },
+        ],
+        [
+          "instanceSettings",
+          "markAsFollower",
+        ],
+        [
+          "timer",
+          "setInterval",
+          3000,
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "init with a failed claim",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": null,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leadership vacant, attempting to become leader...",
+        ],
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": true,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-a] Leader is now this instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsLeader",
+        ],
+        [
+          "emit",
+          "leader-takeover",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a check",
+    },
+    {
+      "calls": [
+        [
+          "timer",
+          "clearInterval",
+        ],
+        [
+          "client",
+          "clearLeader",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Connection is closed.",
+            },
+            "ok": false,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "Failed to clear leader key from Redis",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Connection is closed.",
+            },
+          },
+        ],
+        [
+          "client",
+          "destroy",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "shutdown with a failed clear",
+    },
+  ],
+  "a follower from the start": [
+    {
+      "calls": [],
+      "outcome": "done",
+      "role": "unset",
+      "step": "register the handlers",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": false,
+          },
+        ],
+        [
+          "instanceSettings",
+          "markAsFollower",
+        ],
+        [
+          "timer",
+          "setInterval",
+          3000,
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "init with a taken key",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": "main-b",
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leader is other instance "main-b"",
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "a check",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": "main-b",
+          },
+        ],
+      ],
+      "outcome": {
+        "value": "main-b",
+      },
+      "role": "follower",
+      "step": "the leader key",
+    },
+    {
+      "calls": [
+        [
+          "timer",
+          "clearInterval",
+        ],
+        [
+          "client",
+          "destroy",
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "shutdown as a follower",
+    },
+  ],
+  "a leader, then a follower, then the leader": [
+    {
+      "calls": [],
+      "outcome": "done",
+      "role": "unset",
+      "step": "register the handlers",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": true,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-a] Leader is now this instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsLeader",
+        ],
+        [
+          "emit",
+          "leader-takeover",
+        ],
+        [
+          "handler",
+          "LeaderTasks.start",
+        ],
+        [
+          "handler",
+          "Metrics.markLeader",
+        ],
+        [
+          "timer",
+          "setInterval",
+          3000,
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "init with a free key",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "tryRenewLeaderTtl",
+          {
+            "ok": true,
+            "result": {
+              "id": "success",
+            },
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leader is this instance",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a renewal",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "tryRenewLeaderTtl",
+          {
+            "ok": true,
+            "result": {
+              "id": "key-missing",
+            },
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "[Multi-main setup] Leader failed to renew leader key",
+        ],
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": true,
+          },
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a missing key, claimed again",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "tryRenewLeaderTtl",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Command timed out",
+            },
+            "ok": false,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "Failed to renew leader TTL: Command timed out",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Command timed out",
+            },
+          },
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a failed renewal",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "tryRenewLeaderTtl",
+          {
+            "ok": true,
+            "result": {
+              "id": "key-missing",
+            },
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "[Multi-main setup] Leader failed to renew leader key",
+        ],
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Command timed out",
+            },
+            "ok": false,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "Failed to set leader key in Redis: Command timed out",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Command timed out",
+            },
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-a] This is now a follower instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsFollower",
+        ],
+        [
+          "emit",
+          "leader-stepdown",
+        ],
+        [
+          "handler",
+          "LeaderTasks.stop",
+        ],
+        [
+          "handler",
+          "Metrics.markFollower",
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "a missing key, and a failed claim",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": "main-b",
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leader is other instance "main-b"",
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "a follower sees the leader",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Connection is closed.",
+            },
+            "ok": false,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "Failed to get leader key from Redis: Connection is closed.",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Connection is closed.",
+            },
+          },
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "a follower with a failed read",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": null,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leadership vacant, attempting to become leader...",
+        ],
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": false,
+          },
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "a free key, claimed by another host",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": null,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leadership vacant, attempting to become leader...",
+        ],
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Command timed out",
+            },
+            "ok": false,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "Failed to try leader key set in Redis",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Command timed out",
+            },
+          },
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "a free key, and a failed claim",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": "main-a",
+          },
+        ],
+        [
+          "errorReporter",
+          "info",
+          "[Instance ID main-a] Remote/Local leadership mismatch, marking self as leader",
+          {
+            "shouldBeLogged": true,
+            "shouldReport": true,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-a] Leader is now this instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsLeader",
+        ],
+        [
+          "emit",
+          "leader-takeover",
+        ],
+        [
+          "handler",
+          "LeaderTasks.start",
+        ],
+        [
+          "handler",
+          "Metrics.markLeader",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a follower sees its own host id",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "tryRenewLeaderTtl",
+          {
+            "ok": true,
+            "result": {
+              "id": "key-missing",
+            },
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "[Multi-main setup] Leader failed to renew leader key",
+        ],
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": false,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-a] This is now a follower instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsFollower",
+        ],
+        [
+          "emit",
+          "leader-stepdown",
+        ],
+        [
+          "handler",
+          "LeaderTasks.stop",
+        ],
+        [
+          "handler",
+          "Metrics.markFollower",
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "a missing key, claimed by another host",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": null,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leadership vacant, attempting to become leader...",
+        ],
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": true,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-a] Leader is now this instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsLeader",
+        ],
+        [
+          "emit",
+          "leader-takeover",
+        ],
+        [
+          "handler",
+          "LeaderTasks.start",
+        ],
+        [
+          "handler",
+          "Metrics.markLeader",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a free key, claimed",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "tryRenewLeaderTtl",
+          {
+            "ok": true,
+            "result": {
+              "currentLeaderId": "main-b",
+              "id": "other-host-is-leader",
+            },
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "[Multi-main setup] Leader failed to renew leader key",
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leader is other instance "main-b"",
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-a] This is now a follower instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsFollower",
+        ],
+        [
+          "emit",
+          "leader-stepdown",
+        ],
+        [
+          "handler",
+          "LeaderTasks.stop",
+        ],
+        [
+          "handler",
+          "Metrics.markFollower",
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "another host holds the key",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": null,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leadership vacant, attempting to become leader...",
+        ],
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": true,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-a] Leader is now this instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsLeader",
+        ],
+        [
+          "emit",
+          "leader-takeover",
+        ],
+        [
+          "handler",
+          "LeaderTasks.start",
+        ],
+        [
+          "handler",
+          "Metrics.markLeader",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a free key, claimed again",
+    },
+    {
+      "calls": [
+        [
+          "timer",
+          "clearInterval",
+        ],
+        [
+          "client",
+          "clearLeader",
+          {
+            "ok": true,
+            "result": undefined,
+          },
+        ],
+        [
+          "client",
+          "destroy",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "shutdown as the leader",
+    },
+    {
+      "calls": [],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a check after the shutdown",
+    },
+    {
+      "calls": [
+        [
+          "timer",
+          "clearInterval",
+        ],
+        [
+          "client",
+          "clearLeader",
+          {
+            "ok": true,
+            "result": undefined,
+          },
+        ],
+        [
+          "client",
+          "destroy",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a second shutdown",
+    },
+  ],
+  "handlers that come after init": [
+    {
+      "calls": [
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": true,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-a] Leader is now this instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsLeader",
+        ],
+        [
+          "emit",
+          "leader-takeover",
+        ],
+        [
+          "timer",
+          "setInterval",
+          3000,
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "init before the handlers",
+    },
+    {
+      "calls": [],
+      "outcome": "done",
+      "role": "leader",
+      "step": "register the handlers after init",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "tryRenewLeaderTtl",
+          {
+            "ok": true,
+            "result": {
+              "id": "success",
+            },
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leader is this instance",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a renewal",
+    },
+    {
+      "calls": [
+        [
+          "timer",
+          "clearInterval",
+        ],
+        [
+          "client",
+          "clearLeader",
+          {
+            "ok": true,
+            "result": undefined,
+          },
+        ],
+        [
+          "client",
+          "destroy",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "shutdown",
+    },
+  ],
+  "handlers that fail": [
+    {
+      "calls": [],
+      "outcome": "done",
+      "role": "unset",
+      "step": "register the handlers",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": true,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-z] Leader is now this instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsLeader",
+        ],
+        [
+          "emit",
+          "leader-takeover",
+        ],
+        [
+          "handler",
+          "Failing.rejectOnTakeover",
+        ],
+        [
+          "handler",
+          "AfterFailing.onTakeover",
+        ],
+        [
+          "handler",
+          "LeaderTasks.start",
+        ],
+        [
+          "handler",
+          "Metrics.markLeader",
+        ],
+        [
+          "timer",
+          "setInterval",
+          3000,
+        ],
+        [
+          "unhandledRejection",
+          {
+            "error": "Error",
+            "message": "takeover handler failed",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "init with failing handlers",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "tryRenewLeaderTtl",
+          {
+            "ok": true,
+            "result": {
+              "currentLeaderId": "main-a",
+              "id": "other-host-is-leader",
+            },
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "warn",
+          "[Multi-main setup] Leader failed to renew leader key",
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-z] Leader is other instance "main-a"",
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-z] This is now a follower instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsFollower",
+        ],
+        [
+          "emit",
+          "leader-stepdown",
+        ],
+        [
+          "handler",
+          "Failing.rejectOnStepdown",
+        ],
+        [
+          "handler",
+          "LeaderTasks.stop",
+        ],
+        [
+          "handler",
+          "Metrics.markFollower",
+        ],
+        [
+          "unhandledRejection",
+          {
+            "error": "Error",
+            "message": "stepdown handler failed",
+          },
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "a step-down with failing handlers",
+    },
+    {
+      "calls": [
+        [
+          "timer",
+          "clearInterval",
+        ],
+        [
+          "client",
+          "destroy",
+        ],
+      ],
+      "outcome": "done",
+      "role": "follower",
+      "step": "shutdown",
+    },
+  ],
+  "other timings": [
+    {
+      "calls": [
+        [
+          "client",
+          "setLeaderIfNotExists",
+          {
+            "ok": true,
+            "result": true,
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "info",
+          "[Instance ID main-a] Leader is now this instance",
+        ],
+        [
+          "instanceSettings",
+          "markAsLeader",
+        ],
+        [
+          "emit",
+          "leader-takeover",
+        ],
+        [
+          "timer",
+          "setInterval",
+          7000,
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "init with other timings",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "tryRenewLeaderTtl",
+          {
+            "ok": true,
+            "result": {
+              "id": "success",
+            },
+          },
+        ],
+        [
+          "logger(scaling,multi-main-setup)",
+          "debug",
+          "[Instance ID main-a] Leader is this instance",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "a check after the interval",
+    },
+    {
+      "calls": [
+        [
+          "timer",
+          "clearInterval",
+        ],
+        [
+          "client",
+          "clearLeader",
+          {
+            "ok": true,
+            "result": undefined,
+          },
+        ],
+        [
+          "client",
+          "destroy",
+        ],
+      ],
+      "outcome": "done",
+      "role": "leader",
+      "step": "shutdown",
+    },
+  ],
+  "shutdown and the leader key without init": [
+    {
+      "calls": [
+        [
+          "timer",
+          "clearInterval",
+        ],
+        [
+          "client",
+          "destroy",
+        ],
+      ],
+      "outcome": "done",
+      "role": "unset",
+      "step": "shutdown before init",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": "main-a",
+          },
+        ],
+      ],
+      "outcome": {
+        "value": "main-a",
+      },
+      "role": "unset",
+      "step": "the leader key before init",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "ok": true,
+            "result": null,
+          },
+        ],
+      ],
+      "outcome": {
+        "value": null,
+      },
+      "role": "unset",
+      "step": "the empty leader key",
+    },
+    {
+      "calls": [
+        [
+          "client",
+          "getLeader",
+          {
+            "error": {
+              "error": "Error",
+              "message": "Connection is closed.",
+            },
+            "ok": false,
+          },
+        ],
+      ],
+      "outcome": {
+        "value": null,
+      },
+      "role": "unset",
+      "step": "a failed read of the leader key",
+    },
+  ],
+}
+`;

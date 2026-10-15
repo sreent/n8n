@@ -48,6 +48,10 @@ const FORK_FEATURES = [
 	LICENSE_FEATURES.EXECUTION_DATA_AZURE,
 	LICENSE_FEATURES.SOURCE_CONTROL,
 	LICENSE_FEATURES.GIT_CONNECTIONS,
+	LICENSE_FEATURES.MULTIPLE_MAIN_INSTANCES,
+	LICENSE_FEATURES.WORKER_VIEW,
+	LICENSE_FEATURES.WORKER_POOLS,
+	LICENSE_FEATURES.LDAP,
 ];
 
 const FORK_QUOTAS = [
@@ -208,10 +212,10 @@ describe('License with the fork features', () => {
 		});
 
 		test('the licence decides the other features and quotas', () => {
-			expect(license.isLicensed(LICENSE_FEATURES.LDAP)).toBe(false);
-			expect(manager.hasFeatureEnabled).toHaveBeenCalledWith(LICENSE_FEATURES.LDAP);
+			expect(license.isLicensed(LICENSE_FEATURES.AI_ASSISTANT)).toBe(false);
+			expect(manager.hasFeatureEnabled).toHaveBeenCalledWith(LICENSE_FEATURES.AI_ASSISTANT);
 			vi.mocked(manager.hasFeatureEnabled).mockReturnValue(true);
-			expect(license.isLicensed(LICENSE_FEATURES.LDAP)).toBe(true);
+			expect(license.isLicensed(LICENSE_FEATURES.AI_ASSISTANT)).toBe(true);
 
 			vi.mocked(manager.getFeatureValue).mockReturnValue(5);
 			expect(license.getValue(LICENSE_QUOTAS.USERS_LIMIT)).toBe(5);

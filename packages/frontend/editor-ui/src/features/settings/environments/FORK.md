@@ -79,6 +79,19 @@ clipboard".
   variable" shows, and the modal stays open. Cancel closes the modal. The modal does not ask before
   it closes.
 
+The dialog of the missing items of Git connections opens the modal with more options (see
+[the FORK.md of the editor of Git connections](../../integrations/promotions/FORK.md)):
+
+- `projectId`: the scope of the new variable. `null` is a global variable. With this option, the
+  modal does not show the scope.
+- `fixedKey`: the key cannot change, and the modal does not put the focus on it.
+- `initialValues`: the first key and value.
+- `destination`: the project of the new variable. The modal shows its name. When the project does
+  not exist yet, Save needs the permission to create it.
+- `onCreate`: the modal calls it with the key, the value and the project ID, in place of the store.
+  When it fails, the toast "Error while saving variable" shows, and the modal stays open.
+- `appendToBody`: the modal opens in the body, above the dialog of Git connections.
+
 ## Clean-room sources
 
 - The ordinary code that uses these files: `ProjectVariables.vue` and its test, `Modals.vue`,
@@ -100,6 +113,9 @@ against a fake server. The modal renders in `ModalRoot`, with a stub of the ordi
 snapshot records the requests, the state and the getters of the store, the completions, what a
 user sees (the text, the test IDs, the controls, the icons and the focus), the toasts, the
 telemetry and the clipboard. It records no markup and no styles.
+
+The block "the variable modal of a binding" (10 tests) records the options of the dialog of the
+missing items of Git connections.
 
 The snapshot was recorded against the enterprise files, and the fork files give the same
 snapshot. The fork no longer has the enterprise files. To record the snapshot again after an

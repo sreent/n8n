@@ -473,7 +473,7 @@ exports[`the settings of source control 1`] = `
   {
     "body": {
       "code": 400,
-      "message": "fatal: unable to access 'https://127.0.0.1:<port>/owner/repo.git/': Failed to connect to 127.0.0.1 port 9 after 0 ms: Couldn't connect to server
+      "message": "fatal: unable to access 'https://127.0.0.1:<port>/owner/repo.git/': Failed to connect to 127.0.0.1 port 9 after <n> ms: Couldn't connect to server
 ",
     },
     "git": [],
