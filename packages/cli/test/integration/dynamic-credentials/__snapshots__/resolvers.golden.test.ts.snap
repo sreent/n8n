@@ -1,0 +1,2144 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`credential resolvers > create 1`] = `
+[
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"<id>","name":"Slack","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"team_user"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "<id>",
+          "name": "Slack",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "POST a Slack resolver",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"<id>","name":"Slack 2","type":"credential-resolver.slack-1.0","config":{"signingSecret":"other-secret"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+          },
+          "id": "<id>",
+          "name": "Slack 2",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "POST a Slack resolver with the default subject claim",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"<id>","name":"Slack","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"team_user"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "<id>",
+          "name": "Slack",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "POST a Slack resolver with the same name",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for SlackCredentialResolver: [
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "signingSecret"
+    ],
+    "message": "Required"
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "POST a Slack resolver without a signing secret",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for SlackCredentialResolver: [
+  {
+    "code": "too_small",
+    "minimum": 1,
+    "type": "string",
+    "inclusive": true,
+    "exact": false,
+    "message": "Slack signing secret is required",
+    "path": [
+      "signingSecret"
+    ]
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "POST a Slack resolver with an empty signing secret",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for SlackCredentialResolver: [
+  {
+    "received": "email",
+    "code": "invalid_enum_value",
+    "options": [
+      "user_id",
+      "team_user"
+    ],
+    "path": [
+      "subjectClaim"
+    ],
+    "message": "Invalid enum value. Expected 'user_id' | 'team_user', received 'email'"
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "POST a Slack resolver with an unknown subject claim",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"<id>","name":"Extra","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"team_user","extra":true}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "extra": true,
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "<id>",
+          "name": "Extra",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "POST a Slack resolver with an extra field",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"<id>","name":"Introspection","type":"credential-resolver.oauth2-1.0","config":{"metadataUri":"<idp>/.well-known/openid-configuration","validation":"oauth2-introspection","clientId":"introspection-client","clientSecret":"introspection-secret"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "clientId": "introspection-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "metadataUri": "<idp>/.well-known/openid-configuration",
+            "validation": "oauth2-introspection",
+          },
+          "id": "<id>",
+          "name": "Introspection",
+          "type": "credential-resolver.oauth2-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+    ],
+    "step": "POST an OAuth2 resolver with introspection",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"<id>","name":"Userinfo","type":"credential-resolver.oauth2-1.0","config":{"metadataUri":"<idp>/.well-known/openid-configuration","validation":"oauth2-userinfo","expectedAudience":"https://n8n.example.com"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "expectedAudience": "https://n8n.example.com",
+            "metadataUri": "<idp>/.well-known/openid-configuration",
+            "validation": "oauth2-userinfo",
+          },
+          "id": "<id>",
+          "name": "Userinfo",
+          "type": "credential-resolver.oauth2-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+    ],
+    "step": "POST an OAuth2 resolver with userinfo",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for OAuthCredentialResolver: [
+  {
+    "code": "invalid_union_discriminator",
+    "options": [
+      "oauth2-introspection",
+      "oauth2-userinfo"
+    ],
+    "path": [
+      "validation"
+    ],
+    "message": "Invalid discriminator value. Expected 'oauth2-introspection' | 'oauth2-userinfo'"
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "POST an OAuth2 resolver with only the metadata URL",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Failed to fetch OAuth2 metadata, status code: 404",
+      },
+      "status": 400,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+    ],
+    "step": "POST an OAuth2 resolver whose metadata answers 404",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Failed to fetch OAuth2 metadata, status code: 500",
+      },
+      "status": 400,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+    ],
+    "step": "POST an OAuth2 resolver whose metadata answers 500",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Invalid OAuth2 metadata format",
+      },
+      "status": 400,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+    ],
+    "step": "POST an introspection resolver without an introspection endpoint",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Invalid OAuth2 metadata format",
+      },
+      "status": 400,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+    ],
+    "step": "POST a userinfo resolver without a userinfo endpoint",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Invalid OAuth2 metadata format",
+      },
+      "status": 400,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+    ],
+    "step": "POST an OAuth2 resolver whose metadata is not an object",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for OAuthCredentialResolver: [
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "clientId"
+    ],
+    "message": "Required"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "clientSecret"
+    ],
+    "message": "Required"
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "POST an OAuth2 resolver without client credentials",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for OAuthCredentialResolver: [
+  {
+    "code": "invalid_union_discriminator",
+    "options": [
+      "oauth2-introspection",
+      "oauth2-userinfo"
+    ],
+    "path": [
+      "validation"
+    ],
+    "message": "Invalid discriminator value. Expected 'oauth2-introspection' | 'oauth2-userinfo'"
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "POST an OAuth2 resolver with an unknown validation",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for OAuthCredentialResolver: [
+  {
+    "validation": "url",
+    "code": "invalid_string",
+    "message": "Invalid url",
+    "path": [
+      "metadataUri"
+    ]
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "POST an OAuth2 resolver with a metadata URL that is not a URL",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for OAuthCredentialResolver: [
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "metadataUri"
+    ],
+    "message": "Required"
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "POST an OAuth2 resolver without a metadata URL",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Could not reach metadata URL: connect ECONNREFUSED 127.0.0.1:9",
+      },
+      "status": 400,
+    },
+    "step": "POST an OAuth2 resolver with an unreachable metadata URL",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Unknown resolver type: credential-resolver.nope-1.0",
+      },
+      "status": 400,
+    },
+    "step": "POST an unknown type",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": "invalid_type",
+        "expected": "string",
+        "message": "Required",
+        "path": [
+          "name",
+        ],
+        "received": "undefined",
+      },
+      "status": 400,
+    },
+    "step": "POST without a body",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": "too_small",
+        "exact": false,
+        "inclusive": true,
+        "message": "String must contain at least 1 character(s)",
+        "minimum": 1,
+        "path": [
+          "name",
+        ],
+        "type": "string",
+      },
+      "status": 400,
+    },
+    "step": "POST with an empty name",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": "too_big",
+        "exact": false,
+        "inclusive": true,
+        "maximum": 255,
+        "message": "String must contain at most 255 character(s)",
+        "path": [
+          "name",
+        ],
+        "type": "string",
+      },
+      "status": 400,
+    },
+    "step": "POST with a name of 256 characters",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"<id>","name":"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"team_user"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "<id>",
+          "name": "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "POST with a name of 255 characters",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": "invalid_type",
+        "expected": "object",
+        "message": "Expected object, received string",
+        "path": [
+          "config",
+        ],
+        "received": "string",
+      },
+      "status": 400,
+    },
+    "step": "POST with a config that is not an object",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": "invalid_type",
+        "expected": "object",
+        "message": "Required",
+        "path": [
+          "config",
+        ],
+        "received": "undefined",
+      },
+      "status": 400,
+    },
+    "step": "POST without a config",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"<id>","name":"By admin","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"team_user"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "<id>",
+          "name": "By admin",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "POST as an admin",
+  },
+  {
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "POST as a member",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver Slack",
+            "name": "Slack",
+            "type": "credential-resolver.slack-1.0",
+            "updatedAt": "<date>",
+          },
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver Slack 2",
+            "name": "Slack 2",
+            "type": "credential-resolver.slack-1.0",
+            "updatedAt": "<date>",
+          },
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver Slack",
+            "name": "Slack",
+            "type": "credential-resolver.slack-1.0",
+            "updatedAt": "<date>",
+          },
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver Extra",
+            "name": "Extra",
+            "type": "credential-resolver.slack-1.0",
+            "updatedAt": "<date>",
+          },
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver Introspection",
+            "name": "Introspection",
+            "type": "credential-resolver.oauth2-1.0",
+            "updatedAt": "<date>",
+          },
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver Userinfo",
+            "name": "Userinfo",
+            "type": "credential-resolver.oauth2-1.0",
+            "updatedAt": "<date>",
+          },
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
+            "name": "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
+            "type": "credential-resolver.slack-1.0",
+            "updatedAt": "<date>",
+          },
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver By admin",
+            "name": "By admin",
+            "type": "credential-resolver.slack-1.0",
+            "updatedAt": "<date>",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET / after the creates",
+  },
+]
+`;
+
+exports[`credential resolvers > expressions in the config 1`] = `
+[
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"<id>","name":"Expression","type":"credential-resolver.slack-1.0","config":{"signingSecret":"={{ \\"abc\\" + \\"def\\" }}","subjectClaim":"team_user"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "<id>",
+          "name": "Expression",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "POST a Slack resolver with an expression as the secret",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"<id>","name":"Expression URL","type":"credential-resolver.oauth2-1.0","config":{"metadataUri":"={{ \\"<idp>\\" + \\"/.well-known/openid-configuration\\" }}","validation":"oauth2-introspection","clientId":"introspection-client","clientSecret":"introspection-secret"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "clientId": "introspection-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "metadataUri": "={{ "<idp>" + "/.well-known/openid-configuration" }}",
+            "validation": "oauth2-introspection",
+          },
+          "id": "<id>",
+          "name": "Expression URL",
+          "type": "credential-resolver.oauth2-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+    ],
+    "step": "POST an OAuth2 resolver with an expression as the metadata URL",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for OAuthCredentialResolver: [
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "metadataUri"
+    ],
+    "message": "Required"
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "POST an OAuth2 resolver with an expression that fails",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid expression in resolver config: access to env vars denied",
+      },
+      "status": 400,
+    },
+    "step": "POST a Slack resolver with an environment expression",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver Expression",
+            "name": "Expression",
+            "type": "credential-resolver.slack-1.0",
+            "updatedAt": "<date>",
+          },
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver Expression URL",
+            "name": "Expression URL",
+            "type": "credential-resolver.oauth2-1.0",
+            "updatedAt": "<date>",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET / with the expressions",
+  },
+]
+`;
+
+exports[`credential resolvers > read and update 1`] = `
+[
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "@resolver Slack",
+          "name": "Slack",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "GET the Slack resolver",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "clientId": "introspection-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "metadataUri": "<idp>/.well-known/openid-configuration",
+            "validation": "oauth2-introspection",
+          },
+          "id": "@resolver Introspection",
+          "name": "Introspection",
+          "type": "credential-resolver.oauth2-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "GET the OAuth2 resolver",
+  },
+  {
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "GET the OAuth2 resolver as a member",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"team_user"}}",
+        ],
+        "removed": [
+          "{"id":"@resolver Slack","name":"Slack","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"team_user"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "@resolver Slack",
+          "name": "Slack renamed",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH the name",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"user_id"}}",
+        ],
+        "removed": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"team_user"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "user_id",
+          },
+          "id": "@resolver Slack",
+          "name": "Slack renamed",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH the config with the secret as the GET gave it",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.slack-1.0","config":{"signingSecret":"rotated-secret","subjectClaim":"team_user"}}",
+        ],
+        "removed": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"user_id"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "@resolver Slack",
+          "name": "Slack renamed",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH the config with a new secret",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.slack-1.0","config":{"signingSecret":"rotated-again","subjectClaim":"team_user"}}",
+        ],
+        "removed": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.slack-1.0","config":{"signingSecret":"rotated-secret","subjectClaim":"team_user"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "@resolver Slack",
+          "name": "Slack renamed",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH the config with clearCredentials false",
+  },
+  {
+    "changes": {
+      "entries": {
+        "removed": [
+          "{"credential":"@credential Slack credential","subject":"subject-a","resolver":"@resolver Slack","data":{"token":"subject-a"}}",
+          "{"credential":"@credential Slack credential","subject":"subject-b","resolver":"@resolver Slack","data":{"token":"subject-b"}}",
+        ],
+      },
+      "resolvers": {
+        "added": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.slack-1.0","config":{"signingSecret":"rotated-third","subjectClaim":"team_user"}}",
+        ],
+        "removed": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.slack-1.0","config":{"signingSecret":"rotated-again","subjectClaim":"team_user"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "signingSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "subjectClaim": "team_user",
+          },
+          "id": "@resolver Slack",
+          "name": "Slack renamed",
+          "type": "credential-resolver.slack-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH the config with clearCredentials true",
+  },
+  {
+    "changes": {
+      "entries": {
+        "removed": [
+          "{"credential":"@credential OAuth credential","subject":"subject-a","resolver":"@resolver Introspection","data":{"token":"subject-a"}}",
+          "{"credential":"@credential OAuth credential","subject":"subject-b","resolver":"@resolver Introspection","data":{"token":"subject-b"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "clientId": "introspection-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "metadataUri": "<idp>/.well-known/openid-configuration",
+            "validation": "oauth2-introspection",
+          },
+          "id": "@resolver Introspection",
+          "name": "Introspection",
+          "type": "credential-resolver.oauth2-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH only clearCredentials true",
+  },
+  {
+    "changes": {
+      "entries": {
+        "removed": [
+          "{"credential":"@credential OAuth credential 2","subject":"subject-a","resolver":"@resolver Introspection","data":{"token":"subject-a"}}",
+          "{"credential":"@credential OAuth credential 2","subject":"subject-b","resolver":"@resolver Introspection","data":{"token":"subject-b"}}",
+        ],
+      },
+      "resolvers": {
+        "added": [
+          "{"id":"@resolver Introspection","name":"Introspection renamed","type":"credential-resolver.oauth2-1.0","config":{"metadataUri":"<idp>/.well-known/openid-configuration","validation":"oauth2-introspection","clientId":"introspection-client","clientSecret":"introspection-secret"}}",
+        ],
+        "removed": [
+          "{"id":"@resolver Introspection","name":"Introspection","type":"credential-resolver.oauth2-1.0","config":{"metadataUri":"<idp>/.well-known/openid-configuration","validation":"oauth2-introspection","clientId":"introspection-client","clientSecret":"introspection-secret"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "clientId": "introspection-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "metadataUri": "<idp>/.well-known/openid-configuration",
+            "validation": "oauth2-introspection",
+          },
+          "id": "@resolver Introspection",
+          "name": "Introspection renamed",
+          "type": "credential-resolver.oauth2-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH the name with clearCredentials true",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for OAuthCredentialResolver: [
+  {
+    "code": "invalid_union_discriminator",
+    "options": [
+      "oauth2-introspection",
+      "oauth2-userinfo"
+    ],
+    "path": [
+      "validation"
+    ],
+    "message": "Invalid discriminator value. Expected 'oauth2-introspection' | 'oauth2-userinfo'"
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "PATCH an invalid config",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"@resolver Introspection","name":"Introspection renamed","type":"credential-resolver.oauth2-1.0","config":{"metadataUri":"<idp>/.well-known/openid-configuration","validation":"oauth2-introspection","clientId":"new-client","clientSecret":"introspection-secret"}}",
+        ],
+        "removed": [
+          "{"id":"@resolver Introspection","name":"Introspection renamed","type":"credential-resolver.oauth2-1.0","config":{"metadataUri":"<idp>/.well-known/openid-configuration","validation":"oauth2-introspection","clientId":"introspection-client","clientSecret":"introspection-secret"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "clientId": "new-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "metadataUri": "<idp>/.well-known/openid-configuration",
+            "validation": "oauth2-introspection",
+          },
+          "id": "@resolver Introspection",
+          "name": "Introspection renamed",
+          "type": "credential-resolver.oauth2-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+    ],
+    "step": "PATCH the OAuth2 config with the redacted secret",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Invalid options for OAuthCredentialResolver: [
+  {
+    "code": "invalid_union_discriminator",
+    "options": [
+      "oauth2-introspection",
+      "oauth2-userinfo"
+    ],
+    "path": [
+      "validation"
+    ],
+    "message": "Invalid discriminator value. Expected 'oauth2-introspection' | 'oauth2-userinfo'"
+  }
+]",
+      },
+      "status": 400,
+    },
+    "step": "PATCH the type to OAuth2 without a config",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.oauth2-1.0","config":{"metadataUri":"<idp>/.well-known/openid-configuration","validation":"oauth2-userinfo","clientId":"introspection-client","clientSecret":"introspection-secret"}}",
+        ],
+        "removed": [
+          "{"id":"@resolver Slack","name":"Slack renamed","type":"credential-resolver.slack-1.0","config":{"signingSecret":"rotated-third","subjectClaim":"team_user"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "clientId": "introspection-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "metadataUri": "<idp>/.well-known/openid-configuration",
+            "validation": "oauth2-userinfo",
+          },
+          "id": "@resolver Slack",
+          "name": "Slack renamed",
+          "type": "credential-resolver.oauth2-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+    ],
+    "step": "PATCH the type to OAuth2 with a config",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Credential resolver options validation failed: Unknown resolver type: credential-resolver.nope-1.0",
+      },
+      "status": 400,
+    },
+    "step": "PATCH an unknown type",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {
+            "clientId": "new-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "metadataUri": "<idp>/.well-known/openid-configuration",
+            "validation": "oauth2-introspection",
+          },
+          "id": "@resolver Introspection",
+          "name": "Introspection renamed",
+          "type": "credential-resolver.oauth2-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH an empty body",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": "too_small",
+        "exact": false,
+        "inclusive": true,
+        "message": "String must contain at least 1 character(s)",
+        "minimum": 1,
+        "path": [
+          "name",
+        ],
+        "type": "string",
+      },
+      "status": 400,
+    },
+    "step": "PATCH an empty name",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": "invalid_type",
+        "expected": "boolean",
+        "message": "Expected boolean, received string",
+        "path": [
+          "clearCredentials",
+        ],
+        "received": "string",
+      },
+      "status": 400,
+    },
+    "step": "PATCH clearCredentials as text",
+  },
+  {
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "PATCH as a member",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@new dynamic_credential_resolver n8n private credentials",
+            "name": "n8n private credentials",
+            "type": "credential-resolver.n8n-1.0",
+            "updatedAt": "<date>",
+          },
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@resolver Slack",
+            "name": "Slack renamed",
+            "type": "credential-resolver.oauth2-1.0",
+            "updatedAt": "<date>",
+          },
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "@resolver Introspection",
+            "name": "Introspection renamed",
+            "type": "credential-resolver.oauth2-1.0",
+            "updatedAt": "<date>",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET / at the end",
+  },
+]
+`;
+
+exports[`credential resolvers > the types and the system resolver 1`] = `
+[
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "description": "OAuth2 based credential resolver",
+            "displayName": "OAuth2 Resolver",
+            "name": "credential-resolver.oauth2-1.0",
+            "options": [
+              {
+                "default": "",
+                "description": "OAuth2 server metadata endpoint URL",
+                "displayName": "Metadata URL",
+                "name": "metadataUri",
+                "placeholder": "https://auth.example.com/.well-known/openid-configuration",
+                "required": true,
+                "type": "string",
+              },
+              {
+                "default": "oauth2-introspection",
+                "description": "Validation method to use for token validation",
+                "displayName": "Validation Method",
+                "name": "validation",
+                "options": [
+                  {
+                    "description": "Validate token via OAuth2 Token Introspection Endpoint",
+                    "name": "OAuth2 Token Introspection",
+                    "value": "oauth2-introspection",
+                  },
+                  {
+                    "description": "Validate token via OAuth2 UserInfo Endpoint",
+                    "name": "OAuth2 UserInfo Endpoint",
+                    "value": "oauth2-userinfo",
+                  },
+                ],
+                "type": "options",
+              },
+              {
+                "default": "",
+                "description": "OAuth2 client ID for introspection",
+                "displayName": "Client ID",
+                "displayOptions": {
+                  "hide": {
+                    "validation": [
+                      "oauth2-userinfo",
+                    ],
+                  },
+                  "show": {
+                    "validation": [
+                      "oauth2-introspection",
+                    ],
+                  },
+                },
+                "name": "clientId",
+                "type": "string",
+              },
+              {
+                "default": "",
+                "description": "OAuth2 client secret for introspection",
+                "displayName": "Client Secret",
+                "displayOptions": {
+                  "hide": {
+                    "validation": [
+                      "oauth2-userinfo",
+                    ],
+                  },
+                  "show": {
+                    "validation": [
+                      "oauth2-introspection",
+                    ],
+                  },
+                },
+                "name": "clientSecret",
+                "type": "string",
+                "typeOptions": {
+                  "password": true,
+                },
+              },
+              {
+                "default": "",
+                "description": "Value the access token must carry in its aud claim, identifying this n8n instance as the intended recipient. Leave empty to skip the check. This is not the Client ID: configure your provider to issue an audience for n8n if it does not already.",
+                "displayName": "Expected Audience",
+                "name": "expectedAudience",
+                "placeholder": "https://api.example.com",
+                "type": "string",
+              },
+              {
+                "default": "sub",
+                "description": "Token claim to use as subject identifier",
+                "displayName": "Subject Claim",
+                "name": "subjectClaim",
+                "type": "string",
+              },
+            ],
+          },
+          {
+            "description": "Slack-based credential resolver using request signatures",
+            "displayName": "Slack Resolver",
+            "name": "credential-resolver.slack-1.0",
+            "options": [
+              {
+                "default": "",
+                "description": "The signing secret from your Slack App (Basic Information → App Credentials → Signing Secret)",
+                "displayName": "Slack Signing Secret",
+                "name": "signingSecret",
+                "required": true,
+                "type": "string",
+                "typeOptions": {
+                  "password": true,
+                },
+              },
+              {
+                "default": "user_id",
+                "description": "How to identify unique credential holders",
+                "displayName": "Subject Claim",
+                "name": "subjectClaim",
+                "options": [
+                  {
+                    "description": "Use Slack user ID as the unique credential key",
+                    "name": "User ID",
+                    "value": "user_id",
+                  },
+                  {
+                    "description": "Use team_id:user_id as the key (recommended for Enterprise Grid / multi-workspace)",
+                    "name": "Team ID + User ID",
+                    "value": "team_user",
+                  },
+                ],
+                "type": "options",
+              },
+            ],
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET /types as the owner",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "description": "OAuth2 based credential resolver",
+            "displayName": "OAuth2 Resolver",
+            "name": "credential-resolver.oauth2-1.0",
+            "options": [
+              {
+                "default": "",
+                "description": "OAuth2 server metadata endpoint URL",
+                "displayName": "Metadata URL",
+                "name": "metadataUri",
+                "placeholder": "https://auth.example.com/.well-known/openid-configuration",
+                "required": true,
+                "type": "string",
+              },
+              {
+                "default": "oauth2-introspection",
+                "description": "Validation method to use for token validation",
+                "displayName": "Validation Method",
+                "name": "validation",
+                "options": [
+                  {
+                    "description": "Validate token via OAuth2 Token Introspection Endpoint",
+                    "name": "OAuth2 Token Introspection",
+                    "value": "oauth2-introspection",
+                  },
+                  {
+                    "description": "Validate token via OAuth2 UserInfo Endpoint",
+                    "name": "OAuth2 UserInfo Endpoint",
+                    "value": "oauth2-userinfo",
+                  },
+                ],
+                "type": "options",
+              },
+              {
+                "default": "",
+                "description": "OAuth2 client ID for introspection",
+                "displayName": "Client ID",
+                "displayOptions": {
+                  "hide": {
+                    "validation": [
+                      "oauth2-userinfo",
+                    ],
+                  },
+                  "show": {
+                    "validation": [
+                      "oauth2-introspection",
+                    ],
+                  },
+                },
+                "name": "clientId",
+                "type": "string",
+              },
+              {
+                "default": "",
+                "description": "OAuth2 client secret for introspection",
+                "displayName": "Client Secret",
+                "displayOptions": {
+                  "hide": {
+                    "validation": [
+                      "oauth2-userinfo",
+                    ],
+                  },
+                  "show": {
+                    "validation": [
+                      "oauth2-introspection",
+                    ],
+                  },
+                },
+                "name": "clientSecret",
+                "type": "string",
+                "typeOptions": {
+                  "password": true,
+                },
+              },
+              {
+                "default": "",
+                "description": "Value the access token must carry in its aud claim, identifying this n8n instance as the intended recipient. Leave empty to skip the check. This is not the Client ID: configure your provider to issue an audience for n8n if it does not already.",
+                "displayName": "Expected Audience",
+                "name": "expectedAudience",
+                "placeholder": "https://api.example.com",
+                "type": "string",
+              },
+              {
+                "default": "sub",
+                "description": "Token claim to use as subject identifier",
+                "displayName": "Subject Claim",
+                "name": "subjectClaim",
+                "type": "string",
+              },
+            ],
+          },
+          {
+            "description": "Slack-based credential resolver using request signatures",
+            "displayName": "Slack Resolver",
+            "name": "credential-resolver.slack-1.0",
+            "options": [
+              {
+                "default": "",
+                "description": "The signing secret from your Slack App (Basic Information → App Credentials → Signing Secret)",
+                "displayName": "Slack Signing Secret",
+                "name": "signingSecret",
+                "required": true,
+                "type": "string",
+                "typeOptions": {
+                  "password": true,
+                },
+              },
+              {
+                "default": "user_id",
+                "description": "How to identify unique credential holders",
+                "displayName": "Subject Claim",
+                "name": "subjectClaim",
+                "options": [
+                  {
+                    "description": "Use Slack user ID as the unique credential key",
+                    "name": "User ID",
+                    "value": "user_id",
+                  },
+                  {
+                    "description": "Use team_id:user_id as the key (recommended for Enterprise Grid / multi-workspace)",
+                    "name": "Team ID + User ID",
+                    "value": "team_user",
+                  },
+                ],
+                "type": "options",
+              },
+            ],
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET /types as an admin",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "description": "OAuth2 based credential resolver",
+            "displayName": "OAuth2 Resolver",
+            "name": "credential-resolver.oauth2-1.0",
+            "options": [
+              {
+                "default": "",
+                "description": "OAuth2 server metadata endpoint URL",
+                "displayName": "Metadata URL",
+                "name": "metadataUri",
+                "placeholder": "https://auth.example.com/.well-known/openid-configuration",
+                "required": true,
+                "type": "string",
+              },
+              {
+                "default": "oauth2-introspection",
+                "description": "Validation method to use for token validation",
+                "displayName": "Validation Method",
+                "name": "validation",
+                "options": [
+                  {
+                    "description": "Validate token via OAuth2 Token Introspection Endpoint",
+                    "name": "OAuth2 Token Introspection",
+                    "value": "oauth2-introspection",
+                  },
+                  {
+                    "description": "Validate token via OAuth2 UserInfo Endpoint",
+                    "name": "OAuth2 UserInfo Endpoint",
+                    "value": "oauth2-userinfo",
+                  },
+                ],
+                "type": "options",
+              },
+              {
+                "default": "",
+                "description": "OAuth2 client ID for introspection",
+                "displayName": "Client ID",
+                "displayOptions": {
+                  "hide": {
+                    "validation": [
+                      "oauth2-userinfo",
+                    ],
+                  },
+                  "show": {
+                    "validation": [
+                      "oauth2-introspection",
+                    ],
+                  },
+                },
+                "name": "clientId",
+                "type": "string",
+              },
+              {
+                "default": "",
+                "description": "OAuth2 client secret for introspection",
+                "displayName": "Client Secret",
+                "displayOptions": {
+                  "hide": {
+                    "validation": [
+                      "oauth2-userinfo",
+                    ],
+                  },
+                  "show": {
+                    "validation": [
+                      "oauth2-introspection",
+                    ],
+                  },
+                },
+                "name": "clientSecret",
+                "type": "string",
+                "typeOptions": {
+                  "password": true,
+                },
+              },
+              {
+                "default": "",
+                "description": "Value the access token must carry in its aud claim, identifying this n8n instance as the intended recipient. Leave empty to skip the check. This is not the Client ID: configure your provider to issue an audience for n8n if it does not already.",
+                "displayName": "Expected Audience",
+                "name": "expectedAudience",
+                "placeholder": "https://api.example.com",
+                "type": "string",
+              },
+              {
+                "default": "sub",
+                "description": "Token claim to use as subject identifier",
+                "displayName": "Subject Claim",
+                "name": "subjectClaim",
+                "type": "string",
+              },
+            ],
+          },
+          {
+            "description": "Slack-based credential resolver using request signatures",
+            "displayName": "Slack Resolver",
+            "name": "credential-resolver.slack-1.0",
+            "options": [
+              {
+                "default": "",
+                "description": "The signing secret from your Slack App (Basic Information → App Credentials → Signing Secret)",
+                "displayName": "Slack Signing Secret",
+                "name": "signingSecret",
+                "required": true,
+                "type": "string",
+                "typeOptions": {
+                  "password": true,
+                },
+              },
+              {
+                "default": "user_id",
+                "description": "How to identify unique credential holders",
+                "displayName": "Subject Claim",
+                "name": "subjectClaim",
+                "options": [
+                  {
+                    "description": "Use Slack user ID as the unique credential key",
+                    "name": "User ID",
+                    "value": "user_id",
+                  },
+                  {
+                    "description": "Use team_id:user_id as the key (recommended for Enterprise Grid / multi-workspace)",
+                    "name": "Team ID + User ID",
+                    "value": "team_user",
+                  },
+                ],
+                "type": "options",
+              },
+            ],
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET /types as a member",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [],
+      },
+      "status": 200,
+    },
+    "step": "GET / as the owner",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "system-n8n",
+            "name": "n8n private credentials",
+            "type": "credential-resolver.n8n-1.0",
+            "updatedAt": "<date>",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET / with includeSystem=true",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [],
+      },
+      "status": 200,
+    },
+    "step": "GET / with includeSystem=false",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": "invalid_enum_value",
+        "message": "Invalid enum value. Expected 'true' | 'false', received '1'",
+        "options": [
+          "true",
+          "false",
+        ],
+        "path": [
+          "includeSystem",
+        ],
+        "received": "1",
+      },
+      "status": 400,
+    },
+    "step": "GET / with includeSystem=1",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": "invalid_enum_value",
+        "message": "Invalid enum value. Expected 'true' | 'false', received 'maybe'",
+        "options": [
+          "true",
+          "false",
+        ],
+        "path": [
+          "includeSystem",
+        ],
+        "received": "maybe",
+      },
+      "status": 400,
+    },
+    "step": "GET / with includeSystem=maybe",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [],
+      },
+      "status": 200,
+    },
+    "step": "GET / as a member",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "config": "",
+            "createdAt": "<date>",
+            "id": "system-n8n",
+            "name": "n8n private credentials",
+            "type": "credential-resolver.n8n-1.0",
+            "updatedAt": "<date>",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET / with includeSystem=true as a member",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "config": "",
+          "createdAt": "<date>",
+          "decryptedConfig": {},
+          "id": "system-n8n",
+          "name": "n8n private credentials",
+          "type": "credential-resolver.n8n-1.0",
+          "updatedAt": "<date>",
+        },
+      },
+      "status": 200,
+    },
+    "step": "GET /system-n8n",
+  },
+  {
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "GET /system-n8n as a member",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [],
+      },
+      "status": 200,
+    },
+    "step": "GET /system-n8n/workflows",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Cannot update the system credential resolver.",
+      },
+      "status": 400,
+    },
+    "step": "PATCH /system-n8n with a name",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Cannot update the system credential resolver.",
+      },
+      "status": 400,
+    },
+    "step": "PATCH /system-n8n with a config",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Cannot delete the system credential resolver.",
+      },
+      "status": 400,
+    },
+    "step": "DELETE /system-n8n",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Cannot create the system credential resolver.",
+      },
+      "status": 400,
+    },
+    "step": "POST a resolver of the n8n type",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Credential resolver with ID "unknown" does not exist.",
+      },
+      "status": 404,
+    },
+    "step": "GET /unknown",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Credential resolver with ID "unknown" does not exist.",
+      },
+      "status": 404,
+    },
+    "step": "GET /unknown/workflows",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Credential resolver with ID "unknown" does not exist.",
+      },
+      "status": 404,
+    },
+    "step": "PATCH /unknown",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Credential resolver with ID "unknown" does not exist.",
+      },
+      "status": 404,
+    },
+    "step": "DELETE /unknown",
+  },
+]
+`;
+
+exports[`credential resolvers > the workflows of a resolver and delete 1`] = `
+[
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "id": "@workflow First",
+            "name": "First",
+          },
+          {
+            "id": "@workflow Active",
+            "name": "Active",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET the workflows of the resolver",
+  },
+  {
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "GET the workflows as a member",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "id": "@workflow Unrelated",
+            "name": "Unrelated",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET the workflows of the other resolver",
+  },
+  {
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "DELETE as a member",
+  },
+  {
+    "activeWorkflowManager": [
+      [
+        "remove",
+        "@workflow Active",
+      ],
+      [
+        "add",
+        "@workflow Active",
+        "update",
+      ],
+    ],
+    "changes": {
+      "credentials": {
+        "added": [
+          "{"name":"Slack credential","isResolvable":true,"resolvableAllowFallback":false,"resolverId":null}",
+        ],
+        "removed": [
+          "{"name":"Slack credential","isResolvable":true,"resolvableAllowFallback":false,"resolverId":"@resolver Slack"}",
+        ],
+      },
+      "entries": {
+        "removed": [
+          "{"credential":"@credential Slack credential","subject":"subject-a","resolver":"@resolver Slack","data":{"token":"subject-a"}}",
+          "{"credential":"@credential Slack credential","subject":"subject-b","resolver":"@resolver Slack","data":{"token":"subject-b"}}",
+        ],
+      },
+      "resolvers": {
+        "removed": [
+          "{"id":"@resolver Slack","name":"Slack","type":"credential-resolver.slack-1.0","config":{"signingSecret":"slack-signing-secret","subjectClaim":"team_user"}}",
+        ],
+      },
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Slack credential","user":"@owner","resolver":"@resolver Slack","data":{"token":"owner"}}",
+        ],
+      },
+      "workflows": {
+        "added": [
+          "{"name":"Active","active":true,"activeVersionId":"<set>","settings":{}}",
+          "{"name":"First","active":false,"activeVersionId":null,"settings":{"timezone":"Europe/Berlin"}}",
+        ],
+        "removed": [
+          "{"name":"Active","active":true,"activeVersionId":"<set>","settings":{"credentialResolverId":"@resolver Slack"}}",
+          "{"name":"First","active":false,"activeVersionId":null,"settings":{"credentialResolverId":"@resolver Slack","timezone":"Europe/Berlin"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "status": 200,
+    },
+    "step": "DELETE the resolver",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Credential resolver with ID "@resolver Slack" does not exist.",
+      },
+      "status": 404,
+    },
+    "step": "GET the deleted resolver",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Credential resolver with ID "@resolver Slack" does not exist.",
+      },
+      "status": 404,
+    },
+    "step": "GET the workflows of the deleted resolver",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Credential resolver with ID "@resolver Slack" does not exist.",
+      },
+      "status": 404,
+    },
+    "step": "DELETE the resolver again",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "removed": [
+          "{"id":"@resolver Other","name":"Other","type":"credential-resolver.slack-1.0","config":{"signingSecret":"other","subjectClaim":"team_user"}}",
+        ],
+      },
+      "workflows": {
+        "added": [
+          "{"name":"Unrelated","active":false,"activeVersionId":null,"settings":{}}",
+        ],
+        "removed": [
+          "{"name":"Unrelated","active":false,"activeVersionId":null,"settings":{"credentialResolverId":"@resolver Other"}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "status": 200,
+    },
+    "step": "DELETE the other resolver as an admin",
+  },
+]
+`;

@@ -1,0 +1,1787 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`private credential connections > the connection fields of a credential 1`] = `
+[
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"owner-access","id_token":"eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiJvd25lci1zdWIiLCJlbWFpbCI6Im93bmVyQGlkcC5leGFtcGxlLmNvbSJ9.signature"}}}",
+        ],
+      },
+    },
+    "outcome": "done",
+    "step": "the owner connects",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@editor","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"editor-access"}}}",
+        ],
+      },
+    },
+    "outcome": "done",
+    "step": "the editor connects",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@viewer","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"viewer-access","id_token":"eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ2aWV3ZXItc3ViIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidmlld2VyLW5hbWUifQ.signature"}}}",
+        ],
+      },
+    },
+    "outcome": "done",
+    "step": "the viewer connects",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@outsider","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"outsider-access"}}}",
+        ],
+      },
+    },
+    "outcome": "done",
+    "step": "the outsider connects",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedAccountIdentifier": "mail@example.com",
+          "connectedByMe": true,
+          "connectedUserCount": 1,
+          "id": "@credential Accounts",
+          "isResolvable": true,
+          "name": "Accounts",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the account of a connection with an email claim",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedAccountIdentifier": "pref",
+          "connectedByMe": true,
+          "connectedUserCount": 1,
+          "id": "@credential Accounts",
+          "isResolvable": true,
+          "name": "Accounts",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the account of a connection with a preferred user name",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "connectedUserCount": 1,
+          "id": "@credential Accounts",
+          "isResolvable": true,
+          "name": "Accounts",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the account of a connection with a upn",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "connectedUserCount": 1,
+          "id": "@credential Accounts",
+          "isResolvable": true,
+          "name": "Accounts",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the account of a connection with only a subject",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedAccountIdentifier": "Full Name",
+          "connectedByMe": true,
+          "connectedUserCount": 1,
+          "id": "@credential Accounts",
+          "isResolvable": true,
+          "name": "Accounts",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the account of a connection with a name",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "connectedUserCount": 1,
+          "id": "@credential Accounts",
+          "isResolvable": true,
+          "name": "Accounts",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the account of a connection with an id token that is not a JWT",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedAccountIdentifier": "data@example.com",
+          "connectedByMe": true,
+          "connectedUserCount": 1,
+          "id": "@credential Accounts",
+          "isResolvable": true,
+          "name": "Accounts",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the account of a connection with an email in the token data",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "connectedUserCount": 1,
+          "id": "@credential Accounts",
+          "isResolvable": true,
+          "name": "Accounts",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the account of a connection with a user object in the token data",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "connectedByMe": true,
+            "id": "@credential Accounts",
+            "isResolvable": true,
+            "name": "Accounts",
+            "resolverId": null,
+            "type": "oAuth2Api",
+          },
+          {
+            "connectedAccountIdentifier": "owner@idp.example.com",
+            "connectedByMe": true,
+            "id": "@credential Private",
+            "isResolvable": true,
+            "name": "Private",
+            "resolverId": null,
+            "type": "oAuth2Api",
+          },
+          {
+            "id": "@credential Static",
+            "isResolvable": false,
+            "name": "Static",
+            "resolverId": null,
+            "type": "oAuth2Api",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET /credentials as the owner",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [
+          {
+            "connectedByMe": false,
+            "id": "@credential Accounts",
+            "isResolvable": true,
+            "name": "Accounts",
+            "resolverId": null,
+            "type": "oAuth2Api",
+          },
+          {
+            "connectedByMe": true,
+            "id": "@credential Private",
+            "isResolvable": true,
+            "name": "Private",
+            "resolverId": null,
+            "type": "oAuth2Api",
+          },
+          {
+            "id": "@credential Static",
+            "isResolvable": false,
+            "name": "Static",
+            "resolverId": null,
+            "type": "oAuth2Api",
+          },
+        ],
+      },
+      "status": 200,
+    },
+    "step": "GET /credentials as the editor",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": [],
+      },
+      "status": 200,
+    },
+    "step": "GET /credentials as the outsider",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedAccountIdentifier": "owner@idp.example.com",
+          "connectedByMe": true,
+          "connectedUserCount": 4,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "GET the private credential as the owner",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedAccountIdentifier": "owner@idp.example.com",
+          "connectedByMe": true,
+          "connectedUserCount": 4,
+          "data": {
+            "accessTokenUrl": "https://idp.example.com/token",
+            "authUrl": "https://idp.example.com/authorize",
+            "authentication": "header",
+            "clientId": "app-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "grantType": "authorizationCode",
+            "oauthTokenData": true,
+            "scope": "openid",
+          },
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "GET the private credential with data as the owner",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "connectedUserCount": 4,
+          "data": {
+            "accessTokenUrl": "https://idp.example.com/token",
+            "authUrl": "https://idp.example.com/authorize",
+            "authentication": "header",
+            "clientId": "app-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "grantType": "authorizationCode",
+            "oauthTokenData": true,
+            "scope": "openid",
+          },
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "GET the private credential with data as the editor",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedAccountIdentifier": "viewer-name",
+          "connectedByMe": true,
+          "connectedUserCount": 4,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "GET the private credential as the viewer",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "data": {
+            "accessTokenUrl": "https://idp.example.com/token",
+            "authUrl": "https://idp.example.com/authorize",
+            "authentication": "header",
+            "clientId": "app-client",
+            "clientSecret": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "grantType": "authorizationCode",
+            "scope": "openid",
+          },
+          "id": "@credential Static",
+          "isResolvable": false,
+          "name": "Static",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "GET the static credential with data",
+  },
+  {
+    "outcome": {
+      "value": {
+        "@credential Private": {},
+      },
+    },
+    "step": "the connection proxy for the editor",
+  },
+  {
+    "outcome": {
+      "value": {
+        "private": 4,
+        "static": 0,
+      },
+    },
+    "step": "the count of connected users",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@outsider","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"outsider-access"}}}",
+          "{"credential":"@credential Private","user":"@viewer","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"viewer-access","id_token":"eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ2aWV3ZXItc3ViIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidmlld2VyLW5hbWUifQ.signature"}}}",
+        ],
+      },
+    },
+    "outcome": "done",
+    "step": "remove the connections of users who lost access",
+  },
+  {
+    "outcome": "done",
+    "step": "remove the connections of one credential for users",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Zulip","user":"@owner","resolver":"system-n8n","data":{"email":"user@example.com","apiKey":"user-key","extra":"kept?","oauthTokenData":{"access_token":"zulip-access"}}}",
+        ],
+      },
+    },
+    "outcome": "done",
+    "step": "store a credential with resolvable fields",
+  },
+  {
+    "outcome": {
+      "value": {
+        "data": {
+          "apiKey": "user-key",
+          "email": "user@example.com",
+          "extra": "kept?",
+          "oauthTokenData": {
+            "access_token": "zulip-access",
+          },
+          "url": "https://static.zulip.example.com",
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve a credential with resolvable fields",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "connectedUserCount": 1,
+          "data": {
+            "apiKey": "__n8n_BLANK_VALUE_e5362baf-c777-4d57-a609-6eaf1f9e87f6",
+            "email": "static@example.com",
+            "oauthTokenData": true,
+            "url": "https://static.zulip.example.com",
+          },
+          "id": "@credential Zulip",
+          "isResolvable": true,
+          "name": "Zulip",
+          "resolverId": null,
+          "type": "zulipApi",
+        },
+      },
+      "status": 200,
+    },
+    "step": "GET the credential with resolvable fields with data",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "connectedUserCount": 1,
+          "id": "@credential Zulip",
+          "isResolvable": true,
+          "name": "Zulip",
+          "resolverId": null,
+          "type": "zulipApi",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the account of a connection without token data",
+  },
+]
+`;
+
+exports[`private credential connections > the membership changes 1`] = `
+[
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Orphan","user":"@editor","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"editor-orphan"}}}",
+          "{"credential":"@credential Private","user":"@editor","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@editor-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "team-project-updated",
+        {
+          "members": [
+            {
+              "role": "project:admin",
+              "userId": "@owner",
+            },
+            {
+              "role": "project:viewer",
+              "userId": "@editor",
+            },
+            {
+              "role": "project:viewer",
+              "userId": "@viewer",
+            },
+          ],
+          "projectId": "@project Team",
+          "role": "global:owner",
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {},
+      "status": 204,
+    },
+    "step": "the editor becomes a viewer through the member route",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Orphan","user":"@viewer","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"viewer-orphan"}}}",
+          "{"credential":"@credential Private","user":"@viewer","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@viewer-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "team-project-updated",
+        {
+          "members": [
+            {
+              "role": "project:admin",
+              "userId": "@owner",
+            },
+            {
+              "role": "project:viewer",
+              "userId": "@editor",
+            },
+          ],
+          "projectId": "@project Team",
+          "role": "global:owner",
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {},
+      "status": 204,
+    },
+    "step": "the viewer leaves through the member route",
+  },
+  {
+    "events": [
+      [
+        "team-project-updated",
+        {
+          "members": [
+            {
+              "role": "project:admin",
+              "userId": "@owner",
+            },
+            {
+              "role": "project:viewer",
+              "userId": "@editor",
+            },
+            {
+              "role": "project:editor",
+              "userId": "@outsider",
+            },
+          ],
+          "projectId": "@project Team",
+          "role": "global:owner",
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {},
+      "status": 201,
+    },
+    "step": "the outsider joins through the member route",
+  },
+  {
+    "events": [
+      [
+        "user-changed-role",
+        {
+          "publicApi": false,
+          "targetUserId": "@editor",
+          "targetUserNewRole": "global:admin",
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "status": 200,
+    },
+    "step": "the global role of the editor changes",
+  },
+  {
+    "events": [
+      [
+        "user-changed-role",
+        {
+          "publicApi": false,
+          "targetUserId": "@editor",
+          "targetUserNewRole": "global:member",
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "status": 200,
+    },
+    "step": "the global role of the editor changes back",
+  },
+  {
+    "changes": {
+      "sharing": {
+        "added": [
+          "{"credentialsId":"@credential Private","projectId":"@project Other","role":"credential:owner"}",
+        ],
+        "removed": [
+          "{"credentialsId":"@credential Private","projectId":"@project Team","role":"credential:owner"}",
+        ],
+      },
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@editor","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@editor-access-2"}}}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {},
+      "status": 200,
+    },
+    "step": "transfer the credential to the other project",
+  },
+  {
+    "changes": {
+      "sharing": {
+        "added": [
+          "{"credentialsId":"@credential Orphan","projectId":"@project Team","role":"credential:owner"}",
+          "{"credentialsId":"@credential Private","projectId":"@project Team","role":"credential:owner"}",
+        ],
+        "removed": [
+          "{"credentialsId":"@credential Orphan","projectId":"@project Other","role":"credential:owner"}",
+          "{"credentialsId":"@credential Private","projectId":"@project Other","role":"credential:owner"}",
+        ],
+      },
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Elsewhere","user":"@other member","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"other-member-elsewhere"}}}",
+          "{"credential":"@credential Private","user":"@other member","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"other-member-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "team-project-deleted",
+        {
+          "projectId": "@project Other",
+          "removalType": "transfer",
+          "role": "global:owner",
+          "targetProjectId": "@project Team",
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {},
+      "status": 200,
+    },
+    "step": "DELETE the other project with a transfer to the team project",
+  },
+  {
+    "changes": {
+      "credentials": {
+        "removed": [
+          "{"id":"@credential Third","name":"Third","isResolvable":1,"resolverId":null}",
+        ],
+      },
+      "sharing": {
+        "removed": [
+          "{"credentialsId":"@credential Third","projectId":"@project Third","role":"credential:owner"}",
+        ],
+      },
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Third","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"third-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-deleted",
+        {
+          "credentialName": "Third",
+          "credentialType": "oAuth2Api",
+          "projectId": "@project Third",
+          "user": "<user @owner>",
+        },
+      ],
+      [
+        "private-credential-deleted",
+        {
+          "credentialType": "oAuth2Api",
+          "user": "<user @owner>",
+        },
+      ],
+      [
+        "team-project-deleted",
+        {
+          "projectId": "@project Third",
+          "removalType": "delete",
+          "role": "global:owner",
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {},
+      "status": 200,
+    },
+    "step": "DELETE a project without a transfer",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@leaver","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"leaver-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "user-deleted",
+        {
+          "migrationStrategy": "transfer_data",
+          "migrationUserId": "<a member>",
+          "publicApi": false,
+          "targetUserId": "@leaver",
+          "targetUserOldStatus": "active",
+          "user": "<user @owner>",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "status": 200,
+    },
+    "step": "DELETE a user with a transfer of the data",
+  },
+]
+`;
+
+exports[`private credential connections > the module 1`] = `
+[
+  {
+    "outcome": {
+      "value": [
+        "DynamicCredentialResolver",
+        "DynamicCredentialEntry",
+        "DynamicCredentialUserEntry",
+      ],
+    },
+    "step": "the entities",
+  },
+  {
+    "outcome": {
+      "value": {
+        "credentialCheckProxy": "CredentialCheckProxyService",
+      },
+    },
+    "step": "the context",
+  },
+  {
+    "outcome": {
+      "value": [
+        "credentialCheckProxy",
+      ],
+    },
+    "step": "the registered context",
+  },
+  {
+    "outcome": {
+      "value": {
+        "connections": "CredentialConnectionStatusService",
+        "identifier": "N8NIdentifier",
+        "resolving": "DynamicCredentialService",
+        "storage": "DynamicCredentialStorageService",
+      },
+    },
+    "step": "the providers",
+  },
+  {
+    "outcome": {
+      "value": {},
+    },
+    "step": "the listeners of n8n events",
+  },
+  {
+    "changes": {
+      "resolvers": {
+        "added": [
+          "{"id":"system-n8n","name":"n8n private credentials","type":"credential-resolver.n8n-1.0"}",
+        ],
+      },
+    },
+    "outcome": "done",
+    "step": "init again without the system resolver",
+  },
+  {
+    "outcome": "done",
+    "step": "init again with the system resolver",
+  },
+  {
+    "outcome": "done",
+    "step": "shutdown",
+  },
+  {
+    "outcome": {
+      "value": {
+        "connections": "CredentialConnectionStatusService",
+        "identifier": "N8NIdentifier",
+        "resolving": "DynamicCredentialService",
+        "storage": "DynamicCredentialStorageService",
+      },
+    },
+    "step": "the providers after the shutdown",
+  },
+  {
+    "outcome": {
+      "value": "system-n8n",
+    },
+    "step": "the system resolver id after the shutdown",
+  },
+]
+`;
+
+exports[`private credential connections > the removal of connections 1`] = `
+[
+  {
+    "changes": {
+      "credentials": {
+        "added": [
+          "{"id":"@credential Private","name":"Private renamed","isResolvable":1,"resolverId":null}",
+        ],
+        "removed": [
+          "{"id":"@credential Private","name":"Private","isResolvable":1,"resolverId":null}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-updated",
+        {
+          "credentialId": "@credential Private",
+          "credentialName": "Private renamed",
+          "credentialType": "oAuth2Api",
+          "isDynamic": true,
+          "jweEnabled": false,
+          "supportsManagedAuth": false,
+          "user": "<user @owner>",
+          "usesExternalSecrets": false,
+          "usesManagedAuth": false,
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private renamed",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH a name",
+  },
+  {
+    "changes": {
+      "credentials": {
+        "added": [
+          "{"id":"@credential Private","name":"Private","isResolvable":1,"resolverId":null}",
+        ],
+        "removed": [
+          "{"id":"@credential Private","name":"Private renamed","isResolvable":1,"resolverId":null}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-updated",
+        {
+          "credentialId": "@credential Private",
+          "credentialName": "Private",
+          "credentialType": "oAuth2Api",
+          "isDynamic": true,
+          "jweEnabled": false,
+          "supportsManagedAuth": false,
+          "user": "<user @owner>",
+          "usesExternalSecrets": false,
+          "usesManagedAuth": false,
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH the same client id",
+  },
+  {
+    "events": [
+      [
+        "credentials-updated",
+        {
+          "credentialId": "@credential Private",
+          "credentialName": "Private",
+          "credentialType": "oAuth2Api",
+          "isDynamic": true,
+          "jweEnabled": false,
+          "supportsManagedAuth": false,
+          "user": "<user @owner>",
+          "usesExternalSecrets": false,
+          "usesManagedAuth": false,
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH the blanked client secret",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@editor","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@editor-access"}}}",
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@owner-access"}}}",
+          "{"credential":"@credential Private","user":"@viewer","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@viewer-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-updated",
+        {
+          "credentialId": "@credential Private",
+          "credentialName": "Private",
+          "credentialType": "oAuth2Api",
+          "isDynamic": true,
+          "jweEnabled": false,
+          "supportsManagedAuth": false,
+          "user": "<user @owner>",
+          "usesExternalSecrets": false,
+          "usesManagedAuth": false,
+        },
+      ],
+      [
+        "private-credential-connections-cleared",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "user": "<user @owner>",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": false,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH another client id",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@editor","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@editor-access"}}}",
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@owner-access"}}}",
+          "{"credential":"@credential Private","user":"@viewer","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@viewer-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-updated",
+        {
+          "credentialId": "@credential Private",
+          "credentialName": "Private",
+          "credentialType": "oAuth2Api",
+          "isDynamic": true,
+          "jweEnabled": false,
+          "supportsManagedAuth": false,
+          "user": "<user @owner>",
+          "usesExternalSecrets": false,
+          "usesManagedAuth": false,
+        },
+      ],
+      [
+        "private-credential-connections-cleared",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "user": "<user @owner>",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": false,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH another scope",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@editor","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@editor-access"}}}",
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@owner-access"}}}",
+          "{"credential":"@credential Private","user":"@viewer","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@viewer-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-updated",
+        {
+          "credentialId": "@credential Private",
+          "credentialName": "Private",
+          "credentialType": "oAuth2Api",
+          "isDynamic": true,
+          "jweEnabled": false,
+          "supportsManagedAuth": false,
+          "user": "<user @owner>",
+          "usesExternalSecrets": false,
+          "usesManagedAuth": false,
+        },
+      ],
+      [
+        "private-credential-connections-cleared",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "user": "<user @owner>",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": false,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH another client secret",
+  },
+  {
+    "events": [
+      [
+        "credentials-updated",
+        {
+          "credentialId": "@credential Private",
+          "credentialName": "Private",
+          "credentialType": "oAuth2Api",
+          "isDynamic": true,
+          "jweEnabled": false,
+          "supportsManagedAuth": false,
+          "user": "<user @owner>",
+          "usesExternalSecrets": false,
+          "usesManagedAuth": false,
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": true,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH a field that is not declared",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "data must be an object",
+      },
+      "status": 400,
+    },
+    "step": "PATCH without data",
+  },
+  {
+    "changes": {
+      "credentials": {
+        "added": [
+          "{"id":"@credential Private","name":"Private","isResolvable":0,"resolverId":null}",
+        ],
+        "removed": [
+          "{"id":"@credential Private","name":"Private","isResolvable":1,"resolverId":null}",
+        ],
+      },
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@editor","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@editor-access"}}}",
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@owner-access"}}}",
+          "{"credential":"@credential Private","user":"@viewer","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@viewer-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-updated",
+        {
+          "credentialId": "@credential Private",
+          "credentialName": "Private",
+          "credentialType": "oAuth2Api",
+          "isDynamic": false,
+          "jweEnabled": false,
+          "supportsManagedAuth": false,
+          "user": "<user @owner>",
+          "usesExternalSecrets": false,
+          "usesManagedAuth": false,
+        },
+      ],
+      [
+        "private-credential-toggled-to-static",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "user": "<user @owner>",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "id": "@credential Private",
+          "isResolvable": false,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH to static",
+  },
+  {
+    "changes": {
+      "credentials": {
+        "added": [
+          "{"id":"@credential Private","name":"Private","isResolvable":1,"resolverId":null}",
+        ],
+        "removed": [
+          "{"id":"@credential Private","name":"Private","isResolvable":0,"resolverId":null}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-updated",
+        {
+          "credentialId": "@credential Private",
+          "credentialName": "Private",
+          "credentialType": "oAuth2Api",
+          "isDynamic": true,
+          "jweEnabled": false,
+          "supportsManagedAuth": false,
+          "user": "<user @owner>",
+          "usesExternalSecrets": false,
+          "usesManagedAuth": false,
+        },
+      ],
+      [
+        "private-credential-toggled-to-private",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "user": "<user @owner>",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": false,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH back to private",
+  },
+  {
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "PATCH as the viewer",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@editor","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@editor-access"}}}",
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@owner-access"}}}",
+          "{"credential":"@credential Private","user":"@viewer","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@viewer-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-updated",
+        {
+          "credentialId": "@credential Private",
+          "credentialName": "Private",
+          "credentialType": "oAuth2Api",
+          "isDynamic": true,
+          "jweEnabled": false,
+          "supportsManagedAuth": false,
+          "user": "<user @editor>",
+          "usesExternalSecrets": false,
+          "usesManagedAuth": false,
+        },
+      ],
+      [
+        "private-credential-connections-cleared",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "user": "<user @editor>",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "connectedByMe": false,
+          "id": "@credential Private",
+          "isResolvable": true,
+          "name": "Private",
+          "resolverId": null,
+          "type": "oAuth2Api",
+        },
+      },
+      "status": 200,
+    },
+    "step": "PATCH as the editor",
+  },
+  {
+    "changes": {
+      "sharing": {
+        "added": [
+          "{"credentialsId":"@credential Private","projectId":"@project Other","role":"credential:user"}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-shared",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "shareesRemoved": null,
+          "user": "<user @owner>",
+          "userIdSharer": "@owner",
+          "userIdsShareesAdded": [
+            "@project Other",
+          ],
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {},
+      "status": 200,
+    },
+    "step": "share the credential with the other project",
+  },
+  {
+    "changes": {
+      "sharing": {
+        "removed": [
+          "{"credentialsId":"@credential Private","projectId":"@project Other","role":"credential:user"}",
+        ],
+      },
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@outsider","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"outsider-access-2"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-shared",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "shareesRemoved": 1,
+          "user": "<user @owner>",
+          "userIdSharer": "@owner",
+          "userIdsShareesAdded": [],
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {},
+      "status": 200,
+    },
+    "step": "stop sharing with the other project",
+  },
+  {
+    "events": [
+      [
+        "team-project-updated",
+        {
+          "projectId": "@project Team",
+          "role": "global:owner",
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {},
+      "status": 200,
+    },
+    "step": "the viewer leaves the project",
+  },
+  {
+    "events": [
+      [
+        "team-project-updated",
+        {
+          "projectId": "@project Team",
+          "role": "global:owner",
+          "userId": "@owner",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {},
+      "status": 200,
+    },
+    "step": "the editor becomes a viewer",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@leaver","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"leaver-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "user-deleted",
+        {
+          "migrationStrategy": "delete_data",
+          "migrationUserId": "<a member>",
+          "publicApi": false,
+          "targetUserId": "@leaver",
+          "targetUserOldStatus": "active",
+          "user": "<user @owner>",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "success": true,
+        },
+      },
+      "status": 200,
+    },
+    "step": "a connected user goes",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@editor","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@editor-access"}}}",
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@owner-access"}}}",
+          "{"credential":"@credential Private","user":"@viewer","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"@viewer-access"}}}",
+        ],
+      },
+    },
+    "outcome": "done",
+    "step": "remove the connections of the credential",
+  },
+  {
+    "changes": {
+      "credentials": {
+        "removed": [
+          "{"id":"@credential Private","name":"Private","isResolvable":1,"resolverId":null}",
+        ],
+      },
+      "sharing": {
+        "removed": [
+          "{"credentialsId":"@credential Private","projectId":"@project Team","role":"credential:owner"}",
+        ],
+      },
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"owner-access"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-deleted",
+        {
+          "credentialName": "Private",
+          "credentialType": "oAuth2Api",
+          "projectId": "@project Team",
+          "user": "<user @owner>",
+        },
+      ],
+      [
+        "private-credential-deleted",
+        {
+          "credentialType": "oAuth2Api",
+          "user": "<user @owner>",
+        },
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": true,
+      },
+      "status": 200,
+    },
+    "step": "DELETE the credential",
+  },
+]
+`;
+
+exports[`private credential connections > the shared fields of credential types 1`] = `
+[
+  {
+    "outcome": {
+      "value": {
+        "extractSharedFields": false,
+        "getChangedSharedFields": false,
+      },
+    },
+    "step": "the kind of the results",
+  },
+  {
+    "outcome": {
+      "value": {
+        "fields": [
+          "useDynamicClientRegistration",
+          "grantType",
+          "serverUrl",
+          "authUrl",
+          "accessTokenUrl",
+          "clientId",
+          "clientCredentialType",
+          "clientSecret",
+          "privateKey",
+          "certificate",
+          "scope",
+          "authQueryParameters",
+          "authentication",
+          "sendAdditionalBodyProperties",
+          "additionalBodyProperties",
+        ],
+        "kind": "Array",
+      },
+    },
+    "step": "the shared fields of oAuth2Api",
+  },
+  {
+    "outcome": {
+      "value": {
+        "fields": [
+          "useDynamicClientRegistration",
+          "grantType",
+          "serverUrl",
+          "authUrl",
+          "accessTokenUrl",
+          "clientId",
+          "clientCredentialType",
+          "clientSecret",
+          "privateKey",
+          "certificate",
+          "scope",
+          "authQueryParameters",
+          "authentication",
+          "sendAdditionalBodyProperties",
+          "additionalBodyProperties",
+          "signatureSecret",
+          "customScopes",
+          "customScopesNotice",
+          "userScope",
+          "notice",
+        ],
+        "kind": "Array",
+      },
+    },
+    "step": "the shared fields of slackOAuth2Api",
+  },
+  {
+    "outcome": {
+      "value": {
+        "fields": [
+          "url",
+        ],
+        "kind": "Array",
+      },
+    },
+    "step": "the shared fields of zulipApi",
+  },
+  {
+    "outcome": {
+      "value": {
+        "fields": [],
+        "kind": "Array",
+      },
+    },
+    "step": "the shared fields of httpBasicAuth",
+  },
+  {
+    "outcome": {
+      "value": {
+        "fields": [
+          "useCustomAuth",
+        ],
+        "kind": "Array",
+      },
+    },
+    "step": "the shared fields of httpBearerAuth",
+  },
+  {
+    "outcome": {
+      "value": [],
+    },
+    "step": "the changed shared fields: no change",
+  },
+  {
+    "outcome": {
+      "value": [
+        "clientId",
+      ],
+    },
+    "step": "the changed shared fields: a new client id",
+  },
+  {
+    "outcome": {
+      "value": [
+        "clientSecret",
+      ],
+    },
+    "step": "the changed shared fields: a new client secret",
+  },
+  {
+    "outcome": {
+      "value": [
+        "authUrl",
+        "scope",
+      ],
+    },
+    "step": "the changed shared fields: a new scope and URL",
+  },
+  {
+    "outcome": {
+      "value": [],
+    },
+    "step": "the changed shared fields: a removed field",
+  },
+  {
+    "outcome": {
+      "value": [
+        "authUrl",
+        "accessTokenUrl",
+        "clientId",
+        "clientSecret",
+        "scope",
+        "authentication",
+      ],
+    },
+    "step": "the changed shared fields: an added field",
+  },
+  {
+    "outcome": {
+      "value": [],
+    },
+    "step": "the changed shared fields: an undeclared field",
+  },
+  {
+    "outcome": {
+      "value": [],
+    },
+    "step": "the changed shared fields: token data",
+  },
+  {
+    "outcome": {
+      "value": [
+        "clientId",
+      ],
+    },
+    "step": "the changed shared fields: a parent field of an extending type",
+  },
+  {
+    "outcome": {
+      "value": [
+        "signatureSecret",
+      ],
+    },
+    "step": "the changed shared fields: an own field of an extending type",
+  },
+  {
+    "outcome": {
+      "value": [
+        "scope",
+      ],
+    },
+    "step": "the changed shared fields: a number as text",
+  },
+  {
+    "outcome": {
+      "value": [],
+    },
+    "step": "the changed shared fields: a nested object",
+  },
+  {
+    "outcome": {
+      "value": [],
+    },
+    "step": "the changed shared fields: a nested object in another key order",
+  },
+  {
+    "outcome": {
+      "value": [
+        "authQueryParameters",
+      ],
+    },
+    "step": "the changed shared fields: a changed nested object",
+  },
+  {
+    "outcome": {
+      "value": [
+        "authQueryParameters",
+      ],
+    },
+    "step": "the changed shared fields: an array in another order",
+  },
+  {
+    "outcome": {
+      "value": [
+        "clientId",
+      ],
+    },
+    "step": "the changed shared fields: an undefined value",
+  },
+  {
+    "outcome": {
+      "value": [
+        "clientId",
+      ],
+    },
+    "step": "the changed shared fields: a null value",
+  },
+  {
+    "outcome": {
+      "value": [
+        "clientId",
+      ],
+    },
+    "step": "the changed shared fields: an empty text",
+  },
+  {
+    "outcome": {
+      "value": [
+        "clientId",
+        "scope",
+      ],
+    },
+    "step": "the changed shared fields: fields in another order",
+  },
+  {
+    "outcome": {
+      "value": [],
+    },
+    "step": "the changed shared fields: a resolvable field",
+  },
+  {
+    "outcome": {
+      "value": [
+        "url",
+      ],
+    },
+    "step": "the changed shared fields: a shared field of a type with resolvable fields",
+  },
+  {
+    "outcome": {
+      "value": [],
+    },
+    "step": "the changed shared fields: a type without shared fields",
+  },
+]
+`;

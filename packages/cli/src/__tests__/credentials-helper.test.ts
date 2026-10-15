@@ -45,14 +45,10 @@ import { CredentialsHelper } from '@/credentials-helper';
 import type { CredentialsOverwrites } from '@/credentials-overwrites';
 import { CredentialNotFoundError } from '@/errors/credential-not-found.error';
 import type { LoadNodesAndCredentials } from '@/load-nodes-and-credentials';
+import { MissingExecutionContextError } from '@/modules/dynamic-credentials/errors/missing-execution-context.error';
 import type { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
 import type { PolicyEnforcementService } from '@/policy/policy-enforcement.service';
 import type { AiGatewayService } from '@/services/ai-gateway.service';
-
-// The fork has no dynamic-credentials module. These classes stand in for its errors: the tests
-// check only that the helper passes on what the resolver provider throws.
-class MissingExecutionContextError extends Error {}
-class CredentialResolutionError extends Error {}
 
 describe('CredentialsHelper', () => {
 	const nodeTypes = mock<INodeTypes>();
@@ -2126,6 +2122,10 @@ describe('CredentialsHelper', () => {
 		test('should throw when dynamic credential cannot be resolved in non-manual mode (no execution context)', async () => {
 			dynamicCredentialProxy.setResolverProvider(mockCredentialResolutionProvider);
 
+			const { CredentialResolutionError } = await import(
+				'@/modules/dynamic-credentials/errors/credential-resolution.error.js'
+			);
+
 			const resolvableCredentialEntity = {
 				...mockCredentialEntity,
 				isResolvable: true,
@@ -2155,6 +2155,10 @@ describe('CredentialsHelper', () => {
 
 		test('should throw when dynamic credential cannot be resolved in non-manual mode (no credentials in context)', async () => {
 			dynamicCredentialProxy.setResolverProvider(mockCredentialResolutionProvider);
+
+			const { CredentialResolutionError } = await import(
+				'@/modules/dynamic-credentials/errors/credential-resolution.error.js'
+			);
 
 			const resolvableCredentialEntity = {
 				...mockCredentialEntity,

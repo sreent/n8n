@@ -99,7 +99,9 @@ A node references a credential in three places. The checks below cover all of th
 - `transferOne(user, credentialId, projectId)` moves the credential to the project. The user needs
   `credential:move` on the credential and `credential:create` in the project, else `NotFoundError`.
   The same project gives `TransferCredentialError`. An end-user credential needs a project that
-  allows it, and a user who may manage it there.
+  allows it, and a user who may manage it there. After the transfer, the members of the source
+  project lose their connections to the credential when they can no longer use it
+  (`CredentialConnectionStatusProxy.cleanupOrphanedEntriesForProjects`).
 
 ## Clean-room sources
 

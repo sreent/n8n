@@ -33,6 +33,7 @@ import {
 	hasGlobalScope,
 } from '@n8n/permissions';
 
+import { CredentialConnectionStatusProxy } from '@/credentials/credential-connection-status-proxy';
 import type { ProjectRequest } from '@/requests';
 import { OwnershipService } from '@/services/ownership.service';
 import { OwnershipTransferHandlerRegistry } from '@/services/ownership-transfer/ownership-transfer-handler.registry';
@@ -93,6 +94,7 @@ export class ProjectService {
 		private readonly moduleRegistry: ModuleRegistry,
 		private readonly ownershipService: OwnershipService,
 		private readonly transferHandlers: OwnershipTransferHandlerRegistry,
+		private readonly connectionStatusProxy: CredentialConnectionStatusProxy,
 	) {}
 
 	// #region Scope checks
@@ -443,6 +445,8 @@ export class ProjectService {
 		);
 		const ownershipTransferService = Container.get(OwnershipTransferService);
 
+		const memberIds = await this.findUserIdsByProjectId(projectId);
+
 		if (targetProject) {
 			await this.transferOwnedResources(projectId, targetProject.id);
 		} else {
@@ -453,6 +457,9 @@ export class ProjectService {
 		await this.teamProjectRepository.deleteProject(projectId, {
 			withSecretsProviderConnections: this.moduleRegistry.isActive('external-secrets'),
 		});
+		// The members lose the access that the project gave them, and with it their connections to
+		// private credentials.
+		await this.connectionStatusProxy.cleanupOrphanedEntriesForUsers(memberIds);
 
 		this.eventService.emit('team-project-deleted', {
 			userId: user.id,
@@ -491,6 +498,15 @@ export class ProjectService {
 				added.map(({ userId, role }) => ({ projectId, userId, role: { slug: role } })),
 			);
 		}
+		// A member with a new role can lose access to private credentials of the project.
+		const changedUserIds = added
+			.filter(({ userId, role }) =>
+				project.projectRelations.some(
+					(relation) => relation.userId === userId && relation.role.slug !== role,
+				),
+			)
+			.map(({ userId }) => userId);
+		await this.connectionStatusProxy.cleanupOrphanedEntriesForUsers(changedUserIds);
 		await this.emitMembersUpdated(user, projectId);
 	}
 
@@ -560,6 +576,8 @@ export class ProjectService {
 		if (relation.role.slug !== role) this.assertLicensedRole(role);
 
 		await this.projectRelationRepository.update({ projectId, userId }, { role: { slug: role } });
+		// The new role can lack access to private credentials, and with it to their connections.
+		await this.connectionStatusProxy.cleanupOrphanedEntriesForUsers([userId]);
 		await this.emitMembersUpdated(user, projectId);
 	}
 
@@ -581,6 +599,7 @@ export class ProjectService {
 		}
 
 		await this.projectRelationRepository.delete({ projectId, userId });
+		await this.connectionStatusProxy.cleanupOrphanedEntriesForUsers([userId]);
 		await this.emitMembersUpdated(user, projectId);
 	}
 

@@ -1,0 +1,2255 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`dynamic credential resolution > the OAuth2 resolver with the userinfo endpoint 1`] = `
+[
+  {
+    "logs": [
+      [
+        "error",
+        "UserInfo failed",
+      ],
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: UserInfo query failed",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Bound": UserInfo query failed",
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+      {
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Bearer opaque-unknown",
+        },
+        "method": "GET",
+        "path": "/userinfo",
+      },
+    ],
+    "step": "resolve an unknown opaque token",
+  },
+  {
+    "changes": {
+      "entries": {
+        "added": [
+          "{"credential":"@credential Bound","subject":"user-1","resolver":"@resolver Userinfo","data":{"oauthTokenData":{"access_token":"user-1-access"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "UserInfo successfully",
+      ],
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Bearer opaque-1",
+        },
+        "method": "GET",
+        "path": "/userinfo",
+      },
+    ],
+    "step": "store for an opaque token",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "user-1-access",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "step": "resolve the opaque token",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "user-1-access",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "step": "resolve the opaque token again",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "UserInfo response missing subject claim (sub)",
+      ],
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: UserInfo response missing subject claim (sub)",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Bound": UserInfo response missing subject claim (sub)",
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Bearer opaque-no-sub",
+        },
+        "method": "GET",
+        "path": "/userinfo",
+      },
+    ],
+    "step": "resolve an opaque token without a subject",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "UserInfo failed",
+      ],
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: UserInfo query failed",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Bound": UserInfo query failed",
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Bearer opaque-broken",
+        },
+        "method": "GET",
+        "path": "/userinfo",
+      },
+    ],
+    "step": "resolve when the userinfo endpoint fails",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "UserInfo successfully",
+      ],
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "user-1-access",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Bearer @jwt user-1",
+        },
+        "method": "GET",
+        "path": "/userinfo",
+      },
+    ],
+    "step": "resolve a signed token",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "UserInfo successfully",
+      ],
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "user-1-access",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Bearer @jwt unknown key",
+        },
+        "method": "GET",
+        "path": "/userinfo",
+      },
+    ],
+    "step": "resolve a token signed with an unknown key",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "UserInfo successfully",
+      ],
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "user-1-access",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Bearer @jwt expired",
+        },
+        "method": "GET",
+        "path": "/userinfo",
+      },
+    ],
+    "step": "resolve an expired signed token",
+  },
+  {
+    "changes": {
+      "entries": {
+        "added": [
+          "{"credential":"@credential Audience bound","subject":"five@example.com","resolver":"@resolver Userinfo audience","data":{"oauthTokenData":{"access_token":"five"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Resolved subject from access token",
+      ],
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/jwks",
+      },
+    ],
+    "step": "store with the email claim",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "five",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "step": "resolve with the expected audience and the email claim",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Token was not issued for the expected audience",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": Token was not issued for the expected audience",
+    },
+    "step": "resolve a signed token with another audience",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Token declares no audience, so it cannot be confirmed as issued for this instance",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": Token declares no audience, so it cannot be confirmed as issued for this instance",
+    },
+    "step": "resolve a signed token without an audience",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "UserInfo successfully",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": No data found available for the requested credential and context combination.",
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Bearer @jwt audience list",
+        },
+        "method": "GET",
+        "path": "/userinfo",
+      },
+    ],
+    "step": "resolve a signed token with the audience in a list",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Access token verification failed",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Access token verification failed",
+        "JWTClaimValidationFailed: unexpected "iss" claim value",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": Access token verification failed",
+    },
+    "step": "resolve a signed token of another issuer",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Access token verification failed",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Access token verification failed",
+        "JWTExpired: "exp" claim timestamp check failed",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": Access token verification failed",
+    },
+    "step": "resolve an expired signed token with the issuer",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Access token verification failed",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Access token verification failed",
+        "JWKSNoMatchingKey: no applicable key found in the JSON Web Key Set",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": Access token verification failed",
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/jwks",
+      },
+    ],
+    "step": "resolve a token of a key that the key set does not have yet",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Access token verification failed",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Access token verification failed",
+        "JWKSNoMatchingKey: no applicable key found in the JSON Web Key Set",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": Access token verification failed",
+    },
+    "step": "resolve a token of a key after the key set has it",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "UserInfo response missing subject claim (email)",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: UserInfo response missing subject claim (email)",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": UserInfo response missing subject claim (email)",
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Bearer @jwt without email",
+        },
+        "method": "GET",
+        "path": "/userinfo",
+      },
+    ],
+    "step": "resolve a signed token whose userinfo has no email",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Access token is not a JWT, so its audience cannot be verified. Use the token introspection validation method with this provider.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": Access token is not a JWT, so its audience cannot be verified. Use the token introspection validation method with this provider.",
+    },
+    "step": "resolve an opaque token with an expected audience",
+  },
+  {
+    "outcome": "done",
+    "step": "identify a signed token",
+  },
+]
+`;
+
+exports[`dynamic credential resolution > the OAuth2 resolver with token introspection 1`] = `
+[
+  {
+    "logs": [
+      [
+        "error",
+        "Token is not active according to introspection response",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Token is not active",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Bound": Token is not active",
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+      {
+        "body": {
+          "token": "inactive",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve an inactive token",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "Token introspected successfully",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Bound": No data found available for the requested credential and context combination.",
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "active-1",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve an active token before it is stored",
+  },
+  {
+    "changes": {
+      "entries": {
+        "added": [
+          "{"credential":"@credential Bound","subject":"user-1","resolver":"@resolver Introspection","data":{"oauthTokenData":{"access_token":"subject-1-access"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store for an active token",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "subject-1-access",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "step": "resolve the active token after the store",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "subject-1-access",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "step": "resolve the active token again",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Token introspection response missing subject claim (sub)",
+      ],
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Token introspection response missing subject claim (sub)",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Bound": Token introspection response missing subject claim (sub)",
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "no-sub",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve a token without a subject",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Token introspection failed",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Token introspection failed",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Bound": Token introspection failed",
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "broken",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve when the introspection fails",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Invalid token introspection response format",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Invalid token introspection response format",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Bound": Invalid token introspection response format",
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "not-json",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve when the introspection is not JSON",
+  },
+  {
+    "changes": {
+      "entries": {
+        "added": [
+          "{"credential":"@credential Bound","subject":"user-2","resolver":"@resolver Introspection","data":{"oauthTokenData":{"access_token":"subject-2-access"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "Token introspected successfully",
+      ],
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "provider": [
+      {
+        "body": {
+          "token": "active-2",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "store for the second subject",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Via workflow": No data found available for the requested credential and context combination.",
+    },
+    "step": "resolve with the workflow resolver",
+  },
+  {
+    "changes": {
+      "entries": {
+        "added": [
+          "{"credential":"@credential Via workflow","subject":"user-2","resolver":"@resolver Introspection","data":{"oauthTokenData":{"access_token":"via-workflow"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store with the workflow resolver",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "via-workflow",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "step": "resolve with the workflow resolver after the store",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverError: Invalid context metadata: [",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Via workflow": Invalid context metadata: [
+  {
+    "code": "invalid_union_discriminator",
+    "options": [
+      "manual-execution",
+      "chat-hub-injected",
+      "cookie-source",
+      "n8n-oauth"
+    ],
+    "path": [
+      "source"
+    ],
+    "message": "Invalid discriminator value. Expected 'manual-execution' | 'chat-hub-injected' | 'cookie-source' | 'n8n-oauth'"
+  }
+]",
+    },
+    "step": "resolve a bearer token with the system resolver",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Refused to resolve external-subject credential with n8n identity",
+      ],
+    ],
+    "outcome": {
+      "threw": "N8nIdentityNotSupportedError < CredentialResolutionError < OperationalError < BaseError: "Bound" resolves credentials per external user, so it can only be resolved by a request carrying that user's token",
+    },
+    "step": "resolve the owner session with the introspection resolver",
+  },
+  {
+    "outcome": "done",
+    "step": "identify a bearer token for the introspection resolver",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Token is not active according to introspection response",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Token is not active",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Bound": Token is not active",
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "inactive",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve the inactive token again",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Token introspection failed",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Token introspection failed",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Bound": Token introspection failed",
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "broken",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve when the introspection fails again",
+  },
+  {
+    "changes": {
+      "entries": {
+        "added": [
+          "{"credential":"@credential Post bound","subject":"two@example.com","resolver":"@resolver Post auth","data":{"oauthTokenData":{"access_token":"by-email"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "Token introspected successfully",
+      ],
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/post/.well-known/openid-configuration",
+      },
+      {
+        "body": {
+          "client_id": "post-client",
+          "client_secret": "post-secret",
+          "token": "active-2",
+        },
+        "headers": {
+          "accept": "application/json",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "store with client_secret_post and the email claim",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "by-email",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "step": "resolve with client_secret_post and the email claim",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Token introspection response missing subject claim (email)",
+      ],
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Token introspection response missing subject claim (email)",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Post bound": Token introspection response missing subject claim (email)",
+    },
+    "provider": [
+      {
+        "body": {
+          "client_id": "post-client",
+          "client_secret": "post-secret",
+          "token": "active-1",
+        },
+        "headers": {
+          "accept": "application/json",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve a token without the email claim",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Token introspected successfully",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": No data found available for the requested credential and context combination.",
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/audience/.well-known/openid-configuration",
+      },
+      {
+        "body": {
+          "token": "active-1",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic YXVkaWVuY2UtY2xpZW50OmF1ZGllbmNlLXNlY3JldA==",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve a token with the expected audience",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Token introspected successfully",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": No data found available for the requested credential and context combination.",
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "aud-list",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic YXVkaWVuY2UtY2xpZW50OmF1ZGllbmNlLXNlY3JldA==",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve a token with the audience in a list",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Token was not issued for the expected audience",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": Token was not issued for the expected audience",
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "aud-other",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic YXVkaWVuY2UtY2xpZW50OmF1ZGllbmNlLXNlY3JldA==",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve a token with another audience",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Token declares no audience, so it cannot be confirmed as issued for this instance",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Audience bound": Token declares no audience, so it cannot be confirmed as issued for this instance",
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "active-2",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic YXVkaWVuY2UtY2xpZW50OmF1ZGllbmNlLXNlY3JldA==",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "resolve a token without an audience",
+  },
+]
+`;
+
+exports[`dynamic credential resolution > the system resolver with n8n OAuth tokens 1`] = `
+[
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverError: Invalid OAuth token for resource http://localhost:5678/mcp/workflow",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Invalid OAuth token for resource http://localhost:5678/mcp/workflow",
+    },
+    "step": "resolve an n8n OAuth token before the verifier is registered",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"owner-access"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store the token of the owner with an n8n OAuth token",
+    "verifier": [
+      [
+        "verifyOAuthAccessToken",
+        "token-owner",
+        "http://localhost:5678/mcp/workflow",
+        null,
+      ],
+    ],
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "owner-access",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve with the n8n OAuth token of the owner",
+    "verifier": [
+      [
+        "verifyOAuthAccessToken",
+        "token-owner",
+        "http://localhost:5678/mcp/workflow",
+        null,
+      ],
+      [
+        "verifyOAuthAccessToken",
+        "token-owner",
+        "http://localhost:5678/mcp/workflow",
+        null,
+      ],
+    ],
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: 'Private' end-user credential is not connected for you. Connect yours to execute this workflow manually.",
+    },
+    "step": "resolve with the n8n OAuth token of the member",
+    "verifier": [
+      [
+        "verifyOAuthAccessToken",
+        "token-member",
+        "http://localhost:5678/mcp/workflow",
+        null,
+      ],
+    ],
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverError: Invalid OAuth token for resource http://localhost:5678/mcp/workflow",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Invalid OAuth token for resource http://localhost:5678/mcp/workflow",
+    },
+    "step": "resolve with an unknown n8n OAuth token",
+    "verifier": [
+      [
+        "verifyOAuthAccessToken",
+        "token-unknown",
+        "http://localhost:5678/mcp/workflow",
+        null,
+      ],
+    ],
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "owner-access",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve with a sealed subject in the execution it was bound to",
+    "verifier": [
+      [
+        "authorizeSealedGrant",
+        "@owner",
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
+      ],
+      [
+        "authorizeSealedGrant",
+        "@owner",
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
+      ],
+    ],
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverError: Sealed identity is not valid for this execution",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Sealed identity is not valid for this execution",
+    },
+    "step": "resolve with a sealed subject in another execution",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverError: Sealed identity is not valid for this execution",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Sealed identity is not valid for this execution",
+    },
+    "step": "resolve with a sealed subject without an execution id",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverError: Sealed identity is not valid for this execution",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Sealed identity is not valid for this execution",
+    },
+    "step": "resolve with a sealed subject that was never bound",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "owner-access",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve with a sealed subject without a grant",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverError: Invalid OAuth token for resource http://localhost:5678/mcp/workflow",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Invalid OAuth token for resource http://localhost:5678/mcp/workflow",
+    },
+    "step": "resolve with a sealed subject whose grant is withdrawn",
+    "verifier": [
+      [
+        "authorizeSealedGrant",
+        "@owner",
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
+      ],
+    ],
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "owner-access",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve with a sealed subject of a known token",
+    "verifier": [
+      [
+        "authorizeSealedGrant",
+        "@owner",
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
+      ],
+      [
+        "authorizeSealedGrant",
+        "@owner",
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
+      ],
+    ],
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "owner-access",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve with a sealed subject that is not the user of the token",
+    "verifier": [
+      [
+        "authorizeSealedGrant",
+        "@owner",
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
+      ],
+      [
+        "authorizeSealedGrant",
+        "@owner",
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
+      ],
+    ],
+  },
+  {
+    "outcome": {
+      "value": "@owner",
+    },
+    "step": "identify the n8n OAuth token of the owner",
+    "verifier": [
+      [
+        "verifyOAuthAccessToken",
+        "token-owner",
+        "http://localhost:5678/mcp/workflow",
+        null,
+      ],
+    ],
+  },
+  {
+    "outcome": {
+      "value": "@member",
+    },
+    "step": "identify a sealed subject",
+  },
+  {
+    "outcome": "done",
+    "step": "identify an unknown n8n OAuth token",
+    "verifier": [
+      [
+        "verifyOAuthAccessToken",
+        "token-unknown",
+        "http://localhost:5678/mcp/workflow",
+        null,
+      ],
+    ],
+  },
+]
+`;
+
+exports[`dynamic credential resolution > the system resolver with the session of a manual run 1`] = `
+[
+  {
+    "outcome": {
+      "value": {
+        "effectiveEmpty": "system-n8n",
+        "effectiveNone": "system-n8n",
+        "effectiveOverride": "override",
+        "system": "system-n8n",
+      },
+    },
+    "step": "the system resolver id",
+  },
+  {
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+        },
+        "isDynamic": false,
+      },
+    },
+    "step": "resolve a static credential without a context",
+  },
+  {
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+        },
+        "isDynamic": false,
+      },
+    },
+    "step": "resolve a static credential with the owner session",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "No execution context available for dynamic credential",
+      ],
+    ],
+    "outcome": {
+      "threw": "MissingExecutionContextError < CredentialResolutionError < OperationalError < BaseError: This node uses an end-user credential, but no user could be identified for this run, so the credential for it couldn't be resolved",
+    },
+    "step": "resolve the private credential without a context",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "No execution context available for dynamic credential",
+      ],
+    ],
+    "outcome": {
+      "threw": "MissingExecutionContextError < CredentialResolutionError < OperationalError < BaseError: This node uses an end-user credential, but no user could be identified for this run, so the credential for it couldn't be resolved",
+    },
+    "step": "resolve the private credential with a context without credentials",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: 'Private' end-user credential is not connected for you. Connect yours to execute this workflow manually.",
+    },
+    "step": "resolve the private credential before the owner connects",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: 'Fallback' end-user credential is not connected for you. Connect yours to execute this workflow manually.",
+    },
+    "step": "resolve the fallback credential before the owner connects",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"owner-access","refresh_token":"owner-refresh"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store the token of the owner",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "owner-access",
+            "refresh_token": "owner-refresh",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve the private credential with the owner session",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: 'Private' end-user credential is not connected for you. Connect yours to execute this workflow manually.",
+    },
+    "step": "resolve the private credential with the member session",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: 'Fallback' end-user credential is not connected for you. Connect yours to execute this workflow manually.",
+    },
+    "step": "resolve the fallback credential with the member session",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"owner-access-2"}}}",
+        ],
+        "removed": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"owner-access","refresh_token":"owner-refresh"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store a second token of the owner",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@member","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"member-access"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store the token of the member with extra fields",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@member","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"member-access"},"customField":"custom"}}",
+        ],
+        "removed": [
+          "{"credential":"@credential Private","user":"@member","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"member-access"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store a field that the credential type does not declare",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@member","resolver":"system-n8n","data":{}}",
+        ],
+        "removed": [
+          "{"credential":"@credential Private","user":"@member","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"member-access"},"customField":"custom"}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store only a declared field",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store an empty object",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Slack private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"slack-access"},"customField":"custom"}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store fields of a credential type that extends another",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "customField": "custom",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "slack-access",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve the credential type that extends another",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@member","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"member-access"}}}",
+        ],
+        "removed": [
+          "{"credential":"@credential Private","user":"@member","resolver":"system-n8n","data":{}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store the member token again",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "member-access",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@member",
+      },
+    },
+    "step": "resolve the private credential with the member session after the store",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "JsonWebTokenError: jwt malformed",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private"",
+    },
+    "step": "resolve with a session that is not a JWT",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "AuthError: Unauthorized",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private"",
+    },
+    "step": "resolve with the session of a disabled user",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Failed to store dynamic credentials data",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "JsonWebTokenError: jwt malformed",
+      ],
+      "threw": "CredentialStorageError < UserError < BaseError: Failed to store end-user credential data for "Private"",
+    },
+    "step": "store with a session that is not a JWT",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverError: Invalid context metadata: [",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Invalid context metadata: [
+  {
+    "code": "invalid_type",
+    "expected": "object",
+    "received": "undefined",
+    "path": [],
+    "message": "Required"
+  }
+]",
+    },
+    "step": "resolve with a context without metadata",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverError: Invalid context metadata: [",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Invalid context metadata: [
+  {
+    "code": "invalid_union_discriminator",
+    "options": [
+      "manual-execution",
+      "chat-hub-injected",
+      "cookie-source",
+      "n8n-oauth"
+    ],
+    "path": [
+      "source"
+    ],
+    "message": "Invalid discriminator value. Expected 'manual-execution' | 'chat-hub-injected' | 'cookie-source' | 'n8n-oauth'"
+  }
+]",
+    },
+    "step": "resolve with an unknown source",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "owner-access-2",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve with a request-bound context of the right browser",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "browserId check failed on /rest/workflows/:workflowId/run",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "AuthError: Unauthorized",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private"",
+    },
+    "step": "resolve with a request-bound context of another browser",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "browserId check failed on /rest/workflows/:workflowId/run",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "AuthError: Unauthorized",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private"",
+    },
+    "step": "resolve with a request-bound context without a browser",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Resolver not found for dynamic credential",
+      ],
+    ],
+    "outcome": {
+      "threw": "CredentialResolverNotFoundError < CredentialResolutionError < OperationalError < BaseError: Resolver "unknown" not found for credential "Private"",
+    },
+    "step": "resolve with an unknown workflow resolver",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Resolver not found for dynamic credential",
+      ],
+    ],
+    "outcome": {
+      "threw": "CredentialResolverNotFoundError < CredentialResolutionError < OperationalError < BaseError: Resolver "unknown" not found for credential "Fallback"",
+    },
+    "step": "resolve the fallback credential with an unknown workflow resolver",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Failed to store dynamic credentials data",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialStorageError: Resolver "unknown" not found for credential "Private"",
+      ],
+      "threw": "CredentialStorageError < UserError < BaseError: Failed to store end-user credential data for "Private"",
+    },
+    "step": "store with an unknown workflow resolver",
+  },
+  {
+    "outcome": "done",
+    "step": "store for a static credential",
+  },
+  {
+    "outcome": {
+      "value": "@owner",
+    },
+    "step": "identify the owner session",
+  },
+  {
+    "outcome": {
+      "value": "@owner",
+    },
+    "step": "identify a request-bound context",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "Could not identify the executing user for redaction attribution",
+      ],
+    ],
+    "outcome": "done",
+    "step": "identify a session that is not a JWT",
+  },
+  {
+    "outcome": "done",
+    "step": "identify a bearer token",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"oauth-owner"}}}",
+        ],
+        "removed": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"owner-access-2"}}}",
+        ],
+      },
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "store the OAuth token data of the owner",
+  },
+  {
+    "outcome": "done",
+    "step": "store the OAuth token data without a resolver",
+  },
+  {
+    "outcome": {
+      "threw": "UnexpectedError < BaseError: No credential context found",
+    },
+    "step": "store the OAuth token data without a context",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "oauth-owner",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve after the OAuth token data",
+  },
+]
+`;

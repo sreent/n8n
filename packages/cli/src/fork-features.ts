@@ -94,6 +94,10 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	// LDAP: the fork module of the rebuild (the owner chose this on 2026-10-14). An admin sets the
 	// directory at Settings > LDAP.
 	[LICENSE_FEATURES.LDAP]: true,
+	// Dynamic credentials: the fork module of the rebuild (the owner chose this on 2026-10-14). The
+	// resolvers, the hooks and the check node also need N8N_ENV_FEAT_DYNAMIC_CREDENTIALS=true, as in
+	// upstream n8n.
+	[LICENSE_FEATURES.DYNAMIC_CREDENTIALS]: true,
 };
 
 const FORK_FEATURE_VALUES_WITH_BANNER: FeatureReturnType = {

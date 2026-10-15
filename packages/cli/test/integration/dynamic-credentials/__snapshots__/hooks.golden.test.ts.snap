@@ -1,0 +1,2596 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`context establishment hooks > the Slack hook and the Slack resolver 1`] = `
+[
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "binary": {
+              "data": {
+                "data": "dG9rZW49b2xkJnRlYW1faWQ9VDEmdXNlcl9pZD1VMSZjb21tYW5kPSUyRndlYXRoZXImdGV4dD10b2RheQ==",
+                "mimeType": "application/x-www-form-urlencoded",
+              },
+            },
+            "json": {
+              "body": {
+                "command": "/weather",
+                "team_id": "T1",
+                "text": "today",
+                "token": "old",
+                "user_id": "U1",
+              },
+              "headers": {
+                "content-type": "application/x-www-form-urlencoded",
+                "x-slack-request-timestamp": "**********",
+                "x-slack-signature": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "token=old&team_id=T1&user_id=U1&command=%2Fweather&text=today",
+              "metadata": {
+                "signature": "@signature",
+                "source": "slack-signature",
+                "timestamp": "@timestamp",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "binary": {
+                "data": {
+                  "data": "dG9rZW49b2xkJnRlYW1faWQ9VDEmdXNlcl9pZD1VMSZjb21tYW5kPSUyRndlYXRoZXImdGV4dD10b2RheQ==",
+                  "mimeType": "application/x-www-form-urlencoded",
+                },
+              },
+              "json": {
+                "body": {
+                  "command": "/weather",
+                  "team_id": "T1",
+                  "text": "today",
+                  "token": "old",
+                  "user_id": "U1",
+                },
+                "headers": {
+                  "content-type": "application/x-www-form-urlencoded",
+                  "x-slack-request-timestamp": "**********",
+                  "x-slack-signature": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "slack hook: a slash command",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "binary": {
+              "data": {
+                "data": "cGF5bG9hZD0lN0IlMjJ0eXBlJTIyJTNBJTIyYmxvY2tfYWN0aW9ucyUyMiUyQyUyMnVzZXIlMjIlM0ElN0IlMjJpZCUyMiUzQSUyMlUyJTIyJTJDJTIydGVhbV9pZCUyMiUzQSUyMlQyJTIyJTdEJTJDJTIydGVhbSUyMiUzQSU3QiUyMmlkJTIyJTNBJTIyVDIlMjIlN0QlN0Q=",
+                "mimeType": "application/x-www-form-urlencoded",
+              },
+            },
+            "json": {
+              "body": {
+                "payload": "{"type":"block_actions","user":{"id":"U2","team_id":"T2"},"team":{"id":"T2"}}",
+              },
+              "headers": {
+                "content-type": "application/x-www-form-urlencoded",
+                "x-slack-request-timestamp": "**********",
+                "x-slack-signature": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "payload=%7B%22type%22%3A%22block_actions%22%2C%22user%22%3A%7B%22id%22%3A%22U2%22%2C%22team_id%22%3A%22T2%22%7D%2C%22team%22%3A%7B%22id%22%3A%22T2%22%7D%7D",
+              "metadata": {
+                "signature": "@signature",
+                "source": "slack-signature",
+                "timestamp": "@timestamp",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "binary": {
+                "data": {
+                  "data": "cGF5bG9hZD0lN0IlMjJ0eXBlJTIyJTNBJTIyYmxvY2tfYWN0aW9ucyUyMiUyQyUyMnVzZXIlMjIlM0ElN0IlMjJpZCUyMiUzQSUyMlUyJTIyJTJDJTIydGVhbV9pZCUyMiUzQSUyMlQyJTIyJTdEJTJDJTIydGVhbSUyMiUzQSU3QiUyMmlkJTIyJTNBJTIyVDIlMjIlN0QlN0Q=",
+                  "mimeType": "application/x-www-form-urlencoded",
+                },
+              },
+              "json": {
+                "body": {
+                  "payload": "{"type":"block_actions","user":{"id":"U2","team_id":"T2"},"team":{"id":"T2"}}",
+                },
+                "headers": {
+                  "content-type": "application/x-www-form-urlencoded",
+                  "x-slack-request-timestamp": "**********",
+                  "x-slack-signature": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "slack hook: an interactive payload",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Could not retrieve raw body for Slack signature verification",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Could not retrieve raw body for Slack signature verification.",
+    },
+    "step": "slack hook: an event",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Missing X-Slack-Request-Timestamp header",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Missing X-Slack-Request-Timestamp header",
+    },
+    "step": "slack hook: without the signature headers",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {
+                "command": "/weather",
+                "team_id": "T1",
+                "text": "today",
+                "token": "old",
+                "user_id": "U1",
+              },
+              "headers": {
+                "content-type": "application/x-www-form-urlencoded",
+                "x-slack-request-timestamp": "**********",
+                "x-slack-signature": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "token=old&team_id=T1&user_id=U1&command=%2Fweather&text=today",
+              "metadata": {
+                "signature": "@signature",
+                "source": "slack-signature",
+                "timestamp": "@timestamp",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "json": {
+                "body": {
+                  "command": "/weather",
+                  "team_id": "T1",
+                  "text": "today",
+                  "token": "old",
+                  "user_id": "U1",
+                },
+                "headers": {
+                  "content-type": "application/x-www-form-urlencoded",
+                  "x-slack-request-timestamp": "**********",
+                  "x-slack-signature": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "slack hook: without the raw body",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "No trigger items found for Slack identity extraction",
+      ],
+    ],
+    "outcome": {
+      "threw": ": No trigger items found for Slack identity extraction",
+    },
+    "step": "slack hook: no trigger items",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Could not retrieve raw body for Slack signature verification",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Could not retrieve raw body for Slack signature verification.",
+    },
+    "step": "slack hook: an event with a raw body field",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Could not retrieve raw body for Slack signature verification",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Could not retrieve raw body for Slack signature verification.",
+    },
+    "step": "slack hook: an event with a raw body buffer",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Could not retrieve raw body for Slack signature verification",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Could not retrieve raw body for Slack signature verification.",
+    },
+    "step": "slack hook: an event with the body as text",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Could not retrieve raw body for Slack signature verification",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Could not retrieve raw body for Slack signature verification.",
+    },
+    "step": "slack hook: an event with binary data and a file name",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Missing X-Slack-Request-Timestamp header",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Missing X-Slack-Request-Timestamp header",
+    },
+    "step": "slack hook: a form with a header in another case",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "binary": {
+              "data": {
+                "data": "dG9rZW49b2xkJnRlYW1faWQ9VDEmdXNlcl9pZD1VMSZjb21tYW5kPSUyRndlYXRoZXImdGV4dD10b2RheQ==",
+                "mimeType": "application/x-www-form-urlencoded",
+              },
+            },
+            "json": {
+              "body": {
+                "command": "/weather",
+                "team_id": "T1",
+                "text": "today",
+                "token": "old",
+                "user_id": "U1",
+              },
+              "headers": {
+                "x-slack-request-timestamp": "**********",
+                "x-slack-signature": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "token=old&team_id=T1&user_id=U1&command=%2Fweather&text=today",
+              "metadata": {
+                "signature": "@signature",
+                "source": "slack-signature",
+                "timestamp": "@timestamp",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "binary": {
+                "data": {
+                  "data": "dG9rZW49b2xkJnRlYW1faWQ9VDEmdXNlcl9pZD1VMSZjb21tYW5kPSUyRndlYXRoZXImdGV4dD10b2RheQ==",
+                  "mimeType": "application/x-www-form-urlencoded",
+                },
+              },
+              "json": {
+                "body": {
+                  "command": "/weather",
+                  "team_id": "T1",
+                  "text": "today",
+                  "token": "old",
+                  "user_id": "U1",
+                },
+                "headers": {
+                  "x-slack-request-timestamp": "**********",
+                  "x-slack-signature": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "slack hook: a form without a content type",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "CredentialResolverDataNotFoundError: No data found available for the requested credential and context combination.",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": No data found available for the requested credential and context combination.",
+    },
+    "step": "slack: resolve a slash command before the store",
+  },
+  {
+    "entries": {
+      "added": [
+        "{"credential":"@credential By user","subject":"U1","resolver":"@resolver Slack users","data":{"oauthTokenData":{"access_token":"u1-token"}}}",
+      ],
+      "removed": [],
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "slack: store for a slash command",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "u1-token",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "step": "slack: resolve a slash command after the store",
+  },
+  {
+    "entries": {
+      "added": [
+        "{"credential":"@credential By team","subject":"T1:U1","resolver":"@resolver Slack teams","data":{"oauthTokenData":{"access_token":"t1-u1-token"}}}",
+      ],
+      "removed": [],
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "slack: store with team and user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By team": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an interactive payload",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Failed to store dynamic credentials data",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialStorageError < UserError < BaseError: Failed to store end-user credential data for "By team"",
+    },
+    "step": "slack: store for an interactive payload",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Failed to store dynamic credentials data",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialStorageError < UserError < BaseError: Failed to store end-user credential data for "By team"",
+    },
+    "step": "slack: store for an interactive payload with user and team ids",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Failed to store dynamic credentials data",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialStorageError < UserError < BaseError: Failed to store end-user credential data for "By team"",
+    },
+    "step": "slack: store for a payload with top-level ids",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Failed to store dynamic credentials data",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack team_id not found for team_user claim",
+      ],
+      "threw": "CredentialStorageError < UserError < BaseError: Failed to store end-user credential data for "By team"",
+    },
+    "step": "slack: store for a user without a team",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Could not retrieve raw body for Slack signature verification",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Could not retrieve raw body for Slack signature verification.",
+    },
+    "step": "slack: store for an event",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack signature verification failed",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack signature verification failed",
+    },
+    "step": "slack: resolve with a wrong signature",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack request timestamp is too old",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack request timestamp is too old",
+    },
+    "step": "slack: resolve with an old timestamp",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "u1-token",
+          },
+        },
+        "isDynamic": true,
+      },
+    },
+    "step": "slack: resolve with a changed body",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack signature verification failed",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack signature verification failed",
+    },
+    "step": "slack: resolve with a malformed signature",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve a body without a user",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Could not retrieve raw body for Slack signature verification",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Could not retrieve raw body for Slack signature verification.",
+    },
+    "step": "slack: store for an event with a raw body field",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an event as JSON by user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By team": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an event as JSON by team and user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an interactive payload as JSON by user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By team": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an interactive payload as JSON by team and user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve top-level ids as JSON by user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By team": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve top-level ids as JSON by team and user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an interactive payload as a form by user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By team": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an interactive payload as a form by team and user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve a view submission as a form by user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By team": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve a view submission as a form by team and user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve a shortcut as a form by user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By team": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve a shortcut as a form by team and user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an event without a user by user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By team": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an event without a user by team and user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an url verification by user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By team": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve an url verification by team and user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve not JSON and not a form by user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Slack signature verified",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack user_id not found in identity",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By team": Slack user_id not found in identity",
+    },
+    "step": "slack: resolve not JSON and not a form by team and user",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Missing Slack signature verification data",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Missing Slack signature verification data",
+    },
+    "step": "slack: resolve a context without a timestamp",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Slack request timestamp is too old",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Slack request timestamp is too old",
+    },
+    "step": "slack: resolve a context with a future timestamp",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Invalid Slack request timestamp",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Invalid Slack request timestamp",
+    },
+    "step": "slack: resolve a context with a timestamp that is not a number",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Missing Slack signature verification data",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "By user": Missing Slack signature verification data",
+    },
+    "step": "slack: resolve a bearer context",
+  },
+  {
+    "outcome": {
+      "value": {
+        "context": {
+          "credentials": {
+            "identity": "token=old&team_id=T1&user_id=U1&command=%2Fweather&text=today",
+            "metadata": {
+              "signature": "@signature",
+              "source": "slack-signature",
+              "timestamp": "@timestamp",
+            },
+            "version": 1,
+          },
+          "establishedAt": "<date>",
+          "source": "webhook",
+          "version": 1,
+        },
+        "startItemData": {
+          "main": [
+            [
+              {
+                "binary": {
+                  "data": {
+                    "data": "dG9rZW49b2xkJnRlYW1faWQ9VDEmdXNlcl9pZD1VMSZjb21tYW5kPSUyRndlYXRoZXImdGV4dD10b2RheQ==",
+                    "mimeType": "application/x-www-form-urlencoded",
+                  },
+                },
+                "json": {
+                  "body": {
+                    "command": "/weather",
+                    "team_id": "T1",
+                    "text": "today",
+                    "token": "old",
+                    "user_id": "U1",
+                  },
+                  "headers": {
+                    "content-type": "application/x-www-form-urlencoded",
+                    "x-slack-request-timestamp": "**********",
+                    "x-slack-signature": "**********",
+                  },
+                  "params": {},
+                  "query": {},
+                },
+              },
+            ],
+          ],
+        },
+        "triggerItems": [
+          {
+            "binary": {
+              "data": {
+                "data": "dG9rZW49b2xkJnRlYW1faWQ9VDEmdXNlcl9pZD1VMSZjb21tYW5kPSUyRndlYXRoZXImdGV4dD10b2RheQ==",
+                "mimeType": "application/x-www-form-urlencoded",
+              },
+            },
+            "json": {
+              "body": {
+                "command": "/weather",
+                "team_id": "T1",
+                "text": "today",
+                "token": "old",
+                "user_id": "U1",
+              },
+              "headers": {
+                "content-type": "application/x-www-form-urlencoded",
+                "x-slack-request-timestamp": "**********",
+                "x-slack-signature": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+      },
+    },
+    "step": "slack: the pipeline with the Slack hook",
+  },
+  {
+    "entries": {
+      "added": [
+        "{"credential":"@credential By user","subject":"U1","resolver":"@resolver Slack users","data":{"oauthTokenData":{"access_token":"wrong-signature-token"}}}",
+      ],
+      "removed": [
+        "{"credential":"@credential By user","subject":"U1","resolver":"@resolver Slack users","data":{"oauthTokenData":{"access_token":"u1-token"}}}",
+      ],
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "slack: store with a wrong signature",
+  },
+  {
+    "entries": {
+      "added": [
+        "{"credential":"@credential By user","subject":"U1","resolver":"@resolver Slack users","data":{"oauthTokenData":{"access_token":"old-timestamp-token"}}}",
+      ],
+      "removed": [
+        "{"credential":"@credential By user","subject":"U1","resolver":"@resolver Slack users","data":{"oauthTokenData":{"access_token":"wrong-signature-token"}}}",
+      ],
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "slack: store with an old timestamp",
+  },
+  {
+    "entries": {
+      "added": [
+        "{"credential":"@credential By user","subject":"U9","resolver":"@resolver Slack users","data":{"oauthTokenData":{"access_token":"other-body-token"}}}",
+      ],
+      "removed": [],
+    },
+    "logs": [
+      [
+        "debug",
+        "Successfully stored dynamic credentials",
+      ],
+    ],
+    "outcome": "done",
+    "step": "slack: store with the signature of another body",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Failed to store dynamic credentials data",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Missing Slack signature verification data",
+      ],
+      "threw": "CredentialStorageError < UserError < BaseError: Failed to store end-user credential data for "By team"",
+    },
+    "step": "slack: store a context without a timestamp",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Failed to store dynamic credentials data",
+      ],
+    ],
+    "outcome": {
+      "causes": [
+        "IdentifierValidationError: Missing Slack signature verification data",
+      ],
+      "threw": "CredentialStorageError < UserError < BaseError: Failed to store end-user credential data for "By user"",
+    },
+    "step": "slack: store a bearer context",
+  },
+]
+`;
+
+exports[`context establishment hooks > the bearer token and HTTP header hooks 1`] = `
+[
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "**********",
+                "x-other": "kept",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "token-1",
+              "metadata": {
+                "headerName": "authorization",
+                "source": "http-header",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "authorization": "**********",
+                  "x-other": "kept",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "bearer: a bearer token",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "token-2",
+              "metadata": {
+                "headerName": "authorization",
+                "source": "http-header",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "authorization": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "bearer: a lower case scheme",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "token-3  ",
+              "metadata": {
+                "headerName": "authorization",
+                "source": "http-header",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "authorization": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "bearer: extra spaces",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "authorization": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "bearer: a basic scheme",
+  },
+  {
+    "outcome": {
+      "threw": ": Http header not found or invalid",
+    },
+    "step": "bearer: no authorization header",
+  },
+  {
+    "outcome": {
+      "threw": ": Http header not found or invalid",
+    },
+    "step": "bearer: an upper case header name",
+  },
+  {
+    "outcome": {
+      "threw": ": Http header not found or invalid",
+    },
+    "step": "bearer: no headers",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "No trigger items found, skipping HttpHeaderExtractor hook.",
+      ],
+    ],
+    "outcome": {
+      "threw": ": No trigger items found, to perform header extraction",
+    },
+    "step": "bearer: no trigger items",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "No trigger items found, skipping HttpHeaderExtractor hook.",
+      ],
+    ],
+    "outcome": {
+      "threw": ": No trigger items found, to perform header extraction",
+    },
+    "step": "bearer: an empty item list",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "Bearer second",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "first",
+              "metadata": {
+                "headerName": "authorization",
+                "source": "http-header",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "authorization": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "authorization": "Bearer second",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "bearer: two items",
+  },
+  {
+    "outcome": {
+      "threw": ": Http header not found or invalid",
+    },
+    "step": "bearer: an array header",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "token-7",
+              "metadata": {
+                "headerName": "authorization",
+                "source": "http-header",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "authorization": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "bearer: an existing credential context",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "header-1",
+              "metadata": {
+                "headerName": "authorization",
+                "source": "http-header",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "authorization": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "header: the default options",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "x-api-key": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "key-123",
+              "metadata": {
+                "headerName": "x-api-key",
+                "source": "http-header",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "x-api-key": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "header: a custom header and pattern",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "x-api-key": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "x-api-key": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "header: a pattern without a group",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "x-api-key": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "x-api-key": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "header: a value that does not match",
+  },
+  {
+    "outcome": {
+      "threw": ": Http header not found or invalid",
+    },
+    "step": "header: a missing header",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Invalid regex pattern",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Failed to execute regex pattern, during header extraction",
+    },
+    "step": "header: an invalid pattern",
+  },
+  {
+    "outcome": {
+      "value": {
+        "inputAfter": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "x-api-key": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+        "result": {
+          "contextUpdate": {
+            "credentials": {
+              "identity": "a",
+              "metadata": {
+                "headerName": "x-api-key",
+                "source": "http-header",
+              },
+              "version": 1,
+            },
+          },
+          "triggerItems": [
+            {
+              "json": {
+                "body": {},
+                "headers": {
+                  "x-api-key": "**********",
+                },
+                "params": {},
+                "query": {},
+              },
+            },
+          ],
+        },
+      },
+    },
+    "step": "header: two groups",
+  },
+  {
+    "outcome": {
+      "threw": ": Http header not found or invalid",
+    },
+    "step": "header: an empty header name",
+  },
+  {
+    "outcome": {
+      "value": {
+        "context": {
+          "credentials": {
+            "identity": "pipeline-1",
+            "metadata": {
+              "headerName": "authorization",
+              "source": "http-header",
+            },
+            "version": 1,
+          },
+          "establishedAt": "<date>",
+          "source": "webhook",
+          "version": 1,
+        },
+        "startItemData": {
+          "main": [
+            [
+              {
+                "json": {
+                  "body": {},
+                  "headers": {
+                    "authorization": "**********",
+                  },
+                  "params": {},
+                  "query": {},
+                },
+              },
+            ],
+          ],
+        },
+        "triggerItems": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+      },
+    },
+    "step": "service: the bearer hook on a webhook node",
+  },
+  {
+    "outcome": {
+      "value": {
+        "context": {
+          "credentials": {
+            "identity": "pipeline-2",
+            "metadata": {
+              "headerName": "authorization",
+              "source": "http-header",
+            },
+            "version": 1,
+          },
+          "establishedAt": "<date>",
+          "source": "webhook",
+          "version": 1,
+        },
+        "startItemData": {
+          "main": [
+            [
+              {
+                "json": {
+                  "body": {},
+                  "headers": {
+                    "authorization": "**********",
+                  },
+                  "params": {},
+                  "query": {},
+                },
+              },
+            ],
+          ],
+        },
+        "triggerItems": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+      },
+    },
+    "step": "service: the bearer hook without the version",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "Failed to execute context establishment hook BearerTokenExtractor",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "context": {
+          "establishedAt": "<date>",
+          "source": "webhook",
+          "version": 1,
+        },
+        "startItemData": {
+          "main": [
+            [
+              {
+                "json": {
+                  "body": {},
+                  "headers": {},
+                  "params": {},
+                  "query": {},
+                },
+              },
+            ],
+          ],
+        },
+        "triggerItems": [
+          {
+            "json": {
+              "body": {},
+              "headers": {},
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+      },
+    },
+    "step": "service: a failing hook that may fail",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "Failed to execute context establishment hook BearerTokenExtractor",
+      ],
+    ],
+    "outcome": {
+      "threw": ": Http header not found or invalid",
+    },
+    "step": "service: a failing hook that may not fail",
+  },
+  {
+    "outcome": {
+      "value": {
+        "context": {
+          "credentials": {
+            "identity": "alice",
+            "metadata": {
+              "headerName": "x-user",
+              "source": "http-header",
+            },
+            "version": 1,
+          },
+          "establishedAt": "<date>",
+          "source": "webhook",
+          "version": 1,
+        },
+        "startItemData": {
+          "main": [
+            [
+              {
+                "json": {
+                  "body": {},
+                  "headers": {
+                    "x-user": "**********",
+                  },
+                  "params": {},
+                  "query": {},
+                },
+              },
+            ],
+          ],
+        },
+        "triggerItems": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "x-user": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+      },
+    },
+    "step": "service: the header hook with options",
+  },
+  {
+    "outcome": {
+      "value": {
+        "context": {
+          "credentials": {
+            "identity": "bob",
+            "metadata": {
+              "headerName": "authorization",
+              "source": "http-header",
+            },
+            "version": 1,
+          },
+          "establishedAt": "<date>",
+          "source": "webhook",
+          "version": 1,
+        },
+        "startItemData": {
+          "main": [
+            [
+              {
+                "json": {
+                  "body": {},
+                  "headers": {
+                    "authorization": "**********",
+                    "x-user": "**********",
+                  },
+                  "params": {},
+                  "query": {},
+                },
+              },
+            ],
+          ],
+        },
+        "triggerItems": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "**********",
+                "x-user": "**********",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+      },
+    },
+    "step": "service: two hooks",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "Execution context establishment hook NoSuchHook not found, skipping this hook",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "context": {
+          "establishedAt": "<date>",
+          "source": "webhook",
+          "version": 1,
+        },
+        "startItemData": {
+          "main": [
+            [
+              {
+                "json": {
+                  "body": {},
+                  "headers": {
+                    "authorization": "Bearer x",
+                  },
+                  "params": {},
+                  "query": {},
+                },
+              },
+            ],
+          ],
+        },
+        "triggerItems": [
+          {
+            "json": {
+              "body": {},
+              "headers": {
+                "authorization": "Bearer x",
+              },
+              "params": {},
+              "query": {},
+            },
+          },
+        ],
+      },
+    },
+    "step": "service: an unknown hook",
+  },
+]
+`;
+
+exports[`context establishment hooks > the hooks and the trigger nodes 1`] = `
+[
+  {
+    "outcome": {
+      "value": [
+        {
+          "applicable": [
+            "n8n-nodes-base.webhook",
+            "webhook",
+          ],
+          "class": "HttpHeaderExtractor",
+          "description": {
+            "displayName": "HTTP Header Extractor",
+            "name": "HttpHeaderExtractor",
+            "options": [
+              {
+                "default": "authorization",
+                "description": "The name of the HTTP header to extract the value from.",
+                "displayName": "Header Name",
+                "name": "headerName",
+                "noDataExpression": true,
+                "type": "string",
+              },
+              {
+                "default": "[Bb][Ee][Aa][Rr][Ee][Rr]\\s+(.+)",
+                "description": "A regular expression pattern to extract the identity from the header value. Use a capturing group to specify the identity part.",
+                "displayName": "Header Value Pattern",
+                "name": "headerValue",
+                "noDataExpression": true,
+                "type": "string",
+              },
+            ],
+          },
+        },
+        {
+          "applicable": [
+            "n8n-nodes-base.webhook",
+            "webhook",
+          ],
+          "class": "BearerTokenExtractor",
+          "description": {
+            "displayName": "Bearer Token Extractor",
+            "name": "BearerTokenExtractor",
+            "options": [],
+          },
+        },
+        {
+          "applicable": [
+            "n8n-nodes-base.webhook",
+            "webhook",
+          ],
+          "class": "SlackSignatureExtractor",
+          "description": {
+            "displayName": "Slack Identity Extractor",
+            "name": "SlackSignatureExtractor",
+            "options": [],
+          },
+        },
+      ],
+    },
+    "step": "the hooks of the registry",
+  },
+  {
+    "outcome": {
+      "value": {
+        "global": [],
+        "subExecution": [],
+      },
+    },
+    "step": "the global and sub-execution hooks",
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Injecting context establishment hooks for 2 trigger nodes",
+      ],
+      [
+        "debug",
+        "Found 3 hooks for trigger node: n8n-nodes-base.webhook",
+      ],
+      [
+        "debug",
+        "Injecting context establishment hooks for 2 trigger nodes",
+      ],
+      [
+        "debug",
+        "Found 3 hooks for trigger node: n8n-nodes-base.webhook",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "form": [],
+        "webhook": [
+          {
+            "default": {},
+            "description": "Configure how n8n extracts the identity token of the user triggering a webhook. It is used to run each execution with the correct user.",
+            "displayName": "Identify user for end-user credentials",
+            "name": "contextEstablishmentHooks",
+            "options": [
+              {
+                "displayName": "Hooks",
+                "name": "hooks",
+                "values": [
+                  {
+                    "default": "",
+                    "description": "Configure how n8n extracts the identity token of the user triggering a webhook. It is used to run each execution with the correct user.",
+                    "displayName": "User Identifier",
+                    "name": "hookName",
+                    "noDataExpression": true,
+                    "options": [
+                      {
+                        "description": "Use HTTP Header Extractor hook",
+                        "name": "HTTP Header Extractor",
+                        "value": "HttpHeaderExtractor",
+                      },
+                      {
+                        "description": "Use Bearer Token Extractor hook",
+                        "name": "Bearer Token Extractor",
+                        "value": "BearerTokenExtractor",
+                      },
+                      {
+                        "description": "Use Slack Identity Extractor hook",
+                        "name": "Slack Identity Extractor",
+                        "value": "SlackSignatureExtractor",
+                      },
+                    ],
+                    "required": true,
+                    "type": "options",
+                  },
+                  {
+                    "default": "authorization",
+                    "description": "The name of the HTTP header to extract the value from.",
+                    "displayName": "Header Name",
+                    "displayOptions": {
+                      "show": {
+                        "hookName": [
+                          "HttpHeaderExtractor",
+                        ],
+                      },
+                    },
+                    "name": "headerName",
+                    "noDataExpression": true,
+                    "type": "string",
+                  },
+                  {
+                    "default": "[Bb][Ee][Aa][Rr][Ee][Rr]\\s+(.+)",
+                    "description": "A regular expression pattern to extract the identity from the header value. Use a capturing group to specify the identity part.",
+                    "displayName": "Header Value Pattern",
+                    "displayOptions": {
+                      "show": {
+                        "hookName": [
+                          "HttpHeaderExtractor",
+                        ],
+                      },
+                    },
+                    "name": "headerValue",
+                    "noDataExpression": true,
+                    "type": "string",
+                  },
+                ],
+              },
+            ],
+            "placeholder": "Add User Identifier",
+            "type": "fixedCollection",
+            "typeOptions": {
+              "hideEmptyMessage": true,
+              "multipleValues": true,
+            },
+          },
+          {
+            "default": "",
+            "displayName": "Configure how n8n extracts the identity token of the user triggering a webhook. It is used to run each execution with the correct user.",
+            "name": "contextHooksNotice",
+            "type": "notice",
+          },
+          {
+            "default": {},
+            "displayName": "Options",
+            "name": "options",
+            "options": [
+              {
+                "default": false,
+                "description": "Whether the webhook will receive binary data",
+                "displayName": "Binary File",
+                "displayOptions": {
+                  "show": {
+                    "/httpMethod": [
+                      "PATCH",
+                      "PUT",
+                      "POST",
+                    ],
+                    "@version": [
+                      1,
+                    ],
+                  },
+                },
+                "name": "binaryData",
+                "type": "boolean",
+              },
+              {
+                "default": "data",
+                "description": "The name of the output field to put any binary file data in. Only relevant if binary data is received.",
+                "displayName": "Field Name for Binary Data",
+                "displayOptions": {
+                  "hide": {
+                    "@version": [
+                      1,
+                    ],
+                  },
+                },
+                "name": "binaryPropertyName",
+                "type": "string",
+              },
+              {
+                "default": false,
+                "description": "Whether to ignore requests from bots like link previewers and web crawlers",
+                "displayName": "Ignore Bots",
+                "name": "ignoreBots",
+                "type": "boolean",
+              },
+              {
+                "default": "",
+                "description": "Comma-separated list of allowed IP addresses or CIDR ranges. Leave empty to allow all IPs.",
+                "displayName": "IP(s) Allowlist",
+                "name": "ipWhitelist",
+                "placeholder": "e.g. 127.0.0.1, 192.168.1.0/24",
+                "type": "string",
+              },
+              {
+                "default": false,
+                "description": "Whether to send any body in the response",
+                "displayName": "No Response Body",
+                "displayOptions": {
+                  "hide": {
+                    "rawBody": [
+                      true,
+                    ],
+                  },
+                  "show": {
+                    "/responseMode": [
+                      "onReceived",
+                    ],
+                  },
+                },
+                "name": "noResponseBody",
+                "type": "boolean",
+              },
+              {
+                "default": "auto",
+                "description": "How a request without a bearer token is handled when using n8n User Auth (OAuth2). Only GET requests can be redirected.",
+                "displayName": "OAuth2 Client",
+                "displayOptions": {
+                  "show": {
+                    "/authentication": [
+                      "n8nOAuth2",
+                    ],
+                  },
+                },
+                "name": "oauthClient",
+                "noDataExpression": true,
+                "options": [
+                  {
+                    "description": "Redirect browser navigations through the n8n login; require a bearer token from everything else",
+                    "name": "Auto-Detect",
+                    "value": "auto",
+                  },
+                  {
+                    "description": "Always require a bearer token, never redirect",
+                    "name": "Bearer Token Only",
+                    "value": "bearer",
+                  },
+                  {
+                    "description": "Always redirect GET requests without a bearer token through the n8n login",
+                    "name": "Browser (Virtual Client)",
+                    "value": "browser",
+                  },
+                ],
+                "type": "options",
+              },
+              {
+                "default": "",
+                "description": "Expression evaluated against the incoming request. The workflow will run only if the expression returns true. <code>$json</code> exposes the request as <code>{ body, headers, params, query }</code>. Requests that do not match receive a 200 response, without creating an execution. If the expression fails to evaluate, the request is allowed through and the error is logged.",
+                "displayName": "Only Run If",
+                "name": "onlyRunIf",
+                "placeholder": "{{ $json.body.campaign_id === 'user-research-invite' }}",
+                "type": "string",
+              },
+              {
+                "default": "data",
+                "description": "Name of the property to return the data of instead of the whole JSON",
+                "displayName": "Property Name",
+                "displayOptions": {
+                  "show": {
+                    "/responseData": [
+                      "firstEntryJson",
+                    ],
+                    "/responseMode": [
+                      "lastNode",
+                    ],
+                  },
+                },
+                "name": "responsePropertyName",
+                "type": "string",
+              },
+              {
+                "default": "data",
+                "description": "If the data gets received via "Form-Data Multipart" it will be the prefix and a number starting with 0 will be attached to it",
+                "displayName": "Put Output File in Field",
+                "displayOptions": {
+                  "show": {
+                    "@version": [
+                      1,
+                    ],
+                    "binaryData": [
+                      true,
+                    ],
+                  },
+                },
+                "hint": "The name of the output binary field to put the file in",
+                "name": "binaryPropertyName",
+                "type": "string",
+              },
+              {
+                "default": false,
+                "description": "Raw body (binary)",
+                "displayName": "Raw Body",
+                "displayOptions": {
+                  "hide": {
+                    "binaryData": [
+                      true,
+                    ],
+                    "noResponseBody": [
+                      true,
+                    ],
+                  },
+                  "show": {
+                    "@version": [
+                      1,
+                    ],
+                  },
+                },
+                "name": "rawBody",
+                "type": "boolean",
+              },
+              {
+                "default": false,
+                "description": "Whether to return the raw body",
+                "displayName": "Raw Body",
+                "displayOptions": {
+                  "hide": {
+                    "@version": [
+                      1,
+                    ],
+                    "noResponseBody": [
+                      true,
+                    ],
+                  },
+                },
+                "name": "rawBody",
+                "type": "boolean",
+              },
+              {
+                "default": {
+                  "values": {
+                    "responseCode": 200,
+                  },
+                },
+                "displayName": "Response Code",
+                "displayOptions": {
+                  "hide": {
+                    "/responseMode": [
+                      "responseNode",
+                    ],
+                  },
+                  "show": {
+                    "@version": [
+                      {
+                        "_cnd": {
+                          "gte": 2,
+                        },
+                      },
+                    ],
+                  },
+                },
+                "name": "responseCode",
+                "options": [
+                  {
+                    "displayName": "Values",
+                    "name": "values",
+                    "values": [
+                      {
+                        "default": 200,
+                        "description": "The HTTP response code to return",
+                        "displayName": "Response Code",
+                        "name": "responseCode",
+                        "options": [
+                          {
+                            "description": "OK - Request has succeeded",
+                            "name": "200",
+                            "value": 200,
+                          },
+                          {
+                            "description": "Created - Request has been fulfilled",
+                            "name": "201",
+                            "value": 201,
+                          },
+                          {
+                            "description": "No Content - Request processed, no content returned",
+                            "name": "204",
+                            "value": 204,
+                          },
+                          {
+                            "description": "Moved Permanently - Requested resource moved permanently",
+                            "name": "301",
+                            "value": 301,
+                          },
+                          {
+                            "description": "Found - Requested resource moved temporarily",
+                            "name": "302",
+                            "value": 302,
+                          },
+                          {
+                            "description": "Not Modified - Resource has not been modified",
+                            "name": "304",
+                            "value": 304,
+                          },
+                          {
+                            "description": "Bad Request - Request could not be understood",
+                            "name": "400",
+                            "value": 400,
+                          },
+                          {
+                            "description": "Unauthorized - Request requires user authentication",
+                            "name": "401",
+                            "value": 401,
+                          },
+                          {
+                            "description": "Forbidden - Server understood, but refuses to fulfill",
+                            "name": "403",
+                            "value": 403,
+                          },
+                          {
+                            "description": "Not Found - Server has not found a match",
+                            "name": "404",
+                            "value": 404,
+                          },
+                          {
+                            "description": "Write any HTTP code",
+                            "name": "Custom Code",
+                            "value": "customCode",
+                          },
+                        ],
+                        "type": "options",
+                      },
+                      {
+                        "default": 200,
+                        "displayName": "Code",
+                        "displayOptions": {
+                          "show": {
+                            "responseCode": [
+                              "customCode",
+                            ],
+                          },
+                        },
+                        "name": "customCode",
+                        "placeholder": "e.g. 400",
+                        "type": "number",
+                        "typeOptions": {
+                          "minValue": 100,
+                        },
+                      },
+                    ],
+                  },
+                ],
+                "placeholder": "Add Response Code",
+                "type": "fixedCollection",
+              },
+              {
+                "default": "",
+                "description": "Set a custom content-type to return if another one as the "application/json" should be returned",
+                "displayName": "Response Content-Type",
+                "displayOptions": {
+                  "show": {
+                    "/responseData": [
+                      "firstEntryJson",
+                    ],
+                    "/responseMode": [
+                      "lastNode",
+                    ],
+                  },
+                },
+                "name": "responseContentType",
+                "placeholder": "application/xml",
+                "type": "string",
+              },
+              {
+                "default": "",
+                "description": "Custom response data to send",
+                "displayName": "Response Data",
+                "displayOptions": {
+                  "hide": {
+                    "noResponseBody": [
+                      true,
+                    ],
+                  },
+                  "show": {
+                    "/responseMode": [
+                      "onReceived",
+                    ],
+                  },
+                },
+                "name": "responseData",
+                "placeholder": "success",
+                "type": "string",
+              },
+              {
+                "default": {},
+                "description": "Add headers to the webhook response",
+                "displayName": "Response Headers",
+                "name": "responseHeaders",
+                "options": [
+                  {
+                    "displayName": "Entries",
+                    "name": "entries",
+                    "values": [
+                      {
+                        "default": "",
+                        "description": "Name of the header",
+                        "displayName": "Name",
+                        "name": "name",
+                        "type": "string",
+                      },
+                      {
+                        "default": "",
+                        "description": "Value of the header",
+                        "displayName": "Value",
+                        "name": "value",
+                        "type": "string",
+                      },
+                    ],
+                  },
+                ],
+                "placeholder": "Add Response Header",
+                "type": "fixedCollection",
+                "typeOptions": {
+                  "multipleValues": true,
+                },
+              },
+            ],
+            "placeholder": "Add option",
+            "type": "collection",
+          },
+        ],
+      },
+    },
+    "step": "the hook fields of the trigger node descriptions",
+  },
+]
+`;

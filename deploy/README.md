@@ -130,6 +130,16 @@ On the development server, set `NON_PRODUCTION_BANNER=true` in `.env`. Each page
 banner that tells that the instance is not for production, so that users do not mix up the two
 servers.
 
+## End-user credentials
+
+The fork turns on end-user credentials (dynamic credentials). Each user connects their own account
+to an end-user credential, for example with the OAuth flow, and a run of that user uses it. For
+webhooks of apps, an admin adds a credential resolver at **Settings > Credential resolvers**: an
+OAuth2 server or a Slack app then identifies the user of each request. An app that calls the
+endpoints of dynamic credentials sets `DYNAMIC_CREDENTIALS_CORS_ORIGIN` and
+`DYNAMIC_CREDENTIALS_ENDPOINT_AUTH_TOKEN` in `.env`. See the
+[README of the module](../packages/cli/src/modules/dynamic-credentials/README.md).
+
 ## Limits
 
 - The scripts of the Code node can import only some modules: `crypto` and `moment` in
@@ -138,6 +148,11 @@ servers.
   documentation.
 - This setup runs one n8n instance on one server. The nightly backup is the protection against
   the loss of the server.
+- This setup keeps the files of workflows in PostgreSQL. To keep them in a bucket of S3, Azure
+  Blob or Google Cloud Storage, add the variables of
+  [the FORK.md of the blob storage](../packages/@n8n/blob-storage/FORK.md#set-up) to the `n8n`
+  service in a `docker-compose.override.yml`. The database backup then does not contain the
+  files: back up the bucket too.
 - This setup does not use queue mode. Queue mode with workers needs Redis and more containers. The
   fork then also gives the worker view (Settings > Workers), worker pools
   (`N8N_WORKER_POOLS_ENABLED=true`) and multiple main instances
