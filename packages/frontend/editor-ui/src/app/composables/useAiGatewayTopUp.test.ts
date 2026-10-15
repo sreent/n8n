@@ -137,7 +137,7 @@ describe('useAiGatewayTopUp', () => {
 	// Fork: the self-hosted AI gateway (packages/cli/src/modules/ai-gateway).
 	describe('with the fork AI gateway', () => {
 		beforeEach(() => {
-			useSettingsStore().$patch({ settings: { activeModules: ['ai-gateway'] } });
+			useSettingsStore().$patch({ moduleSettings: { 'ai-gateway': { selfHosted: true } } });
 		});
 
 		it('opens the settings page of the gateway for an admin', async () => {
@@ -151,6 +151,24 @@ describe('useAiGatewayTopUp', () => {
 			expect(routerPushMock).toHaveBeenCalledWith({ name: 'SettingsForkAiGatewayView' });
 			expect(goToCloudDashboardMock).not.toHaveBeenCalled();
 			expect(uiStore.openModalWithData).not.toHaveBeenCalled();
+		});
+
+		it('keeps the modal of n8n Cloud while the module settings do not name the gateway', async () => {
+			const uiStore = mockedStore(useUIStore);
+			// An object patch merges, so replace the module settings of the beforeEach.
+			useSettingsStore().$patch((state) => {
+				state.moduleSettings = {};
+				state.settings.activeModules = ['ai-gateway'];
+			});
+
+			const { openTopUp } = useAiGatewayTopUp();
+			await openTopUp({ source: 'settings_page' });
+
+			expect(uiStore.openModalWithData).toHaveBeenCalledWith({
+				name: AI_GATEWAY_TOP_UP_MODAL_KEY,
+				data: { variant: 'member' },
+			});
+			expect(routerPushMock).not.toHaveBeenCalled();
 		});
 
 		it('asks other users to contact an admin', async () => {

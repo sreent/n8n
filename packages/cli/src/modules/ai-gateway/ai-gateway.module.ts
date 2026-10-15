@@ -22,6 +22,11 @@ export class AiGatewayModule implements ModuleInterface {
 		Container.get(ForkAiGatewayBridge).register(Container.get(AiGatewayProtocolService));
 	}
 
+	/** Tells the editor that the Gateway credits of this instance use the self-hosted gateway. */
+	async settings() {
+		return { selfHosted: true };
+	}
+
 	async entities() {
 		const { AiGatewayTopUp, AiGatewayUsage, AiGatewayWallet } = await import(
 			'./database/entities/ai-gateway.entities.js'

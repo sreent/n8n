@@ -50,9 +50,11 @@ The tests check the REST client, the store, the descriptor, the helpers of the p
   editor-ui.
 - The texts `settings.forkAiGateway.*` and `aiGateway.topUp.fork.member` in
   `packages/frontend/@n8n/i18n/src/locales/en.json`.
-- `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`: on an instance that is not
-  n8n Cloud, **Top up** opens this page for a user with the scope `aiAssistant:manage`, and tells
-  other users to ask an admin.
+- `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`: when the module settings
+  of `ai-gateway` have `selfHosted: true` and the instance is not n8n Cloud, **Top up** opens this
+  page for a user with the scope `aiAssistant:manage`, and tells other users to ask an admin.
+- The module settings `'ai-gateway'` (`selfHosted`) in `FrontendModuleSettings` of
+  `@n8n/api-types`. The backend module gives them.
 
 ## Commands
 

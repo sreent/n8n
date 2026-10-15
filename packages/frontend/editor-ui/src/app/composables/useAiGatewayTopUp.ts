@@ -53,7 +53,10 @@ export function useAiGatewayTopUp() {
 			credential_type: options.credentialType,
 		});
 
-		if (settingsStore.isModuleActive('ai-gateway') && !settingsStore.isCloudDeployment) {
+		if (
+			settingsStore.moduleSettings['ai-gateway']?.selfHosted === true &&
+			!settingsStore.isCloudDeployment
+		) {
 			await openForkTopUp();
 			return;
 		}

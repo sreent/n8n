@@ -228,9 +228,12 @@ admin sees only their own calls in the usage.
   name `ai-gateway`, on by default.
 - `packages/cli/src/services/ownership-transfer/ownership-transfer.manifest.json`: the usage table
   stays with the project when a project changes owner.
-- `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`: while this module is on
-  and the instance is not n8n Cloud, **Top up** opens the page **Settings > AI gateway** for a user
-  with the scope `aiAssistant:manage`, and asks other users to contact an admin.
+- `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`: when the module settings
+  of this module say `selfHosted: true` and the instance is not n8n Cloud, **Top up** opens the page
+  **Settings > AI gateway** for a user with the scope `aiAssistant:manage`, and asks other users to
+  contact an admin.
+- `packages/@n8n/api-types/src/frontend-settings.ts`: the module settings `'ai-gateway'` with
+  `selfHosted`.
 - The registrations of the frontend module `packages/modules/ai-gateway/frontend` (the page
   **Settings > AI gateway**) in `@n8n/frontend-vite-config` and editor-ui, and its texts in
   `@n8n/i18n`. Its README describes the page.
