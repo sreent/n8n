@@ -70,8 +70,15 @@ const DROPPED_REQUEST_HEADERS = new Set([
 	'authorization',
 	'x-api-key',
 	'x-goog-api-key',
-	// It bills another project of Google Cloud for the calls of the service account.
+	// They pick another project or organization that pays. The credential of the admin decides.
 	'x-goog-user-project',
+	'openai-organization',
+	'openai-project',
+	// They change the fields of an answer or the method of a call.
+	'x-goog-fieldmask',
+	'x-http-method-override',
+	'x-http-method',
+	'x-method-override',
 	'api-key',
 	'forwarded',
 	'x-real-ip',
@@ -108,6 +115,29 @@ const VERTEX_BATCH_CONCURRENCY = 4;
 
 /** The text detections of the Cloud Vision API, which the price of the gateway covers. */
 const OCR_FEATURES = new Set(['TEXT_DETECTION', 'DOCUMENT_TEXT_DETECTION']);
+
+/** The fields of a call of Document AI that the proxy passes on. */
+const DOCUMENT_AI_FIELDS = new Set([
+	'rawDocument',
+	'skipHumanReview',
+	'processOptions',
+	'imagelessMode',
+	'labels',
+]);
+
+/**
+ * The query parameters that the proxy passes to the APIs of Google, with a check of the value.
+ * The other system parameters of Google can change the format or the fields of an answer, the
+ * credential or the project that pays.
+ */
+const GOOGLE_QUERY_PARAMETERS = new Map<string, (value: string) => boolean>([
+	['alt', (value) => value === 'sse' || value === 'json'],
+	['pageSize', (value) => /^\d{1,5}$/.test(value)],
+	['pageToken', (value) => value.length <= 2048],
+]);
+
+/** The backends that call the APIs of Google with a service account of the admin. */
+const GOOGLE_BACKENDS = new Set(['vertex-ai', 'vertex-openai', 'google-cloud']);
 
 /** The open models of Vertex AI have only the Chat Completions of the OpenAI API. */
 const OPEN_MODELS_CHAT_ONLY =
@@ -149,6 +179,28 @@ function withoutKeyParameter(value: string) {
 function withoutModelField(request: unknown) {
 	if (!isRecord(request)) return request;
 	return Object.fromEntries(Object.entries(request).filter(([key]) => key !== 'model'));
+}
+
+/** Whether the features of a request of the Cloud Vision API are one text detection. */
+function isOneTextDetection(features: unknown) {
+	return (
+		Array.isArray(features) &&
+		features.length === 1 &&
+		isRecord(features[0]) &&
+		typeof features[0].type === 'string' &&
+		OCR_FEATURES.has(features[0].type)
+	);
+}
+
+/** Whether a request of the Cloud Vision API reads a file of Cloud Storage. */
+function readsCloudStorage(request: Record<string, unknown>) {
+	const source = isRecord(request.image) ? request.image.source : undefined;
+	if (isRecord(source)) {
+		if (source.gcsImageUri !== undefined) return true;
+		const imageUri = typeof source.imageUri === 'string' ? source.imageUri : '';
+		if (imageUri.trim().toLowerCase().startsWith('gs:')) return true;
+	}
+	return isRecord(request.inputConfig) && request.inputConfig.gcsSource !== undefined;
 }
 
 interface CallBody {
@@ -409,30 +461,50 @@ export class AiGatewayProxyService {
 	}
 
 	/**
-	 * The gateway prices one text detection for each image or page, so each request of the Cloud
-	 * Vision API asks for one text detection and nothing else.
+	 * The gateway prices one text detection for each image or page, and it reads only the content
+	 * of a file or a public URL: the service account of the admin can read files of Cloud Storage
+	 * that the user cannot read. So each request of the Cloud Vision API asks for one text detection
+	 * of such an input, and a call of Document AI sends the content of the document.
 	 */
 	private checkOcrRequest(rest: string, json: unknown) {
-		if (documentAiLocation(rest)) return;
-		const requests = isRecord(json) ? json.requests : undefined;
-		const textOnly =
-			Array.isArray(requests) &&
-			requests.length > 0 &&
-			requests.every((request) => {
-				const features = isRecord(request) ? request.features : undefined;
-				return (
-					Array.isArray(features) &&
-					features.length === 1 &&
-					isRecord(features[0]) &&
-					typeof features[0].type === 'string' &&
-					OCR_FEATURES.has(features[0].type)
+		if (documentAiLocation(rest)) {
+			const valid =
+				isRecord(json) &&
+				isRecord(json.rawDocument) &&
+				Object.keys(json).every((key) => DOCUMENT_AI_FIELDS.has(key));
+			if (!valid) {
+				throw new GatewayError(
+					403,
+					'A call of Document AI through the AI gateway sends the content of the document (rawDocument), with no field mask and no file of Cloud Storage.',
 				);
-			});
-		if (!textOnly) {
+			}
+			return;
+		}
+		const requests = isRecord(json) ? json.requests : undefined;
+		if (
+			!isRecord(json) ||
+			Object.keys(json).some((key) => key !== 'requests') ||
+			!Array.isArray(requests) ||
+			requests.length === 0
+		) {
 			throw new GatewayError(
 				403,
-				'The AI gateway allows one text detection (TEXT_DETECTION or DOCUMENT_TEXT_DETECTION) for each image or file, and no other features.',
+				'A call of the Cloud Vision API through the AI gateway has only the field "requests".',
 			);
+		}
+		for (const request of requests) {
+			if (!isRecord(request) || !isOneTextDetection(request.features)) {
+				throw new GatewayError(
+					403,
+					'The AI gateway allows one text detection (TEXT_DETECTION or DOCUMENT_TEXT_DETECTION) for each image or file, and no other features.',
+				);
+			}
+			if (readsCloudStorage(request)) {
+				throw new GatewayError(
+					403,
+					'The AI gateway reads only the content of a file or a public URL, not a file of Cloud Storage.',
+				);
+			}
 		}
 	}
 
@@ -478,9 +550,11 @@ export class AiGatewayProxyService {
 	/** The URL, the authentication and the body of a call, for the provider or its backend. */
 	private async upstreamRequest(call: GatewayCall, body: CallBody): Promise<UpstreamRequest> {
 		const { provider, backend, credential, rest, url } = call;
+		const toGoogle =
+			provider.auth === 'google' || (backend !== undefined && GOOGLE_BACKENDS.has(backend.kind));
 		const query = (target: URL) => {
 			for (const [name, value] of url.searchParams) {
-				if (provider.auth === 'google' && name === 'key') continue;
+				if (toGoogle && GOOGLE_QUERY_PARAMETERS.get(name)?.(value) !== true) continue;
 				target.searchParams.append(name, value);
 			}
 			return target;

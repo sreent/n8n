@@ -464,6 +464,8 @@ describe('proxy', () => {
 		const response = await testServer.restlessAgent
 			.post(`${path}/chat/completions`)
 			.set('authorization', `Bearer ${token}`)
+			.set('openai-organization', 'org-other')
+			.set('openai-project', 'proj-other')
 			.send({ model: 'gpt-4o', messages: [{ role: 'user', content: 'Hi' }] })
 			.expect(200);
 
@@ -473,6 +475,8 @@ describe('proxy', () => {
 		expect(received).toHaveLength(1);
 		expect(received[0].url).toBe('/openai/v1/chat/completions');
 		expect(received[0].headers.authorization).toBe('Bearer sk-admin-openai');
+		expect(received[0].headers['openai-organization']).toBeUndefined();
+		expect(received[0].headers['openai-project']).toBeUndefined();
 		expect(JSON.stringify(received[0].headers)).not.toContain(token);
 
 		const [row] = await usageRows();
@@ -551,6 +555,32 @@ describe('proxy', () => {
 			inputTokens: 10000,
 		});
 		expect(row.cost).toBeCloseTo((10000 * 0.3 + 2000 * 2.5) / 1e6);
+	});
+
+	it('passes only the query parameters of the nodes to Google, and drops the headers that change an answer', async () => {
+		const { token, path } = await synthetic('googlePalmApi');
+		await testServer.restlessAgent
+			.post(
+				`${path}/v1beta/models/gemini-2.5-flash:generateContent?key=${token}&alt=json&fields=candidates&$fields=candidates&$alt=proto&$userProject=other-project&callback=cb&$ct=text%2Fplain`,
+			)
+			.set('x-goog-fieldmask', 'candidates')
+			.set('x-http-method-override', 'GET')
+			.set('x-goog-user-project', 'other-project')
+			.send({ contents: [{ parts: [{ text: 'Read the scan' }] }] })
+			.expect(200);
+		await testServer.restlessAgent
+			.post(`${path}/v1beta/models/gemini-2.5-flash:generateContent?key=${token}&alt=media`)
+			.send({ contents: [{ parts: [{ text: 'Read the scan' }] }] })
+			.expect(200);
+
+		expect(received.map(({ url }) => url)).toEqual([
+			'/google/v1beta/models/gemini-2.5-flash:generateContent?alt=json',
+			'/google/v1beta/models/gemini-2.5-flash:generateContent',
+		]);
+		expect(received[0].headers['x-goog-fieldmask']).toBeUndefined();
+		expect(received[0].headers['x-http-method-override']).toBeUndefined();
+		expect(received[0].headers['x-goog-user-project']).toBeUndefined();
+		expect(await usageRows()).toHaveLength(2);
 	});
 
 	it('lets the analysis of Gemini upload a file, without a cost', async () => {
@@ -862,7 +892,9 @@ describe('backends', () => {
 		await saveSettings({ providers: vertexSettings() });
 		const { token, path } = await synthetic('googlePalmApi');
 		const response = await testServer.restlessAgent
-			.post(`${path}/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse`)
+			.post(
+				`${path}/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&$userProject=other-project&fields=candidates`,
+			)
 			.set('x-goog-api-key', token)
 			.send({ contents: [{ role: 'user', parts: [{ text: 'Hi' }] }] })
 			.expect(200);
@@ -1233,6 +1265,61 @@ describe('Google Cloud OCR', () => {
 		expect(config.body.data.supportedActions[ocrNode]).toEqual({
 			__operation_only__: ['readText', 'processDocument'],
 		});
+	});
+
+	it('refuses files of Cloud Storage and other fields in the requests of the OCR', async () => {
+		await saveSettings({
+			providers: {
+				...defaultSettings().providers,
+				'google-ocr': { credentialId: credentialIds.googleApi },
+			},
+		});
+		const { token, path } = await synthetic('googleCloudOcrApi');
+		const refuse = async (rest: string, body: object) => {
+			const response = await testServer.restlessAgent
+				.post(`${path}${rest}`)
+				.set('x-goog-api-key', token)
+				.send(body)
+				.expect(403);
+			return String(response.body.error.message);
+		};
+		const text = [{ type: 'TEXT_DETECTION' }];
+
+		for (const image of [
+			{ source: { gcsImageUri: 'gs://private-bucket/scan.png' } },
+			{ source: { imageUri: ' GS://private-bucket/scan.png' } },
+		]) {
+			expect(
+				await refuse('/v1/images:annotate', { requests: [{ image, features: text }] }),
+			).toContain('not a file of Cloud Storage');
+		}
+		expect(
+			await refuse('/v1/files:annotate', {
+				requests: [
+					{
+						inputConfig: { gcsSource: { uri: 'gs://private-bucket/scan.pdf' } },
+						features: text,
+					},
+				],
+			}),
+		).toContain('not a file of Cloud Storage');
+		expect(
+			await refuse('/v1/images:annotate', {
+				parent: 'projects/other-project/locations/eu',
+				requests: [ocrRequest()],
+			}),
+		).toContain('only the field "requests"');
+		for (const body of [
+			{ rawDocument: { content: 'c2Nhbg==', mimeType: 'application/pdf' }, fieldMask: 'text' },
+			{ gcsDocument: { gcsUri: 'gs://private-bucket/scan.pdf', mimeType: 'application/pdf' } },
+			{ inlineDocument: { uri: 'gs://private-bucket/scan.pdf' } },
+		]) {
+			expect(
+				await refuse('/v1/projects/acme/locations/eu/processors/abc123:process', body),
+			).toContain('rawDocument');
+		}
+		expect(received).toHaveLength(0);
+		expect(await usageRows()).toHaveLength(0);
 	});
 });
 

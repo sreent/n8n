@@ -213,7 +213,14 @@ OCR. The document and image analysis of the Google Gemini node is another way to
   Document AI cost more: an admin sets the price of `document-ai`. The free pages of Google each
   month are not in the prices.
 - Each request of the Cloud Vision API must ask for one text detection (`TEXT_DETECTION` or
-  `DOCUMENT_TEXT_DETECTION`) and no other feature, because the price covers one detection.
+  `DOCUMENT_TEXT_DETECTION`) and no other feature, because the price covers one detection. A call
+  of the Cloud Vision API has only the field `requests` (no `parent`).
+- The gateway reads only the content of a file or a public URL. It refuses the files of Cloud
+  Storage (`gcsImageUri`, an `imageUri` with `gs://`, `inputConfig.gcsSource`), because the
+  service account of the admin can read buckets that the user cannot read. A call of Document AI
+  sends `rawDocument`, with only `skipHumanReview`, `processOptions`, `imagelessMode` and `labels`
+  next to it: no `gcsDocument`, no `inlineDocument` and no field mask, which can remove the pages
+  that the gateway counts. The proxy refuses other calls (status 403).
 
 ## Budgets
 
@@ -247,7 +254,10 @@ in dollars for one million tokens. Cached input tokens use the cached input pric
 has one. The gateway reads the tokens from the answer of the provider, also from the last events
 of a stream. For a stream of the OpenAI format, the proxy asks for the usage
 (`stream_options.include_usage`). OpenRouter reports the cost of a call itself; the gateway uses
-that cost.
+that cost. The answer of a Gemini embedding has no usage: the gateway counts four characters of the
+input for each token. Another answer without usage gets no record, and the proxy logs the warning
+"The answer of a call through the AI gateway had no usage", for example for a stream that stops
+before the event with the usage.
 
 `prices.ts` holds the list prices of common models, with the date when the fork read them. The
 admin changes a price or adds a model on the settings page. A model without a price is blocked
@@ -305,6 +315,13 @@ admin sees only their own calls in the usage.
   work.
 - The proxy forwards only to the base URL of the picked credential, with a path that it checks:
   no `..`, no absolute URL, and only the supported endpoints.
+- To the APIs of Google (the Gemini API, Vertex AI and the OCR), the proxy passes only the query
+  parameters that the nodes use: `alt` (`sse` or `json`), `pageSize` and `pageToken`. It drops the
+  headers `x-goog-user-project`, `openai-organization`, `openai-project`, `x-goog-fieldmask`,
+  `x-http-method-override`, `x-http-method` and `x-method-override` of all calls. The other
+  system parameters of Google and these headers can change the project or the organization that
+  pays, the credential, the fields or the format of an answer, or the method of a call. The
+  organization of an OpenAI call comes only from the credential of the admin.
 - The proxy writes no API key, token or request body to the log.
 - The access tokens of Vertex AI stay in the memory of the process. The nodes never get them.
 - The proxy does not pass back the headers that name the organization of the admin's API key
@@ -346,9 +363,10 @@ admin sees only their own calls in the usage.
   sign-in of a service account.
 - `__tests__/ai-gateway.integration.test.ts`: an in-memory server in place of the providers. It
   checks the settings and their access, the config and the token of the ordinary routes, the proxy
-  of each API format (JSON and streams), the upload of a Gemini file, the prices, the budgets, the
-  top-ups, the off switches, the backends Azure OpenAI and Vertex AI with the open models (with a
-  replaced sign-in), and the OCR of Google Cloud with an API key and with a service account.
+  of each API format (JSON and streams), the query parameters and headers that go to Google, the
+  upload of a Gemini file, the prices, the budgets, the top-ups, the off switches, the backends
+  Azure OpenAI and Vertex AI with the open models (with a replaced sign-in), and the OCR of Google
+  Cloud with an API key and with a service account, with the checks of its requests.
 
 ## Upstream updates
 

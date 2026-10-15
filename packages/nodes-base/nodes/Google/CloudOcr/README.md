@@ -31,7 +31,8 @@ and of [Document AI](https://cloud.google.com/document-ai/docs/send-request)
   Cloud Vision API. Document AI takes no API keys, so **Process Document** fails with an API key of
   Google. The credential has a URL field: the AI gateway of the fork replaces it, so the option
   **Use Gateway credits** works for this node. With the gateway, the node sends both operations to
-  the URL of the credential, and the gateway calls Google with the credential of the admin.
+  the URL of the credential, and the gateway calls Google with the credential of the admin. The
+  gateway reads only a binary file or a public URL: it refuses a Cloud Storage URI (`gs://`).
 - **Service Account**: the ordinary credential type `googleApi`. The token has the scope
   `cloud-platform`, which both APIs take.
 
