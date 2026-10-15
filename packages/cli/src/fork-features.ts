@@ -79,6 +79,12 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	[LICENSE_FEATURES.BINARY_DATA_AZURE]: true,
 	[LICENSE_FEATURES.EXECUTION_DATA_S3]: true,
 	[LICENSE_FEATURES.EXECUTION_DATA_AZURE]: true,
+	// Source control with a Git branch: the fork module of the rebuild (the owner chose this on
+	// 2026-10-14).
+	[LICENSE_FEATURES.SOURCE_CONTROL]: true,
+	// Git connections (promotions): the fork module of the rebuild (the owner chose this on
+	// 2026-10-14). They also need their module: N8N_ENABLED_MODULES=promotions.
+	[LICENSE_FEATURES.GIT_CONNECTIONS]: true,
 };
 
 const FORK_FEATURE_VALUES_WITH_BANNER: FeatureReturnType = {

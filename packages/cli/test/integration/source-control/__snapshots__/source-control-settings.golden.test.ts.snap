@@ -1,0 +1,2964 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the settings of source control 1`] = `
+[
+  {
+    "body": {
+      "data": {
+        "branchName": "main",
+        "connected": false,
+        "connectionType": "ssh",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 1, 68 characters> n8n deploy key",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: get preferences",
+  },
+  {
+    "body": {
+      "data": {
+        "branchName": "main",
+        "connected": false,
+        "connectionType": "ssh",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 1, 68 characters> n8n deploy key",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: get preferences",
+  },
+  {
+    "body": {
+      "data": {},
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "member: get preferences",
+  },
+  {
+    "body": {
+      "data": {
+        "branchName": "main",
+        "connected": false,
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "projAdmin: get preferences",
+  },
+  {
+    "body": [
+      "features.sourceControl = {"branchName":"main","connectionType":"ssh","keyGeneratorType":"ed25519"} (loadOnStartup true)",
+      "features.sourceControl.sshKeys = {"encryptedPrivateKey":"<long secret>","publicKey":"ssh-ed25519 <key 1, 68 characters> n8n deploy key"} (loadOnStartup true)",
+    ],
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "settings rows at the start",
+  },
+  {
+    "body": {
+      "message": "source_control_not_connected",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 412,
+    "step": "not connected: status for push",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "Source control is not properly set up, please disconnect and reconnect.",
+    },
+    "git": [],
+    "ssh": [
+      "-V",
+    ],
+    "status": 400,
+    "step": "not connected: status",
+  },
+  {
+    "body": {
+      "data": {
+        "branches": [],
+        "currentBranch": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "not connected: branches",
+  },
+  {
+    "body": {
+      "message": "source_control_not_connected",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 412,
+    "step": "not connected: push",
+  },
+  {
+    "body": {
+      "message": "source_control_not_connected",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 412,
+    "step": "not connected: pull",
+  },
+  {
+    "body": {
+      "message": "source_control_not_connected",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 412,
+    "step": "not connected: reset",
+  },
+  {
+    "body": {
+      "message": "source_control_not_connected",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 412,
+    "step": "not connected: remote content",
+  },
+  {
+    "body": {
+      "message": "source_control_not_connected",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 412,
+    "step": "not connected: member status",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "ssh",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "not connected: disconnect",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "ssh",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 1, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after a disconnection without a connection",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "ssh",
+        "keyGeneratorType": "rsa",
+        "publicKey": "ssh-rsa <key 2, 716 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "generate an RSA key pair",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "ssh",
+        "keyGeneratorType": "rsa",
+        "publicKey": "ssh-rsa <key 2, 716 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after the RSA key pair",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "ssh",
+        "keyGeneratorType": "rsa",
+        "publicKey": "ssh-rsa <key 3, 716 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "generate a key pair without a type",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "ssh",
+        "keyGeneratorType": "dsa",
+        "publicKey": "ssh-rsa <key 4, 716 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "generate a key pair of an unknown type",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "ssh",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "generate an ed25519 key pair",
+  },
+  {
+    "body": [
+      "features.sourceControl = {"branchName":"","connectionType":"ssh","connected":false,"repositoryUrl":"","branchReadOnly":false,"branchColor":"#5296D6","keyGeneratorType":"ed25519"} (loadOnStartup true)",
+      "features.sourceControl.sshKeys = {"encryptedPrivateKey":"<long secret>","publicKey":"ssh-ed25519 <key 5, 68 characters> n8n deploy key"} (loadOnStartup true)",
+    ],
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "settings rows after the key pairs",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "fatal: no path specified; see 'git help pull' for valid url syntax
+",
+    },
+    "git": [],
+    "ssh": [
+      "-V",
+    ],
+    "status": 400,
+    "step": "connect with an empty body",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "ssh",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after an empty body",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "fatal: no path specified; see 'git help pull' for valid url syntax
+",
+    },
+    "git": [],
+    "ssh": [
+      "-V",
+    ],
+    "status": 400,
+    "step": "connect with no repository URL",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after no repository URL",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "Invalid source control preferences",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 400,
+    "step": "connect with an unknown connection type",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after an unknown connection type",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "No credentials found for https connection",
+    },
+    "git": [],
+    "ssh": [
+      "-V",
+    ],
+    "status": 400,
+    "step": "connect with an HTTPS URL without credentials",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after an HTTPS URL without credentials",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "fatal: Authentication failed for 'https://127.0.0.1:<port>/owner/repo.git/'
+",
+    },
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=invalid -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 400,
+    "step": "connect with a wrong password",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after a wrong password",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "fatal: repository 'https://127.0.0.1:<port>/owner/missing.git/' not found
+",
+    },
+    "git": [
+      "GET /owner/missing.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/missing.git/info/refs?service=git-upload-pack auth=valid -> 404 x1",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 400,
+    "step": "connect with a missing repository",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after a missing repository",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "fatal: unable to access 'https://127.0.0.1:<port>/owner/repo.git/': Failed to connect to 127.0.0.1 port 9 after 0 ms: Couldn't connect to server
+",
+    },
+    "git": [],
+    "ssh": [
+      "-V",
+    ],
+    "status": 400,
+    "step": "connect with a closed port",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after a closed port",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "fatal: 'not a url' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+",
+    },
+    "git": [],
+    "ssh": [
+      "-V",
+    ],
+    "status": 400,
+    "step": "connect with a URL that is not a URL",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after a URL that is not a URL",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "Invalid source control preferences",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 400,
+    "step": "connect with an invalid branch color",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after an invalid branch color",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "main",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x4",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x4",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x5",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "connect as an admin",
+  },
+  {
+    "body": {
+      "branch": "main",
+      "branches": "refs/heads/main
+refs/remotes/origin/develop
+refs/remotes/origin/main",
+      "config": "core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+remote.origin.url=https://127.0.0.1:<port>/owner/repo.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+user.email=admin@golden.test
+user.name=Adam Golden
+branch.main.remote=origin
+branch.main.merge=refs/heads/main",
+      "entries": [
+        ".git",
+        "README.md",
+      ],
+      "exists": true,
+      "files": "README.md",
+      "log": "Initial commit|Remote User <remote@example.com>|Remote User <remote@example.com>",
+      "remotes": "origin	https://127.0.0.1:<port>/owner/repo.git (fetch)
+origin	https://127.0.0.1:<port>/owner/repo.git (push)",
+      "status": "",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "the work folder after the connection of the admin",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: disconnect",
+  },
+  {
+    "body": {
+      "exists": false,
+    },
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "the work folder after the disconnection of the admin",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "connect as a member",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/empty.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "main",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/empty.git/info/refs?service=git-receive-pack auth=none -> 401 x1",
+      "GET /owner/empty.git/info/refs?service=git-receive-pack auth=valid -> 200 x1",
+      "GET /owner/empty.git/info/refs?service=git-upload-pack auth=none -> 401 x4",
+      "GET /owner/empty.git/info/refs?service=git-upload-pack auth=valid -> 200 x4",
+      "POST /owner/empty.git/git-receive-pack auth=valid -> 200 x1",
+      "POST /owner/empty.git/git-upload-pack auth=valid -> 200 x4",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "connect to an empty repository",
+  },
+  {
+    "body": {
+      "branch": "main",
+      "branches": "refs/heads/main
+refs/remotes/origin/main",
+      "config": "core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+remote.origin.url=https://127.0.0.1:<port>/owner/empty.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+user.email=owner@golden.test
+user.name=Olivia Golden
+branch.main.remote=origin
+branch.main.merge=refs/heads/main",
+      "entries": [
+        ".git",
+        "README.md",
+      ],
+      "exists": true,
+      "files": "README.md",
+      "log": "Initial commit|Olivia Golden <owner@golden.test>|Olivia Golden <owner@golden.test>",
+      "remotes": "origin	https://127.0.0.1:<port>/owner/empty.git (fetch)
+origin	https://127.0.0.1:<port>/owner/empty.git (push)",
+      "status": "",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "the work folder of the empty repository",
+  },
+  {
+    "body": {
+      "branches": [
+        "main",
+      ],
+      "files": {
+        "README.md": "
+# n8n Source Control
+",
+      },
+      "log": [
+        "Initial commit|Olivia Golden <owner@golden.test>|Olivia Golden <owner@golden.test>",
+      ],
+    },
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "the empty repository after the connection",
+  },
+  {
+    "body": {
+      "data": {
+        "branches": [
+          "main",
+        ],
+        "currentBranch": "main",
+      },
+    },
+    "git": [
+      "GET /owner/empty.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/empty.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/empty.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "get branches of the empty repository",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "disconnect from the empty repository",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#123456",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "main",
+          "connected": false,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "connect without initializing the repository",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#123456",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after a connection without initializing",
+  },
+  {
+    "body": {
+      "branch": "<error: fatal: not a git repository (or any of the parent directories): .git>",
+      "branches": "<error: fatal: not a git repository (or any of the parent directories): .git>",
+      "config": "<error: fatal: --local can only be used inside a git repository>",
+      "entries": [],
+      "exists": true,
+      "files": "<error: fatal: not a git repository (or any of the parent directories): .git>",
+      "log": "<error: fatal: not a git repository (or any of the parent directories): .git>",
+      "remotes": "<error: fatal: not a git repository (or any of the parent directories): .git>",
+      "status": "<error: fatal: not a git repository (or any of the parent directories): .git>",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "the work folder after a connection without initializing",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "disconnect after a connection without initializing",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "main",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x4",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x4",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x5",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "connect over HTTPS",
+  },
+  {
+    "body": [
+      "features.sourceControl = {"branchName":"main","connectionType":"https","connected":true,"repositoryUrl":"https://127.0.0.1:<port>/owner/repo.git","branchReadOnly":false,"branchColor":"#5296D6","keyGeneratorType":"ed25519"} (loadOnStartup true)",
+      "features.sourceControl.httpsCredentials = {"encryptedUsername":"<short secret>","encryptedPassword":"<short secret>"} (loadOnStartup true)",
+      "features.sourceControl.sshKeys = {"encryptedPrivateKey":"<long secret>","publicKey":"ssh-ed25519 <key 5, 68 characters> n8n deploy key"} (loadOnStartup true)",
+    ],
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "settings rows after the connection",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: get preferences when connected",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: get preferences when connected",
+  },
+  {
+    "body": {
+      "data": {
+        "branchReadOnly": false,
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "member: get preferences when connected",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "projAdmin: get preferences when connected",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "Cannot change preferences while connected to a source control provider. Please disconnect first.",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 400,
+    "step": "connect again",
+  },
+  {
+    "body": {
+      "branch": "main",
+      "branches": "refs/heads/main
+refs/remotes/origin/develop
+refs/remotes/origin/main",
+      "config": "core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+remote.origin.url=https://127.0.0.1:<port>/owner/repo.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+user.email=owner@golden.test
+user.name=Olivia Golden
+branch.main.remote=origin
+branch.main.merge=refs/heads/main",
+      "entries": [
+        ".git",
+        "README.md",
+      ],
+      "exists": true,
+      "files": "README.md",
+      "log": "Initial commit|Remote User <remote@example.com>|Remote User <remote@example.com>",
+      "remotes": "origin	https://127.0.0.1:<port>/owner/repo.git (fetch)
+origin	https://127.0.0.1:<port>/owner/repo.git (push)",
+      "status": "",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "the work folder after the connection",
+  },
+  {
+    "body": {
+      "data": {
+        "branches": [
+          "develop",
+          "main",
+        ],
+        "currentBranch": "main",
+      },
+    },
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: get branches",
+  },
+  {
+    "body": {
+      "data": {
+        "branches": [
+          "develop",
+          "main",
+        ],
+        "currentBranch": "main",
+      },
+    },
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: get branches",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: get branches",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "projAdmin: get branches",
+  },
+  {
+    "body": {
+      "data": {
+        "branches": [
+          "develop",
+          "main",
+        ],
+        "currentBranch": "main",
+      },
+    },
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "proxy": [
+      "CONNECT 127.0.0.1:<port> x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "get branches through a proxy",
+  },
+  {
+    "body": {
+      "data": {
+        "branches": [
+          "develop",
+          "main",
+        ],
+        "currentBranch": "main",
+      },
+    },
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "proxy": [],
+    "ssh": [],
+    "status": 200,
+    "step": "get branches with the host in no_proxy",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "develop",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "develop",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "switch to develop",
+  },
+  {
+    "body": {
+      "branch": "develop",
+      "branches": "refs/heads/develop
+refs/heads/main
+refs/remotes/origin/develop
+refs/remotes/origin/main",
+      "config": "core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+remote.origin.url=https://127.0.0.1:<port>/owner/repo.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+user.email=owner@golden.test
+user.name=Olivia Golden
+branch.main.remote=origin
+branch.main.merge=refs/heads/main
+branch.develop.remote=origin
+branch.develop.merge=refs/heads/develop",
+      "entries": [
+        ".git",
+        "README.md",
+      ],
+      "exists": true,
+      "files": "README.md",
+      "log": "Develop commit|Remote User <remote@example.com>|Remote User <remote@example.com>
+Initial commit|Remote User <remote@example.com>|Remote User <remote@example.com>",
+      "remotes": "origin	https://127.0.0.1:<port>/owner/repo.git (fetch)
+origin	https://127.0.0.1:<port>/owner/repo.git (push)",
+      "status": "",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "the work folder on develop",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "fatal: Needed a single revision
+",
+    },
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 400,
+    "step": "switch to a missing branch",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "missing",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 5, 68 characters> n8n deploy key",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after the missing branch",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#00ff00",
+        "branchName": "missing",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "missing",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "change the color",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "Invalid source control preferences",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 400,
+    "step": "change to an invalid color",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#00ff00",
+        "branchName": "missing",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "missing",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "change the repository URL with a patch",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#0000ff",
+        "branchName": "missing",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "missing",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "admin: change the color",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: change the color",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#0000ff",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "main",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "switch back to main",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#0000ff",
+        "branchName": "main",
+        "branchReadOnly": true,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "main",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": true,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "protect the instance",
+  },
+  {
+    "body": {
+      "readOnly": true,
+    },
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "the write access flag when protected",
+  },
+  {
+    "body": {
+      "code": 403,
+      "message": "Cannot modify data tables on a protected instance. This instance is in read-only mode.",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "create a data table when protected",
+  },
+  {
+    "body": {
+      "data": {
+        "active": false,
+        "activeVersion": null,
+        "activeVersionId": null,
+        "checksum": "de625b298a0078df7ef2f8a8417f3521db901bfb01d9fab155ffc816d137e03d",
+        "connections": {},
+        "createdAt": "<date>",
+        "description": null,
+        "homeProject": {
+          "icon": null,
+          "id": "@personal owner",
+          "name": "Olivia Golden <owner@golden.test>",
+          "type": "personal",
+        },
+        "id": "@created Protected workflow",
+        "isArchived": false,
+        "meta": null,
+        "name": "Protected workflow",
+        "nodeGroups": [],
+        "nodes": [],
+        "parentFolder": null,
+        "pinData": null,
+        "scopes": [
+          "execution:delete",
+          "execution:list",
+          "execution:read",
+          "execution:reveal",
+          "workflow:create",
+          "workflow:delete",
+          "workflow:disableRedaction",
+          "workflow:enableRedaction",
+          "workflow:execute",
+          "workflow:execute-chat",
+          "workflow:export",
+          "workflow:import",
+          "workflow:list",
+          "workflow:move",
+          "workflow:publish",
+          "workflow:read",
+          "workflow:share",
+          "workflow:unpublish",
+          "workflow:unshare",
+          "workflow:update",
+        ],
+        "settings": null,
+        "sharedWithProjects": [],
+        "sourceWorkflowId": null,
+        "staticData": null,
+        "tags": [],
+        "triggerCount": 0,
+        "updatedAt": "<date>",
+        "usedCredentials": [],
+        "versionCounter": 1,
+        "versionId": "<id>",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "create a workflow when protected",
+  },
+  {
+    "body": [
+      "features.sourceControl = {"branchName":"main","connectionType":"https","connected":true,"repositoryUrl":"https://127.0.0.1:<port>/owner/repo.git","branchReadOnly":true,"branchColor":"#0000ff","keyGeneratorType":"ed25519"} (loadOnStartup true)",
+      "features.sourceControl.httpsCredentials = {"encryptedUsername":"<short secret>","encryptedPassword":"<short secret>"} (loadOnStartup true)",
+      "features.sourceControl.sshKeys = {"encryptedPrivateKey":"<long secret>","publicKey":"ssh-ed25519 <key 5, 68 characters> n8n deploy key"} (loadOnStartup true)",
+    ],
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "settings rows when protected",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#0000ff",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "main",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "unprotect the instance",
+  },
+  {
+    "body": {
+      "readOnly": false,
+    },
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "the write access flag when not protected",
+  },
+  {
+    "body": {
+      "data": [
+        {
+          "conflict": false,
+          "file": "<n8n>/git/workflows/@created Protected workflow.json",
+          "folderPath": [],
+          "id": "@created Protected workflow",
+          "isLocalPublished": false,
+          "isRemoteArchived": false,
+          "location": "local",
+          "name": "Protected workflow",
+          "owner": {
+            "projectId": "@personal owner",
+            "projectName": "Olivia Golden <owner@golden.test>",
+            "type": "personal",
+          },
+          "parentFolderId": null,
+          "status": "created",
+          "type": "workflow",
+          "updatedAt": "<date>",
+        },
+        {
+          "conflict": false,
+          "file": "<n8n>/git/projects/@project.json",
+          "id": "@project",
+          "location": "local",
+          "name": "Golden project",
+          "owner": {
+            "projectId": "@project",
+            "projectName": "Golden project",
+            "type": "team",
+          },
+          "status": "created",
+          "type": "project",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@owner",
+          "variablesEligible": 0,
+          "workflowsEligible": 1,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: get status for push",
+  },
+  {
+    "body": {
+      "data": [
+        {
+          "conflict": true,
+          "file": "<n8n>/git/workflows/@created Protected workflow.json",
+          "folderPath": [],
+          "id": "@created Protected workflow",
+          "isLocalPublished": false,
+          "isRemoteArchived": false,
+          "location": "remote",
+          "name": "Protected workflow",
+          "owner": {
+            "projectId": "@personal owner",
+            "projectName": "Olivia Golden <owner@golden.test>",
+            "type": "personal",
+          },
+          "parentFolderId": null,
+          "status": "deleted",
+          "type": "workflow",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-pull-ui",
+        "payload": {
+          "credConflicts": 0,
+          "publicApi": false,
+          "userId": "@owner",
+          "workflowConflicts": 0,
+          "workflowUpdates": 1,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: get status for pull",
+  },
+  {
+    "body": {
+      "data": {
+        "credMissingInLocal": [],
+        "credMissingInRemote": [],
+        "credModifiedInEither": [],
+        "dtMissingInLocal": [],
+        "dtMissingInRemote": [],
+        "dtModifiedInEither": [],
+        "foldersMissingInLocal": [],
+        "foldersMissingInRemote": [],
+        "foldersModifiedInEither": [],
+        "mappingsMissingInLocal": [],
+        "mappingsMissingInRemote": [],
+        "projectsLocal": [
+          {
+            "description": null,
+            "filename": "<n8n>/git/projects/@project.json",
+            "icon": null,
+            "id": "@project",
+            "name": "Golden project",
+            "owner": {
+              "teamId": "@project",
+              "teamName": "Golden project",
+              "type": "team",
+            },
+            "type": "team",
+            "variableStubs": [],
+          },
+        ],
+        "projectsMissingInLocal": [],
+        "projectsMissingInRemote": [
+          {
+            "description": null,
+            "filename": "<n8n>/git/projects/@project.json",
+            "icon": null,
+            "id": "@project",
+            "name": "Golden project",
+            "owner": {
+              "teamId": "@project",
+              "teamName": "Golden project",
+              "type": "team",
+            },
+            "type": "team",
+            "variableStubs": [],
+          },
+        ],
+        "projectsModifiedInEither": [],
+        "projectsRemote": [],
+        "sourceControlledFiles": [
+          {
+            "conflict": false,
+            "file": "<n8n>/git/workflows/@created Protected workflow.json",
+            "folderPath": [],
+            "id": "@created Protected workflow",
+            "isLocalPublished": false,
+            "isRemoteArchived": false,
+            "location": "local",
+            "name": "Protected workflow",
+            "owner": {
+              "projectId": "@personal owner",
+              "projectName": "Olivia Golden <owner@golden.test>",
+              "type": "personal",
+            },
+            "parentFolderId": null,
+            "status": "created",
+            "type": "workflow",
+            "updatedAt": "<date>",
+          },
+          {
+            "conflict": false,
+            "file": "<n8n>/git/projects/@project.json",
+            "id": "@project",
+            "location": "local",
+            "name": "Golden project",
+            "owner": {
+              "projectId": "@project",
+              "projectName": "Golden project",
+              "type": "team",
+            },
+            "status": "created",
+            "type": "project",
+            "updatedAt": "<date>",
+          },
+        ],
+        "tagsMissingInLocal": [],
+        "tagsMissingInRemote": [],
+        "tagsModifiedInEither": [],
+        "varMissingInLocal": [],
+        "varMissingInRemote": [],
+        "varModifiedInEither": [],
+        "wfLocalVersionIds": [
+          {
+            "description": null,
+            "filename": "<n8n>/git/workflows/@created Protected workflow.json",
+            "id": "@created Protected workflow",
+            "localId": "@created Protected workflow",
+            "name": "Protected workflow",
+            "owner": {
+              "projectId": "@personal owner",
+              "projectName": "Olivia Golden <owner@golden.test>",
+              "type": "personal",
+            },
+            "parentFolderId": null,
+            "updatedAt": "<date>",
+            "versionId": "<id>",
+          },
+        ],
+        "wfMissingInLocal": [],
+        "wfMissingInRemote": [
+          {
+            "description": null,
+            "filename": "<n8n>/git/workflows/@created Protected workflow.json",
+            "id": "@created Protected workflow",
+            "localId": "@created Protected workflow",
+            "name": "Protected workflow",
+            "owner": {
+              "projectId": "@personal owner",
+              "projectName": "Olivia Golden <owner@golden.test>",
+              "type": "personal",
+            },
+            "parentFolderId": null,
+            "updatedAt": "<date>",
+            "versionId": "<id>",
+          },
+        ],
+        "wfModifiedInEither": [],
+        "wfRemoteVersionIds": [],
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@owner",
+          "variablesEligible": 0,
+          "workflowsEligible": 1,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: verbose status",
+  },
+  {
+    "body": {
+      "data": [
+        {
+          "conflict": false,
+          "file": "<n8n>/git/workflows/@created Protected workflow.json",
+          "folderPath": [],
+          "id": "@created Protected workflow",
+          "isLocalPublished": false,
+          "isRemoteArchived": false,
+          "location": "local",
+          "name": "Protected workflow",
+          "owner": {
+            "projectId": "@personal owner",
+            "projectName": "Olivia Golden <owner@golden.test>",
+            "type": "personal",
+          },
+          "parentFolderId": null,
+          "status": "created",
+          "type": "workflow",
+          "updatedAt": "<date>",
+        },
+        {
+          "conflict": false,
+          "file": "<n8n>/git/projects/@project.json",
+          "id": "@project",
+          "location": "local",
+          "name": "Golden project",
+          "owner": {
+            "projectId": "@project",
+            "projectName": "Golden project",
+            "type": "team",
+          },
+          "status": "created",
+          "type": "project",
+          "updatedAt": "<date>",
+        },
+      ],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@owner",
+          "variablesEligible": 0,
+          "workflowsEligible": 1,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: status",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "Could not get content for file: workflows/missing.json: fatal: path 'workflows/missing.json' does not exist in 'HEAD'
+",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 400,
+    "step": "owner: remote content of a missing workflow",
+  },
+  {
+    "body": {
+      "data": {
+        "commit": {
+          "branch": "refs/heads/main",
+          "hash": "<hash>",
+          "message": "Nothing",
+        },
+        "files": [
+          {
+            "conflict": false,
+            "file": "<n8n>/git/workflows/@created Protected workflow.json",
+            "folderPath": [],
+            "id": "@created Protected workflow",
+            "isLocalPublished": false,
+            "isRemoteArchived": false,
+            "location": "local",
+            "name": "Protected workflow",
+            "owner": {
+              "projectId": "@personal owner",
+              "projectName": "Olivia Golden <owner@golden.test>",
+              "type": "personal",
+            },
+            "parentFolderId": null,
+            "pushed": true,
+            "status": "created",
+            "type": "workflow",
+            "updatedAt": "<date>",
+          },
+          {
+            "conflict": false,
+            "file": "<n8n>/git/projects/@project.json",
+            "id": "@project",
+            "location": "local",
+            "name": "Golden project",
+            "owner": {
+              "projectId": "@project",
+              "projectName": "Golden project",
+              "type": "team",
+            },
+            "pushed": true,
+            "status": "created",
+            "type": "project",
+            "updatedAt": "<date>",
+          },
+        ],
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@owner",
+          "variablesEligible": 0,
+          "workflowsEligible": 1,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+      {
+        "name": "source-control-user-finished-push-ui",
+        "payload": {
+          "credsPushed": 0,
+          "publicApi": false,
+          "userId": "@owner",
+          "variablesPushed": 0,
+          "workflowsEligible": 1,
+          "workflowsPushed": 1,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-receive-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-receive-pack auth=valid -> 200 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-receive-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: push nothing",
+  },
+  {
+    "body": {
+      "data": [],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-pull-ui",
+        "payload": {
+          "credConflicts": 0,
+          "publicApi": false,
+          "userId": "@owner",
+          "workflowConflicts": 0,
+          "workflowUpdates": 0,
+        },
+      },
+      {
+        "name": "source-control-user-finished-pull-ui",
+        "payload": {
+          "credConflicts": 0,
+          "userId": "@owner",
+          "workflowConflicts": 0,
+          "workflowUpdates": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: pull",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#0000ff",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 6, 68 characters> n8n deploy key",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: generate a key pair",
+  },
+  {
+    "body": {},
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "owner: reset the work folder",
+  },
+  {
+    "body": {
+      "data": [],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@admin",
+          "variablesEligible": 0,
+          "workflowsEligible": 0,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: get status for push",
+  },
+  {
+    "body": {
+      "data": [],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-pull-ui",
+        "payload": {
+          "credConflicts": 0,
+          "publicApi": false,
+          "userId": "@admin",
+          "workflowConflicts": 0,
+          "workflowUpdates": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: get status for pull",
+  },
+  {
+    "body": {
+      "data": {
+        "credMissingInLocal": [],
+        "credMissingInRemote": [],
+        "credModifiedInEither": [],
+        "dtMissingInLocal": [],
+        "dtMissingInRemote": [],
+        "dtModifiedInEither": [],
+        "foldersMissingInLocal": [],
+        "foldersMissingInRemote": [],
+        "foldersModifiedInEither": [],
+        "mappingsMissingInLocal": [],
+        "mappingsMissingInRemote": [],
+        "projectsLocal": [
+          {
+            "description": null,
+            "filename": "<n8n>/git/projects/@project.json",
+            "icon": null,
+            "id": "@project",
+            "name": "Golden project",
+            "owner": {
+              "teamId": "@project",
+              "teamName": "Golden project",
+              "type": "team",
+            },
+            "type": "team",
+            "variableStubs": [],
+          },
+        ],
+        "projectsMissingInLocal": [],
+        "projectsMissingInRemote": [],
+        "projectsModifiedInEither": [],
+        "projectsRemote": [
+          {
+            "description": null,
+            "filename": "<n8n>/git/projects/@project.json",
+            "icon": null,
+            "id": "@project",
+            "name": "Golden project",
+            "owner": {
+              "teamId": "@project",
+              "teamName": "Golden project",
+              "type": "team",
+            },
+            "type": "team",
+            "variableStubs": [],
+          },
+        ],
+        "sourceControlledFiles": [],
+        "tagsMissingInLocal": [],
+        "tagsMissingInRemote": [],
+        "tagsModifiedInEither": [],
+        "varMissingInLocal": [],
+        "varMissingInRemote": [],
+        "varModifiedInEither": [],
+        "wfLocalVersionIds": [
+          {
+            "description": null,
+            "filename": "<n8n>/git/workflows/@created Protected workflow.json",
+            "id": "@created Protected workflow",
+            "localId": "@created Protected workflow",
+            "name": "Protected workflow",
+            "owner": {
+              "projectId": "@personal owner",
+              "projectName": "Olivia Golden <owner@golden.test>",
+              "type": "personal",
+            },
+            "parentFolderId": null,
+            "updatedAt": "<date>",
+            "versionId": "<id>",
+          },
+        ],
+        "wfMissingInLocal": [],
+        "wfMissingInRemote": [],
+        "wfModifiedInEither": [],
+        "wfRemoteVersionIds": [
+          {
+            "description": null,
+            "filename": "<n8n>/git/workflows/@created Protected workflow.json",
+            "id": "@created Protected workflow",
+            "isRemoteArchived": false,
+            "name": "Protected workflow",
+            "owner": {
+              "projectId": "@personal owner",
+              "projectName": "Olivia Golden <owner@golden.test>",
+              "type": "personal",
+            },
+            "parentFolderId": null,
+            "remoteId": "@created Protected workflow",
+            "versionId": "<id>",
+          },
+        ],
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@admin",
+          "variablesEligible": 0,
+          "workflowsEligible": 0,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: verbose status",
+  },
+  {
+    "body": {
+      "data": [],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@admin",
+          "variablesEligible": 0,
+          "workflowsEligible": 0,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: status",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "Could not get content for file: workflows/missing.json: fatal: path 'workflows/missing.json' does not exist in 'HEAD'
+",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 400,
+    "step": "admin: remote content of a missing workflow",
+  },
+  {
+    "body": {
+      "data": {
+        "commit": null,
+        "files": [],
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@admin",
+          "variablesEligible": 0,
+          "workflowsEligible": 0,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+      {
+        "name": "source-control-user-finished-push-ui",
+        "payload": {
+          "credsPushed": 0,
+          "publicApi": false,
+          "userId": "@admin",
+          "variablesPushed": 0,
+          "workflowsEligible": 0,
+          "workflowsPushed": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-receive-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-receive-pack auth=valid -> 200 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: push nothing",
+  },
+  {
+    "body": {
+      "data": [],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-pull-ui",
+        "payload": {
+          "credConflicts": 0,
+          "publicApi": false,
+          "userId": "@admin",
+          "workflowConflicts": 0,
+          "workflowUpdates": 0,
+        },
+      },
+      {
+        "name": "source-control-user-finished-pull-ui",
+        "payload": {
+          "credConflicts": 0,
+          "userId": "@admin",
+          "workflowConflicts": 0,
+          "workflowUpdates": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: pull",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#0000ff",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 7, 68 characters> n8n deploy key",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: generate a key pair",
+  },
+  {
+    "body": {},
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "admin: reset the work folder",
+  },
+  {
+    "body": {
+      "code": 403,
+      "message": "You do not have permission to read source control status",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: get status for push",
+  },
+  {
+    "body": {
+      "code": 403,
+      "message": "You do not have permission to read source control status",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: get status for pull",
+  },
+  {
+    "body": {
+      "code": 403,
+      "message": "You do not have permission to read source control status",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: verbose status",
+  },
+  {
+    "body": {
+      "code": 403,
+      "message": "You do not have permission to read source control status",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: status",
+  },
+  {
+    "body": {
+      "code": 403,
+      "message": "You are not allowed to access workflow with id missing",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: remote content of a missing workflow",
+  },
+  {
+    "body": {
+      "code": 403,
+      "message": "You are not allowed to push changes",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: push nothing",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: pull",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: generate a key pair",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: reset the work folder",
+  },
+  {
+    "body": {
+      "data": [],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@projAdmin",
+          "variablesEligible": 0,
+          "workflowsEligible": 0,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "projAdmin: get status for push",
+  },
+  {
+    "body": {
+      "code": 403,
+      "message": "You do not have permission to pull from source control",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "projAdmin: get status for pull",
+  },
+  {
+    "body": {
+      "data": {
+        "credMissingInLocal": [],
+        "credMissingInRemote": [],
+        "credModifiedInEither": [],
+        "dtMissingInLocal": [],
+        "dtMissingInRemote": [],
+        "dtModifiedInEither": [],
+        "foldersMissingInLocal": [],
+        "foldersMissingInRemote": [],
+        "foldersModifiedInEither": [],
+        "mappingsMissingInLocal": [],
+        "mappingsMissingInRemote": [],
+        "projectsLocal": [
+          {
+            "description": null,
+            "filename": "<n8n>/git/projects/@project.json",
+            "icon": null,
+            "id": "@project",
+            "name": "Golden project",
+            "owner": {
+              "teamId": "@project",
+              "teamName": "Golden project",
+              "type": "team",
+            },
+            "type": "team",
+            "variableStubs": [],
+          },
+        ],
+        "projectsMissingInLocal": [],
+        "projectsMissingInRemote": [],
+        "projectsModifiedInEither": [],
+        "projectsRemote": [
+          {
+            "description": null,
+            "filename": "<n8n>/git/projects/@project.json",
+            "icon": null,
+            "id": "@project",
+            "name": "Golden project",
+            "owner": {
+              "teamId": "@project",
+              "teamName": "Golden project",
+              "type": "team",
+            },
+            "type": "team",
+            "variableStubs": [],
+          },
+        ],
+        "sourceControlledFiles": [],
+        "tagsMissingInLocal": [],
+        "tagsMissingInRemote": [],
+        "tagsModifiedInEither": [],
+        "varMissingInLocal": [],
+        "varMissingInRemote": [],
+        "varModifiedInEither": [],
+        "wfLocalVersionIds": [],
+        "wfMissingInLocal": [],
+        "wfMissingInRemote": [],
+        "wfModifiedInEither": [],
+        "wfRemoteVersionIds": [],
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@projAdmin",
+          "variablesEligible": 0,
+          "workflowsEligible": 0,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "projAdmin: verbose status",
+  },
+  {
+    "body": {
+      "data": [],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@projAdmin",
+          "variablesEligible": 0,
+          "workflowsEligible": 0,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "projAdmin: status",
+  },
+  {
+    "body": {
+      "code": 403,
+      "message": "You are not allowed to access workflow with id missing",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "projAdmin: remote content of a missing workflow",
+  },
+  {
+    "body": {
+      "data": {
+        "commit": null,
+        "files": [],
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@projAdmin",
+          "variablesEligible": 0,
+          "workflowsEligible": 0,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+      {
+        "name": "source-control-user-finished-push-ui",
+        "payload": {
+          "credsPushed": 0,
+          "publicApi": false,
+          "userId": "@projAdmin",
+          "variablesPushed": 0,
+          "workflowsEligible": 0,
+          "workflowsPushed": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-receive-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-receive-pack auth=valid -> 200 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "projAdmin: push nothing",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "projAdmin: pull",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "projAdmin: generate a key pair",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "projAdmin: reset the work folder",
+  },
+  {
+    "body": {
+      "data": [],
+    },
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "status with an invalid direction",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "Unsupported file type: credential",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 400,
+    "step": "remote content of an unknown type",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#0000ff",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 7, 68 characters> n8n deploy key",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "no licence: get preferences",
+  },
+  {
+    "body": {
+      "data": {
+        "branches": [
+          "develop",
+          "main",
+        ],
+        "currentBranch": "main",
+      },
+    },
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "no licence: get branches",
+  },
+  {
+    "body": {
+      "data": [],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-push-ui",
+        "payload": {
+          "credsEligible": 0,
+          "credsEligibleWithConflicts": 0,
+          "publicApi": false,
+          "userId": "@owner",
+          "variablesEligible": 0,
+          "workflowsEligible": 0,
+          "workflowsEligibleWithConflicts": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "no licence: status",
+  },
+  {
+    "body": {
+      "data": [],
+    },
+    "events": [
+      {
+        "name": "source-control-user-started-pull-ui",
+        "payload": {
+          "credConflicts": 0,
+          "publicApi": false,
+          "userId": "@owner",
+          "workflowConflicts": 0,
+          "workflowUpdates": 0,
+        },
+      },
+      {
+        "name": "source-control-user-finished-pull-ui",
+        "payload": {
+          "credConflicts": 0,
+          "userId": "@owner",
+          "workflowConflicts": 0,
+          "workflowUpdates": 0,
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x1",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x1",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x1",
+    ],
+    "ssh": [],
+    "status": 200,
+    "step": "no licence: pull",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "no licence: disconnect",
+  },
+  {
+    "body": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "git": [],
+    "ssh": [],
+    "status": 403,
+    "step": "member: disconnect",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "disconnect and keep the key pair",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 7, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after the disconnection",
+  },
+  {
+    "body": {
+      "exists": false,
+    },
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "the work folder after the disconnection",
+  },
+  {
+    "body": [
+      "features.sourceControl = {"branchName":"","connectionType":"https","connected":false,"repositoryUrl":"","branchReadOnly":false,"branchColor":"#5296D6","keyGeneratorType":"ed25519"} (loadOnStartup true)",
+      "features.sourceControl.sshKeys = {"encryptedPrivateKey":"<long secret>","publicKey":"ssh-ed25519 <key 7, 68 characters> n8n deploy key"} (loadOnStartup true)",
+    ],
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "settings rows after the disconnection",
+  },
+  {
+    "body": {
+      "code": 400,
+      "message": "No credentials found for https connection",
+    },
+    "git": [],
+    "ssh": [
+      "-V",
+    ],
+    "status": 400,
+    "step": "get branches when not connected",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "main",
+        "branchReadOnly": false,
+        "connected": true,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "https://127.0.0.1:<port>/owner/repo.git",
+      },
+    },
+    "events": [
+      {
+        "name": "source-control-settings-updated",
+        "payload": {
+          "branchName": "main",
+          "connected": true,
+          "connectionType": "https",
+          "readOnlyInstance": false,
+          "repoType": "other",
+        },
+      },
+    ],
+    "git": [
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=none -> 401 x4",
+      "GET /owner/repo.git/info/refs?service=git-upload-pack auth=valid -> 200 x4",
+      "POST /owner/repo.git/git-upload-pack auth=valid -> 200 x5",
+    ],
+    "ssh": [
+      "-V",
+    ],
+    "status": 200,
+    "step": "connect over HTTPS again",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "disconnect without the key pair",
+  },
+  {
+    "body": {
+      "data": {
+        "branchColor": "#5296D6",
+        "branchName": "",
+        "branchReadOnly": false,
+        "connected": false,
+        "connectionType": "https",
+        "keyGeneratorType": "ed25519",
+        "publicKey": "ssh-ed25519 <key 7, 68 characters> n8n deploy key",
+        "repositoryUrl": "",
+      },
+    },
+    "git": [],
+    "ssh": [],
+    "status": 200,
+    "step": "preferences after the second disconnection",
+  },
+  {
+    "body": [
+      "features.sourceControl = {"branchName":"","connectionType":"https","connected":false,"repositoryUrl":"","branchReadOnly":false,"branchColor":"#5296D6","keyGeneratorType":"ed25519"} (loadOnStartup true)",
+      "features.sourceControl.sshKeys = {"encryptedPrivateKey":"<long secret>","publicKey":"ssh-ed25519 <key 7, 68 characters> n8n deploy key"} (loadOnStartup true)",
+    ],
+    "git": [],
+    "ssh": [],
+    "status": 0,
+    "step": "settings rows at the end",
+  },
+]
+`;

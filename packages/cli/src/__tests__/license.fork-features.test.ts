@@ -46,6 +46,8 @@ const FORK_FEATURES = [
 	LICENSE_FEATURES.BINARY_DATA_AZURE,
 	LICENSE_FEATURES.EXECUTION_DATA_S3,
 	LICENSE_FEATURES.EXECUTION_DATA_AZURE,
+	LICENSE_FEATURES.SOURCE_CONTROL,
+	LICENSE_FEATURES.GIT_CONNECTIONS,
 ];
 
 const FORK_QUOTAS = [
@@ -178,6 +180,7 @@ describe('License with the fork features', () => {
 			expect(state.isBinaryDataAzureLicensed()).toBe(true);
 			expect(state.isExecutionDataS3Licensed()).toBe(true);
 			expect(state.isExecutionDataAzureLicensed()).toBe(true);
+			expect(state.isSourceControlLicensed()).toBe(true);
 			expect(state.getMaxTeamProjects()).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(state.getMaxWorkflowsWithEvaluations()).toBe(UNLIMITED_LICENSE_QUOTA);
 			expect(state.getInsightsMaxHistory()).toBe(UNLIMITED_LICENSE_QUOTA);
