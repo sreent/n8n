@@ -1,13 +1,10 @@
+import type { AiGatewayApiFormat } from '../providers';
 import { estimateGeminiEmbeddingTokens, UsageMeter, usageOf } from '../usage-meter';
 
 const encode = (text: string) => new TextEncoder().encode(text);
 
 /** Feeds the text in small pieces, so that events and lines cross the chunks. */
-function meter(
-	format: 'openai' | 'anthropic' | 'gemini' | 'ollama',
-	contentType: string,
-	text: string,
-) {
+function meter(format: AiGatewayApiFormat, contentType: string, text: string) {
 	const usageMeter = new UsageMeter(format, contentType);
 	for (let index = 0; index < text.length; index += 7) {
 		usageMeter.push(encode(text.slice(index, index + 7)));
