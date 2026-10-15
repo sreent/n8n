@@ -11,10 +11,23 @@ export interface AiGatewayPrice {
 /** The prices of the models of each provider, by provider slug and model. */
 export type AiGatewayPrices = Record<string, Record<string, AiGatewayPrice>>;
 
+/** The credential of a provider, and the options of its backend. */
+export interface AiGatewayProviderSettings {
+	credentialId: string;
+	/** The type of the credential. The backend sets it on each save. */
+	credentialType?: string;
+	/** Vertex AI: the project of Google Cloud. Empty takes it from the service account. */
+	projectId?: string;
+	/** Vertex AI: the location. Empty takes the region of the credential. */
+	location?: string;
+	/** Azure OpenAI: the names of the deployments, which the model list of the nodes shows. */
+	deployments?: string[];
+}
+
 export interface AiGatewaySettings {
 	enabled: boolean;
 	/** The credential that the gateway uses for each provider, by provider slug. */
-	providers: Record<string, { credentialId: string }>;
+	providers: Record<string, AiGatewayProviderSettings>;
 	/** In US dollars. It starts again on the first day of each month (UTC). */
 	monthlyBudget: number;
 	/** In US dollars, the same for each user. `null` is no limit. */
@@ -30,14 +43,28 @@ export interface AiGatewayOption {
 	name: string;
 }
 
+export interface AiGatewayCredentialOption extends AiGatewayOption {
+	/** The credential type: the type of the provider, or the type of one of its backends. */
+	type: string;
+}
+
+/** Another service that serves the API of a provider, with another credential type. */
+export interface AiGatewayBackendInfo {
+	kind: 'azure-openai' | 'vertex-ai';
+	credentialType: string;
+	displayName: string;
+}
+
 export interface AiGatewayProviderInfo {
 	slug: string;
 	displayName: string;
 	credentialType: string;
+	/** The backends of the provider. A credential of their type sends the calls there. */
+	backends: AiGatewayBackendInfo[];
 	/** The credential that the settings name, or `null` when the provider has none. */
-	credential: AiGatewayOption | null;
-	/** The credentials of the type of the provider. */
-	credentialOptions: AiGatewayOption[];
+	credential: AiGatewayCredentialOption | null;
+	/** The credentials of the type of the provider and of the types of its backends. */
+	credentialOptions: AiGatewayCredentialOption[];
 }
 
 export interface AiGatewaySettingsResponse {

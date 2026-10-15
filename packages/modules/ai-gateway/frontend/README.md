@@ -24,7 +24,11 @@ balance and their calls.
     spend of the month, what is left of the budget, the balance of the top-ups, and what the calls
     can still spend. A table shows each project with a budget or a call this month.
   - **Providers** (`components/AiGatewayProviders.vue`): the credential that the gateway uses for
-    each provider. The list holds the credentials of the type of the provider.
+    each provider. The list holds the credentials of the type of the provider and of the types of
+    its backends: Azure OpenAI for OpenAI, and a Google service account (Vertex AI) for Google
+    Gemini. An Azure OpenAI credential takes the names of the deployments. A service account takes
+    the project and the location of Vertex AI, which are empty for the defaults of the
+    credential. The page checks these fields as the backend does.
   - **Budgets** (`components/AiGatewayBudgets.vue`): the monthly budget of the instance, the
     monthly limit of each user (empty is no limit), and the monthly budgets of team projects.
   - **Top-ups** (`components/AiGatewayTopUps.vue`): add a top-up with an amount and a note, and the

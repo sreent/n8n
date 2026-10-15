@@ -1,4 +1,12 @@
-import { formatUsd, priceRows, withAdminPrice } from './ai-gateway.utils';
+import {
+	AZURE_DEPLOYMENT_NAME,
+	formatUsd,
+	GOOGLE_CLOUD_PROJECT,
+	parseDeployments,
+	priceRows,
+	VERTEX_LOCATION,
+	withAdminPrice,
+} from './ai-gateway.utils';
 
 describe('formatUsd', () => {
 	it('shows two decimals, and more for a small amount when asked', () => {
@@ -49,5 +57,23 @@ describe('withAdminPrice', () => {
 		const prices = { openai: { 'gpt-x': { input: 1, output: 2 } } };
 		withAdminPrice(prices, 'openai', 'gpt-y', { input: 3, output: 4 });
 		expect(prices).toEqual({ openai: { 'gpt-x': { input: 1, output: 2 } } });
+	});
+});
+
+describe('the options of the backends', () => {
+	it('reads the deployments of a text with commas, spaces and line breaks', () => {
+		expect(parseDeployments(' gpt-4o, chat-prod\ngpt-4o  ,')).toEqual(['gpt-4o', 'chat-prod']);
+		expect(parseDeployments('')).toEqual([]);
+	});
+
+	it('checks the project, the location and the deployments as the backend does', () => {
+		expect(GOOGLE_CLOUD_PROJECT.test('acme-ai')).toBe(true);
+		expect(GOOGLE_CLOUD_PROJECT.test('123456789')).toBe(true);
+		expect(GOOGLE_CLOUD_PROJECT.test('Acme/../x')).toBe(false);
+		expect(VERTEX_LOCATION.test('europe-west4')).toBe(true);
+		expect(VERTEX_LOCATION.test('us')).toBe(true);
+		expect(VERTEX_LOCATION.test('us/central')).toBe(false);
+		expect(AZURE_DEPLOYMENT_NAME.test('gpt-4o_prod.v2')).toBe(true);
+		expect(AZURE_DEPLOYMENT_NAME.test('bad/name')).toBe(false);
 	});
 });
