@@ -28,6 +28,10 @@ const cachedInput = ref<number | undefined>(undefined);
 const output = ref<number | undefined>(undefined);
 const search = ref('');
 
+/** The OCR prices pages and images, not tokens. */
+const pricesPages = (slug: string) =>
+	store.providers.find((option) => option.slug === slug)?.priceUnit === 'pages';
+
 const description = computed(() =>
 	i18n.baseText('settings.forkAiGateway.prices.description', {
 		interpolate: { date: store.priceTable?.listPricesDate ?? '' },
@@ -213,7 +217,12 @@ const formatPrice = (value: number | undefined) => (value === undefined ? '—' 
 					:key="`${row.provider}/${row.model}`"
 					:data-test-id="`ai-gateway-price-${row.provider}-${row.model}`"
 				>
-					<td>{{ store.providerName(row.provider) }}</td>
+					<td>
+						<div>{{ store.providerName(row.provider) }}</div>
+						<N8nText v-if="pricesPages(row.provider)" size="xsmall" color="text-light">
+							{{ i18n.baseText('settings.forkAiGateway.prices.perMillionPages') }}
+						</N8nText>
+					</td>
 					<td>
 						<code>{{ row.model }}</code>
 					</td>

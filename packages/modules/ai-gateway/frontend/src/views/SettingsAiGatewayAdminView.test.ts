@@ -296,6 +296,12 @@ describe('SettingsAiGatewayAdminView', () => {
 		expect(
 			within(screen.getByTestId('ai-gateway-price-openai-gpt-custom')).getByText('Your price'),
 		).toBeInTheDocument();
+		expect(screen.getByTestId('ai-gateway-price-google-ocr-vision-ocr')).toHaveTextContent(
+			'Prices for one million pages or images',
+		);
+		expect(screen.getByTestId('ai-gateway-price-openai-gpt-4o')).not.toHaveTextContent(
+			'pages or images',
+		);
 
 		await pickOption('ai-gateway-price-provider', 'Anthropic');
 		await userEvent.type(screen.getByTestId('ai-gateway-price-model'), 'claude-new');

@@ -61,7 +61,7 @@ export interface AiGatewayCredentialOption extends AiGatewayOption {
 /** Another service that serves the API of a provider, with another credential type. */
 export interface AiGatewayBackendInfo {
 	/** `vertex-ai` serves the Gemini API, `vertex-openai` the open models of Vertex AI. */
-	kind: 'azure-openai' | 'vertex-ai' | 'vertex-openai';
+	kind: 'azure-openai' | 'vertex-ai' | 'vertex-openai' | 'google-cloud';
 	credentialType: string;
 	displayName: string;
 }
@@ -72,6 +72,8 @@ export interface AiGatewayProviderInfo {
 	credentialType: string;
 	/** The backends of the provider. A credential of their type sends the calls there. */
 	backends: AiGatewayBackendInfo[];
+	/** The unit of the usage and the prices: tokens, or the pages and images of the OCR. */
+	priceUnit: 'tokens' | 'pages';
 	/** The credential that the settings name, or `null` when the provider has none. */
 	credential: AiGatewayCredentialOption | null;
 	/** The credentials of the type of the provider and of the types of its backends. */

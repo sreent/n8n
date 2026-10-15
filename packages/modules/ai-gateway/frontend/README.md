@@ -37,7 +37,8 @@ balance and their calls.
   - **Top-ups** (`components/AiGatewayTopUps.vue`): add a top-up with an amount and a note, and the
     newest 100 top-ups with the admin who added each one.
   - **Prices** (`components/AiGatewayPrices.vue`): the list prices and the prices that an admin set,
-    in dollars for one million tokens. An admin sets a price for any model of a provider, edits a
+    in dollars for one million tokens, or for one million pages or images for Google Cloud OCR
+    (the provider info `priceUnit`). An admin sets a price for any model of a provider, edits a
     list price, and removes a price of an admin.
   - **Usage** (`components/AiGatewayUsage.vue`): the calls, newest first, with filters for the
     provider, the project and the model.
