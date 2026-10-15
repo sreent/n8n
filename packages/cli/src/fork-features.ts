@@ -85,6 +85,12 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	// Git connections (promotions): the fork module of the rebuild (the owner chose this on
 	// 2026-10-14). They also need their module: N8N_ENABLED_MODULES=promotions.
 	[LICENSE_FEATURES.GIT_CONNECTIONS]: true,
+	// Multiple main instances, the worker view and worker pools: the fork scaling code of the
+	// rebuild (the owner chose this on 2026-10-14). Each needs queue mode. Multiple main instances
+	// also need N8N_MULTI_MAIN_SETUP_ENABLED=true, and worker pools N8N_WORKER_POOLS_ENABLED=true.
+	[LICENSE_FEATURES.MULTIPLE_MAIN_INSTANCES]: true,
+	[LICENSE_FEATURES.WORKER_VIEW]: true,
+	[LICENSE_FEATURES.WORKER_POOLS]: true,
 };
 
 const FORK_FEATURE_VALUES_WITH_BANNER: FeatureReturnType = {

@@ -138,6 +138,12 @@ servers.
   documentation.
 - This setup runs one n8n instance on one server. The nightly backup is the protection against
   the loss of the server.
+- This setup does not use queue mode. Queue mode with workers needs Redis and more containers. The
+  fork then also gives the worker view (Settings > Workers), worker pools
+  (`N8N_WORKER_POOLS_ENABLED=true`) and multiple main instances
+  (`N8N_MULTI_MAIN_SETUP_ENABLED=true`). See
+  [Queue mode](https://docs.n8n.io/hosting/scaling/queue-mode/) in the n8n documentation and
+  [the FORK.md of the scaling code](../packages/cli/src/scaling/FORK.md).
 
 ## Security
 

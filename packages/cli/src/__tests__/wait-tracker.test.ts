@@ -26,6 +26,7 @@ import type { ActiveExecutions } from '@/active-executions';
 import { ExecutionAlreadyResumingError } from '@/errors/execution-already-resuming.error';
 import { ExecutionPersistence } from '@/executions/execution-persistence';
 import { NodeTypes } from '@/node-types';
+import type { MultiMainSetup } from '@/scaling/multi-main-setup';
 import type { OwnershipService } from '@/services/ownership.service';
 import type { WorkflowPublisherService } from '@/workflows/workflow-publisher.service';
 import { WaitTracker } from '@/wait-tracker';
@@ -40,6 +41,7 @@ describe('WaitTracker', () => {
 	const workflowRunner = mock<WorkflowRunner>();
 	const executionRepository = mock<ExecutionRepository>();
 	const executionPersistence = mock<ExecutionPersistence>();
+	const multiMainSetup = mock<MultiMainSetup>();
 	const instanceSettings = mock<InstanceSettings>({ isLeader: true, isMultiMain: false });
 
 	const project = mock<Project>({ id: 'projectId' });
@@ -80,6 +82,7 @@ describe('WaitTracker', () => {
 			workflowRunner,
 			instanceSettings,
 		);
+		multiMainSetup.on.mockReturnThis();
 	});
 
 	afterEach(() => {
