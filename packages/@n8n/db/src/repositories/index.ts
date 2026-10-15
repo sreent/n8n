@@ -58,6 +58,7 @@ export { ScopeRepository } from './scope.repository';
 export { InvalidAuthTokenRepository } from './invalid-auth-token.repository';
 export { InstanceCredentialAssignmentRepository } from './instance-credential-assignment.repository';
 export { LicenseMetricsRepository } from './license-metrics.repository';
+export { ProjectPoolSettingsRepository } from './project-pool-settings.repository';
 export { ProjectRelationRepository } from './project-relation.repository';
 export {
 	ProjectRepository,

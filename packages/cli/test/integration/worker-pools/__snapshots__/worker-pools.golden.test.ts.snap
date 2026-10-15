@@ -1,0 +1,1271 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the worker pools 1`] = `
+[
+  {
+    "calls": [
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@Team A",
+        "",
+        {},
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": null,
+        },
+      },
+      "status": 200,
+    },
+    "step": "the settings of a project without a pool",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team A","defaultPool":"gpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "gpu",
+        },
+      },
+      "status": 200,
+    },
+    "step": "choose a pool",
+  },
+  {
+    "calls": [
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@Team A",
+        "gpu",
+        {},
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "gpu",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the settings with a pool",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team A","defaultPool":"cpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team A","defaultPool":"gpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "cpu",
+        },
+      },
+      "status": 200,
+    },
+    "step": "choose another pool",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "cpu",
+        },
+      },
+      "status": 200,
+    },
+    "step": "choose the same pool again",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team A","defaultPool":null,"createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team A","defaultPool":"cpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": null,
+        },
+      },
+      "status": 200,
+    },
+    "step": "clear the pool with an empty name",
+  },
+  {
+    "calls": [
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@Team A",
+        "",
+        {},
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": null,
+        },
+      },
+      "status": 200,
+    },
+    "step": "the settings after the clear",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team A","defaultPool":"not-registered","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team A","defaultPool":null,"createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "not-registered",
+        },
+      },
+      "status": 200,
+    },
+    "step": "choose a pool that no worker has",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team A","defaultPool":null,"createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team A","defaultPool":"not-registered","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": null,
+        },
+      },
+      "status": 200,
+    },
+    "step": "clear the pool with null",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "code": "invalid_string",
+        "message": "Invalid",
+        "path": [
+          "defaultPool",
+        ],
+        "validation": "regex",
+      },
+      "status": 400,
+    },
+    "step": "a name with capitals",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "code": "invalid_string",
+        "message": "Invalid",
+        "path": [
+          "defaultPool",
+        ],
+        "validation": "regex",
+      },
+      "status": 400,
+    },
+    "step": "a name with a space",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "code": "invalid_string",
+        "message": "Invalid",
+        "path": [
+          "defaultPool",
+        ],
+        "validation": "regex",
+      },
+      "status": 400,
+    },
+    "step": "a name that starts with a hyphen",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team A","defaultPool":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team A","defaultPool":null,"createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        },
+      },
+      "status": 200,
+    },
+    "step": "a name of 63 characters",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "code": "invalid_string",
+        "message": "Invalid",
+        "path": [
+          "defaultPool",
+        ],
+        "validation": "regex",
+      },
+      "status": 400,
+    },
+    "step": "a name of 64 characters",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "code": "invalid_type",
+        "expected": "string",
+        "message": "Required",
+        "path": [
+          "defaultPool",
+        ],
+        "received": "undefined",
+      },
+      "status": 400,
+    },
+    "step": "a body without the pool",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "code": "invalid_type",
+        "expected": "string",
+        "message": "Expected string, received number",
+        "path": [
+          "defaultPool",
+        ],
+        "received": "number",
+      },
+      "status": 400,
+    },
+    "step": "a pool that is a number",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team A","defaultPool":"gpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team A","defaultPool":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "gpu",
+        },
+      },
+      "status": 200,
+    },
+    "step": "extra fields",
+  },
+  {
+    "calls": [
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@Team A",
+        "gpu",
+        {},
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "gpu",
+        },
+      },
+      "status": 200,
+    },
+    "step": "a viewer reads the settings",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "a viewer changes the pool",
+  },
+  {
+    "calls": [
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team A",
+        {
+          "result": "gpu",
+        },
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "gpu",
+        },
+      },
+      "status": 200,
+    },
+    "step": "an editor reads the settings",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "an editor changes the pool",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "a user outside the project reads the settings",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "message": "User is missing a scope required to perform this action",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "a user outside the project changes the pool",
+  },
+  {
+    "calls": [
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:unknownProject0001",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:unknownProject0001",
+        "",
+        {},
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": null,
+        },
+      },
+      "status": 200,
+    },
+    "step": "an unknown project",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "code": 0,
+        "message": "SQLITE_CONSTRAINT: FOREIGN KEY constraint failed",
+      },
+      "status": 500,
+    },
+    "step": "a pool for an unknown project",
+  },
+  {
+    "calls": [
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@personal owner",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@personal owner",
+        "",
+        {},
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": null,
+        },
+      },
+      "status": 200,
+    },
+    "step": "a personal project",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@personal owner",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@personal owner","defaultPool":"big-mem","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "big-mem",
+        },
+      },
+      "status": 200,
+    },
+    "step": "a pool for a personal project",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team B",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team B","defaultPool":"gpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "gpu",
+        },
+      },
+      "status": 200,
+    },
+    "step": "a pool for a second team project",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "get",
+        "projectPool:@Team A",
+        {
+          "result": "gpu",
+        },
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "poolName": "gpu",
+      "queueName": "jobs-gpu",
+    },
+    "step": "an execution of a project with a pool",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "get",
+        "projectPool:@Team A",
+        {
+          "result": "gpu",
+        },
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "poolName": "gpu",
+      "queueName": "jobs-gpu",
+    },
+    "step": "the same execution again",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "get",
+        "projectPool:@personal owner",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@personal owner",
+        "big-mem",
+        {},
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "poolName": "big-mem",
+      "queueName": "jobs-big-mem",
+    },
+    "step": "an execution of a project of a personal space",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "queueName": "jobs",
+    },
+    "step": "an execution without a project",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "get",
+        "projectPool:unknownProject0001",
+        {
+          "result": "",
+        },
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "queueName": "jobs",
+    },
+    "step": "an execution of an unknown project",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team B",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team B",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@Team B",
+        "not-registered",
+        {},
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team B","defaultPool":"not-registered","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team B","defaultPool":"gpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "poolName": "not-registered",
+      "queueName": "jobs-not-registered",
+    },
+    "step": "a pool that no worker has",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "get",
+        "projectPool:@Team A",
+        {
+          "result": "gpu",
+        },
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team A","defaultPool":"cpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team A","defaultPool":"gpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "poolName": "gpu",
+      "queueName": "jobs-gpu",
+    },
+    "step": "a change of the row without the service",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@Team A",
+        "big-mem",
+        {},
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team A","defaultPool":"big-mem","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team A","defaultPool":"cpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "poolName": "big-mem",
+      "queueName": "jobs-big-mem",
+    },
+    "step": "a change of the pool through the routes",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team A",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@Team A",
+        "",
+        {},
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team A","defaultPool":null,"createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team A","defaultPool":"big-mem","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "queueName": "jobs",
+    },
+    "step": "a cleared pool",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team C",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team C",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@Team C",
+        "gpu",
+        {},
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team C",
+        {
+          "result": "gpu",
+        },
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "poolName": "gpu",
+      "queueName": "jobs-gpu",
+    },
+    "step": "a deleted project",
+  },
+  {
+    "calls": [
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team B",
+        {
+          "result": "not-registered",
+        },
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "not-registered",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the settings while pools are off",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team B",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team B","defaultPool":"gpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team B","defaultPool":"not-registered","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [
+            "big-mem",
+            "cpu",
+            "gpu",
+          ],
+          "defaultPool": "gpu",
+        },
+      },
+      "status": 200,
+    },
+    "step": "a change while pools are off",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "queueName": "jobs",
+    },
+    "step": "an execution while pools are off",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "message": "Plan lacks license for this feature",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "the settings without a licence",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "message": "Plan lacks license for this feature",
+        "status": "error",
+      },
+      "status": 403,
+    },
+    "step": "a change without a licence",
+  },
+  {
+    "calls": [],
+    "changes": {},
+    "outcome": {
+      "queueName": "jobs",
+    },
+    "step": "an execution without a licence",
+  },
+  {
+    "calls": [
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team B",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@Team B",
+        "gpu",
+        {},
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "code": 0,
+        "message": "Redis is down",
+      },
+      "status": 500,
+    },
+    "step": "the settings with a failing registry",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "delete",
+        "projectPool:@Team B",
+        {},
+      ],
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+    ],
+    "changes": {
+      "project_pool_settings": {
+        "added": [
+          "{"projectId":"@Team B","defaultPool":"cpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+        "removed": [
+          "{"projectId":"@Team B","defaultPool":"gpu","createdAt":"<date>","updatedAt":"<date>"}",
+        ],
+      },
+    },
+    "outcome": {
+      "body": {
+        "code": 0,
+        "message": "Redis is down",
+      },
+      "status": 500,
+    },
+    "step": "a change with a failing registry",
+  },
+  {
+    "calls": [
+      [
+        "cache",
+        "get",
+        "projectPool:@Team B",
+        {},
+      ],
+      [
+        "cache",
+        "set",
+        "projectPool:@Team B",
+        "cpu",
+        {},
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "poolName": "cpu",
+      "queueName": "jobs-cpu",
+    },
+    "step": "an execution with a failing registry",
+  },
+  {
+    "calls": [
+      [
+        "instanceRegistry",
+        "getAllInstances",
+      ],
+      [
+        "cache",
+        "get",
+        "projectPool:@Team B",
+        {
+          "result": "cpu",
+        },
+      ],
+    ],
+    "changes": {},
+    "outcome": {
+      "body": {
+        "data": {
+          "availablePools": [],
+          "defaultPool": "cpu",
+        },
+      },
+      "status": 200,
+    },
+    "step": "the settings without workers",
+  },
+]
+`;
