@@ -41,6 +41,10 @@ let providerUrl: string;
 /** The models of Vertex AI on the in-memory server, for the project and the region of the test. */
 const VERTEX_MODELS =
 	'/vertex/v1/projects/vertex-project/locations/europe-west4/publishers/google/models/';
+
+/** The Chat Completions of the open models of Vertex AI on the in-memory server. */
+const VERTEX_CHAT_COMPLETIONS =
+	'/vertex/v1/projects/vertex-project/locations/europe-west4/endpoints/openapi/chat/completions';
 let received: ReceivedRequest[];
 
 let owner: User;
@@ -136,6 +140,23 @@ function answer(req: IncomingMessage, res: ServerResponse, body: Record<string, 
 			model: body.model,
 			choices: [{ message: { role: 'assistant', content: 'Hello from Azure' } }],
 			usage: { prompt_tokens: 1000, completion_tokens: 500 },
+		});
+	}
+	if (path === VERTEX_CHAT_COMPLETIONS) {
+		if (body.stream === true) {
+			const options = body.stream_options as { include_usage?: boolean } | undefined;
+			return sse(res, [
+				{ choices: [{ delta: { content: 'Open model' } }] },
+				...(options?.include_usage
+					? [{ choices: [], usage: { prompt_tokens: 3000, completion_tokens: 1000 } }]
+					: []),
+			]);
+		}
+		return json({
+			id: 'chatcmpl-vertex',
+			model: body.model,
+			choices: [{ message: { role: 'assistant', content: 'Open model' } }],
+			usage: { prompt_tokens: 2000, completion_tokens: 1000 },
 		});
 	}
 	if (path.startsWith(VERTEX_MODELS)) {
@@ -345,6 +366,7 @@ describe('settings', () => {
 		});
 		expect(openai?.credentialOptions).toEqual([
 			{ id: credentialIds.azureOpenAiApi, name: 'Admin azureOpenAiApi', type: 'azureOpenAiApi' },
+			{ id: credentialIds.googleApi, name: 'Admin googleApi', type: 'googleApi' },
 			{ id: credentialIds.openAiApi, name: 'Admin openAiApi', type: 'openAiApi' },
 		]);
 		expect(response.body.data.projects).toEqual(
@@ -920,6 +942,142 @@ describe('backends', () => {
 		expect(config.body.data.supportedActions['@n8n/n8n-nodes-langchain.googleGemini']).toEqual({
 			text: ['message'],
 		});
+	});
+
+	const openModelPrices = {
+		openai: { 'meta/llama-3.3-70b-instruct-maas': { input: 0.72, output: 0.72 } },
+	};
+
+	it('sends all calls of the OpenAI nodes to the open models of Vertex AI', async () => {
+		await saveSettings({
+			providers: {
+				...defaultSettings().providers,
+				openai: { credentialId: credentialIds.googleApi },
+			},
+			prices: openModelPrices,
+		});
+		const { token, path } = await synthetic('openAiApi');
+
+		const response = await testServer.restlessAgent
+			.post(`${path}/chat/completions`)
+			.set('authorization', `Bearer ${token}`)
+			.send({ model: 'meta/llama-3.3-70b-instruct-maas', messages: [] })
+			.expect(200);
+		expect(response.body.choices[0].message.content).toBe('Open model');
+		expect(received[0].url).toBe(VERTEX_CHAT_COMPLETIONS);
+		expect(received[0].headers.authorization).toBe('Bearer vertex-access-token');
+		const [row] = await usageRows();
+		expect(row).toMatchObject({ provider: 'openai', model: 'meta/llama-3.3-70b-instruct-maas' });
+		expect(row.cost).toBeCloseTo((3000 * 0.72) / 1e6);
+
+		const responses = await testServer.restlessAgent
+			.post(`${path}/responses`)
+			.set('authorization', `Bearer ${token}`)
+			.send({ model: 'meta/llama-3.3-70b-instruct-maas', input: 'Hi' })
+			.expect(403);
+		expect(responses.body.error.message).toContain('Use Responses API');
+
+		const list = await testServer.restlessAgent
+			.get(`${path}/models`)
+			.set('authorization', `Bearer ${token}`)
+			.expect(200);
+		expect(list.body.data).toEqual([
+			{
+				id: 'meta/llama-3.3-70b-instruct-maas',
+				object: 'model',
+				created: 0,
+				owned_by: 'vertex-ai',
+			},
+		]);
+	});
+
+	it('sends the models of a publisher to Vertex AI, and the other models to OpenAI', async () => {
+		await saveSettings({
+			providers: {
+				...defaultSettings().providers,
+				openai: {
+					credentialId: credentialIds.openAiApi,
+					openModels: { credentialId: credentialIds.googleApi },
+				},
+			},
+			prices: openModelPrices,
+		});
+		const { token, path } = await synthetic('openAiApi');
+
+		await testServer.restlessAgent
+			.post(`${path}/chat/completions`)
+			.set('authorization', `Bearer ${token}`)
+			.send({ model: 'gpt-4o', messages: [] })
+			.expect(200);
+		const stream = await testServer.restlessAgent
+			.post(`${path}/chat/completions`)
+			.set('authorization', `Bearer ${token}`)
+			.send({ model: 'meta/llama-3.3-70b-instruct-maas', stream: true, messages: [] })
+			.expect(200);
+
+		expect(stream.text).toContain('Open model');
+		expect(received.map(({ url }) => url)).toEqual([
+			'/openai/v1/chat/completions',
+			VERTEX_CHAT_COMPLETIONS,
+		]);
+		expect(received[0].headers.authorization).toBe('Bearer sk-admin-openai');
+		expect(received[1].headers.authorization).toBe('Bearer vertex-access-token');
+		expect(received[1].body.stream_options).toEqual({ include_usage: true });
+		const rows = await usageRows();
+		expect(rows.map(({ model, inputTokens }) => [model, inputTokens])).toEqual([
+			['gpt-4o', 1000],
+			['meta/llama-3.3-70b-instruct-maas', 3000],
+		]);
+
+		received = [];
+		const list = await testServer.restlessAgent
+			.get(`${path}/models`)
+			.set('authorization', `Bearer ${token}`)
+			.expect(200);
+		expect((list.body.data as Array<{ id: string }>).map(({ id }) => id)).toEqual([
+			'gpt-4o',
+			'gpt-4o-mini',
+			'meta/llama-3.3-70b-instruct-maas',
+		]);
+	});
+
+	it('keeps the open models only behind an OpenAI or Azure credential', async () => {
+		await saveSettings({
+			providers: {
+				...defaultSettings().providers,
+				openai: {
+					credentialId: credentialIds.googleApi,
+					openModels: { credentialId: credentialIds.googleApi },
+				},
+				anthropic: {
+					credentialId: credentialIds.anthropicApi,
+					openModels: { credentialId: credentialIds.googleApi },
+				},
+			},
+		});
+		const { providers } = Container.get(AiGatewaySettingsService).current();
+		expect(providers.openai).toEqual({
+			credentialId: credentialIds.googleApi,
+			credentialType: 'googleApi',
+		});
+		expect(providers.anthropic).toEqual({
+			credentialId: credentialIds.anthropicApi,
+			credentialType: 'anthropicApi',
+		});
+
+		await testServer
+			.authAgentFor(owner)
+			.put('/ai-gateway/settings')
+			.send({
+				...defaultSettings(),
+				providers: {
+					openai: {
+						credentialId: credentialIds.openAiApi,
+						openModels: { credentialId: credentialIds.azureOpenAiApi },
+					},
+				},
+			})
+			.expect(400);
 	});
 
 	it('refuses a call when Vertex AI does not accept the sign-in', async () => {

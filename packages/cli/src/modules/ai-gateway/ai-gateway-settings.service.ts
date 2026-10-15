@@ -20,6 +20,15 @@ export const aiGatewayPriceSchema = z.object({
 	cachedInput: amount.optional(),
 });
 
+/** The open models of Vertex AI behind the provider OpenAI: a service account and its target. */
+export const aiGatewayOpenModelsSchema = z.object({
+	credentialId: z.string().min(1).max(36),
+	/** The type of the credential. The backend sets it when an admin saves the settings. */
+	credentialType: z.string().max(128).optional(),
+	projectId: z.string().regex(GOOGLE_CLOUD_PROJECT).optional(),
+	location: z.string().regex(VERTEX_LOCATION).optional(),
+});
+
 export const aiGatewayProviderSettingsSchema = z.object({
 	credentialId: z.string().min(1).max(36),
 	/** The type of the credential. The backend sets it when an admin saves the settings. */
@@ -30,6 +39,8 @@ export const aiGatewayProviderSettingsSchema = z.object({
 	location: z.string().regex(VERTEX_LOCATION).optional(),
 	/** Azure OpenAI: the names of the deployments, which the model list of the nodes shows. */
 	deployments: z.array(z.string().regex(AZURE_DEPLOYMENT_NAME)).max(100).optional(),
+	/** OpenAI with an OpenAI or Azure credential: a model of a publisher goes to Vertex AI. */
+	openModels: aiGatewayOpenModelsSchema.optional(),
 });
 
 export type AiGatewayProviderSettings = z.infer<typeof aiGatewayProviderSettingsSchema>;

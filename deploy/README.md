@@ -147,7 +147,7 @@ Gemini, Ollama and other providers) without an API key of their own. To set it u
 
 1. Creates a credential for each provider, with the API key of the organization. An Azure OpenAI
    credential can serve the OpenAI nodes, and a Google service account can serve the Gemini nodes
-   through Vertex AI.
+   and the open models of Vertex AI (for example Llama and DeepSeek) through Vertex AI.
 2. Opens **Settings > AI gateway**, picks the credential of each provider, sets the monthly
    budget, and turns on the gateway.
 

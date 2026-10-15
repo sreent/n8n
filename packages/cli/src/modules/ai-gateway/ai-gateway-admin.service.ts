@@ -91,7 +91,12 @@ export class AiGatewayAdminService {
 					`The credential for ${provider.displayName} must be a credential of the type ${types.join(' or ')}.`,
 				);
 			}
-			providers[slug] = this.backendSettings(provider, credential.type, providerSettings);
+			providers[slug] = this.backendSettings(
+				provider,
+				credential.type,
+				providerSettings,
+				credentials,
+			);
 		}
 		for (const slug of Object.keys(update.prices)) {
 			if (!providerBySlug(slug))
@@ -111,22 +116,39 @@ export class AiGatewayAdminService {
 
 	/**
 	 * The settings of a provider with the type of its credential, and only the options of the
-	 * backend of that type: the project and the location of Vertex AI, or the deployments of Azure
-	 * OpenAI.
+	 * backend of that type: the project and the location of Vertex AI, the deployments of Azure
+	 * OpenAI, and the open models of Vertex AI behind an OpenAI or Azure credential.
 	 */
 	private backendSettings(
 		provider: AiGatewayProvider,
 		credentialType: string,
 		update: AiGatewayProviderSettings,
+		credentials: Array<{ id: string; type: string }>,
 	): AiGatewayProviderSettings {
 		const result: AiGatewayProviderSettings = { credentialId: update.credentialId, credentialType };
 		const backend = backendOf(provider, credentialType);
-		if (backend?.kind === 'vertex-ai') {
+		if (backend?.kind === 'vertex-ai' || backend?.kind === 'vertex-openai') {
 			if (update.projectId) result.projectId = update.projectId;
 			if (update.location) result.location = update.location;
 		}
 		if (backend?.kind === 'azure-openai' && update.deployments?.length) {
 			result.deployments = [...new Set(update.deployments)];
+		}
+		const openModelsBackend = provider.backends?.find(({ kind }) => kind === 'vertex-openai');
+		if (update.openModels && openModelsBackend && backend?.kind !== 'vertex-openai') {
+			const { credentialId, projectId, location } = update.openModels;
+			const credential = credentials.find((option) => option.id === credentialId);
+			if (credential?.type !== openModelsBackend.credentialType) {
+				throw new BadRequestError(
+					`The credential for the open models of Vertex AI must be a credential of the type ${openModelsBackend.credentialType}.`,
+				);
+			}
+			result.openModels = {
+				credentialId,
+				credentialType: credential.type,
+				...(projectId ? { projectId } : {}),
+				...(location ? { location } : {}),
+			};
 		}
 		return result;
 	}

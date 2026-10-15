@@ -132,6 +132,7 @@ before, and the gateway sends the calls to the backend. `backends.ts` maps the c
 | Provider | Backend | Credential type | Where the calls go |
 |---|---|---|---|
 | OpenAI | Azure OpenAI | `azureOpenAiApi` | The v1 API of the Azure resource, with the header `api-key` |
+| OpenAI | Vertex AI | `googleApi` (service account) | The Chat Completions of the open models of Vertex AI, with an access token of the service account |
 | Google Gemini | Vertex AI | `googleApi` (service account) | The Gemini models of Vertex AI, with an access token of the service account |
 
 Azure OpenAI:
@@ -165,6 +166,26 @@ Vertex AI:
 - Vertex AI has no File API. The gateway refuses an upload (status 403), and the config of the
   gateway does not offer Gateway credits for the analysis of documents and images of the Google
   Gemini node while the provider uses Vertex AI.
+
+The open models of Vertex AI (Model Garden) through the OpenAI nodes:
+
+- The open models of Vertex AI have ids with the name of their publisher, for example
+  `meta/llama-3.3-70b-instruct-maas` or `deepseek-ai/deepseek-v3.1-maas`. Vertex AI serves them
+  through an OpenAI-compatible endpoint
+  (`/v1/projects/<project>/locations/<location>/endpoints/openapi/chat/completions`).
+- A service account as the credential of the provider OpenAI sends all calls of the OpenAI nodes
+  to this endpoint. Next to an OpenAI or Azure OpenAI credential, the tab **Providers** takes a
+  second credential, a service account for the open models: then a call with a model of a
+  publisher goes to Vertex AI, and the other calls go to OpenAI or Azure. OpenAI models and Azure
+  deployments have no `/` in their names.
+- The project and the location work as for the Gemini models (see above).
+- Vertex AI serves these models only through Chat Completions. The OpenAI Chat Model node uses
+  the Responses API by default (option **Use Responses API**): turn it off for these models.
+  The gateway refuses the other endpoints for these models (status 403) with this hint.
+- The list prices have no open models. The admin sets a price for each model on the tab
+  **Prices** (provider OpenAI, the full id of the model). `google/<Gemini model>` gets the list
+  price of the Gemini model. The model list of the OpenAI nodes adds the open models that have a
+  price.
 
 ## Budgets
 
@@ -216,8 +237,9 @@ keep the ordinary page **Settings > Gateway credits**: their balance and their c
 
 - The settings are one JSON value in the table `settings` (key `fork.aiGateway`): on or off, the
   credential of each provider with its type and the options of its backend (the deployments of
-  Azure OpenAI, the project and the location of Vertex AI), the monthly budget, the monthly limit
-  of a user, the budgets of projects and the prices that the admin set.
+  Azure OpenAI, the project and the location of Vertex AI, and the service account of the open
+  models of Vertex AI), the monthly budget, the monthly limit of a user, the budgets of projects
+  and the prices that the admin set.
 - `fork_ai_gateway_usage` keeps one row for each call that the gateway priced: the time, the user,
   the project, the workflow, the execution, the provider, the model, the tokens, the cost, and the
   part of the cost that came from top-ups.
@@ -286,10 +308,8 @@ admin sees only their own calls in the usage.
 
 ## Planned
 
-The owner also chose these, for later pull requests:
+The owner also chose this, for a later pull request:
 
-- Open-weight models of Vertex AI (Model Garden) through the OpenAI nodes, with the OpenAI-format
-  endpoint of Vertex AI.
 - OCR: a new node for the OCR of Google Cloud (Vision API and Document AI) that can use the
   gateway. The document and image analysis of the Google Gemini node already works through the
   gateway (see "Providers").
@@ -304,8 +324,8 @@ The owner also chose these, for later pull requests:
 - `__tests__/ai-gateway.integration.test.ts`: an in-memory server in place of the providers. It
   checks the settings and their access, the config and the token of the ordinary routes, the proxy
   of each API format (JSON and streams), the upload of a Gemini file, the prices, the budgets, the
-  top-ups, the off switches, and the backends Azure OpenAI and Vertex AI (with a replaced
-  sign-in).
+  top-ups, the off switches, and the backends Azure OpenAI and Vertex AI with the open models
+  (with a replaced sign-in).
 
 ## Upstream updates
 

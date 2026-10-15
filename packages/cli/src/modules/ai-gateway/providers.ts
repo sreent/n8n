@@ -10,8 +10,11 @@ export type AiGatewayApiFormat = 'openai' | 'anthropic' | 'gemini' | 'ollama';
 /** Where the node sends the API key, and where the proxy puts the key of the admin. */
 export type AiGatewayAuthStyle = 'bearer' | 'x-api-key' | 'google';
 
-/** Another service that serves the API of a provider. See `backends.ts`. */
-export type AiGatewayBackendKind = 'azure-openai' | 'vertex-ai';
+/**
+ * Another service that serves the API of a provider. See `backends.ts`. `vertex-ai` serves the
+ * Gemini API, and `vertex-openai` serves the Chat Completions of the open models of Vertex AI.
+ */
+export type AiGatewayBackendKind = 'azure-openai' | 'vertex-ai' | 'vertex-openai';
 
 export interface AiGatewayBackend {
 	kind: AiGatewayBackendKind;
@@ -88,6 +91,7 @@ export const AI_GATEWAY_PROVIDERS: readonly AiGatewayProvider[] = [
 		},
 		backends: [
 			{ kind: 'azure-openai', credentialType: 'azureOpenAiApi', displayName: 'Azure OpenAI' },
+			{ kind: 'vertex-openai', credentialType: 'googleApi', displayName: 'Vertex AI' },
 		],
 	},
 	{

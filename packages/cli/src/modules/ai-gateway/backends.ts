@@ -128,10 +128,23 @@ export function geminiModelList(models: string[]) {
 	};
 }
 
-/** The model list of the OpenAI API, for the deployments of Azure OpenAI that have a price. */
-export function openAiModelList(models: string[]) {
+/** A model list of the OpenAI API, for the models that the gateway offers. */
+export function openAiModelList(models: string[], ownedBy: string) {
 	return {
 		object: 'list',
-		data: models.map((id) => ({ id, object: 'model', created: 0, owned_by: 'azure' })),
+		data: models.map((id) => ({ id, object: 'model', created: 0, owned_by: ownedBy })),
 	};
+}
+
+/**
+ * Whether a model id names its publisher, as the open models of Vertex AI do: for example
+ * `meta/llama-3.3-70b-instruct-maas`. OpenAI models and Azure deployments have no `/`.
+ */
+export function isPublisherModel(model: string) {
+	return /^[a-z0-9][\w.-]*\/[^/\s]+$/i.test(model);
+}
+
+/** The path of the Chat Completions of the OpenAI-compatible endpoint of Vertex AI. */
+export function vertexChatCompletionsPath(target: VertexTarget) {
+	return `/v1/projects/${target.project}/locations/${target.location}/endpoints/openapi/chat/completions`;
 }

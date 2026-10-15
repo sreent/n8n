@@ -3,8 +3,10 @@ import {
 	geminiModelCall,
 	geminiModelInfo,
 	geminiModelList,
+	isPublisherModel,
 	openAiModelList,
 	projectOfServiceAccount,
+	vertexChatCompletionsPath,
 	vertexHost,
 	vertexModelPath,
 	vertexTarget,
@@ -113,10 +115,21 @@ describe('Vertex AI', () => {
 				supportedGenerationMethods: ['embedContent', 'batchEmbedContents'],
 			}),
 		]);
-		expect(openAiModelList(['gpt-4o-prod'])).toEqual({
+		expect(openAiModelList(['gpt-4o-prod'], 'azure')).toEqual({
 			object: 'list',
 			data: [{ id: 'gpt-4o-prod', object: 'model', created: 0, owned_by: 'azure' }],
 		});
+	});
+
+	it('knows the models of a publisher, and the path of their Chat Completions', () => {
+		expect(isPublisherModel('meta/llama-3.3-70b-instruct-maas')).toBe(true);
+		expect(isPublisherModel('deepseek-ai/deepseek-v3.1-maas')).toBe(true);
+		expect(isPublisherModel('gpt-4o')).toBe(false);
+		expect(isPublisherModel('a/b/c')).toBe(false);
+		expect(isPublisherModel('/llama')).toBe(false);
+		expect(vertexChatCompletionsPath({ project: 'acme-prod', location: 'us-central1' })).toBe(
+			'/v1/projects/acme-prod/locations/us-central1/endpoints/openapi/chat/completions',
+		);
 	});
 });
 
@@ -125,19 +138,19 @@ describe('providers', () => {
 		const openai = providerBySlug('openai');
 		const google = providerBySlug('google');
 		if (!openai || !google) throw new Error('missing provider');
-		expect(credentialTypesOf(openai)).toEqual(['openAiApi', 'azureOpenAiApi']);
+		expect(credentialTypesOf(openai)).toEqual(['openAiApi', 'azureOpenAiApi', 'googleApi']);
 		expect(backendOf(openai, 'azureOpenAiApi')?.kind).toBe('azure-openai');
+		expect(backendOf(openai, 'googleApi')?.kind).toBe('vertex-openai');
 		expect(backendOf(openai, 'openAiApi')).toBeUndefined();
 		expect(credentialTypesOf(google)).toEqual(['googlePalmApi', 'googleApi']);
 		expect(backendOf(google, 'googleApi')?.kind).toBe('vertex-ai');
 	});
 
-	it('uses each backend credential type for one provider only', () => {
+	it('never uses the own credential type of a provider as a backend', () => {
 		const backendTypes = AI_GATEWAY_PROVIDERS.flatMap((provider) =>
 			(provider.backends ?? []).map((backend) => backend.credentialType),
 		);
 		const ownTypes = AI_GATEWAY_PROVIDERS.map((provider) => provider.credentialType);
-		expect(new Set(backendTypes).size).toBe(backendTypes.length);
 		expect(backendTypes.filter((type) => ownTypes.includes(type))).toEqual([]);
 	});
 });

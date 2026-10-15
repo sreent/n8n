@@ -24,8 +24,10 @@ import {
 	geminiModelCall,
 	geminiModelInfo,
 	geminiModelList,
+	isPublisherModel,
 	openAiModelList,
 	stringField,
+	vertexChatCompletionsPath,
 	vertexModelPath,
 	vertexTarget,
 } from './backends';
@@ -102,6 +104,10 @@ const MAX_VERTEX_BATCH = 250;
 
 /** The `embedContent` calls that one batch sends to Vertex AI at the same time. */
 const VERTEX_BATCH_CONCURRENCY = 4;
+
+/** The open models of Vertex AI have only the Chat Completions of the OpenAI API. */
+const OPEN_MODELS_CHAT_ONLY =
+	'The open models of Vertex AI support only Chat Completions. Turn off "Use Responses API" on the OpenAI Chat Model node.';
 
 class GatewayError extends Error {
 	constructor(
@@ -261,7 +267,7 @@ export class AiGatewayProxyService {
 		if (!endpoint) throw new GatewayError(403, 'The AI gateway does not support this endpoint.');
 
 		const credential = await this.credentialData(providerSettings.credentialId, provider);
-		const call: GatewayCall = {
+		let call: GatewayCall = {
 			req,
 			url,
 			provider,
@@ -290,6 +296,15 @@ export class AiGatewayProxyService {
 			const blocked = await this.budgets.blockReason({ userId, projectId: attribution.projectId });
 			if (blocked) throw new GatewayError(402, blocked);
 			body = this.withUsageRequest(provider, endpoint, body);
+
+			// A model of a publisher goes to the open models of Vertex AI, when the admin set them.
+			if (
+				providerSettings.openModels &&
+				call.backend?.kind !== 'vertex-openai' &&
+				isPublisherModel(model)
+			) {
+				call = await this.openModelsCall(call, providerSettings.openModels);
+			}
 
 			if (
 				call.backend?.kind === 'vertex-ai' &&
@@ -324,7 +339,7 @@ export class AiGatewayProxyService {
 
 		if (endpoint.kind === 'models' && ok && contentType.includes('json')) {
 			const listed: unknown = await response.json();
-			res.json(this.pricedModels(provider, listed));
+			res.json(this.withOpenModels(call, this.pricedModels(provider, listed)));
 			return;
 		}
 
@@ -359,15 +374,16 @@ export class AiGatewayProxyService {
 		const { provider, backend, providerSettings, rest } = call;
 		if (!backend) return false;
 		if (endpoint.kind === 'models') {
-			res.json(
-				backend.kind === 'azure-openai'
-					? openAiModelList(
-							(providerSettings.deployments ?? []).filter(
-								(deployment) => this.prices.priceOf(provider, deployment) !== undefined,
-							),
-						)
-					: geminiModelList(this.prices.modelsWithPrice(provider)),
-			);
+			if (backend.kind === 'vertex-ai') {
+				res.json(geminiModelList(this.prices.modelsWithPrice(provider)));
+			} else if (backend.kind === 'vertex-openai') {
+				res.json(openAiModelList(this.openModelIds(provider), 'vertex-ai'));
+			} else {
+				const deployments = (providerSettings.deployments ?? []).filter(
+					(deployment) => this.prices.priceOf(provider, deployment) !== undefined,
+				);
+				res.json(this.withOpenModels(call, openAiModelList(deployments, 'azure')));
+			}
 			return true;
 		}
 		if (backend.kind !== 'vertex-ai' || geminiModelCall(rest)) return false;
@@ -385,6 +401,45 @@ export class AiGatewayProxyService {
 		const [details] = geminiModelList([model]).models;
 		res.json(details);
 		return true;
+	}
+
+	/** The open models of Vertex AI that have a price: the models of a publisher. */
+	private openModelIds(provider: AiGatewayProvider) {
+		return this.prices.modelsWithPrice(provider).filter(isPublisherModel);
+	}
+
+	/** A model list of the OpenAI API with the open models of Vertex AI, when the admin set them. */
+	private withOpenModels(call: GatewayCall, listed: unknown) {
+		if (!call.providerSettings.openModels || !isRecord(listed) || !Array.isArray(listed.data)) {
+			return listed;
+		}
+		const openModels = openAiModelList(this.openModelIds(call.provider), 'vertex-ai').data;
+		return { ...listed, data: [...listed.data, ...openModels] };
+	}
+
+	/** The call, sent to the open models of Vertex AI with the service account of the admin. */
+	private async openModelsCall(
+		call: GatewayCall,
+		openModels: NonNullable<AiGatewayProviderSettings['openModels']>,
+	): Promise<GatewayCall> {
+		const backend = call.provider.backends?.find(({ kind }) => kind === 'vertex-openai');
+		const credential = await this.credentialData(openModels.credentialId, call.provider);
+		if (!backend || credential.type !== backend.credentialType) {
+			throw new GatewayError(
+				503,
+				'The credential of the open models of Vertex AI for the AI gateway is missing or has the wrong type.',
+			);
+		}
+		return {
+			...call,
+			backend,
+			credential: credential.data,
+			providerSettings: {
+				credentialId: openModels.credentialId,
+				projectId: openModels.projectId,
+				location: openModels.location,
+			},
+		};
 	}
 
 	/** The URL, the authentication and the body of a call, for the provider or its backend. */
@@ -410,6 +465,18 @@ export class AiGatewayProxyService {
 			return {
 				url: query(this.checkedUrl(`${base}${rest}`, backend.displayName)),
 				auth: apiKey ? { 'api-key': apiKey } : {},
+				body,
+			};
+		}
+
+		if (backend?.kind === 'vertex-openai') {
+			if (rest !== '/chat/completions') throw new GatewayError(403, OPEN_MODELS_CHAT_ONLY);
+			const target = this.vertexTargetOf(call);
+			return {
+				url: query(
+					new URL(`${this.vertex.origin(target.location)}${vertexChatCompletionsPath(target)}`),
+				),
+				auth: { authorization: `Bearer ${await this.vertexToken(credential)}` },
 				body,
 			};
 		}
