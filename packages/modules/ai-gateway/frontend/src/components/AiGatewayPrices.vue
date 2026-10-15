@@ -8,6 +8,7 @@ import {
 	N8nInputNumber,
 	N8nOption,
 	N8nSelect,
+	N8nSwitch,
 	N8nText,
 } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
@@ -31,6 +32,20 @@ const search = ref('');
 /** The OCR prices pages and images, not tokens. */
 const pricesPages = (slug: string) =>
 	store.providers.find((option) => option.slug === slug)?.priceUnit === 'pages';
+
+/** The OCR prices each processor of Document AI as its own model. */
+const OCR_PROVIDER = 'google-ocr';
+
+const estimateUsage = computed(() => store.settings?.estimateUsage ?? true);
+
+async function onEstimateUsageChange(value: boolean) {
+	try {
+		await store.saveSettings({ estimateUsage: value });
+		toast.showMessage({ title: i18n.baseText('settings.forkAiGateway.saved'), type: 'success' });
+	} catch (error) {
+		toast.showError(error, i18n.baseText('settings.forkAiGateway.saveError'));
+	}
+}
 
 const description = computed(() =>
 	i18n.baseText('settings.forkAiGateway.prices.description', {
@@ -112,6 +127,19 @@ const formatPrice = (value: number | undefined) => (value === undefined ? '—' 
 	<div :class="$style.prices" data-test-id="ai-gateway-prices">
 		<N8nText size="small" color="text-light">{{ description }}</N8nText>
 
+		<div :class="$style.estimate">
+			<N8nSwitch
+				:model-value="estimateUsage"
+				:label="i18n.baseText('settings.forkAiGateway.prices.estimate')"
+				:disabled="store.saving"
+				data-test-id="ai-gateway-estimate-usage"
+				@update:model-value="onEstimateUsageChange"
+			/>
+			<N8nText size="small" color="text-light">
+				{{ i18n.baseText('settings.forkAiGateway.prices.estimate.hint') }}
+			</N8nText>
+		</div>
+
 		<div :class="$style.form">
 			<N8nInputLabel
 				:label="i18n.baseText('settings.forkAiGateway.prices.provider')"
@@ -186,6 +214,15 @@ const formatPrice = (value: number | undefined) => (value === undefined ? '—' 
 				@click="setPrice"
 			/>
 		</div>
+
+		<N8nText
+			v-if="provider === OCR_PROVIDER"
+			size="small"
+			color="text-light"
+			data-test-id="ai-gateway-price-document-ai"
+		>
+			{{ i18n.baseText('settings.forkAiGateway.prices.documentAi') }}
+		</N8nText>
 
 		<N8nInput
 			v-model="search"
@@ -266,6 +303,12 @@ const formatPrice = (value: number | undefined) => (value === undefined ? '—' 
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing--sm);
+}
+
+.estimate {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing--4xs);
 }
 
 .form {

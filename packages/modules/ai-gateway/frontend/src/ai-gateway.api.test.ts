@@ -22,6 +22,7 @@ describe('ai-gateway.api', () => {
 			userMonthlyLimit: null,
 			projectBudgets: {},
 			prices: {},
+			estimateUsage: true,
 		};
 		await updateAiGatewaySettings(context, settings);
 		expect(makeRestApiRequest).toHaveBeenCalledWith(
