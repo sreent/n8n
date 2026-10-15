@@ -10,6 +10,18 @@ export type AiGatewayApiFormat = 'openai' | 'anthropic' | 'gemini' | 'ollama';
 /** Where the node sends the API key, and where the proxy puts the key of the admin. */
 export type AiGatewayAuthStyle = 'bearer' | 'x-api-key' | 'google';
 
+/** Another service that serves the API of a provider. See `backends.ts`. */
+export type AiGatewayBackendKind = 'azure-openai' | 'vertex-ai';
+
+export interface AiGatewayBackend {
+	kind: AiGatewayBackendKind;
+	/** The credential type of the admin's credential for this backend. */
+	credentialType: string;
+	displayName: string;
+	/** The operations of the app nodes that work with this backend, when they differ. */
+	supportedActions?: Record<string, Record<string, string[]>>;
+}
+
 export interface AiGatewayProvider {
 	/** The provider in the gateway path and in the usage, for example `openai`. */
 	slug: string;
@@ -32,6 +44,8 @@ export interface AiGatewayProvider {
 	hiddenNodeProperties?: Record<string, string[]>;
 	/** Self-hosted models: the price is 0 unless the admin sets one. */
 	freeByDefault?: boolean;
+	/** The other services that can serve the calls, with a credential of another type. */
+	backends?: AiGatewayBackend[];
 }
 
 const lc = (name: string) => `@n8n/n8n-nodes-langchain.${name}`;
@@ -72,6 +86,9 @@ export const AI_GATEWAY_PROVIDERS: readonly AiGatewayProvider[] = [
 			[lc('lmOpenAi')]: ['baseURL'],
 			[lc('embeddingsOpenAi')]: ['baseURL'],
 		},
+		backends: [
+			{ kind: 'azure-openai', credentialType: 'azureOpenAiApi', displayName: 'Azure OpenAI' },
+		],
 	},
 	{
 		slug: 'anthropic',
@@ -102,6 +119,15 @@ export const AI_GATEWAY_PROVIDERS: readonly AiGatewayProvider[] = [
 		supportedActions: {
 			[lc('googleGemini')]: { text: ['message'], document: ['analyze'], image: ['analyze'] },
 		},
+		backends: [
+			{
+				kind: 'vertex-ai',
+				credentialType: 'googleApi',
+				displayName: 'Vertex AI',
+				// Vertex AI has no File API, which the analysis of documents and images uses.
+				supportedActions: { [lc('googleGemini')]: { text: ['message'] } },
+			},
+		],
 	},
 	openAiCompatible({
 		slug: 'xai',
@@ -183,3 +209,13 @@ export const providerBySlug = (slug: string) =>
 
 export const providerByCredentialType = (credentialType: string) =>
 	AI_GATEWAY_PROVIDERS.find((provider) => provider.credentialType === credentialType);
+
+/** The credential types that an admin can pick for a provider: its own, then its backends. */
+export const credentialTypesOf = (provider: AiGatewayProvider) => [
+	provider.credentialType,
+	...(provider.backends ?? []).map((backend) => backend.credentialType),
+];
+
+/** The backend of a credential type, or `undefined` for the own credential type of the provider. */
+export const backendOf = (provider: AiGatewayProvider, credentialType: string) =>
+	provider.backends?.find((backend) => backend.credentialType === credentialType);

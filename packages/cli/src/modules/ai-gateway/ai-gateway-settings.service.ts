@@ -4,6 +4,8 @@ import { Service } from '@n8n/di';
 import { jsonParse } from 'n8n-workflow';
 import { z } from 'zod';
 
+import { AZURE_DEPLOYMENT_NAME, GOOGLE_CLOUD_PROJECT, VERTEX_LOCATION } from './backends';
+
 /** The key of the settings row. */
 export const AI_GATEWAY_SETTINGS_KEY = 'fork.aiGateway';
 
@@ -18,10 +20,24 @@ export const aiGatewayPriceSchema = z.object({
 	cachedInput: amount.optional(),
 });
 
+export const aiGatewayProviderSettingsSchema = z.object({
+	credentialId: z.string().min(1).max(36),
+	/** The type of the credential. The backend sets it when an admin saves the settings. */
+	credentialType: z.string().max(128).optional(),
+	/** Vertex AI: the project of Google Cloud. The default comes from the e-mail of the service account. */
+	projectId: z.string().regex(GOOGLE_CLOUD_PROJECT).optional(),
+	/** Vertex AI: the location. The default is the region of the credential. */
+	location: z.string().regex(VERTEX_LOCATION).optional(),
+	/** Azure OpenAI: the names of the deployments, which the model list of the nodes shows. */
+	deployments: z.array(z.string().regex(AZURE_DEPLOYMENT_NAME)).max(100).optional(),
+});
+
+export type AiGatewayProviderSettings = z.infer<typeof aiGatewayProviderSettingsSchema>;
+
 export const aiGatewaySettingsSchema = z.object({
 	enabled: z.boolean(),
-	/** The credential of the admin for each provider slug. */
-	providers: z.record(z.string(), z.object({ credentialId: z.string().min(1).max(36) })),
+	/** The credential of the admin for each provider slug, and the options of its backend. */
+	providers: z.record(z.string(), aiGatewayProviderSettingsSchema),
 	/** Dollars for each month, for the whole instance. */
 	monthlyBudget: amount,
 	/** Dollars for each month and user, or `null` for no limit. */

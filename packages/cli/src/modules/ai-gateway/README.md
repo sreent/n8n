@@ -23,7 +23,8 @@ public API documentation of the providers.
 ## Set up
 
 1. An admin creates a credential for each provider, with the API key of the organization, for
-   example an OpenAI credential. Users do not need access to these credentials.
+   example an OpenAI credential, or a credential of a backend of the provider (see "Backends"),
+   for example an Azure OpenAI credential. Users do not need access to these credentials.
 2. On the page **Settings > AI gateway**, the admin turns on the gateway, picks the credential of
    each provider, and sets the budgets.
 3. Users pick **Use Gateway credits** on a supported node.
@@ -105,8 +106,8 @@ types of the config that the gateway gives.
   default of the credential type. So the region of a Moonshot, MiniMax or Qwen credential and a
   custom endpoint of the admin apply.
 - The proxy removes the token from the request and adds the API key of the admin's credential in
-  the same place. It removes the headers `cookie`, `host`, the hop-by-hop headers and the other
-  authentication headers.
+  the same place. It removes the headers `cookie`, `host`, the hop-by-hop headers, the other
+  authentication headers and `x-goog-user-project`, which bills another project of Google Cloud.
 - Only the endpoints of text, chat, embeddings, token counts and model lists pass. The other
   endpoints (images, audio, files, batches, fine-tuning) give the status 403 with "The AI gateway
   does not support this endpoint". The config of the gateway also limits the operations of the app
@@ -121,6 +122,49 @@ types of the config that the gateway gives.
 Groq, Mistral and Cohere are not in the list: their chat nodes do not use the base URL of the
 credential. The tool services of n8n Cloud (Brave Search, Firecrawl and others) are not in the
 list either: their credentials have no base URL field in this version of n8n.
+
+## Backends
+
+A backend is another service that serves the API of a provider. The admin picks a credential of
+the type of the backend for the provider. The nodes do not change: they call the gateway as
+before, and the gateway sends the calls to the backend. `backends.ts` maps the calls.
+
+| Provider | Backend | Credential type | Where the calls go |
+|---|---|---|---|
+| OpenAI | Azure OpenAI | `azureOpenAiApi` | The v1 API of the Azure resource, with the header `api-key` |
+| Google Gemini | Vertex AI | `googleApi` (service account) | The Gemini models of Vertex AI, with an access token of the service account |
+
+Azure OpenAI:
+
+- The base URL is the endpoint of the credential with `/openai/v1`, else
+  `https://<resource name>.openai.azure.com/openai/v1`. An Azure AI Foundry credential gives its
+  full endpoint. The v1 API needs no `api-version`.
+- A call sends the name of a deployment as its model, so the prices apply to the names of the
+  deployments. Name the deployments like the models (for example `gpt-4o`), and the list prices
+  apply. Else set a price for each deployment on the tab **Prices**.
+- The admin enters the names of the deployments on the tab **Providers**. The model list of the
+  OpenAI nodes shows the deployments that have a price. Without names, the list is empty, and
+  users enter the name of a deployment.
+
+Vertex AI:
+
+- The project comes from the e-mail of the service account (`name@<project>.iam.gserviceaccount.com`)
+  and the location is the region of the credential. The tab **Providers** can set other values.
+  The location `global` serves the newest Gemini models. `us` and `eu` are the multi-region
+  locations.
+- The gateway signs a JWT with the key of the service account and gets an access token from
+  Google (scope `cloud-platform`). It keeps the token until 5 minutes before it expires. The
+  service account needs the role Vertex AI User in the project.
+- `generateContent`, `streamGenerateContent`, `countTokens` and `embedContent` go to the same
+  action of the model on Vertex AI
+  (`/v1/projects/<project>/locations/<location>/publishers/google/models/<model>:<action>`).
+  Vertex AI has no `batchEmbedContents`: the gateway sends one `embedContent` call for each
+  request of a batch, 4 at a time. It records the tokens of the calls that worked, also when
+  another call of the batch fails.
+- The model list comes from the prices: the models of Google Gemini that have a price.
+- Vertex AI has no File API. The gateway refuses an upload (status 403), and the config of the
+  gateway does not offer Gateway credits for the analysis of documents and images of the Google
+  Gemini node while the provider uses Vertex AI.
 
 ## Budgets
 
@@ -171,8 +215,9 @@ keep the ordinary page **Settings > Gateway credits**: their balance and their c
 ## Settings and tables
 
 - The settings are one JSON value in the table `settings` (key `fork.aiGateway`): on or off, the
-  credential of each provider, the monthly budget, the monthly limit of a user, the budgets of
-  projects and the prices that the admin set.
+  credential of each provider with its type and the options of its backend (the deployments of
+  Azure OpenAI, the project and the location of Vertex AI), the monthly budget, the monthly limit
+  of a user, the budgets of projects and the prices that the admin set.
 - `fork_ai_gateway_usage` keeps one row for each call that the gateway priced: the time, the user,
   the project, the workflow, the execution, the provider, the model, the tokens, the cost, and the
   part of the cost that came from top-ups.
@@ -211,6 +256,7 @@ admin sees only their own calls in the usage.
 - The proxy forwards only to the base URL of the picked credential, with a path that it checks:
   no `..`, no absolute URL, and only the supported endpoints.
 - The proxy writes no API key, token or request body to the log.
+- The access tokens of Vertex AI stay in the memory of the process. The nodes never get them.
 - The proxy does not pass back the headers that name the organization of the admin's API key
   (`openai-organization`, `openai-project`, `anthropic-organization-id`). When it cannot reach a
   provider, the answer has no details; the log has them.
@@ -242,10 +288,8 @@ admin sees only their own calls in the usage.
 
 The owner also chose these, for later pull requests:
 
-- Vertex AI: the Gemini nodes through Vertex AI with a service account of the organization, and
-  open-weight models of Vertex AI (Model Garden) through the OpenAI nodes, with the OpenAI-format
+- Open-weight models of Vertex AI (Model Garden) through the OpenAI nodes, with the OpenAI-format
   endpoint of Vertex AI.
-- Azure OpenAI behind the OpenAI nodes, with the OpenAI-format API (v1) of Azure.
 - OCR: a new node for the OCR of Google Cloud (Vision API and Document AI) that can use the
   gateway. The document and image analysis of the Google Gemini node already works through the
   gateway (see "Providers").
@@ -254,15 +298,21 @@ The owner also chose these, for later pull requests:
 
 - `__tests__/gateway-routes.test.ts`, `usage-meter.test.ts` and `prices.test.ts`: the paths and
   endpoints of each API format, the usage of answers and streams, and the prices.
+- `__tests__/backends.test.ts` and `ai-gateway-vertex.service.test.ts`: the base URLs of Azure
+  OpenAI, the paths, the projects and the locations of Vertex AI, the model lists, and the
+  sign-in of a service account.
 - `__tests__/ai-gateway.integration.test.ts`: an in-memory server in place of the providers. It
   checks the settings and their access, the config and the token of the ordinary routes, the proxy
   of each API format (JSON and streams), the upload of a Gemini file, the prices, the budgets, the
-  top-ups and the off switches.
+  top-ups, the off switches, and the backends Azure OpenAI and Vertex AI (with a replaced
+  sign-in).
 
 ## Upstream updates
 
 - When upstream changes `ai-gateway.service.ts`, keep the hook and the base URL of the fork.
 - When upstream changes the protocol of the gateway (the config, the token, the wallet or the
   usage), change the answers of this module.
+- When upstream changes the credential types `azureOpenAiApi` or `googleApi`, check the fields
+  that `backends.ts` and `ai-gateway-vertex.service.ts` read.
 - When upstream adds a credential type or a node to Gateway credits, add it to the providers of
   this module when its credential has a base URL field.

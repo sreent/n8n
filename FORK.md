@@ -31,8 +31,8 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   describes it.
 - **AI gateway**: the backend module `packages/cli/src/modules/ai-gateway` replaces the service of
   n8n Cloud for Gateway credits. Users run AI nodes without an API key of their own. The gateway
-  calls the provider with a credential of an admin, records the cost of each call and stops the
-  calls when a budget is spent. The frontend module `packages/modules/ai-gateway/frontend` adds the
+  calls the provider (or Azure OpenAI or Vertex AI) with a credential of an admin, records the
+  cost of each call and stops the calls when a budget is spent. The frontend module `packages/modules/ai-gateway/frontend` adds the
   page Settings > AI gateway. Their READMEs describe them.
 - **No registration and no licence keys**: the fork turns on its features with the switch of step 5
   (below). It has no registration of the Community Edition, no request of an enterprise trial and

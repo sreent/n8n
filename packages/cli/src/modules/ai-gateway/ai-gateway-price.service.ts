@@ -39,6 +39,15 @@ export class AiGatewayPriceService {
 		return provider.freeByDefault ? FREE : undefined;
 	}
 
+	/** The models of a provider that have a price of the admin or a list price, sorted. */
+	modelsWithPrice(provider: AiGatewayProvider) {
+		const models = new Set([
+			...Object.keys(this.settings.current().prices[provider.slug] ?? {}),
+			...Object.keys(LIST_PRICES[provider.slug] ?? {}),
+		]);
+		return [...models].sort((a, b) => a.localeCompare(b));
+	}
+
 	/** The list prices and the prices of the admin, for the settings page. */
 	table() {
 		return {

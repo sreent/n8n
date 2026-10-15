@@ -13,6 +13,7 @@ import { setupTestServer } from '@test-integration/utils';
 
 import { AiGatewayProxyService } from '../ai-gateway-proxy.service';
 import { AiGatewaySettingsService } from '../ai-gateway-settings.service';
+import { AiGatewayVertexService, VertexSignInError } from '../ai-gateway-vertex.service';
 import {
 	AiGatewayTopUpRepository,
 	AiGatewayUsageRepository,
@@ -36,6 +37,10 @@ interface ReceivedRequest {
 
 let provider: Server;
 let providerUrl: string;
+
+/** The models of Vertex AI on the in-memory server, for the project and the region of the test. */
+const VERTEX_MODELS =
+	'/vertex/v1/projects/vertex-project/locations/europe-west4/publishers/google/models/';
 let received: ReceivedRequest[];
 
 let owner: User;
@@ -115,6 +120,59 @@ function answer(req: IncomingMessage, res: ServerResponse, body: Record<string, 
 	if (path === '/google/v1beta/files/abc-123') {
 		return json({ name: 'files/abc-123', state: 'ACTIVE', mimeType: 'application/pdf' });
 	}
+	if (path === '/azure/openai/v1/chat/completions') {
+		if (body.stream === true) {
+			const options = body.stream_options as { include_usage?: boolean } | undefined;
+			return sse(res, [
+				{ choices: [], prompt_filter_results: [] },
+				{ choices: [{ delta: { content: 'Hello from Azure' } }] },
+				...(options?.include_usage
+					? [{ choices: [], usage: { prompt_tokens: 400, completion_tokens: 100 } }]
+					: []),
+			]);
+		}
+		return json({
+			id: 'chatcmpl-azure',
+			model: body.model,
+			choices: [{ message: { role: 'assistant', content: 'Hello from Azure' } }],
+			usage: { prompt_tokens: 1000, completion_tokens: 500 },
+		});
+	}
+	if (path.startsWith(VERTEX_MODELS)) {
+		const call = path.slice(VERTEX_MODELS.length);
+		if (call === 'gemini-2.5-flash:generateContent') {
+			return json({
+				candidates: [{ content: { role: 'model', parts: [{ text: 'From Vertex' }] } }],
+				usageMetadata: { promptTokenCount: 8000, candidatesTokenCount: 1000 },
+			});
+		}
+		if (call === 'gemini-2.5-flash:streamGenerateContent') {
+			res.writeHead(200, { 'content-type': 'text/event-stream' });
+			res.write(
+				`data: ${JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Fr' }] } }] })}\n\n`,
+			);
+			res.end(
+				`data: ${JSON.stringify({ candidates: [{ content: { parts: [{ text: 'om Vertex' }] } }], usageMetadata: { promptTokenCount: 4000, candidatesTokenCount: 2000 } })}\n\n`,
+			);
+			return;
+		}
+		if (call === 'gemini-embedding-001:embedContent') {
+			const text = String(
+				((body.content as { parts?: Array<{ text?: string }> } | undefined)?.parts ?? [])[0]?.text,
+			);
+			if (text === 'refused') {
+				res.writeHead(429, { 'content-type': 'application/json' });
+				res.end(
+					JSON.stringify({ error: { code: 429, message: 'Quota', status: 'RESOURCE_EXHAUSTED' } }),
+				);
+				return;
+			}
+			return json({
+				embedding: { values: [text.length] },
+				usageMetadata: { promptTokenCount: 10 },
+			});
+		}
+	}
 	if (path === '/ollama/api/chat') {
 		res.writeHead(200, { 'content-type': 'application/x-ndjson' });
 		res.write(`${JSON.stringify({ message: { content: 'Hi' }, done: false })}\n`);
@@ -151,6 +209,14 @@ beforeAll(async () => {
 				apiKey: '',
 			}),
 			credentialType('ollamaApi', { baseUrl: 'http://localhost:11434', apiKey: '' }),
+			credentialType('azureOpenAiApi', {
+				endpointType: 'classic',
+				apiKey: '',
+				resourceName: '',
+				apiVersion: '2025-03-01-preview',
+				endpoint: '',
+			}),
+			credentialType('googleApi', { region: 'global', email: '', privateKey: '' }),
 		].map((type) => [type.name, { type, sourcePath: '' }]),
 	);
 	owner = await createOwner();
@@ -176,6 +242,18 @@ beforeAll(async () => {
 		anthropicApi: { apiKey: 'sk-admin-anthropic', url: `${providerUrl}/anthropic` },
 		googlePalmApi: { apiKey: 'admin-google-key', host: `${providerUrl}/google` },
 		ollamaApi: { baseUrl: `${providerUrl}/ollama`, apiKey: '' },
+		azureOpenAiApi: {
+			endpointType: 'classic',
+			apiKey: 'azure-admin-key',
+			resourceName: 'acme',
+			endpoint: `${providerUrl}/azure`,
+		},
+		googleApi: {
+			region: 'europe-west4',
+			email: 'gateway@vertex-project.iam.gserviceaccount.com',
+			// The test replaces the sign-in, so the key is not used.
+			privateKey: 'not used',
+		},
 	};
 	for (const [type, data] of Object.entries(credentials)) {
 		const credential = await saveCredential(
@@ -260,9 +338,14 @@ describe('settings', () => {
 				credentialOptions: unknown;
 			}>
 		).find((entry) => entry.slug === 'openai');
-		expect(openai?.credential).toEqual({ id: credentialIds.openAiApi, name: 'Admin openAiApi' });
+		expect(openai?.credential).toEqual({
+			id: credentialIds.openAiApi,
+			name: 'Admin openAiApi',
+			type: 'openAiApi',
+		});
 		expect(openai?.credentialOptions).toEqual([
-			{ id: credentialIds.openAiApi, name: 'Admin openAiApi' },
+			{ id: credentialIds.azureOpenAiApi, name: 'Admin azureOpenAiApi', type: 'azureOpenAiApi' },
+			{ id: credentialIds.openAiApi, name: 'Admin openAiApi', type: 'openAiApi' },
 		]);
 		expect(response.body.data.projects).toEqual(
 			expect.arrayContaining([
@@ -581,6 +664,278 @@ describe('budgets', () => {
 		const admin = await testServer.authAgentFor(owner).get('/ai-gateway/usage').expect(200);
 		expect(admin.body.data.count).toBe(2);
 		expect(admin.body.data.entries[0].projectName).toBe('Team A');
+	});
+});
+
+describe('backends', () => {
+	const azureSettings = (deployments: string[] = ['gpt-4o']) => ({
+		...defaultSettings().providers,
+		openai: { credentialId: credentialIds.azureOpenAiApi, deployments },
+	});
+	const vertexSettings = (options: Record<string, string> = {}) => ({
+		...defaultSettings().providers,
+		google: { credentialId: credentialIds.googleApi, ...options },
+	});
+
+	let vertexOrigin: ReturnType<typeof vi.spyOn>;
+
+	beforeEach(() => {
+		const vertex = Container.get(AiGatewayVertexService);
+		vertexOrigin = vi.spyOn(vertex, 'origin').mockReturnValue(`${providerUrl}/vertex`);
+		vi.spyOn(vertex, 'accessToken').mockResolvedValue('vertex-access-token');
+	});
+
+	afterEach(() => {
+		vi.restoreAllMocks();
+	});
+
+	it('offers the credentials of the backends, and keeps only the options of the picked backend', async () => {
+		const agent = testServer.authAgentFor(owner);
+		const before = await agent.get('/ai-gateway/settings').expect(200);
+		const google = (
+			before.body.data.providers as Array<{
+				slug: string;
+				backends: unknown;
+				credentialOptions: unknown;
+			}>
+		).find((entry) => entry.slug === 'google');
+		expect(google?.backends).toEqual([
+			{ kind: 'vertex-ai', credentialType: 'googleApi', displayName: 'Vertex AI' },
+		]);
+		expect(google?.credentialOptions).toEqual(
+			expect.arrayContaining([
+				{ id: credentialIds.googleApi, name: 'Admin googleApi', type: 'googleApi' },
+			]),
+		);
+
+		await saveSettings({
+			providers: {
+				openai: {
+					credentialId: credentialIds.azureOpenAiApi,
+					deployments: ['gpt-4o', 'gpt-4o', 'chat-prod'],
+					projectId: 'not-for-azure',
+				},
+				google: { credentialId: credentialIds.googleApi, projectId: 'acme-ai', location: 'us' },
+				anthropic: { credentialId: credentialIds.anthropicApi, deployments: ['not-for-anthropic'] },
+			},
+		});
+		const { providers } = Container.get(AiGatewaySettingsService).current();
+		expect(providers).toEqual({
+			openai: {
+				credentialId: credentialIds.azureOpenAiApi,
+				credentialType: 'azureOpenAiApi',
+				deployments: ['gpt-4o', 'chat-prod'],
+			},
+			google: {
+				credentialId: credentialIds.googleApi,
+				credentialType: 'googleApi',
+				projectId: 'acme-ai',
+				location: 'us',
+			},
+			anthropic: { credentialId: credentialIds.anthropicApi, credentialType: 'anthropicApi' },
+		});
+
+		await agent
+			.put('/ai-gateway/settings')
+			.send({ ...defaultSettings(), providers: vertexSettings({ projectId: 'Acme/../x' }) })
+			.expect(400);
+		await agent
+			.put('/ai-gateway/settings')
+			.send({ ...defaultSettings(), providers: azureSettings(['bad deployment']) })
+			.expect(400);
+	});
+
+	it('sends OpenAI calls to Azure OpenAI with the api-key of the admin', async () => {
+		await saveSettings({ providers: azureSettings() });
+		const { token, path } = await synthetic('openAiApi');
+
+		const response = await testServer.restlessAgent
+			.post(`${path}/chat/completions`)
+			.set('authorization', `Bearer ${token}`)
+			.send({ model: 'gpt-4o', messages: [{ role: 'user', content: 'Hi' }] })
+			.expect(200);
+
+		expect(response.body.choices[0].message.content).toBe('Hello from Azure');
+		expect(received[0].url).toBe('/azure/openai/v1/chat/completions');
+		expect(received[0].headers['api-key']).toBe('azure-admin-key');
+		expect(received[0].headers.authorization).toBeUndefined();
+		const [row] = await usageRows();
+		expect(row).toMatchObject({ provider: 'openai', model: 'gpt-4o', inputTokens: 1000 });
+		expect(row.cost).toBeCloseTo(0.0075);
+	});
+
+	it('asks Azure OpenAI for the usage of a stream', async () => {
+		await saveSettings({ providers: azureSettings() });
+		const { token, path } = await synthetic('openAiApi');
+		const response = await testServer.restlessAgent
+			.post(`${path}/chat/completions`)
+			.set('authorization', `Bearer ${token}`)
+			.send({ model: 'gpt-4o', stream: true, messages: [] })
+			.expect(200);
+
+		expect(response.text).toContain('Hello from Azure');
+		expect(received[0].body.stream_options).toEqual({ include_usage: true });
+		const [row] = await usageRows();
+		expect(row).toMatchObject({ inputTokens: 400, outputTokens: 100 });
+	});
+
+	it('lists the deployments of Azure OpenAI that have a price', async () => {
+		await saveSettings({
+			providers: azureSettings(['gpt-4o', 'chat-prod', 'no-price']),
+			prices: { openai: { 'chat-prod': { input: 1, output: 2 } } },
+		});
+		const { token, path } = await synthetic('openAiApi');
+		const response = await testServer.restlessAgent
+			.get(`${path}/models`)
+			.set('authorization', `Bearer ${token}`)
+			.expect(200);
+
+		expect((response.body.data as Array<{ id: string }>).map(({ id }) => id)).toEqual([
+			'gpt-4o',
+			'chat-prod',
+		]);
+		expect(received).toHaveLength(0);
+	});
+
+	it('sends Gemini calls to Vertex AI with a token of the service account', async () => {
+		await saveSettings({ providers: vertexSettings() });
+		const { token, path } = await synthetic('googlePalmApi');
+
+		const response = await testServer.restlessAgent
+			.post(`${path}/v1beta/models/gemini-2.5-flash:generateContent?key=${token}`)
+			.send({ contents: [{ role: 'user', parts: [{ text: 'Hi' }] }] })
+			.expect(200);
+
+		expect(response.body.candidates[0].content.parts[0].text).toBe('From Vertex');
+		expect(vertexOrigin).toHaveBeenCalledWith('europe-west4');
+		expect(received[0].url).toBe(`${VERTEX_MODELS}gemini-2.5-flash:generateContent`);
+		expect(received[0].headers.authorization).toBe('Bearer vertex-access-token');
+		expect(received[0].headers['x-goog-api-key']).toBeUndefined();
+		const [row] = await usageRows();
+		expect(row).toMatchObject({ provider: 'google', model: 'gemini-2.5-flash', inputTokens: 8000 });
+		expect(row.cost).toBeCloseTo((8000 * 0.3 + 1000 * 2.5) / 1e6);
+	});
+
+	it('passes a Gemini stream through Vertex AI', async () => {
+		await saveSettings({ providers: vertexSettings() });
+		const { token, path } = await synthetic('googlePalmApi');
+		const response = await testServer.restlessAgent
+			.post(`${path}/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse`)
+			.set('x-goog-api-key', token)
+			.send({ contents: [{ role: 'user', parts: [{ text: 'Hi' }] }] })
+			.expect(200);
+
+		expect(response.text).toContain('om Vertex');
+		expect(received[0].url).toBe(`${VERTEX_MODELS}gemini-2.5-flash:streamGenerateContent?alt=sse`);
+		const [row] = await usageRows();
+		expect(row).toMatchObject({ inputTokens: 4000, outputTokens: 2000 });
+	});
+
+	it('uses the project and the location of the settings', async () => {
+		await saveSettings({ providers: vertexSettings({ projectId: 'acme-ai', location: 'us' }) });
+		const { token, path } = await synthetic('googlePalmApi');
+		await testServer.restlessAgent
+			.post(`${path}/v1beta/models/gemini-2.5-flash:countTokens?key=${token}`)
+			.send({ contents: [] });
+
+		expect(vertexOrigin).toHaveBeenCalledWith('us');
+		expect(received[0].url).toBe(
+			'/vertex/v1/projects/acme-ai/locations/us/publishers/google/models/gemini-2.5-flash:countTokens',
+		);
+	});
+
+	it('sends Gemini embeddings to Vertex AI, and splits a batch into single calls', async () => {
+		await saveSettings({ providers: vertexSettings() });
+		const { token, path } = await synthetic('googlePalmApi');
+		const request = (text: string) => ({
+			model: 'models/gemini-embedding-001',
+			content: { parts: [{ text }] },
+			taskType: 'RETRIEVAL_DOCUMENT',
+		});
+
+		const single = await testServer.restlessAgent
+			.post(`${path}/v1beta/models/gemini-embedding-001:embedContent?key=${token}`)
+			.send(request('hello'))
+			.expect(200);
+		expect(single.body.embedding.values).toEqual([5]);
+		expect(received[0].body).toEqual({
+			content: { parts: [{ text: 'hello' }] },
+			taskType: 'RETRIEVAL_DOCUMENT',
+		});
+
+		received = [];
+		const batch = await testServer.restlessAgent
+			.post(`${path}/v1beta/models/gemini-embedding-001:batchEmbedContents?key=${token}`)
+			.send({ requests: [request('a'), request('bb'), request('ccc')] })
+			.expect(200);
+		expect(batch.body).toEqual({ embeddings: [{ values: [1] }, { values: [2] }, { values: [3] }] });
+		expect(received.map(({ url }) => url)).toEqual(
+			new Array(3).fill(`${VERTEX_MODELS}gemini-embedding-001:embedContent`),
+		);
+		const rows = await usageRows();
+		expect(rows.map((row) => row.inputTokens)).toEqual([10, 30]);
+	});
+
+	it('records the calls of a batch that worked, and gives the error of Vertex AI', async () => {
+		await saveSettings({ providers: vertexSettings() });
+		const { token, path } = await synthetic('googlePalmApi');
+		const request = (text: string) => ({ content: { parts: [{ text }] } });
+		const response = await testServer.restlessAgent
+			.post(`${path}/v1beta/models/gemini-embedding-001:batchEmbedContents?key=${token}`)
+			.send({ requests: [request('a'), request('refused')] })
+			.expect(429);
+
+		expect(response.body.error.status).toBe('RESOURCE_EXHAUSTED');
+		const [row] = await usageRows();
+		expect(row.inputTokens).toBe(10);
+	});
+
+	it('answers the model list of Vertex AI from the prices, and refuses the File API', async () => {
+		await saveSettings({ providers: vertexSettings() });
+		const { token, path } = await synthetic('googlePalmApi');
+
+		const list = await testServer.restlessAgent
+			.get(`${path}/v1beta/models`)
+			.set('x-goog-api-key', token)
+			.expect(200);
+		const names = (list.body.models as Array<{ name: string }>).map(({ name }) => name);
+		expect(names).toEqual(
+			expect.arrayContaining(['models/gemini-2.5-flash', 'models/gemini-embedding-001']),
+		);
+		const details = await testServer.restlessAgent
+			.get(`${path}/v1beta/models/gemini-2.5-pro`)
+			.set('x-goog-api-key', token)
+			.expect(200);
+		expect(details.body.name).toBe('models/gemini-2.5-pro');
+
+		const upload = await testServer.restlessAgent
+			.post(`${path}/upload/v1beta/files`)
+			.set('x-goog-api-key', token)
+			.send({ file: { display_name: 'scan.pdf' } })
+			.expect(403);
+		expect(upload.body.error.message).toContain('no File API');
+		expect(received).toHaveLength(0);
+
+		const config = await testServer.authAgentFor(member).get('/ai/gateway/config').expect(200);
+		expect(config.body.data.supportedActions['@n8n/n8n-nodes-langchain.googleGemini']).toEqual({
+			text: ['message'],
+		});
+	});
+
+	it('refuses a call when Vertex AI does not accept the sign-in', async () => {
+		await saveSettings({ providers: vertexSettings() });
+		vi.spyOn(Container.get(AiGatewayVertexService), 'accessToken').mockRejectedValue(
+			new VertexSignInError('invalid_grant'),
+		);
+		const { token, path } = await synthetic('googlePalmApi');
+		const response = await testServer.restlessAgent
+			.post(`${path}/v1beta/models/gemini-2.5-flash:generateContent?key=${token}`)
+			.send({ contents: [] })
+			.expect(503);
+		expect(response.body.error.message).toBe(
+			'The AI gateway could not sign in to Vertex AI with the credential of the admin.',
+		);
+		expect(received).toHaveLength(0);
 	});
 });
 
