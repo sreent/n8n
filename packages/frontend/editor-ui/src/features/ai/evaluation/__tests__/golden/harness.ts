@@ -244,7 +244,7 @@ export type Scenario = {
 	path?: string;
 	settings?: Record<string, unknown>;
 	evaluation?: Partial<(typeof defaultSettings)['evaluation']>;
-	role?: 'global:owner' | 'global:member';
+	role?: 'global:owner' | 'global:admin' | 'global:member';
 	projectRole?: 'project:admin' | 'project:editor' | 'project:viewer';
 };
 

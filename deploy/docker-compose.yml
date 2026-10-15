@@ -62,6 +62,9 @@ services:
       # Node type policies and Git connections also need their modules, which upstream n8n does not
       # load by default. An empty ENABLED_MODULES in .env turns them off.
       N8N_ENABLED_MODULES: ${ENABLED_MODULES-type-availability-policies,promotions}
+      # The editor of Git connections (Settings > Environments v2 and the banners of the projects).
+      # Upstream n8n shows it only with this rollout flag.
+      N8N_ENV_FEAT_PROMOTIONS: ${PROMOTIONS_EDITOR:-true}
       # The Code nodes run in the runners container (external mode). n8n waits for the runners on
       # port 5679. Only the containers of this stack can reach that port, and they need the token.
       N8N_RUNNERS_MODE: external

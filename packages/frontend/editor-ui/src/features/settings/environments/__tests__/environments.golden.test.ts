@@ -1115,3 +1115,186 @@ describe('the variable modal', () => {
 });
 
 // #endregion
+
+describe('the variable modal of a binding', () => {
+	const onCreate =
+		(result: unknown = { id: 'created' }) =>
+		async (values: unknown) => {
+			log.push(['onCreate', plain(values)]);
+			if (result instanceof Error) throw result;
+			return result;
+		};
+	const resolvedA = {
+		kind: 'resolved',
+		project: { ...project('pA', 'Project A', 'project:admin'), relations: [] },
+	};
+	const pending = (create: boolean) => ({
+		kind: 'pending',
+		id: 'pNew',
+		name: 'New project',
+		permissions: { create },
+	});
+
+	async function flow(scenario: Scenario, data: Record<string, unknown>, value = 'new value') {
+		await openModal(scenario, data);
+		const steps: Record<string, unknown> = {};
+		steps.opened = checkpoint();
+		await type('variable-modal-key-input', 'CHANGED_KEY');
+		steps.key = checkpoint();
+		await type('variable-modal-value-input', value);
+		steps.value = checkpoint();
+		await clickTestId('variable-modal-save-button');
+		steps.saved = { ...checkpoint(), state: storeState() };
+		return steps;
+	}
+
+	test('creates a global variable through the callback', async () => {
+		expect(
+			await flow(
+				{},
+				{
+					mode: 'new',
+					projectId: null,
+					fixedKey: true,
+					initialValues: { key: 'API_URL', value: '' },
+					onCreate: onCreate(),
+					appendToBody: true,
+				},
+			),
+		).toMatchSnapshot();
+	});
+
+	test('creates a project variable in a resolved destination', async () => {
+		expect(
+			await flow(
+				{ roleInA: 'project:admin' },
+				{
+					mode: 'new',
+					projectId: 'pA',
+					destination: resolvedA,
+					fixedKey: true,
+					initialValues: { key: 'TEAM_KEY', value: 'source value' },
+					onCreate: onCreate(),
+					appendToBody: true,
+				},
+			),
+		).toMatchSnapshot();
+	});
+
+	test('creates a variable in a pending destination', async () => {
+		expect(
+			await flow(
+				{},
+				{
+					mode: 'new',
+					projectId: 'pNew',
+					destination: pending(true),
+					fixedKey: true,
+					initialValues: { key: 'NEW_KEY', value: '' },
+					onCreate: onCreate(),
+					appendToBody: true,
+				},
+			),
+		).toMatchSnapshot();
+	});
+
+	test('a pending destination without the permission to create it', async () => {
+		expect(
+			await flow(
+				{ user: 'member' },
+				{
+					mode: 'new',
+					projectId: 'pNew',
+					destination: pending(false),
+					fixedKey: true,
+					initialValues: { key: 'NEW_KEY', value: '' },
+					onCreate: onCreate(),
+				},
+			),
+		).toMatchSnapshot();
+	});
+
+	test('a callback that fails', async () => {
+		expect(
+			await flow(
+				{},
+				{
+					mode: 'new',
+					projectId: null,
+					fixedKey: true,
+					initialValues: { key: 'API_URL', value: '' },
+					onCreate: onCreate(new Error('Create failed')),
+				},
+			),
+		).toMatchSnapshot();
+	});
+
+	test('initial values without a fixed key and without a callback', async () => {
+		expect(
+			await flow(
+				{},
+				{ mode: 'new', initialValues: { key: 'PREFILLED', value: 'prefilled value' } },
+			),
+		).toMatchSnapshot();
+	});
+
+	test('a fixed key that exists in the scope', async () => {
+		expect(
+			await flow(
+				{},
+				{
+					mode: 'new',
+					projectId: null,
+					fixedKey: true,
+					initialValues: { key: 'GLOBAL', value: '' },
+					onCreate: onCreate(),
+				},
+			),
+		).toMatchSnapshot();
+	});
+
+	test('a member and a global binding', async () => {
+		expect(
+			await flow(
+				{ user: 'member' },
+				{
+					mode: 'new',
+					projectId: null,
+					fixedKey: true,
+					initialValues: { key: 'API_URL', value: '' },
+					onCreate: onCreate(),
+				},
+			),
+		).toMatchSnapshot();
+	});
+
+	test('an unlicensed instance and a binding', async () => {
+		expect(
+			await flow(
+				{ licensed: false },
+				{
+					mode: 'new',
+					projectId: null,
+					fixedKey: true,
+					initialValues: { key: 'API_URL', value: '' },
+					onCreate: onCreate(),
+				},
+			),
+		).toMatchSnapshot();
+	});
+
+	test('a project binding without a destination', async () => {
+		expect(
+			await flow(
+				{ roleInA: 'project:admin' },
+				{
+					mode: 'new',
+					projectId: 'pA',
+					fixedKey: true,
+					initialValues: { key: 'TEAM_KEY', value: '' },
+					onCreate: onCreate(),
+				},
+			),
+		).toMatchSnapshot();
+	});
+});

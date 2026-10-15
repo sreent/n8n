@@ -1,0 +1,892 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the REST route of the change list of Git connections 1`] = `
+[
+  {
+    "branches": {
+      "acme/flows main": {
+        "files": {
+          "README.md": "# Flows
+",
+        },
+        "log": [
+          "Initial commit|Remote User <remote@example.com>|Remote User <remote@example.com>",
+        ],
+      },
+    },
+    "change": "the data of the instance",
+    "instance": {
+      "credentials": [],
+      "dataTables": [],
+      "folders": [],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal member "@member name"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+      ],
+      "tags": [],
+      "variables": [
+        "GV="one" in -",
+      ],
+      "workflows": [
+        "@Flow 1 "Flow 1" in @Team A nodes [{"url":"={{ $vars.GV }}"}] tags  active no",
+        "@Flow 2 "Flow 2" in @Team A nodes [{"url":"https://two.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/promote",
+    "response": {
+      "code": 404,
+      "message": "No promotion connection is configured for this instance",
+    },
+    "status": 404,
+    "step": "before a connection: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "message": "No promotion connection is configured for this instance",
+    },
+    "status": 404,
+    "step": "before a connection: public API",
+  },
+  {
+    "body": {
+      "auth": {
+        "authType": "token",
+        "password": "git-token",
+        "username": "git-user",
+      },
+      "name": "Bot user",
+      "type": "git",
+    },
+    "request": "POST /promotions/providers",
+    "response": {
+      "provider": {
+        "authType": "token",
+        "config": {
+          "schemaVersion": 1,
+        },
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "publicKey": null,
+    },
+    "status": 201,
+    "step": "create the provider",
+  },
+  {
+    "body": {
+      "configs": {
+        "apply": {
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+        },
+        "promote": {
+          "settings": {
+            "baseBranchName": "main",
+            "createBranchOnPromotion": false,
+            "schemaVersion": 1,
+          },
+        },
+      },
+      "name": "Deployments",
+      "providerId": "@provider Bot user",
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+    },
+    "request": "POST /promotions/connections",
+    "response": {
+      "configs": {
+        "apply": {
+          "checkout": {
+            "hasCheckout": false,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments apply",
+          "name": "Apply",
+          "settings": {
+            "branchName": "main",
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+        "promote": {
+          "checkout": {
+            "hasCheckout": false,
+            "matchesConfig": false,
+          },
+          "createdAt": "<date>",
+          "id": "@config Deployments promote",
+          "name": "Promote",
+          "settings": {
+            "baseBranchName": "main",
+            "createBranchOnPromotion": false,
+            "schemaVersion": 1,
+          },
+          "updatedAt": "<date>",
+        },
+      },
+      "createdAt": "<date>",
+      "id": "@connection Deployments",
+      "name": "Deployments",
+      "provider": {
+        "authType": "token",
+        "createdAt": "<date>",
+        "id": "@provider Bot user",
+        "name": "Bot user",
+        "type": "git",
+        "updatedAt": "<date>",
+      },
+      "scope": "instance",
+      "target": {
+        "remoteUrl": "https://127.0.0.1:<port>/acme/flows.git",
+        "schemaVersion": 1,
+      },
+      "updatedAt": "<date>",
+    },
+    "status": 201,
+    "step": "create the instance connection",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/promote",
+    "response": {
+      "code": 400,
+      "message": "This promote configuration is not cloned. Clone it before listing branch files.",
+    },
+    "status": 400,
+    "step": "before the clone: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "message": "This promote configuration is not cloned. Clone it before listing branch files.",
+    },
+    "status": 400,
+    "step": "before the clone: public API",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/promote/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "direction": "promote",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone promote",
+  },
+  {
+    "request": "POST /promotions/connections/@connection Deployments/apply/clone",
+    "response": {
+      "branchName": "main",
+      "configId": "@config Deployments apply",
+      "connectionId": "@connection Deployments",
+      "direction": "apply",
+      "hasCheckout": true,
+    },
+    "status": 200,
+    "step": "clone apply",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/promote",
+    "response": {
+      "data": {
+        "changes": [
+          {
+            "dependencyCount": 1,
+            "id": "@Flow 1",
+            "name": "Flow 1",
+            "status": "new",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 1,
+          },
+          {
+            "dependencyCount": 0,
+            "id": "@Flow 2",
+            "name": "Flow 2",
+            "status": "new",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 1,
+          },
+        ],
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "before the promote: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 2",
+          "name": "Flow 2",
+          "status": "new",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "before the promote: public API",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/apply",
+    "response": {
+      "code": 400,
+      "message": "Could not complete the Git operation",
+    },
+    "status": 400,
+    "step": "before the promote: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "message": "Could not complete the Git operation",
+    },
+    "status": 400,
+    "step": "before the promote: public API",
+  },
+  {
+    "body": {
+      "commitMessage": "All projects",
+    },
+    "branches": {
+      "acme/flows main": {
+        "files": {
+          "README.md": "# Flows
+",
+          "n8n-export/manifest.json": {
+            "exportedAt": "<date>",
+            "packageFormatVersion": "1",
+            "projects": [
+              {
+                "id": "@Team A",
+                "name": "Team A",
+                "target": "projects/team-a-@Team A",
+              },
+            ],
+            "requirements": {
+              "nodeTypes": [
+                {
+                  "type": "n8n-nodes-base.httpRequest",
+                  "typeVersion": 1,
+                  "usedByWorkflows": [
+                    "@Flow 1",
+                    "@Flow 2",
+                  ],
+                },
+              ],
+              "variables": [
+                {
+                  "name": "GV",
+                  "usedByWorkflows": [
+                    "@Flow 1",
+                  ],
+                },
+              ],
+            },
+            "sourceId": "<sha256>",
+            "sourceN8nVersion": "2.42.0",
+            "variables": [
+              {
+                "id": "@GV",
+                "name": "GV",
+                "target": "variables/gv-@GV",
+              },
+            ],
+            "workflows": [
+              {
+                "id": "@Flow 1",
+                "name": "Flow 1",
+                "target": "projects/team-a-@Team A/workflows/flow-1-@Flow 1",
+              },
+              {
+                "id": "@Flow 2",
+                "name": "Flow 2",
+                "target": "projects/team-a-@Team A/workflows/flow-2-@Flow 2",
+              },
+            ],
+          },
+          "n8n-export/projects/team-a-@Team A/project.json": {
+            "id": "@Team A",
+            "name": "Team A",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/flow-1-@Flow 1/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/flow-1-@Flow 1/workflow.json": {
+            "connections": {},
+            "id": "@Flow 1",
+            "isArchived": false,
+            "name": "Flow 1",
+            "nodes": [
+              {
+                "id": "node-1",
+                "name": "HTTP Request",
+                "parameters": {
+                  "url": "={{ $vars.GV }}",
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/flow-2-@Flow 2/workflow-metadata.json": {
+            "publishedVersionId": null,
+            "versionId": "<id>",
+          },
+          "n8n-export/projects/team-a-@Team A/workflows/flow-2-@Flow 2/workflow.json": {
+            "connections": {},
+            "id": "@Flow 2",
+            "isArchived": false,
+            "name": "Flow 2",
+            "nodes": [
+              {
+                "id": "node-1",
+                "name": "HTTP Request",
+                "parameters": {
+                  "url": "https://two.example.com",
+                },
+                "position": [
+                  0,
+                  0,
+                ],
+                "type": "n8n-nodes-base.httpRequest",
+                "typeVersion": 1,
+              },
+            ],
+            "parentFolderId": null,
+            "settings": {},
+            "tagIds": [],
+          },
+          "n8n-export/variables/gv-@GV/variable.json": {
+            "name": "GV",
+            "type": "string",
+            "value": "one",
+          },
+        },
+        "log": [
+          "All projects|@owner|@owner",
+          "Initial commit|Remote User <remote@example.com>|Remote User <remote@example.com>",
+        ],
+      },
+    },
+    "request": "POST /promotions/connections/@connection Deployments/promote",
+    "response": {
+      "configId": "@config Deployments promote",
+      "connectionId": "@connection Deployments",
+      "counts": {
+        "credentials": 0,
+        "dataTables": 0,
+        "folders": 0,
+        "tags": 0,
+        "variables": 1,
+        "workflows": 2,
+      },
+      "git": {
+        "branchName": "main",
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "promote",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/promote",
+    "response": {
+      "data": {
+        "changes": [],
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "after the promote: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "after the promote: public API",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/apply",
+    "response": {
+      "data": {
+        "changes": [],
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "after the promote: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "after the promote: public API",
+  },
+  {
+    "change": "rename Flow 2 and edit Flow 1",
+    "instance": {
+      "credentials": [],
+      "dataTables": [],
+      "folders": [],
+      "projects": [
+        "personal @new project Unnamed Project "Unnamed Project"",
+        "personal @personal member "@member name"",
+        "personal @personal owner "@owner"",
+        "team @Team A "Team A"",
+      ],
+      "tags": [],
+      "variables": [
+        "GV="one" in -",
+      ],
+      "workflows": [
+        "@Flow 1 "Flow 1" in @Team A nodes [{"url":"={{ $vars.GV }}/v2"}] tags  active no",
+        "@Flow 2 "Flow 2 renamed" in @Team A nodes [{"url":"https://two.example.com"}] tags  active no",
+      ],
+    },
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/promote",
+    "response": {
+      "data": {
+        "changes": [
+          {
+            "dependencyCount": 1,
+            "id": "@Flow 1",
+            "name": "Flow 1",
+            "status": "modified",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 2,
+          },
+          {
+            "dependencyCount": 0,
+            "id": "@Flow 2",
+            "name": "Flow 2 renamed",
+            "status": "renamed-and-modified",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 1,
+          },
+        ],
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "after the changes: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 2",
+          "name": "Flow 2 renamed",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "after the changes: public API",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/apply",
+    "response": {
+      "data": {
+        "changes": [
+          {
+            "dependencyCount": 1,
+            "id": "@Flow 1",
+            "name": "Flow 1",
+            "status": "modified",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 2,
+          },
+          {
+            "dependencyCount": 0,
+            "id": "@Flow 2",
+            "name": "Flow 2",
+            "status": "renamed-and-modified",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 1,
+          },
+        ],
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "after the changes: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 2",
+          "name": "Flow 2",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "after the changes: public API",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/promote?sort=status&order=desc",
+    "response": {
+      "data": {
+        "changes": [
+          {
+            "dependencyCount": 0,
+            "id": "@Flow 2",
+            "name": "Flow 2 renamed",
+            "status": "renamed-and-modified",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 1,
+          },
+          {
+            "dependencyCount": 1,
+            "id": "@Flow 1",
+            "name": "Flow 1",
+            "status": "modified",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 2,
+          },
+        ],
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "sorted by status: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote?sort=status&order=desc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 2",
+          "name": "Flow 2 renamed",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+        {
+          "dependencyCount": 1,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "sorted by status: public API",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/apply?sort=updatedAt&order=asc",
+    "response": {
+      "data": {
+        "changes": [
+          {
+            "dependencyCount": 1,
+            "id": "@Flow 1",
+            "name": "Flow 1",
+            "status": "modified",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 2,
+          },
+          {
+            "dependencyCount": 0,
+            "id": "@Flow 2",
+            "name": "Flow 2",
+            "status": "renamed-and-modified",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 1,
+          },
+        ],
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "sorted by update: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/apply?sort=updatedAt&order=asc",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 1,
+          "id": "@Flow 1",
+          "name": "Flow 1",
+          "status": "modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 2,
+        },
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 2",
+          "name": "Flow 2",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "sorted by update: public API",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/promote?search=flow%202",
+    "response": {
+      "data": {
+        "changes": [
+          {
+            "dependencyCount": 0,
+            "id": "@Flow 2",
+            "name": "Flow 2 renamed",
+            "status": "renamed-and-modified",
+            "type": "workflow",
+            "updatedAt": "<date>",
+            "updatedBy": null,
+            "version": 1,
+          },
+        ],
+        "commitSha": "<sha>",
+      },
+    },
+    "status": 200,
+    "step": "with a search: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote?search=flow%202",
+    "response": {
+      "changes": [
+        {
+          "dependencyCount": 0,
+          "id": "@Flow 2",
+          "name": "Flow 2 renamed",
+          "status": "renamed-and-modified",
+          "type": "workflow",
+          "updatedAt": "<date>",
+          "updatedBy": null,
+          "version": 1,
+        },
+      ],
+      "commitSha": "<sha>",
+    },
+    "status": 200,
+    "step": "with a search: public API",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/promote?sort=size",
+    "response": {
+      "code": "invalid_enum_value",
+      "message": "Invalid enum value. Expected 'name' | 'updatedAt' | 'status', received 'size'",
+      "options": [
+        "name",
+        "updatedAt",
+        "status",
+      ],
+      "path": [
+        "sort",
+      ],
+      "received": "size",
+    },
+    "status": 400,
+    "step": "with a wrong sort: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/promote?sort=size",
+    "response": {
+      "message": "request/query/sort Invalid enum value. Expected 'name' | 'updatedAt' | 'status', received 'size'",
+    },
+    "status": 400,
+    "step": "with a wrong sort: public API",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/sideways",
+    "response": {
+      "code": 404,
+      "message": "Unknown promotion direction: sideways",
+    },
+    "status": 404,
+    "step": "with a wrong direction: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@Team A/changes/sideways",
+    "response": {
+      "message": "Unknown promotion direction: sideways",
+    },
+    "status": 404,
+    "step": "with a wrong direction: public API",
+  },
+  {
+    "request": "GET /promotions/unknown1/changes/promote",
+    "response": {
+      "code": 404,
+      "message": "Project not found",
+    },
+    "status": 404,
+    "step": "for an unknown project: REST",
+  },
+  {
+    "request": "GET /promotions/projects/unknown1/changes/promote",
+    "response": {
+      "message": "Project not found",
+    },
+    "status": 404,
+    "step": "for an unknown project: public API",
+  },
+  {
+    "request": "GET /promotions/@personal owner/changes/promote",
+    "response": {
+      "code": 400,
+      "message": "Only team projects can use a promotion connection",
+    },
+    "status": 400,
+    "step": "for the personal project: REST",
+  },
+  {
+    "request": "GET /promotions/projects/@personal owner/changes/promote",
+    "response": {
+      "message": "Only team projects can use a promotion connection",
+    },
+    "status": 400,
+    "step": "for the personal project: public API",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/promote",
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+    "step": "as a member",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/apply",
+    "response": {
+      "message": "User is missing a scope required to perform this action",
+      "status": "error",
+    },
+    "status": 403,
+    "step": "as a member for apply",
+  },
+  {
+    "request": "GET /promotions/@Team A/changes/promote",
+    "response": {
+      "message": "Unauthorized",
+      "status": "error",
+    },
+    "status": 401,
+    "step": "without a session",
+  },
+]
+`;

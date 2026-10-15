@@ -17,8 +17,10 @@ golden tests recorded that behaviour through the public API (see "Tests").
   (`packages/cli/src/fork-features.ts`).
 - The module: `N8N_ENABLED_MODULES=promotions`. It is not a default module, as in upstream n8n,
   and `deploy/` sets it. Without it, the routes answer 503 `Promotions module is not enabled`.
-- The editor of Git connections (the settings page "Environments v2", which upstream n8n shows
-  with `N8N_ENV_FEAT_PROMOTIONS=true`) is not in the fork yet. Use the public API.
+- The editor of Git connections (the settings page "Environments v2" and the banners of the team
+  projects) also needs the rollout flag `N8N_ENV_FEAT_PROMOTIONS=true`, as in upstream n8n.
+  `deploy/` sets it. See
+  [the FORK.md of the editor folder](../../../../frontend/editor-ui/src/features/integrations/promotions/FORK.md).
 
 The scopes `gitConnection:*` control the routes. The owner and the admin have all nine scopes. A
 member has none of them.
@@ -200,7 +202,10 @@ project, without a message `Promote a selection of project changes`:
 
 `GET /promotions/projects/{projectId}/changes/{direction}` fetches the branch, and compares the
 package that a promotion of the project writes now (with the Git hashes of the files) with the
-files of the branch:
+files of the branch. The editor calls the same list through the REST route
+`GET /rest/promotions/{projectId}/changes/{direction}` (`promotions.controller.ts`), with the
+session of the user. That route needs the global scope `gitConnection:read`, and answers 404 for a
+direction that is not `apply` or `promote`.
 
 | Status | `promote` | `apply` |
 |---|---|---|
@@ -286,6 +291,9 @@ None is known. The golden tests show the same behaviour for each recorded case.
   `promotions-dependencies` in `packages/cli/test/integration/promotions` use a local Git server
   over HTTPS (`test/integration/source-control/git-http-server.ts`). They were recorded against
   the original module, and the fork gives the same snapshots.
+- The golden test `promotions-rest` records the REST route of the change list next to the public
+  API route, for an owner, a member, an unknown project, a personal project and a wrong direction.
+  Two runs against the original module gave the same snapshot, and the fork gives it too.
 - `packages/cli/test/integration/public-api/promotions.test.ts` is the upstream test of the public
   API, with the import paths of the fork module.
 - `__tests__/` has unit tests of the URL check and of the merge of the manifest.

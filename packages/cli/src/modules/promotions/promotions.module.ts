@@ -4,13 +4,15 @@ import { BackendModule } from '@n8n/decorators';
 /**
  * Fork module (not in upstream n8n): Git connections, which the code calls promotions. An instance
  * promotes its team projects to a Git branch, and another instance applies the branch. The public
- * API controller `promotions.public.controller.ts` loads the services when a request comes.
- * `README.md` describes the module. It is not a default module: `N8N_ENABLED_MODULES=promotions`
- * turns it on.
+ * API controller `promotions.public.controller.ts` loads the services when a request comes, and
+ * the REST controller gives the change list of a project to the editor. `README.md` describes the
+ * module. It is not a default module: `N8N_ENABLED_MODULES=promotions` turns it on.
  */
 @BackendModule({ name: 'promotions' })
 export class PromotionsModule implements ModuleInterface {
-	async init() {}
+	async init() {
+		await import('./promotions.controller.js');
+	}
 
 	async entities() {
 		const { PromotionProvider } = await import('./database/entities/promotion-provider.entity.js');

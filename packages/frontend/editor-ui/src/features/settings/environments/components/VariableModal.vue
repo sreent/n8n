@@ -2,7 +2,9 @@
 /**
  * Fork code (not in upstream n8n): the modal that creates or edits a variable. A new variable is
  * global or belongs to a project: the project of the page, or the scope that the user chooses.
- * It replaces the enterprise component of the same name. See `../FORK.md`.
+ * The bindings of Git connections open it with a fixed key and a destination, and create the
+ * variable themselves (`onCreate`). It replaces the enterprise component of the same name. See
+ * `../FORK.md`.
  */
 import { useToast } from '@n8n/composables/useToast';
 import {
@@ -25,16 +27,28 @@ import { computed, nextTick, onMounted, ref } from 'vue';
 import Modal from '@/app/components/Modal.vue';
 import { useUIStore } from '@/app/stores/ui.store';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
-import { ProjectTypes } from '@/features/collaboration/projects/projects.types';
+import {
+	ProjectTypes,
+	type ResourceEditorDestination,
+} from '@/features/collaboration/projects/projects.types';
 
 import { VARIABLE_MODAL_KEY } from '../environments.constants';
 import { useEnvironmentsStore } from '../environments.store';
-import type { EnvironmentVariable } from '../environments.types';
+import type { EnvironmentVariable, VariableBindingValues } from '../environments.types';
 
 const props = defineProps<{
 	mode: 'new' | 'edit';
 	variable?: EnvironmentVariable;
-	projectId?: string;
+	/** The project of a new variable. `null` is a global variable. */
+	projectId?: string | null;
+	/** The key cannot change. */
+	fixedKey?: boolean;
+	initialValues?: { key?: string; value?: string };
+	/** The project that the new variable goes to, as the bindings of Git connections give it. */
+	destination?: ResourceEditorDestination;
+	/** Creates the variable in place of the store. */
+	onCreate?: (values: VariableBindingValues) => Promise<unknown>;
+	appendToBody?: boolean;
 }>();
 
 const KEY_MAX_LENGTH = 50;
@@ -50,8 +64,8 @@ const projectsStore = useProjectsStore();
 const environmentsStore = useEnvironmentsStore();
 const modalBus = createEventBus();
 
-const key = ref(props.variable?.key ?? '');
-const value = ref(props.variable?.value ?? '');
+const key = ref(props.variable?.key ?? props.initialValues?.key ?? '');
+const value = ref(props.variable?.value ?? props.initialValues?.value ?? '');
 const chosenScope = ref<string>();
 const isKeyValid = ref(false);
 const isValueValid = ref(true);
@@ -62,15 +76,27 @@ const isEdit = computed(() => props.mode === 'edit');
 const title = computed(() =>
 	i18n.baseText(isEdit.value ? 'variables.modal.title.edit' : 'variables.modal.title.create'),
 );
-/** The user chooses the scope only for a new variable outside of a project page. */
-const showScope = computed(() => !isEdit.value && !props.projectId);
+/** The user chooses the scope only for a new variable without a given project. */
+const showScope = computed(() => !isEdit.value && props.projectId === undefined);
 
 /** The project of the variable, or `undefined` for a global variable. */
 const projectId = computed(() => {
 	if (isEdit.value) return props.variable?.project?.id;
-	if (props.projectId) return props.projectId;
+	if (props.projectId !== undefined) return props.projectId ?? undefined;
 	return chosenScope.value && chosenScope.value !== GLOBAL_SCOPE ? chosenScope.value : undefined;
 });
+
+/** The name of the project of a destination. */
+const destinationName = computed(() => {
+	const destination = props.destination;
+	if (!destination) return undefined;
+	return destination.kind === 'resolved' ? destination.project.name : destination.name;
+});
+
+/** A destination that does not exist yet needs the permission to create it. */
+const canUseDestination = computed(
+	() => props.destination?.kind !== 'pending' || props.destination.permissions.create,
+);
 
 const canCreateGlobal = computed(
 	() => getResourcePermissions(usersStore.currentUser?.globalScopes).variable.create ?? false,
@@ -160,6 +186,7 @@ const canSave = computed(
 		isValueValid.value &&
 		!keyExistsInScope.value &&
 		!isSaving.value &&
+		canUseDestination.value &&
 		(isEdit.value || !!projectId.value || canCreateGlobal.value),
 );
 
@@ -178,6 +205,12 @@ async function onSubmit() {
 				key: key.value,
 				value: value.value,
 				projectId: props.variable.project?.id,
+			});
+		} else if (props.onCreate) {
+			await props.onCreate({
+				key: key.value,
+				value: value.value,
+				projectId: projectId.value ?? null,
 			});
 		} else {
 			await environmentsStore.createVariable({
@@ -203,7 +236,7 @@ onMounted(async () => {
 	// The scope options come from the projects of the user.
 	void projectsStore.getMyProjects();
 	await nextTick();
-	keyInput.value?.inputRef?.focus?.();
+	if (!props.fixedKey) keyInput.value?.inputRef?.focus?.();
 });
 </script>
 
@@ -215,13 +248,16 @@ onMounted(async () => {
 		:event-bus="modalBus"
 		:before-close="beforeClose"
 		:show-close="!isSaving"
+		:append-to-body="appendToBody"
 	>
 		<template #content>
 			<div :class="$style.form">
+				<N8nText v-if="destinationName" color="text-base">{{ destinationName }}</N8nText>
 				<div>
 					<N8nFormInput
 						ref="keyInput"
 						v-model="key"
+						:disabled="fixedKey"
 						data-test-id="variable-modal-key-input"
 						:label="i18n.baseText('variables.modal.key.label')"
 						:placeholder="i18n.baseText('variables.editing.key.placeholder')"
