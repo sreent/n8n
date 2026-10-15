@@ -85,6 +85,28 @@ function ollamaUsage(event: unknown): MeteredUsage | undefined {
 	};
 }
 
+/**
+ * The pages and images that the OCR of Google Cloud read, as input tokens: one for each image of
+ * `images:annotate`, one for each page of `files:annotate`, and the pages of a Document AI
+ * document. An image or a page with an error is not counted.
+ */
+function googleOcrUsage(event: unknown): MeteredUsage | undefined {
+	let units: number | undefined;
+	const responses = child(event, 'responses');
+	if (Array.isArray(responses)) {
+		units = 0;
+		for (const response of responses) {
+			const pages = child(response, 'responses');
+			if (Array.isArray(pages)) units += pages.filter((page) => !child(page, 'error')).length;
+			else if (!child(response, 'error')) units += 1;
+		}
+	}
+	const documentPages = child(child(event, 'document'), 'pages');
+	if (Array.isArray(documentPages)) units = documentPages.length;
+	if (units === undefined) return undefined;
+	return { inputTokens: units, outputTokens: 0, cachedInputTokens: 0 };
+}
+
 /** The usage in one answer, or in one event of a stream. */
 export function usageOf(format: AiGatewayApiFormat, event: unknown): MeteredUsage | undefined {
 	switch (format) {
@@ -96,6 +118,8 @@ export function usageOf(format: AiGatewayApiFormat, event: unknown): MeteredUsag
 			return geminiUsage(event);
 		case 'ollama':
 			return ollamaUsage(event);
+		case 'google-ocr':
+			return googleOcrUsage(event);
 	}
 }
 

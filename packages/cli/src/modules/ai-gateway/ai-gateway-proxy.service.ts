@@ -33,6 +33,7 @@ import {
 } from './backends';
 import {
 	type AiGatewayCallAttribution,
+	documentAiLocation,
 	endpointOf,
 	type GatewayEndpoint,
 	parseGatewayPath,
@@ -105,6 +106,9 @@ const MAX_VERTEX_BATCH = 250;
 /** The `embedContent` calls that one batch sends to Vertex AI at the same time. */
 const VERTEX_BATCH_CONCURRENCY = 4;
 
+/** The text detections of the Cloud Vision API, which the price of the gateway covers. */
+const OCR_FEATURES = new Set(['TEXT_DETECTION', 'DOCUMENT_TEXT_DETECTION']);
+
 /** The open models of Vertex AI have only the Chat Completions of the OpenAI API. */
 const OPEN_MODELS_CHAT_ONLY =
 	'The open models of Vertex AI support only Chat Completions. Turn off "Use Responses API" on the OpenAI Chat Model node.';
@@ -123,7 +127,7 @@ function sendError(res: Response, format: AiGatewayApiFormat, status: number, me
 	const body =
 		format === 'anthropic'
 			? { type: 'error', error: { type: 'ai_gateway_error', message } }
-			: format === 'gemini'
+			: format === 'gemini' || format === 'google-ocr'
 				? { error: { code: status, message, status: 'FAILED_PRECONDITION' } }
 				: { error: { message, type: 'ai_gateway_error', code: 'ai_gateway_error' } };
 	res.status(status).json(body);
@@ -293,6 +297,7 @@ export class AiGatewayProxyService {
 					`The model ${model} has no price in the AI gateway. Ask an admin to add one.`,
 				);
 			}
+			if (provider.format === 'google-ocr') this.checkOcrRequest(rest, body.json);
 			const blocked = await this.budgets.blockReason({ userId, projectId: attribution.projectId });
 			if (blocked) throw new GatewayError(402, blocked);
 			body = this.withUsageRequest(provider, endpoint, body);
@@ -403,6 +408,34 @@ export class AiGatewayProxyService {
 		return true;
 	}
 
+	/**
+	 * The gateway prices one text detection for each image or page, so each request of the Cloud
+	 * Vision API asks for one text detection and nothing else.
+	 */
+	private checkOcrRequest(rest: string, json: unknown) {
+		if (documentAiLocation(rest)) return;
+		const requests = isRecord(json) ? json.requests : undefined;
+		const textOnly =
+			Array.isArray(requests) &&
+			requests.length > 0 &&
+			requests.every((request) => {
+				const features = isRecord(request) ? request.features : undefined;
+				return (
+					Array.isArray(features) &&
+					features.length === 1 &&
+					isRecord(features[0]) &&
+					typeof features[0].type === 'string' &&
+					OCR_FEATURES.has(features[0].type)
+				);
+			});
+		if (!textOnly) {
+			throw new GatewayError(
+				403,
+				'The AI gateway allows one text detection (TEXT_DETECTION or DOCUMENT_TEXT_DETECTION) for each image or file, and no other features.',
+			);
+		}
+	}
+
 	/** The open models of Vertex AI that have a price: the models of a publisher. */
 	private openModelIds(provider: AiGatewayProvider) {
 		return this.prices.modelsWithPrice(provider).filter(isPublisherModel);
@@ -467,6 +500,23 @@ export class AiGatewayProxyService {
 				auth: apiKey ? { 'api-key': apiKey } : {},
 				body,
 			};
+		}
+
+		if (backend?.kind === 'google-cloud') {
+			const location = documentAiLocation(rest);
+			const origin = location ? this.vertex.documentAiOrigin(location) : this.vertex.visionOrigin();
+			return {
+				url: query(new URL(`${origin}${rest}`)),
+				auth: { authorization: `Bearer ${await this.vertexToken(credential)}` },
+				body,
+			};
+		}
+
+		if (provider.format === 'google-ocr' && !backend && documentAiLocation(rest)) {
+			throw new GatewayError(
+				403,
+				'Document AI takes no API keys. Ask an admin for a service account for Google Cloud OCR in the AI gateway.',
+			);
 		}
 
 		if (backend?.kind === 'vertex-openai') {
@@ -551,10 +601,12 @@ export class AiGatewayProxyService {
 			return await this.vertex.accessToken(credential);
 		} catch (error) {
 			if (!(error instanceof VertexSignInError)) throw error;
-			this.logger.warn('The AI gateway could not sign in to Vertex AI', { error: error.message });
+			this.logger.warn('The AI gateway could not sign in to Google Cloud', {
+				error: error.message,
+			});
 			throw new GatewayError(
 				503,
-				'The AI gateway could not sign in to Vertex AI with the credential of the admin.',
+				'The AI gateway could not sign in to Google Cloud with the credential of the admin.',
 			);
 		}
 	}

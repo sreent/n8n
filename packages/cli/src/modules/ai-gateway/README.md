@@ -100,6 +100,7 @@ types of the config that the gateway gives.
 | NVIDIA | `nvidiaApi` | `/v1/gateway/nvidia` | OpenAI | `Authorization: Bearer` |
 | Vercel AI Gateway | `vercelAiGatewayApi` | `/v1/gateway/vercel` | OpenAI | `Authorization: Bearer` |
 | Ollama | `ollamaApi` | `/v1/gateway/ollama` | Ollama and OpenAI | `Authorization: Bearer` |
+| Google Cloud OCR | `googleCloudOcrApi` | `/v1/gateway/google-ocr` | Cloud Vision API and Document AI | `x-goog-api-key` |
 
 - The proxy removes the gateway path and adds the rest of the path to the base URL of the admin's
   credential: the URL field of that credential (for example `https://api.openai.com/v1`), else the
@@ -134,6 +135,7 @@ before, and the gateway sends the calls to the backend. `backends.ts` maps the c
 | OpenAI | Azure OpenAI | `azureOpenAiApi` | The v1 API of the Azure resource, with the header `api-key` |
 | OpenAI | Vertex AI | `googleApi` (service account) | The Chat Completions of the open models of Vertex AI, with an access token of the service account |
 | Google Gemini | Vertex AI | `googleApi` (service account) | The Gemini models of Vertex AI, with an access token of the service account |
+| Google Cloud OCR | Service account | `googleApi` (service account) | The Cloud Vision API and Document AI, with an access token of the service account |
 
 Azure OpenAI:
 
@@ -186,6 +188,32 @@ The open models of Vertex AI (Model Garden) through the OpenAI nodes:
   **Prices** (provider OpenAI, the full id of the model). `google/<Gemini model>` gets the list
   price of the Gemini model. The model list of the OpenAI nodes adds the open models that have a
   price.
+
+## OCR
+
+The fork node **Google Cloud OCR** (`packages/nodes-base/nodes/Google/CloudOcr`, see its README)
+reads the text of images and documents with the Cloud Vision API and Document AI. Its credential
+type `googleCloudOcrApi` has a URL field, so the gateway serves it as the provider Google Cloud
+OCR. The document and image analysis of the Google Gemini node is another way to OCR (see
+"Providers").
+
+- With an API key of the admin, the gateway serves only the Cloud Vision API: Document AI takes
+  no API keys. The config of the gateway then offers Gateway credits only for the operation
+  **Read Text**, and the proxy refuses a call of Document AI (status 403).
+- With a service account of the admin (the backend), the gateway serves the Cloud Vision API and
+  the processors of Document AI (`/v1/projects/<project>/locations/<location>/processors/<id>:process`,
+  to `https://<location>-documentai.googleapis.com`). The service account needs the roles of the
+  two APIs in the projects of the processors.
+- The gateway counts pages and images, not tokens, and records them as the input tokens of a
+  call: one for each image of `images:annotate`, one for each page of `files:annotate`, and the
+  pages of a document of Document AI. An image or a page with an error is not counted.
+- The prices are in dollars for one million pages or images: the list prices `vision-ocr` and
+  `document-ai` are $1,500 for one million ($1.50 for 1,000), the price of the text detection
+  of the Cloud Vision API and of the Enterprise Document OCR of Document AI. Other processors of
+  Document AI cost more: an admin sets the price of `document-ai`. The free pages of Google each
+  month are not in the prices.
+- Each request of the Cloud Vision API must ask for one text detection (`TEXT_DETECTION` or
+  `DOCUMENT_TEXT_DETECTION`) and no other feature, because the price covers one detection.
 
 ## Budgets
 
@@ -302,30 +330,25 @@ admin sees only their own calls in the usage.
   contact an admin.
 - `packages/@n8n/api-types/src/frontend-settings.ts`: the module settings `'ai-gateway'` with
   `selfHosted`.
+- `packages/nodes-base/package.json`: the fork node Google Cloud OCR and its credential type
+  `googleCloudOcrApi`.
 - The registrations of the frontend module `packages/modules/ai-gateway/frontend` (the page
   **Settings > AI gateway**) in `@n8n/frontend-vite-config` and editor-ui, and its texts in
   `@n8n/i18n`. Its README describes the page.
-
-## Planned
-
-The owner also chose this, for a later pull request:
-
-- OCR: a new node for the OCR of Google Cloud (Vision API and Document AI) that can use the
-  gateway. The document and image analysis of the Google Gemini node already works through the
-  gateway (see "Providers").
 
 ## Tests
 
 - `__tests__/gateway-routes.test.ts`, `usage-meter.test.ts` and `prices.test.ts`: the paths and
   endpoints of each API format, the usage of answers and streams, and the prices.
+- `packages/nodes-base/nodes/Google/CloudOcr/test`: the node Google Cloud OCR.
 - `__tests__/backends.test.ts` and `ai-gateway-vertex.service.test.ts`: the base URLs of Azure
   OpenAI, the paths, the projects and the locations of Vertex AI, the model lists, and the
   sign-in of a service account.
 - `__tests__/ai-gateway.integration.test.ts`: an in-memory server in place of the providers. It
   checks the settings and their access, the config and the token of the ordinary routes, the proxy
   of each API format (JSON and streams), the upload of a Gemini file, the prices, the budgets, the
-  top-ups, the off switches, and the backends Azure OpenAI and Vertex AI with the open models
-  (with a replaced sign-in).
+  top-ups, the off switches, the backends Azure OpenAI and Vertex AI with the open models (with a
+  replaced sign-in), and the OCR of Google Cloud with an API key and with a service account.
 
 ## Upstream updates
 

@@ -142,6 +142,24 @@ function answer(req: IncomingMessage, res: ServerResponse, body: Record<string, 
 			usage: { prompt_tokens: 1000, completion_tokens: 500 },
 		});
 	}
+	if (path === '/vision/v1/images:annotate') {
+		return json({
+			responses: [
+				{ fullTextAnnotation: { text: 'Scan' } },
+				{ error: { code: 3, message: 'Bad image' } },
+			],
+		});
+	}
+	if (path === '/vision/v1/files:annotate') {
+		return json({
+			responses: [
+				{ totalPages: 7, responses: [1, 2, 3].map((pageNumber) => ({ context: { pageNumber } })) },
+			],
+		});
+	}
+	if (path === '/documentai/v1/projects/acme/locations/eu/processors/abc123:process') {
+		return json({ document: { text: 'Invoice', pages: [{}, {}] } });
+	}
 	if (path === VERTEX_CHAT_COMPLETIONS) {
 		if (body.stream === true) {
 			const options = body.stream_options as { include_usage?: boolean } | undefined;
@@ -238,6 +256,7 @@ beforeAll(async () => {
 				endpoint: '',
 			}),
 			credentialType('googleApi', { region: 'global', email: '', privateKey: '' }),
+			credentialType('googleCloudOcrApi', { apiKey: '', host: 'https://vision.googleapis.com' }),
 		].map((type) => [type.name, { type, sourcePath: '' }]),
 	);
 	owner = await createOwner();
@@ -269,6 +288,7 @@ beforeAll(async () => {
 			resourceName: 'acme',
 			endpoint: `${providerUrl}/azure`,
 		},
+		googleCloudOcrApi: { apiKey: 'admin-vision-key', host: `${providerUrl}/vision` },
 		googleApi: {
 			region: 'europe-west4',
 			email: 'gateway@vertex-project.iam.gserviceaccount.com',
@@ -1091,9 +1111,128 @@ describe('backends', () => {
 			.send({ contents: [] })
 			.expect(503);
 		expect(response.body.error.message).toBe(
-			'The AI gateway could not sign in to Vertex AI with the credential of the admin.',
+			'The AI gateway could not sign in to Google Cloud with the credential of the admin.',
 		);
 		expect(received).toHaveLength(0);
+	});
+});
+
+describe('Google Cloud OCR', () => {
+	const ocrRequest = (type = 'DOCUMENT_TEXT_DETECTION') => ({
+		image: { content: 'c2Nhbg==' },
+		features: [{ type }],
+	});
+	const ocrNode = 'n8n-nodes-base.googleCloudOcr';
+
+	afterEach(() => {
+		vi.restoreAllMocks();
+	});
+
+	it('reads text through the Cloud Vision API with the API key of the admin, and counts the images', async () => {
+		await saveSettings({
+			providers: {
+				...defaultSettings().providers,
+				'google-ocr': { credentialId: credentialIds.googleCloudOcrApi },
+			},
+		});
+		const { token, path } = await synthetic('googleCloudOcrApi');
+
+		const response = await testServer.restlessAgent
+			.post(`${path}/v1/images:annotate`)
+			.set('x-goog-api-key', token)
+			.send({ requests: [ocrRequest(), ocrRequest()] })
+			.expect(200);
+
+		expect(response.body.responses[0].fullTextAnnotation.text).toBe('Scan');
+		expect(received[0].url).toBe('/vision/v1/images:annotate');
+		expect(received[0].headers['x-goog-api-key']).toBe('admin-vision-key');
+		const [row] = await usageRows();
+		expect(row).toMatchObject({ provider: 'google-ocr', model: 'vision-ocr', inputTokens: 1 });
+		expect(row.cost).toBeCloseTo(0.0015);
+
+		const config = await testServer.authAgentFor(member).get('/ai/gateway/config').expect(200);
+		expect(config.body.data.nodes).toContain(ocrNode);
+		expect(config.body.data.supportedActions[ocrNode]).toEqual({
+			__operation_only__: ['readText'],
+		});
+	});
+
+	it('refuses other features of the Cloud Vision API, and Document AI with an API key', async () => {
+		await saveSettings({
+			providers: {
+				...defaultSettings().providers,
+				'google-ocr': { credentialId: credentialIds.googleCloudOcrApi },
+			},
+		});
+		const { token, path } = await synthetic('googleCloudOcrApi');
+
+		const features = await testServer.restlessAgent
+			.post(`${path}/v1/images:annotate`)
+			.set('x-goog-api-key', token)
+			.send({ requests: [ocrRequest('LABEL_DETECTION')] })
+			.expect(403);
+		expect(features.body.error.message).toContain('one text detection');
+		const documentAi = await testServer.restlessAgent
+			.post(`${path}/v1/projects/acme/locations/eu/processors/abc123:process`)
+			.set('x-goog-api-key', token)
+			.send({ rawDocument: { content: 'c2Nhbg==', mimeType: 'application/pdf' } })
+			.expect(403);
+		expect(documentAi.body.error.message).toContain('Document AI takes no API keys');
+		expect(received).toHaveLength(0);
+	});
+
+	it('reads files and processes documents with a service account, and counts the pages', async () => {
+		await saveSettings({
+			providers: {
+				...defaultSettings().providers,
+				'google-ocr': { credentialId: credentialIds.googleApi },
+			},
+		});
+		const google = Container.get(AiGatewayVertexService);
+		vi.spyOn(google, 'accessToken').mockResolvedValue('ocr-access-token');
+		vi.spyOn(google, 'visionOrigin').mockReturnValue(`${providerUrl}/vision`);
+		const documentAiOrigin = vi
+			.spyOn(google, 'documentAiOrigin')
+			.mockReturnValue(`${providerUrl}/documentai`);
+		const { token, path } = await synthetic('googleCloudOcrApi');
+
+		await testServer.restlessAgent
+			.post(`${path}/v1/files:annotate`)
+			.set('x-goog-api-key', token)
+			.send({
+				requests: [
+					{
+						inputConfig: { content: 'c2Nhbg==', mimeType: 'application/pdf' },
+						features: [{ type: 'DOCUMENT_TEXT_DETECTION' }],
+					},
+				],
+			})
+			.expect(200);
+		const document = await testServer.restlessAgent
+			.post(`${path}/v1/projects/acme/locations/eu/processors/abc123:process`)
+			.set('x-goog-api-key', token)
+			.send({ rawDocument: { content: 'c2Nhbg==', mimeType: 'application/pdf' } })
+			.expect(200);
+
+		expect(document.body.document.text).toBe('Invoice');
+		expect(documentAiOrigin).toHaveBeenCalledWith('eu');
+		expect(received.map(({ url }) => url)).toEqual([
+			'/vision/v1/files:annotate',
+			'/documentai/v1/projects/acme/locations/eu/processors/abc123:process',
+		]);
+		expect(
+			received.every(({ headers }) => headers.authorization === 'Bearer ocr-access-token'),
+		).toBe(true);
+		const rows = await usageRows();
+		expect(rows.map(({ model, inputTokens }) => [model, inputTokens])).toEqual([
+			['vision-ocr', 3],
+			['document-ai', 2],
+		]);
+
+		const config = await testServer.authAgentFor(member).get('/ai/gateway/config').expect(200);
+		expect(config.body.data.supportedActions[ocrNode]).toEqual({
+			__operation_only__: ['readText', 'processDocument'],
+		});
 	});
 });
 

@@ -65,6 +65,16 @@ export class AiGatewayVertexService {
 		return `https://${vertexHost(location)}`;
 	}
 
+	/** The origin of the Cloud Vision API. */
+	visionOrigin() {
+		return 'https://vision.googleapis.com';
+	}
+
+	/** The origin of Document AI in a location, for example `us` or `eu`. */
+	documentAiOrigin(location: string) {
+		return `https://${location}-documentai.googleapis.com`;
+	}
+
 	/** An access token of the service account of a credential. */
 	async accessToken(data: ICredentialDataDecryptedObject): Promise<string> {
 		const email = stringField(data, 'email');

@@ -5,7 +5,7 @@
  */
 
 /** The request and answer format of a provider API. */
-export type AiGatewayApiFormat = 'openai' | 'anthropic' | 'gemini' | 'ollama';
+export type AiGatewayApiFormat = 'openai' | 'anthropic' | 'gemini' | 'ollama' | 'google-ocr';
 
 /** Where the node sends the API key, and where the proxy puts the key of the admin. */
 export type AiGatewayAuthStyle = 'bearer' | 'x-api-key' | 'google';
@@ -14,7 +14,7 @@ export type AiGatewayAuthStyle = 'bearer' | 'x-api-key' | 'google';
  * Another service that serves the API of a provider. See `backends.ts`. `vertex-ai` serves the
  * Gemini API, and `vertex-openai` serves the Chat Completions of the open models of Vertex AI.
  */
-export type AiGatewayBackendKind = 'azure-openai' | 'vertex-ai' | 'vertex-openai';
+export type AiGatewayBackendKind = 'azure-openai' | 'vertex-ai' | 'vertex-openai' | 'google-cloud';
 
 export interface AiGatewayBackend {
 	kind: AiGatewayBackendKind;
@@ -49,9 +49,20 @@ export interface AiGatewayProvider {
 	freeByDefault?: boolean;
 	/** The other services that can serve the calls, with a credential of another type. */
 	backends?: AiGatewayBackend[];
+	/**
+	 * The unit of the usage and the prices when it is not tokens: the OCR counts pages and images.
+	 * The prices are then in dollars for one million units.
+	 */
+	priceUnit?: 'pages';
 }
 
 const lc = (name: string) => `@n8n/n8n-nodes-langchain.${name}`;
+
+/** The OCR node of the fork, `packages/nodes-base/nodes/Google/CloudOcr`. */
+const OCR_NODE = 'n8n-nodes-base.googleCloudOcr';
+
+/** The key of the operations of a node without a resource parameter, as in the ordinary code. */
+const OPERATION_ONLY = '__operation_only__';
 
 const openAiCompatible = (
 	provider: Omit<
@@ -192,6 +203,29 @@ export const AI_GATEWAY_PROVIDERS: readonly AiGatewayProvider[] = [
 		defaultBaseUrl: 'https://ai-gateway.vercel.sh/v1',
 		nodes: [lc('lmChatVercelAiGateway')],
 	}),
+	{
+		slug: 'google-ocr',
+		credentialType: 'googleCloudOcrApi',
+		displayName: 'Google Cloud OCR',
+		gatewayPath: '/v1/gateway/google-ocr',
+		urlField: 'host',
+		apiKeyField: 'apiKey',
+		defaultBaseUrl: 'https://vision.googleapis.com',
+		format: 'google-ocr',
+		auth: 'google',
+		nodes: [OCR_NODE],
+		// An API key serves only the Cloud Vision API: Document AI takes no API keys.
+		supportedActions: { [OCR_NODE]: { [OPERATION_ONLY]: ['readText'] } },
+		priceUnit: 'pages',
+		backends: [
+			{
+				kind: 'google-cloud',
+				credentialType: 'googleApi',
+				displayName: 'Service account',
+				supportedActions: { [OCR_NODE]: { [OPERATION_ONLY]: ['readText', 'processDocument'] } },
+			},
+		],
+	},
 	{
 		slug: 'ollama',
 		credentialType: 'ollamaApi',

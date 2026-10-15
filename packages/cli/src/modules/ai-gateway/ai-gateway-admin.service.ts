@@ -68,6 +68,7 @@ export class AiGatewayAdminService {
 					credentialType,
 					displayName,
 				})),
+				priceUnit: provider.priceUnit ?? 'tokens',
 				credential: credentialOptions.find((option) => option.id === credentialId) ?? null,
 				credentialOptions,
 			};

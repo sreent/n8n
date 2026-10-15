@@ -158,6 +158,27 @@ describe('UsageMeter', () => {
 	});
 });
 
+describe('the pages of the OCR of Google Cloud', () => {
+	const units = (answer: unknown) =>
+		meter('google-ocr', 'application/json', JSON.stringify(answer))?.inputTokens;
+
+	it('counts the images, the pages of files and the pages of documents without an error', () => {
+		expect(
+			units({ responses: [{ fullTextAnnotation: { text: 'A' } }, { error: { code: 3 } }] }),
+		).toBe(1);
+		expect(
+			units({
+				responses: [
+					{ totalPages: 9, responses: [{}, {}, { error: { code: 3 } }] },
+					{ totalPages: 1, responses: [{}] },
+				],
+			}),
+		).toBe(3);
+		expect(units({ document: { text: 'Scan', pages: [{}, {}, {}] } })).toBe(3);
+		expect(units({ unknown: true })).toBeUndefined();
+	});
+});
+
 describe('estimateGeminiEmbeddingTokens', () => {
 	it('counts four characters for each token of the texts', () => {
 		expect(estimateGeminiEmbeddingTokens({ content: { parts: [{ text: 'abcdefgh' }] } })).toBe(2);
