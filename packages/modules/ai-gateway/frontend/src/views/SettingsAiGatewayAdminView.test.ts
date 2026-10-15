@@ -185,7 +185,7 @@ describe('SettingsAiGatewayAdminView', () => {
 		const google = response.providers.find((provider) => provider.slug === 'google');
 		google?.credentialOptions.push({
 			id: 'cred-vertex',
-			name: 'Org service account',
+			name: 'Vertex service account',
 			type: 'googleApi',
 		});
 		api.getAiGatewaySettings.mockResolvedValue(response);
@@ -193,7 +193,7 @@ describe('SettingsAiGatewayAdminView', () => {
 		await screen.findByTestId('ai-gateway-tabs');
 		await openTab('Providers');
 
-		await pickOption('ai-gateway-provider-credential-google', 'Org service account (Vertex AI)');
+		await pickOption('ai-gateway-provider-credential-google', 'Vertex service account (Vertex AI)');
 		expect(screen.getByTestId('ai-gateway-provider-vertex-google')).toHaveTextContent(
 			'Vertex AI has no File API',
 		);
@@ -206,6 +206,41 @@ describe('SettingsAiGatewayAdminView', () => {
 				openai: { credentialId: 'cred-openai' },
 				google: { credentialId: 'cred-vertex', projectId: 'acme-ai', location: 'europe-west4' },
 			}),
+		);
+	});
+
+	it('saves the open models of Vertex AI next to an OpenAI credential', async () => {
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Providers');
+
+		await pickOption('ai-gateway-provider-open-models-credential-openai', 'Org service account');
+		await userEvent.type(textField('ai-gateway-provider-open-models-project-openai'), 'acme-ai');
+		await userEvent.click(screen.getByTestId('ai-gateway-providers-save'));
+
+		await waitFor(() =>
+			expect(lastSaved()?.providers?.openai).toEqual({
+				credentialId: 'cred-openai',
+				openModels: { credentialId: 'cred-sa', projectId: 'acme-ai' },
+			}),
+		);
+	});
+
+	it('sends all calls of the OpenAI nodes to Vertex AI with a service account', async () => {
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Providers');
+
+		expect(screen.getByTestId('ai-gateway-provider-open-models-openai')).toBeInTheDocument();
+		await pickOption('ai-gateway-provider-credential-openai', 'Org service account (Vertex AI)');
+		expect(screen.queryByTestId('ai-gateway-provider-open-models-openai')).not.toBeInTheDocument();
+		expect(screen.getByTestId('ai-gateway-provider-vertex-openai')).toHaveTextContent(
+			'open models of Vertex AI',
+		);
+		await userEvent.click(screen.getByTestId('ai-gateway-providers-save'));
+
+		await waitFor(() =>
+			expect(lastSaved()?.providers?.openai).toEqual({ credentialId: 'cred-sa' }),
 		);
 	});
 

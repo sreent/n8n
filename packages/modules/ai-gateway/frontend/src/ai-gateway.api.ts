@@ -22,6 +22,16 @@ export interface AiGatewayProviderSettings {
 	location?: string;
 	/** Azure OpenAI: the names of the deployments, which the model list of the nodes shows. */
 	deployments?: string[];
+	/** OpenAI with an OpenAI or Azure credential: a model of a publisher goes to Vertex AI. */
+	openModels?: AiGatewayOpenModelsSettings;
+}
+
+/** The open models of Vertex AI behind the provider OpenAI: a service account and its target. */
+export interface AiGatewayOpenModelsSettings {
+	credentialId: string;
+	credentialType?: string;
+	projectId?: string;
+	location?: string;
 }
 
 export interface AiGatewaySettings {
@@ -50,7 +60,8 @@ export interface AiGatewayCredentialOption extends AiGatewayOption {
 
 /** Another service that serves the API of a provider, with another credential type. */
 export interface AiGatewayBackendInfo {
-	kind: 'azure-openai' | 'vertex-ai';
+	/** `vertex-ai` serves the Gemini API, `vertex-openai` the open models of Vertex AI. */
+	kind: 'azure-openai' | 'vertex-ai' | 'vertex-openai';
 	credentialType: string;
 	displayName: string;
 }

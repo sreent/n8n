@@ -32,6 +32,10 @@ interface ProviderForm {
 	location: string;
 	/** The deployments of Azure OpenAI, separated by commas. */
 	deployments: string;
+	/** The service account for the open models of Vertex AI behind OpenAI or Azure. */
+	openModelsCredentialId: string;
+	openModelsProjectId: string;
+	openModelsLocation: string;
 }
 
 const i18n = useI18n();
@@ -45,6 +49,9 @@ const emptyForm = (): ProviderForm => ({
 	projectId: '',
 	location: '',
 	deployments: '',
+	openModelsCredentialId: '',
+	openModelsProjectId: '',
+	openModelsLocation: '',
 });
 
 function reset() {
@@ -58,6 +65,9 @@ function reset() {
 					projectId: saved?.projectId ?? '',
 					location: saved?.location ?? '',
 					deployments: (saved?.deployments ?? []).join(', '),
+					openModelsCredentialId: saved?.openModels?.credentialId ?? '',
+					openModelsProjectId: saved?.openModels?.projectId ?? '',
+					openModelsLocation: saved?.openModels?.location ?? '',
 				},
 			];
 		}),
@@ -84,6 +94,28 @@ function pickedBackend(provider: AiGatewayProviderInfo): AiGatewayBackendInfo | 
 	return backendOfType(provider, option?.type);
 }
 
+/** Vertex AI: the Gemini API (`vertex-ai`) or the open models (`vertex-openai`). */
+const isVertex = (backend: AiGatewayBackendInfo | undefined) =>
+	backend?.kind === 'vertex-ai' || backend?.kind === 'vertex-openai';
+
+/** The backend of the open models of Vertex AI, when the provider has one. */
+const openModelsBackend = (provider: AiGatewayProviderInfo) =>
+	provider.backends.find((backend) => backend.kind === 'vertex-openai');
+
+/** The open models of Vertex AI can come next to an OpenAI or Azure credential. */
+function offersOpenModels(provider: AiGatewayProviderInfo) {
+	return (
+		openModelsBackend(provider) !== undefined &&
+		Boolean(forms.value[provider.slug]?.credentialId) &&
+		pickedBackend(provider)?.kind !== 'vertex-openai'
+	);
+}
+
+function openModelsOptions(provider: AiGatewayProviderInfo) {
+	const backend = openModelsBackend(provider);
+	return provider.credentialOptions.filter((option) => option.type === backend?.credentialType);
+}
+
 function optionLabel(provider: AiGatewayProviderInfo, option: AiGatewayCredentialOption) {
 	const backend = backendOfType(provider, option.type);
 	if (!backend) return option.name;
@@ -103,13 +135,20 @@ function settingsOf(provider: AiGatewayProviderInfo): AiGatewayProviderSettings 
 	if (!form?.credentialId) return undefined;
 	const result: AiGatewayProviderSettings = { credentialId: form.credentialId };
 	const backend = pickedBackend(provider);
-	if (backend?.kind === 'vertex-ai') {
+	if (isVertex(backend)) {
 		if (form.projectId.trim()) result.projectId = form.projectId.trim();
 		if (form.location.trim()) result.location = form.location.trim();
 	}
 	if (backend?.kind === 'azure-openai') {
 		const deployments = parseDeployments(form.deployments);
 		if (deployments.length > 0) result.deployments = deployments;
+	}
+	if (offersOpenModels(provider) && form.openModelsCredentialId) {
+		result.openModels = { credentialId: form.openModelsCredentialId };
+		const projectId = form.openModelsProjectId.trim();
+		const location = form.openModelsLocation.trim();
+		if (projectId) result.openModels.projectId = projectId;
+		if (location) result.openModels.location = location;
 	}
 	return result;
 }
@@ -122,15 +161,23 @@ function savedSettingsOf(provider: AiGatewayProviderInfo): AiGatewayProviderSett
 	if (saved.projectId) result.projectId = saved.projectId;
 	if (saved.location) result.location = saved.location;
 	if (saved.deployments?.length) result.deployments = saved.deployments;
+	if (saved.openModels) {
+		const { credentialId, projectId, location } = saved.openModels;
+		result.openModels = { credentialId };
+		if (projectId) result.openModels.projectId = projectId;
+		if (location) result.openModels.location = location;
+	}
 	return result;
 }
 
 function isValid(provider: AiGatewayProviderInfo) {
 	const settings = settingsOf(provider);
 	if (!settings) return true;
+	const projectIds = [settings.projectId, settings.openModels?.projectId];
+	const locations = [settings.location, settings.openModels?.location];
 	return (
-		(!settings.projectId || GOOGLE_CLOUD_PROJECT.test(settings.projectId)) &&
-		(!settings.location || VERTEX_LOCATION.test(settings.location)) &&
+		projectIds.every((projectId) => !projectId || GOOGLE_CLOUD_PROJECT.test(projectId)) &&
+		locations.every((location) => !location || VERTEX_LOCATION.test(location)) &&
 		(settings.deployments ?? []).every((name) => AZURE_DEPLOYMENT_NAME.test(name))
 	);
 }
@@ -233,7 +280,7 @@ async function save() {
 						</div>
 
 						<div
-							v-if="pickedBackend(provider)?.kind === 'vertex-ai'"
+							v-if="isVertex(pickedBackend(provider))"
 							:class="$style.backendOptions"
 							:data-test-id="`ai-gateway-provider-vertex-${provider.slug}`"
 						>
@@ -268,7 +315,78 @@ async function save() {
 								</N8nInputLabel>
 							</div>
 							<N8nText size="xsmall" color="text-light">
-								{{ i18n.baseText('settings.forkAiGateway.providers.vertex.hint') }}
+								{{
+									i18n.baseText(
+										pickedBackend(provider)?.kind === 'vertex-openai'
+											? 'settings.forkAiGateway.providers.vertexOpenAi.hint'
+											: 'settings.forkAiGateway.providers.vertex.hint',
+									)
+								}}
+							</N8nText>
+						</div>
+
+						<div
+							v-if="offersOpenModels(provider)"
+							:class="$style.backendOptions"
+							:data-test-id="`ai-gateway-provider-open-models-${provider.slug}`"
+						>
+							<N8nText size="small" :bold="true">
+								{{ i18n.baseText('settings.forkAiGateway.providers.openModels') }}
+							</N8nText>
+							<N8nSelect
+								v-if="openModelsOptions(provider).length > 0"
+								v-model="formOf(provider.slug).openModelsCredentialId"
+								size="small"
+								clearable
+								:placeholder="i18n.baseText('settings.forkAiGateway.providers.openModels.none')"
+								:data-test-id="`ai-gateway-provider-open-models-credential-${provider.slug}`"
+							>
+								<N8nOption
+									v-for="option in openModelsOptions(provider)"
+									:key="option.id"
+									:value="option.id"
+									:label="option.name"
+								/>
+							</N8nSelect>
+							<N8nText v-else size="xsmall" color="text-light">
+								{{
+									i18n.baseText('settings.forkAiGateway.providers.noCredentials', {
+										interpolate: { type: openModelsBackend(provider)?.credentialType ?? '' },
+									})
+								}}
+							</N8nText>
+							<div v-if="formOf(provider.slug).openModelsCredentialId" :class="$style.row">
+								<N8nInputLabel
+									:label="i18n.baseText('settings.forkAiGateway.providers.projectId')"
+									:bold="false"
+									size="small"
+								>
+									<N8nInput
+										v-model="formOf(provider.slug).openModelsProjectId"
+										size="small"
+										:placeholder="
+											i18n.baseText('settings.forkAiGateway.providers.projectId.placeholder')
+										"
+										:data-test-id="`ai-gateway-provider-open-models-project-${provider.slug}`"
+									/>
+								</N8nInputLabel>
+								<N8nInputLabel
+									:label="i18n.baseText('settings.forkAiGateway.providers.location')"
+									:bold="false"
+									size="small"
+								>
+									<N8nInput
+										v-model="formOf(provider.slug).openModelsLocation"
+										size="small"
+										:placeholder="
+											i18n.baseText('settings.forkAiGateway.providers.location.placeholder')
+										"
+										:data-test-id="`ai-gateway-provider-open-models-location-${provider.slug}`"
+									/>
+								</N8nInputLabel>
+							</div>
+							<N8nText size="xsmall" color="text-light">
+								{{ i18n.baseText('settings.forkAiGateway.providers.openModels.hint') }}
 							</N8nText>
 						</div>
 

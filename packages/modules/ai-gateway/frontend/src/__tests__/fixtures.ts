@@ -22,12 +22,14 @@ export const settingsResponse = (): AiGatewaySettingsResponse => ({
 			credentialType: 'openAiApi',
 			backends: [
 				{ kind: 'azure-openai', credentialType: 'azureOpenAiApi', displayName: 'Azure OpenAI' },
+				{ kind: 'vertex-openai', credentialType: 'googleApi', displayName: 'Vertex AI' },
 			],
 			credential: { id: 'cred-openai', name: 'Org OpenAI', type: 'openAiApi' },
 			credentialOptions: [
 				{ id: 'cred-openai', name: 'Org OpenAI', type: 'openAiApi' },
 				{ id: 'cred-openai-2', name: 'Second OpenAI', type: 'openAiApi' },
 				{ id: 'cred-azure', name: 'Org Azure', type: 'azureOpenAiApi' },
+				{ id: 'cred-sa', name: 'Org service account', type: 'googleApi' },
 			],
 		},
 		{
