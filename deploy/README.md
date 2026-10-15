@@ -145,7 +145,11 @@ endpoints of dynamic credentials sets `DYNAMIC_CREDENTIALS_CORS_ORIGIN` and
 The fork has its own AI gateway for Gateway credits. Users run AI nodes (OpenAI, Anthropic, Google
 Gemini, Ollama and other providers) without an API key of their own. To set it up, an admin:
 
-1. Creates a credential for each provider, with the API key of the organization.
+1. Creates a credential for each provider, with the API key of the organization. An Azure OpenAI
+   credential can serve the OpenAI nodes, and a Google service account can serve the Gemini nodes
+   and the open models of Vertex AI (for example Llama and DeepSeek) through Vertex AI. The fork
+   node Google Cloud OCR reads text with the Cloud Vision API and Document AI through the gateway
+   too.
 2. Opens **Settings > AI gateway**, picks the credential of each provider, sets the monthly
    budget, and turns on the gateway.
 

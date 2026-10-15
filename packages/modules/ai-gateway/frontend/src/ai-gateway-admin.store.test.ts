@@ -55,7 +55,7 @@ describe('useAiGatewayAdminStore', () => {
 		await store.fetchAll();
 
 		expect(store.settings?.monthlyBudget).toBe(100);
-		expect(store.providers).toHaveLength(3);
+		expect(store.providers).toHaveLength(4);
 		expect(store.projects).toEqual([
 			{ id: 'project-a', name: 'Team A' },
 			{ id: 'project-b', name: 'Team B' },

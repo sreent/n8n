@@ -8,7 +8,10 @@ import type { AiGatewaySettingsDto, AiGatewayTopUpDto } from './ai-gateway.dto';
 import { AiGatewayPriceService } from './ai-gateway-price.service';
 import { AiGatewayProtocolService, toUsageEntry } from './ai-gateway-protocol.service';
 import { AiGatewayProxyService } from './ai-gateway-proxy.service';
-import { AiGatewaySettingsService } from './ai-gateway-settings.service';
+import {
+	type AiGatewayProviderSettings,
+	AiGatewaySettingsService,
+} from './ai-gateway-settings.service';
 import {
 	type AiGatewayUsageFilter,
 	AiGatewayCredentialOptionsRepository,
@@ -16,7 +19,15 @@ import {
 	AiGatewayUsageRepository,
 	AiGatewayWalletRepository,
 } from './database/repositories/ai-gateway.repositories';
-import { AI_GATEWAY_PROVIDERS, providerBySlug } from './providers';
+import {
+	AI_GATEWAY_PROVIDERS,
+	type AiGatewayProvider,
+	backendOf,
+	credentialTypesOf,
+	providerBySlug,
+} from './providers';
+
+const ALL_CREDENTIAL_TYPES = [...new Set(AI_GATEWAY_PROVIDERS.flatMap(credentialTypesOf))];
 
 /** The REST API of the settings page **Settings > AI gateway**. See `README.md`. */
 @Service()
@@ -36,23 +47,28 @@ export class AiGatewayAdminService {
 	) {}
 
 	/**
-	 * The settings, each provider with its credential and the credentials of its type, the team
-	 * projects, and the URL of the gateway.
+	 * The settings, each provider with its credential and the credentials of its types (its own
+	 * type and the types of its backends), the team projects, and the URL of the gateway.
 	 */
 	async getSettings() {
 		const settings = this.settings.current();
-		const credentials = await this.credentialOptions.ofTypes(
-			AI_GATEWAY_PROVIDERS.map((provider) => provider.credentialType),
-		);
+		const credentials = await this.credentialOptions.ofTypes(ALL_CREDENTIAL_TYPES);
 		const providers = AI_GATEWAY_PROVIDERS.map((provider) => {
+			const types = credentialTypesOf(provider);
 			const credentialOptions = credentials
-				.filter((credential) => credential.type === provider.credentialType)
-				.map(({ id, name }) => ({ id, name }));
+				.filter((credential) => types.includes(credential.type))
+				.map(({ id, name, type }) => ({ id, name, type }));
 			const credentialId = settings.providers[provider.slug]?.credentialId;
 			return {
 				slug: provider.slug,
 				displayName: provider.displayName,
 				credentialType: provider.credentialType,
+				backends: (provider.backends ?? []).map(({ kind, credentialType, displayName }) => ({
+					kind,
+					credentialType,
+					displayName,
+				})),
+				priceUnit: provider.priceUnit ?? 'tokens',
 				credential: credentialOptions.find((option) => option.id === credentialId) ?? null,
 				credentialOptions,
 			};
@@ -64,18 +80,24 @@ export class AiGatewayAdminService {
 	}
 
 	async updateSettings(update: AiGatewaySettingsDto) {
-		const credentials = await this.credentialOptions.ofTypes(
-			AI_GATEWAY_PROVIDERS.map((provider) => provider.credentialType),
-		);
-		for (const [slug, { credentialId }] of Object.entries(update.providers)) {
+		const credentials = await this.credentialOptions.ofTypes(ALL_CREDENTIAL_TYPES);
+		const providers: Record<string, AiGatewayProviderSettings> = {};
+		for (const [slug, providerSettings] of Object.entries(update.providers)) {
 			const provider = providerBySlug(slug);
 			if (!provider) throw new BadRequestError(`The AI gateway has no provider "${slug}".`);
-			const credential = credentials.find((option) => option.id === credentialId);
-			if (!credential || credential.type !== provider.credentialType) {
+			const types = credentialTypesOf(provider);
+			const credential = credentials.find((option) => option.id === providerSettings.credentialId);
+			if (!credential || !types.includes(credential.type)) {
 				throw new BadRequestError(
-					`The credential for ${provider.displayName} must be a credential of the type ${provider.credentialType}.`,
+					`The credential for ${provider.displayName} must be a credential of the type ${types.join(' or ')}.`,
 				);
 			}
+			providers[slug] = this.backendSettings(
+				provider,
+				credential.type,
+				providerSettings,
+				credentials,
+			);
 		}
 		for (const slug of Object.keys(update.prices)) {
 			if (!providerBySlug(slug))
@@ -83,7 +105,7 @@ export class AiGatewayAdminService {
 		}
 		await this.settings.save({
 			enabled: update.enabled,
-			providers: update.providers,
+			providers,
 			monthlyBudget: update.monthlyBudget,
 			userMonthlyLimit: update.userMonthlyLimit,
 			projectBudgets: update.projectBudgets,
@@ -91,6 +113,45 @@ export class AiGatewayAdminService {
 		});
 		this.proxy.clearCredentialCache();
 		return await this.getSettings();
+	}
+
+	/**
+	 * The settings of a provider with the type of its credential, and only the options of the
+	 * backend of that type: the project and the location of Vertex AI, the deployments of Azure
+	 * OpenAI, and the open models of Vertex AI behind an OpenAI or Azure credential.
+	 */
+	private backendSettings(
+		provider: AiGatewayProvider,
+		credentialType: string,
+		update: AiGatewayProviderSettings,
+		credentials: Array<{ id: string; type: string }>,
+	): AiGatewayProviderSettings {
+		const result: AiGatewayProviderSettings = { credentialId: update.credentialId, credentialType };
+		const backend = backendOf(provider, credentialType);
+		if (backend?.kind === 'vertex-ai' || backend?.kind === 'vertex-openai') {
+			if (update.projectId) result.projectId = update.projectId;
+			if (update.location) result.location = update.location;
+		}
+		if (backend?.kind === 'azure-openai' && update.deployments?.length) {
+			result.deployments = [...new Set(update.deployments)];
+		}
+		const openModelsBackend = provider.backends?.find(({ kind }) => kind === 'vertex-openai');
+		if (update.openModels && openModelsBackend && backend?.kind !== 'vertex-openai') {
+			const { credentialId, projectId, location } = update.openModels;
+			const credential = credentials.find((option) => option.id === credentialId);
+			if (credential?.type !== openModelsBackend.credentialType) {
+				throw new BadRequestError(
+					`The credential for the open models of Vertex AI must be a credential of the type ${openModelsBackend.credentialType}.`,
+				);
+			}
+			result.openModels = {
+				credentialId,
+				credentialType: credential.type,
+				...(projectId ? { projectId } : {}),
+				...(location ? { location } : {}),
+			};
+		}
+		return result;
 	}
 
 	/** The month, the budgets, the spend and the projects with a budget or a spend. */

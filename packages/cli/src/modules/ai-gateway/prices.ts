@@ -69,6 +69,13 @@ export const LIST_PRICES: Readonly<Record<string, Readonly<Record<string, AiGate
 		minimax: {
 			'MiniMax-M2': { input: 0.3, output: 1.2, cachedInput: 0.03 },
 		},
+		// Pages and images, not tokens: $1.50 for 1,000 pages is $1,500 for one million. The text
+		// detection of the Cloud Vision API and the Enterprise Document OCR of Document AI. Other
+		// processors of Document AI cost more: an admin sets their price.
+		'google-ocr': {
+			'vision-ocr': { input: 1500, output: 0 },
+			'document-ai': { input: 1500, output: 0 },
+		},
 	};
 
 const DATE_SUFFIX = /-(\d{4}-\d{2}-\d{2}|\d{8}|\d{4}|latest|preview(-[\w-]+)?|exp(-[\w-]+)?)$/;

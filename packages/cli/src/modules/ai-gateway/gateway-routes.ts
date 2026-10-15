@@ -139,6 +139,26 @@ function geminiEndpoint(method: string, rest: string): GatewayEndpoint | undefin
 	return undefined;
 }
 
+/** A call of Document AI: `/v1/projects/<project>/locations/<location>/processors/<id>:process`. */
+const DOCUMENT_AI_PROCESS =
+	/^\/v1\/projects\/[^/]+\/locations\/([a-z][a-z0-9-]*)\/processors\/[^/:]+(\/processorVersions\/[^/:]+)?:process$/;
+
+/** The location of a call of Document AI, or `undefined` for another path. */
+export function documentAiLocation(rest: string) {
+	return DOCUMENT_AI_PROCESS.exec(rest)?.[1];
+}
+
+/** The text detection of the Cloud Vision API, and the processors of Document AI. */
+function googleOcrEndpoint(method: string, rest: string): GatewayEndpoint | undefined {
+	if (method !== 'POST') return undefined;
+	if (rest === '/v1/images:annotate' || rest === '/v1/files:annotate') {
+		return { kind: 'metered', model: { fromPath: 'vision-ocr' } };
+	}
+	if (DOCUMENT_AI_PROCESS.test(rest))
+		return { kind: 'metered', model: { fromPath: 'document-ai' } };
+	return undefined;
+}
+
 function ollamaEndpoint(method: string, rest: string): GatewayEndpoint | undefined {
 	if (method === 'POST' && /^\/api\/(chat|generate|embed|embeddings)$/.test(rest)) {
 		return { kind: 'metered', model: 'body' };
@@ -165,5 +185,7 @@ export function endpointOf(
 			return geminiEndpoint(method, rest);
 		case 'ollama':
 			return ollamaEndpoint(method, rest);
+		case 'google-ocr':
+			return googleOcrEndpoint(method, rest);
 	}
 }

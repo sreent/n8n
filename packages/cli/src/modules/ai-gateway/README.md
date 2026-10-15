@@ -23,7 +23,8 @@ public API documentation of the providers.
 ## Set up
 
 1. An admin creates a credential for each provider, with the API key of the organization, for
-   example an OpenAI credential. Users do not need access to these credentials.
+   example an OpenAI credential, or a credential of a backend of the provider (see "Backends"),
+   for example an Azure OpenAI credential. Users do not need access to these credentials.
 2. On the page **Settings > AI gateway**, the admin turns on the gateway, picks the credential of
    each provider, and sets the budgets.
 3. Users pick **Use Gateway credits** on a supported node.
@@ -99,14 +100,15 @@ types of the config that the gateway gives.
 | NVIDIA | `nvidiaApi` | `/v1/gateway/nvidia` | OpenAI | `Authorization: Bearer` |
 | Vercel AI Gateway | `vercelAiGatewayApi` | `/v1/gateway/vercel` | OpenAI | `Authorization: Bearer` |
 | Ollama | `ollamaApi` | `/v1/gateway/ollama` | Ollama and OpenAI | `Authorization: Bearer` |
+| Google Cloud OCR | `googleCloudOcrApi` | `/v1/gateway/google-ocr` | Cloud Vision API and Document AI | `x-goog-api-key` |
 
 - The proxy removes the gateway path and adds the rest of the path to the base URL of the admin's
   credential: the URL field of that credential (for example `https://api.openai.com/v1`), else the
   default of the credential type. So the region of a Moonshot, MiniMax or Qwen credential and a
   custom endpoint of the admin apply.
 - The proxy removes the token from the request and adds the API key of the admin's credential in
-  the same place. It removes the headers `cookie`, `host`, the hop-by-hop headers and the other
-  authentication headers.
+  the same place. It removes the headers `cookie`, `host`, the hop-by-hop headers, the other
+  authentication headers and `x-goog-user-project`, which bills another project of Google Cloud.
 - Only the endpoints of text, chat, embeddings, token counts and model lists pass. The other
   endpoints (images, audio, files, batches, fine-tuning) give the status 403 with "The AI gateway
   does not support this endpoint". The config of the gateway also limits the operations of the app
@@ -121,6 +123,104 @@ types of the config that the gateway gives.
 Groq, Mistral and Cohere are not in the list: their chat nodes do not use the base URL of the
 credential. The tool services of n8n Cloud (Brave Search, Firecrawl and others) are not in the
 list either: their credentials have no base URL field in this version of n8n.
+
+## Backends
+
+A backend is another service that serves the API of a provider. The admin picks a credential of
+the type of the backend for the provider. The nodes do not change: they call the gateway as
+before, and the gateway sends the calls to the backend. `backends.ts` maps the calls.
+
+| Provider | Backend | Credential type | Where the calls go |
+|---|---|---|---|
+| OpenAI | Azure OpenAI | `azureOpenAiApi` | The v1 API of the Azure resource, with the header `api-key` |
+| OpenAI | Vertex AI | `googleApi` (service account) | The Chat Completions of the open models of Vertex AI, with an access token of the service account |
+| Google Gemini | Vertex AI | `googleApi` (service account) | The Gemini models of Vertex AI, with an access token of the service account |
+| Google Cloud OCR | Service account | `googleApi` (service account) | The Cloud Vision API and Document AI, with an access token of the service account |
+
+Azure OpenAI:
+
+- The base URL is the endpoint of the credential with `/openai/v1`, else
+  `https://<resource name>.openai.azure.com/openai/v1`. An Azure AI Foundry credential gives its
+  full endpoint. The v1 API needs no `api-version`.
+- A call sends the name of a deployment as its model, so the prices apply to the names of the
+  deployments. Name the deployments like the models (for example `gpt-4o`), and the list prices
+  apply. Else set a price for each deployment on the tab **Prices**.
+- The admin enters the names of the deployments on the tab **Providers**. The model list of the
+  OpenAI nodes shows the deployments that have a price. Without names, the list is empty, and
+  users enter the name of a deployment.
+
+Vertex AI:
+
+- The project comes from the e-mail of the service account (`name@<project>.iam.gserviceaccount.com`)
+  and the location is the region of the credential. The tab **Providers** can set other values.
+  The location `global` serves the newest Gemini models. `us` and `eu` are the multi-region
+  locations.
+- The gateway signs a JWT with the key of the service account and gets an access token from
+  Google (scope `cloud-platform`). It keeps the token until 5 minutes before it expires. The
+  service account needs the role Vertex AI User in the project.
+- `generateContent`, `streamGenerateContent`, `countTokens` and `embedContent` go to the same
+  action of the model on Vertex AI
+  (`/v1/projects/<project>/locations/<location>/publishers/google/models/<model>:<action>`).
+  Vertex AI has no `batchEmbedContents`: the gateway sends one `embedContent` call for each
+  request of a batch, 4 at a time. It records the tokens of the calls that worked, also when
+  another call of the batch fails.
+- The model list comes from the prices: the models of Google Gemini that have a price.
+- Vertex AI has no File API. The gateway refuses an upload (status 403), and the config of the
+  gateway does not offer Gateway credits for the analysis of documents and images of the Google
+  Gemini node while the provider uses Vertex AI.
+
+The open models of Vertex AI (Model Garden) through the OpenAI nodes:
+
+- The open models of Vertex AI have ids with the name of their publisher, for example
+  `meta/llama-3.3-70b-instruct-maas` or `deepseek-ai/deepseek-v3.1-maas`. Vertex AI serves them
+  through an OpenAI-compatible endpoint
+  (`/v1/projects/<project>/locations/<location>/endpoints/openapi/chat/completions`).
+- A service account as the credential of the provider OpenAI sends all calls of the OpenAI nodes
+  to this endpoint. Next to an OpenAI or Azure OpenAI credential, the tab **Providers** takes a
+  second credential, a service account for the open models: then a call with a model of a
+  publisher goes to Vertex AI, and the other calls go to OpenAI or Azure. OpenAI models and Azure
+  deployments have no `/` in their names.
+- The project and the location work as for the Gemini models (see above).
+- Vertex AI serves these models only through Chat Completions. The OpenAI Chat Model node uses
+  the Responses API by default (option **Use Responses API**): turn it off for these models.
+  The gateway refuses the other endpoints for these models (status 403) with this hint.
+- The list prices have no open models. The admin sets a price for each model on the tab
+  **Prices** (provider OpenAI, the full id of the model). `google/<Gemini model>` gets the list
+  price of the Gemini model. The model list of the OpenAI nodes adds the open models that have a
+  price.
+
+## OCR
+
+The fork node **Google Cloud OCR** (`packages/nodes-base/nodes/Google/CloudOcr`, see its README)
+reads the text of images and documents with the Cloud Vision API and Document AI. Its credential
+type `googleCloudOcrApi` has a URL field, so the gateway serves it as the provider Google Cloud
+OCR. The document and image analysis of the Google Gemini node is another way to OCR (see
+"Providers").
+
+- With an API key of the admin, the gateway serves only the Cloud Vision API: Document AI takes
+  no API keys. The config of the gateway then offers Gateway credits only for the operation
+  **Read Text**, and the proxy refuses a call of Document AI (status 403).
+- With a service account of the admin (the backend), the gateway serves the Cloud Vision API and
+  the processors of Document AI (`/v1/projects/<project>/locations/<location>/processors/<id>:process`,
+  to `https://<location>-documentai.googleapis.com`). The service account needs the roles of the
+  two APIs in the projects of the processors.
+- The gateway counts pages and images, not tokens, and records them as the input tokens of a
+  call: one for each image of `images:annotate`, one for each page of `files:annotate`, and the
+  pages of a document of Document AI. An image or a page with an error is not counted.
+- The prices are in dollars for one million pages or images: the list prices `vision-ocr` and
+  `document-ai` are $1,500 for one million ($1.50 for 1,000), the price of the text detection
+  of the Cloud Vision API and of the Enterprise Document OCR of Document AI. Other processors of
+  Document AI cost more: an admin sets the price of `document-ai`. The free pages of Google each
+  month are not in the prices.
+- Each request of the Cloud Vision API must ask for one text detection (`TEXT_DETECTION` or
+  `DOCUMENT_TEXT_DETECTION`) and no other feature, because the price covers one detection. A call
+  of the Cloud Vision API has only the field `requests` (no `parent`).
+- The gateway reads only the content of a file or a public URL. It refuses the files of Cloud
+  Storage (`gcsImageUri`, an `imageUri` with `gs://`, `inputConfig.gcsSource`), because the
+  service account of the admin can read buckets that the user cannot read. A call of Document AI
+  sends `rawDocument`, with only `skipHumanReview`, `processOptions`, `imagelessMode` and `labels`
+  next to it: no `gcsDocument`, no `inlineDocument` and no field mask, which can remove the pages
+  that the gateway counts. The proxy refuses other calls (status 403).
 
 ## Budgets
 
@@ -154,7 +254,10 @@ in dollars for one million tokens. Cached input tokens use the cached input pric
 has one. The gateway reads the tokens from the answer of the provider, also from the last events
 of a stream. For a stream of the OpenAI format, the proxy asks for the usage
 (`stream_options.include_usage`). OpenRouter reports the cost of a call itself; the gateway uses
-that cost.
+that cost. The answer of a Gemini embedding has no usage: the gateway counts four characters of the
+input for each token. Another answer without usage gets no record, and the proxy logs the warning
+"The answer of a call through the AI gateway had no usage", for example for a stream that stops
+before the event with the usage.
 
 `prices.ts` holds the list prices of common models, with the date when the fork read them. The
 admin changes a price or adds a model on the settings page. A model without a price is blocked
@@ -171,8 +274,10 @@ keep the ordinary page **Settings > Gateway credits**: their balance and their c
 ## Settings and tables
 
 - The settings are one JSON value in the table `settings` (key `fork.aiGateway`): on or off, the
-  credential of each provider, the monthly budget, the monthly limit of a user, the budgets of
-  projects and the prices that the admin set.
+  credential of each provider with its type and the options of its backend (the deployments of
+  Azure OpenAI, the project and the location of Vertex AI, and the service account of the open
+  models of Vertex AI), the monthly budget, the monthly limit of a user, the budgets of projects
+  and the prices that the admin set.
 - `fork_ai_gateway_usage` keeps one row for each call that the gateway priced: the time, the user,
   the project, the workflow, the execution, the provider, the model, the tokens, the cost, and the
   part of the cost that came from top-ups.
@@ -210,7 +315,15 @@ admin sees only their own calls in the usage.
   work.
 - The proxy forwards only to the base URL of the picked credential, with a path that it checks:
   no `..`, no absolute URL, and only the supported endpoints.
+- To the APIs of Google (the Gemini API, Vertex AI and the OCR), the proxy passes only the query
+  parameters that the nodes use: `alt` (`sse` or `json`), `pageSize` and `pageToken`. It drops the
+  headers `x-goog-user-project`, `openai-organization`, `openai-project`, `x-goog-fieldmask`,
+  `x-http-method-override`, `x-http-method` and `x-method-override` of all calls. The other
+  system parameters of Google and these headers can change the project or the organization that
+  pays, the credential, the fields or the format of an answer, or the method of a call. The
+  organization of an OpenAI call comes only from the credential of the admin.
 - The proxy writes no API key, token or request body to the log.
+- The access tokens of Vertex AI stay in the memory of the process. The nodes never get them.
 - The proxy does not pass back the headers that name the organization of the admin's API key
   (`openai-organization`, `openai-project`, `anthropic-organization-id`). When it cannot reach a
   provider, the answer has no details; the log has them.
@@ -234,35 +347,33 @@ admin sees only their own calls in the usage.
   contact an admin.
 - `packages/@n8n/api-types/src/frontend-settings.ts`: the module settings `'ai-gateway'` with
   `selfHosted`.
+- `packages/nodes-base/package.json`: the fork node Google Cloud OCR and its credential type
+  `googleCloudOcrApi`.
 - The registrations of the frontend module `packages/modules/ai-gateway/frontend` (the page
   **Settings > AI gateway**) in `@n8n/frontend-vite-config` and editor-ui, and its texts in
   `@n8n/i18n`. Its README describes the page.
-
-## Planned
-
-The owner also chose these, for later pull requests:
-
-- Vertex AI: the Gemini nodes through Vertex AI with a service account of the organization, and
-  open-weight models of Vertex AI (Model Garden) through the OpenAI nodes, with the OpenAI-format
-  endpoint of Vertex AI.
-- Azure OpenAI behind the OpenAI nodes, with the OpenAI-format API (v1) of Azure.
-- OCR: a new node for the OCR of Google Cloud (Vision API and Document AI) that can use the
-  gateway. The document and image analysis of the Google Gemini node already works through the
-  gateway (see "Providers").
 
 ## Tests
 
 - `__tests__/gateway-routes.test.ts`, `usage-meter.test.ts` and `prices.test.ts`: the paths and
   endpoints of each API format, the usage of answers and streams, and the prices.
+- `packages/nodes-base/nodes/Google/CloudOcr/test`: the node Google Cloud OCR.
+- `__tests__/backends.test.ts` and `ai-gateway-vertex.service.test.ts`: the base URLs of Azure
+  OpenAI, the paths, the projects and the locations of Vertex AI, the model lists, and the
+  sign-in of a service account.
 - `__tests__/ai-gateway.integration.test.ts`: an in-memory server in place of the providers. It
   checks the settings and their access, the config and the token of the ordinary routes, the proxy
-  of each API format (JSON and streams), the upload of a Gemini file, the prices, the budgets, the
-  top-ups and the off switches.
+  of each API format (JSON and streams), the query parameters and headers that go to Google, the
+  upload of a Gemini file, the prices, the budgets, the top-ups, the off switches, the backends
+  Azure OpenAI and Vertex AI with the open models (with a replaced sign-in), and the OCR of Google
+  Cloud with an API key and with a service account, with the checks of its requests.
 
 ## Upstream updates
 
 - When upstream changes `ai-gateway.service.ts`, keep the hook and the base URL of the fork.
 - When upstream changes the protocol of the gateway (the config, the token, the wallet or the
   usage), change the answers of this module.
+- When upstream changes the credential types `azureOpenAiApi` or `googleApi`, check the fields
+  that `backends.ts` and `ai-gateway-vertex.service.ts` read.
 - When upstream adds a credential type or a node to Gateway credits, add it to the providers of
   this module when its credential has a base URL field.

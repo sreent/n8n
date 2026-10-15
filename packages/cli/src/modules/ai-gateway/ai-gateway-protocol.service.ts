@@ -13,7 +13,7 @@ import { AiGatewaySettingsService } from './ai-gateway-settings.service';
 import { AiGatewayTokenService } from './ai-gateway-token.service';
 import type { AiGatewayUsage } from './database/entities/ai-gateway.entities';
 import { AiGatewayUsageRepository } from './database/repositories/ai-gateway.repositories';
-import { AI_GATEWAY_PROVIDERS, type AiGatewayProvider } from './providers';
+import { AI_GATEWAY_PROVIDERS, type AiGatewayProvider, backendOf } from './providers';
 
 /** The path of the proxy routes, after the URL of the instance. */
 export const AI_GATEWAY_ROUTE = '/ai-gateway';
@@ -103,10 +103,17 @@ export class AiGatewayProtocolService implements ForkAiGatewayHandler {
 					},
 				]),
 			),
-			supportedActions: merge((provider) => provider.supportedActions),
+			supportedActions: merge((provider) => this.supportedActionsOf(provider)),
 			minNodeTypeVersion: merge((provider) => provider.minNodeTypeVersion),
 			hiddenNodeProperties: merge((provider) => provider.hiddenNodeProperties),
 		};
+	}
+
+	/** The operations of the app nodes that work with the backend of the admin's credential. */
+	private supportedActionsOf(provider: AiGatewayProvider) {
+		const credentialType = this.settings.current().providers[provider.slug]?.credentialType;
+		const backend = credentialType ? backendOf(provider, credentialType) : undefined;
+		return backend?.supportedActions ?? provider.supportedActions;
 	}
 
 	/** The user of the token in the `Authorization` header of a request. */

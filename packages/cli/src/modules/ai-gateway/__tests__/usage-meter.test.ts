@@ -1,13 +1,10 @@
+import type { AiGatewayApiFormat } from '../providers';
 import { estimateGeminiEmbeddingTokens, UsageMeter, usageOf } from '../usage-meter';
 
 const encode = (text: string) => new TextEncoder().encode(text);
 
 /** Feeds the text in small pieces, so that events and lines cross the chunks. */
-function meter(
-	format: 'openai' | 'anthropic' | 'gemini' | 'ollama',
-	contentType: string,
-	text: string,
-) {
+function meter(format: AiGatewayApiFormat, contentType: string, text: string) {
 	const usageMeter = new UsageMeter(format, contentType);
 	for (let index = 0; index < text.length; index += 7) {
 		usageMeter.push(encode(text.slice(index, index + 7)));
@@ -155,6 +152,27 @@ describe('UsageMeter', () => {
 			),
 		).toEqual({ inputTokens: 3, outputTokens: 4, cachedInputTokens: 0 });
 		expect(meter('openai', 'application/json', '{"broken"')).toBeUndefined();
+	});
+});
+
+describe('the pages of the OCR of Google Cloud', () => {
+	const units = (answer: unknown) =>
+		meter('google-ocr', 'application/json', JSON.stringify(answer))?.inputTokens;
+
+	it('counts the images, the pages of files and the pages of documents without an error', () => {
+		expect(
+			units({ responses: [{ fullTextAnnotation: { text: 'A' } }, { error: { code: 3 } }] }),
+		).toBe(1);
+		expect(
+			units({
+				responses: [
+					{ totalPages: 9, responses: [{}, {}, { error: { code: 3 } }] },
+					{ totalPages: 1, responses: [{}] },
+				],
+			}),
+		).toBe(3);
+		expect(units({ document: { text: 'Scan', pages: [{}, {}, {}] } })).toBe(3);
+		expect(units({ unknown: true })).toBeUndefined();
 	});
 });
 

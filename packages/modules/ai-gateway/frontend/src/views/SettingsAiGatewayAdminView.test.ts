@@ -64,6 +64,14 @@ async function pickOption(testId: string, label: string) {
 	if (option) await userEvent.click(option);
 }
 
+/** The text field of an `N8nInput`, which can carry the test id itself. */
+function textField(testId: string) {
+	const root = screen.getByTestId(testId);
+	const input = root instanceof HTMLInputElement ? root : root.querySelector('input');
+	if (!input) throw new Error(`No input in ${testId}`);
+	return input;
+}
+
 /** Types a number into an `N8nInputNumber`, and leaves the field so that it keeps the value. */
 async function typeNumber(testId: string, value: string) {
 	const root = screen.getByTestId(testId);
@@ -131,7 +139,9 @@ describe('SettingsAiGatewayAdminView', () => {
 		await openTab('Providers');
 
 		const google = screen.getByTestId('ai-gateway-provider-google');
-		expect(within(google).getByText('No credential of the type googlePalmApi')).toBeInTheDocument();
+		expect(
+			within(google).getByText('No credential of the type googlePalmApi / googleApi'),
+		).toBeInTheDocument();
 		expect(screen.getByTestId('ai-gateway-providers-save')).toBeDisabled();
 
 		await pickOption('ai-gateway-provider-credential-anthropic', 'Org Anthropic');
@@ -144,6 +154,93 @@ describe('SettingsAiGatewayAdminView', () => {
 					anthropic: { credentialId: 'cred-anthropic' },
 				},
 			}),
+		);
+	});
+
+	it('saves an Azure OpenAI credential with its deployments', async () => {
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Providers');
+
+		expect(screen.queryByTestId('ai-gateway-provider-azure-openai')).not.toBeInTheDocument();
+		await pickOption('ai-gateway-provider-credential-openai', 'Org Azure (Azure OpenAI)');
+		const deployments = textField('ai-gateway-provider-deployments-openai');
+		await userEvent.type(deployments, 'bad/name');
+		expect(screen.getByTestId('ai-gateway-provider-invalid-openai')).toBeInTheDocument();
+		expect(screen.getByTestId('ai-gateway-providers-save')).toBeDisabled();
+
+		await userEvent.clear(deployments);
+		await userEvent.type(deployments, 'gpt-4o, chat-prod,gpt-4o');
+		await userEvent.click(screen.getByTestId('ai-gateway-providers-save'));
+
+		await waitFor(() =>
+			expect(lastSaved()?.providers).toEqual({
+				openai: { credentialId: 'cred-azure', deployments: ['gpt-4o', 'chat-prod'] },
+			}),
+		);
+	});
+
+	it('saves a Vertex AI credential with its project and location', async () => {
+		const response = settingsResponse();
+		const google = response.providers.find((provider) => provider.slug === 'google');
+		google?.credentialOptions.push({
+			id: 'cred-vertex',
+			name: 'Vertex service account',
+			type: 'googleApi',
+		});
+		api.getAiGatewaySettings.mockResolvedValue(response);
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Providers');
+
+		await pickOption('ai-gateway-provider-credential-google', 'Vertex service account (Vertex AI)');
+		expect(screen.getByTestId('ai-gateway-provider-vertex-google')).toHaveTextContent(
+			'Vertex AI has no File API',
+		);
+		await userEvent.type(textField('ai-gateway-provider-project-google'), 'acme-ai');
+		await userEvent.type(textField('ai-gateway-provider-location-google'), 'europe-west4');
+		await userEvent.click(screen.getByTestId('ai-gateway-providers-save'));
+
+		await waitFor(() =>
+			expect(lastSaved()?.providers).toEqual({
+				openai: { credentialId: 'cred-openai' },
+				google: { credentialId: 'cred-vertex', projectId: 'acme-ai', location: 'europe-west4' },
+			}),
+		);
+	});
+
+	it('saves the open models of Vertex AI next to an OpenAI credential', async () => {
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Providers');
+
+		await pickOption('ai-gateway-provider-open-models-credential-openai', 'Org service account');
+		await userEvent.type(textField('ai-gateway-provider-open-models-project-openai'), 'acme-ai');
+		await userEvent.click(screen.getByTestId('ai-gateway-providers-save'));
+
+		await waitFor(() =>
+			expect(lastSaved()?.providers?.openai).toEqual({
+				credentialId: 'cred-openai',
+				openModels: { credentialId: 'cred-sa', projectId: 'acme-ai' },
+			}),
+		);
+	});
+
+	it('sends all calls of the OpenAI nodes to Vertex AI with a service account', async () => {
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Providers');
+
+		expect(screen.getByTestId('ai-gateway-provider-open-models-openai')).toBeInTheDocument();
+		await pickOption('ai-gateway-provider-credential-openai', 'Org service account (Vertex AI)');
+		expect(screen.queryByTestId('ai-gateway-provider-open-models-openai')).not.toBeInTheDocument();
+		expect(screen.getByTestId('ai-gateway-provider-vertex-openai')).toHaveTextContent(
+			'open models of Vertex AI',
+		);
+		await userEvent.click(screen.getByTestId('ai-gateway-providers-save'));
+
+		await waitFor(() =>
+			expect(lastSaved()?.providers?.openai).toEqual({ credentialId: 'cred-sa' }),
 		);
 	});
 
@@ -199,6 +296,12 @@ describe('SettingsAiGatewayAdminView', () => {
 		expect(
 			within(screen.getByTestId('ai-gateway-price-openai-gpt-custom')).getByText('Your price'),
 		).toBeInTheDocument();
+		expect(screen.getByTestId('ai-gateway-price-google-ocr-vision-ocr')).toHaveTextContent(
+			'Prices for one million pages or images',
+		);
+		expect(screen.getByTestId('ai-gateway-price-openai-gpt-4o')).not.toHaveTextContent(
+			'pages or images',
+		);
 
 		await pickOption('ai-gateway-price-provider', 'Anthropic');
 		await userEvent.type(screen.getByTestId('ai-gateway-price-model'), 'claude-new');

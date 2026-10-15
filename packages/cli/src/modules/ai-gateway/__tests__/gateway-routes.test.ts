@@ -1,4 +1,4 @@
-import { endpointOf, isSafeRest, parseGatewayPath } from '../gateway-routes';
+import { documentAiLocation, endpointOf, isSafeRest, parseGatewayPath } from '../gateway-routes';
 
 describe('parseGatewayPath', () => {
 	it('finds the provider and the rest of the path', () => {
@@ -106,6 +106,36 @@ describe('endpointOf', () => {
 		expect(endpointOf('gemini', 'GET', '/v1beta/files')).toBeUndefined();
 		expect(endpointOf('gemini', 'DELETE', '/v1beta/files/abc-123')).toBeUndefined();
 		expect(endpointOf('gemini', 'POST', '/v1beta/fileSearchStores')).toBeUndefined();
+	});
+
+	it('meters the text detection of the Cloud Vision API and the processors of Document AI', () => {
+		const process = '/v1/projects/acme/locations/eu/processors/abc123:process';
+		expect(endpointOf('google-ocr', 'POST', '/v1/images:annotate')).toEqual({
+			kind: 'metered',
+			model: { fromPath: 'vision-ocr' },
+		});
+		expect(endpointOf('google-ocr', 'POST', '/v1/files:annotate')).toEqual({
+			kind: 'metered',
+			model: { fromPath: 'vision-ocr' },
+		});
+		expect(endpointOf('google-ocr', 'POST', process)).toEqual({
+			kind: 'metered',
+			model: { fromPath: 'document-ai' },
+		});
+		expect(
+			endpointOf(
+				'google-ocr',
+				'POST',
+				'/v1/projects/acme/locations/us/processors/a/processorVersions/v1:process',
+			),
+		).toMatchObject({ kind: 'metered' });
+		expect(documentAiLocation(process)).toBe('eu');
+		expect(documentAiLocation('/v1/images:annotate')).toBeUndefined();
+		expect(endpointOf('google-ocr', 'POST', '/v1/images:asyncBatchAnnotate')).toBeUndefined();
+		expect(endpointOf('google-ocr', 'GET', '/v1/images:annotate')).toBeUndefined();
+		expect(
+			endpointOf('google-ocr', 'POST', '/v1/projects/acme/locations/eu/processors'),
+		).toBeUndefined();
 	});
 
 	it('knows the native and the OpenAI-format endpoints of Ollama', () => {
