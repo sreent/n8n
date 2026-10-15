@@ -24,6 +24,11 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   of n8n to webhook, syslog and Sentry destinations, and the page Settings > Log streaming
   (`packages/frontend/editor-ui/src/features/integrations/logStreaming`) manages them. The README
   of the module and the FORK.md of the page describe them.
+- **Google Cloud Storage**: the object store of `@n8n/blob-storage` keeps binary data and
+  execution data in a bucket of Google Cloud Storage through its JSON API, and signs in with a
+  service account (`N8N_EXTERNAL_STORAGE_GCS_BUCKET_NAME`, with the mode `s3`).
+  [packages/@n8n/blob-storage/FORK.md](packages/@n8n/blob-storage/FORK.md#google-cloud-storage)
+  describes it.
 - **No registration and no licence keys**: the fork turns on its features with the switch of step 5
   (below). It has no registration of the Community Edition, no request of an enterprise trial and
   no entry of licence keys (the owner chose this on 2026-10-13).
@@ -300,11 +305,14 @@ update can bring new enterprise files: see "Upstream updates".
   ordinary tests of dynamic credentials, keep the import paths of the fork module, as
   `packages/cli/src/modules/dynamic-credentials/README.md` tells.
 - When an upstream update changes how ordinary code uses the S3 and Azure classes of
-  `@n8n/blob-storage`, change the fork classes. When it changes how ordinary code uses the scaling
-  classes `MultiMainSetup`, `WorkerStatusService`, `WorkerPoolsService` and `PoolConfigService`,
-  change the fork classes, as [packages/cli/src/scaling/FORK.md](packages/cli/src/scaling/FORK.md)
-  tells. When an upstream migration changes a workflow review table or the table
-  `project_pool_settings`, change the fork entity. The FORK.md files of step 4 tell how.
+  `@n8n/blob-storage`, change the fork classes. When it changes `initBinaryDataService` or
+  `initObjectStoreIfConfigured` of `packages/cli/src/commands/base-command.ts`, keep the fork
+  method `isObjectStoreConfigured`, which starts the object store for Google Cloud Storage too.
+  When it changes how ordinary code uses the scaling classes `MultiMainSetup`,
+  `WorkerStatusService`, `WorkerPoolsService` and `PoolConfigService`, change the fork classes, as
+  [packages/cli/src/scaling/FORK.md](packages/cli/src/scaling/FORK.md) tells. When an upstream
+  migration changes a workflow review table or the table `project_pool_settings`, change the fork
+  entity. The FORK.md files of step 4 tell how.
 - When an upstream update adds a public route for the audit log, for the insights of each
   workflow, for an inventory of workflows or for a list of all API keys, compare it with the fork
   route. Keep one of them.

@@ -148,6 +148,11 @@ endpoints of dynamic credentials sets `DYNAMIC_CREDENTIALS_CORS_ORIGIN` and
   documentation.
 - This setup runs one n8n instance on one server. The nightly backup is the protection against
   the loss of the server.
+- This setup keeps the files of workflows in PostgreSQL. To keep them in a bucket of S3, Azure
+  Blob or Google Cloud Storage, add the variables of
+  [the FORK.md of the blob storage](../packages/@n8n/blob-storage/FORK.md#set-up) to the `n8n`
+  service in a `docker-compose.override.yml`. The database backup then does not contain the
+  files: back up the bucket too.
 - This setup does not use queue mode. Queue mode with workers needs Redis and more containers. The
   fork then also gives the worker view (Settings > Workers), worker pools
   (`N8N_WORKER_POOLS_ENABLED=true`) and multiple main instances

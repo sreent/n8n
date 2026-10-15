@@ -10,7 +10,13 @@ import {
 	ModulesConfig,
 } from '@n8n/backend-common';
 import { installGlobalProxyAgent } from '@n8n/backend-network';
-import { AzureBlobConfig, AzureByteStore, ObjectStoreConfig, S3ByteStore } from '@n8n/blob-storage';
+import {
+	AzureBlobConfig,
+	AzureByteStore,
+	GcsStorageConfig,
+	ObjectStoreConfig,
+	S3ByteStore,
+} from '@n8n/blob-storage';
 import { GlobalConfig } from '@n8n/config';
 import { LICENSE_FEATURES } from '@n8n/constants';
 import { DbConnection, DeploymentKeyRepository } from '@n8n/db';
@@ -416,7 +422,7 @@ export abstract class BaseCommand<F = never> {
 		}
 
 		const executionDataMode = Container.get(StorageConfig).mode;
-		const isS3Configured = Container.get(ObjectStoreConfig).bucket.name !== '';
+		const isS3Configured = this.isObjectStoreConfigured();
 		const isAzureConfigured = Container.get(AzureBlobConfig).containerName !== '';
 		const isExecutionDataS3Mode = executionDataMode === 's3';
 		const isExecutionDataAzureMode = executionDataMode === 'azure';
@@ -489,7 +495,7 @@ export abstract class BaseCommand<F = never> {
 	}
 
 	protected async initObjectStoreIfConfigured() {
-		if (Container.get(ObjectStoreConfig).bucket.name === '') return undefined;
+		if (!this.isObjectStoreConfigured()) return undefined;
 
 		const { ObjectStoreService } = await import('@n8n/blob-storage/object-store');
 		const objectStoreService = Container.get(ObjectStoreService);
@@ -501,6 +507,14 @@ export abstract class BaseCommand<F = never> {
 		);
 
 		return objectStoreService;
+	}
+
+	/** Fork: the object store keeps its data in S3 or in Google Cloud Storage (blob-storage FORK.md). */
+	private isObjectStoreConfigured() {
+		return (
+			Container.get(ObjectStoreConfig).bucket.name !== '' ||
+			Container.get(GcsStorageConfig).bucketName !== ''
+		);
 	}
 
 	protected async initAzureStoreIfConfigured() {

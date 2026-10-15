@@ -12,12 +12,16 @@ import {
 	S3ServiceException,
 } from '@aws-sdk/client-s3';
 import { Logger } from '@n8n/backend-common';
-import { Service } from '@n8n/di';
+import { OutboundHttp } from '@n8n/backend-network';
+import { Container, Service } from '@n8n/di';
 import { ensureError } from '@n8n/utils/errors/ensure-error';
 import { UnexpectedError } from 'n8n-workflow';
 import { createHash } from 'node:crypto';
 import { Readable } from 'node:stream';
 
+import { type TokenSource, tokenSourceFor } from '../gcs/gcs-credentials';
+import { GcsStorageClient } from '../gcs/gcs-storage.client';
+import { GcsStorageConfig } from '../gcs/gcs-storage.config';
 import type { BlobMetadata, PreWriteBlobMetadata } from '../types';
 import { ObjectStoreConfig } from './object-store.config';
 
@@ -36,7 +40,8 @@ const isNotFound = (error: unknown) =>
  * Fork code (not in upstream n8n): the S3 client of the external storage, in place of the
  * enterprise `object-store.service.ee.ts`. It keeps binary data and execution data in an S3 bucket,
  * or in a bucket of a service with the S3 API. `S3ByteStore` gives its operations to ordinary code.
- * See `../../FORK.md`.
+ * With `N8N_EXTERNAL_STORAGE_GCS_BUCKET_NAME`, the service gives each operation to the native
+ * client of Google Cloud Storage instead. See `../../FORK.md`.
  */
 @Service()
 export class ObjectStoreService {
@@ -49,9 +54,13 @@ export class ObjectStoreService {
 
 	private isReady = false;
 
+	/** The native client of Google Cloud Storage, after `init()` with a GCS bucket. */
+	private gcs: GcsStorageClient | undefined;
+
 	constructor(
 		private readonly logger: Logger,
 		private readonly config: ObjectStoreConfig,
+		private readonly gcsConfig: GcsStorageConfig,
 	) {
 		const { host, protocol, forcePathStyle, maxAttempts, bucket, credentials } = config;
 		this.bucket = bucket.name;
@@ -75,6 +84,10 @@ export class ObjectStoreService {
 
 	/** Logs the configuration, and checks the bucket once. */
 	async init() {
+		if (this.gcsConfig.bucketName) {
+			await this.initGcs();
+			return;
+		}
 		const { bucket, forcePathStyle } = this.config;
 		this.logger.info(
 			`S3 binary storage configured: endpoint=${this.endpoint ?? 'default'}, bucket=${this.bucket}, region=${bucket.region || 'none'}, forcePathStyle=${forcePathStyle}`,
@@ -86,6 +99,7 @@ export class ObjectStoreService {
 
 	/** Uploads `buffer`, with the file name and the MIME type as object metadata. */
 	async put(key: string, buffer: Buffer, metadata: PreWriteBlobMetadata = {}) {
+		if (this.gcs) return await this.gcs.put(key, buffer, metadata);
 		const params: PutObjectCommandInput = {
 			Bucket: this.bucket,
 			Key: key,
@@ -107,6 +121,7 @@ export class ObjectStoreService {
 
 	/** The content of an object. A missing object is an error. */
 	async getBuffer(key: string): Promise<Buffer> {
+		if (this.gcs) return await this.gcs.getBuffer(key);
 		this.logger.debug('Sending GET request to S3', { bucket: this.bucket, key });
 		try {
 			const response = await this.s3Client.send(
@@ -121,6 +136,7 @@ export class ObjectStoreService {
 
 	/** The content of an object as a stream. A missing object is an error. */
 	async getStream(key: string): Promise<Readable> {
+		if (this.gcs) return await this.gcs.getStream(key);
 		this.logger.debug('Sending GET request to S3', { bucket: this.bucket, key });
 		try {
 			const response = await this.s3Client.send(
@@ -135,6 +151,7 @@ export class ObjectStoreService {
 
 	/** The size, the MIME type and the file name of an object, or `null` when it is missing. */
 	async getMetadata(key: string): Promise<BlobMetadata | null> {
+		if (this.gcs) return await this.gcs.getMetadata(key);
 		this.logger.debug('Sending HEAD request to S3', { bucket: this.bucket, key });
 		try {
 			const response = await this.s3Client.send(
@@ -152,6 +169,7 @@ export class ObjectStoreService {
 	}
 
 	async deleteOne(key: string) {
+		if (this.gcs) return await this.gcs.deleteOne(key);
 		this.logger.debug('Sending DELETE request to S3', { bucket: this.bucket, key });
 		try {
 			await this.s3Client.send(new DeleteObjectCommand({ Bucket: this.bucket, Key: key }));
@@ -162,6 +180,7 @@ export class ObjectStoreService {
 
 	/** Deletes the keys in batches of 1000, one batch after the other. Stops at a failed batch. */
 	async deleteMany(keys: string[]) {
+		if (this.gcs) return await this.gcs.deleteMany(keys);
 		for (let start = 0; start < keys.length; start += DELETE_BATCH_SIZE) {
 			const batch = keys.slice(start, start + DELETE_BATCH_SIZE);
 			this.logger.debug('Sending DELETE MANY request to S3', {
@@ -201,7 +220,36 @@ export class ObjectStoreService {
 
 	/** Whether a failed request of this service was for a missing object. */
 	isMissingObject(error: unknown) {
+		if (this.gcs) return this.gcs.isMissingObject(error);
 		return error instanceof UnexpectedError && error.cause instanceof NoSuchKey;
+	}
+
+	/** Makes the client of Google Cloud Storage, and checks the credentials and the bucket once. */
+	private async initGcs() {
+		if (this.gcs) return;
+		if (this.config.bucket.name) {
+			const message =
+				'Set either N8N_EXTERNAL_STORAGE_S3_BUCKET_NAME or N8N_EXTERNAL_STORAGE_GCS_BUCKET_NAME, not both.';
+			this.logger.error(message);
+			throw new UnexpectedError(message);
+		}
+		// An admin configures the bucket, and the metadata server has a link-local address.
+		const outboundHttp = Container.get(OutboundHttp);
+		const fetch = outboundHttp.transport({ useDefaultSsrfPolicy: 'unsafe' }).asCustomFetch();
+		const directFetch = outboundHttp
+			.transport({ useDefaultSsrfPolicy: 'unsafe', proxy: false })
+			.asCustomFetch();
+		let tokenSource: TokenSource;
+		try {
+			tokenSource = await tokenSourceFor(this.gcsConfig.credentials, { fetch, directFetch });
+		} catch (error) {
+			const message = `Failed to read the credentials of Google Cloud Storage: ${ensureError(error).message}`;
+			this.logger.error(message);
+			throw new UnexpectedError(message, { cause: error });
+		}
+		const client = new GcsStorageClient(this.logger, this.gcsConfig, fetch, tokenSource);
+		await client.init();
+		this.gcs = client;
 	}
 
 	private async checkConnection() {
