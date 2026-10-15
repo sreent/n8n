@@ -32,8 +32,12 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
 - **AI gateway**: the backend module `packages/cli/src/modules/ai-gateway` replaces the service of
   n8n Cloud for Gateway credits. Users run AI nodes without an API key of their own. The gateway
   calls the provider (or Azure OpenAI or Vertex AI) with a credential of an admin, records the
-  cost of each call and stops the calls when a budget is spent. The frontend module `packages/modules/ai-gateway/frontend` adds the
-  page Settings > AI gateway. Their READMEs describe them.
+  cost of each call and stops the calls when a budget is spent. The frontend module
+  `packages/modules/ai-gateway/frontend` adds the page Settings > AI gateway. Their READMEs
+  describe them.
+- **Google Cloud OCR**: the node `packages/nodes-base/nodes/Google/CloudOcr` reads the text of
+  images and documents with the Cloud Vision API and Document AI, with a service account, an API
+  key or Gateway credits. Its README describes it.
 - **No registration and no licence keys**: the fork turns on its features with the switch of step 5
   (below). It has no registration of the Community Edition, no request of an enterprise trial and
   no entry of licence keys (the owner chose this on 2026-10-13).
@@ -315,6 +319,8 @@ update can bring new enterprise files: see "Upstream updates".
   change the fork module, as
   [packages/cli/src/modules/ai-gateway/README.md](packages/cli/src/modules/ai-gateway/README.md)
   tells.
+- When an upstream update changes the lists of `packages/nodes-base/package.json`, keep the two
+  lines of the node Google Cloud OCR and its credential type.
 - When an upstream update changes `packages/cli/src/credentials/credentials.service.ts` or the
   ordinary tests of dynamic credentials, keep the import paths of the fork module, as
   `packages/cli/src/modules/dynamic-credentials/README.md` tells.
