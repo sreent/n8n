@@ -5,7 +5,6 @@ import { EventService } from '@n8n/backend-services';
 import { mockInstance } from '@n8n/backend-test-utils';
 import type { AuthenticatedRequest, User } from '@n8n/db';
 import { UserRepository } from '@n8n/db';
-import type { IPasswordAuthHandler } from '@n8n/decorators';
 import { Container } from '@n8n/di';
 import type { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,6 +18,7 @@ import { RESPONSE_ERROR_MESSAGES } from '@/constants';
 import { AuthError, BadRequestError, ForbiddenError } from '@n8n/errors';
 import { License } from '@/license';
 import { MfaService } from '@/mfa/mfa.service';
+import { LdapService } from '@/modules/ldap/ldap.service';
 import { PostHogClient } from '@/posthog';
 import type { AuthlessRequest } from '@/requests';
 import { UserService } from '@/services/user.service';
@@ -35,8 +35,7 @@ describe('AuthController', () => {
 	mockInstance(UserRepository);
 	mockInstance(PostHogClient);
 	mockInstance(License);
-	// The fork has no LDAP module. A generic password handler stands in for one.
-	const ldapService = mock<IPasswordAuthHandler<User>>();
+	const ldapService = mockInstance(LdapService);
 	const authHandlerRegistry = mockInstance(AuthHandlerRegistry);
 	const emailAuthHandler = mock<EmailAuthHandler>();
 	const controller = Container.get(AuthController);

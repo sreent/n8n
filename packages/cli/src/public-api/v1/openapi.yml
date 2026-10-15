@@ -63,6 +63,8 @@ tags:
     description: Operations about identity-provider role-mapping rules
   - name: SecurityPolicy
     description: Operations about the instance security policy settings
+  - name: SettingsLdap
+    description: Operations about LDAP settings
   - name: SettingsOtel
     description: Operations about OpenTelemetry settings
   - name: SettingsSsoOidc
@@ -79,6 +81,8 @@ tags:
     description: Operations about workflows
 
 paths:
+  /settings/ldap/sync:
+    $ref: './handlers/ldap/spec/paths/settings.ldap.sync.yml'
   /workflows/{id}/{versionId}:
     $ref: './handlers/workflows/spec/paths/workflows.id.versionId.yml'
   /n8n-packages/export:

@@ -296,6 +296,14 @@ export const setupTestServer = ({
 						break;
 					}
 
+					case 'ldap': {
+						const { LdapService } = await import('@/modules/ldap/ldap.service.js');
+						await import('@/modules/ldap/ldap.controller.js');
+						testServer.license.enable('feat:ldap');
+						await Container.get(LdapService).init();
+						break;
+					}
+
 					case 'sourceControl':
 						await import('@/modules/source-control/source-control.controller.js');
 						break;

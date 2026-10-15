@@ -91,6 +91,9 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	[LICENSE_FEATURES.MULTIPLE_MAIN_INSTANCES]: true,
 	[LICENSE_FEATURES.WORKER_VIEW]: true,
 	[LICENSE_FEATURES.WORKER_POOLS]: true,
+	// LDAP: the fork module of the rebuild (the owner chose this on 2026-10-14). An admin sets the
+	// directory at Settings > LDAP.
+	[LICENSE_FEATURES.LDAP]: true,
 };
 
 const FORK_FEATURE_VALUES_WITH_BANNER: FeatureReturnType = {
