@@ -72,6 +72,7 @@ type ModuleName =
 	| 'instance-ai'
 	| 'mcp'
 	| 'oauth-server'
+	| 'dynamic-credentials'
 	| 'log-streaming'
 	| 'ldap'
 	| 'redaction'

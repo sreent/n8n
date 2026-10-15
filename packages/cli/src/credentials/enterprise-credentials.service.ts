@@ -13,6 +13,7 @@ import { TransferCredentialError } from '@/errors/response-errors/transfer-crede
 import { OwnershipService } from '@/services/ownership.service';
 import { ProjectService } from '@/services/project.service';
 
+import { CredentialConnectionStatusProxy } from './credential-connection-status-proxy';
 import { CredentialsService } from './credentials.service';
 
 @Service()
@@ -23,6 +24,7 @@ export class EnterpriseCredentialsService {
 		private readonly credentialsService: CredentialsService,
 		private readonly credentialsFinderService: CredentialsFinderService,
 		private readonly projectService: ProjectService,
+		private readonly connectionStatusProxy: CredentialConnectionStatusProxy,
 	) {}
 
 	/**
@@ -152,5 +154,13 @@ export class EnterpriseCredentialsService {
 		}
 
 		await this.sharingRepository.transferCredential(credential.id, destinationProject.id);
+
+		// The members of the source project can lose access to the credential, and with it their
+		// connections to it.
+		if (sourceProjectId) {
+			await this.connectionStatusProxy.cleanupOrphanedEntriesForProjects(credential.id, [
+				sourceProjectId,
+			]);
+		}
 	}
 }

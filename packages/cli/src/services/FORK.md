@@ -65,7 +65,10 @@ code. This is the second pull request of step 3.
   6. When the external secrets module is active, the same transaction as the project deletion
      deletes the secrets provider connections that the project owns, disables the connections
      that it uses, and removes its access rows.
-  7. It emits `team-project-deleted`.
+  7. The members of the project lose their connections to the private credentials that they can
+     no longer use (`CredentialConnectionStatusProxy.cleanupOrphanedEntriesForUsers`). Without
+     the dynamic credentials module, this does nothing.
+  8. It emits `team-project-deleted`.
 
 ### Changing members
 
@@ -75,12 +78,17 @@ licensed gives `UnlicensedProjectRoleError`, except a role that the user has in 
 already. Instance owners and admins reach every project, so the methods leave them out or refuse
 to change them. The methods emit `team-project-updated` with all members of the project.
 
-- `addUsersToProject` adds users or changes their role. It refuses the personal owner role.
+- `addUsersToProject` adds users or changes their role. It refuses the personal owner role. A
+  member with a new role loses their connections to the private credentials that they can no
+  longer use. The golden test of dynamic credentials does not record this route: the fork does as
+  `changeUserRoleInProject`.
 - `addUsersWithConflictSemantics` adds only new users. A member with another role is a conflict.
 - `syncProjectRelations` replaces all members. It emits no event.
 - `changeUserRoleInProject` refuses the personal owner role and instance owners and admins. A user
-  outside the project gives `ProjectNotFoundError`.
-- `deleteUserFromProject` refuses instance owners and admins and a personal owner relation.
+  outside the project gives `ProjectNotFoundError`. The user loses their connections to the
+  private credentials that they can no longer use.
+- `deleteUserFromProject` refuses instance owners and admins and a personal owner relation. The
+  user loses their connections to the private credentials that they can no longer use.
 - `addUser` adds a user or changes their role, without checks.
 
 ## Clean-room sources

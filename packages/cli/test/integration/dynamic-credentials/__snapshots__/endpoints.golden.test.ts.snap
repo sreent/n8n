@@ -1,0 +1,1668 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`dynamic credential endpoints > authorize and revoke 1`] = `
+[
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "authorize the private credential as the owner",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "added": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"idp-access","token_type":"Bearer","expires_in":3600,"refresh_token":"idp-refresh","n8n_expires_at":"<time>"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "private-credential-user-connected",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "supportsManagedAuth": false,
+          "user": {
+            "id": "@owner",
+          },
+          "usesManagedAuth": false,
+        },
+      ],
+    ],
+    "outcome": {
+      "status": 200,
+    },
+    "provider": [
+      {
+        "body": {
+          "code": "code-owner",
+          "grant_type": "authorization_code",
+          "redirect_uri": "http://localhost:5678/rest/oauth2-credential/callback",
+        },
+        "headers": {
+          "accept": "application/json, application/x-www-form-urlencoded",
+          "authorization": "Basic YXBwLWNsaWVudDphcHAtc2VjcmV0",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/token",
+      },
+    ],
+    "renders": [
+      [
+        "oauth-callback",
+        null,
+      ],
+    ],
+    "step": "the callback of the owner",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "OAuth2 callback failed",
+      ],
+    ],
+    "outcome": {
+      "status": 200,
+    },
+    "renders": [
+      [
+        "oauth-error-callback",
+        {
+          "error": {
+            "message": "The OAuth callback state is invalid!",
+          },
+        },
+      ],
+    ],
+    "step": "the callback of the owner again",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "authorize the private credential as the member",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "OAuth2 callback failed",
+      ],
+    ],
+    "outcome": {
+      "status": 200,
+    },
+    "renders": [
+      [
+        "oauth-error-callback",
+        {
+          "error": {
+            "message": "Unauthorized",
+          },
+        },
+      ],
+    ],
+    "step": "the callback of the member, called by the owner",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Missing resolverId query parameter",
+      },
+      "status": 400,
+    },
+    "step": "authorize without a resolver id",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Resolver not found",
+      },
+      "status": 404,
+    },
+    "step": "authorize with an unknown resolver id",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Credential not found",
+      },
+      "status": 404,
+    },
+    "step": "authorize the static credential",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Credential not found",
+      },
+      "status": 404,
+    },
+    "step": "authorize an unknown credential",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "authorize as the outsider",
+  },
+  {
+    "outcome": {
+      "status": 401,
+      "text": "Unauthorized",
+    },
+    "step": "authorize without a session or token",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "authorize the bound credential with the endpoint token and a bearer token",
+  },
+  {
+    "changes": {
+      "entries": {
+        "added": [
+          "{"credential":"@credential Bound","subject":"user-1","resolver":"@resolver Introspection","data":{"oauthTokenData":{"access_token":"idp-access","token_type":"Bearer","expires_in":3600,"refresh_token":"idp-refresh","n8n_expires_at":"<time>"}}}",
+        ],
+      },
+    },
+    "outcome": {
+      "status": 200,
+    },
+    "provider": [
+      {
+        "body": {
+          "code": "code-ext",
+          "grant_type": "authorization_code",
+          "redirect_uri": "http://localhost:5678/rest/oauth2-credential/callback",
+        },
+        "headers": {
+          "accept": "application/json, application/x-www-form-urlencoded",
+          "authorization": "Basic YXBwLWNsaWVudDphcHAtc2VjcmV0",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/token",
+      },
+    ],
+    "renders": [
+      [
+        "oauth-callback",
+        null,
+      ],
+    ],
+    "step": "the callback of the external user without a session",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Token is not active according to introspection response",
+      ],
+      [
+        "error",
+        "Token is not active",
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "code": 0,
+        "message": "Token is not active",
+      },
+      "status": 500,
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "inactive",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "authorize the bound credential with an inactive bearer token",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "authorize the bound credential with the system resolver",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": ""Private" resolves credentials per external user, so it can only be resolved by a request carrying that user's token",
+      },
+      "status": 400,
+    },
+    "step": "authorize the private credential with the OAuth2 resolver as the owner",
+  },
+  {
+    "outcome": {
+      "headers": {
+        "access-control-allow-credentials": "true",
+        "access-control-allow-headers": "Authorization, Content-Type, X-Requested-With, X-Authorization",
+        "access-control-allow-methods": "POST, OPTIONS",
+        "access-control-allow-origin": "https://app.example.com",
+        "access-control-max-age": "86400",
+      },
+      "status": 204,
+    },
+    "step": "preflight of authorize",
+  },
+  {
+    "outcome": {
+      "status": 204,
+    },
+    "step": "revoke the private credential as the member",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"idp-access","token_type":"Bearer","expires_in":3600,"refresh_token":"idp-refresh","n8n_expires_at":"<time>"}}}",
+        ],
+      },
+    },
+    "outcome": {
+      "status": 204,
+    },
+    "step": "revoke the private credential as the owner",
+  },
+  {
+    "outcome": {
+      "status": 204,
+    },
+    "step": "revoke the private credential as the owner again",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 400,
+        "message": "Missing resolverId query parameter",
+      },
+      "status": 400,
+    },
+    "step": "revoke without a resolver id",
+  },
+  {
+    "changes": {
+      "entries": {
+        "removed": [
+          "{"credential":"@credential Bound","subject":"user-1","resolver":"@resolver Introspection","data":{"oauthTokenData":{"access_token":"idp-access","token_type":"Bearer","expires_in":3600,"refresh_token":"idp-refresh","n8n_expires_at":"<time>"}}}",
+        ],
+      },
+    },
+    "outcome": {
+      "status": 204,
+    },
+    "step": "revoke the bound credential with the endpoint token and a bearer token",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Credential not found",
+      },
+      "status": 404,
+    },
+    "step": "revoke the static credential",
+  },
+  {
+    "outcome": {
+      "status": 401,
+      "text": "Unauthorized",
+    },
+    "step": "revoke without a session or token",
+  },
+  {
+    "outcome": {
+      "headers": {
+        "access-control-allow-credentials": "true",
+        "access-control-allow-headers": "Authorization, Content-Type, X-Requested-With, X-Authorization",
+        "access-control-allow-methods": "DELETE, OPTIONS",
+        "access-control-allow-origin": "https://app.example.com",
+        "access-control-max-age": "86400",
+      },
+      "status": 204,
+    },
+    "step": "preflight of revoke",
+  },
+]
+`;
+
+exports[`dynamic credential endpoints > my connection 1`] = `
+[
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@owner","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"owner-token"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-user-disconnected",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "user": "<user @owner>",
+        },
+      ],
+    ],
+    "outcome": {
+      "status": 204,
+    },
+    "step": "the owner removes the connection",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "No connection to disconnect",
+      },
+      "status": 404,
+    },
+    "step": "the owner removes the connection again",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "No connection to disconnect",
+      },
+      "status": 404,
+    },
+    "step": "the outsider removes a connection",
+  },
+  {
+    "changes": {
+      "userEntries": {
+        "removed": [
+          "{"credential":"@credential Private","user":"@member","resolver":"system-n8n","data":{"oauthTokenData":{"access_token":"member-token"}}}",
+        ],
+      },
+    },
+    "events": [
+      [
+        "credentials-user-disconnected",
+        {
+          "credentialId": "@credential Private",
+          "credentialType": "oAuth2Api",
+          "user": "<user @member>",
+        },
+      ],
+    ],
+    "outcome": {
+      "status": 204,
+    },
+    "step": "the member removes the connection",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "No connection to disconnect",
+      },
+      "status": 404,
+    },
+    "step": "the static credential",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "No connection to disconnect",
+      },
+      "status": 404,
+    },
+    "step": "the bound credential",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "No connection to disconnect",
+      },
+      "status": 404,
+    },
+    "step": "an unknown credential",
+  },
+  {
+    "outcome": {
+      "body": {
+        "message": "Unauthorized",
+        "status": "error",
+      },
+      "status": 401,
+    },
+    "step": "without a session",
+  },
+]
+`;
+
+exports[`dynamic credential endpoints > the credential check and the authorization links 1`] = `
+[
+  {
+    "outcome": {
+      "value": {
+        "credentials": [
+          {
+            "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?token=<random>",
+            "credentialId": "@credential Private",
+            "credentialName": "Private",
+            "credentialType": "oAuth2Api",
+            "resolverId": "system-n8n",
+            "status": "missing",
+          },
+        ],
+        "readyToExecute": false,
+      },
+    },
+    "step": "check the system workflow for the member",
+  },
+  {
+    "outcome": {
+      "value": {
+        "credentials": [
+          {
+            "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?token=<random>",
+            "credentialId": "@credential Private",
+            "credentialName": "Private",
+            "credentialType": "oAuth2Api",
+            "resolverId": "system-n8n",
+            "status": "missing",
+          },
+        ],
+        "readyToExecute": false,
+      },
+    },
+    "step": "check the mixed workflow for the member",
+  },
+  {
+    "outcome": {
+      "value": {
+        "credentials": [],
+        "readyToExecute": true,
+      },
+    },
+    "step": "check with root nodes",
+  },
+  {
+    "outcome": {
+      "threw": ": Execution context is present but contains no credential context. Ensure credential context establishment hooks are configured for this workflow.",
+    },
+    "step": "check without a credential context",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "credentials": [
+          {
+            "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?token=<random>",
+            "credentialId": "@credential Bound",
+            "credentialName": "Bound",
+            "credentialType": "oAuth2Api",
+            "resolverId": "@resolver Introspection",
+            "status": "missing",
+          },
+        ],
+        "readyToExecute": false,
+      },
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "active-2",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "check the bound workflow with a bearer token",
+  },
+  {
+    "outcome": {
+      "threw": "NotFoundError < ResponseError < BaseError: Workflow not found [404]",
+    },
+    "step": "check an unknown workflow",
+  },
+  {
+    "events": [
+      [
+        "dynamic-credential-authorize-rejected",
+        {
+          "credentialId": "@credential Private",
+          "reason": "unauthenticated",
+        },
+      ],
+    ],
+    "outcome": {
+      "headers": {
+        "location": "http://localhost:5678/signin?redirect=http%3A%2F%2Flocalhost%3A5678%2Frest%2Fcredentials%2F@credential Private%2Fauthorize%3Ftoken%3D<random>",
+        "vary": "Accept",
+      },
+      "status": 302,
+      "text": "Found. Redirecting to http://localhost:5678/signin?redirect=http%3A%2F%2Flocalhost%3A5678%2Frest%2Fcredentials%2F@credential Private%2Fauthorize%3Ftoken%3D<random>",
+    },
+    "step": "open the link without a session",
+  },
+  {
+    "events": [
+      [
+        "dynamic-credential-authorize-rejected",
+        {
+          "credentialId": "@credential Private",
+          "reason": "user-mismatch",
+        },
+      ],
+    ],
+    "outcome": {
+      "status": 200,
+    },
+    "renders": [
+      [
+        "oauth-error-callback",
+        {
+          "error": {
+            "message": "This authorization link was issued for a different account. Sign in as the intended user and open the link again.",
+          },
+        },
+      ],
+    ],
+    "step": "open the link as the owner",
+  },
+  {
+    "outcome": {
+      "headers": {
+        "location": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+        "vary": "Accept",
+      },
+      "status": 302,
+      "text": "Found. Redirecting to <idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+    },
+    "step": "open the link as the member",
+  },
+  {
+    "outcome": {
+      "headers": {
+        "location": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+        "vary": "Accept",
+      },
+      "status": 302,
+      "text": "Found. Redirecting to <idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+    },
+    "step": "open the link as the member again",
+  },
+  {
+    "outcome": {
+      "status": 200,
+    },
+    "renders": [
+      [
+        "oauth-error-callback",
+        {
+          "error": {
+            "message": "This authorization link is invalid or has expired. Please request a new one.",
+          },
+        },
+      ],
+    ],
+    "step": "open a link with an unknown token",
+  },
+  {
+    "outcome": {
+      "status": 200,
+    },
+    "renders": [
+      [
+        "oauth-error-callback",
+        {
+          "error": {
+            "message": "Missing authorization token.",
+          },
+        },
+      ],
+    ],
+    "step": "open a link without a token",
+  },
+  {
+    "outcome": {
+      "value": {
+        "credentials": [
+          {
+            "credentialId": "@credential Private",
+            "credentialName": "Private",
+            "credentialType": "oAuth2Api",
+            "resolverId": "system-n8n",
+            "revokeUrl": "http://localhost:5678/rest/credentials/@credential Private/revoke?resolverId=system-n8n",
+            "status": "configured",
+          },
+        ],
+        "readyToExecute": true,
+      },
+    },
+    "step": "check the system workflow after the member connects",
+  },
+]
+`;
+
+exports[`dynamic credential endpoints > the execution status 1`] = `
+[
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?resolverId=system-n8n",
+              "credentialId": "@credential Private",
+              "credentialName": "Private",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Private/revoke?resolverId=system-n8n",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow System",
+        },
+      },
+      "status": 200,
+    },
+    "step": "owner, cookie",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?resolverId=system-n8n",
+              "credentialId": "@credential Private",
+              "credentialName": "Private",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Private/revoke?resolverId=system-n8n",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow System",
+        },
+      },
+      "status": 200,
+    },
+    "step": "owner, no auth source",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 401,
+        "message": "Bearer token is missing",
+      },
+      "status": 401,
+    },
+    "step": "owner, bearer auth source",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?resolverId=system-n8n",
+              "credentialId": "@credential Private",
+              "credentialName": "Private",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Private/revoke?resolverId=system-n8n",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow System",
+        },
+      },
+      "status": 200,
+    },
+    "step": "owner, unknown auth source",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?resolverId=system-n8n",
+              "credentialId": "@credential Private",
+              "credentialName": "Private",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Private/revoke?resolverId=system-n8n",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow System",
+        },
+      },
+      "status": 200,
+    },
+    "step": "member, cookie",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "step": "outsider, cookie",
+  },
+  {
+    "outcome": {
+      "status": 401,
+      "text": "Unauthorized",
+    },
+    "step": "no session, no token",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 401,
+        "message": "Session cookie is missing",
+      },
+      "status": 401,
+    },
+    "step": "no session, the endpoint token",
+  },
+  {
+    "outcome": {
+      "status": 401,
+      "text": "Unauthorized",
+    },
+    "step": "no session, the endpoint token without the scheme",
+  },
+  {
+    "outcome": {
+      "status": 401,
+      "text": "Unauthorized",
+    },
+    "step": "no session, the endpoint token in lower case scheme",
+  },
+  {
+    "outcome": {
+      "status": 401,
+      "text": "Unauthorized",
+    },
+    "step": "no session, a wrong endpoint token",
+  },
+  {
+    "logs": [
+      [
+        "warn",
+        "OAuth2 resolver has no expected audience configured, so access tokens are not bound to this instance. Set an expected audience on the resolver.",
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "provider": [
+      {
+        "headers": {
+          "accept": "application/json",
+        },
+        "method": "GET",
+        "path": "/.well-known/openid-configuration",
+      },
+      {
+        "body": {
+          "token": "active-1",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "no session, the endpoint token and an active bearer token",
+  },
+  {
+    "logs": [
+      [
+        "error",
+        "Token is not active according to introspection response",
+      ],
+    ],
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "provider": [
+      {
+        "body": {
+          "token": "inactive",
+        },
+        "headers": {
+          "accept": "application/json",
+          "authorization": "Basic aW50cm9zcGVjdGlvbi1jbGllbnQ6aW50cm9zcGVjdGlvbi1zZWNyZXQ=",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        "method": "POST",
+        "path": "/introspect",
+      },
+    ],
+    "step": "no session, the endpoint token and an inactive bearer token",
+  },
+  {
+    "outcome": {
+      "status": 401,
+      "text": "Unauthorized",
+    },
+    "step": "no session, a bearer token without the endpoint token",
+  },
+  {
+    "outcome": {
+      "status": 401,
+      "text": "Unauthorized",
+    },
+    "step": "no session, the endpoint token as a bearer token",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?resolverId=system-n8n",
+              "credentialId": "@credential Private",
+              "credentialName": "Private",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Private/revoke?resolverId=system-n8n",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow System",
+        },
+      },
+      "status": 200,
+    },
+    "step": "no session, the endpoint token, the bearer source on the system workflow",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "resolver_missing",
+              "credentialType": "oAuth2Api",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "step": "owner, the bound workflow with the cookie",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "step": "owner, the bound workflow with a bearer token",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [],
+          "readyToExecute": true,
+          "workflowId": "@workflow Static",
+        },
+      },
+      "status": 200,
+    },
+    "step": "owner, the static workflow",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?resolverId=system-n8n",
+              "credentialId": "@credential Private",
+              "credentialName": "Private",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Private/revoke?resolverId=system-n8n",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Mixed",
+        },
+      },
+      "status": 200,
+    },
+    "step": "owner, the mixed workflow",
+  },
+  {
+    "outcome": {
+      "body": {
+        "code": 404,
+        "message": "Workflow not found",
+      },
+      "status": 404,
+    },
+    "step": "owner, an unknown workflow",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?resolverId=system-n8n",
+              "credentialId": "@credential Private",
+              "credentialName": "Private",
+              "credentialStatus": "configured",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Private/revoke?resolverId=system-n8n",
+            },
+          ],
+          "readyToExecute": true,
+          "workflowId": "@workflow System",
+        },
+      },
+      "status": 200,
+    },
+    "step": "owner, after the owner connects",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?resolverId=system-n8n",
+              "credentialId": "@credential Private",
+              "credentialName": "Private",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Private/revoke?resolverId=system-n8n",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow System",
+        },
+      },
+      "status": 200,
+    },
+    "step": "member, after the owner connects",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Private/authorize?resolverId=system-n8n",
+              "credentialId": "@credential Private",
+              "credentialName": "Private",
+              "credentialStatus": "configured",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Private/revoke?resolverId=system-n8n",
+            },
+          ],
+          "readyToExecute": true,
+          "workflowId": "@workflow Mixed",
+        },
+      },
+      "status": 200,
+    },
+    "step": "owner, the mixed workflow after the owner connects",
+  },
+  {
+    "outcome": {
+      "headers": {
+        "access-control-allow-credentials": "true",
+        "access-control-allow-headers": "Authorization, Content-Type, X-Requested-With, X-Authorization",
+        "access-control-allow-methods": "GET, OPTIONS",
+        "access-control-allow-origin": "https://app.example.com",
+        "access-control-max-age": "86400",
+      },
+      "status": 204,
+    },
+    "step": "preflight from the allowed origin",
+  },
+  {
+    "outcome": {
+      "status": 404,
+    },
+    "step": "preflight from another origin",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "headers": {
+        "access-control-allow-credentials": "true",
+        "access-control-allow-headers": "Authorization, Content-Type, X-Requested-With, X-Authorization",
+        "access-control-allow-methods": "GET, OPTIONS",
+        "access-control-allow-origin": "https://app.example.com",
+        "access-control-max-age": "86400",
+      },
+      "status": 200,
+    },
+    "step": "a request from the allowed origin",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "step": "a request from another origin",
+  },
+]
+`;
+
+exports[`dynamic credential endpoints > the routes and the rate limits 1`] = `
+[
+  {
+    "outcome": {
+      "value": [
+        {
+          "accessScope": {
+            "globalOnly": true,
+            "scope": "credentialResolver:delete",
+          },
+          "allowUnauthenticated": false,
+          "basePath": "/credential-resolvers",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "delete",
+          "middlewares": 0,
+          "path": "/:id",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": {
+            "globalOnly": true,
+            "scope": "credentialResolver:read",
+          },
+          "allowUnauthenticated": false,
+          "basePath": "/credential-resolvers",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "get",
+          "middlewares": 0,
+          "path": "/:id",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": {
+            "globalOnly": true,
+            "scope": "credentialResolver:read",
+          },
+          "allowUnauthenticated": false,
+          "basePath": "/credential-resolvers",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "get",
+          "middlewares": 0,
+          "path": "/:id/workflows",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": {
+            "globalOnly": true,
+            "scope": "credentialResolver:list",
+          },
+          "allowUnauthenticated": false,
+          "basePath": "/credential-resolvers",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "get",
+          "middlewares": 0,
+          "path": "/",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": {
+            "globalOnly": true,
+            "scope": "credentialResolver:list",
+          },
+          "allowUnauthenticated": false,
+          "basePath": "/credential-resolvers",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "get",
+          "middlewares": 0,
+          "path": "/types",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": {
+            "globalOnly": true,
+            "scope": "credentialResolver:update",
+          },
+          "allowUnauthenticated": false,
+          "basePath": "/credential-resolvers",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "patch",
+          "middlewares": 0,
+          "path": "/:id",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": {
+            "globalOnly": true,
+            "scope": "credentialResolver:create",
+          },
+          "allowUnauthenticated": false,
+          "basePath": "/credential-resolvers",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "post",
+          "middlewares": 0,
+          "path": "/",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": null,
+          "allowUnauthenticated": false,
+          "basePath": "/credentials",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "delete",
+          "middlewares": 0,
+          "path": "/:credentialId/my-connection",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": null,
+          "allowUnauthenticated": true,
+          "basePath": "/credentials",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": {
+            "limit": 5,
+            "windowMs": 60000,
+          },
+          "keyedRateLimit": null,
+          "method": "delete",
+          "middlewares": 1,
+          "path": "/:id/revoke",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": null,
+          "allowUnauthenticated": true,
+          "basePath": "/credentials",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": {
+            "limit": 4,
+            "windowMs": 60000,
+          },
+          "keyedRateLimit": null,
+          "method": "get",
+          "middlewares": 0,
+          "path": "/:id/authorize",
+          "skipAuth": false,
+          "usesTemplates": true,
+        },
+        {
+          "accessScope": null,
+          "allowUnauthenticated": false,
+          "basePath": "/credentials",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "options",
+          "middlewares": 0,
+          "path": "/:id/authorize",
+          "skipAuth": true,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": null,
+          "allowUnauthenticated": false,
+          "basePath": "/credentials",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "options",
+          "middlewares": 0,
+          "path": "/:id/revoke",
+          "skipAuth": true,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": null,
+          "allowUnauthenticated": true,
+          "basePath": "/credentials",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": {
+            "limit": 4,
+            "windowMs": 60000,
+          },
+          "keyedRateLimit": null,
+          "method": "post",
+          "middlewares": 1,
+          "path": "/:id/authorize",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": null,
+          "allowUnauthenticated": true,
+          "basePath": "/workflows",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": {
+            "limit": 5,
+            "windowMs": 60000,
+          },
+          "keyedRateLimit": null,
+          "method": "get",
+          "middlewares": 1,
+          "path": "/:workflowId/execution-status",
+          "skipAuth": false,
+          "usesTemplates": false,
+        },
+        {
+          "accessScope": null,
+          "allowUnauthenticated": false,
+          "basePath": "/workflows",
+          "class": true,
+          "cors": null,
+          "handler": "string",
+          "ipRateLimit": null,
+          "keyedRateLimit": null,
+          "method": "options",
+          "middlewares": 0,
+          "path": "/:workflowId/execution-status",
+          "skipAuth": true,
+          "usesTemplates": false,
+        },
+      ],
+    },
+    "step": "the routes of the module",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "step": "request 1 of the execution status",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "step": "request 2 of the execution status",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "step": "request 3 of the execution status",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "step": "request 4 of the execution status",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "step": "request 5 of the execution status",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "step": "request 6 of the execution status",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": {
+          "credentials": [
+            {
+              "authorizationUrl": "http://localhost:5678/rest/credentials/@credential Bound/authorize?resolverId=@resolver Introspection",
+              "credentialId": "@credential Bound",
+              "credentialName": "Bound",
+              "credentialStatus": "missing",
+              "credentialType": "oAuth2Api",
+              "revokeUrl": "http://localhost:5678/rest/credentials/@credential Bound/revoke?resolverId=@resolver Introspection",
+            },
+          ],
+          "readyToExecute": false,
+          "workflowId": "@workflow Bound",
+        },
+      },
+      "status": 200,
+    },
+    "step": "request 7 of the execution status",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "request 1 of authorize",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "request 2 of authorize",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "request 3 of authorize",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "request 4 of authorize",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "request 5 of authorize",
+  },
+  {
+    "outcome": {
+      "body": {
+        "data": "<idp>/authorize?client_id=app-client&redirect_uri=http%3A%2F%2Flocalhost%3A5678%2Frest%2Foauth2-credential%2Fcallback&response_type=code&state=<random>&scope=openid",
+      },
+      "status": 200,
+    },
+    "step": "request 6 of authorize",
+  },
+]
+`;

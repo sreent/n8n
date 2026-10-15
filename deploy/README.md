@@ -130,6 +130,16 @@ On the development server, set `NON_PRODUCTION_BANNER=true` in `.env`. Each page
 banner that tells that the instance is not for production, so that users do not mix up the two
 servers.
 
+## End-user credentials
+
+The fork turns on end-user credentials (dynamic credentials). Each user connects their own account
+to an end-user credential, for example with the OAuth flow, and a run of that user uses it. For
+webhooks of apps, an admin adds a credential resolver at **Settings > Credential resolvers**: an
+OAuth2 server or a Slack app then identifies the user of each request. An app that calls the
+endpoints of dynamic credentials sets `DYNAMIC_CREDENTIALS_CORS_ORIGIN` and
+`DYNAMIC_CREDENTIALS_ENDPOINT_AUTH_TOKEN` in `.env`. See the
+[README of the module](../packages/cli/src/modules/dynamic-credentials/README.md).
+
 ## Limits
 
 - The scripts of the Code node can import only some modules: `crypto` and `moment` in

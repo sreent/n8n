@@ -9,6 +9,8 @@ const ISO_DATE = /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}/;
 // A generated id: a nanoid (16 characters, with a digit) or a UUID.
 const GENERATED_ID =
 	/\b((?=[A-Za-z]*\d)[A-Za-z0-9]{16}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\b/g;
+// The form of a generated nanoid, with or without a digit.
+const NANOID = /^[A-Za-z0-9]{16}$/;
 
 /** Columns with large or encrypted content. A dump leaves them out. */
 const DROPPED_COLUMNS = new Set([
@@ -63,9 +65,27 @@ export class GoldenRecorder {
 		return id;
 	};
 
+	/**
+	 * Generated ids without a digit. The pattern of generated ids needs a digit, so that it leaves
+	 * words alone, and misses these ids.
+	 */
+	readonly generatedIds = new Set<string>();
+
 	reset = () => {
 		this.labels.clear();
 		this.connectionLabels.clear();
+		this.generatedIds.clear();
+	};
+
+	/** Shows the generated ids of the rows without a label as `<id>`, also the ids without a digit. */
+	maskNewIds = async (tables: string[]) => {
+		const manager = Container.get(ProjectRepository).manager;
+		for (const table of tables) {
+			const rows = await manager.query<Array<{ id: string }>>(`SELECT id FROM "${table}"`);
+			for (const { id } of rows) {
+				if (!this.labels.has(id) && NANOID.test(id)) this.generatedIds.add(id);
+			}
+		}
 	};
 
 	/** Labels for known ids, placeholders for dates and other generated ids. */
@@ -76,6 +96,9 @@ export class GoldenRecorder {
 		let result = text;
 		for (const [id, name] of this.labels) {
 			if (result.includes(id)) result = result.replaceAll(id, `@${name}`);
+		}
+		for (const id of this.generatedIds) {
+			if (result.includes(id)) result = result.replaceAll(id, '<id>');
 		}
 		return result.replace(GENERATED_ID, '<id>');
 	};

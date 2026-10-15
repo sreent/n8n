@@ -57,6 +57,7 @@ export class ModuleRegistry {
 		'provisioning',
 		'breaking-changes',
 		'source-control',
+		'dynamic-credentials',
 		'chat-hub',
 		'sso-oidc',
 		'sso-saml',

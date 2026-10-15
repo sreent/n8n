@@ -132,7 +132,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    [packages/cli/src/scaling/FORK.md](packages/cli/src/scaling/FORK.md) and
    [the FORK.md of the editor folder](packages/frontend/editor-ui/src/features/settings/orchestration/FORK.md)),
    then LDAP (done, see
-   [packages/cli/src/modules/ldap/README.md](packages/cli/src/modules/ldap/README.md)).
+   [packages/cli/src/modules/ldap/README.md](packages/cli/src/modules/ldap/README.md)), then
+   dynamic credentials (done, see
+   [packages/cli/src/modules/dynamic-credentials/README.md](packages/cli/src/modules/dynamic-credentials/README.md)).
 5. When no enterprise code is left, turn on sharing, team projects (no limit), the project roles,
    the admin role, custom roles, SSO and external secrets. They are on by default, and an
    environment variable turns them off. The upstream tests run with them off. Done:
@@ -154,12 +156,14 @@ The fork removes the enterprise code step by step, and builds its own versions o
    `N8N_FORK_NON_PRODUCTION_BANNER=true`. The owner chose parity with the Enterprise Edition on
    2026-10-14: each of the six rebuilt features goes into the list when it is done. Workflow
    reviews, the S3 and Azure Blob storage of binary data and execution data, source control, Git
-   connections, multiple main instances, the worker view, worker pools and LDAP are in the list. Git
-   connections also need their module (`N8N_ENABLED_MODULES=promotions`), and their editor needs
-   `N8N_ENV_FEAT_PROMOTIONS=true`, as in upstream n8n. `deploy/` sets both. Multiple main
-   instances, the worker view and worker pools need queue mode, and multiple main instances and
-   worker pools also need `N8N_MULTI_MAIN_SETUP_ENABLED=true` and `N8N_WORKER_POOLS_ENABLED=true`,
-   as in upstream n8n.
+   connections, multiple main instances, the worker view, worker pools, LDAP and dynamic
+   credentials are in the list. Git connections also need their module
+   (`N8N_ENABLED_MODULES=promotions`), and their editor needs `N8N_ENV_FEAT_PROMOTIONS=true`, as in
+   upstream n8n. `deploy/` sets both. The resolvers, the hooks and the check node of dynamic
+   credentials need `N8N_ENV_FEAT_DYNAMIC_CREDENTIALS=true`, as in upstream n8n. `deploy/` sets it.
+   Multiple main instances, the worker view and worker pools need queue mode, and multiple main
+   instances and worker pools also need `N8N_MULTI_MAIN_SETUP_ENABLED=true` and
+   `N8N_WORKER_POOLS_ENABLED=true`, as in upstream n8n.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.
@@ -264,7 +268,8 @@ update can bring new enterprise files: see "Upstream updates".
   scaling code (the golden tests in `packages/cli/src/scaling/__tests__/golden` and
   `packages/cli/test/integration/worker-pools`), and of the worker view (the golden test in
   `packages/frontend/editor-ui/src/features/settings/orchestration/__tests__/golden`), and of
-  LDAP (`packages/cli/test/integration/ldap/ldap.golden.test.ts`) fail
+  LDAP (`packages/cli/test/integration/ldap/ldap.golden.test.ts`), and of dynamic credentials
+  (the golden tests in `packages/cli/test/integration/dynamic-credentials`) fail
   when an update changes what a role may do, how projects, sharing, the sign-in method, the
   OIDC sign-in, the role provisioning, the SAML sign-in, the secrets providers, the queries of
   their connections, the external secrets module, the external secrets editor, the connections
@@ -272,7 +277,7 @@ update can bring new enterprise files: see "Upstream updates".
   the evaluation backend, the evaluation editor, the local parts of the AI workflow builder, the
   source control editor, the workflow reviews, the S3 and Azure Blob storage, source control, Git
   connections, their editor, the multi-main setup, the worker status, the worker pools, the
-  worker view or LDAP work.
+  worker view, LDAP or dynamic credentials work.
   Compare the change with the upstream change, then update the fork code or the snapshot.
 - To record a snapshot against the enterprise code, use a checkout of the upstream commit in
   `scripts/sync-upstream.base`, outside this repository, because the fork has no enterprise files.
@@ -291,6 +296,9 @@ update can bring new enterprise files: see "Upstream updates".
 - When an upstream update changes the public API controller
   `packages/cli/src/public-api/v1/controllers/promotions.public.controller.ts`, keep the import
   paths of the fork module, as `packages/cli/src/modules/promotions/README.md` tells.
+- When an upstream update changes `packages/cli/src/credentials/credentials.service.ts` or the
+  ordinary tests of dynamic credentials, keep the import paths of the fork module, as
+  `packages/cli/src/modules/dynamic-credentials/README.md` tells.
 - When an upstream update changes how ordinary code uses the S3 and Azure classes of
   `@n8n/blob-storage`, change the fork classes. When it changes how ordinary code uses the scaling
   classes `MultiMainSetup`, `WorkerStatusService`, `WorkerPoolsService` and `PoolConfigService`,
