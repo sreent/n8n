@@ -96,6 +96,7 @@ describe('eligibleModules', () => {
 			'send-copy',
 			'git-sync',
 			'audit-log',
+			'ai-gateway',
 		]);
 	});
 
@@ -138,6 +139,7 @@ describe('eligibleModules', () => {
 			'send-copy',
 			'git-sync',
 			'audit-log',
+			'ai-gateway',
 			'type-availability-policies',
 		]);
 	});

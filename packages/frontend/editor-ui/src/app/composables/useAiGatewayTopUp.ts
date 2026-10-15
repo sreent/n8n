@@ -2,10 +2,14 @@ import { useI18n } from '@n8n/i18n';
 import { useToast } from '@n8n/composables/useToast';
 import { useTelemetry } from '@n8n/composables/useTelemetry';
 import { useCloudPlanStore } from '@n8n/stores/cloudPlan.store';
+import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useUsersStore } from '@n8n/stores/users.store';
+import { AI_GATEWAY_ADMIN_VIEW } from '@n8n/frontend-module-ai-gateway';
+import { useRouter } from 'vue-router';
 import { AI_GATEWAY_TOP_UP_MODAL_KEY, CLOUD_N8N_CONNECT_TOP_UP_PATH } from '@/app/constants';
 import { usePageRedirectionHelper } from '@/app/composables/usePageRedirectionHelper';
 import { useUIStore } from '@/app/stores/ui.store';
+import { hasPermission } from '@/app/utils/rbac/permissions';
 
 export type AiGatewayTopUpSource = 'settings_page' | 'credential_selector';
 
@@ -19,6 +23,20 @@ export function useAiGatewayTopUp() {
 	const toast = useToast();
 	const i18n = useI18n();
 	const { goToCloudDashboard } = usePageRedirectionHelper();
+	const settingsStore = useSettingsStore();
+	const router = useRouter();
+
+	/**
+	 * Fork: the self-hosted AI gateway (`packages/cli/src/modules/ai-gateway`) has no Cloud Admin
+	 * Panel. An admin adds top-ups on its settings page, and other users ask an admin.
+	 */
+	async function openForkTopUp() {
+		if (hasPermission(['rbac'], { rbac: { scope: 'aiAssistant:manage' } })) {
+			await router.push({ name: AI_GATEWAY_ADMIN_VIEW });
+			return;
+		}
+		toast.showMessage({ title: i18n.baseText('aiGateway.topUp.fork.member'), type: 'info' });
+	}
 
 	function resolveVariant(): AiGatewayTopUpVariant {
 		if (usersStore.isInstanceOwner && cloudPlanStore.userIsTrialing) return 'ownerTrial';
@@ -34,6 +52,14 @@ export function useAiGatewayTopUp() {
 			source: options.source,
 			credential_type: options.credentialType,
 		});
+
+		if (
+			settingsStore.moduleSettings['ai-gateway']?.selfHosted === true &&
+			!settingsStore.isCloudDeployment
+		) {
+			await openForkTopUp();
+			return;
+		}
 
 		if (usersStore.isInstanceOwner && !cloudPlanStore.userIsTrialing) {
 			try {

@@ -71,6 +71,9 @@ Auto-generated from the SQLite migrations in @n8n/db. Do not edit by hand.
 | [execution_metadata](execution_metadata.md) | 4 |  | table |
 | [folder](folder.md) | 6 |  | table |
 | [folder_tag](folder_tag.md) | 2 |  | table |
+| [fork_ai_gateway_top_up](fork_ai_gateway_top_up.md) | 5 |  | table |
+| [fork_ai_gateway_usage](fork_ai_gateway_usage.md) | 14 |  | table |
+| [fork_ai_gateway_wallet](fork_ai_gateway_wallet.md) | 2 |  | table |
 | [fork_audit_log_event](fork_audit_log_event.md) | 8 |  | table |
 | [insights_by_period](insights_by_period.md) | 6 |  | table |
 | [insights_metadata](insights_metadata.md) | 5 |  | table |
@@ -1063,6 +1066,33 @@ erDiagram
 "folder_tag" {
   varchar_36_ folderId PK
   varchar_36_ tagId PK
+}
+"fork_ai_gateway_top_up" {
+  REAL amount
+  datetime_3_ createdAt
+  varchar_36_ createdById
+  varchar_36_ id PK
+  varchar_255_ note
+}
+"fork_ai_gateway_usage" {
+  varchar_36_ agentId
+  INTEGER cachedInputTokens
+  REAL cost
+  REAL costFromTopUp
+  datetime_3_ createdAt
+  varchar_36_ executionId
+  varchar_36_ id PK
+  INTEGER inputTokens
+  varchar_255_ model
+  INTEGER outputTokens
+  varchar_36_ projectId
+  varchar_64_ provider
+  varchar_36_ userId
+  varchar_36_ workflowId
+}
+"fork_ai_gateway_wallet" {
+  INTEGER id
+  REAL topUpBalance
 }
 "fork_audit_log_event" {
   varchar_128_ eventName

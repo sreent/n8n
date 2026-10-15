@@ -98,6 +98,9 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	// resolvers, the hooks and the check node also need N8N_ENV_FEAT_DYNAMIC_CREDENTIALS=true, as in
 	// upstream n8n.
 	[LICENSE_FEATURES.DYNAMIC_CREDENTIALS]: true,
+	// The AI gateway of the Gateway credits: the fork module ai-gateway (the owner chose this on
+	// 2026-10-15). An admin turns it on and sets the providers at Settings > AI gateway.
+	[LICENSE_FEATURES.AI_GATEWAY]: true,
 };
 
 const FORK_FEATURE_VALUES_WITH_BANNER: FeatureReturnType = {

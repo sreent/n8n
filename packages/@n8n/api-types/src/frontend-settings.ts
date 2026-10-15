@@ -459,6 +459,14 @@ export type FrontendModuleSettings = {
 		/** The days that the audit log keeps an event. `0` keeps all events. */
 		retentionDays: number;
 	};
+
+	/**
+	 * Client settings for the AI gateway module of the fork.
+	 */
+	'ai-gateway'?: {
+		/** The self-hosted AI gateway of the fork serves Gateway credits on this instance. */
+		selfHosted: boolean;
+	};
 };
 
 export type N8nEnvFeatFlagValue = boolean | string | number | undefined;

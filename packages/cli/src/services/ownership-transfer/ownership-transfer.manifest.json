@@ -103,6 +103,11 @@
 			"name": "AuditLogEvent",
 			"path": "packages/cli/src/modules/audit-log/database/audit-log-event.entity.ts",
 			"reason": "Fork audit log: an append-only record of what happened, with the project of the event at the time of the event. A transfer must not change the record. The projectId column has no foreign key, so the rows stay when the project is deleted, until the retention removes them."
+		},
+		{
+			"name": "AiGatewayUsage",
+			"path": "packages/cli/src/modules/ai-gateway/database/entities/ai-gateway.entities.ts",
+			"reason": "Fork AI gateway: a record of the calls that a project paid for in a month, which its monthly budget counts. A transfer must not move the spend of the past. The projectId column has no foreign key, so the rows stay when the project is deleted."
 		}
 	]
 }

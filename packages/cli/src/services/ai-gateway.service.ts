@@ -9,7 +9,7 @@ import { OutboundHttp } from '@n8n/backend-network';
 import { GlobalConfig } from '@n8n/config';
 import { LICENSE_FEATURES } from '@n8n/constants';
 import { UserRepository } from '@n8n/db';
-import { Service } from '@n8n/di';
+import { Container, Service } from '@n8n/di';
 import { InstanceSettings } from 'n8n-core';
 import type { ICredentialDataDecryptedObject, IHttpRequestMethods, INode } from 'n8n-workflow';
 import { OperationalError, UserError } from 'n8n-workflow';
@@ -19,6 +19,7 @@ import { FeatureNotLicensedError } from '@/errors/feature-not-licensed.error';
 import { BadRequestError } from '@n8n/errors';
 import { License } from '@/license';
 import { checkAiGatewayEligibility } from '@/services/ai-gateway-eligibility';
+import { ForkAiGatewayBridge } from '@/services/fork-ai-gateway-bridge';
 import { OwnershipService } from '@/services/ownership.service';
 import { UrlService } from '@n8n/backend-services';
 
@@ -72,8 +73,18 @@ export class AiGatewayService {
 		return (
 			this.licenseState.isAiGatewayLicensed() &&
 			this.globalConfig.aiGateway.enabled &&
-			!!this.globalConfig.aiAssistant.baseUrl
+			!!this.gatewayBaseUrl()
 		);
+	}
+
+	/** Fork: the fork AI gateway when it is on (`modules/ai-gateway/README.md`). */
+	private forkGateway() {
+		return Container.get(ForkAiGatewayBridge).active();
+	}
+
+	/** Fork: the URL of the fork AI gateway, else the URL of the gateway service of n8n. */
+	private gatewayBaseUrl() {
+		return this.forkGateway()?.url ?? this.globalConfig.aiAssistant.baseUrl;
 	}
 
 	assertEnabled(): void {
@@ -94,6 +105,10 @@ export class AiGatewayService {
 		},
 		errorMessage: string,
 	): Promise<T> {
+		// Fork: the fork AI gateway answers in the process, without HTTP.
+		const forkGateway = this.forkGateway();
+		if (forkGateway) return (await forkGateway.answer(options)) as T;
+
 		const response = await this.outboundHttp
 			.requests({
 				useDefaultSsrfPolicy: 'unsafe', // the gateway base URL is n8n-owned configuration
@@ -373,7 +388,7 @@ export class AiGatewayService {
 	}
 
 	private requireBaseUrl(): string {
-		const url = this.globalConfig.aiAssistant.baseUrl;
+		const url = this.gatewayBaseUrl();
 		if (!url)
 			throw new UserError('Gateway credits are not configured. Set the AI assistant base URL.');
 		return url;
@@ -381,6 +396,8 @@ export class AiGatewayService {
 
 	private isConfigStale(): boolean {
 		return (
+			// Fork: the fork AI gateway answers in the process, so its config needs no cache.
+			this.forkGateway() !== undefined ||
 			this.gatewayConfig === null ||
 			Date.now() - this.configFetchedAt > AiGatewayService.CONFIG_TTL_MS
 		);

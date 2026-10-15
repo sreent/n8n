@@ -71,6 +71,9 @@ Auto-generated from the PostgreSQL migrations in @n8n/db. Do not edit by hand.
 | [public.execution_metadata](public.execution_metadata.md) | 4 |  | BASE TABLE |
 | [public.folder](public.folder.md) | 6 |  | BASE TABLE |
 | [public.folder_tag](public.folder_tag.md) | 2 |  | BASE TABLE |
+| [public.fork_ai_gateway_top_up](public.fork_ai_gateway_top_up.md) | 5 |  | BASE TABLE |
+| [public.fork_ai_gateway_usage](public.fork_ai_gateway_usage.md) | 14 |  | BASE TABLE |
+| [public.fork_ai_gateway_wallet](public.fork_ai_gateway_wallet.md) | 2 |  | BASE TABLE |
 | [public.fork_audit_log_event](public.fork_audit_log_event.md) | 8 |  | BASE TABLE |
 | [public.insights_by_period](public.insights_by_period.md) | 6 |  | BASE TABLE |
 | [public.insights_metadata](public.insights_metadata.md) | 5 |  | BASE TABLE |
@@ -1077,6 +1080,33 @@ erDiagram
 "public.folder_tag" {
   varchar_36_ folderId FK
   varchar_36_ tagId FK
+}
+"public.fork_ai_gateway_top_up" {
+  double_precision amount
+  timestamp_3__with_time_zone createdAt
+  varchar_36_ createdById
+  varchar_36_ id
+  varchar_255_ note
+}
+"public.fork_ai_gateway_usage" {
+  varchar_36_ agentId
+  integer cachedInputTokens
+  double_precision cost
+  double_precision costFromTopUp
+  timestamp_3__with_time_zone createdAt
+  varchar_36_ executionId
+  varchar_36_ id
+  integer inputTokens
+  varchar_255_ model
+  integer outputTokens
+  varchar_36_ projectId
+  varchar_64_ provider
+  varchar_36_ userId
+  varchar_36_ workflowId
+}
+"public.fork_ai_gateway_wallet" {
+  integer id
+  double_precision topUpBalance
 }
 "public.fork_audit_log_event" {
   varchar_128_ eventName

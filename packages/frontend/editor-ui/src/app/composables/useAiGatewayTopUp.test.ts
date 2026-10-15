@@ -3,6 +3,8 @@ import { createTestingPinia } from '@pinia/testing';
 import { setActivePinia } from 'pinia';
 import { mockedStore } from '@/__tests__/utils';
 import { useCloudPlanStore } from '@n8n/stores/cloudPlan.store';
+import { useRBACStore } from '@n8n/stores/rbac.store';
+import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { useUIStore } from '@/app/stores/ui.store';
 import { AI_GATEWAY_TOP_UP_MODAL_KEY, CLOUD_N8N_CONNECT_TOP_UP_PATH } from '@/app/constants';
@@ -10,6 +12,8 @@ import { useAiGatewayTopUp } from './useAiGatewayTopUp';
 
 const trackMock = vi.fn();
 const showErrorMock = vi.fn();
+const showMessageMock = vi.fn();
+const routerPushMock = vi.fn();
 const goToCloudDashboardMock = vi.hoisted(() => vi.fn());
 
 vi.mock('@n8n/composables/useTelemetry', () => ({
@@ -17,7 +21,12 @@ vi.mock('@n8n/composables/useTelemetry', () => ({
 }));
 
 vi.mock('@n8n/composables/useToast', () => ({
-	useToast: () => ({ showError: showErrorMock }),
+	useToast: () => ({ showError: showErrorMock, showMessage: showMessageMock }),
+}));
+
+vi.mock('vue-router', async (importOriginal) => ({
+	...(await importOriginal<object>()),
+	useRouter: () => ({ push: routerPushMock }),
 }));
 
 vi.mock('@/app/composables/usePageRedirectionHelper', () => ({
@@ -123,5 +132,59 @@ describe('useAiGatewayTopUp', () => {
 			data: { variant: 'memberTrial' },
 		});
 		expect(goToCloudDashboardMock).not.toHaveBeenCalled();
+	});
+
+	// Fork: the self-hosted AI gateway (packages/cli/src/modules/ai-gateway).
+	describe('with the fork AI gateway', () => {
+		beforeEach(() => {
+			useSettingsStore().$patch({ moduleSettings: { 'ai-gateway': { selfHosted: true } } });
+		});
+
+		it('opens the settings page of the gateway for an admin', async () => {
+			const uiStore = mockedStore(useUIStore);
+			useRBACStore().setGlobalScopes(['aiAssistant:manage']);
+
+			const { openTopUp } = useAiGatewayTopUp();
+			await openTopUp({ source: 'credential_selector', credentialType: 'openAiApi' });
+
+			expect(trackMock).toHaveBeenCalled();
+			expect(routerPushMock).toHaveBeenCalledWith({ name: 'SettingsForkAiGatewayView' });
+			expect(goToCloudDashboardMock).not.toHaveBeenCalled();
+			expect(uiStore.openModalWithData).not.toHaveBeenCalled();
+		});
+
+		it('keeps the modal of n8n Cloud while the module settings do not name the gateway', async () => {
+			const uiStore = mockedStore(useUIStore);
+			// An object patch merges, so replace the module settings of the beforeEach.
+			useSettingsStore().$patch((state) => {
+				state.moduleSettings = {};
+				state.settings.activeModules = ['ai-gateway'];
+			});
+
+			const { openTopUp } = useAiGatewayTopUp();
+			await openTopUp({ source: 'settings_page' });
+
+			expect(uiStore.openModalWithData).toHaveBeenCalledWith({
+				name: AI_GATEWAY_TOP_UP_MODAL_KEY,
+				data: { variant: 'member' },
+			});
+			expect(routerPushMock).not.toHaveBeenCalled();
+		});
+
+		it('asks other users to contact an admin', async () => {
+			const uiStore = mockedStore(useUIStore);
+			useRBACStore().setGlobalScopes(['workflow:read']);
+
+			const { openTopUp } = useAiGatewayTopUp();
+			await openTopUp({ source: 'settings_page' });
+
+			expect(showMessageMock).toHaveBeenCalledWith({
+				title:
+					'Ask an admin of this instance to add a top-up or to raise the budget of the AI gateway.',
+				type: 'info',
+			});
+			expect(routerPushMock).not.toHaveBeenCalled();
+			expect(uiStore.openModalWithData).not.toHaveBeenCalled();
+		});
 	});
 });
