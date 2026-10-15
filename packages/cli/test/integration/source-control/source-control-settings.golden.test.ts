@@ -84,18 +84,22 @@ function keyLabel(key: string) {
 
 /** Masks the parts of a text that change from run to run: ports, paths, keys and hashes. */
 function mask(text: string): string {
-	return text
-		.split(remote.root)
-		.join('<remote>')
-		.replace(/\/tmp\/n8n-tests\/[^/\s'"]+\/\.n8n/g, '<n8n>')
-		.replace(/\/tmp\/[^\s'"]+/g, '<tmp>')
-		.replace(/127\.0\.0\.1:\d+/g, '127.0.0.1:<port>')
-		.replace(/localhost:\d+/g, 'localhost:<port>')
-		.replace(
-			/(ssh-(?:ed25519|rsa)) ([A-Za-z0-9+/=]+)/g,
-			(_match, type: string, key: string) => `${type} ${keyLabel(key)}`,
-		)
-		.replace(/-----BEGIN [A-Z ]+-----[\s\S]*?-----END [A-Z ]+-----\n?/g, '<private key>');
+	return (
+		text
+			.split(remote.root)
+			.join('<remote>')
+			.replace(/\/tmp\/n8n-tests\/[^/\s'"]+\/\.n8n/g, '<n8n>')
+			.replace(/\/tmp\/[^\s'"]+/g, '<tmp>')
+			.replace(/127\.0\.0\.1:\d+/g, '127.0.0.1:<port>')
+			.replace(/localhost:\d+/g, 'localhost:<port>')
+			// The time of a failed connection that git reports changes from run to run.
+			.replace(/ after \d+ ms:/g, ' after <n> ms:')
+			.replace(
+				/(ssh-(?:ed25519|rsa)) ([A-Za-z0-9+/=]+)/g,
+				(_match, type: string, key: string) => `${type} ${keyLabel(key)}`,
+			)
+			.replace(/-----BEGIN [A-Z ]+-----[\s\S]*?-----END [A-Z ]+-----\n?/g, '<private key>')
+	);
 }
 
 /** Masks each string first, so that the labels of the recorder do not cut a key in two. */
