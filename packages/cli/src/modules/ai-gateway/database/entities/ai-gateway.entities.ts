@@ -48,6 +48,10 @@ export class AiGatewayUsage extends BaseEntity {
 	/** The part of the cost that came from the top-ups, after the monthly budget was spent. */
 	@Column({ type: 'double precision', default: 0 })
 	costFromTopUp: number;
+
+	/** The gateway estimated the tokens, because the answer did not report them all. */
+	@Column({ type: 'boolean', default: false })
+	estimated: boolean;
 }
 
 /** An amount that an admin added to the balance of the instance. It does not expire. */

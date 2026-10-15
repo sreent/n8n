@@ -24,6 +24,7 @@ export type AiGatewayUsageRow = Pick<
 	| 'cachedInputTokens'
 	| 'cost'
 	| 'costFromTopUp'
+	| 'estimated'
 >;
 
 /** The filters of a list of calls. All of them are optional. */

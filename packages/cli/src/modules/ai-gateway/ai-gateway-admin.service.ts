@@ -110,6 +110,7 @@ export class AiGatewayAdminService {
 			userMonthlyLimit: update.userMonthlyLimit,
 			projectBudgets: update.projectBudgets,
 			prices: update.prices,
+			estimateUsage: update.estimateUsage,
 		});
 		this.proxy.clearCredentialCache();
 		return await this.getSettings();
@@ -234,6 +235,7 @@ export class AiGatewayAdminService {
 				id: row.id,
 				cachedInputTokens: row.cachedInputTokens,
 				costFromTopUp: row.costFromTopUp,
+				estimated: row.estimated,
 				userId: row.userId,
 				userEmail: users.find((user) => user.id === row.userId)?.email ?? null,
 				projectId: row.projectId,

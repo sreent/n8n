@@ -209,9 +209,16 @@ OCR. The document and image analysis of the Google Gemini node is another way to
   pages of a document of Document AI. An image or a page with an error is not counted.
 - The prices are in dollars for one million pages or images: the list prices `vision-ocr` and
   `document-ai` are $1,500 for one million ($1.50 for 1,000), the price of the text detection
-  of the Cloud Vision API and of the Enterprise Document OCR of Document AI. Other processors of
-  Document AI cost more: an admin sets the price of `document-ai`. The free pages of Google each
-  month are not in the prices.
+  of the Cloud Vision API and of the Enterprise Document OCR of Document AI. The free pages of Google
+  each month are not in the prices.
+- Each processor of Document AI can have its own price, because some processors cost more (for
+  example the Form Parser). The model of a call names the processor: `document-ai/<processor ID>`
+  (the ID in the resource name `projects/<project>/locations/<location>/processors/<ID>`). An admin
+  sets the price of that model for the provider Google Cloud OCR on the tab **Prices**. A
+  processor without its own price gets the price of `document-ai`. To be safe, set the price of
+  `document-ai` to the price of your most expensive processor, and give the cheaper processors
+  their own prices. The tab **Usage** shows the model of each call, so it shows the processors that
+  the users call.
 - Each request of the Cloud Vision API must ask for one text detection (`TEXT_DETECTION` or
   `DOCUMENT_TEXT_DETECTION`) and no other feature, because the price covers one detection. A call
   of the Cloud Vision API has only the field `requests` (no `parent`).
@@ -255,14 +262,36 @@ has one. The gateway reads the tokens from the answer of the provider, also from
 of a stream. For a stream of the OpenAI format, the proxy asks for the usage
 (`stream_options.include_usage`). OpenRouter reports the cost of a call itself; the gateway uses
 that cost. The answer of a Gemini embedding has no usage: the gateway counts four characters of the
-input for each token. Another answer without usage gets no record, and the proxy logs the warning
-"The answer of a call through the AI gateway had no usage", for example for a stream that stops
-before the event with the usage.
+input for each token, and marks the call as estimated.
 
 `prices.ts` holds the list prices of common models, with the date when the fork read them. The
 admin changes a price or adds a model on the settings page. A model without a price is blocked
 ("The model <model> has no price in the AI gateway. Ask an admin to add one."), so that no call is
 free by mistake. Ollama models have the price 0 unless the admin sets one.
+
+### Estimates
+
+Some answers do not report all the tokens that the provider bills. The gateway then records an
+estimate, and marks the call as estimated. The tab **Usage** shows the mark **Estimate**.
+
+- An answer without usage: a provider that does not report the usage of a stream, or a JSON answer
+  that stops before its end. The input is the text of the request, four characters for each token,
+  without images, audio and files. The output is the text that the answer gave, four characters
+  for each token (a JSON answer that stops early: its size).
+- A stream that stops early, because the client closed the connection or the connection to the
+  provider broke. The gateway keeps the usage that the stream reported (for example the input of
+  the event `message_start` of Anthropic), and takes the larger output: the reported one or the
+  estimate of the text that the stream gave.
+- A call that the client stops before the answer comes: an estimate of its input, without output.
+- The OCR counts pages and images: an estimate is one for each image of `images:annotate`, the
+  pages of each file of `files:annotate` (5 when the request names none), and one page of a
+  document of Document AI.
+
+The estimates are on by default. The switch **Estimate the usage of calls without usage** on the
+tab **Prices** turns them off (the setting `estimateUsage`). Off, such a call gets no record and
+costs nothing, and the proxy logs the warning "The answer of a call through the AI gateway had no
+usage". The estimate of Gemini embeddings stays, because their answers never have usage. An
+estimate does not count the hidden reasoning tokens of a model or the tokens of images.
 
 ## The settings page
 
@@ -276,11 +305,14 @@ keep the ordinary page **Settings > Gateway credits**: their balance and their c
 - The settings are one JSON value in the table `settings` (key `fork.aiGateway`): on or off, the
   credential of each provider with its type and the options of its backend (the deployments of
   Azure OpenAI, the project and the location of Vertex AI, and the service account of the open
-  models of Vertex AI), the monthly budget, the monthly limit of a user, the budgets of projects
-  and the prices that the admin set.
+  models of Vertex AI), the monthly budget, the monthly limit of a user, the budgets of projects,
+  the prices that the admin set and the switch of the estimates (`estimateUsage`, on when it is
+  missing).
 - `fork_ai_gateway_usage` keeps one row for each call that the gateway priced: the time, the user,
-  the project, the workflow, the execution, the provider, the model, the tokens, the cost, and the
-  part of the cost that came from top-ups.
+  the project, the workflow, the execution, the provider, the model, the tokens, the cost, the
+  part of the cost that came from top-ups, and whether the gateway estimated the tokens
+  (`estimated`). The fork migrations `CreateForkAiGatewayTables` and
+  `AddEstimatedToForkAiGatewayUsage` in `packages/@n8n/db/src/migrations/common` create them.
 - `fork_ai_gateway_top_up` keeps each top-up: the time, the amount, the admin and a note.
 - `fork_ai_gateway_wallet` keeps the balance of the top-ups in one row. The gateway records a call
   and takes its part from the balance in one transaction, with an update that cannot make the
@@ -365,8 +397,10 @@ admin sees only their own calls in the usage.
   checks the settings and their access, the config and the token of the ordinary routes, the proxy
   of each API format (JSON and streams), the query parameters and headers that go to Google, the
   upload of a Gemini file, the prices, the budgets, the top-ups, the off switches, the backends
-  Azure OpenAI and Vertex AI with the open models (with a replaced sign-in), and the OCR of Google
-  Cloud with an API key and with a service account, with the checks of its requests.
+  Azure OpenAI and Vertex AI with the open models (with a replaced sign-in), the OCR of Google
+  Cloud with an API key and with a service account, with the checks of its requests and the price
+  of each processor of Document AI, and the estimates (an answer without usage, a stream that stops
+  early, a client that stops before the answer, and the switch).
 
 ## Upstream updates
 

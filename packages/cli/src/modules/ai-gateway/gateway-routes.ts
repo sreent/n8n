@@ -1,3 +1,4 @@
+import { DOCUMENT_AI_MODEL } from './prices';
 import { AI_GATEWAY_PROVIDERS, type AiGatewayApiFormat, type AiGatewayProvider } from './providers';
 
 const GATEWAY_PREFIX = '/v1/gateway/';
@@ -139,23 +140,32 @@ function geminiEndpoint(method: string, rest: string): GatewayEndpoint | undefin
 	return undefined;
 }
 
-/** A call of Document AI: `/v1/projects/<project>/locations/<location>/processors/<id>:process`. */
+/**
+ * A call of Document AI: `/v1/projects/<project>/locations/<location>/processors/<id>:process`,
+ * also with `/processorVersions/<id>`. The groups are the location and the processor ID.
+ */
 const DOCUMENT_AI_PROCESS =
-	/^\/v1\/projects\/[^/]+\/locations\/([a-z][a-z0-9-]*)\/processors\/[^/:]+(\/processorVersions\/[^/:]+)?:process$/;
+	/^\/v1\/projects\/[^/]+\/locations\/([a-z][a-z0-9-]*)\/processors\/([\w-]{1,64})(\/processorVersions\/[^/:]+)?:process$/;
 
 /** The location of a call of Document AI, or `undefined` for another path. */
 export function documentAiLocation(rest: string) {
 	return DOCUMENT_AI_PROCESS.exec(rest)?.[1];
 }
 
-/** The text detection of the Cloud Vision API, and the processors of Document AI. */
+/**
+ * The text detection of the Cloud Vision API, and the processors of Document AI. The model of a
+ * call of Document AI names its processor (`document-ai/<processor ID>`), so that each processor
+ * can have its own price.
+ */
 function googleOcrEndpoint(method: string, rest: string): GatewayEndpoint | undefined {
 	if (method !== 'POST') return undefined;
 	if (rest === '/v1/images:annotate' || rest === '/v1/files:annotate') {
 		return { kind: 'metered', model: { fromPath: 'vision-ocr' } };
 	}
-	if (DOCUMENT_AI_PROCESS.test(rest))
-		return { kind: 'metered', model: { fromPath: 'document-ai' } };
+	const processor = DOCUMENT_AI_PROCESS.exec(rest)?.[2];
+	if (processor) {
+		return { kind: 'metered', model: { fromPath: `${DOCUMENT_AI_MODEL}/${processor}` } };
+	}
 	return undefined;
 }
 

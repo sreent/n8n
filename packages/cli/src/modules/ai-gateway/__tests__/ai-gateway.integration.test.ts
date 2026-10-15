@@ -63,6 +63,13 @@ const sse = (res: ServerResponse, events: unknown[]) => {
 /** The provider APIs, under one server: `/openai`, `/anthropic`, `/google` and `/ollama`. */
 function answer(req: IncomingMessage, res: ServerResponse, body: Record<string, unknown>) {
 	const path = new URL(req.url ?? '', 'http://provider').pathname;
+	if (typeof body.test_delay_ms === 'number') {
+		const { test_delay_ms: delay, ...rest } = body;
+		setTimeout(() => {
+			if (!res.destroyed) answer(req, res, rest);
+		}, delay);
+		return;
+	}
 	const json = (value: unknown) => {
 		res.writeHead(200, {
 			'content-type': 'application/json',
@@ -76,7 +83,7 @@ function answer(req: IncomingMessage, res: ServerResponse, body: Record<string, 
 			const options = body.stream_options as { include_usage?: boolean } | undefined;
 			return sse(res, [
 				{ choices: [{ delta: { content: 'Hello' } }], usage: null },
-				...(options?.include_usage
+				...(options?.include_usage && body.test_no_usage !== true
 					? [{ choices: [], usage: { prompt_tokens: 2000, completion_tokens: 1000 } }]
 					: []),
 			]);
@@ -99,6 +106,13 @@ function answer(req: IncomingMessage, res: ServerResponse, body: Record<string, 
 		res.write(
 			`event: message_start\ndata: ${JSON.stringify({ type: 'message_start', message: { usage: { input_tokens: 3000, output_tokens: 1 } } })}\n\n`,
 		);
+		if (body.test_cut === true) {
+			res.write(
+				`event: content_block_delta\ndata: ${JSON.stringify({ type: 'content_block_delta', delta: { type: 'text_delta', text: 'x'.repeat(400) } })}\n\n`,
+			);
+			setTimeout(() => res.destroy(), 20);
+			return;
+		}
 		res.write(
 			`event: content_block_delta\ndata: ${JSON.stringify({ type: 'content_block_delta', delta: { text: 'Hi' } })}\n\n`,
 		);
@@ -157,7 +171,7 @@ function answer(req: IncomingMessage, res: ServerResponse, body: Record<string, 
 			],
 		});
 	}
-	if (path === '/documentai/v1/projects/acme/locations/eu/processors/abc123:process') {
+	if (/^\/documentai\/v1\/projects\/acme\/locations\/eu\/processors\/[\w-]+:process$/.test(path)) {
 		return json({ document: { text: 'Invoice', pages: [{}, {}] } });
 	}
 	if (path === VERTEX_CHAT_COMPLETIONS) {
@@ -739,6 +753,94 @@ describe('budgets', () => {
 	});
 });
 
+describe('estimates', () => {
+	it('records an estimate for an answer without usage, and nothing while the estimates are off', async () => {
+		const { token, path } = await synthetic('openAiApi');
+		const call = async () =>
+			await testServer.restlessAgent
+				.post(`${path}/chat/completions`)
+				.set('authorization', `Bearer ${token}`)
+				.send({
+					model: 'gpt-4o',
+					stream: true,
+					messages: [{ role: 'user', content: 'Hi there' }],
+					test_no_usage: true,
+				})
+				.expect(200);
+
+		expect((await call()).text).toContain('Hello');
+		// The request has 18 characters of text ('gpt-4o', 'user' and 'Hi there'), the answer 5.
+		const [row] = await usageRows();
+		expect(row).toMatchObject({
+			model: 'gpt-4o',
+			inputTokens: 5,
+			outputTokens: 2,
+			estimated: true,
+		});
+		expect(row.cost).toBeGreaterThan(0);
+
+		await saveSettings({ estimateUsage: false });
+		const settings = await testServer.authAgentFor(owner).get('/ai-gateway/settings').expect(200);
+		expect(settings.body.data.settings.estimateUsage).toBe(false);
+		await call();
+		expect(await usageRows()).toHaveLength(1);
+	});
+
+	it('keeps the reported input of a stream that stops early, and estimates its output', async () => {
+		const { token, path } = await synthetic('anthropicApi');
+		const response = await testServer.restlessAgent
+			.post(`${path}/v1/messages`)
+			.set('x-api-key', token)
+			.send({
+				model: 'claude-sonnet-4-5-20250929',
+				stream: true,
+				messages: [{ role: 'user', content: 'Hi' }],
+				test_cut: true,
+			});
+
+		expect(response.status).toBe(200);
+		// The stream reported the input, and gave 400 characters of text before it stopped.
+		const [row] = await usageRows();
+		expect(row).toMatchObject({ inputTokens: 3000, outputTokens: 100, estimated: true });
+	});
+
+	it('records an estimate of the input when the client stops before the answer', async () => {
+		const { token, path } = await synthetic('openAiApi');
+		const outcome = await testServer.restlessAgent
+			.post(`${path}/chat/completions`)
+			.set('authorization', `Bearer ${token}`)
+			.timeout(300)
+			.send({
+				model: 'gpt-4o',
+				messages: [{ role: 'user', content: 'Hi there' }],
+				test_delay_ms: 1500,
+			})
+			.then(
+				() => 'answered',
+				() => 'stopped',
+			);
+
+		expect(outcome).toBe('stopped');
+		await vi.waitFor(async () => expect(await usageRows()).toHaveLength(1), { timeout: 5000 });
+		const [row] = await usageRows();
+		expect(row).toMatchObject({ inputTokens: 5, outputTokens: 0, estimated: true });
+	});
+
+	it('marks the usage of a call that reported it as not estimated', async () => {
+		const { token, path } = await synthetic('openAiApi');
+		await testServer.restlessAgent
+			.post(`${path}/chat/completions`)
+			.set('authorization', `Bearer ${token}`)
+			.send({ model: 'gpt-4o', messages: [{ role: 'user', content: 'Hi' }] })
+			.expect(200);
+
+		const [row] = await usageRows();
+		expect(row).toMatchObject({ inputTokens: 1000, outputTokens: 500, estimated: false });
+		const usage = await testServer.authAgentFor(owner).get('/ai-gateway/usage').expect(200);
+		expect(usage.body.data.entries[0]).toMatchObject({ estimated: false });
+	});
+});
+
 describe('backends', () => {
 	const azureSettings = (deployments: string[] = ['gpt-4o']) => ({
 		...defaultSettings().providers,
@@ -1258,13 +1360,42 @@ describe('Google Cloud OCR', () => {
 		const rows = await usageRows();
 		expect(rows.map(({ model, inputTokens }) => [model, inputTokens])).toEqual([
 			['vision-ocr', 3],
-			['document-ai', 2],
+			['document-ai/abc123', 2],
 		]);
 
 		const config = await testServer.authAgentFor(member).get('/ai/gateway/config').expect(200);
 		expect(config.body.data.supportedActions[ocrNode]).toEqual({
 			__operation_only__: ['readText', 'processDocument'],
 		});
+	});
+
+	it('prices each processor of Document AI, and gives other processors the price of document-ai', async () => {
+		await saveSettings({
+			providers: {
+				...defaultSettings().providers,
+				'google-ocr': { credentialId: credentialIds.googleApi },
+			},
+			prices: { 'google-ocr': { 'document-ai/form1': { input: 30000, output: 0 } } },
+		});
+		const google = Container.get(AiGatewayVertexService);
+		vi.spyOn(google, 'accessToken').mockResolvedValue('ocr-access-token');
+		vi.spyOn(google, 'documentAiOrigin').mockReturnValue(`${providerUrl}/documentai`);
+		const { token, path } = await synthetic('googleCloudOcrApi');
+
+		for (const processor of ['form1', 'ocr1']) {
+			await testServer.restlessAgent
+				.post(`${path}/v1/projects/acme/locations/eu/processors/${processor}:process`)
+				.set('x-goog-api-key', token)
+				.send({ rawDocument: { content: 'c2Nhbg==', mimeType: 'application/pdf' } })
+				.expect(200);
+		}
+
+		const [form, ocr] = await usageRows();
+		// Two pages each: $30,000 and $1,500 for one million pages.
+		expect(form).toMatchObject({ model: 'document-ai/form1', inputTokens: 2 });
+		expect(form.cost).toBeCloseTo(0.06);
+		expect(ocr).toMatchObject({ model: 'document-ai/ocr1', inputTokens: 2 });
+		expect(ocr.cost).toBeCloseTo(0.003);
 	});
 
 	it('refuses files of Cloud Storage and other fields in the requests of the OCR', async () => {

@@ -6,7 +6,7 @@
 <summary><strong>Table Definition</strong></summary>
 
 ```sql
-CREATE TABLE "fork_ai_gateway_usage" ("id" varchar(36) PRIMARY KEY NOT NULL, "createdAt" datetime(3) NOT NULL, "userId" varchar(36), "projectId" varchar(36), "workflowId" varchar(36), "executionId" varchar(36), "agentId" varchar(36), "provider" varchar(64) NOT NULL, "model" varchar(255) NOT NULL, "inputTokens" integer NOT NULL DEFAULT (0), "outputTokens" integer NOT NULL DEFAULT (0), "cachedInputTokens" integer NOT NULL DEFAULT (0), "cost" real NOT NULL DEFAULT (0), "costFromTopUp" real NOT NULL DEFAULT (0))
+CREATE TABLE "fork_ai_gateway_usage" ("id" varchar(36) PRIMARY KEY NOT NULL, "createdAt" datetime(3) NOT NULL, "userId" varchar(36), "projectId" varchar(36), "workflowId" varchar(36), "executionId" varchar(36), "agentId" varchar(36), "provider" varchar(64) NOT NULL, "model" varchar(255) NOT NULL, "inputTokens" integer NOT NULL DEFAULT (0), "outputTokens" integer NOT NULL DEFAULT (0), "cachedInputTokens" integer NOT NULL DEFAULT (0), "cost" real NOT NULL DEFAULT (0), "costFromTopUp" real NOT NULL DEFAULT (0), "estimated" boolean NOT NULL DEFAULT (false))
 ```
 
 </details>
@@ -20,6 +20,7 @@ CREATE TABLE "fork_ai_gateway_usage" ("id" varchar(36) PRIMARY KEY NOT NULL, "cr
 | cost | REAL | 0 | false |  |  |  |
 | costFromTopUp | REAL | 0 | false |  |  |  |
 | createdAt | datetime(3) |  | false |  |  |  |
+| estimated | boolean | false | false |  |  |  |
 | executionId | varchar(36) |  | true |  |  |  |
 | id | varchar(36) |  | false |  |  |  |
 | inputTokens | INTEGER | 0 | false |  |  |  |
@@ -58,6 +59,7 @@ erDiagram
   REAL cost
   REAL costFromTopUp
   datetime_3_ createdAt
+  boolean estimated
   varchar_36_ executionId
   varchar_36_ id PK
   INTEGER inputTokens

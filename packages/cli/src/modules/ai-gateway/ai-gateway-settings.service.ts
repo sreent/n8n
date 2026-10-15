@@ -57,6 +57,11 @@ export const aiGatewaySettingsSchema = z.object({
 	projectBudgets: z.record(z.string().max(36), amount),
 	/** The prices of the admin: provider slug, then model. */
 	prices: z.record(z.string(), z.record(z.string().min(1).max(255), aiGatewayPriceSchema)),
+	/**
+	 * Whether the gateway records an estimate for an answer without usage or that stopped early.
+	 * Off, such an answer costs nothing. Settings from before this switch have it on.
+	 */
+	estimateUsage: z.boolean().default(true),
 });
 
 export type AiGatewaySettings = z.infer<typeof aiGatewaySettingsSchema>;
@@ -68,6 +73,7 @@ export const DEFAULT_AI_GATEWAY_SETTINGS: AiGatewaySettings = {
 	userMonthlyLimit: null,
 	projectBudgets: {},
 	prices: {},
+	estimateUsage: true,
 };
 
 /**

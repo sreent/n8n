@@ -1,16 +1,27 @@
 import type { AiGatewayApiFormat } from '../providers';
-import { estimateGeminiEmbeddingTokens, UsageMeter, usageOf } from '../usage-meter';
+import {
+	estimateGeminiEmbeddingTokens,
+	estimateInputTokens,
+	UsageMeter,
+	usageOf,
+} from '../usage-meter';
 
 const encode = (text: string) => new TextEncoder().encode(text);
 
 /** Feeds the text in small pieces, so that events and lines cross the chunks. */
-function meter(format: AiGatewayApiFormat, contentType: string, text: string) {
+function fed(format: AiGatewayApiFormat, contentType: string, text: string) {
 	const usageMeter = new UsageMeter(format, contentType);
 	for (let index = 0; index < text.length; index += 7) {
 		usageMeter.push(encode(text.slice(index, index + 7)));
 	}
-	return usageMeter.finish();
+	return usageMeter;
 }
+
+const meter = (format: AiGatewayApiFormat, contentType: string, text: string) =>
+	fed(format, contentType, text).finish();
+
+const sseOf = (events: unknown[]) =>
+	events.map((event) => `data: ${JSON.stringify(event)}\n\n`).join('');
 
 describe('usageOf', () => {
 	it('reads the usage of the chat completions and of the Responses API', () => {
@@ -187,5 +198,169 @@ describe('estimateGeminiEmbeddingTokens', () => {
 				],
 			}),
 		).toBe(3);
+	});
+});
+
+describe('the estimate of the output', () => {
+	const outputTokens = (format: AiGatewayApiFormat, contentType: string, text: string) =>
+		fed(format, contentType, text).estimatedOutputTokens();
+
+	it('counts the text of a stream: four characters for each token', () => {
+		// 'Hello wor' + 'ld!' + '{"a":1}': 19 characters.
+		expect(
+			outputTokens(
+				'openai',
+				'text/event-stream',
+				sseOf([
+					{ choices: [{ delta: { role: 'assistant', content: 'Hello wor' } }] },
+					{ choices: [{ delta: { content: 'ld!' } }] },
+					{ choices: [{ delta: { tool_calls: [{ function: { arguments: '{"a":1}' } }] } }] },
+				]),
+			),
+		).toBe(5);
+		// The deltas of the Responses API, without the done events and without audio: 12 characters.
+		expect(
+			outputTokens(
+				'openai',
+				'text/event-stream',
+				sseOf([
+					{ type: 'response.output_text.delta', delta: 'Hello' },
+					{ type: 'response.function_call_arguments.delta', delta: '{"x":2}' },
+					{ type: 'response.output_text.done', text: 'Hello' },
+					{ type: 'response.audio.delta', delta: 'AAAAAAAAAAAA' },
+				]),
+			),
+		).toBe(3);
+		// Text, the JSON of a tool call and thinking: 16 characters.
+		expect(
+			outputTokens(
+				'anthropic',
+				'text/event-stream',
+				sseOf([
+					{ type: 'message_start', message: { usage: { input_tokens: 10, output_tokens: 1 } } },
+					{ type: 'content_block_delta', delta: { type: 'text_delta', text: 'Hi there' } },
+					{
+						type: 'content_block_delta',
+						delta: { type: 'input_json_delta', partial_json: '{"q":' },
+					},
+					{ type: 'content_block_delta', delta: { type: 'thinking_delta', thinking: 'hmm' } },
+				]),
+			),
+		).toBe(4);
+		// 'Twelve chars' and the JSON of a function call: 12 + 22 characters.
+		expect(
+			outputTokens(
+				'gemini',
+				'text/event-stream',
+				sseOf([
+					{ candidates: [{ content: { parts: [{ text: 'Twelve chars' }] } }] },
+					{ candidates: [{ content: { parts: [{ functionCall: { name: 'f', args: {} } }] } }] },
+				]),
+			),
+		).toBe(9);
+		expect(
+			outputTokens(
+				'ollama',
+				'application/x-ndjson',
+				'{"message":{"content":"Hello"}}\n{"message":{"content":" you"},"done":false}\n',
+			),
+		).toBe(3);
+	});
+
+	it('counts the text of a whole answer, and the size of an answer that stopped early', () => {
+		const answer = { choices: [{ message: { content: 'Twenty characters!!!' } }] };
+		const whole = fed('openai', 'application/json', JSON.stringify(answer));
+		expect(whole.finish()).toBeUndefined();
+		expect(whole.estimatedOutputTokens()).toBe(5);
+
+		const cut = '{"choices":[{"message":{"content":"Twenty char';
+		expect(outputTokens('openai', 'application/json', cut)).toBe(Math.ceil(cut.length / 4));
+		expect(
+			outputTokens(
+				'anthropic',
+				'application/json',
+				JSON.stringify({ type: 'message', content: [{ type: 'text', text: 'Eight ch' }] }),
+			),
+		).toBe(2);
+		expect(outputTokens('google-ocr', 'application/json', '{"responses":[')).toBe(0);
+	});
+});
+
+describe('estimateInputTokens', () => {
+	it('counts the text of a request without images and files', () => {
+		const png = `data:image/png;base64,${'A'.repeat(4000)}`;
+		// 'gpt-4o', 'user', 'text', 'Read this' and 'image_url': 32 characters.
+		expect(
+			estimateInputTokens(
+				'openai',
+				{
+					model: 'gpt-4o',
+					messages: [
+						{
+							role: 'user',
+							content: [
+								{ type: 'text', text: 'Read this' },
+								{ type: 'image_url', image_url: { url: png } },
+							],
+						},
+					],
+				},
+				'/chat/completions',
+			),
+		).toBe(8);
+		expect(
+			estimateInputTokens(
+				'gemini',
+				{
+					contents: [
+						{ parts: [{ text: 'Twelve chars' }, { inlineData: { mimeType: 'x', data: 'AAAA' } }] },
+					],
+				},
+				'/v1beta/models/gemini-2.5-flash:generateContent',
+			),
+		).toBe(3);
+		// 'Be brief', 'user', 'image', 'base64' and 'image/png': 32 characters.
+		expect(
+			estimateInputTokens(
+				'anthropic',
+				{
+					system: 'Be brief',
+					messages: [
+						{
+							role: 'user',
+							content: [
+								{
+									type: 'image',
+									source: { type: 'base64', media_type: 'image/png', data: 'AAAA' },
+								},
+							],
+						},
+					],
+				},
+				'/v1/messages',
+			),
+		).toBe(8);
+	});
+
+	it('counts the pages and images that a request of the OCR asks for', () => {
+		const image = { image: { content: 'AAAA' }, features: [{ type: 'TEXT_DETECTION' }] };
+		const file = { inputConfig: { content: 'AAAA', mimeType: 'application/pdf' } };
+		expect(
+			estimateInputTokens('google-ocr', { requests: [image, image] }, '/v1/images:annotate'),
+		).toBe(2);
+		expect(
+			estimateInputTokens(
+				'google-ocr',
+				{ requests: [{ ...file, pages: [6, 7] }, file] },
+				'/v1/files:annotate',
+			),
+		).toBe(7);
+		expect(
+			estimateInputTokens(
+				'google-ocr',
+				{ rawDocument: { content: 'AAAA', mimeType: 'application/pdf' } },
+				'/v1/projects/acme/locations/eu/processors/abc123:process',
+			),
+		).toBe(1);
 	});
 });

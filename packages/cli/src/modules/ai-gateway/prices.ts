@@ -17,6 +17,12 @@ export interface AiGatewayModelPrice {
 /** The date when the fork read the list prices. */
 export const LIST_PRICES_DATE = '2026-10-15';
 
+/**
+ * The price of the processors of Document AI. A processor can have its own price as the model
+ * `document-ai/<processor ID>`; a processor without one gets this price.
+ */
+export const DOCUMENT_AI_MODEL = 'document-ai';
+
 /** List prices by provider slug and model. A model matches its own entry or a dated version. */
 export const LIST_PRICES: Readonly<Record<string, Readonly<Record<string, AiGatewayModelPrice>>>> =
 	{
@@ -74,7 +80,7 @@ export const LIST_PRICES: Readonly<Record<string, Readonly<Record<string, AiGate
 		// processors of Document AI cost more: an admin sets their price.
 		'google-ocr': {
 			'vision-ocr': { input: 1500, output: 0 },
-			'document-ai': { input: 1500, output: 0 },
+			[DOCUMENT_AI_MODEL]: { input: 1500, output: 0 },
 		},
 	};
 
