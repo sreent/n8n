@@ -29,6 +29,11 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   service account (`N8N_EXTERNAL_STORAGE_GCS_BUCKET_NAME`, with the mode `s3`).
   [packages/@n8n/blob-storage/FORK.md](packages/@n8n/blob-storage/FORK.md#google-cloud-storage)
   describes it.
+- **AI gateway**: the backend module `packages/cli/src/modules/ai-gateway` replaces the service of
+  n8n Cloud for Gateway credits. Users run AI nodes without an API key of their own. The gateway
+  calls the provider with a credential of an admin, records the cost of each call and stops the
+  calls when a budget is spent. The frontend module `packages/modules/ai-gateway/frontend` adds the
+  page Settings > AI gateway. Their READMEs describe them.
 - **No registration and no licence keys**: the fork turns on its features with the switch of step 5
   (below). It has no registration of the Community Edition, no request of an enterprise trial and
   no entry of licence keys (the owner chose this on 2026-10-13).
@@ -168,7 +173,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    credentials need `N8N_ENV_FEAT_DYNAMIC_CREDENTIALS=true`, as in upstream n8n. `deploy/` sets it.
    Multiple main instances, the worker view and worker pools need queue mode, and multiple main
    instances and worker pools also need `N8N_MULTI_MAIN_SETUP_ENABLED=true` and
-   `N8N_WORKER_POOLS_ENABLED=true`, as in upstream n8n.
+   `N8N_WORKER_POOLS_ENABLED=true`, as in upstream n8n. On 2026-10-15 the owner added the AI gateway
+   (Gateway credits) to the list. Without a credential of a provider and without the switch on the
+   page Settings > AI gateway, the gateway stays off.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.
@@ -301,6 +308,13 @@ update can bring new enterprise files: see "Upstream updates".
 - When an upstream update changes the public API controller
   `packages/cli/src/public-api/v1/controllers/promotions.public.controller.ts`, keep the import
   paths of the fork module, as `packages/cli/src/modules/promotions/README.md` tells.
+- When an upstream update changes `packages/cli/src/services/ai-gateway.service.ts`,
+  `packages/cli/src/services/frontend.service.ts` or
+  `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`, keep the fork lines of the
+  AI gateway. When it changes the protocol of the gateway or adds a provider to Gateway credits,
+  change the fork module, as
+  [packages/cli/src/modules/ai-gateway/README.md](packages/cli/src/modules/ai-gateway/README.md)
+  tells.
 - When an upstream update changes `packages/cli/src/credentials/credentials.service.ts` or the
   ordinary tests of dynamic credentials, keep the import paths of the fork module, as
   `packages/cli/src/modules/dynamic-credentials/README.md` tells.

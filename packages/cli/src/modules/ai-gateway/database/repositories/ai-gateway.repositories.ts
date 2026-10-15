@@ -1,5 +1,6 @@
+import { CredentialsEntity } from '@n8n/db';
 import { Service } from '@n8n/di';
-import { DataSource, Repository } from '@n8n/typeorm';
+import { DataSource, In, Repository } from '@n8n/typeorm';
 import type { SelectQueryBuilder } from '@n8n/typeorm';
 
 import { AiGatewayTopUp, AiGatewayUsage, AiGatewayWallet } from '../entities/ai-gateway.entities';
@@ -165,6 +166,22 @@ export class AiGatewayWalletRepository extends Repository<AiGatewayWallet> {
 			}
 			await manager.insert(AiGatewayUsage, { ...row, costFromTopUp });
 			return costFromTopUp;
+		});
+	}
+}
+
+/** The credentials that the settings page offers for the providers. */
+@Service()
+export class AiGatewayCredentialOptionsRepository {
+	constructor(private readonly dataSource: DataSource) {}
+
+	/** The id, the name and the type of each credential of the given types, by name. */
+	async ofTypes(types: string[]) {
+		if (types.length === 0) return [];
+		return await this.dataSource.manager.find(CredentialsEntity, {
+			select: { id: true, name: true, type: true },
+			where: { type: In(types) },
+			order: { name: 'ASC' },
 		});
 	}
 }

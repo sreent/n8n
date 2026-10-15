@@ -1,4 +1,4 @@
-import { CredentialsRepository, ProjectRepository, UserRepository } from '@n8n/db';
+import { ProjectRepository, UserRepository } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { BadRequestError } from '@n8n/errors';
 import { randomUUID } from 'node:crypto';
@@ -11,6 +11,7 @@ import { AiGatewayProxyService } from './ai-gateway-proxy.service';
 import { AiGatewaySettingsService } from './ai-gateway-settings.service';
 import {
 	type AiGatewayUsageFilter,
+	AiGatewayCredentialOptionsRepository,
 	AiGatewayTopUpRepository,
 	AiGatewayUsageRepository,
 	AiGatewayWalletRepository,
@@ -29,36 +30,47 @@ export class AiGatewayAdminService {
 		private readonly usageRepository: AiGatewayUsageRepository,
 		private readonly topUpRepository: AiGatewayTopUpRepository,
 		private readonly walletRepository: AiGatewayWalletRepository,
-		private readonly credentialsRepository: CredentialsRepository,
+		private readonly credentialOptions: AiGatewayCredentialOptionsRepository,
 		private readonly projectRepository: ProjectRepository,
 		private readonly userRepository: UserRepository,
 	) {}
 
-	/** The settings, each provider with its credential, and the URL of the gateway. */
+	/**
+	 * The settings, each provider with its credential and the credentials of its type, the team
+	 * projects, and the URL of the gateway.
+	 */
 	async getSettings() {
 		const settings = this.settings.current();
-		const providers = await Promise.all(
-			AI_GATEWAY_PROVIDERS.map(async (provider) => {
-				const credentialId = settings.providers[provider.slug]?.credentialId;
-				const credential = credentialId
-					? await this.credentialsRepository.findOneBy({ id: credentialId })
-					: null;
-				return {
-					slug: provider.slug,
-					displayName: provider.displayName,
-					credentialType: provider.credentialType,
-					credential: credential ? { id: credential.id, name: credential.name } : null,
-				};
-			}),
+		const credentials = await this.credentialOptions.ofTypes(
+			AI_GATEWAY_PROVIDERS.map((provider) => provider.credentialType),
 		);
-		return { settings, providers, baseUrl: this.protocol.baseUrl() ?? null };
+		const providers = AI_GATEWAY_PROVIDERS.map((provider) => {
+			const credentialOptions = credentials
+				.filter((credential) => credential.type === provider.credentialType)
+				.map(({ id, name }) => ({ id, name }));
+			const credentialId = settings.providers[provider.slug]?.credentialId;
+			return {
+				slug: provider.slug,
+				displayName: provider.displayName,
+				credentialType: provider.credentialType,
+				credential: credentialOptions.find((option) => option.id === credentialId) ?? null,
+				credentialOptions,
+			};
+		});
+		const projects = (await this.projectRepository.findTeamProjects())
+			.map(({ id, name }) => ({ id, name }))
+			.sort((a, b) => a.name.localeCompare(b.name));
+		return { settings, providers, projects, baseUrl: this.protocol.baseUrl() ?? null };
 	}
 
 	async updateSettings(update: AiGatewaySettingsDto) {
+		const credentials = await this.credentialOptions.ofTypes(
+			AI_GATEWAY_PROVIDERS.map((provider) => provider.credentialType),
+		);
 		for (const [slug, { credentialId }] of Object.entries(update.providers)) {
 			const provider = providerBySlug(slug);
 			if (!provider) throw new BadRequestError(`The AI gateway has no provider "${slug}".`);
-			const credential = await this.credentialsRepository.findOneBy({ id: credentialId });
+			const credential = credentials.find((option) => option.id === credentialId);
 			if (!credential || credential.type !== provider.credentialType) {
 				throw new BadRequestError(
 					`The credential for ${provider.displayName} must be a credential of the type ${provider.credentialType}.`,
@@ -113,13 +125,19 @@ export class AiGatewayAdminService {
 		};
 	}
 
+	/** The newest 100 top-ups, with the e-mail of the admin who added each one. */
 	async listTopUps() {
 		const topUps = await this.topUpRepository.newestFirst(100);
+		const userIds = [
+			...new Set(topUps.flatMap((topUp) => (topUp.createdById ? [topUp.createdById] : []))),
+		];
+		const users = userIds.length > 0 ? await this.userRepository.findManyByIds(userIds) : [];
 		return topUps.map((topUp) => ({
 			id: topUp.id,
 			createdAt: topUp.createdAt,
 			amount: topUp.amount,
 			createdById: topUp.createdById,
+			createdByEmail: users.find((user) => user.id === topUp.createdById)?.email ?? null,
 			note: topUp.note,
 		}));
 	}

@@ -48,6 +48,10 @@ const DROPPED_REQUEST_HEADERS = new Set([
 
 /** The headers of an answer that the proxy does not pass back. */
 const DROPPED_RESPONSE_HEADERS = new Set([
+	// The organization of the API key of the admin.
+	'openai-organization',
+	'openai-project',
+	'anthropic-organization-id',
 	'connection',
 	'keep-alive',
 	'transfer-encoding',
@@ -148,9 +152,10 @@ export class AiGatewayProxyService {
 				sendError(res, format, error.status, error.message);
 				return;
 			}
+			// The details can name hosts of the admin's credentials, so only the log gets them.
 			const message = error instanceof Error ? error.message : String(error);
 			this.logger.warn('A call through the AI gateway failed', { error: message });
-			sendError(res, format, 502, `The AI gateway could not reach the provider: ${message}`);
+			sendError(res, format, 502, 'The AI gateway could not reach the provider.');
 		}
 	}
 

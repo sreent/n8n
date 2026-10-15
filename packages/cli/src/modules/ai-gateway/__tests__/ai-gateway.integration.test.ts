@@ -55,7 +55,11 @@ const sse = (res: ServerResponse, events: unknown[]) => {
 function answer(req: IncomingMessage, res: ServerResponse, body: Record<string, unknown>) {
 	const path = new URL(req.url ?? '', 'http://provider').pathname;
 	const json = (value: unknown) => {
-		res.writeHead(200, { 'content-type': 'application/json' });
+		res.writeHead(200, {
+			'content-type': 'application/json',
+			'openai-organization': 'org-of-the-admin',
+			'x-request-id': 'req-1',
+		});
 		res.end(JSON.stringify(value));
 	};
 	if (path === '/openai/v1/chat/completions') {
@@ -250,9 +254,22 @@ describe('settings', () => {
 		const response = await testServer.authAgentFor(owner).get('/ai-gateway/settings').expect(200);
 		expect(response.body.data.settings.enabled).toBe(true);
 		const openai = (
-			response.body.data.providers as Array<{ slug: string; credential: unknown }>
+			response.body.data.providers as Array<{
+				slug: string;
+				credential: unknown;
+				credentialOptions: unknown;
+			}>
 		).find((entry) => entry.slug === 'openai');
 		expect(openai?.credential).toEqual({ id: credentialIds.openAiApi, name: 'Admin openAiApi' });
+		expect(openai?.credentialOptions).toEqual([
+			{ id: credentialIds.openAiApi, name: 'Admin openAiApi' },
+		]);
+		expect(response.body.data.projects).toEqual(
+			expect.arrayContaining([
+				{ id: teamProject.id, name: 'Team A' },
+				{ id: otherProject.id, name: 'Team B' },
+			]),
+		);
 	});
 
 	it('refuses a credential of another type and an unknown provider', async () => {
@@ -326,6 +343,8 @@ describe('proxy', () => {
 			.expect(200);
 
 		expect(response.body.choices[0].message.content).toBe('Hello');
+		expect(response.headers['x-request-id']).toBe('req-1');
+		expect(response.headers['openai-organization']).toBeUndefined();
 		expect(received).toHaveLength(1);
 		expect(received[0].url).toBe('/openai/v1/chat/completions');
 		expect(received[0].headers.authorization).toBe('Bearer sk-admin-openai');
@@ -509,6 +528,10 @@ describe('budgets', () => {
 
 		const rows = await usageRows();
 		expect(rows.map((row) => row.costFromTopUp)).toEqual([0, 0.0075, 0.0025]);
+		const topUps = await testServer.authAgentFor(owner).get('/ai-gateway/top-ups').expect(200);
+		expect(topUps.body.data).toEqual([
+			expect.objectContaining({ amount: 0.01, createdByEmail: owner.email, note: null }),
+		]);
 		const overview = await testServer.authAgentFor(owner).get('/ai-gateway/overview').expect(200);
 		expect(overview.body.data).toMatchObject({
 			monthlyBudget: 0.005,

@@ -161,6 +161,13 @@ admin changes a price or adds a model on the settings page. A model without a pr
 ("The model <model> has no price in the AI gateway. Ask an admin to add one."), so that no call is
 free by mistake. Ollama models have the price 0 unless the admin sets one.
 
+## The settings page
+
+The frontend module `packages/modules/ai-gateway/frontend` adds the page **Settings > AI gateway**
+for users with the scope `aiAssistant:manage`: the switch of the gateway, an overview of the month,
+the credential of each provider, the budgets, the top-ups, the prices and the calls. Other users
+keep the ordinary page **Settings > Gateway credits**: their balance and their calls.
+
 ## Settings and tables
 
 - The settings are one JSON value in the table `settings` (key `fork.aiGateway`): on or off, the
@@ -204,6 +211,9 @@ admin sees only their own calls in the usage.
 - The proxy forwards only to the base URL of the picked credential, with a path that it checks:
   no `..`, no absolute URL, and only the supported endpoints.
 - The proxy writes no API key, token or request body to the log.
+- The proxy does not pass back the headers that name the organization of the admin's API key
+  (`openai-organization`, `openai-project`, `anthropic-organization-id`). When it cannot reach a
+  provider, the answer has no details; the log has them.
 - The proxy reads the request body that n8n parsed, so `N8N_PAYLOAD_SIZE_MAX` and
   `N8N_AI_GATEWAY_MAX_REQUEST_MB` limit it. It forwards with the outbound HTTP client of n8n, which
   applies the SSRF protection when it is on, and it does not follow redirects.
@@ -218,9 +228,12 @@ admin sees only their own calls in the usage.
   name `ai-gateway`, on by default.
 - `packages/cli/src/services/ownership-transfer/ownership-transfer.manifest.json`: the usage table
   stays with the project when a project changes owner.
-- `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`: on a self-hosted
-  instance, **Top up** opens the page **Settings > AI gateway** for an admin, and asks a member to
-  contact an admin.
+- `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`: while this module is on
+  and the instance is not n8n Cloud, **Top up** opens the page **Settings > AI gateway** for a user
+  with the scope `aiAssistant:manage`, and asks other users to contact an admin.
+- The registrations of the frontend module `packages/modules/ai-gateway/frontend` (the page
+  **Settings > AI gateway**) in `@n8n/frontend-vite-config` and editor-ui, and its texts in
+  `@n8n/i18n`. Its README describes the page.
 
 ## Planned
 

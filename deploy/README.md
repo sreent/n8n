@@ -140,6 +140,20 @@ endpoints of dynamic credentials sets `DYNAMIC_CREDENTIALS_CORS_ORIGIN` and
 `DYNAMIC_CREDENTIALS_ENDPOINT_AUTH_TOKEN` in `.env`. See the
 [README of the module](../packages/cli/src/modules/dynamic-credentials/README.md).
 
+## AI gateway
+
+The fork has its own AI gateway for Gateway credits. Users run AI nodes (OpenAI, Anthropic, Google
+Gemini, Ollama and other providers) without an API key of their own. To set it up, an admin:
+
+1. Creates a credential for each provider, with the API key of the organization.
+2. Opens **Settings > AI gateway**, picks the credential of each provider, sets the monthly
+   budget, and turns on the gateway.
+
+Users then pick **Use Gateway credits** on a supported node. The gateway records the cost of each
+call and stops the calls when a budget is spent. An admin adds top-ups and sets the prices on the
+same page. This stack runs the nodes in the n8n container, so the gateway needs no setting in
+`.env`. See the [README of the module](../packages/cli/src/modules/ai-gateway/README.md).
+
 ## Limits
 
 - The scripts of the Code node can import only some modules: `crypto` and `moment` in
