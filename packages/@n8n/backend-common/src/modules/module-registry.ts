@@ -84,6 +84,7 @@ export class ModuleRegistry {
 		'send-copy',
 		'git-sync',
 		'audit-log',
+		'ai-gateway',
 	];
 
 	private readonly activeModules: string[] = [];

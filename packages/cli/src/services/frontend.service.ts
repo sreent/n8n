@@ -28,6 +28,7 @@ import { MfaService } from '@/mfa/mfa.service';
 import { CommunityPackagesConfig } from '@/modules/community-packages/community-packages.config';
 import { isApiKeyAuthEnabled } from '@/public-api';
 import { PushConfig } from '@/push/push.config';
+import { ForkAiGatewayBridge } from '@/services/fork-ai-gateway-bridge';
 import { OwnershipService } from '@/services/ownership.service';
 import { getSamlLoginLabel, getCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 import { UserManagementMailer } from '@/user-management/email';
@@ -628,13 +629,18 @@ export class FrontendService {
 		const isAiGatewayEnabled =
 			this.globalConfig.aiGateway.enabled &&
 			this.licenseState.isAiGatewayLicensed() &&
-			!!this.globalConfig.aiAssistant.baseUrl;
+			// Fork: the fork AI gateway also turns it on (modules/ai-gateway/README.md).
+			(!!this.globalConfig.aiAssistant.baseUrl ||
+				Container.get(ForkAiGatewayBridge).active() !== undefined);
 		if (isAiGatewayEnabled) {
 			this.settings.aiGateway = {
 				enabled: true,
 				budget: this.license.getValue(LICENSE_QUOTAS.AI_GATEWAY_BUDGET) ?? 0,
 				cloudUbbEnabled: this.licenseState.isAiGatewayCloudUbbLicensed(),
 			};
+		} else {
+			// Fork: an admin can turn the fork AI gateway off while n8n runs.
+			delete this.settings.aiGateway;
 		}
 
 		if (isAiBuilderEnabled) {

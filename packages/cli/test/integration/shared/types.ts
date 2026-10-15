@@ -86,7 +86,8 @@ type ModuleName =
 	// Fork modules (not in upstream n8n)
 	| 'send-copy'
 	| 'git-sync'
-	| 'audit-log';
+	| 'audit-log'
+	| 'ai-gateway';
 
 export interface SetupProps {
 	endpointGroups?: EndpointGroup[];
