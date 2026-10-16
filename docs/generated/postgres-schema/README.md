@@ -72,7 +72,7 @@ Auto-generated from the PostgreSQL migrations in @n8n/db. Do not edit by hand.
 | [public.folder](public.folder.md) | 6 |  | BASE TABLE |
 | [public.folder_tag](public.folder_tag.md) | 2 |  | BASE TABLE |
 | [public.fork_ai_gateway_top_up](public.fork_ai_gateway_top_up.md) | 5 |  | BASE TABLE |
-| [public.fork_ai_gateway_usage](public.fork_ai_gateway_usage.md) | 14 |  | BASE TABLE |
+| [public.fork_ai_gateway_usage](public.fork_ai_gateway_usage.md) | 15 |  | BASE TABLE |
 | [public.fork_ai_gateway_wallet](public.fork_ai_gateway_wallet.md) | 2 |  | BASE TABLE |
 | [public.fork_audit_log_event](public.fork_audit_log_event.md) | 8 |  | BASE TABLE |
 | [public.insights_by_period](public.insights_by_period.md) | 6 |  | BASE TABLE |
@@ -1094,6 +1094,7 @@ erDiagram
   double_precision cost
   double_precision costFromTopUp
   timestamp_3__with_time_zone createdAt
+  boolean estimated
   varchar_36_ executionId
   varchar_36_ id
   integer inputTokens

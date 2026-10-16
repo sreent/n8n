@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useToast } from '@n8n/composables/useToast';
 import {
+	N8nBadge,
 	N8nDataTableServer,
 	N8nInput,
 	N8nOption,
@@ -206,6 +207,15 @@ onMounted(load);
 			</template>
 			<template #[`item.cost`]="{ item }">
 				{{ formatUsd(item.cost, 6) }}
+				<N8nBadge
+					v-if="item.estimated"
+					variant="warning"
+					size="xsmall"
+					:title="i18n.baseText('settings.forkAiGateway.usage.estimated.hint')"
+					data-test-id="ai-gateway-usage-estimated"
+				>
+					{{ i18n.baseText('settings.forkAiGateway.usage.estimated') }}
+				</N8nBadge>
 			</template>
 			<template #[`item.costFromTopUp`]="{ item }">
 				{{ formatUsd(item.costFromTopUp, 6) }}

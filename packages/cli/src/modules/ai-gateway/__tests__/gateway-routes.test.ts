@@ -118,17 +118,21 @@ describe('endpointOf', () => {
 			kind: 'metered',
 			model: { fromPath: 'vision-ocr' },
 		});
+		// The model names the processor, so that each processor can have its own price.
 		expect(endpointOf('google-ocr', 'POST', process)).toEqual({
 			kind: 'metered',
-			model: { fromPath: 'document-ai' },
+			model: { fromPath: 'document-ai/abc123' },
 		});
 		expect(
 			endpointOf(
 				'google-ocr',
 				'POST',
-				'/v1/projects/acme/locations/us/processors/a/processorVersions/v1:process',
+				'/v1/projects/acme/locations/us/processors/a1-b2/processorVersions/v1:process',
 			),
-		).toMatchObject({ kind: 'metered' });
+		).toEqual({ kind: 'metered', model: { fromPath: 'document-ai/a1-b2' } });
+		expect(
+			endpointOf('google-ocr', 'POST', '/v1/projects/acme/locations/eu/processors/a%2Fb:process'),
+		).toBeUndefined();
 		expect(documentAiLocation(process)).toBe('eu');
 		expect(documentAiLocation('/v1/images:annotate')).toBeUndefined();
 		expect(endpointOf('google-ocr', 'POST', '/v1/images:asyncBatchAnnotate')).toBeUndefined();

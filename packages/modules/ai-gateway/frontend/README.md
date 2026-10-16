@@ -39,9 +39,13 @@ balance and their calls.
   - **Prices** (`components/AiGatewayPrices.vue`): the list prices and the prices that an admin set,
     in dollars for one million tokens, or for one million pages or images for Google Cloud OCR
     (the provider info `priceUnit`). An admin sets a price for any model of a provider, edits a
-    list price, and removes a price of an admin.
+    list price, and removes a price of an admin. For Google Cloud OCR, a hint tells how to price
+    one processor of Document AI (the model `document-ai/<processor ID>`). The switch **Estimate
+    the usage of calls without usage** turns the estimates of the gateway on or off (the setting
+    `estimateUsage`, see "Estimates" in the README of the backend module).
   - **Usage** (`components/AiGatewayUsage.vue`): the calls, newest first, with filters for the
-    provider, the project and the model.
+    provider, the project and the model. A call whose tokens the gateway estimated has the mark
+    **Estimate** next to its cost.
 - `ai-gateway-admin.store.ts` keeps the data of the page. A save sends the full settings. Only the
   newest request changes the list of calls.
 

@@ -1,7 +1,13 @@
 import { Service } from '@n8n/di';
 
 import { AiGatewaySettingsService } from './ai-gateway-settings.service';
-import { type AiGatewayModelPrice, findPrice, LIST_PRICES, LIST_PRICES_DATE } from './prices';
+import {
+	type AiGatewayModelPrice,
+	DOCUMENT_AI_MODEL,
+	findPrice,
+	LIST_PRICES,
+	LIST_PRICES_DATE,
+} from './prices';
 import type { AiGatewayProvider } from './providers';
 
 /** The provider slug of a model id that names its maker, for example `openai/gpt-4o`. */
@@ -27,6 +33,11 @@ export class AiGatewayPriceService {
 	priceOf(provider: AiGatewayProvider, model: string): AiGatewayModelPrice | undefined {
 		const own = this.lookup(provider.slug, model);
 		if (own) return own;
+
+		// A processor of Document AI without its own price gets the price of all processors.
+		if (provider.format === 'google-ocr' && model.startsWith(`${DOCUMENT_AI_MODEL}/`)) {
+			return this.lookup(provider.slug, DOCUMENT_AI_MODEL);
+		}
 
 		// Vercel AI Gateway and OpenRouter name the maker of a model: `openai/gpt-4o`.
 		const slash = model.indexOf('/');

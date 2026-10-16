@@ -343,5 +343,62 @@ describe('SettingsAiGatewayAdminView', () => {
 				50,
 			),
 		);
+		expect(screen.queryByTestId('ai-gateway-usage-estimated')).not.toBeInTheDocument();
+	});
+
+	it('marks a call whose tokens the gateway estimated', async () => {
+		const page = usagePage();
+		api.getAiGatewayUsage.mockResolvedValue({
+			...page,
+			entries: page.entries.map((entry) => ({ ...entry, estimated: true })),
+		});
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Usage');
+
+		const badge = await screen.findByTestId('ai-gateway-usage-estimated');
+		expect(badge).toHaveTextContent('Estimate');
+		expect(badge).toHaveAttribute(
+			'title',
+			'The answer did not report all its tokens, so the gateway estimated them',
+		);
+	});
+
+	it('turns the estimates of the usage off', async () => {
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Prices');
+
+		expect(screen.getByTestId('ai-gateway-prices')).toHaveTextContent(
+			'When this is off, such a call costs nothing.',
+		);
+		// The test id is on the switch button itself.
+		await userEvent.click(screen.getByTestId('ai-gateway-estimate-usage'));
+
+		await waitFor(() => expect(lastSaved()).toMatchObject({ estimateUsage: false }));
+		expect(showMessage).toHaveBeenCalledWith(expect.objectContaining({ type: 'success' }));
+	});
+
+	it('explains the prices of the processors of Document AI, and sets one', async () => {
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Prices');
+		expect(screen.queryByTestId('ai-gateway-price-document-ai')).not.toBeInTheDocument();
+
+		await pickOption('ai-gateway-price-provider', 'Google Cloud OCR');
+		expect(screen.getByTestId('ai-gateway-price-document-ai')).toHaveTextContent(
+			'enter document-ai/ and the ID of the processor',
+		);
+		await userEvent.type(screen.getByTestId('ai-gateway-price-model'), 'document-ai/abc123');
+		await typeNumber('ai-gateway-price-input', '30000');
+		await typeNumber('ai-gateway-price-output', '0');
+		await userEvent.click(screen.getByTestId('ai-gateway-price-set'));
+
+		await waitFor(() =>
+			expect(lastSaved()?.prices).toEqual({
+				openai: { 'gpt-custom': { input: 1, output: 2 } },
+				'google-ocr': { 'document-ai/abc123': { input: 30000, output: 0 } },
+			}),
+		);
 	});
 });

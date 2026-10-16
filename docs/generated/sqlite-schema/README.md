@@ -72,7 +72,7 @@ Auto-generated from the SQLite migrations in @n8n/db. Do not edit by hand.
 | [folder](folder.md) | 6 |  | table |
 | [folder_tag](folder_tag.md) | 2 |  | table |
 | [fork_ai_gateway_top_up](fork_ai_gateway_top_up.md) | 5 |  | table |
-| [fork_ai_gateway_usage](fork_ai_gateway_usage.md) | 14 |  | table |
+| [fork_ai_gateway_usage](fork_ai_gateway_usage.md) | 15 |  | table |
 | [fork_ai_gateway_wallet](fork_ai_gateway_wallet.md) | 2 |  | table |
 | [fork_audit_log_event](fork_audit_log_event.md) | 8 |  | table |
 | [insights_by_period](insights_by_period.md) | 6 |  | table |
@@ -1080,6 +1080,7 @@ erDiagram
   REAL cost
   REAL costFromTopUp
   datetime_3_ createdAt
+  boolean estimated
   varchar_36_ executionId
   varchar_36_ id PK
   INTEGER inputTokens

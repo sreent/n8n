@@ -14,6 +14,7 @@ export const settingsResponse = (): AiGatewaySettingsResponse => ({
 		userMonthlyLimit: null,
 		projectBudgets: { 'project-a': 20 },
 		prices: { openai: { 'gpt-custom': { input: 1, output: 2 } } },
+		estimateUsage: true,
 	},
 	providers: [
 		{
@@ -121,6 +122,7 @@ export const usagePage = (): AiGatewayUsagePage => ({
 			cachedInputTokens: 0,
 			cost: 0.0075,
 			costFromTopUp: 0,
+			estimated: false,
 			userId: 'u2',
 			userEmail: 'member@example.com',
 			projectId: 'project-a',

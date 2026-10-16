@@ -9,6 +9,7 @@
 | cost | double precision | 0 | false |  |  |  |
 | costFromTopUp | double precision | 0 | false |  |  |  |
 | createdAt | timestamp(3) with time zone |  | false |  |  |  |
+| estimated | boolean | false | false |  |  | Whether the gateway estimated the tokens of the call |
 | executionId | varchar(36) |  | true |  |  |  |
 | id | varchar(36) |  | false |  |  |  |
 | inputTokens | integer | 0 | false |  |  |  |
@@ -28,6 +29,7 @@
 | fork_ai_gateway_usage_costFromTopUp_not_null | n | NOT NULL "costFromTopUp" |
 | fork_ai_gateway_usage_cost_not_null | n | NOT NULL cost |
 | fork_ai_gateway_usage_createdAt_not_null | n | NOT NULL "createdAt" |
+| fork_ai_gateway_usage_estimated_not_null | n | NOT NULL estimated |
 | fork_ai_gateway_usage_id_not_null | n | NOT NULL id |
 | fork_ai_gateway_usage_inputTokens_not_null | n | NOT NULL "inputTokens" |
 | fork_ai_gateway_usage_model_not_null | n | NOT NULL model |
@@ -55,6 +57,7 @@ erDiagram
   double_precision cost
   double_precision costFromTopUp
   timestamp_3__with_time_zone createdAt
+  boolean estimated
   varchar_36_ executionId
   varchar_36_ id
   integer inputTokens

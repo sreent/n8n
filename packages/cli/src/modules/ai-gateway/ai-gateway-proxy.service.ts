@@ -48,6 +48,7 @@ import {
 } from './providers';
 import {
 	estimateGeminiEmbeddingTokens,
+	estimateInputTokens,
 	type MeteredUsage,
 	UsageMeter,
 	usageOf,
@@ -179,6 +180,23 @@ function withoutKeyParameter(value: string) {
 function withoutModelField(request: unknown) {
 	if (!isRecord(request)) return request;
 	return Object.fromEntries(Object.entries(request).filter(([key]) => key !== 'model'));
+}
+
+/**
+ * Waits until the client takes more of an answer, or until it closes the connection. Then the
+ * proxy stops the call (see `forward`), and the record of the call follows.
+ */
+async function drained(res: Response) {
+	if (res.destroyed) return;
+	await new Promise<void>((resolve) => {
+		const done = () => {
+			res.off('drain', done);
+			res.off('close', done);
+			resolve();
+		};
+		res.on('drain', done);
+		res.on('close', done);
+	});
 }
 
 /** Whether the features of a request of the Cloud Vision API are one text detection. */
@@ -377,13 +395,22 @@ export class AiGatewayProxyService {
 		res.on('close', () => {
 			if (!res.writableFinished) abort.abort();
 		});
-		const response = await this.fetch()(upstream.url, {
-			method,
-			headers: this.upstreamHeaders(req, upstream.auth),
-			body: upstream.body.raw,
-			signal: abort.signal,
-			redirect: 'manual',
-		});
+		let response: globalThis.Response;
+		try {
+			response = await this.fetch()(upstream.url, {
+				method,
+				headers: this.upstreamHeaders(req, upstream.auth),
+				body: upstream.body.raw,
+				signal: abort.signal,
+				redirect: 'manual',
+			});
+		} catch (error) {
+			// The client stopped the call before the answer came. The provider can bill the input.
+			if (abort.signal.aborted && endpoint.kind === 'metered' && model && price) {
+				await this.recordStoppedCall(call, model, price, upstream.body.json);
+			}
+			throw error;
+		}
 
 		res.status(response.status);
 		response.headers.forEach((value, name) => {
@@ -404,12 +431,14 @@ export class AiGatewayProxyService {
 		res.setHeader('x-accel-buffering', 'no');
 		const meter =
 			endpoint.kind === 'metered' && ok ? new UsageMeter(provider.format, contentType) : undefined;
+		let completed = false;
 		try {
 			await this.pipe(response, res, meter);
+			completed = true;
 		} finally {
 			// Also a stream that ends early costs the tokens that it used.
 			if (meter && model && price && endpoint.kind === 'metered') {
-				const usage = this.usageOfAnswer(meter, endpoint, upstream.body.json);
+				const usage = this.usageToRecord(call, meter, endpoint, upstream.body.json, completed);
 				if (usage) await this.record(call, model, price, usage);
 				else {
 					this.logger.warn('The answer of a call through the AI gateway had no usage', {
@@ -719,6 +748,7 @@ export class AiGatewayProxyService {
 		const fetch = this.fetch();
 		const embeddings: unknown[] = new Array<unknown>(requests.length);
 		let inputTokens = 0;
+		let estimated = false;
 		let failure: { status: number; body: unknown } | undefined;
 		let next = 0;
 		const work = async () => {
@@ -738,8 +768,12 @@ export class AiGatewayProxyService {
 					return;
 				}
 				embeddings[index] = isRecord(answer) ? answer.embedding : undefined;
-				inputTokens +=
-					usageOf('gemini', answer)?.inputTokens || estimateGeminiEmbeddingTokens(single);
+				const reported = usageOf('gemini', answer)?.inputTokens;
+				if (reported) inputTokens += reported;
+				else {
+					inputTokens += estimateGeminiEmbeddingTokens(single);
+					estimated = true;
+				}
 			}
 		};
 		try {
@@ -753,6 +787,7 @@ export class AiGatewayProxyService {
 					inputTokens,
 					outputTokens: 0,
 					cachedInputTokens: 0,
+					estimated,
 				});
 			}
 		}
@@ -874,7 +909,7 @@ export class AiGatewayProxyService {
 				const { done, value } = await reader.read();
 				if (done) break;
 				meter?.push(value);
-				if (!res.write(value)) await new Promise((resolve) => res.once('drain', resolve));
+				if (!res.write(value)) await drained(res);
 				if ('flush' in res && typeof res.flush === 'function') res.flush();
 			}
 		} finally {
@@ -882,19 +917,67 @@ export class AiGatewayProxyService {
 		}
 	}
 
-	/** The usage of an answer. The embedding answers of the Gemini API have none: an estimate. */
-	private usageOfAnswer(
+	/**
+	 * The usage that the gateway records for an answer. The embedding answers of the Gemini API
+	 * have no usage: an estimate. Another answer without usage, or an answer that stopped early,
+	 * gets an estimate while the admin keeps the estimates on: the text of the request, and the
+	 * text that the answer gave. A usage that the answer reported stays, with the larger output.
+	 * See `README.md`, "Estimates".
+	 */
+	private usageToRecord(
+		call: GatewayCall,
 		meter: UsageMeter,
 		endpoint: Extract<GatewayEndpoint, { kind: 'metered' }>,
 		requestBody: unknown,
+		completed: boolean,
 	): MeteredUsage | undefined {
-		const usage = meter.finish();
-		if (usage || endpoint.embedding !== 'gemini') return usage;
+		const reported = meter.finish();
+		if (!reported && endpoint.embedding === 'gemini') {
+			return {
+				inputTokens: estimateGeminiEmbeddingTokens(requestBody),
+				outputTokens: 0,
+				cachedInputTokens: 0,
+				estimated: true,
+			};
+		}
+		if ((reported && completed) || !this.settings.current().estimateUsage) return reported;
+
+		const inputTokens = estimateInputTokens(call.provider.format, requestBody, call.rest);
+		const outputTokens = meter.estimatedOutputTokens();
+		if (!reported) {
+			this.logger.warn('The answer of a call through the AI gateway had no usage: an estimate', {
+				provider: call.provider.slug,
+				completed,
+			});
+			return { inputTokens, outputTokens, cachedInputTokens: 0, estimated: true };
+		}
+		// The answer stopped early, so its usage can be short of what the provider bills.
+		if (reported.inputTokens > 0 && reported.outputTokens >= outputTokens) return reported;
 		return {
-			inputTokens: estimateGeminiEmbeddingTokens(requestBody),
+			...reported,
+			inputTokens: reported.inputTokens || inputTokens,
+			outputTokens: Math.max(reported.outputTokens, outputTokens),
+			estimated: true,
+		};
+	}
+
+	/**
+	 * Records a call that the client stopped before the answer came: an estimate of its input,
+	 * while the admin keeps the estimates on.
+	 */
+	private async recordStoppedCall(
+		call: GatewayCall,
+		model: string,
+		price: AiGatewayModelPrice,
+		requestBody: unknown,
+	) {
+		if (!this.settings.current().estimateUsage) return;
+		await this.record(call, model, price, {
+			inputTokens: estimateInputTokens(call.provider.format, requestBody, call.rest),
 			outputTokens: 0,
 			cachedInputTokens: 0,
-		};
+			estimated: true,
+		});
 	}
 
 	private async record(
@@ -918,6 +1001,7 @@ export class AiGatewayProxyService {
 				outputTokens: usage.outputTokens,
 				cachedInputTokens: usage.cachedInputTokens,
 				cost,
+				estimated: usage.estimated === true,
 			});
 		} catch (error) {
 			this.logger.error('Failed to record a call through the AI gateway', {

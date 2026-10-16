@@ -46,6 +46,8 @@ export interface AiGatewaySettings {
 	projectBudgets: Record<string, number>;
 	/** The prices that an admin set. They replace the list prices. */
 	prices: AiGatewayPrices;
+	/** Whether the gateway records an estimate for an answer without usage or that stopped early. */
+	estimateUsage: boolean;
 }
 
 export interface AiGatewayOption {
@@ -143,6 +145,8 @@ export interface AiGatewayUsageRow {
 	cachedInputTokens: number;
 	cost: number;
 	costFromTopUp: number;
+	/** The gateway estimated the tokens, because the answer did not report them all. */
+	estimated?: boolean;
 	userId: string | null;
 	userEmail: string | null;
 	projectId: string | null;
