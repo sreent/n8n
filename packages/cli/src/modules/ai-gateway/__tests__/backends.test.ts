@@ -1,11 +1,13 @@
 import {
 	azureOpenAiBaseUrl,
+	DOCUMENT_AI_PROCESSOR_ENTRY,
 	geminiModelCall,
 	geminiModelInfo,
 	geminiModelList,
 	isPublisherModel,
 	openAiModelList,
 	projectOfServiceAccount,
+	servesDocumentAiProcessor,
 	vertexChatCompletionsPath,
 	vertexHost,
 	vertexModelPath,
@@ -48,6 +50,60 @@ describe('azureOpenAiBaseUrl', () => {
 		expect(azureOpenAiBaseUrl({})).toBeUndefined();
 		expect(azureOpenAiBaseUrl({ resourceName: 'evil.example.com/x' })).toBeUndefined();
 		expect(azureOpenAiBaseUrl({ endpointType: 'foundry', resourceName: 'acme' })).toBeUndefined();
+	});
+});
+
+describe('Document AI', () => {
+	const processor = 'projects/acme-ocr/locations/eu/processors/abc123';
+
+	it.each([
+		'projects/acme-ocr',
+		'projects/123456789',
+		'projects/example.com:acme-ocr',
+		'projects/acme-ocr/locations/eu',
+		'projects/acme-ocr/locations/eu/processors/abc123',
+	])('accepts the entry %s', (entry) => {
+		expect(DOCUMENT_AI_PROCESSOR_ENTRY.test(entry)).toBe(true);
+	});
+
+	it.each([
+		'acme-ocr',
+		'projects/Acme-OCR',
+		'projects/acme-ocr/',
+		'projects/acme-ocr/locations/eu/processors',
+		'projects/acme-ocr/locations/eu/processors/abc123:process',
+		'projects/acme-ocr/locations/eu/processors/abc123/processorVersions/v1',
+		'projects/acme-ocr/locations/eu/processors/a%2Fb',
+		'https://eu-documentai.googleapis.com/v1/projects/acme-ocr/locations/eu/processors/abc123',
+	])('refuses the entry %s', (entry) => {
+		expect(DOCUMENT_AI_PROCESSOR_ENTRY.test(entry)).toBe(false);
+	});
+
+	it('serves all processors without a list, else the processors, locations and projects in it', () => {
+		expect(servesDocumentAiProcessor(undefined, processor)).toBe(true);
+		expect(servesDocumentAiProcessor([], processor)).toBe(true);
+		expect(servesDocumentAiProcessor([processor], processor)).toBe(true);
+		expect(servesDocumentAiProcessor(['projects/acme-ocr/locations/eu'], processor)).toBe(true);
+		expect(servesDocumentAiProcessor(['projects/acme-ocr'], processor)).toBe(true);
+
+		expect(
+			servesDocumentAiProcessor(['projects/acme-ocr/locations/eu/processors/abc'], processor),
+		).toBe(false);
+		expect(servesDocumentAiProcessor(['projects/acme-ocr/locations/us'], processor)).toBe(false);
+		expect(servesDocumentAiProcessor(['projects/acme'], processor)).toBe(false);
+		// The project of the path is text: its number is another entry.
+		expect(
+			servesDocumentAiProcessor(
+				['projects/123456789'],
+				'projects/acme-ocr/locations/eu/processors/x',
+			),
+		).toBe(false);
+		expect(
+			servesDocumentAiProcessor(
+				['projects/acme-ocr'],
+				'projects/acme-ocr%2Fx/locations/eu/processors/x',
+			),
+		).toBe(false);
 	});
 });
 

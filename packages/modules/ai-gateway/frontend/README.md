@@ -30,7 +30,10 @@ balance and their calls.
     takes the names of the deployments. A service account takes the project and the location of
     Vertex AI, which are empty for the defaults of the credential. Next to an OpenAI or Azure
     OpenAI credential, the section **Open models of Vertex AI** takes a second service account for
-    the models of a publisher (for example `meta/llama-3.3-70b-instruct-maas`). The page checks
+    the models of a publisher (for example `meta/llama-3.3-70b-instruct-maas`). A service account
+    for Google Cloud OCR takes the processors of Document AI that the gateway serves: one project,
+    location or processor on each line, and empty for all processors. The page reads a prediction
+    endpoint of the Google Cloud console as the resource name of its processor. The page checks
     these fields as the backend does.
   - **Budgets** (`components/AiGatewayBudgets.vue`): the monthly budget of the instance, the
     monthly limit of each user (empty is no limit), and the monthly budgets of team projects.

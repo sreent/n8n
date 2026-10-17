@@ -26,6 +26,7 @@ import {
 	geminiModelList,
 	isPublisherModel,
 	openAiModelList,
+	servesDocumentAiProcessor,
 	stringField,
 	vertexChatCompletionsPath,
 	vertexModelPath,
@@ -34,6 +35,7 @@ import {
 import {
 	type AiGatewayCallAttribution,
 	documentAiLocation,
+	documentAiProcessor,
 	endpointOf,
 	type GatewayEndpoint,
 	parseGatewayPath,
@@ -360,6 +362,9 @@ export class AiGatewayProxyService {
 		let price: AiGatewayModelPrice | undefined;
 		if (endpoint.kind === 'metered') {
 			model = this.modelOf(endpoint, body.json);
+			if (provider.format === 'google-ocr') {
+				this.checkOcrRequest(rest, body.json, providerSettings.documentAiProcessors);
+			}
 			price = this.prices.priceOf(provider, model);
 			if (!price) {
 				throw new GatewayError(
@@ -367,7 +372,6 @@ export class AiGatewayProxyService {
 					`The model ${model} has no price in the AI gateway. Ask an admin to add one.`,
 				);
 			}
-			if (provider.format === 'google-ocr') this.checkOcrRequest(rest, body.json);
 			const blocked = await this.budgets.blockReason({ userId, projectId: attribution.projectId });
 			if (blocked) throw new GatewayError(402, blocked);
 			body = this.withUsageRequest(provider, endpoint, body);
@@ -493,10 +497,18 @@ export class AiGatewayProxyService {
 	 * The gateway prices one text detection for each image or page, and it reads only the content
 	 * of a file or a public URL: the service account of the admin can read files of Cloud Storage
 	 * that the user cannot read. So each request of the Cloud Vision API asks for one text detection
-	 * of such an input, and a call of Document AI sends the content of the document.
+	 * of such an input, and a call of Document AI sends the content of the document to a processor
+	 * that the admin allows.
 	 */
-	private checkOcrRequest(rest: string, json: unknown) {
-		if (documentAiLocation(rest)) {
+	private checkOcrRequest(rest: string, json: unknown, processors: string[] | undefined) {
+		const processor = documentAiProcessor(rest);
+		if (processor) {
+			if (!servesDocumentAiProcessor(processors, processor)) {
+				throw new GatewayError(
+					403,
+					'The AI gateway does not serve this processor of Document AI. Ask an admin to add it to the processors of Google Cloud OCR on the page Settings > AI gateway.',
+				);
+			}
 			const valid =
 				isRecord(json) &&
 				isRecord(json.rawDocument) &&

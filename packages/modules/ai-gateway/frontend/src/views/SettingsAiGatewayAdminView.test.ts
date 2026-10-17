@@ -64,10 +64,13 @@ async function pickOption(testId: string, label: string) {
 	if (option) await userEvent.click(option);
 }
 
-/** The text field of an `N8nInput`, which can carry the test id itself. */
+/** The text field or text area of an `N8nInput`, which can carry the test id itself. */
 function textField(testId: string) {
 	const root = screen.getByTestId(testId);
-	const input = root instanceof HTMLInputElement ? root : root.querySelector('input');
+	const input =
+		root instanceof HTMLInputElement || root instanceof HTMLTextAreaElement
+			? root
+			: root.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
 	if (!input) throw new Error(`No input in ${testId}`);
 	return input;
 }
@@ -242,6 +245,74 @@ describe('SettingsAiGatewayAdminView', () => {
 		await waitFor(() =>
 			expect(lastSaved()?.providers?.openai).toEqual({ credentialId: 'cred-sa' }),
 		);
+	});
+
+	it('saves the processors of Document AI for a service account of Google Cloud OCR', async () => {
+		const response = settingsResponse();
+		const ocr = response.providers.find((provider) => provider.slug === 'google-ocr');
+		ocr?.credentialOptions.push({
+			id: 'cred-ocr-sa',
+			name: 'OCR service account',
+			type: 'googleApi',
+		});
+		api.getAiGatewaySettings.mockResolvedValue(response);
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Providers');
+
+		expect(
+			screen.queryByTestId('ai-gateway-provider-document-ai-google-ocr'),
+		).not.toBeInTheDocument();
+		await pickOption(
+			'ai-gateway-provider-credential-google-ocr',
+			'OCR service account (Service account)',
+		);
+		const processors = textField('ai-gateway-provider-document-ai-processors-google-ocr');
+		await userEvent.type(processors, 'acme-ocr');
+		expect(screen.getByTestId('ai-gateway-provider-invalid-google-ocr')).toBeInTheDocument();
+		expect(screen.getByTestId('ai-gateway-providers-save')).toBeDisabled();
+
+		await userEvent.clear(processors);
+		await userEvent.type(
+			processors,
+			'https://us-documentai.googleapis.com/v1/projects/123456789/locations/us/processors/1a2b3c:process, projects/acme-ocr',
+		);
+		await userEvent.click(screen.getByTestId('ai-gateway-providers-save'));
+
+		await waitFor(() =>
+			expect(lastSaved()?.providers?.['google-ocr']).toEqual({
+				credentialId: 'cred-ocr-sa',
+				documentAiProcessors: [
+					'projects/123456789/locations/us/processors/1a2b3c',
+					'projects/acme-ocr',
+				],
+			}),
+		);
+	});
+
+	it('shows the saved processors of Document AI, one on each line', async () => {
+		const response = settingsResponse();
+		response.settings.providers['google-ocr'] = {
+			credentialId: 'cred-ocr-sa',
+			credentialType: 'googleApi',
+			documentAiProcessors: ['projects/acme-ocr', 'projects/123456789/locations/us'],
+		};
+		response.providers
+			.find((provider) => provider.slug === 'google-ocr')
+			?.credentialOptions.push({
+				id: 'cred-ocr-sa',
+				name: 'OCR service account',
+				type: 'googleApi',
+			});
+		api.getAiGatewaySettings.mockResolvedValue(response);
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Providers');
+
+		expect(textField('ai-gateway-provider-document-ai-processors-google-ocr')).toHaveValue(
+			'projects/acme-ocr\nprojects/123456789/locations/us',
+		);
+		expect(screen.getByTestId('ai-gateway-providers-save')).toBeDisabled();
 	});
 
 	it('saves the budgets', async () => {

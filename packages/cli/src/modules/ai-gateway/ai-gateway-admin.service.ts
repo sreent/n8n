@@ -119,7 +119,8 @@ export class AiGatewayAdminService {
 	/**
 	 * The settings of a provider with the type of its credential, and only the options of the
 	 * backend of that type: the project and the location of Vertex AI, the deployments of Azure
-	 * OpenAI, and the open models of Vertex AI behind an OpenAI or Azure credential.
+	 * OpenAI, the processors of Document AI behind a service account, and the open models of
+	 * Vertex AI behind an OpenAI or Azure credential.
 	 */
 	private backendSettings(
 		provider: AiGatewayProvider,
@@ -135,6 +136,9 @@ export class AiGatewayAdminService {
 		}
 		if (backend?.kind === 'azure-openai' && update.deployments?.length) {
 			result.deployments = [...new Set(update.deployments)];
+		}
+		if (backend?.kind === 'google-cloud' && update.documentAiProcessors?.length) {
+			result.documentAiProcessors = [...new Set(update.documentAiProcessors)];
 		}
 		const openModelsBackend = provider.backends?.find(({ kind }) => kind === 'vertex-openai');
 		if (update.openModels && openModelsBackend && backend?.kind !== 'vertex-openai') {

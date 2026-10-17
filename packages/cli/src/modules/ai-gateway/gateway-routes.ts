@@ -142,13 +142,19 @@ function geminiEndpoint(method: string, rest: string): GatewayEndpoint | undefin
 
 /**
  * A call of Document AI: `/v1/projects/<project>/locations/<location>/processors/<id>:process`,
- * also with `/processorVersions/<id>`. The groups are the location and the processor ID.
+ * also with `/processorVersions/<id>`. The groups are the resource name of the processor, the
+ * location and the processor ID.
  */
 const DOCUMENT_AI_PROCESS =
-	/^\/v1\/projects\/[^/]+\/locations\/([a-z][a-z0-9-]*)\/processors\/([\w-]{1,64})(\/processorVersions\/[^/:]+)?:process$/;
+	/^\/v1\/(projects\/[^/]+\/locations\/([a-z][a-z0-9-]*)\/processors\/([\w-]{1,64}))(\/processorVersions\/[^/:]+)?:process$/;
 
 /** The location of a call of Document AI, or `undefined` for another path. */
 export function documentAiLocation(rest: string) {
+	return DOCUMENT_AI_PROCESS.exec(rest)?.[2];
+}
+
+/** The resource name of the processor of a call of Document AI, without its version. */
+export function documentAiProcessor(rest: string) {
 	return DOCUMENT_AI_PROCESS.exec(rest)?.[1];
 }
 
@@ -162,7 +168,7 @@ function googleOcrEndpoint(method: string, rest: string): GatewayEndpoint | unde
 	if (rest === '/v1/images:annotate' || rest === '/v1/files:annotate') {
 		return { kind: 'metered', model: { fromPath: 'vision-ocr' } };
 	}
-	const processor = DOCUMENT_AI_PROCESS.exec(rest)?.[2];
+	const processor = DOCUMENT_AI_PROCESS.exec(rest)?.[3];
 	if (processor) {
 		return { kind: 'metered', model: { fromPath: `${DOCUMENT_AI_MODEL}/${processor}` } };
 	}

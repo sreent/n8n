@@ -22,6 +22,11 @@ export interface AiGatewayProviderSettings {
 	location?: string;
 	/** Azure OpenAI: the names of the deployments, which the model list of the nodes shows. */
 	deployments?: string[];
+	/**
+	 * Google Cloud OCR with a service account: the projects, locations and processors of Document
+	 * AI that the gateway serves. Empty serves all processors of the service account.
+	 */
+	documentAiProcessors?: string[];
 	/** OpenAI with an OpenAI or Azure credential: a model of a publisher goes to Vertex AI. */
 	openModels?: AiGatewayOpenModelsSettings;
 }

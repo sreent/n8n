@@ -1,4 +1,10 @@
-import { documentAiLocation, endpointOf, isSafeRest, parseGatewayPath } from '../gateway-routes';
+import {
+	documentAiLocation,
+	documentAiProcessor,
+	endpointOf,
+	isSafeRest,
+	parseGatewayPath,
+} from '../gateway-routes';
 
 describe('parseGatewayPath', () => {
 	it('finds the provider and the rest of the path', () => {
@@ -135,6 +141,14 @@ describe('endpointOf', () => {
 		).toBeUndefined();
 		expect(documentAiLocation(process)).toBe('eu');
 		expect(documentAiLocation('/v1/images:annotate')).toBeUndefined();
+		// The resource name of the processor, without its version, for the list of the admin.
+		expect(documentAiProcessor(process)).toBe('projects/acme/locations/eu/processors/abc123');
+		expect(
+			documentAiProcessor(
+				'/v1/projects/42/locations/us/processors/a1-b2/processorVersions/v1:process',
+			),
+		).toBe('projects/42/locations/us/processors/a1-b2');
+		expect(documentAiProcessor('/v1/files:annotate')).toBeUndefined();
 		expect(endpointOf('google-ocr', 'POST', '/v1/images:asyncBatchAnnotate')).toBeUndefined();
 		expect(endpointOf('google-ocr', 'GET', '/v1/images:annotate')).toBeUndefined();
 		expect(

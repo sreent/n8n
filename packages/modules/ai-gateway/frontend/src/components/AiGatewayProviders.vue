@@ -20,8 +20,10 @@ import type {
 } from '../ai-gateway.api';
 import {
 	AZURE_DEPLOYMENT_NAME,
+	DOCUMENT_AI_PROCESSOR_ENTRY,
 	GOOGLE_CLOUD_PROJECT,
 	parseDeployments,
+	parseDocumentAiProcessors,
 	VERTEX_LOCATION,
 } from '../ai-gateway.utils';
 
@@ -32,6 +34,8 @@ interface ProviderForm {
 	location: string;
 	/** The deployments of Azure OpenAI, separated by commas. */
 	deployments: string;
+	/** The processors of Document AI for a service account, one on each line. */
+	documentAiProcessors: string;
 	/** The service account for the open models of Vertex AI behind OpenAI or Azure. */
 	openModelsCredentialId: string;
 	openModelsProjectId: string;
@@ -44,11 +48,15 @@ const store = useAiGatewayAdminStore();
 
 const forms = ref<Record<string, ProviderForm>>({});
 
+/** The backend takes up to 100 processors of Document AI for a provider. */
+const MAX_DOCUMENT_AI_PROCESSORS = 100;
+
 const emptyForm = (): ProviderForm => ({
 	credentialId: '',
 	projectId: '',
 	location: '',
 	deployments: '',
+	documentAiProcessors: '',
 	openModelsCredentialId: '',
 	openModelsProjectId: '',
 	openModelsLocation: '',
@@ -65,6 +73,7 @@ function reset() {
 					projectId: saved?.projectId ?? '',
 					location: saved?.location ?? '',
 					deployments: (saved?.deployments ?? []).join(', '),
+					documentAiProcessors: (saved?.documentAiProcessors ?? []).join('\n'),
 					openModelsCredentialId: saved?.openModels?.credentialId ?? '',
 					openModelsProjectId: saved?.openModels?.projectId ?? '',
 					openModelsLocation: saved?.openModels?.location ?? '',
@@ -143,6 +152,10 @@ function settingsOf(provider: AiGatewayProviderInfo): AiGatewayProviderSettings 
 		const deployments = parseDeployments(form.deployments);
 		if (deployments.length > 0) result.deployments = deployments;
 	}
+	if (backend?.kind === 'google-cloud') {
+		const processors = parseDocumentAiProcessors(form.documentAiProcessors);
+		if (processors.length > 0) result.documentAiProcessors = processors;
+	}
 	if (offersOpenModels(provider) && form.openModelsCredentialId) {
 		result.openModels = { credentialId: form.openModelsCredentialId };
 		const projectId = form.openModelsProjectId.trim();
@@ -161,6 +174,7 @@ function savedSettingsOf(provider: AiGatewayProviderInfo): AiGatewayProviderSett
 	if (saved.projectId) result.projectId = saved.projectId;
 	if (saved.location) result.location = saved.location;
 	if (saved.deployments?.length) result.deployments = saved.deployments;
+	if (saved.documentAiProcessors?.length) result.documentAiProcessors = saved.documentAiProcessors;
 	if (saved.openModels) {
 		const { credentialId, projectId, location } = saved.openModels;
 		result.openModels = { credentialId };
@@ -178,7 +192,9 @@ function isValid(provider: AiGatewayProviderInfo) {
 	return (
 		projectIds.every((projectId) => !projectId || GOOGLE_CLOUD_PROJECT.test(projectId)) &&
 		locations.every((location) => !location || VERTEX_LOCATION.test(location)) &&
-		(settings.deployments ?? []).every((name) => AZURE_DEPLOYMENT_NAME.test(name))
+		(settings.deployments ?? []).every((name) => AZURE_DEPLOYMENT_NAME.test(name)) &&
+		(settings.documentAiProcessors ?? []).length <= MAX_DOCUMENT_AI_PROCESSORS &&
+		(settings.documentAiProcessors ?? []).every((entry) => DOCUMENT_AI_PROCESSOR_ENTRY.test(entry))
 	);
 }
 
@@ -276,6 +292,34 @@ async function save() {
 							</N8nInputLabel>
 							<N8nText size="xsmall" color="text-light">
 								{{ i18n.baseText('settings.forkAiGateway.providers.deployments.hint') }}
+							</N8nText>
+						</div>
+
+						<div
+							v-if="pickedBackend(provider)?.kind === 'google-cloud'"
+							:class="$style.backendOptions"
+							:data-test-id="`ai-gateway-provider-document-ai-${provider.slug}`"
+						>
+							<N8nInputLabel
+								:label="i18n.baseText('settings.forkAiGateway.providers.documentAiProcessors')"
+								:bold="false"
+								size="small"
+							>
+								<N8nInput
+									v-model="formOf(provider.slug).documentAiProcessors"
+									type="textarea"
+									:rows="3"
+									size="small"
+									:placeholder="
+										i18n.baseText(
+											'settings.forkAiGateway.providers.documentAiProcessors.placeholder',
+										)
+									"
+									:data-test-id="`ai-gateway-provider-document-ai-processors-${provider.slug}`"
+								/>
+							</N8nInputLabel>
+							<N8nText size="xsmall" color="text-light">
+								{{ i18n.baseText('settings.forkAiGateway.providers.documentAiProcessors.hint') }}
 							</N8nText>
 						</div>
 

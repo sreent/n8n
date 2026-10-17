@@ -94,3 +94,29 @@ export const AZURE_DEPLOYMENT_NAME = /^[\w.-]{1,64}$/;
 export function parseDeployments(text: string) {
 	return [...new Set(text.split(/[\s,]+/).filter((name) => name.length > 0))];
 }
+
+/**
+ * An entry of the processors of Document AI: a project, a location of a project, or one processor
+ * (`projects/<project>/locations/<location>/processors/<ID>`). The backend checks the same.
+ */
+export const DOCUMENT_AI_PROCESSOR_ENTRY =
+	/^projects\/([a-z][a-z0-9.:-]{4,61}[a-z0-9]|\d{1,20})(\/locations\/[a-z][a-z0-9-]{0,30}[a-z0-9](\/processors\/[\w-]{1,64})?)?$/;
+
+/**
+ * The processors of Document AI of a text with commas, spaces or line breaks, without duplicates.
+ * A prediction endpoint from the Google Cloud console
+ * (`https://us-documentai.googleapis.com/v1/projects/…/processors/<ID>:process`) gives its
+ * resource name.
+ */
+export function parseDocumentAiProcessors(text: string) {
+	const entries = text
+		.split(/[\s,]+/)
+		.map((entry) =>
+			entry
+				.replace(/^https:\/\/[^/]+\/v1\//i, '')
+				.replace(/:process$/, '')
+				.replace(/\/+$/, ''),
+		)
+		.filter((entry) => entry.length > 0);
+	return [...new Set(entries)];
+}
