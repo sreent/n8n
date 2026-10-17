@@ -203,7 +203,8 @@ OCR. The document and image analysis of the Google Gemini node is another way to
 - With a service account of the admin (the backend), the gateway serves the Cloud Vision API and
   the processors of Document AI (`/v1/projects/<project>/locations/<location>/processors/<id>:process`,
   to `https://<location>-documentai.googleapis.com`). The service account needs the roles of the
-  two APIs in the projects of the processors.
+  two APIs in the projects of the processors. Without a list of processors (below), the users can
+  call each processor that the service account can call.
 - The gateway counts pages and images, not tokens, and records them as the input tokens of a
   call: one for each image of `images:annotate`, one for each page of `files:annotate`, and the
   pages of a document of Document AI. An image or a page with an error is not counted.
@@ -219,6 +220,15 @@ OCR. The document and image analysis of the Google Gemini node is another way to
   `document-ai` to the price of your most expensive processor, and give the cheaper processors
   their own prices. The tab **Usage** shows the model of each call, so it shows the processors that
   the users call.
+- An admin can limit the processors of Document AI that the gateway serves: the field **Processors
+  of Document AI** next to the service account on the tab **Providers** (the setting
+  `documentAiProcessors`, up to 100 entries). An entry is a project (`projects/<project>`), a
+  location of a project (`projects/<project>/locations/<location>`) or one processor
+  (`projects/<project>/locations/<location>/processors/<ID>`). The proxy then refuses a call of
+  another processor (status 403). The versions of a processor in the list are allowed. Without a
+  list, the gateway serves all processors. The proxy compares the text of the path, so the nodes
+  must name a project as the list does: with its ID or with its number (a prediction endpoint of the
+  Google Cloud console has the number). The list is only for Document AI.
 - Each request of the Cloud Vision API must ask for one text detection (`TEXT_DETECTION` or
   `DOCUMENT_TEXT_DETECTION`) and no other feature, because the price covers one detection. A call
   of the Cloud Vision API has only the field `requests` (no `parent`).
@@ -303,11 +313,11 @@ keep the ordinary page **Settings > Gateway credits**: their balance and their c
 ## Settings and tables
 
 - The settings are one JSON value in the table `settings` (key `fork.aiGateway`): on or off, the
-  credential of each provider with its type and the options of its backend (the deployments of
-  Azure OpenAI, the project and the location of Vertex AI, and the service account of the open
-  models of Vertex AI), the monthly budget, the monthly limit of a user, the budgets of projects,
-  the prices that the admin set and the switch of the estimates (`estimateUsage`, on when it is
-  missing).
+  credential of each provider with its type and the options of its backend (the deployments of Azure
+  OpenAI, the project and the location of Vertex AI, the processors of Document AI, and the service
+  account of the open models of Vertex AI), the monthly budget, the monthly limit of a user, the
+  budgets of projects, the prices that the admin set and the switch of the estimates
+  (`estimateUsage`, on when it is missing).
 - `fork_ai_gateway_usage` keeps one row for each call that the gateway priced: the time, the user,
   the project, the workflow, the execution, the provider, the model, the tokens, the cost, the
   part of the cost that came from top-ups, and whether the gateway estimated the tokens
@@ -354,6 +364,9 @@ admin sees only their own calls in the usage.
   system parameters of Google and these headers can change the project or the organization that
   pays, the credential, the fields or the format of an answer, or the method of a call. The
   organization of an OpenAI call comes only from the credential of the admin.
+- A service account of the admin can often call more than the users need, for example the
+  processors of Document AI in other projects. The list of processors limits the calls of
+  Document AI (see "OCR").
 - The proxy writes no API key, token or request body to the log.
 - The access tokens of Vertex AI stay in the memory of the process. The nodes never get them.
 - The proxy does not pass back the headers that name the organization of the admin's API key
@@ -391,16 +404,16 @@ admin sees only their own calls in the usage.
   endpoints of each API format, the usage of answers and streams, and the prices.
 - `packages/nodes-base/nodes/Google/CloudOcr/test`: the node Google Cloud OCR.
 - `__tests__/backends.test.ts` and `ai-gateway-vertex.service.test.ts`: the base URLs of Azure
-  OpenAI, the paths, the projects and the locations of Vertex AI, the model lists, and the
-  sign-in of a service account.
+  OpenAI, the paths, the projects and the locations of Vertex AI, the model lists, the entries of
+  the processors of Document AI, and the sign-in of a service account.
 - `__tests__/ai-gateway.integration.test.ts`: an in-memory server in place of the providers. It
   checks the settings and their access, the config and the token of the ordinary routes, the proxy
   of each API format (JSON and streams), the query parameters and headers that go to Google, the
   upload of a Gemini file, the prices, the budgets, the top-ups, the off switches, the backends
-  Azure OpenAI and Vertex AI with the open models (with a replaced sign-in), the OCR of Google
-  Cloud with an API key and with a service account, with the checks of its requests and the price
-  of each processor of Document AI, and the estimates (an answer without usage, a stream that stops
-  early, a client that stops before the answer, and the switch).
+  Azure OpenAI and Vertex AI with the open models (with a replaced sign-in), the OCR of Google Cloud
+  with an API key and with a service account, with the checks of its requests, the price of each
+  processor of Document AI and the list of processors, and the estimates (an answer without usage, a
+  stream that stops early, a client that stops before the answer, and the switch).
 
 ## Upstream updates
 

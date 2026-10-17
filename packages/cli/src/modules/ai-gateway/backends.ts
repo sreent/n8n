@@ -91,6 +91,25 @@ export function vertexTarget(
 	return { project, location };
 }
 
+// ── Document AI ──────────────────────────────────────────────────────────────
+
+/**
+ * An entry of the processors of Document AI that the gateway serves: a project, a location of a
+ * project, or one processor (`projects/<project>/locations/<location>/processors/<ID>`).
+ */
+export const DOCUMENT_AI_PROCESSOR_ENTRY =
+	/^projects\/([a-z][a-z0-9.:-]{4,61}[a-z0-9]|\d{1,20})(\/locations\/[a-z][a-z0-9-]{0,30}[a-z0-9](\/processors\/[\w-]{1,64})?)?$/;
+
+/**
+ * Whether the gateway serves a processor of Document AI (its resource name, from the path of the
+ * call): an empty list serves all processors, else the processor or its location or its project
+ * is in the list. The project is the text of the path, so its ID and its number are two entries.
+ */
+export function servesDocumentAiProcessor(entries: string[] | undefined, processor: string) {
+	if (!entries?.length) return true;
+	return entries.some((entry) => processor === entry || processor.startsWith(`${entry}/`));
+}
+
 /** A call of the Gemini API to a model: `/v1beta/models/<model>:<action>`. */
 const GEMINI_MODEL_CALL = /^\/(?:v1|v1beta|v1alpha)\/models\/([^/:]+):([a-zA-Z]+)$/;
 

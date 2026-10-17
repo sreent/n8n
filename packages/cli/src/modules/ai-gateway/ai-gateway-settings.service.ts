@@ -4,7 +4,12 @@ import { Service } from '@n8n/di';
 import { jsonParse } from 'n8n-workflow';
 import { z } from 'zod';
 
-import { AZURE_DEPLOYMENT_NAME, GOOGLE_CLOUD_PROJECT, VERTEX_LOCATION } from './backends';
+import {
+	AZURE_DEPLOYMENT_NAME,
+	DOCUMENT_AI_PROCESSOR_ENTRY,
+	GOOGLE_CLOUD_PROJECT,
+	VERTEX_LOCATION,
+} from './backends';
 
 /** The key of the settings row. */
 export const AI_GATEWAY_SETTINGS_KEY = 'fork.aiGateway';
@@ -39,6 +44,11 @@ export const aiGatewayProviderSettingsSchema = z.object({
 	location: z.string().regex(VERTEX_LOCATION).optional(),
 	/** Azure OpenAI: the names of the deployments, which the model list of the nodes shows. */
 	deployments: z.array(z.string().regex(AZURE_DEPLOYMENT_NAME)).max(100).optional(),
+	/**
+	 * Google Cloud OCR with a service account: the projects, locations and processors of Document
+	 * AI that the gateway serves. Without a list, it serves all processors of the service account.
+	 */
+	documentAiProcessors: z.array(z.string().regex(DOCUMENT_AI_PROCESSOR_ENTRY)).max(100).optional(),
 	/** OpenAI with an OpenAI or Azure credential: a model of a publisher goes to Vertex AI. */
 	openModels: aiGatewayOpenModelsSchema.optional(),
 });

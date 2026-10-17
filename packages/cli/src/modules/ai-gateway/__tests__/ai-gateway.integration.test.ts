@@ -171,7 +171,11 @@ function answer(req: IncomingMessage, res: ServerResponse, body: Record<string, 
 			],
 		});
 	}
-	if (/^\/documentai\/v1\/projects\/acme\/locations\/eu\/processors\/[\w-]+:process$/.test(path)) {
+	if (
+		/^\/documentai\/v1\/projects\/[\w-]+\/locations\/[a-z]+\/processors\/[\w-]+(\/processorVersions\/[\w.-]+)?:process$/.test(
+			path,
+		)
+	) {
 		return json({ document: { text: 'Invoice', pages: [{}, {}] } });
 	}
 	if (path === VERTEX_CHAT_COMPLETIONS) {
@@ -1396,6 +1400,106 @@ describe('Google Cloud OCR', () => {
 		expect(form.cost).toBeCloseTo(0.06);
 		expect(ocr).toMatchObject({ model: 'document-ai/ocr1', inputTokens: 2 });
 		expect(ocr.cost).toBeCloseTo(0.003);
+	});
+
+	it('serves only the processors, locations and projects of Document AI in the list of the admin', async () => {
+		await saveSettings({
+			providers: {
+				...defaultSettings().providers,
+				'google-ocr': {
+					credentialId: credentialIds.googleApi,
+					documentAiProcessors: [
+						'projects/acme-ocr/locations/eu/processors/abc123',
+						'projects/acme-team/locations/us',
+						'projects/acme-ocr/locations/eu/processors/abc123',
+					],
+				},
+			},
+		});
+		expect(Container.get(AiGatewaySettingsService).current().providers['google-ocr']).toEqual({
+			credentialId: credentialIds.googleApi,
+			credentialType: 'googleApi',
+			documentAiProcessors: [
+				'projects/acme-ocr/locations/eu/processors/abc123',
+				'projects/acme-team/locations/us',
+			],
+		});
+		const google = Container.get(AiGatewayVertexService);
+		vi.spyOn(google, 'accessToken').mockResolvedValue('ocr-access-token');
+		vi.spyOn(google, 'visionOrigin').mockReturnValue(`${providerUrl}/vision`);
+		vi.spyOn(google, 'documentAiOrigin').mockReturnValue(`${providerUrl}/documentai`);
+		const { token, path } = await synthetic('googleCloudOcrApi');
+		const processDocument = async (processor: string) =>
+			await testServer.restlessAgent
+				.post(`${path}/v1/${processor}:process`)
+				.set('x-goog-api-key', token)
+				.send({ rawDocument: { content: 'c2Nhbg==', mimeType: 'application/pdf' } });
+
+		for (const processor of [
+			'projects/acme-ocr/locations/eu/processors/abc123',
+			'projects/acme-ocr/locations/eu/processors/abc123/processorVersions/v2',
+			'projects/acme-team/locations/us/processors/form1',
+		]) {
+			expect((await processDocument(processor)).status).toBe(200);
+		}
+		for (const processor of [
+			'projects/acme-ocr/locations/eu/processors/other',
+			'projects/acme-ocr/locations/us/processors/abc123',
+			'projects/other-project/locations/eu/processors/abc123',
+			'projects/acme-team/locations/eu/processors/form1',
+		]) {
+			const refused = await processDocument(processor);
+			expect(refused.status).toBe(403);
+			expect(refused.body.error.message).toContain('does not serve this processor');
+		}
+		// The list is only for Document AI: the text detection of the Cloud Vision API stays.
+		await testServer.restlessAgent
+			.post(`${path}/v1/images:annotate`)
+			.set('x-goog-api-key', token)
+			.send({ requests: [ocrRequest()] })
+			.expect(200);
+
+		expect(received.map(({ url }) => url)).toEqual([
+			'/documentai/v1/projects/acme-ocr/locations/eu/processors/abc123:process',
+			'/documentai/v1/projects/acme-ocr/locations/eu/processors/abc123/processorVersions/v2:process',
+			'/documentai/v1/projects/acme-team/locations/us/processors/form1:process',
+			'/vision/v1/images:annotate',
+		]);
+		expect(await usageRows()).toHaveLength(4);
+	});
+
+	it('keeps the processors of Document AI only for a service account, and refuses an entry that is not valid', async () => {
+		await saveSettings({
+			providers: {
+				...defaultSettings().providers,
+				'google-ocr': {
+					credentialId: credentialIds.googleCloudOcrApi,
+					documentAiProcessors: ['projects/acme-ocr'],
+				},
+			},
+		});
+		expect(Container.get(AiGatewaySettingsService).current().providers['google-ocr']).toEqual({
+			credentialId: credentialIds.googleCloudOcrApi,
+			credentialType: 'googleCloudOcrApi',
+		});
+
+		for (const entry of [
+			'projects/acme-ocr/locations/eu/processors/abc123:process',
+			'projects/acme-ocr/locations/eu/processors/abc123/processorVersions/v2',
+			'acme-ocr',
+		]) {
+			await testServer
+				.authAgentFor(owner)
+				.put('/ai-gateway/settings')
+				.send({
+					...defaultSettings(),
+					providers: {
+						...defaultSettings().providers,
+						'google-ocr': { credentialId: credentialIds.googleApi, documentAiProcessors: [entry] },
+					},
+				})
+				.expect(400);
+		}
 	});
 
 	it('refuses files of Cloud Storage and other fields in the requests of the OCR', async () => {
