@@ -1,8 +1,10 @@
 import {
 	AZURE_DEPLOYMENT_NAME,
+	DOCUMENT_AI_PROCESSOR_ENTRY,
 	formatUsd,
 	GOOGLE_CLOUD_PROJECT,
 	parseDeployments,
+	parseDocumentAiProcessors,
 	priceRows,
 	VERTEX_LOCATION,
 	withAdminPrice,
@@ -75,5 +77,36 @@ describe('the options of the backends', () => {
 		expect(VERTEX_LOCATION.test('us/central')).toBe(false);
 		expect(AZURE_DEPLOYMENT_NAME.test('gpt-4o_prod.v2')).toBe(true);
 		expect(AZURE_DEPLOYMENT_NAME.test('bad/name')).toBe(false);
+	});
+
+	it('reads the processors of Document AI, also from a prediction endpoint', () => {
+		expect(
+			parseDocumentAiProcessors(
+				[
+					'https://us-documentai.googleapis.com/v1/projects/123456789/locations/us/processors/1a2b3c:process',
+					'projects/acme-ocr/, projects/acme-ocr',
+					' projects/acme-ocr/locations/eu ',
+				].join('\n'),
+			),
+		).toEqual([
+			'projects/123456789/locations/us/processors/1a2b3c',
+			'projects/acme-ocr',
+			'projects/acme-ocr/locations/eu',
+		]);
+		expect(parseDocumentAiProcessors('')).toEqual([]);
+	});
+
+	it('checks the processors of Document AI as the backend does', () => {
+		expect(DOCUMENT_AI_PROCESSOR_ENTRY.test('projects/acme-ocr')).toBe(true);
+		expect(DOCUMENT_AI_PROCESSOR_ENTRY.test('projects/123456789/locations/us')).toBe(true);
+		expect(
+			DOCUMENT_AI_PROCESSOR_ENTRY.test('projects/acme-ocr/locations/eu/processors/1a2b3c'),
+		).toBe(true);
+		expect(DOCUMENT_AI_PROCESSOR_ENTRY.test('acme-ocr')).toBe(false);
+		expect(
+			DOCUMENT_AI_PROCESSOR_ENTRY.test(
+				'projects/acme-ocr/locations/eu/processors/1a2b3c/processorVersions/v1',
+			),
+		).toBe(false);
 	});
 });
