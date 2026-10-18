@@ -194,6 +194,7 @@ defaults. Each line of `.env.example` tells how to change one of them.
 | Two-factor authentication | A user who signs in with a password (email or LDAP) sets up two-factor authentication first. OIDC and SAML users do not see it: their identity provider handles the second factor. | `MFA_ENFORCED` |
 | No publishing and sharing from personal spaces | Users build and test in their personal spaces. They publish and share in team projects. The owner and the admins are not limited. | `PERSONAL_SPACE_PUBLISHING`, `PERSONAL_SPACE_SHARING` |
 | Workflow reviews on | A user can send a workflow version to a reviewer. The approval publishes it. | `WORKFLOW_REVIEWS` |
+| Open triggers need an approval | A new webhook, form, public chat or MCP server without authentication does not publish. The editor offers a one-click fix (a token, or n8n sign-in) and **Request approval**. The triggers that are published now keep running. | `OPEN_TRIGGERS_NEED_APPROVAL` |
 | Limits for webhooks and forms | None until you set the IP ranges. Then other addresses get 403 for webhooks, chats and MCP servers, or for forms. | `WEBHOOK_ALLOWED_RANGES`, `FORM_ALLOWED_RANGES` |
 
 - **The security policy comes from `.env`.** At each start, n8n sets two-factor enforcement, the
@@ -239,10 +240,16 @@ spaces. A user cannot hide a workflow from them.
   `apiKey:manage`). `GET /api/v1/users` gives `lastActiveAt`, the day of the last request of each
   user: an old day or null shows an unused account. See
   [packages/cli/src/governance/README.md](../packages/cli/src/governance/README.md).
+- **Open triggers.** Settings > Open triggers lists each webhook, form, public chat and MCP server
+  without authentication in the published workflows, and tells which ones a workflow review
+  approved. `GET /api/v1/inventory/open-triggers` gives the same list (scope `workflow:list`).
+  With `OPEN_TRIGGERS_NEED_APPROVAL=true`, a new open trigger publishes only after an approval. See
+  [the README of the module](../packages/cli/src/modules/open-triggers/README.md).
 - **A weekly report.** The workflow `workflows/governance-report.json` uses these routes. Each
   Monday at 08:00 (in the time zone `TIMEZONE` of `.env`), it sends an email with the published
   workflows in personal spaces, the published workflows with failed executions or unpublished
-  changes, the expired and unused API keys, the inactive users and the old invitations. To use
+  changes, the open triggers without an approval, the expired and unused API keys, the inactive
+  users and the old invitations. To use
   it, open a new workflow and select **⋯ > Import > From file**. The note on the workflow tells
   how to set it up.
 - **The audit log.** Settings > Audit log shows who created, changed, published, archived or deleted

@@ -35,6 +35,13 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
   cost of each call and stops the calls when a budget is spent. The frontend module
   `packages/modules/ai-gateway/frontend` adds the page Settings > AI gateway. Their READMEs
   describe them.
+- **Open triggers**: the backend module `packages/cli/src/modules/open-triggers` finds the
+  webhooks, forms, public chats and MCP servers without authentication. With
+  `N8N_OPEN_TRIGGERS_NEED_APPROVAL=true`, a publish stops for a new open trigger until a workflow
+  review approves it. The frontend module `packages/modules/open-triggers/frontend` offers
+  one-click fixes and **Request approval** when the check stops a publish, and adds the page
+  Settings > Open triggers. The public API gives the list at `/api/v1/inventory/open-triggers`.
+  Their READMEs describe them.
 - **Google Cloud OCR**: the node `packages/nodes-base/nodes/Google/CloudOcr` reads the text of
   images and documents with the Cloud Vision API and Document AI, with a service account, an API
   key or Gateway credits. Its README describes it.
@@ -352,6 +359,13 @@ update can bring new enterprise files: see "Upstream updates".
   keep the fork loader of workflow reviews and the redaction floor, as
   [packages/cli/src/instance-settings-loader/FORK.md](packages/cli/src/instance-settings-loader/FORK.md)
   tells.
+- When an upstream update changes `packages/frontend/editor-ui/src/app/composables/useWorkflowActivate.ts`,
+  `src/app/capabilities.manifest.ts`, `src/app/event-bus/node-view.ts` or
+  `src/app/components/MainHeader/WorkflowHeaderDraftPublishActions.vue` of editor-ui, keep the fork
+  lines of the open-trigger fixes, as
+  [packages/modules/open-triggers/frontend/README.md](packages/modules/open-triggers/frontend/README.md)
+  tells. When it changes the authentication options of the Webhook, Form Trigger, Chat Trigger or
+  MCP Server Trigger node, change `open-trigger.detector.ts` of the open-triggers module.
 - When an upstream update changes `isLicensed` or `getValue` of `packages/cli/src/license.ts`, or
   the `setupFiles` of `packages/cli/vitest.config.base.ts`, keep the fork lines (step 5).
 - When an upstream update changes the licence routes, the page Settings > Usage and plan or the

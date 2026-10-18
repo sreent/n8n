@@ -77,6 +77,9 @@ services:
       N8N_PERSONAL_SPACE_SHARING_ENABLED: ${PERSONAL_SPACE_SHARING:-false}
       N8N_WORKFLOW_REVIEWS_ENABLED: ${WORKFLOW_REVIEWS:-true}
       N8N_REDACTION_ENFORCEMENT_FLOOR: ${REDACTION_FLOOR:-off}
+      # A new webhook, form, public chat or MCP server without authentication publishes only after
+      # an approval in a workflow review. The published triggers keep running.
+      N8N_OPEN_TRIGGERS_NEED_APPROVAL: ${OPEN_TRIGGERS_NEED_APPROVAL:-true}
       # The npm registry of community nodes, and its token. Empty values use the public registry.
       N8N_COMMUNITY_PACKAGES_REGISTRY: ${COMMUNITY_PACKAGES_REGISTRY:-https://registry.npmjs.org}
       N8N_COMMUNITY_PACKAGES_AUTH_TOKEN: ${COMMUNITY_PACKAGES_AUTH_TOKEN:-}
