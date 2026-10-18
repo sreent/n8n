@@ -210,6 +210,42 @@ defaults. Each line of `.env.example` tells how to change one of them.
   the defaults of `docker-compose.yml`. Add the lines to `.env` before the update to keep the old
   behaviour.
 
+## SSO
+
+Users sign in with the identity provider of the organisation over OIDC, for example Microsoft Entra
+ID, Okta, Google or Keycloak. Their groups give their roles: the SSO group rules map each group to
+an instance role and to the roles of the team projects. `platform/setup.mjs` makes these rules, the
+team projects and the team credentials from one config file. See
+[platform/README.md](platform/README.md).
+
+1. In the identity provider, register n8n as an OIDC web application with the redirect URL
+   `https://<DOMAIN>/rest/sso/oidc/callback`. Give the application only to the groups of n8n.
+   Make the identity provider send the groups (see
+   [the groups claim](platform/README.md#the-groups-claim-of-your-identity-provider)).
+2. In `.env`, set `SSO_FROM_ENV=true`, `OIDC_DISCOVERY_URL`, `OIDC_CLIENT_ID` and
+   `OIDC_CLIENT_SECRET`. The discovery URL ends with `/.well-known/openid-configuration`, for
+   example `https://login.microsoftonline.com/<tenant ID>/v2.0/.well-known/openid-configuration`
+   for Entra ID, or `https://<host>/realms/<realm>/.well-known/openid-configuration` for Keycloak.
+3. Run `docker compose up -d`. At each start, n8n sets the OIDC sign-in, and the role mapping
+   method "Map rules inside n8n". Settings > SSO shows them read-only.
+4. Make the team projects, the SSO group rules and the team credentials:
+   `node platform/setup.mjs plan`, then `node platform/setup.mjs apply`. Without Node.js on the
+   server, run the tool in a container of the stack (see [platform/README.md](platform/README.md)).
+5. Sign in with a test account of each group. Settings > Users shows the role, and each team
+   project shows its members.
+
+- **The owner keeps the password.** With SSO, only the owner can sign in with an email address and
+  a password (with two-factor authentication). Keep the owner account for emergencies, for example
+  when the identity provider is down, and use an SSO account for daily work.
+- **The rules set the roles.** When rules exist, n8n sets the roles of an SSO user at each sign-in,
+  and nobody can change these roles by hand. Change the groups in the identity provider, or change
+  `platform.json` and run `apply`. Start with the instance roles: project rules set the members of
+  all team projects (see [platform/README.md](platform/README.md#the-sso-group-rules)).
+- **SAML.** For SAML, keep `SSO_FROM_ENV=false`, and set SAML on the page Settings > SSO. The SSO
+  group rules work the same way: set `groupsClaim` to the name of the group attribute.
+- **Check the setup each week.** `node platform/setup.mjs check` tells whether the team projects,
+  the rules and the team credentials are all there, and whether the personal space limits are on.
+
 ## Security
 
 - Keep the server up to date. On Ubuntu, `unattended-upgrades` installs the security updates.
@@ -288,6 +324,7 @@ spaces. A user cannot hide a workflow from them.
 | File | Purpose |
 |---|---|
 | `docker-compose.yml` | The four services |
+| `platform/` | The setup of the team projects, the SSO group rules and the team credentials (`setup.mjs`) |
 | `Caddyfile` | The HTTPS proxy, with the IP limits for webhooks and forms |
 | `.env.example` | The settings. Copy it to `.env` |
 | `backup.sh` | Makes a database backup |

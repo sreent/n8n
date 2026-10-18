@@ -80,6 +80,17 @@ services:
       # A new webhook, form, public chat or MCP server without authentication publishes only after
       # an approval in a workflow review. The published triggers keep running.
       N8N_OPEN_TRIGGERS_NEED_APPROVAL: ${OPEN_TRIGGERS_NEED_APPROVAL:-true}
+      # The sign-in with OIDC. With SSO_FROM_ENV=true, n8n sets the OIDC sign-in from these values
+      # at each start, and the roles come from the SSO group rules that platform/setup.mjs makes.
+      # Settings > SSO then shows the values read-only.
+      N8N_SSO_MANAGED_BY_ENV: ${SSO_FROM_ENV:-false}
+      N8N_SSO_OIDC_LOGIN_ENABLED: ${SSO_FROM_ENV:-false}
+      N8N_SSO_OIDC_DISCOVERY_ENDPOINT: ${OIDC_DISCOVERY_URL:-}
+      N8N_SSO_OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
+      N8N_SSO_OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
+      N8N_SSO_OIDC_ADDITIONAL_SCOPES: ${OIDC_ADDITIONAL_SCOPES:-}
+      N8N_SSO_USER_ROLE_PROVISIONING: instance_and_project_roles
+      N8N_SSO_SCOPES_USE_EXPRESSION_MAPPING: ${SSO_FROM_ENV:-false}
       # The npm registry of community nodes, and its token. Empty values use the public registry.
       N8N_COMMUNITY_PACKAGES_REGISTRY: ${COMMUNITY_PACKAGES_REGISTRY:-https://registry.npmjs.org}
       N8N_COMMUNITY_PACKAGES_AUTH_TOKEN: ${COMMUNITY_PACKAGES_AUTH_TOKEN:-}

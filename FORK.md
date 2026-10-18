@@ -52,7 +52,9 @@ people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
 - `deploy/`: runs the fork on a Linux server with Docker Compose.
   `deploy/workflows/governance-report.json` is a workflow that sends a weekly governance report.
   `deploy/forgejo/` runs Forgejo, a private Git server for the Git features of n8n, on its own VM
-  in Google Cloud. Its README describes it.
+  in Google Cloud. `deploy/platform/setup.mjs` makes the team projects, the SSO group rules and the
+  team credentials of an organisation from one config file, over the public API, and checks the
+  setup. Their READMEs describe them.
 - `vendor/`: the wa-sqlite package that the editor app installs. Upstream installs it from
   GitHub, which a cloud session cannot do. `scripts/vendor-wa-sqlite.sh` packs it from the
   upstream commit and gives the same file again.
