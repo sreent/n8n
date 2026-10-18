@@ -1,0 +1,12 @@
+# The server has an internal name only, so a public certificate authority cannot issue its
+# certificate. Caddy issues it from its own certificate authority and renews it. The n8n
+# instances trust the root certificate of that authority (forgejo-root.crt, see README.md).
+{
+	skip_install_trust
+	auto_https disable_redirects
+}
+
+{$FORGEJO_DOMAIN} {
+	tls internal
+	reverse_proxy forgejo:3000
+}

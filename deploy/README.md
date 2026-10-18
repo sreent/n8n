@@ -126,6 +126,10 @@ its own `.env`. Connect both to the same Git branch in **Settings > Git sync**: 
 development, and pull in production. See the
 [Git sync README](../packages/cli/src/modules/git-sync/README.md).
 
+For the Git repository, you can run Forgejo, a private Git server, on its own VM in Google Cloud.
+Each n8n instance then connects with its own token, and the users of n8n do not use Git. See
+[forgejo/README.md](forgejo/README.md).
+
 On the development server, set `NON_PRODUCTION_BANNER=true` in `.env`. Each page then shows a
 banner that tells that the instance is not for production, so that users do not mix up the two
 servers.
@@ -257,3 +261,4 @@ spaces. A user cannot hide a workflow from them.
 | `backup.sh` | Makes a database backup |
 | `restore.sh` | Restores a backup |
 | `workflows/governance-report.json` | A workflow that sends a weekly governance report by email |
+| `forgejo/` | Forgejo, a private Git server for the Git features, on its own VM in Google Cloud |
