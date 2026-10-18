@@ -67,8 +67,8 @@ Only Caddy is reachable from outside. n8n, the runners and PostgreSQL have no op
    docker compose up -d
    ```
 
-8. Open `https://<your domain>` and make the owner account. Turn on two-factor authentication
-   for it.
+8. Open `https://<your domain>` and make the owner account. n8n then asks you to set up
+   two-factor authentication for it.
 
 `docker compose ps` shows the four services. `docker compose logs -f n8n` shows the n8n log.
 
@@ -182,6 +182,33 @@ same page. This stack runs the nodes in the n8n container, so the gateway needs 
   [Queue mode](https://docs.n8n.io/hosting/scaling/queue-mode/) in the n8n documentation and
   [the FORK.md of the scaling code](../packages/cli/src/scaling/FORK.md).
 
+## Safer defaults
+
+This setup is for an organisation in which many people build workflows. It starts with these
+defaults. Each line of `.env.example` tells how to change one of them.
+
+| Default | What users notice | Change it in `.env` |
+|---|---|---|
+| SSRF protection | A node cannot call private, loopback or link-local addresses, also not the metadata server of the cloud. The error tells the user to ask an admin. | Open each internal host that workflows need: `SSRF_ALLOWED_HOSTNAMES`, `SSRF_ALLOWED_IP_RANGES`. `SSRF_PROTECTION=false` turns it off. |
+| Sessions of 12 hours, not renewed | Users sign in again each day. With SSO, that is one click. | `SESSION_HOURS`, `SESSION_RENEWAL_HOURS` |
+| Two-factor authentication | A user who signs in with a password (email or LDAP) sets up two-factor authentication first. OIDC and SAML users do not see it: their identity provider handles the second factor. | `MFA_ENFORCED` |
+| No publishing and sharing from personal spaces | Users build and test in their personal spaces. They publish and share in team projects. The owner and the admins are not limited. | `PERSONAL_SPACE_PUBLISHING`, `PERSONAL_SPACE_SHARING` |
+| Workflow reviews on | A user can send a workflow version to a reviewer. The approval publishes it. | `WORKFLOW_REVIEWS` |
+| Limits for webhooks and forms | None until you set the IP ranges. Then other addresses get 403 for webhooks, chats and MCP servers, or for forms. | `WEBHOOK_ALLOWED_RANGES`, `FORM_ALLOWED_RANGES` |
+
+- **The security policy comes from `.env`.** At each start, n8n sets two-factor enforcement, the
+  personal space rules, workflow reviews and the redaction floor (`REDACTION_FLOOR`) from `.env`.
+  Settings > Security & policies shows them read-only, so an admin account cannot loosen them.
+  `SECURITY_POLICY_FROM_ENV=false` gives the page back to the admins.
+- **The AI gateway stays open.** The AI nodes call the gateway of the fork on `127.0.0.1`, so SSRF
+  protection always allows that address.
+- **The IP limits use the address that Caddy sees.** When a load balancer or another proxy is in
+  front of Caddy, set its ranges in the `trusted_proxies` option of the `Caddyfile`, else Caddy sees
+  only the address of the proxy.
+- **An existing server gets the defaults with its next update.** A `.env` without these lines uses
+  the defaults of `docker-compose.yml`. Add the lines to `.env` before the update to keep the old
+  behaviour.
+
 ## Security
 
 - Keep the server up to date. On Ubuntu, `unattended-upgrades` installs the security updates.
@@ -224,21 +251,19 @@ spaces. A user cannot hide a workflow from them.
   scope `auditLogs:manage` reads the same events with `GET /api/v1/audit-log/events` and
   `GET /api/v1/audit-log/export` (filter `projectType=personal`). Log streaming sends the same
   events to your log system.
-- **Rules for personal spaces.** On Settings > Security & policies, an admin can stop publishing and
-  sharing from personal spaces, and set the floor of data redaction for the instance. By default,
-  users can publish and share from their personal spaces, and no data is hidden. To set these rules
-  in the configuration instead, and lock the page, add `N8N_SECURITY_POLICY_MANAGED_BY_ENV=true`,
-  `N8N_PERSONAL_SPACE_PUBLISHING_ENABLED` and `N8N_PERSONAL_SPACE_SHARING_ENABLED` to the
-  environment of the `n8n` service.
+- **Rules for personal spaces.** By default, users cannot publish or share the workflows of their
+  personal spaces, and no execution data is hidden (`PERSONAL_SPACE_PUBLISHING`,
+  `PERSONAL_SPACE_SHARING` and `REDACTION_FLOOR` in `.env`, see [Safer defaults](#safer-defaults)).
+  With `SECURITY_POLICY_FROM_ENV=false`, an admin sets these rules on Settings > Security & policies
+  instead.
 - **Node types.** Node type policies limit the node types and the credential types of a project or
   of the instance. Write the rules with the public API (`/api/v1/node-type-policies` and
   `/api/v1/credential-type-policies`). The editor shows a lock on a blocked node type.
-- **Two-factor sign-in.** On Settings > Security & policies, an admin can require two-factor
-  authentication (2FA) for all users who sign in with email and password. The admin must use 2FA
-  first. Users without 2FA then must set it up before they can work. SSO users sign in through
-  your identity provider, which handles their second factor. To set the rule in the configuration
-  instead, add `N8N_SECURITY_POLICY_MANAGED_BY_ENV=true` and `N8N_MFA_ENFORCED_ENABLED=true` to
-  the environment of the `n8n` service.
+- **Two-factor sign-in.** By default, all users who sign in with a password (email or LDAP) must use
+  two-factor authentication (2FA): a user without 2FA sets it up before they can work
+  (`MFA_ENFORCED` in `.env`). OIDC and SAML users sign in through your identity provider, which
+  handles their second factor. With `SECURITY_POLICY_FROM_ENV=false`, an admin who uses 2FA sets the rule
+  on Settings > Security & policies instead.
 - **Workflow history.** n8n keeps each saved version of a workflow. The workflow history shows who
   saved each version, compares two versions, and can give a version a name. By default, n8n keeps
   all versions. `WORKFLOW_HISTORY_PRUNE_TIME` in `.env` sets the hours that n8n keeps old
@@ -256,7 +281,7 @@ spaces. A user cannot hide a workflow from them.
 | File | Purpose |
 |---|---|
 | `docker-compose.yml` | The four services |
-| `Caddyfile` | The HTTPS proxy |
+| `Caddyfile` | The HTTPS proxy, with the IP limits for webhooks and forms |
 | `.env.example` | The settings. Copy it to `.env` |
 | `backup.sh` | Makes a database backup |
 | `restore.sh` | Restores a backup |

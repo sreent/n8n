@@ -1,5 +1,18 @@
 # Caddy gets an HTTPS certificate for $DOMAIN and renews it. The DNS record of the domain must
 # point at this server, and ports 80 and 443 must be open.
 {$DOMAIN} {
+	# Webhooks, chats and MCP servers answer only WEBHOOK_ALLOWED_RANGES, and forms only
+	# FORM_ALLOWED_RANGES. Other addresses get 403.
+	@webhook_blocked {
+		path /webhook/* /webhook-test/* /webhook-waiting/* /mcp/* /mcp-test/*
+		not client_ip {$WEBHOOK_ALLOWED_RANGES}
+	}
+	respond @webhook_blocked 403
+	@form_blocked {
+		path /form/* /form-test/* /form-waiting/*
+		not client_ip {$FORM_ALLOWED_RANGES}
+	}
+	respond @form_blocked 403
+
 	reverse_proxy n8n:5678
 }
