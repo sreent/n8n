@@ -3,6 +3,7 @@ import { mock } from 'vitest-mock-extended';
 
 import { InstanceSettingsLoaderService } from '../instance-settings-loader.service';
 import type { CommunityPackagesInstanceSettingsLoader } from '../loaders/community-packages.instance-settings-loader';
+import type { ForkSecurityPolicyInstanceSettingsLoader } from '../loaders/fork-security-policy.instance-settings-loader';
 import type { McpSettingsLoader } from '../loaders/mcp-settings.loader';
 import type { OwnerInstanceSettingsLoader } from '../loaders/owner.instance-settings-loader';
 import type { SecurityPolicyInstanceSettingsLoader } from '../loaders/security-policy.instance-settings-loader';
@@ -15,6 +16,7 @@ describe('InstanceSettingsLoaderService', () => {
 	const securityPolicyLoader = mock<SecurityPolicyInstanceSettingsLoader>();
 	const mcpLoader = mock<McpSettingsLoader>();
 	const communityPackagesLoader = mock<CommunityPackagesInstanceSettingsLoader>();
+	const forkSecurityPolicyLoader = mock<ForkSecurityPolicyInstanceSettingsLoader>();
 
 	beforeEach(() => {
 		vi.resetAllMocks();
@@ -24,6 +26,7 @@ describe('InstanceSettingsLoaderService', () => {
 		securityPolicyLoader.run.mockResolvedValue('skipped');
 		mcpLoader.run.mockResolvedValue('skipped');
 		communityPackagesLoader.run.mockResolvedValue('skipped');
+		forkSecurityPolicyLoader.run.mockResolvedValue('skipped');
 	});
 
 	const createService = () =>
@@ -34,6 +37,7 @@ describe('InstanceSettingsLoaderService', () => {
 			securityPolicyLoader,
 			mcpLoader,
 			communityPackagesLoader,
+			forkSecurityPolicyLoader,
 		);
 
 	it('should run all loaders', async () => {
@@ -44,6 +48,7 @@ describe('InstanceSettingsLoaderService', () => {
 		expect(securityPolicyLoader.run).toHaveBeenCalled();
 		expect(mcpLoader.run).toHaveBeenCalled();
 		expect(communityPackagesLoader.run).toHaveBeenCalled();
+		expect(forkSecurityPolicyLoader.run).toHaveBeenCalled();
 	});
 
 	it('should stop execution if a loader throws', async () => {

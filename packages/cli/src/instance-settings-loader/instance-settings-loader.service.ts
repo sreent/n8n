@@ -2,6 +2,7 @@ import { Logger } from '@n8n/backend-common';
 import { Service } from '@n8n/di';
 
 import { CommunityPackagesInstanceSettingsLoader } from './loaders/community-packages.instance-settings-loader';
+import { ForkSecurityPolicyInstanceSettingsLoader } from './loaders/fork-security-policy.instance-settings-loader';
 import { McpSettingsLoader } from './loaders/mcp-settings.loader';
 import { OwnerInstanceSettingsLoader } from './loaders/owner.instance-settings-loader';
 import { SecurityPolicyInstanceSettingsLoader } from './loaders/security-policy.instance-settings-loader';
@@ -18,6 +19,8 @@ export class InstanceSettingsLoaderService {
 		private readonly securityPolicyLoader: SecurityPolicyInstanceSettingsLoader,
 		private readonly mcpLoader: McpSettingsLoader,
 		private readonly communityPackagesLoader: CommunityPackagesInstanceSettingsLoader,
+		// Fork: workflow reviews and the redaction floor of the security policy.
+		private readonly forkSecurityPolicyLoader: ForkSecurityPolicyInstanceSettingsLoader,
 	) {
 		this.logger = this.logger.scoped('instance-settings-loader');
 	}
@@ -26,6 +29,7 @@ export class InstanceSettingsLoaderService {
 		await this.run('owner', async () => await this.ownerLoader.run());
 		await this.run('sso', async () => await this.ssoLoader.run());
 		await this.run('security-policy', async () => await this.securityPolicyLoader.run());
+		await this.run('fork-security-policy', async () => await this.forkSecurityPolicyLoader.run());
 		await this.run('mcp', async () => await this.mcpLoader.run());
 		await this.run('community-packages', async () => await this.communityPackagesLoader.run());
 	}

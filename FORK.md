@@ -348,6 +348,10 @@ update can bring new enterprise files: see "Upstream updates".
 - When an upstream update changes scopes or roles, make the permission data again, as
   [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md) tells. The scope
   snapshot test of `@n8n/permissions` fails when upstream adds a scope.
+- When an upstream update changes `packages/cli/src/instance-settings-loader/instance-settings-loader.service.ts`,
+  keep the fork loader of workflow reviews and the redaction floor, as
+  [packages/cli/src/instance-settings-loader/FORK.md](packages/cli/src/instance-settings-loader/FORK.md)
+  tells.
 - When an upstream update changes `isLicensed` or `getValue` of `packages/cli/src/license.ts`, or
   the `setupFiles` of `packages/cli/vitest.config.base.ts`, keep the fork lines (step 5).
 - When an upstream update changes the licence routes, the page Settings > Usage and plan or the
