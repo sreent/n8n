@@ -525,8 +525,9 @@ test('the edge cases of the operations of Git connections', async () => {
 	});
 	await Container.get(WorkflowRepository).delete('wf05Flow50000005');
 	await new Promise((resolve) => setTimeout(resolve, 20));
-	await httpWorkflow('wf06Flow60000006', 'Flow 6', 'https://six.example.com');
-	await new Promise((resolve) => setTimeout(resolve, 20));
+	// An update gets the time of SQLite in whole seconds (CURRENT_TIMESTAMP), and a new workflow gets
+	// a time in milliseconds. Update Flow 1 before Flow 6 is made, so that the sort by update time
+	// always puts Flow 1 before Flow 6.
 	await Container.get(WorkflowRepository).update('wf01Flow10000001', {
 		nodes: [
 			{
@@ -539,6 +540,8 @@ test('the edge cases of the operations of Git connections', async () => {
 			},
 		],
 	});
+	await new Promise((resolve) => setTimeout(resolve, 20));
+	await httpWorkflow('wf06Flow60000006', 'Flow 6', 'https://six.example.com');
 	for (const direction of ['promote', 'apply']) {
 		for (const [sort, order] of [
 			['name', 'asc'],
