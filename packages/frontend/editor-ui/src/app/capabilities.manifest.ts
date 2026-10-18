@@ -71,10 +71,15 @@ const loadOpenTriggerFixes = async () => {
 const openTriggerFixActions: OpenTriggerActions = {
 	applyFix: async (workflowId, nodeId, fix) =>
 		await (await loadOpenTriggerFixes()).applyFix(workflowId, nodeId, fix),
-	publish: () => void loadOpenTriggerFixes().then((fixes) => fixes.publish()),
-	requestApproval: () => void loadOpenTriggerFixes().then((fixes) => fixes.requestApproval()),
-	showNode: (_workflowId, nodeId) =>
-		void loadOpenTriggerFixes().then((fixes) => fixes.showNode(nodeId)),
+	publish: () => {
+		void loadOpenTriggerFixes().then((fixes) => fixes.publish());
+	},
+	requestApproval: () => {
+		void loadOpenTriggerFixes().then((fixes) => fixes.requestApproval());
+	},
+	showNode: (_workflowId, nodeId) => {
+		void loadOpenTriggerFixes().then((fixes) => fixes.showNode(nodeId));
+	},
 };
 
 export const registerShellCapabilities = () => {

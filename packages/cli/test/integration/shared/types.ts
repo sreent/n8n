@@ -87,7 +87,8 @@ type ModuleName =
 	| 'send-copy'
 	| 'git-sync'
 	| 'audit-log'
-	| 'ai-gateway';
+	| 'ai-gateway'
+	| 'open-triggers';
 
 export interface SetupProps {
 	endpointGroups?: EndpointGroup[];

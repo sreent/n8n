@@ -9,7 +9,6 @@ import {
 import { WorkflowsConfig } from '@n8n/config';
 import { WorkflowRepository, type Project, type User } from '@n8n/db';
 import { Container } from '@n8n/di';
-import { Webhook } from 'n8n-nodes-base/nodes/Webhook/Webhook.node';
 import type { INode } from 'n8n-workflow';
 import { v4 as uuid } from 'uuid';
 
@@ -19,6 +18,7 @@ import { saveCredential } from '@test-integration/db/credentials';
 import { createAdmin, createMember, createOwner } from '@test-integration/db/users';
 import type { SuperAgentTest } from '@test-integration/types';
 import * as utils from '@test-integration/utils';
+import { loadNodesFromDist } from '@test-integration/utils/node-types-data';
 
 import { OpenTriggersConfig } from '../open-triggers.config';
 
@@ -74,9 +74,7 @@ const activeVersionOf = async (workflowId: string) =>
 	(await Container.get(WorkflowRepository).findOneBy({ id: workflowId }))?.activeVersionId;
 
 beforeAll(async () => {
-	await utils.initNodeTypes({
-		'n8n-nodes-base.webhook': { type: new Webhook(), sourcePath: '' },
-	});
+	await utils.initNodeTypes(loadNodesFromDist(['n8n-nodes-base.webhook']));
 
 	owner = await createOwner();
 	admin = await createAdmin();
