@@ -1,0 +1,127 @@
+operationId: getOpenTriggers
+tags:
+  - Workflow
+summary: Retrieve the open triggers of published workflows
+description: 'Returns one page of the triggers without authentication in the published versions of the workflows that the user of the key can read: Webhook nodes, Form Triggers, public Chat Triggers and MCP Server Triggers. The items are sorted by the names of the workflows and of the nodes. Each item tells whether an approved workflow review covers the trigger. The owner and the admins get all workflows.'
+x-required-scope: workflow:list
+parameters:
+  - $ref: ../../../../shared/spec/parameters/limit.yml
+  - $ref: ../../../../shared/spec/parameters/cursor.yml
+  - schema:
+      type: string
+      minLength: 1
+      maxLength: 36
+      description: Only the workflows of this project.
+      example: VmwOO9HeTEj20kxM
+    required: false
+    name: projectId
+    in: query
+x-eov-operation-id: unreachable
+x-eov-operation-handler: v1/handlers/decorator-routed.handler
+x-decorator-routed: true
+responses:
+  '200':
+    description: Operation successful.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  workflowId:
+                    type: string
+                  workflowName:
+                    type: string
+                  homeProject:
+                    type: object
+                    nullable: true
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      type:
+                        type: string
+                        example: team
+                    required:
+                      - id
+                      - name
+                      - type
+                    description: The project that owns the workflow.
+                  owner:
+                    type: object
+                    nullable: true
+                    properties:
+                      id:
+                        type: string
+                      email:
+                        type: string
+                        nullable: true
+                      firstName:
+                        type: string
+                        nullable: true
+                      lastName:
+                        type: string
+                        nullable: true
+                    required:
+                      - id
+                      - email
+                      - firstName
+                      - lastName
+                    description: The user of the personal space that owns the workflow, or null when a team project owns it.
+                  nodeId:
+                    type: string
+                  nodeName:
+                    type: string
+                  nodeType:
+                    type: string
+                    example: n8n-nodes-base.webhook
+                  typeVersion:
+                    type: number
+                  kind:
+                    type: string
+                    enum:
+                      - webhook
+                      - form
+                      - chat
+                      - mcp
+                    description: '`webhook` (Webhook node), `form` (Form Trigger), `chat` (public Chat Trigger) or `mcp` (MCP Server Trigger).'
+                  path:
+                    type: string
+                    nullable: true
+                    description: The path of the URL of the trigger, or the webhook id when the path is empty. Null when the path is an expression.
+                  approved:
+                    type: boolean
+                    description: Whether an approved workflow review covers the trigger. False for a trigger that was published before the check was on.
+                required:
+                  - workflowId
+                  - workflowName
+                  - homeProject
+                  - owner
+                  - nodeId
+                  - nodeName
+                  - nodeType
+                  - typeVersion
+                  - kind
+                  - path
+                  - approved
+            nextCursor:
+              type: string
+              nullable: true
+              description: Paginate through the triggers by setting the cursor parameter to a nextCursor attribute returned by a previous request. Send the same filters again. Default value fetches the first "page" of the collection.
+              example: eyJvZmZzZXQiOjEwMCwibGltaXQiOjEwMH0
+          required:
+            - data
+            - nextCursor
+  '400':
+    $ref: ../../../../shared/spec/responses/badRequest.yml
+  '401':
+    $ref: ../../../../shared/spec/responses/unauthorized.yml
+  '403':
+    $ref: ../../../../shared/spec/responses/forbidden.yml
+  '503':
+    $ref: ../../../../shared/spec/responses/serviceUnavailable.yml

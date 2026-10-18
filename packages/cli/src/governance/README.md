@@ -9,6 +9,7 @@ repositories of upstream n8n. They add no table and no module.
 | `GET /api/v1/inventory/workflows` | `workflow:list` and `execution:list` | Each workflow with its status, home project, owner, shares, node types, credentials, triggers and newest executions |
 | `GET /api/v1/api-keys` | `apiKey:manage` | The API keys of all users, with the user, the scopes, the expiry and the last use |
 | `GET /api/v1/users`, `GET /api/v1/users/{id}` | `user:list`, `user:read` (upstream) | The field `lastActiveAt` (fork) |
+| `GET /api/v1/inventory/open-triggers` | `workflow:list` | The triggers without authentication of the published workflows, with their approvals. [The README of the open-triggers module](../modules/open-triggers/README.md) describes it |
 
 ## The inventory of workflows
 
@@ -66,18 +67,19 @@ repositories of upstream n8n. They add no table and no module.
 
 ## A weekly report
 
-`deploy/workflows/governance-report.json` is an n8n workflow that uses the three routes. Each
-Monday at 08:00, in the time zone of the instance, it reads all pages of each route and sends a
-report by email:
+`deploy/workflows/governance-report.json` is an n8n workflow that uses these routes. Each Monday
+at 08:00, in the time zone of the instance, it reads all pages of each route and sends a report by
+email:
 
 - the published workflows in personal spaces;
 - the published workflows with failed executions in their last 5 executions;
 - the published workflows with unpublished changes;
+- the open triggers of the published workflows that no workflow review approved;
 - the expired API keys, and the API keys that nobody used for 90 days;
 - the users who were not active for 90 days, and the invitations that are open for more than
   14 days.
 
-The node **Settings** holds the URL of the API, the addresses and the numbers of days. The three
+The node **Settings** holds the URL of the API, the addresses and the numbers of days. The four
 **Get** nodes use an **n8n API** credential. Its key needs the scopes `workflow:list`,
 `execution:list`, `apiKey:manage` and `user:list`, so only the owner, an admin or a custom role
 with these scopes can make it. The node **Build report** writes the report as text and as HTML.
