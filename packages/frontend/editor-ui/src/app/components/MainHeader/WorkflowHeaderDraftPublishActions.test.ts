@@ -571,6 +571,28 @@ describe('WorkflowHeaderDraftPublishActions', () => {
 			).not.toBeInTheDocument();
 		});
 
+		// Fork: the modal of the open-trigger fixes asks for a review through the event bus.
+		it('opens the review dialog on a review command from the event bus', async () => {
+			setWorkflowReviewGates();
+			setupEnabledPublishButton();
+
+			const { findByRole } = renderComponent();
+			nodeViewEventBus.emit('submitWorkflowForReview');
+
+			expect(await findByRole('dialog', { name: 'Submit for review' })).toBeInTheDocument();
+		});
+
+		it('ignores a review command while workflow reviews are off', async () => {
+			setWorkflowReviewGates({ instanceEnabled: false });
+			setupEnabledPublishButton();
+
+			const { queryByRole } = renderComponent();
+			nodeViewEventBus.emit('submitWorkflowForReview');
+
+			await new Promise((resolve) => setTimeout(resolve, 0));
+			expect(queryByRole('dialog', { name: 'Submit for review' })).not.toBeInTheDocument();
+		});
+
 		const seedOpenReview = (overrides: Partial<WorkflowReviewRequestForWorkflow> = {}) => {
 			vi.mocked(fetchWorkflowReviewRequests).mockResolvedValue({
 				count: 1,

@@ -1,5 +1,10 @@
 import { capabilities, capabilityRegistry } from '@n8n/frontend-module-sdk';
 import { sendCopyModalCloser } from '@n8n/frontend-module-send-copy';
+import {
+	openTriggerActions,
+	openTriggersModalCloser,
+	type OpenTriggerActions,
+} from '@n8n/frontend-module-open-triggers';
 
 import type { IWorkflowSettings, ModalKey } from '@/Interface';
 import { useUIStore } from '@/app/stores/ui.store';
@@ -57,10 +62,28 @@ const mcpExposeAllOffer = {
 	},
 };
 
+// Fork module (not in upstream n8n): the fixes load lazily, because they reach the credentials store.
+const loadOpenTriggerFixes = async () => {
+	const { useOpenTriggerFixes } = await import('@/app/composables/useOpenTriggerFixes');
+	return useOpenTriggerFixes();
+};
+
+const openTriggerFixActions: OpenTriggerActions = {
+	applyFix: async (workflowId, nodeId, fix) =>
+		await (await loadOpenTriggerFixes()).applyFix(workflowId, nodeId, fix),
+	publish: () => void loadOpenTriggerFixes().then((fixes) => fixes.publish()),
+	requestApproval: () => void loadOpenTriggerFixes().then((fixes) => fixes.requestApproval()),
+	showNode: (_workflowId, nodeId) =>
+		void loadOpenTriggerFixes().then((fixes) => fixes.showNode(nodeId)),
+};
+
 export const registerShellCapabilities = () => {
 	capabilityRegistry.provide(capabilities.modalOpeners, modalOpeners);
 	capabilityRegistry.provide(capabilities.workflowMcpAccessSync, syncWorkflowMcpAccess);
 	capabilityRegistry.provide(capabilities.mcpExposeAllOffer, mcpExposeAllOffer);
 	// Fork module (not in upstream n8n): lets the send-copy modal close itself.
 	capabilityRegistry.provide(sendCopyModalCloser, closeModuleModal);
+	// Fork module (not in upstream n8n): the modal of the open-trigger fixes.
+	capabilityRegistry.provide(openTriggersModalCloser, closeModuleModal);
+	capabilityRegistry.provide(openTriggerActions, openTriggerFixActions);
 };

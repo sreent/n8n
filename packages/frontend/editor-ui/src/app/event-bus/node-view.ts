@@ -43,6 +43,9 @@ export interface NodeViewEventBusEvents {
 
 	/** Command to unpublish current workflow */
 	unpublishWorkflow: never;
+
+	/** Fork: command to submit the current workflow for a review (the open-trigger fixes) */
+	submitWorkflowForReview: never;
 }
 
 export const nodeViewEventBus = createEventBus<NodeViewEventBusEvents>();

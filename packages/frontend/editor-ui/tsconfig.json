@@ -31,6 +31,8 @@
 			"@n8n/frontend-module-audit-log/*": ["../../modules/audit-log/frontend/src/*"],
 			"@n8n/frontend-module-git-sync": ["../../modules/git-sync/frontend/src/index.ts"],
 			"@n8n/frontend-module-git-sync/*": ["../../modules/git-sync/frontend/src/*"],
+			"@n8n/frontend-module-open-triggers": ["../../modules/open-triggers/frontend/src/index.ts"],
+			"@n8n/frontend-module-open-triggers/*": ["../../modules/open-triggers/frontend/src/*"],
 			"@n8n/frontend-module-send-copy": ["../../modules/send-copy/frontend/src/index.ts"],
 			"@n8n/frontend-module-send-copy/*": ["../../modules/send-copy/frontend/src/*"],
 			"@n8n/frontend-module-type-availability-policies": [

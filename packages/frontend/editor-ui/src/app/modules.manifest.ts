@@ -15,6 +15,7 @@ import { SendCopyModule } from '@n8n/frontend-module-send-copy';
 import { GitSyncModule } from '@n8n/frontend-module-git-sync';
 import { AuditLogModule } from '@n8n/frontend-module-audit-log';
 import { AiGatewayModule } from '@n8n/frontend-module-ai-gateway';
+import { OpenTriggersModule } from '@n8n/frontend-module-open-triggers';
 
 /**
  * The static list is the design, not a placeholder (design §9). n8n self-hosted
@@ -49,4 +50,5 @@ export const modules: FrontendModuleDescription[] = [
 	GitSyncModule,
 	AuditLogModule,
 	AiGatewayModule,
+	OpenTriggersModule,
 ];

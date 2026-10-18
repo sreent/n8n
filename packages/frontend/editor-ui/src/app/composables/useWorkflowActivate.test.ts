@@ -147,6 +147,13 @@ vi.mock('@/app/composables/usePolicyViolationToast', () => ({
 	}),
 }));
 
+// Fork: the modal of the open-trigger fixes (useOpenTriggerFixes.ts).
+const mockShowOpenTriggerFixes = vi.hoisted(() => vi.fn().mockReturnValue(false));
+
+vi.mock('@/app/composables/useOpenTriggerFixes', () => ({
+	useOpenTriggerFixes: () => ({ showFixes: mockShowOpenTriggerFixes }),
+}));
+
 // Models the "Don't show again" flag of the activation success modal.
 const mockActivationStorageFlag = vi.hoisted(() => ({ value: undefined as string | undefined }));
 
@@ -265,6 +272,24 @@ describe('useWorkflowActivate', () => {
 			expect(mockShowError).not.toHaveBeenCalled();
 			expect(mockSetWorkflowInactive).not.toHaveBeenCalled();
 			expect(mockSetActiveState).not.toHaveBeenCalled();
+		});
+
+		// Fork: open triggers get the modal of their fixes instead of the toast.
+		it('leaves a publish refused for open triggers to the modal of their fixes', async () => {
+			const violations = [{ kind: 'open-trigger', checkId: 'open-triggers', message: 'Open' }];
+			mockPublishWorkflow.mockRejectedValueOnce(
+				Object.assign(new Error('Open'), { meta: { violations } }),
+			);
+			mockShowOpenTriggerFixes.mockReturnValueOnce(true);
+
+			const { publishWorkflow } = useWorkflowActivate();
+			const result = await publishWorkflow(WORKFLOW_ID, VERSION_ID);
+
+			expect(result).toEqual({ success: false, errorHandled: true });
+			expect(mockShowOpenTriggerFixes).toHaveBeenCalledWith(WORKFLOW_ID, violations);
+			expect(mockShowPolicyViolationToast).not.toHaveBeenCalled();
+			expect(mockShowError).not.toHaveBeenCalled();
+			expect(mockSetWorkflowInactive).not.toHaveBeenCalled();
 		});
 
 		it('sends the document checksum and refreshes it when the document is open in an editor', async () => {

@@ -59,6 +59,7 @@
     "@n8n/frontend-module-git-sync": "workspace:*",
     "@n8n/frontend-module-insights": "workspace:*",
     "@n8n/frontend-module-instance-registry": "workspace:*",
+    "@n8n/frontend-module-open-triggers": "workspace:*",
     "@n8n/frontend-module-otel": "workspace:*",
     "@n8n/frontend-module-sdk": "workspace:*",
     "@n8n/frontend-module-send-copy": "workspace:*",

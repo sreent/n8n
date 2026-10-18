@@ -409,6 +409,16 @@ const onPublishButtonClick = async () => {
 	openPublishModal();
 };
 
+// Fork: the modal of the open-trigger fixes asks for a review (useOpenTriggerFixes.ts).
+const onSubmitForReview = async () => {
+	if (!isWorkflowReviewsEnabled.value || !(await ensureWorkflowSaved())) return;
+	if (reviewStatusStore.hasOpenReview(props.id)) {
+		if (!reviewContainsSavedVersion.value) showUpdateReviewDialog.value = true;
+		return;
+	}
+	showSubmitForReviewDialog.value = true;
+};
+
 const publishButtonConfig = computed(() => {
 	// Published workflows run as the publisher, so check credentials before permissions.
 	if (unusableCredentialReason.value) {
@@ -816,11 +826,13 @@ useKeybindings({
 onMounted(() => {
 	nodeViewEventBus.on('publishWorkflow', onPublishButtonClick);
 	nodeViewEventBus.on('unpublishWorkflow', onUnpublish);
+	nodeViewEventBus.on('submitWorkflowForReview', onSubmitForReview);
 });
 
 onBeforeUnmount(() => {
 	nodeViewEventBus.off('publishWorkflow', onPublishButtonClick);
 	nodeViewEventBus.off('unpublishWorkflow', onUnpublish);
+	nodeViewEventBus.off('submitWorkflowForReview', onSubmitForReview);
 });
 </script>
 

@@ -467,6 +467,14 @@ export type FrontendModuleSettings = {
 		/** The self-hosted AI gateway of the fork serves Gateway credits on this instance. */
 		selfHosted: boolean;
 	};
+
+	/**
+	 * Client settings for the open-triggers module of the fork.
+	 */
+	'open-triggers'?: {
+		/** A new trigger without authentication needs an approval (`N8N_OPEN_TRIGGERS_NEED_APPROVAL`). */
+		needApproval: boolean;
+	};
 };
 
 export type N8nEnvFeatFlagValue = boolean | string | number | undefined;
