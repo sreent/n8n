@@ -238,6 +238,7 @@ function requestApproval() {
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing--sm);
+	margin-top: var(--spacing--xs);
 }
 
 .list {
