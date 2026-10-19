@@ -3,6 +3,15 @@
 This repository is `sreent/n8n`, a private fork of `n8n-io/n8n`. This file is for agents and
 people who work on the fork. Where it differs from `AGENTS.md`, this file wins.
 
+## Feature freeze
+
+The owner stopped new features in the fork on 2026-10-17. The fork gets only security fixes,
+upstream merges and the fixes that these need. It keeps running for our organisation until a7c
+can replace it.
+
+a7c is a new product in `sreent/a7c`. Other companies will use it, so it contains no n8n code.
+The licence of n8n allows changes for internal business use only (`LICENSE.md`).
+
 ## What the fork adds
 
 - **Git sync** and **Send a copy**: backend modules in `packages/cli/src/modules/git-sync` and
@@ -201,6 +210,8 @@ update can bring new enterprise files: see "Upstream updates".
 
 ## Rules
 
+- **No new features.** Do not add fork features (see "Feature freeze"). Put new work in a7c. Do
+  not copy code from this fork into a7c.
 - **Clean room.** Do not open, read, edit, copy or search the contents of enterprise files
   (`*.ee.*` files and `*.ee/` folders), also not their build output in `dist/`, the Git history
   or upstream. Exclude them from searches, for example
