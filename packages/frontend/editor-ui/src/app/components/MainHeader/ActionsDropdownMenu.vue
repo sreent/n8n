@@ -605,12 +605,20 @@ async function onWorkflowMenuSelect(action: WORKFLOW_MENU_ACTIONS | string): Pro
 	}
 }
 
+// Fork: the Move button next to a blocked publish in a personal space opens the same move dialog.
+function onMoveWorkflowToProject() {
+	if (!props.workflowPermissions.move) return;
+	void onWorkflowMenuSelect(WORKFLOW_MENU_ACTIONS.CHANGE_OWNER);
+}
+
 onMounted(() => {
 	nodeViewEventBus.on('addTag', openDescriptionAndTagsModal);
+	nodeViewEventBus.on('moveWorkflowToProject', onMoveWorkflowToProject);
 });
 
 onBeforeUnmount(() => {
 	nodeViewEventBus.off('addTag', openDescriptionAndTagsModal);
+	nodeViewEventBus.off('moveWorkflowToProject', onMoveWorkflowToProject);
 });
 
 defineExpose({

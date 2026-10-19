@@ -243,6 +243,16 @@ const hasPublishPermission = computed(() => props.workflowPermissions.publish);
 const hasUnpublishPermission = computed(() => props.workflowPermissions.unpublish);
 
 const isPersonalSpace = computed(() => projectStore.currentProject?.type === ProjectTypes.Personal);
+// Fork: a direct way out of a publish that the personal space policy blocks.
+const showMoveToTeamProject = computed(
+	() =>
+		!props.isNewWorkflow &&
+		!props.isArchived &&
+		isPersonalSpace.value &&
+		!hasPublishPermission.value &&
+		!!props.workflowPermissions.move &&
+		projectStore.isTeamProjectFeatureEnabled,
+);
 
 /**
  * Submitting changes needs publish rights and write access. An archived workflow
@@ -417,6 +427,11 @@ const onSubmitForReview = async () => {
 		return;
 	}
 	showSubmitForReviewDialog.value = true;
+};
+
+// Fork: the header menu opens its move dialog (ActionsDropdownMenu.vue).
+const onMoveToTeamProject = () => {
+	nodeViewEventBus.emit('moveWorkflowToProject');
 };
 
 const publishButtonConfig = computed(() => {
@@ -861,6 +876,14 @@ onBeforeUnmount(() => {
 				@submit-changes="onSubmitChangesFromBanner"
 			/>
 		</div>
+		<N8nButton
+			v-if="showMoveToTeamProject"
+			variant="outline"
+			data-test-id="workflow-move-to-team-project-button"
+			@click="onMoveToTeamProject"
+		>
+			{{ i18n.baseText('workflows.publish.moveToTeamProject') }}
+		</N8nButton>
 		<div v-if="!shouldHidePublishButton" :class="$style.publishButtonWrapper">
 			<div :class="$style.buttonGroup">
 				<N8nTooltip :disabled="isPublishTooltipDisabled" :show-after="300" :offset="15">

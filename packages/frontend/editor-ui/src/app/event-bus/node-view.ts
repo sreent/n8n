@@ -46,6 +46,9 @@ export interface NodeViewEventBusEvents {
 
 	/** Fork: command to submit the current workflow for a review (the open-trigger fixes) */
 	submitWorkflowForReview: never;
+
+	/** Fork: command to move the current workflow to another project (the blocked publish of a personal space) */
+	moveWorkflowToProject: never;
 }
 
 export const nodeViewEventBus = createEventBus<NodeViewEventBusEvents>();

@@ -908,6 +908,35 @@ describe('WorkflowDetails', () => {
 				expect.anything(),
 			);
 		});
+
+		// Fork: the Move button next to a blocked publish in a personal space sends this command.
+		it('should open the move dialog for the moveWorkflowToProject command', async () => {
+			const openMoveToFolderModalSpy = vi.spyOn(uiStore, 'openMoveToFolderModal');
+			workflowsListStore.workflowsById = { [workflow.id]: workflow };
+			workflowDocumentStoreRef.value?.setScopes(['workflow:move']);
+			renderComponent({ props: { ...defaultProps } });
+
+			nodeViewEventBus.emit('moveWorkflowToProject');
+
+			await vi.waitFor(() =>
+				expect(openMoveToFolderModalSpy).toHaveBeenCalledWith(
+					'workflow',
+					expect.objectContaining({ id: workflow.id }),
+					expect.anything(),
+				),
+			);
+		});
+
+		it('should ignore the moveWorkflowToProject command without the permission to move', async () => {
+			const openMoveToFolderModalSpy = vi.spyOn(uiStore, 'openMoveToFolderModal');
+			workflowsListStore.workflowsById = { [workflow.id]: workflow };
+			workflowDocumentStoreRef.value?.setScopes(['workflow:read']);
+			renderComponent({ props: { ...defaultProps } });
+
+			nodeViewEventBus.emit('moveWorkflowToProject');
+
+			expect(openMoveToFolderModalSpy).not.toHaveBeenCalled();
+		});
 	});
 
 	describe('Archived badge', () => {

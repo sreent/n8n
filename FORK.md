@@ -10,7 +10,8 @@ upstream merges and the fixes that these need. It keeps running for our organisa
 can replace it.
 
 The owner accepted one exception on 2026-10-19: pull request #53. It adds Forgejo, the safer
-defaults of `deploy/`, the publish check for open triggers and the platform setup tool.
+defaults of `deploy/` with a Move button for a blocked publish, the publish check for open triggers
+and the platform setup tool.
 
 a7c is a new product in `sreent/a7c`. Other companies will use it, so it contains no n8n code.
 The licence of n8n allows changes for internal business use only (`LICENSE.md`).
@@ -381,7 +382,11 @@ update can bring new enterprise files: see "Upstream updates".
   lines of the open-trigger fixes, as
   [packages/modules/open-triggers/frontend/README.md](packages/modules/open-triggers/frontend/README.md)
   tells. When it changes the authentication options of the Webhook, Form Trigger, Chat Trigger or
-  MCP Server Trigger node, change `open-trigger.detector.ts` of the open-triggers module.
+  MCP Server Trigger node, change `open-trigger.detector.ts` of the open-triggers module. When it
+  changes `WorkflowHeaderDraftPublishActions.vue`, `src/app/components/MainHeader/ActionsDropdownMenu.vue`
+  or `src/app/event-bus/node-view.ts`, also keep the Move button of a blocked publish, as
+  [packages/frontend/editor-ui/FORK.md](packages/frontend/editor-ui/FORK.md#the-move-button-of-a-blocked-publish)
+  tells.
 - When an upstream update changes `isLicensed` or `getValue` of `packages/cli/src/license.ts`, or
   the `setupFiles` of `packages/cli/vitest.config.base.ts`, keep the fork lines (step 5).
 - When an upstream update changes the licence routes, the page Settings > Usage and plan or the
