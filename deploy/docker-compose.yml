@@ -64,10 +64,11 @@ services:
       N8N_SSRF_PROTECTION_ENABLED: ${SSRF_PROTECTION:-true}
       N8N_SSRF_ALLOWED_HOSTNAMES: ${SSRF_ALLOWED_HOSTNAMES:-}
       N8N_SSRF_ALLOWED_IP_RANGES: 127.0.0.1/32,${SSRF_ALLOWED_IP_RANGES:-}
-      # A session lasts SESSION_HOURS. With SESSION_RENEWAL_HOURS -1, it does not renew: users sign
-      # in again when it ends.
+      # A session lasts SESSION_HOURS. With SESSION_RENEWAL_HOURS 0, a request in its last quarter
+      # renews it, so users stay signed in while they work. With -1, each session ends SESSION_HOURS
+      # after the sign-in, also during work.
       N8N_USER_MANAGEMENT_JWT_DURATION_HOURS: ${SESSION_HOURS:-12}
-      N8N_USER_MANAGEMENT_JWT_REFRESH_TIMEOUT_HOURS: ${SESSION_RENEWAL_HOURS:--1}
+      N8N_USER_MANAGEMENT_JWT_REFRESH_TIMEOUT_HOURS: ${SESSION_RENEWAL_HOURS:-0}
       # The security policy of Settings > Security & policies. At each start n8n sets these values,
       # and the page shows them read-only. SECURITY_POLICY_FROM_ENV=false gives the page back to the
       # admins.

@@ -190,13 +190,18 @@ defaults. Each line of `.env.example` tells how to change one of them.
 | Default | What users notice | Change it in `.env` |
 |---|---|---|
 | SSRF protection | A node cannot call private, loopback or link-local addresses, also not the metadata server of the cloud. The error tells the user to ask an admin. | Open each internal host that workflows need: `SSRF_ALLOWED_HOSTNAMES`, `SSRF_ALLOWED_IP_RANGES`. `SSRF_PROTECTION=false` turns it off. |
-| Sessions of 12 hours, not renewed | Users sign in again each day. With SSO, that is one click. | `SESSION_HOURS`, `SESSION_RENEWAL_HOURS` |
+| Sessions of 12 hours that renew while users work | A request in the last 3 hours of a session renews it, so users stay signed in while they work. A session without use ends after 12 hours at most, and the user signs in again. With SSO, that is one click. Deleting or disabling a user ends their sessions at once. | `SESSION_HOURS`, `SESSION_RENEWAL_HOURS` |
 | Two-factor authentication | A user who signs in with a password (email or LDAP) sets up two-factor authentication first. OIDC and SAML users do not see it: their identity provider handles the second factor. | `MFA_ENFORCED` |
-| No publishing and sharing from personal spaces | Users build and test in their personal spaces. They publish and share in team projects. The owner and the admins are not limited. | `PERSONAL_SPACE_PUBLISHING`, `PERSONAL_SPACE_SHARING` |
+| No publishing and sharing from personal spaces | Users can build and run workflows in their personal spaces, with their own credentials. To publish or share a workflow, or to use the credentials of a team, they work in a team project: build there from the start, or use **Move to a team project** next to the Publish button. The owner and the admins are not limited. | `PERSONAL_SPACE_PUBLISHING`, `PERSONAL_SPACE_SHARING` |
 | Workflow reviews on | A user can send a workflow version to a reviewer. The approval publishes it. | `WORKFLOW_REVIEWS` |
 | Open triggers need an approval | A new webhook, form, public chat or MCP server without authentication does not publish. The editor offers a one-click fix (a token, or n8n sign-in) and **Request approval**. The triggers that are published now keep running. | `OPEN_TRIGGERS_NEED_APPROVAL` |
 | Limits for webhooks and forms | None until you set the IP ranges. Then other addresses get 403 for webhooks, chats and MCP servers, or for forms. | `WEBHOOK_ALLOWED_RANGES`, `FORM_ALLOWED_RANGES` |
 
+- **Open the internal services before users start.** SSRF protection stops the calls to private
+  addresses, and a builder cannot change that. List the internal services that workflows call over
+  HTTP, for example an internal CRM or API, in `SSRF_ALLOWED_HOSTNAMES` (host names, also
+  `*.corp.internal`) or `SSRF_ALLOWED_IP_RANGES`, then run `docker compose up -d`. When a user needs
+  another host later, the error of the node tells them to ask an admin.
 - **The security policy comes from `.env`.** At each start, n8n sets two-factor enforcement, the
   personal space rules, workflow reviews and the redaction floor (`REDACTION_FLOOR`) from `.env`.
   Settings > Security & policies shows them read-only, so an admin account cannot loosen them.
