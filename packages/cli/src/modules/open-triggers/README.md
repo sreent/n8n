@@ -6,6 +6,8 @@ approves them:
 
 - **The publish check.** With `N8N_OPEN_TRIGGERS_NEED_APPROVAL=true`, a publish stops for a new
   open trigger. The user adds authentication, or gets an approval in a workflow review.
+- **The guard of the test URLs.** With the same variable, the test URL of an open trigger takes
+  calls only from n8n users who may run the workflow, until a review approves the trigger.
 - **The list.** `GET /rest/open-triggers` (the page Settings > Open triggers) and
   `GET /api/v1/inventory/open-triggers` (the public API) give the open triggers of the published
   workflows, with their approvals.
@@ -100,6 +102,31 @@ An admin can approve the review of an own workflow (`admin-override`, see
   where the Git connection publishes.
 - `n8n publish:workflow` runs no policy check (a gap of the policy infrastructure).
 
+## The test URLs
+
+While a builder listens for a test event, the test URL of a trigger (`/webhook-test/…`,
+`/form-test/…`, `/mcp-test/…`) takes one call for at most 2 minutes. With
+`N8N_OPEN_TRIGGERS_NEED_APPROVAL=true`, a call to an open trigger goes through only when:
+
+- the caller is signed in to n8n and may run the workflow (`workflow:execute`). The browser of the
+  editor sends the session cookie, so a test form or chat opens as before; or
+- the published version or an approved version of the workflow has the trigger (the keys of the
+  publish check).
+
+n8n answers any other call with 403 and a message that tells the caller to sign in, to add
+authentication or to get an approval. The listener stays open. A trigger with authentication does
+not change: its node checks the credential, also without a session. A call from a system, for
+example curl, Postman or the test event of a SaaS service, needs the authentication of the
+trigger (the one-click fix) or an approval.
+
+`TestWebhooks.executeWebhook` asks the guards of `TestWebhookCallGuards`
+(`packages/cli/src/webhooks/test-webhook-call-guards.ts`, a fork file) before n8n removes the
+cookies of n8n from the request. The module registers `OpenTriggerTestCallGuard` there at its
+start. The guard reads the session cookie from the raw `Cookie` header, because the webhook routes
+run before the cookie parser, and checks it with `AuthService.authenticateUserByCookie`, without
+the browser id header, which a form page or curl does not send. The production URLs do not change:
+the publish check covers them.
+
 ## The list
 
 `OpenTriggersService.listPublished` gives one item for each open trigger of a published version,
@@ -123,6 +150,7 @@ trigger. It is false for a trigger that was published before the check.
 |---|---|
 | `open-trigger.detector.ts` | Finds the open triggers in a list of nodes, and makes the key of an approval |
 | `open-trigger.check.ts` | The publish check |
+| `open-trigger-test-call.guard.ts` | The guard of the test URLs |
 | `open-triggers.service.ts` | The allowed keys of a workflow, and the list |
 | `database/open-trigger.repository.ts` | The published version and the approved versions of workflows |
 | `open-triggers.controller.ts` | `GET /rest/open-triggers` |

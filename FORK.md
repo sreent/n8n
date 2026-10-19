@@ -51,7 +51,8 @@ The licence of n8n allows changes for internal business use only (`LICENSE.md`).
 - **Open triggers**: the backend module `packages/cli/src/modules/open-triggers` finds the
   webhooks, forms, public chats and MCP servers without authentication. With
   `N8N_OPEN_TRIGGERS_NEED_APPROVAL=true`, a publish stops for a new open trigger until a workflow
-  review approves it. The frontend module `packages/modules/open-triggers/frontend` offers
+  review approves it, and the test URL of an open trigger takes calls only from n8n users who may
+  run the workflow. The frontend module `packages/modules/open-triggers/frontend` offers
   one-click fixes and **Request approval** when the check stops a publish, and adds the page
   Settings > Open triggers. The public API gives the list at `/api/v1/inventory/open-triggers`.
   Their READMEs describe them.
@@ -383,6 +384,9 @@ update can bring new enterprise files: see "Upstream updates".
   [packages/modules/open-triggers/frontend/README.md](packages/modules/open-triggers/frontend/README.md)
   tells. When it changes the authentication options of the Webhook, Form Trigger, Chat Trigger or
   MCP Server Trigger node, change `open-trigger.detector.ts` of the open-triggers module. When it
+  changes `packages/cli/src/webhooks/test-webhooks.ts`, keep the fork line that asks
+  `TestWebhookCallGuards` before the request loses its cookies, as the README of the
+  open-triggers module tells. When it
   changes `WorkflowHeaderDraftPublishActions.vue`, `src/app/components/MainHeader/ActionsDropdownMenu.vue`
   or `src/app/event-bus/node-view.ts`, also keep the Move button of a blocked publish, as
   [packages/frontend/editor-ui/FORK.md](packages/frontend/editor-ui/FORK.md#the-move-button-of-a-blocked-publish)
