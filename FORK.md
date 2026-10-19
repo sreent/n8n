@@ -9,6 +9,9 @@ The owner stopped new features in the fork on 2026-10-17. The fork gets only sec
 upstream merges and the fixes that these need. It keeps running for our organisation until a7c
 can replace it.
 
+The owner accepted one exception on 2026-10-19: pull request #53. It adds Forgejo, the safer
+defaults of `deploy/`, the publish check for open triggers and the platform setup tool.
+
 a7c is a new product in `sreent/a7c`. Other companies will use it, so it contains no n8n code.
 The licence of n8n allows changes for internal business use only (`LICENSE.md`).
 
