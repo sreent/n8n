@@ -19,8 +19,8 @@ output "environment_name" {
   value       = azurerm_container_app_environment.n8n.name
 }
 
-output "outbound_ip_address" {
-  description = "The static address of the environment. Allow it on private hosts that n8n calls."
+output "ingress_ip_address" {
+  description = "The address of the ingress of the environment. An apex domain needs an A record with it."
   value       = azurerm_container_app_environment.n8n.static_ip_address
 }
 
