@@ -6,6 +6,8 @@ data "google_project" "this" {
 
 locals {
   queue = var.mode == "queue"
+  # n8n checks the certificate of Memorystore with the certificate authority of the instance.
+  redis_ca = local.queue && var.redis_verify_certificate
 
   # The n8n settings of the fork (deploy/settings.yaml), with the changes of var.settings.
   settings = merge(yamldecode(file("${path.module}/../settings.yaml")).settings, var.settings)
@@ -44,8 +46,6 @@ locals {
       QUEUE_BULL_REDIS_HOST = google_redis_instance.n8n[0].host
       QUEUE_BULL_REDIS_PORT = tostring(google_redis_instance.n8n[0].port)
       QUEUE_BULL_REDIS_TLS  = "true"
-      # Memorystore signs its TLS certificate with a certificate authority of its own.
-      NODE_EXTRA_CA_CERTS = "/etc/n8n-redis-ca/ca.crt"
       # Only the leader of the main instances runs the schedules and the polling triggers.
       N8N_MULTI_MAIN_SETUP_ENABLED         = "true"
       OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS = "true"
@@ -56,6 +56,9 @@ locals {
       # The workers call the AI gateway on the main instances, through the load balancer.
       N8N_AI_GATEWAY_BASE_URL = "https://${var.domain}/ai-gateway"
     } : {},
+    # Memorystore signs its TLS certificate with a certificate authority of its own.
+    local.redis_ca ? { NODE_EXTRA_CA_CERTS = "/etc/n8n-redis-ca/ca.crt" } : {},
+    local.queue && !local.redis_ca ? { QUEUE_BULL_REDIS_TLS_VALIDATE_CERTIFICATE = "false" } : {},
   )
   # var.settings can also replace a value of the platform. Cloud Run takes no empty values, and an
   # empty n8n setting is the same as no setting.
@@ -98,7 +101,7 @@ resource "google_project_iam_member" "cloudsql_client" {
 }
 
 resource "google_secret_manager_secret_iam_member" "n8n" {
-  for_each = merge(local.secret_env, var.git_ca_certificate != "" ? { GIT_CA = google_secret_manager_secret.git_ca[0].id } : {}, local.queue ? { REDIS_CA = google_secret_manager_secret.redis_ca[0].id } : {})
+  for_each = merge(local.secret_env, var.git_ca_certificate != "" ? { GIT_CA = google_secret_manager_secret.git_ca[0].id } : {}, local.redis_ca ? { REDIS_CA = google_secret_manager_secret.redis_ca[0].id } : {})
 
   project   = var.project_id
   secret_id = each.value

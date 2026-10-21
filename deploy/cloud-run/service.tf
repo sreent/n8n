@@ -11,7 +11,7 @@ locals {
 
   secret_files = merge(
     var.git_ca_certificate != "" ? { git-ca = { secret = google_secret_manager_secret.git_ca[0].id, path = "/etc/n8n-git-ca", file = "root.crt" } } : {},
-    local.queue ? { redis-ca = { secret = google_secret_manager_secret.redis_ca[0].id, path = "/etc/n8n-redis-ca", file = "ca.crt" } } : {},
+    local.redis_ca ? { redis-ca = { secret = google_secret_manager_secret.redis_ca[0].id, path = "/etc/n8n-redis-ca", file = "ca.crt" } } : {},
   )
 }
 
@@ -169,8 +169,9 @@ resource "google_cloud_run_v2_service" "main" {
     }
   }
 
-  # The secrets and the access to them must exist before an instance starts.
+  # The images, the secrets and the access to them must exist before an instance starts.
   depends_on = [
+    google_artifact_registry_repository.ghcr,
     google_secret_manager_secret_iam_member.n8n,
     google_project_iam_member.cloudsql_client,
     google_secret_manager_secret_version.runners_token,
@@ -316,8 +317,9 @@ resource "google_cloud_run_v2_worker_pool" "worker" {
     }
   }
 
-  # The secrets and the access to them must exist before an instance starts.
+  # The images, the secrets and the access to them must exist before an instance starts.
   depends_on = [
+    google_artifact_registry_repository.ghcr,
     google_secret_manager_secret_iam_member.n8n,
     google_project_iam_member.cloudsql_client,
     google_secret_manager_secret_version.runners_token,

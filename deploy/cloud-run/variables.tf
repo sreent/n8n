@@ -162,6 +162,12 @@ variable "redis_memory_gb" {
   default     = 1
 }
 
+variable "redis_verify_certificate" {
+  description = "Queue mode: check the TLS certificate of Memorystore with the certificate authority of the instance. With false, n8n encrypts the connection but does not check the certificate."
+  type        = bool
+  default     = true
+}
+
 variable "enable_apis" {
   description = "Turn on the Google APIs that the module uses."
   type        = bool

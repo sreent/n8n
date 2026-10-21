@@ -78,6 +78,14 @@ run "queue_mode_by_default" {
     error_message = "The main instances have the settings of the fork and of queue mode."
   }
   assert {
+    condition = (
+      contains([for env in google_cloud_run_v2_service.main.template[0].containers[0].env : "${env.name}=${env.value}" if env.value != null], "NODE_EXTRA_CA_CERTS=/etc/n8n-redis-ca/ca.crt")
+      && contains([for volume in google_cloud_run_v2_service.main.template[0].volumes : volume.name], "redis-ca")
+      && !contains([for env in google_cloud_run_v2_service.main.template[0].containers[0].env : env.name], "QUEUE_BULL_REDIS_TLS_VALIDATE_CERTIFICATE")
+    )
+    error_message = "n8n checks the certificate of Memorystore with the certificate authority of the instance."
+  }
+  assert {
     condition     = google_cloud_run_v2_worker_pool.worker[0].template[0].containers[0].args[1] == "--concurrency=10"
     error_message = "The workers start with n8n worker."
   }
@@ -115,6 +123,23 @@ run "single_mode" {
   assert {
     condition     = !contains([for env in google_cloud_run_v2_service.main.template[0].containers[0].env : env.name], "EXECUTIONS_MODE")
     error_message = "Single mode runs the executions in the main instance."
+  }
+}
+
+run "redis_without_certificate_check" {
+  command = apply
+
+  variables {
+    redis_verify_certificate = false
+  }
+
+  assert {
+    condition     = contains([for env in google_cloud_run_v2_worker_pool.worker[0].template[0].containers[0].env : "${env.name}=${env.value}" if env.value != null], "QUEUE_BULL_REDIS_TLS_VALIDATE_CERTIFICATE=false")
+    error_message = "n8n encrypts the connection to Memorystore without a check of the certificate."
+  }
+  assert {
+    condition     = length(google_secret_manager_secret.redis_ca) == 0 && !contains([for volume in google_cloud_run_v2_worker_pool.worker[0].template[0].volumes : volume.name], "redis-ca")
+    error_message = "Without the check, n8n needs no certificate authority."
   }
 }
 

@@ -47,4 +47,7 @@ resource "google_secret_manager_secret_iam_member" "ghcr_token" {
   secret_id = var.ghcr_token_secret
   role      = "roles/secretmanager.secretAccessor"
   member    = "serviceAccount:service-${data.google_project.this.number}@gcp-sa-artifactregistry.iam.gserviceaccount.com"
+
+  # Google makes the service agent when the API is turned on.
+  depends_on = [google_project_service.apis]
 }

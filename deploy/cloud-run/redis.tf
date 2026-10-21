@@ -42,7 +42,7 @@ resource "google_secret_manager_secret_version" "redis_auth" {
 }
 
 resource "google_secret_manager_secret" "redis_ca" {
-  count     = local.queue ? 1 : 0
+  count     = local.redis_ca ? 1 : 0
   project   = var.project_id
   secret_id = "${var.name}-redis-ca"
   labels    = var.labels
@@ -53,7 +53,7 @@ resource "google_secret_manager_secret" "redis_ca" {
 }
 
 resource "google_secret_manager_secret_version" "redis_ca" {
-  count       = local.queue ? 1 : 0
+  count       = local.redis_ca ? 1 : 0
   secret      = google_secret_manager_secret.redis_ca[0].id
   secret_data = join("\n", google_redis_instance.n8n[0].server_ca_certs[*].cert)
 }
