@@ -106,6 +106,26 @@ test('settings: a value of the values file replaces the default', options, () =>
 	assert.equal(vars.N8N_LOG_LEVEL, 'debug');
 });
 
+test('extra volumes: a certificate authority for NODE_EXTRA_CA_CERTS', options, () => {
+	const { ok, out, err } = render({
+		mode: 'queue',
+		'redis.host': 'redis',
+		'extraVolumes[0].name': 'redis-ca',
+		'extraVolumes[0].secret.secretName': 'redis-ca',
+		'extraVolumeMounts[0].name': 'redis-ca',
+		'extraVolumeMounts[0].mountPath': '/etc/n8n-redis-ca',
+		'extraVolumeMounts[0].readOnly': 'true',
+		'extraEnv.NODE_EXTRA_CA_CERTS': '/etc/n8n-redis-ca/ca.crt',
+	});
+	assert.ok(ok, err);
+	const docs = documents(out);
+	for (const name of ['Deployment/n8n-main', 'Deployment/n8n-worker']) {
+		assert.match(docs[name], /- mountPath: \/etc\/n8n-redis-ca\n\s+name: redis-ca\n\s+readOnly: true/, name);
+		assert.match(docs[name], /- name: redis-ca\n\s+secret:\n\s+secretName: redis-ca/, name);
+	}
+	assert.equal(env(out).NODE_EXTRA_CA_CERTS, '/etc/n8n-redis-ca/ca.crt');
+});
+
 test('ingress: annotations of webhooks move their paths to an Ingress of their own', options, () => {
 	const { ok, out, err } = render({ 'ingress.enabled': 'true', 'ingress.webhooks.annotations.example\\.com/allowlist': '10.0.0.0/8' });
 	assert.ok(ok, err);

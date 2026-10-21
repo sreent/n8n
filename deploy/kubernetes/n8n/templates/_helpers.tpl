@@ -134,6 +134,9 @@ the edge proxy. The argument is a dict with root, component (main or worker) and
       mountPath: /etc/n8n-git-ca
       readOnly: true
     {{- end }}
+    {{- with $values.extraVolumeMounts }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
 - name: runners
   image: "{{ $values.runnersImage.repository }}:{{ $values.runnersImage.tag }}"
   imagePullPolicy: {{ $values.runnersImage.pullPolicy }}
@@ -197,6 +200,9 @@ the edge proxy. The argument is a dict with root, component (main or worker) and
 - name: git-ca
   secret:
     secretName: {{ $values.gitCaCertificate.secretName }}
+{{- end }}
+{{- with $values.extraVolumes }}
+{{ toYaml . }}
 {{- end }}
 {{- if and $values.edge.enabled (eq .component "main") }}
 - name: edge-config

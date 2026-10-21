@@ -154,6 +154,13 @@ podLabels: {}
 # More environment variables for n8n, on the main instances and the workers.
 extraEnv: {}
 
+# More volumes for the pods, and their mounts in the n8n container, for example the certificate
+# authority of Memorystore for NODE_EXTRA_CA_CERTS (README.md):
+#   extraVolumes: [{ name: redis-ca, secret: { secretName: redis-ca } }]
+#   extraVolumeMounts: [{ name: redis-ca, mountPath: /etc/n8n-redis-ca, readOnly: true }]
+extraVolumes: []
+extraVolumeMounts: []
+
 # The n8n settings of the fork: a copy of deploy/settings.yaml, which README.md describes.
 # deploy/settings.test.mjs checks that the copy is the same. Change a value in your own values
 # file, not here.
