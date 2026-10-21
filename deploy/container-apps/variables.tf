@@ -136,7 +136,7 @@ variable "runners_resources" {
 variable "database" {
   description = "Azure Database for PostgreSQL flexible server."
   type = object({
-    version             = optional(string, "17")
+    version             = optional(string, "18")
     sku_name            = optional(string, "B_Standard_B2s")
     storage_mb          = optional(number, 32768)
     backup_days         = optional(number, 14)

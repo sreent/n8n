@@ -150,7 +150,7 @@ variable "task_memory" {
 variable "database" {
   description = "RDS for PostgreSQL."
   type = object({
-    engine_version      = optional(string, "17")
+    engine_version      = optional(string, "18")
     instance_class      = optional(string, "db.t4g.small")
     allocated_storage   = optional(number, 20)
     multi_az            = optional(bool, false)

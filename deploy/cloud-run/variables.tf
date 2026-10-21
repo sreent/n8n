@@ -146,7 +146,7 @@ variable "runners_resources" {
 variable "database" {
   description = "Cloud SQL for PostgreSQL. REGIONAL availability keeps a standby in a second zone."
   type = object({
-    version             = optional(string, "POSTGRES_17")
+    version             = optional(string, "POSTGRES_18")
     tier                = optional(string, "db-custom-1-3840")
     availability_type   = optional(string, "ZONAL")
     disk_size_gb        = optional(number, 20)

@@ -38,8 +38,8 @@ mode: single
 #   N8N_DYNAMIC_CREDENTIALS_ENDPOINT_AUTH_TOKEN  optional, for the endpoints of dynamic credentials.
 existingSecret: ""
 
-# PostgreSQL 17 or 18, for example Cloud SQL, RDS or Azure Database for PostgreSQL. The chart does
-# not install a database: use a managed one, with its backups.
+# PostgreSQL 18 (the version of the VM setup) or 17, for example Cloud SQL, RDS or Azure Database for
+# PostgreSQL. The chart does not install a database: use a managed one, with its backups.
 database:
   host: ""
   port: 5432
