@@ -105,6 +105,33 @@ const outputs = {
 			},
 		},
 	],
+	'Get open triggers': [
+		{
+			json: {
+				data: [
+					{
+						workflowId: 'w1',
+						workflowName: 'Mine <b>',
+						homeProject: { type: 'personal', name: 'Mia' },
+						owner: { email: 'mia@example.com' },
+						nodeName: 'Webhook',
+						kind: 'webhook',
+						approved: false,
+					},
+					{
+						workflowId: 'w2',
+						workflowName: 'Invoices',
+						homeProject: { type: 'team', name: 'Finance' },
+						owner: null,
+						nodeName: 'Form',
+						kind: 'form',
+						approved: true,
+					},
+				],
+				nextCursor: null,
+			},
+		},
+	],
 };
 
 test('the nodes run in order, and the API nodes read all pages with an n8n API credential', () => {
@@ -113,10 +140,11 @@ test('the nodes run in order, and the API nodes read all pages with an n8n API c
 	assert.deepEqual(next('Settings'), ['Get workflows']);
 	assert.deepEqual(next('Get workflows'), ['Get API keys']);
 	assert.deepEqual(next('Get API keys'), ['Get users']);
-	assert.deepEqual(next('Get users'), ['Build report']);
+	assert.deepEqual(next('Get users'), ['Get open triggers']);
+	assert.deepEqual(next('Get open triggers'), ['Build report']);
 	assert.deepEqual(next('Build report'), ['Send email']);
 
-	for (const name of ['Get workflows', 'Get API keys', 'Get users']) {
+	for (const name of ['Get workflows', 'Get API keys', 'Get users', 'Get open triggers']) {
 		const { parameters } = nodeNamed(name);
 		assert.equal(parameters.nodeCredentialType, 'n8nApi', name);
 		assert.equal(parameters.options.pagination.pagination.completeExpression, '={{ !$response.body.nextCursor }}', name);
@@ -124,6 +152,7 @@ test('the nodes run in order, and the API nodes read all pages with an n8n API c
 	// The later API nodes run once, not once for each page of the node before them.
 	assert.equal(nodeNamed('Get API keys').executeOnce, true);
 	assert.equal(nodeNamed('Get users').executeOnce, true);
+	assert.equal(nodeNamed('Get open triggers').executeOnce, true);
 	// The template holds no credentials.
 	assert.ok(workflow.nodes.every((node) => node.credentials === undefined));
 });
@@ -140,21 +169,26 @@ test('lists each finding in its section', () => {
 			'Invoices (project Finance, 2 of the last 3 executions failed)',
 		],
 		'Published workflows with unpublished changes': ['Invoices (project Finance)'],
+		'Open triggers that no workflow review approved': [
+			'Webhook, webhook in Mine <b> (personal space of mia@example.com)',
+		],
 		'Expired API keys': ['Old of olive@example.com (expired 2026-01-01)'],
 		'API keys not used for 90 days': ['Unused of olive@example.com (last use never)'],
 		'Users not active for 90 days': ['gone@example.com (last active 2026-02-01)'],
 		'Invitations open for more than 14 days': ['invited@example.com (invited 2026-01-01)'],
 	});
-	assert.equal(report.findings, 7);
+	assert.equal(report.findings, 8);
 	assert.deepEqual(report.summary, {
 		workflows: 3,
 		publishedWorkflows: 2,
 		workflowsInPersonalSpaces: 1,
+		openTriggers: 2,
+		approvedOpenTriggers: 1,
 		apiKeys: 4,
 		users: 3,
 		pendingInvitations: 2,
 	});
-	assert.match(report.subject, /^n8n governance report \d{4}-\d{2}-\d{2}: 7 findings$/);
+	assert.match(report.subject, /^n8n governance report \d{4}-\d{2}-\d{2}: 8 findings$/);
 });
 
 test('escapes HTML, and links to the workflows without /api/v1', () => {
@@ -186,6 +220,7 @@ test('uses one and many in the overview', () => {
 		'Get API keys': [{ json: { data: [outputs['Get API keys'][0].json.data[3]], nextCursor: null } }],
 	});
 
+	assert.ok(report.text.includes('\n2 open triggers in published workflows (1 approved)\n'));
 	assert.ok(report.text.includes('\n1 API key\n'));
 	assert.ok(report.text.includes('3 users and 2 open invitations'));
 });
