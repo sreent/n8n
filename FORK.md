@@ -254,7 +254,9 @@ update can bring new enterprise files: see "Upstream updates".
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
   `--plan` to see which tests it selects. It leaves out the test files in
   `scripts/container-ci-skipped-tests.txt` (none now). It runs the integration tests with 2
-  workers, because more time out on the 4 CPUs of a cloud session.
+  workers, because more time out on the 4 CPUs of a cloud session. When `deploy/` changes, it also
+  runs the Node.js tests of `deploy/`. The tests of the Helm chart need Helm, and the tests of the
+  Terraform modules need Terraform: run them by hand, as the READMEs of `deploy/` tell.
 
 ## Docker images
 

@@ -161,6 +161,7 @@ if [ "$MODE" = plan ]; then
 		fi
 	done <<<"$CHANGED_PACKAGES"
 	echo "Backend modules with all their tests: ${CHANGED_MODULES[*]:-none}"
+	grep -q '^deploy/' <<<"$CHANGED_FILES" && echo "The Node.js tests of deploy/"
 	echo "Integration tests: 2 workers"
 	echo "Skipped test files ($SKIPPED_TESTS_FILE):"
 	printf '  %s\n' "${SKIPPED_TESTS[@]:-none}"
@@ -239,6 +240,11 @@ if tested n8n-nodes-base; then
 fi
 if [ "${#FRONTEND_FILTERS[@]}" -gt 0 ]; then
 	step unit-frontend "$TURBO" run test:changed "${FRONTEND_FILTERS[@]}" --only --continue --concurrency=1
+fi
+# deploy/ is not a package of the workspace. Its tests need only Node.js. The tests of the Helm chart
+# skip without helm, and the Terraform tests run by hand (see the READMEs of deploy/).
+if grep -q '^deploy/' <<<"$CHANGED_FILES"; then
+	step deploy node --test deploy/*.test.mjs deploy/*/*.test.mjs
 fi
 
 if [ "$FAILED" -eq 0 ]; then
