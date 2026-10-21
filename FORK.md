@@ -13,6 +13,9 @@ The owner accepted one exception on 2026-10-19: pull request #53. It adds Forgej
 defaults of `deploy/` with a Move button for a blocked publish, the publish check for open triggers
 and the platform setup tool.
 
+The owner accepted a second exception on 2026-10-21: four more deployment options in `deploy/`,
+next to the VM. They are Google Cloud Run, Amazon ECS, Azure Container Apps and Kubernetes.
+
 a7c is a new product in `sreent/a7c`. Other companies will use it, so it contains no n8n code.
 The licence of n8n allows changes for internal business use only (`LICENSE.md`).
 

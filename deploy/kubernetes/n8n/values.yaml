@@ -1,0 +1,215 @@
+# The values of the n8n chart of the fork. ../README.md tells how to install the chart.
+
+image:
+  repository: ghcr.io/sreent/n8n
+  # A tag of the fork image, for example 2.42.0-1a2b3c4d5e. Give both images the same tag: the
+  # runners must have the version of n8n.
+  tag: latest
+  pullPolicy: IfNotPresent
+runnersImage:
+  repository: ghcr.io/sreent/n8n-runners
+  tag: latest
+  pullPolicy: IfNotPresent
+# The Secrets that let the cluster pull private images, for example from ghcr.io.
+imagePullSecrets: []
+
+# The host name of n8n, for example n8n.example.com. n8n makes the URLs of webhooks and forms
+# from it.
+host: ""
+# The number of proxies in front of n8n that add X-Forwarded-For, for example 1 for an ingress
+# controller behind a network load balancer.
+proxyHops: 1
+
+# single: one n8n instance. An update stops it before the new one starts, so that two instances
+#   never run the schedules at the same time.
+# queue: queue mode with Redis. The main instances serve the editor, the API and the webhooks, and
+#   the workers run the executions. Only the leader of the main instances runs the schedules.
+mode: single
+
+# The Secret with the secrets of n8n. Make it before the install (../README.md). The keys are the
+# names of the environment variables:
+#   N8N_ENCRYPTION_KEY       required. n8n encrypts the credentials with it. Keep a copy outside
+#                            the cluster: without it, a backup of the database cannot be restored.
+#   N8N_RUNNERS_AUTH_TOKEN   required. The task runners use it to connect to n8n.
+#   DB_POSTGRESDB_PASSWORD   required.
+#   QUEUE_BULL_REDIS_PASSWORD                    queue mode, when Redis has a password.
+#   N8N_SSO_OIDC_CLIENT_SECRET                   optional, for the OIDC sign-in from settings.
+#   N8N_COMMUNITY_PACKAGES_AUTH_TOKEN            optional, for a private npm registry.
+#   N8N_DYNAMIC_CREDENTIALS_ENDPOINT_AUTH_TOKEN  optional, for the endpoints of dynamic credentials.
+existingSecret: ""
+
+# PostgreSQL 17 or 18, for example Cloud SQL, RDS or Azure Database for PostgreSQL. The chart does
+# not install a database: use a managed one, with its backups.
+database:
+  host: ""
+  port: 5432
+  name: n8n
+  user: n8n
+  ssl:
+    enabled: false
+    # false accepts a server certificate that the CAs of Node.js do not sign, for example the one
+    # of RDS. The connection is still encrypted.
+    rejectUnauthorized: true
+
+# Redis 6 or later, for queue mode only, for example Memorystore, ElastiCache or Azure Managed
+# Redis.
+redis:
+  host: ""
+  port: 6379
+  tls: false
+
+main:
+  # In queue mode, two or more main instances keep the editor and the webhooks up during an update.
+  replicas: 1
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      memory: 2Gi
+
+worker:
+  # Queue mode only.
+  replicas: 1
+  # The executions that each worker runs at the same time.
+  concurrency: 10
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      memory: 2Gi
+
+# The task runners run the code of the Code nodes, in a container next to n8n.
+runners:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 1Gi
+
+# Let Git trust the certificate authority of the Forgejo server of deploy/forgejo: the Secret and
+# the key of its root certificate. Git reads it from GIT_SSL_CAINFO.
+gitCaCertificate:
+  secretName: ""
+  key: root.crt
+
+# An Ingress for n8n. Its controller must send X-Forwarded-For and pass WebSocket connections.
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  # For example: [{ secretName: n8n-tls, hosts: [n8n.example.com] }]
+  tls: []
+  # Annotations here move the paths of webhooks, chats and MCP servers, or of forms, to an Ingress
+  # of their own, so that the controller can limit the addresses that call them.
+  webhooks:
+    annotations: {}
+  forms:
+    annotations: {}
+
+# An HTTPRoute of the Gateway API for n8n, in place of the Ingress.
+httpRoute:
+  enabled: false
+  # For example: [{ name: shared-gateway, namespace: gateway }]
+  parentRefs: []
+
+# The IP limits of the VM setup: webhooks, chats and MCP servers answer only webhookAllowedRanges,
+# and forms only formAllowedRanges. Other addresses get 403. A Caddy container in the pod applies
+# them. It takes the address of the caller from X-Forwarded-For: the last address that is not in
+# trustedProxies. Set trustedProxies to the addresses of the proxies in front of the pod, for
+# example the pod range of the cluster when the ingress controller runs in it. Keep the allowed
+# ranges out of trustedProxies: an address in trustedProxies counts as a proxy, not as a caller.
+edge:
+  enabled: false
+  webhookAllowedRanges: ["0.0.0.0/0", "::/0"]
+  formAllowedRanges: ["0.0.0.0/0", "::/0"]
+  # For example ["10.244.0.0/16"].
+  trustedProxies: []
+  image:
+    repository: caddy
+    tag: 2-alpine
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      memory: 256Mi
+
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+
+# The images are for x86-64 only.
+nodeSelector:
+  kubernetes.io/arch: amd64
+tolerations: []
+affinity: {}
+podAnnotations: {}
+podLabels: {}
+
+# More environment variables for n8n, on the main instances and the workers.
+extraEnv: {}
+
+# The n8n settings of the fork: a copy of deploy/settings.yaml, which README.md describes.
+# deploy/settings.test.mjs checks that the copy is the same. Change a value in your own values
+# file, not here.
+settings:
+  # The time zone of the schedules and of the Code node.
+  GENERIC_TIMEZONE: "UTC"
+  TZ: "UTC"
+  # Keep the files of workflows in PostgreSQL, so that the containers need no shared disk and one
+  # database backup holds all data.
+  N8N_DEFAULT_BINARY_DATA_MODE: "database"
+  # A new container starts without the community nodes. n8n installs them again at the start.
+  N8N_REINSTALL_MISSING_PACKAGES: "true"
+  # Git sync: the hosts that a repository URL can use. Empty allows all hosts.
+  N8N_GIT_SYNC_ALLOWED_HOSTS: "github.com"
+  # The features that the fork turns on without a licence. "false" turns them all off.
+  N8N_FORK_FEATURES_ENABLED: "true"
+  # "true" shows a banner on each page that tells that the instance is not for production.
+  N8N_FORK_NON_PRODUCTION_BANNER: "false"
+  # The hours that n8n keeps old workflow versions. -1 keeps all versions.
+  N8N_WORKFLOW_HISTORY_PRUNE_TIME: "-1"
+  # SSRF protection: a node cannot call private, loopback or link-local addresses, also not the
+  # metadata server of the cloud, until these settings open the host. The AI nodes call the AI
+  # gateway of the fork on 127.0.0.1, so it stays open.
+  N8N_SSRF_PROTECTION_ENABLED: "true"
+  N8N_SSRF_ALLOWED_HOSTNAMES: ""
+  N8N_SSRF_ALLOWED_IP_RANGES: "127.0.0.1/32"
+  # A session lasts 12 hours. A request in its last quarter renews it. -1 never renews it.
+  N8N_USER_MANAGEMENT_JWT_DURATION_HOURS: "12"
+  N8N_USER_MANAGEMENT_JWT_REFRESH_TIMEOUT_HOURS: "0"
+  # The security policy of Settings > Security & policies. n8n sets these values at each start,
+  # and the page shows them read-only.
+  N8N_SECURITY_POLICY_MANAGED_BY_ENV: "true"
+  N8N_MFA_ENFORCED_ENABLED: "true"
+  N8N_PERSONAL_SPACE_PUBLISHING_ENABLED: "false"
+  N8N_PERSONAL_SPACE_SHARING_ENABLED: "false"
+  N8N_WORKFLOW_REVIEWS_ENABLED: "true"
+  N8N_REDACTION_ENFORCEMENT_FLOOR: "off"
+  # A new webhook, form, public chat or MCP server without authentication publishes only after an
+  # approval in a workflow review.
+  N8N_OPEN_TRIGGERS_NEED_APPROVAL: "true"
+  # The sign-in with OIDC from these settings. Set the first three to "true" together, and put the
+  # client secret in the secret store of the option.
+  N8N_SSO_MANAGED_BY_ENV: "false"
+  N8N_SSO_OIDC_LOGIN_ENABLED: "false"
+  N8N_SSO_SCOPES_USE_EXPRESSION_MAPPING: "false"
+  N8N_SSO_OIDC_DISCOVERY_ENDPOINT: ""
+  N8N_SSO_OIDC_CLIENT_ID: ""
+  N8N_SSO_OIDC_ADDITIONAL_SCOPES: ""
+  N8N_SSO_USER_ROLE_PROVISIONING: "instance_and_project_roles"
+  # The npm registry of community nodes. Its token goes in the secret store.
+  N8N_COMMUNITY_PACKAGES_REGISTRY: "https://registry.npmjs.org"
+  # Node type policies and Git connections need their modules.
+  N8N_ENABLED_MODULES: "type-availability-policies,promotions"
+  # The editor of Git connections, and the credential resolvers of dynamic credentials.
+  N8N_ENV_FEAT_PROMOTIONS: "true"
+  N8N_ENV_FEAT_DYNAMIC_CREDENTIALS: "true"
+  # The origins that a browser can call the endpoints of dynamic credentials from. Empty turns
+  # them off. The token of a caller without a session goes in the secret store.
+  N8N_DYNAMIC_CREDENTIALS_CORS_ORIGIN: ""

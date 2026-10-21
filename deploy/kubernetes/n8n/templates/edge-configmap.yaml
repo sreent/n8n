@@ -1,0 +1,39 @@
+{{- if .Values.edge.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "n8n.fullname" . }}-edge
+  labels:
+    {{- include "n8n.labels" . | nindent 4 }}
+data:
+  # The rules of deploy/Caddyfile of the VM setup, without HTTPS: the ingress or the gateway ends
+  # the TLS connection.
+  Caddyfile: |
+    {
+    	admin off
+    	auto_https off
+    	persist_config off
+    	servers {
+    		# Take the address of the caller from X-Forwarded-For, after these proxies.
+    		trusted_proxies static {{ join " " .Values.edge.trustedProxies }}
+    		client_ip_headers X-Forwarded-For
+    		trusted_proxies_strict
+    	}
+    }
+    :8080 {
+    	# Webhooks, chats and MCP servers answer only webhookAllowedRanges, and forms only
+    	# formAllowedRanges. Other addresses get 403.
+    	@webhook_blocked {
+    		path /webhook/* /webhook-test/* /webhook-waiting/* /mcp/* /mcp-test/*
+    		not client_ip {{ join " " .Values.edge.webhookAllowedRanges }}
+    	}
+    	respond @webhook_blocked 403
+    	@form_blocked {
+    		path /form/* /form-test/* /form-waiting/*
+    		not client_ip {{ join " " .Values.edge.formAllowedRanges }}
+    	}
+    	respond @form_blocked 403
+
+    	reverse_proxy 127.0.0.1:5678
+    }
+{{- end }}
