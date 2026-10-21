@@ -66,7 +66,10 @@ The licence of n8n allows changes for internal business use only (`LICENSE.md`).
   (below). It has no registration of the Community Edition, no request of an enterprise trial and
   no entry of licence keys (the owner chose this on 2026-10-13).
   [packages/cli/src/license/FORK.md](packages/cli/src/license/FORK.md) describes the change.
-- `deploy/`: runs the fork on a Linux server with Docker Compose.
+- `deploy/`: runs the fork on a Linux server with Docker Compose. `deploy/cloud-run/`,
+  `deploy/ecs/` and `deploy/container-apps/` are Terraform modules for Google Cloud Run, Amazon ECS
+  and Azure Container Apps, and `deploy/kubernetes/` is a Helm chart. They read the n8n settings of
+  `deploy/settings.yaml`, which `deploy/settings.test.mjs` keeps equal to the settings of the VM.
   `deploy/workflows/governance-report.json` is a workflow that sends a weekly governance report.
   `deploy/forgejo/` runs Forgejo, a private Git server for the Git features of n8n, on its own VM
   in Google Cloud. `deploy/platform/setup.mjs` makes the team projects, the SSO group rules and the

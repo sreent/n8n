@@ -1,9 +1,84 @@
-# Run n8n on a Linux server
+# Run n8n
 
-Fork tooling (not in upstream n8n). This folder runs the fork on one Linux server with Docker
-Compose. It does not depend on a cloud provider: use a virtual machine on Azure, Google Cloud,
-AWS, Hetzner or another provider, or your own hardware. To move to another provider, make a new
-server and restore a backup.
+Fork tooling (not in upstream n8n). This folder runs the fork in one of five ways. All five run the
+same two images (n8n and the task runners), with the same n8n settings and the same safer defaults.
+
+| Option | Folder | Tool | Database | Default |
+|---|---|---|---|---|
+| A Linux server (VM) | this folder | Docker Compose | PostgreSQL in a container, with `backup.sh` | One instance |
+| Google Cloud Run | [cloud-run/](cloud-run/README.md) | Terraform | Cloud SQL | Queue mode |
+| Amazon ECS on Fargate | [ecs/](ecs/README.md) | Terraform | Amazon RDS | One instance |
+| Azure Container Apps | [container-apps/](container-apps/README.md) | Terraform | Azure Database for PostgreSQL | Queue mode |
+| Kubernetes | [kubernetes/](kubernetes/README.md) | Helm | A PostgreSQL that you give | One instance |
+
+- **The VM** is the simplest option, and costs the least. It runs on any provider and on your own
+  hardware. Use it when one n8n instance is enough.
+- **Cloud Run, ECS and Container Apps** have no server that you must update. The provider runs the
+  containers, and the managed database keeps the backups. Terraform makes all the resources.
+- **Kubernetes** is for an organisation that has a cluster and a team that runs it.
+- Cloud Run and Container Apps can run an old and a new instance together for a short time when a
+  new version starts. In queue mode, only the leader of the instances runs the schedules, so a
+  schedule never runs two times. ECS and Kubernetes can stop the old instance before the new one
+  starts, so one instance is safe there.
+- Forgejo, the Git server of [forgejo/](forgejo/README.md), stays on its own VM in Google Cloud for
+  all options.
+
+Each option has a README. The rest of this file describes the VM. The sections
+[End-user credentials](#end-user-credentials), [AI gateway](#ai-gateway),
+[Safer defaults](#safer-defaults), [SSO](#sso) and [Governance](#governance) describe n8n. They are
+true for all options, with the names of the next table in place of the names of `.env`.
+
+## Settings of the other options
+
+The four other options read [settings.yaml](settings.yaml). It holds the n8n settings that the VM
+gets from `docker-compose.yml` and `.env.example`, with the names of the n8n environment variables.
+To change one, set it in the variable `settings` of the Terraform module, or in `settings` of the
+values of the chart. This file gives the names of `.env`. This table gives the n8n name of each:
+
+| `.env` of the VM | n8n setting |
+|---|---|
+| `TIMEZONE` | `GENERIC_TIMEZONE` and `TZ` |
+| `GIT_SYNC_ALLOWED_HOSTS` | `N8N_GIT_SYNC_ALLOWED_HOSTS` |
+| `FORK_FEATURES_ENABLED` | `N8N_FORK_FEATURES_ENABLED` |
+| `NON_PRODUCTION_BANNER` | `N8N_FORK_NON_PRODUCTION_BANNER` |
+| `WORKFLOW_HISTORY_PRUNE_TIME` | `N8N_WORKFLOW_HISTORY_PRUNE_TIME` |
+| `SSRF_PROTECTION` | `N8N_SSRF_PROTECTION_ENABLED` |
+| `SSRF_ALLOWED_HOSTNAMES` | `N8N_SSRF_ALLOWED_HOSTNAMES` |
+| `SSRF_ALLOWED_IP_RANGES` | `N8N_SSRF_ALLOWED_IP_RANGES`. Keep `127.0.0.1/32` in it for the AI gateway. |
+| `SESSION_HOURS` | `N8N_USER_MANAGEMENT_JWT_DURATION_HOURS` |
+| `SESSION_RENEWAL_HOURS` | `N8N_USER_MANAGEMENT_JWT_REFRESH_TIMEOUT_HOURS` |
+| `SECURITY_POLICY_FROM_ENV` | `N8N_SECURITY_POLICY_MANAGED_BY_ENV` |
+| `MFA_ENFORCED` | `N8N_MFA_ENFORCED_ENABLED` |
+| `PERSONAL_SPACE_PUBLISHING` | `N8N_PERSONAL_SPACE_PUBLISHING_ENABLED` |
+| `PERSONAL_SPACE_SHARING` | `N8N_PERSONAL_SPACE_SHARING_ENABLED` |
+| `WORKFLOW_REVIEWS` | `N8N_WORKFLOW_REVIEWS_ENABLED` |
+| `REDACTION_FLOOR` | `N8N_REDACTION_ENFORCEMENT_FLOOR` |
+| `OPEN_TRIGGERS_NEED_APPROVAL` | `N8N_OPEN_TRIGGERS_NEED_APPROVAL` |
+| `SSO_FROM_ENV` | `N8N_SSO_MANAGED_BY_ENV`, `N8N_SSO_OIDC_LOGIN_ENABLED` and `N8N_SSO_SCOPES_USE_EXPRESSION_MAPPING`, all three with the same value |
+| `OIDC_DISCOVERY_URL` | `N8N_SSO_OIDC_DISCOVERY_ENDPOINT` |
+| `OIDC_CLIENT_ID` | `N8N_SSO_OIDC_CLIENT_ID` |
+| `OIDC_ADDITIONAL_SCOPES` | `N8N_SSO_OIDC_ADDITIONAL_SCOPES` |
+| `COMMUNITY_PACKAGES_REGISTRY` | `N8N_COMMUNITY_PACKAGES_REGISTRY` |
+| `ENABLED_MODULES` | `N8N_ENABLED_MODULES` |
+| `PROMOTIONS_EDITOR` | `N8N_ENV_FEAT_PROMOTIONS` |
+| `CREDENTIAL_RESOLVERS` | `N8N_ENV_FEAT_DYNAMIC_CREDENTIALS` |
+| `DYNAMIC_CREDENTIALS_CORS_ORIGIN` | `N8N_DYNAMIC_CREDENTIALS_CORS_ORIGIN` |
+
+- **Secrets** go to the secret store of the option, not to `settings`: `OIDC_CLIENT_SECRET`
+  becomes `N8N_SSO_OIDC_CLIENT_SECRET`, `COMMUNITY_PACKAGES_AUTH_TOKEN` becomes
+  `N8N_COMMUNITY_PACKAGES_AUTH_TOKEN`, and `DYNAMIC_CREDENTIALS_ENDPOINT_AUTH_TOKEN` becomes
+  `N8N_DYNAMIC_CREDENTIALS_ENDPOINT_AUTH_TOKEN`.
+- **The IP limits** (`WEBHOOK_ALLOWED_RANGES` and `FORM_ALLOWED_RANGES`) are values of the module
+  or of the chart. Each README tells their names.
+- **Keep the options the same.** When you change `docker-compose.yml` or `.env.example`, change
+  `settings.yaml` and the copy in `kubernetes/n8n/values.yaml` too.
+  `node --test deploy/settings.test.mjs` checks that they agree.
+
+## Run n8n on a Linux server
+
+This setup runs the fork on one Linux server with Docker Compose. It does not depend on a cloud
+provider: use a virtual machine on Azure, Google Cloud, AWS, Hetzner or another provider, or your
+own hardware. To move to another provider, make a new server and restore a backup.
 
 ```mermaid
 flowchart LR
@@ -160,7 +235,9 @@ Gemini, Ollama and other providers) without an API key of their own. To set it u
 Users then pick **Use Gateway credits** on a supported node. The gateway records the cost of each
 call and stops the calls when a budget is spent. An admin adds top-ups and sets the prices on the
 same page. This stack runs the nodes in the n8n container, so the gateway needs no setting in
-`.env`. See the [README of the module](../packages/cli/src/modules/ai-gateway/README.md).
+`.env`. In queue mode, the workers run the nodes and call the gateway on the main instances: the
+other options set its address for them. See the
+[README of the module](../packages/cli/src/modules/ai-gateway/README.md).
 
 ## Limits
 
@@ -336,3 +413,7 @@ spaces. A user cannot hide a workflow from them.
 | `restore.sh` | Restores a backup |
 | `workflows/governance-report.json` | A workflow that sends a weekly governance report by email |
 | `forgejo/` | Forgejo, a private Git server for the Git features, on its own VM in Google Cloud |
+| `settings.yaml` | The n8n settings of the other options |
+| `settings.test.mjs` | Checks that all options use the same settings (`node --test deploy/settings.test.mjs`) |
+| `cloud-run/`, `ecs/`, `container-apps/` | The Terraform modules for Cloud Run, ECS and Container Apps |
+| `kubernetes/` | The Helm chart for Kubernetes |
