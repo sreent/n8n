@@ -47,6 +47,7 @@ export const modulePackages: Array<{ name: string; dir: string; entry?: boolean 
 	{ name: '@n8n/frontend-module-ai-gateway', dir: 'modules/ai-gateway/frontend' },
 	{ name: '@n8n/frontend-module-audit-log', dir: 'modules/audit-log/frontend' },
 	{ name: '@n8n/frontend-module-git-sync', dir: 'modules/git-sync/frontend' },
+	{ name: '@n8n/frontend-module-open-triggers', dir: 'modules/open-triggers/frontend' },
 	{ name: '@n8n/frontend-module-send-copy', dir: 'modules/send-copy/frontend' },
 	{
 		name: '@n8n/frontend-module-type-availability-policies',

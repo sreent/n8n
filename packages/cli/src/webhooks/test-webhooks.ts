@@ -1,6 +1,6 @@
 import { Logger } from '@n8n/backend-common';
 import { OnPubSubEvent } from '@n8n/decorators';
-import { Service } from '@n8n/di';
+import { Container, Service } from '@n8n/di';
 import type express from 'express';
 import { ExecutionContextService, InstanceSettings } from 'n8n-core';
 import {
@@ -31,6 +31,7 @@ import { NodeTypes } from '@/node-types';
 import { Push } from '@/push';
 import { Publisher } from '@/scaling/pubsub/publisher.service';
 import { removeTrailingSlash } from '@/utils';
+import { TestWebhookCallGuards } from '@/webhooks/test-webhook-call-guards';
 import type { TestWebhookRegistration } from '@/webhooks/test-webhook-registrations.service';
 import { TestWebhookRegistrationsService } from '@/webhooks/test-webhook-registrations.service';
 import * as WebhookHelpers from '@/webhooks/webhook-helpers';
@@ -156,6 +157,9 @@ export class TestWebhooks implements IWebhookManager {
 		if (workflowStartNode === null) {
 			throw new NotFoundError('Could not find node to process webhook.');
 		}
+
+		// Fork: a guard can refuse the call while the request still has its cookies.
+		await Container.get(TestWebhookCallGuards).check(request, workflowEntity, workflowStartNode);
 
 		if (!authAllowlistedNodes.has(workflowStartNode.type)) {
 			sanitizeWebhookRequest(request);

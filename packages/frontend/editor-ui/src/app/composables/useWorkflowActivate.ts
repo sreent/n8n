@@ -30,6 +30,7 @@ import {
 	clearPendingActivationModal,
 } from '@/app/composables/workflowPublicationConfirmation';
 import { usePolicyViolationToast } from '@/app/composables/usePolicyViolationToast';
+import { useOpenTriggerFixes } from '@/app/composables/useOpenTriggerFixes';
 import { getPolicyViolations } from '@n8n/frontend-module-type-availability-policies';
 
 export function useWorkflowActivate() {
@@ -53,6 +54,7 @@ export function useWorkflowActivate() {
 	const collaborationStore = useCollaborationStore();
 	const { errorMessage: activationErrorMessage } = useActivationError(activationErrorNodeId);
 	const { showPolicyViolationToast, closePolicyViolationToast } = usePolicyViolationToast();
+	const openTriggerFixes = useOpenTriggerFixes();
 
 	const parseWebhookConflictError = (error: ResponseError) => {
 		try {
@@ -282,14 +284,15 @@ export function useWorkflowActivate() {
 				const policyTitle = i18n.baseText('typeAvailabilityPolicies.violations.publishTitle');
 				const violations = getPolicyViolations(error);
 
-				if (violations) {
+				// Fork: open triggers get the modal of their fixes (useOpenTriggerFixes.ts).
+				if (violations && !openTriggerFixes.showFixes(workflowId, violations)) {
 					showPolicyViolationToast(
 						violations,
 						policyTitle,
 						'publish',
 						createWorkflowDocumentId(workflowId),
 					);
-				} else {
+				} else if (!violations) {
 					activationErrorNodeId.value = error.meta?.nodeId as string | undefined;
 					toast.showError(error, title, {
 						message: activationErrorMessage.value,

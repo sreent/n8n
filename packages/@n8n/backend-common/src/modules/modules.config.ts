@@ -46,6 +46,7 @@ export const MODULE_NAMES = [
 	'git-sync',
 	'audit-log',
 	'ai-gateway',
+	'open-triggers',
 ] as const;
 
 export type ModuleName = (typeof MODULE_NAMES)[number];

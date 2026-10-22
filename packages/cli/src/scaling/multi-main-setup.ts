@@ -36,6 +36,9 @@ export class MultiMainSetup extends TypedEmitter<MultiMainEvents> {
 		private readonly leaderElectionClient: LeaderElectionClient,
 	) {
 		super();
+		// Each handler of @OnLeaderTakeover and @OnLeaderStepdown adds a listener, and n8n has more
+		// handlers than the default limit of 10. Without this, Node.js warns at each start.
+		this.setMaxListeners(0);
 		this.logger = this.logger.scoped(['scaling', 'multi-main-setup']);
 	}
 

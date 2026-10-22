@@ -9,6 +9,13 @@ The owner stopped new features in the fork on 2026-10-17. The fork gets only sec
 upstream merges and the fixes that these need. It keeps running for our organisation until a7c
 can replace it.
 
+The owner accepted one exception on 2026-10-19: pull request #53. It adds Forgejo, the safer
+defaults of `deploy/` with a Move button for a blocked publish, the publish check for open triggers
+and the platform setup tool.
+
+The owner accepted a second exception on 2026-10-21: four more deployment options in `deploy/`,
+next to the VM. They are Google Cloud Run, Amazon ECS, Azure Container Apps and Kubernetes.
+
 a7c is a new product in `sreent/a7c`. Other companies will use it, so it contains no n8n code.
 The licence of n8n allows changes for internal business use only (`LICENSE.md`).
 
@@ -44,6 +51,14 @@ The licence of n8n allows changes for internal business use only (`LICENSE.md`).
   cost of each call and stops the calls when a budget is spent. The frontend module
   `packages/modules/ai-gateway/frontend` adds the page Settings > AI gateway. Their READMEs
   describe them.
+- **Open triggers**: the backend module `packages/cli/src/modules/open-triggers` finds the
+  webhooks, forms, public chats and MCP servers without authentication. With
+  `N8N_OPEN_TRIGGERS_NEED_APPROVAL=true`, a publish stops for a new open trigger until a workflow
+  review approves it, and the test URL of an open trigger takes calls only from n8n users who may
+  run the workflow. The frontend module `packages/modules/open-triggers/frontend` offers
+  one-click fixes and **Request approval** when the check stops a publish, and adds the page
+  Settings > Open triggers. The public API gives the list at `/api/v1/inventory/open-triggers`.
+  Their READMEs describe them.
 - **Google Cloud OCR**: the node `packages/nodes-base/nodes/Google/CloudOcr` reads the text of
   images and documents with the Cloud Vision API and Document AI, with a service account, an API
   key or Gateway credits. Its README describes it.
@@ -51,8 +66,15 @@ The licence of n8n allows changes for internal business use only (`LICENSE.md`).
   (below). It has no registration of the Community Edition, no request of an enterprise trial and
   no entry of licence keys (the owner chose this on 2026-10-13).
   [packages/cli/src/license/FORK.md](packages/cli/src/license/FORK.md) describes the change.
-- `deploy/`: runs the fork on a Linux server with Docker Compose.
+- `deploy/`: runs the fork on a Linux server with Docker Compose. `deploy/cloud-run/`,
+  `deploy/ecs/` and `deploy/container-apps/` are Terraform modules for Google Cloud Run, Amazon ECS
+  and Azure Container Apps, and `deploy/kubernetes/` is a Helm chart. They read the n8n settings of
+  `deploy/settings.yaml`, which `deploy/settings.test.mjs` keeps equal to the settings of the VM.
   `deploy/workflows/governance-report.json` is a workflow that sends a weekly governance report.
+  `deploy/forgejo/` runs Forgejo, a private Git server for the Git features of n8n, on its own VM
+  in Google Cloud. `deploy/platform/setup.mjs` makes the team projects, the SSO group rules and the
+  team credentials of an organisation from one config file, over the public API, and checks the
+  setup. Their READMEs describe them.
 - `vendor/`: the wa-sqlite package that the editor app installs. Upstream installs it from
   GitHub, which a cloud session cannot do. `scripts/vendor-wa-sqlite.sh` packs it from the
   upstream commit and gives the same file again.
@@ -232,7 +254,9 @@ update can bring new enterprise files: see "Upstream updates".
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
   `--plan` to see which tests it selects. It leaves out the test files in
   `scripts/container-ci-skipped-tests.txt` (none now). It runs the integration tests with 2
-  workers, because more time out on the 4 CPUs of a cloud session.
+  workers, because more time out on the 4 CPUs of a cloud session. When `deploy/` changes, it also
+  runs the Node.js tests of `deploy/`. The tests of the Helm chart need Helm, and the tests of the
+  Terraform modules need Terraform: run them by hand, as the READMEs of `deploy/` tell.
 
 ## Docker images
 
@@ -357,6 +381,24 @@ update can bring new enterprise files: see "Upstream updates".
 - When an upstream update changes scopes or roles, make the permission data again, as
   [packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md) tells. The scope
   snapshot test of `@n8n/permissions` fails when upstream adds a scope.
+- When an upstream update changes `packages/cli/src/instance-settings-loader/instance-settings-loader.service.ts`,
+  keep the fork loader of workflow reviews and the redaction floor, as
+  [packages/cli/src/instance-settings-loader/FORK.md](packages/cli/src/instance-settings-loader/FORK.md)
+  tells.
+- When an upstream update changes `packages/frontend/editor-ui/src/app/composables/useWorkflowActivate.ts`,
+  `src/app/capabilities.manifest.ts`, `src/app/event-bus/node-view.ts` or
+  `src/app/components/MainHeader/WorkflowHeaderDraftPublishActions.vue` of editor-ui, keep the fork
+  lines of the open-trigger fixes, as
+  [packages/modules/open-triggers/frontend/README.md](packages/modules/open-triggers/frontend/README.md)
+  tells. When it changes the authentication options of the Webhook, Form Trigger, Chat Trigger or
+  MCP Server Trigger node, change `open-trigger.detector.ts` of the open-triggers module. When it
+  changes `packages/cli/src/webhooks/test-webhooks.ts`, keep the fork line that asks
+  `TestWebhookCallGuards` before the request loses its cookies, as the README of the
+  open-triggers module tells. When it
+  changes `WorkflowHeaderDraftPublishActions.vue`, `src/app/components/MainHeader/ActionsDropdownMenu.vue`
+  or `src/app/event-bus/node-view.ts`, also keep the Move button of a blocked publish, as
+  [packages/frontend/editor-ui/FORK.md](packages/frontend/editor-ui/FORK.md#the-move-button-of-a-blocked-publish)
+  tells.
 - When an upstream update changes `isLicensed` or `getValue` of `packages/cli/src/license.ts`, or
   the `setupFiles` of `packages/cli/vitest.config.base.ts`, keep the fork lines (step 5).
 - When an upstream update changes the licence routes, the page Settings > Usage and plan or the

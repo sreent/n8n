@@ -1,0 +1,70 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullname := include "n8n.fullname" . -}}
+{{- $root := . -}}
+{{- $groups := list (dict "name" "webhooks" "values" .Values.ingress.webhooks "paths" (list "/webhook" "/webhook-test" "/webhook-waiting" "/mcp" "/mcp-test")) (dict "name" "forms" "values" .Values.ingress.forms "paths" (list "/form" "/form-test" "/form-waiting")) -}}
+{{- range $group := $groups }}
+{{- if $group.values.annotations }}
+---
+# The paths of {{ $group.name }}, with annotations of their own, for example an IP allowlist.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullname }}-{{ $group.name }}
+  labels:
+    {{- include "n8n.labels" $root | nindent 4 }}
+  annotations:
+    {{- toYaml (merge (deepCopy $group.values.annotations) $root.Values.ingress.annotations) | nindent 4 }}
+spec:
+  {{- with $root.Values.ingress.className }}
+  ingressClassName: {{ . }}
+  {{- end }}
+  {{- with $root.Values.ingress.tls }}
+  tls:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    - host: {{ $root.Values.host | quote }}
+      http:
+        paths:
+          {{- range $path := $group.paths }}
+          - path: {{ $path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $fullname }}
+                port:
+                  name: http
+          {{- end }}
+{{- end }}
+{{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullname }}
+  labels:
+    {{- include "n8n.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.ingress.className }}
+  ingressClassName: {{ . }}
+  {{- end }}
+  {{- with .Values.ingress.tls }}
+  tls:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.host | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $fullname }}
+                port:
+                  name: http
+{{- end }}

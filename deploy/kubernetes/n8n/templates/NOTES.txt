@@ -1,0 +1,10 @@
+n8n of the sreent/n8n fork: {{ .Values.mode }} mode{{ if eq .Values.mode "queue" }}, {{ .Values.main.replicas }} main instance(s) and {{ .Values.worker.replicas }} worker(s){{ end }}.
+
+1. Wait until the main instance is ready (the first start runs the migrations of the database):
+   kubectl -n {{ .Release.Namespace }} rollout status deployment/{{ include "n8n.fullname" . }}-main
+
+2. Open https://{{ .Values.host }} and make the owner account. Until then, anyone who reaches the
+   page can make it.
+
+3. Keep a copy of N8N_ENCRYPTION_KEY of the Secret {{ .Values.existingSecret }} outside the
+   cluster. Without it, a backup of the database cannot be restored.

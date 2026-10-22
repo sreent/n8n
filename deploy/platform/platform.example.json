@@ -1,0 +1,48 @@
+{
+	"groupsClaim": "groups",
+	"instanceRoles": [
+		{ "group": "n8n-admins", "role": "global:admin" },
+		{ "group": "n8n-builders", "role": "global:member" }
+	],
+	"defaultInstanceRole": "global:chatUser",
+	"projects": [
+		{
+			"name": "Sales",
+			"description": "Workflows of the sales team",
+			"roles": [
+				{ "group": "n8n-sales-admins", "role": "project:admin" },
+				{ "group": "n8n-sales-builders", "role": "project:editor" },
+				{ "group": "n8n-sales-viewers", "role": "project:viewer" }
+			],
+			"credentials": [
+				{
+					"name": "Sales CRM API",
+					"type": "httpHeaderAuth",
+					"data": { "name": "Authorization", "value": { "env": "SALES_CRM_TOKEN" } }
+				}
+			]
+		},
+		{
+			"name": "Finance",
+			"description": "Workflows of the finance team",
+			"roles": [
+				{ "group": "n8n-finance-admins", "role": "project:admin" },
+				{ "group": "n8n-finance-builders", "role": "project:editor" }
+			],
+			"credentials": [
+				{
+					"name": "Ledger database",
+					"type": "postgres",
+					"data": {
+						"host": "ledger.internal.example.com",
+						"port": 5432,
+						"database": "ledger",
+						"user": "n8n_reader",
+						"password": "={{ $secrets.vault.ledger_reader_password }}",
+						"ssl": "require"
+					}
+				}
+			]
+		}
+	]
+}

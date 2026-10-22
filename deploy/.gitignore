@@ -1,2 +1,10 @@
 .env
 backups/
+
+# The working files of Terraform: providers, state and the values of an instance.
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.example.tfvars

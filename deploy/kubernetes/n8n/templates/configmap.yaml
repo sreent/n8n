@@ -1,0 +1,55 @@
+{{- include "n8n.validate" . -}}
+{{- $fullname := include "n8n.fullname" . -}}
+{{- $queue := eq .Values.mode "queue" -}}
+{{- $env := deepCopy .Values.settings -}}
+{{- if $queue -}}
+{{/* The workers call the AI gateway on the main instances, through the Service of n8n. */}}
+{{- $hosts := compact (splitList "," (index $env "N8N_SSRF_ALLOWED_HOSTNAMES" | default "")) -}}
+{{- $_ := set $env "N8N_SSRF_ALLOWED_HOSTNAMES" (append $hosts $fullname | uniq | join ",") -}}
+{{- end -}}
+{{- $_ := set $env "DB_TYPE" "postgresdb" -}}
+{{- $_ := set $env "DB_POSTGRESDB_HOST" .Values.database.host -}}
+{{- $_ := set $env "DB_POSTGRESDB_PORT" (toString .Values.database.port) -}}
+{{- $_ := set $env "DB_POSTGRESDB_DATABASE" .Values.database.name -}}
+{{- $_ := set $env "DB_POSTGRESDB_USER" .Values.database.user -}}
+{{- $_ := set $env "DB_POSTGRESDB_SSL_ENABLED" (toString .Values.database.ssl.enabled) -}}
+{{- $_ := set $env "DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED" (toString .Values.database.ssl.rejectUnauthorized) -}}
+{{- $_ := set $env "N8N_HOST" .Values.host -}}
+{{- $_ := set $env "N8N_PROTOCOL" "https" -}}
+{{- $_ := set $env "N8N_PORT" "5678" -}}
+{{- $_ := set $env "WEBHOOK_URL" (printf "https://%s/" .Values.host) -}}
+{{/* The edge proxy is one more proxy in front of n8n, and only it can reach the port of n8n. */}}
+{{- $_ := set $env "N8N_PROXY_HOPS" (toString (add (int .Values.proxyHops) (ternary 1 0 .Values.edge.enabled))) -}}
+{{- $_ := set $env "N8N_LISTEN_ADDRESS" (ternary "127.0.0.1" "0.0.0.0" .Values.edge.enabled) -}}
+{{/* The task runners run in the same pod and reach the broker on the loopback address. */}}
+{{- $_ := set $env "N8N_RUNNERS_MODE" "external" -}}
+{{- $_ := set $env "N8N_RUNNERS_BROKER_LISTEN_ADDRESS" "127.0.0.1" -}}
+{{- if .Values.gitCaCertificate.secretName -}}
+{{- $_ := set $env "GIT_SSL_CAINFO" (printf "/etc/n8n-git-ca/%s" .Values.gitCaCertificate.key) -}}
+{{- end -}}
+{{- if $queue -}}
+{{- $_ := set $env "EXECUTIONS_MODE" "queue" -}}
+{{- $_ := set $env "QUEUE_BULL_REDIS_HOST" .Values.redis.host -}}
+{{- $_ := set $env "QUEUE_BULL_REDIS_PORT" (toString .Values.redis.port) -}}
+{{- $_ := set $env "QUEUE_BULL_REDIS_TLS" (toString .Values.redis.tls) -}}
+{{/* Only the leader of the main instances runs the schedules and the polling triggers. */}}
+{{- $_ := set $env "N8N_MULTI_MAIN_SETUP_ENABLED" "true" -}}
+{{- $_ := set $env "OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS" "true" -}}
+{{- $_ := set $env "QUEUE_HEALTH_CHECK_ACTIVE" "true" -}}
+{{/* The default address of the health server of a worker is ::, and a pod without IPv6 never opens it. */}}
+{{- $_ := set $env "N8N_WORKER_SERVER_ADDRESS" "0.0.0.0" -}}
+{{- $_ := set $env "N8N_AI_GATEWAY_BASE_URL" (printf "http://%s/ai-gateway" $fullname) -}}
+{{- end -}}
+{{- range $name, $value := .Values.extraEnv -}}
+{{- $_ := set $env $name (toString $value) -}}
+{{- end -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullname }}-env
+  labels:
+    {{- include "n8n.labels" . | nindent 4 }}
+data:
+  {{- range $name := keys $env | sortAlpha }}
+  {{ $name }}: {{ index $env $name | toString | quote }}
+  {{- end }}

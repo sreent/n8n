@@ -170,6 +170,9 @@ paths:
   /inventory/workflows:
     get:
       $ref: ./handlers/inventory/spec/paths/getWorkflowInventory.generated.yml
+  /inventory/open-triggers:
+    get:
+      $ref: ./handlers/inventory/spec/paths/getOpenTriggers.generated.yml
   /settings/ldap:
     get:
       $ref: ./handlers/settings/spec/paths/getLdapConfiguration.generated.yml

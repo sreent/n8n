@@ -58,6 +58,40 @@ services:
       N8N_FORK_NON_PRODUCTION_BANNER: ${NON_PRODUCTION_BANNER:-false}
       # The hours that n8n keeps old workflow versions. -1 keeps all versions.
       N8N_WORKFLOW_HISTORY_PRUNE_TIME: ${WORKFLOW_HISTORY_PRUNE_TIME:--1}
+      # SSRF protection: a node cannot call private, loopback or link-local addresses, also not the
+      # metadata server of the cloud, until SSRF_ALLOWED_HOSTNAMES or SSRF_ALLOWED_IP_RANGES opens
+      # the host. The AI nodes call the AI gateway of the fork on 127.0.0.1, so it stays open.
+      N8N_SSRF_PROTECTION_ENABLED: ${SSRF_PROTECTION:-true}
+      N8N_SSRF_ALLOWED_HOSTNAMES: ${SSRF_ALLOWED_HOSTNAMES:-}
+      N8N_SSRF_ALLOWED_IP_RANGES: 127.0.0.1/32,${SSRF_ALLOWED_IP_RANGES:-}
+      # A session lasts SESSION_HOURS. With SESSION_RENEWAL_HOURS 0, a request in its last quarter
+      # renews it, so users stay signed in while they work. With -1, each session ends SESSION_HOURS
+      # after the sign-in, also during work.
+      N8N_USER_MANAGEMENT_JWT_DURATION_HOURS: ${SESSION_HOURS:-12}
+      N8N_USER_MANAGEMENT_JWT_REFRESH_TIMEOUT_HOURS: ${SESSION_RENEWAL_HOURS:-0}
+      # The security policy of Settings > Security & policies. At each start n8n sets these values,
+      # and the page shows them read-only. SECURITY_POLICY_FROM_ENV=false gives the page back to the
+      # admins.
+      N8N_SECURITY_POLICY_MANAGED_BY_ENV: ${SECURITY_POLICY_FROM_ENV:-true}
+      N8N_MFA_ENFORCED_ENABLED: ${MFA_ENFORCED:-true}
+      N8N_PERSONAL_SPACE_PUBLISHING_ENABLED: ${PERSONAL_SPACE_PUBLISHING:-false}
+      N8N_PERSONAL_SPACE_SHARING_ENABLED: ${PERSONAL_SPACE_SHARING:-false}
+      N8N_WORKFLOW_REVIEWS_ENABLED: ${WORKFLOW_REVIEWS:-true}
+      N8N_REDACTION_ENFORCEMENT_FLOOR: ${REDACTION_FLOOR:-off}
+      # A new webhook, form, public chat or MCP server without authentication publishes only after
+      # an approval in a workflow review. The published triggers keep running.
+      N8N_OPEN_TRIGGERS_NEED_APPROVAL: ${OPEN_TRIGGERS_NEED_APPROVAL:-true}
+      # The sign-in with OIDC. With SSO_FROM_ENV=true, n8n sets the OIDC sign-in from these values
+      # at each start, and the roles come from the SSO group rules that platform/setup.mjs makes.
+      # Settings > SSO then shows the values read-only.
+      N8N_SSO_MANAGED_BY_ENV: ${SSO_FROM_ENV:-false}
+      N8N_SSO_OIDC_LOGIN_ENABLED: ${SSO_FROM_ENV:-false}
+      N8N_SSO_OIDC_DISCOVERY_ENDPOINT: ${OIDC_DISCOVERY_URL:-}
+      N8N_SSO_OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
+      N8N_SSO_OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
+      N8N_SSO_OIDC_ADDITIONAL_SCOPES: ${OIDC_ADDITIONAL_SCOPES:-}
+      N8N_SSO_USER_ROLE_PROVISIONING: instance_and_project_roles
+      N8N_SSO_SCOPES_USE_EXPRESSION_MAPPING: ${SSO_FROM_ENV:-false}
       # The npm registry of community nodes, and its token. Empty values use the public registry.
       N8N_COMMUNITY_PACKAGES_REGISTRY: ${COMMUNITY_PACKAGES_REGISTRY:-https://registry.npmjs.org}
       N8N_COMMUNITY_PACKAGES_AUTH_TOKEN: ${COMMUNITY_PACKAGES_AUTH_TOKEN:-}
@@ -109,6 +143,10 @@ services:
       - '${HTTPS_PORT:-443}:443'
     environment:
       DOMAIN: ${DOMAIN}
+      # The IP ranges that can call webhooks, chats and MCP servers, and the IP ranges that can open
+      # and send forms, separated by spaces. The defaults let all addresses call them.
+      WEBHOOK_ALLOWED_RANGES: ${WEBHOOK_ALLOWED_RANGES:-0.0.0.0/0 ::/0}
+      FORM_ALLOWED_RANGES: ${FORM_ALLOWED_RANGES:-0.0.0.0/0 ::/0}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       # The HTTPS certificates. Caddy gets and renews them.

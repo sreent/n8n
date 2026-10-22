@@ -1,6 +1,7 @@
 import type { Logger } from '@n8n/backend-common';
 import type { WorkflowEntity } from '@n8n/db';
 import { generateNanoId } from '@n8n/db';
+import { Container } from '@n8n/di';
 import type * as express from 'express';
 import type { ExecutionContextService } from 'n8n-core';
 import { CHAT_TRIGGER_NODE_TYPE } from 'n8n-workflow';
@@ -23,12 +24,13 @@ import {
 	TEST_WEBHOOK_TIMEOUT,
 	TEST_WEBHOOK_TIMEOUT_BUFFER,
 } from '@/constants';
-import { NotFoundError } from '@n8n/errors';
+import { ForbiddenError, NotFoundError } from '@n8n/errors';
 import { WebhookNotFoundError } from '@/errors/response-errors/webhook-not-found.error';
 import type {
 	TestWebhookRegistrationsService,
 	TestWebhookRegistration,
 } from '@/webhooks/test-webhook-registrations.service';
+import { TestWebhookCallGuards } from '@/webhooks/test-webhook-call-guards';
 import { TestWebhooks } from '@/webhooks/test-webhooks';
 import * as WebhookHelpers from '@/webhooks/webhook-helpers';
 import type { WebhookService } from '@/webhooks/webhook.service';
@@ -687,6 +689,61 @@ describe('TestWebhooks', () => {
 			const [releaseOrder] = (expression.releaseIsolate as Mock).mock.invocationCallOrder;
 			expect(acquireOrder).toBeLessThan(deactivateOrder);
 			expect(deactivateOrder).toBeLessThan(releaseOrder);
+		});
+
+		// Fork: the guards of test calls (test-webhook-call-guards.ts).
+		test('lets a guard refuse the call before it runs, while the request still has its cookies', async () => {
+			const expression = mock<WorkflowExpression>();
+			const workflowStartNode = mock<ReturnType<Workflow['getNode']>>({
+				type: 'n8n-nodes-base.webhook',
+			});
+			const workflow = mock<Workflow>({
+				id: workflowEntity.id,
+				expression,
+				getNode: vi.fn().mockReturnValue(workflowStartNode),
+			});
+
+			vi.spyOn(testWebhooks, 'toWorkflow').mockReturnValue(workflow);
+			vi.spyOn(testWebhooks, 'getActiveWebhook').mockResolvedValue(webhook);
+			registrations.get.mockResolvedValueOnce({
+				version: 1,
+				workflowEntity,
+				webhook,
+			} as TestWebhookRegistration);
+			const executeSpy = vi.spyOn(WebhookHelpers, 'executeWebhook');
+			const deactivateSpy = vi.spyOn(testWebhooks, 'deactivateWebhooks');
+
+			const refusal = new ForbiddenError('Refused');
+			const cookiesSeen: Array<string | undefined> = [];
+			const guard = {
+				check: vi.fn(async (request: express.Request) => {
+					cookiesSeen.push(request.headers.cookie);
+					throw refusal;
+				}),
+			};
+			const guards = new TestWebhookCallGuards();
+			guards.register(guard);
+			Container.set(TestWebhookCallGuards, guards);
+
+			try {
+				const request = mock<WebhookRequest>({
+					params: { path },
+					method: httpMethod,
+					headers: { cookie: 'n8n-auth=token' },
+				});
+
+				await expect(testWebhooks.executeWebhook(request, mock<express.Response>())).rejects.toBe(
+					refusal,
+				);
+
+				expect(guard.check).toHaveBeenCalledWith(request, workflowEntity, workflowStartNode);
+				expect(cookiesSeen).toEqual(['n8n-auth=token']);
+				expect(executeSpy).not.toHaveBeenCalled();
+				expect(deactivateSpy).not.toHaveBeenCalled();
+				expect(expression.acquireIsolate).not.toHaveBeenCalled();
+			} finally {
+				Container.set(TestWebhookCallGuards, new TestWebhookCallGuards());
+			}
 		});
 
 		test('logs when isolate release fails after teardown', async () => {

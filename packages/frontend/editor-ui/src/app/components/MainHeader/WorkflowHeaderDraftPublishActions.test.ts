@@ -571,6 +571,28 @@ describe('WorkflowHeaderDraftPublishActions', () => {
 			).not.toBeInTheDocument();
 		});
 
+		// Fork: the modal of the open-trigger fixes asks for a review through the event bus.
+		it('opens the review dialog on a review command from the event bus', async () => {
+			setWorkflowReviewGates();
+			setupEnabledPublishButton();
+
+			const { findByRole } = renderComponent();
+			nodeViewEventBus.emit('submitWorkflowForReview');
+
+			expect(await findByRole('dialog', { name: 'Submit for review' })).toBeInTheDocument();
+		});
+
+		it('ignores a review command while workflow reviews are off', async () => {
+			setWorkflowReviewGates({ instanceEnabled: false });
+			setupEnabledPublishButton();
+
+			const { queryByRole } = renderComponent();
+			nodeViewEventBus.emit('submitWorkflowForReview');
+
+			await new Promise((resolve) => setTimeout(resolve, 0));
+			expect(queryByRole('dialog', { name: 'Submit for review' })).not.toBeInTheDocument();
+		});
+
 		const seedOpenReview = (overrides: Partial<WorkflowReviewRequestForWorkflow> = {}) => {
 			vi.mocked(fetchWorkflowReviewRequests).mockResolvedValue({
 				count: 1,
@@ -1060,6 +1082,81 @@ describe('WorkflowHeaderDraftPublishActions', () => {
 			});
 
 			expect(getByText("You don't have permission to publish this workflow")).toBeInTheDocument();
+		});
+	});
+
+	// Fork: the Move button next to a publish that the personal space policy blocks.
+	describe('Move to a team project', () => {
+		const blockedPermissions = {
+			...defaultWorkflowProps.workflowPermissions,
+			publish: false,
+			update: true,
+			move: true,
+		};
+		const moveButton = 'workflow-move-to-team-project-button';
+
+		beforeEach(() => {
+			projectsStore.currentProject = createTestProject({
+				id: 'personal-project-id',
+				type: ProjectTypes.Personal,
+			});
+			projectsStore.isTeamProjectFeatureEnabled = true;
+		});
+
+		it('should ask the header menu to move the workflow', async () => {
+			const emitSpy = vi.spyOn(nodeViewEventBus, 'emit');
+			const { getByTestId } = renderComponent({
+				props: { ...defaultWorkflowProps, workflowPermissions: blockedPermissions },
+			});
+
+			expect(getByTestId(moveButton)).toHaveTextContent('Move to a team project');
+			await userEvent.click(getByTestId(moveButton));
+
+			expect(emitSpy).toHaveBeenCalledWith('moveWorkflowToProject');
+			emitSpy.mockRestore();
+		});
+
+		it('should not show the button when the user can publish', () => {
+			const { queryByTestId } = renderComponent({
+				props: {
+					...defaultWorkflowProps,
+					workflowPermissions: { ...blockedPermissions, publish: true },
+				},
+			});
+
+			expect(queryByTestId(moveButton)).not.toBeInTheDocument();
+		});
+
+		it('should not show the button in a team project', () => {
+			projectsStore.currentProject = createTestProject({
+				id: 'team-project-id',
+				type: ProjectTypes.Team,
+			});
+			const { queryByTestId } = renderComponent({
+				props: { ...defaultWorkflowProps, workflowPermissions: blockedPermissions },
+			});
+
+			expect(queryByTestId(moveButton)).not.toBeInTheDocument();
+		});
+
+		it('should not show the button without the permission to move', () => {
+			const { queryByTestId } = renderComponent({
+				props: {
+					...defaultWorkflowProps,
+					workflowPermissions: { ...blockedPermissions, move: false },
+				},
+			});
+
+			expect(queryByTestId(moveButton)).not.toBeInTheDocument();
+		});
+
+		it('should not show the button without team projects', () => {
+			projectsStore.isTeamProjectFeatureEnabled = false;
+			const { queryByTestId } = renderComponent({
+				props: { ...defaultWorkflowProps, workflowPermissions: blockedPermissions },
+			});
+
+			expect(queryByTestId(moveButton)).not.toBeInTheDocument();
 		});
 	});
 

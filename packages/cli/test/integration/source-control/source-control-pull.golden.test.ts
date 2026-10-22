@@ -306,6 +306,8 @@ beforeAll(async () => {
 	for (const column of await Container.get(DataTableColumnRepository).getColumns(table.id)) {
 		randomIds.push(column.id);
 	}
+	// The dumps show these ids too, and the id pattern of the recorder misses an id without a digit.
+	await rec.maskNewIds(['data_table_column']);
 
 	// The branch as another instance pushed it.
 	rec.label('fldRemote0000001', 'folder Remote folder');

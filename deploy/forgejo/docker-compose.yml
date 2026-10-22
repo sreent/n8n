@@ -1,0 +1,73 @@
+# Forgejo on its own VM: the Git server for the source control and the Git connections of n8n.
+# Caddy gives it HTTPS with its own certificate authority. Fill in .env first. See README.md.
+
+# A fixed project name keeps the names of the volumes when the folder moves.
+name: forgejo
+
+services:
+  forgejo:
+    image: ${FORGEJO_IMAGE:?Set FORGEJO_IMAGE in .env}
+    restart: unless-stopped
+    environment:
+      FORGEJO__server__DOMAIN: ${FORGEJO_DOMAIN:?Set FORGEJO_DOMAIN in .env}
+      FORGEJO__server__ROOT_URL: https://${FORGEJO_DOMAIN}/
+      FORGEJO__server__HTTP_PORT: '3000'
+      # n8n uses HTTPS with a token, so the server needs no SSH.
+      FORGEJO__server__DISABLE_SSH: 'true'
+      FORGEJO__server__START_SSH_SERVER: 'false'
+      FORGEJO__server__OFFLINE_MODE: 'true'
+      FORGEJO__server__LANDING_PAGE: login
+      FORGEJO__database__DB_TYPE: sqlite3
+      # The admin users come from setup.sh, so the web installer stays off. Forgejo makes its
+      # secret key on the first start and keeps it in app.ini in the volume.
+      FORGEJO__security__INSTALL_LOCK: 'true'
+      FORGEJO__service__DISABLE_REGISTRATION: 'true'
+      FORGEJO__service__REQUIRE_SIGNIN_VIEW: 'true'
+      FORGEJO__service__DEFAULT_KEEP_EMAIL_PRIVATE: 'true'
+      FORGEJO__service__DEFAULT_ALLOW_CREATE_ORGANIZATION: 'false'
+      FORGEJO__service__ENABLE_NOTIFY_MAIL: 'false'
+      FORGEJO__repository__DEFAULT_PRIVATE: private
+      FORGEJO__repository__FORCE_PRIVATE: 'true'
+      FORGEJO__openid__ENABLE_OPENID_SIGNIN: 'false'
+      FORGEJO__openid__ENABLE_OPENID_SIGNUP: 'false'
+      FORGEJO__mailer__ENABLED: 'false'
+      FORGEJO__actions__ENABLED: 'false'
+      FORGEJO__packages__ENABLED: 'false'
+      FORGEJO__federation__ENABLED: 'false'
+      FORGEJO__api__ENABLE_SWAGGER: 'false'
+      FORGEJO__cron_0X2E_update_checker__ENABLED: 'false'
+      FORGEJO__session__COOKIE_SECURE: 'true'
+      FORGEJO__log__LEVEL: Info
+    volumes:
+      # All data of Forgejo: the repositories, the database, app.ini with the secret key, the
+      # signing keys and the avatars. backup.sh copies this volume.
+      - forgejo-data:/var/lib/gitea
+    healthcheck:
+      test: ['CMD', 'curl', '-fsS', 'http://localhost:3000/api/healthz']
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - forgejo
+    ports:
+      # The VM has no public IP address. The firewall lets only the n8n instances and IAP reach
+      # this port.
+      - '443:443'
+    environment:
+      FORGEJO_DOMAIN: ${FORGEJO_DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # The certificate authority of Caddy and the certificate of the server. Keep this volume:
+      # the n8n instances trust the root certificate in it.
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  forgejo-data:
+  caddy-data:
+  caddy-config:

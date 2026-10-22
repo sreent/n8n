@@ -18,8 +18,11 @@ backend: the REST API, the publish guard and the lifecycle of the reviews.
   (`packages/cli/src/fork-features.ts`), and `N8N_FORK_FEATURES_ENABLED=false` turns it off. The
   module starts only when n8n starts with the licence value.
 - An instance admin turns reviews on at **Settings > Security & policies** (the setting
-  `security.workflowReviews`, off by default). No environment variable sets it. With
-  `N8N_SECURITY_POLICY_MANAGED_BY_ENV=true`, the page cannot change it (ordinary code).
+  `security.workflowReviews`, off by default). With `N8N_SECURITY_POLICY_MANAGED_BY_ENV=true`, the
+  page cannot change it (ordinary code), and the fork variable `N8N_WORKFLOW_REVIEWS_ENABLED` sets
+  it at each start (see
+  [the FORK.md of the settings loaders](../../instance-settings-loader/FORK.md)). `deploy/` sets
+  both.
 - When the policy is off, each route of the module answers 403 ("Workflow reviews are disabled on
   this instance"), and an open review does not stop a publish.
 

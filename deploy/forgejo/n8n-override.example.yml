@@ -1,0 +1,12 @@
+# For the server of an n8n instance (the folder deploy/ of the repository), not for the Forgejo
+# VM. It lets n8n trust the certificate of Forgejo. Copy forgejo-root.crt from the Forgejo VM to
+# deploy/certs/, then copy this file to deploy/docker-compose.override.yml. If the folder already
+# has an override file, add these lines to it. See "Connect n8n" in forgejo/README.md.
+services:
+  n8n:
+    environment:
+      # Git trusts only the certificates in this file. If this instance also uses another Git
+      # host, put the certificates of both in one file (see README.md).
+      GIT_SSL_CAINFO: /etc/n8n-certs/forgejo-root.crt
+    volumes:
+      - ./certs/forgejo-root.crt:/etc/n8n-certs/forgejo-root.crt:ro

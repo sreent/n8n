@@ -1,0 +1,11 @@
+apiVersion: v2
+name: n8n
+description: >-
+  The sreent/n8n fork on Kubernetes: n8n with its task runners, one instance or queue mode, and the
+  safe defaults of the VM setup. Fork tooling, for internal business use only.
+type: application
+# The version of this chart. Raise it when a template or a default changes.
+version: 0.1.0
+# The n8n version of the images. Set image.tag to the tag of the fork image.
+appVersion: "2.42.0"
+kubeVersion: ">=1.29.0-0"

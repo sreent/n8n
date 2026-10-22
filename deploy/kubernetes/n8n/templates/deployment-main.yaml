@@ -1,0 +1,47 @@
+{{- $fullname := include "n8n.fullname" . -}}
+{{- $queue := eq .Values.mode "queue" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullname }}-main
+  labels:
+    {{- include "n8n.labels" . | nindent 4 }}
+    app.kubernetes.io/component: main
+spec:
+  replicas: {{ ternary .Values.main.replicas 1 $queue }}
+  strategy:
+    {{- if $queue }}
+    # The leader election of the main instances lets an old and a new instance run together.
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+    {{- else }}
+    # One n8n instance: stop it before the new one starts, so that two instances never run the
+    # schedules at the same time.
+    type: Recreate
+    {{- end }}
+  selector:
+    matchLabels:
+      {{- include "n8n.selectorLabels" (dict "root" . "component" "main") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "n8n.selectorLabels" (dict "root" . "component" "main") | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        checksum/env: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- if .Values.edge.enabled }}
+        checksum/edge: {{ include (print $.Template.BasePath "/edge-configmap.yaml") . | sha256sum }}
+        {{- end }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- include "n8n.podSpec" . | nindent 6 }}
+      containers:
+        {{- include "n8n.containers" (dict "root" . "component" "main" "resources" .Values.main.resources) | nindent 8 }}
+      volumes:
+        {{- include "n8n.volumes" (dict "root" . "component" "main") | nindent 8 }}

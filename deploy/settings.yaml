@@ -1,0 +1,65 @@
+# The n8n settings of the fork for Cloud Run, ECS, Azure Container Apps and Kubernetes. They are the
+# defaults of the VM setup (docker-compose.yml with a .env from .env.example), with the names of
+# the n8n environment variables. README.md tells what each one does.
+#
+# The Terraform modules read this file. The Helm chart has a copy in kubernetes/n8n/values.yaml.
+# settings.test.mjs checks that the three agree. To change a value for your instance, set it in the
+# variable `settings` of the module or in the values of the chart, not here.
+#
+# Secrets are not in this file: each option keeps them in the secret store of the platform.
+settings:
+  # The time zone of the schedules and of the Code node.
+  GENERIC_TIMEZONE: "UTC"
+  TZ: "UTC"
+  # Keep the files of workflows in PostgreSQL, so that the containers need no shared disk and one
+  # database backup holds all data.
+  N8N_DEFAULT_BINARY_DATA_MODE: "database"
+  # A new container starts without the community nodes. n8n installs them again at the start.
+  N8N_REINSTALL_MISSING_PACKAGES: "true"
+  # Git sync: the hosts that a repository URL can use. Empty allows all hosts.
+  N8N_GIT_SYNC_ALLOWED_HOSTS: "github.com"
+  # The features that the fork turns on without a licence. "false" turns them all off.
+  N8N_FORK_FEATURES_ENABLED: "true"
+  # "true" shows a banner on each page that tells that the instance is not for production.
+  N8N_FORK_NON_PRODUCTION_BANNER: "false"
+  # The hours that n8n keeps old workflow versions. -1 keeps all versions.
+  N8N_WORKFLOW_HISTORY_PRUNE_TIME: "-1"
+  # SSRF protection: a node cannot call private, loopback or link-local addresses, also not the
+  # metadata server of the cloud, until these settings open the host. The AI nodes call the AI
+  # gateway of the fork on 127.0.0.1, so it stays open.
+  N8N_SSRF_PROTECTION_ENABLED: "true"
+  N8N_SSRF_ALLOWED_HOSTNAMES: ""
+  N8N_SSRF_ALLOWED_IP_RANGES: "127.0.0.1/32"
+  # A session lasts 12 hours. A request in its last quarter renews it. -1 never renews it.
+  N8N_USER_MANAGEMENT_JWT_DURATION_HOURS: "12"
+  N8N_USER_MANAGEMENT_JWT_REFRESH_TIMEOUT_HOURS: "0"
+  # The security policy of Settings > Security & policies. n8n sets these values at each start,
+  # and the page shows them read-only.
+  N8N_SECURITY_POLICY_MANAGED_BY_ENV: "true"
+  N8N_MFA_ENFORCED_ENABLED: "true"
+  N8N_PERSONAL_SPACE_PUBLISHING_ENABLED: "false"
+  N8N_PERSONAL_SPACE_SHARING_ENABLED: "false"
+  N8N_WORKFLOW_REVIEWS_ENABLED: "true"
+  N8N_REDACTION_ENFORCEMENT_FLOOR: "off"
+  # A new webhook, form, public chat or MCP server without authentication publishes only after an
+  # approval in a workflow review.
+  N8N_OPEN_TRIGGERS_NEED_APPROVAL: "true"
+  # The sign-in with OIDC from these settings. Set the first three to "true" together, and put the
+  # client secret in the secret store of the option.
+  N8N_SSO_MANAGED_BY_ENV: "false"
+  N8N_SSO_OIDC_LOGIN_ENABLED: "false"
+  N8N_SSO_SCOPES_USE_EXPRESSION_MAPPING: "false"
+  N8N_SSO_OIDC_DISCOVERY_ENDPOINT: ""
+  N8N_SSO_OIDC_CLIENT_ID: ""
+  N8N_SSO_OIDC_ADDITIONAL_SCOPES: ""
+  N8N_SSO_USER_ROLE_PROVISIONING: "instance_and_project_roles"
+  # The npm registry of community nodes. Its token goes in the secret store.
+  N8N_COMMUNITY_PACKAGES_REGISTRY: "https://registry.npmjs.org"
+  # Node type policies and Git connections need their modules.
+  N8N_ENABLED_MODULES: "type-availability-policies,promotions"
+  # The editor of Git connections, and the credential resolvers of dynamic credentials.
+  N8N_ENV_FEAT_PROMOTIONS: "true"
+  N8N_ENV_FEAT_DYNAMIC_CREDENTIALS: "true"
+  # The origins that a browser can call the endpoints of dynamic credentials from. Empty turns
+  # them off. The token of a caller without a session goes in the secret store.
+  N8N_DYNAMIC_CREDENTIALS_CORS_ORIGIN: ""

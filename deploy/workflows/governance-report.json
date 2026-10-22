@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Weekly governance report\nEach Monday, this workflow reads the public API of this instance and emails a report: published workflows in personal spaces, workflows with failed executions, unpublished changes, expired and unused API keys, inactive users and old invitations.\n\n**Set up**\n1. As the owner or an admin, open **Settings > n8n API**. Create an API key with the scopes `workflow:list`, `execution:list`, `apiKey:manage` and `user:list`.\n2. Create an **n8n API** credential with this key. Select it in the three **Get** nodes.\n3. In **Settings**, set `baseUrl` to the URL of this instance with `/api/v1`, and set the addresses of the report.\n4. Select an SMTP credential in **Send email**, or replace the node with Slack.\n5. Click **Execute workflow** to test. Then publish the workflow.\n\nThe report never shows the values of API keys.",
+        "content": "## Weekly governance report\nEach Monday, this workflow reads the public API of this instance and emails a report: published workflows in personal spaces, workflows with failed executions, unpublished changes, open triggers without an approval, expired and unused API keys, inactive users and old invitations.\n\n**Set up**\n1. As the owner or an admin, open **Settings > n8n API**. Create an API key with the scopes `workflow:list`, `execution:list`, `apiKey:manage` and `user:list`.\n2. Create an **n8n API** credential with this key. Select it in the four **Get** nodes.\n3. In **Settings**, set `baseUrl` to the URL of this instance with `/api/v1`, and set the addresses of the report.\n4. Select an SMTP credential in **Send email**, or replace the node with Slack.\n5. Click **Execute workflow** to test. Then publish the workflow.\n\nThe report never shows the values of API keys.",
         "height": 420,
         "width": 480
       },
@@ -235,14 +235,55 @@
     },
     {
       "parameters": {
-        "jsCode": "// Builds the governance report from the three answers of the public API.\nconst settings = $('Settings').first().json;\nconst instanceUrl = settings.baseUrl.replace(/\\/api\\/v1\\/?$/, '');\n\n// Each \"Get\" node gives one item for each page. Join the pages.\nconst all = (nodeName) => $(nodeName).all().flatMap((item) => item.json.data ?? []);\nconst workflows = all('Get workflows');\nconst apiKeys = all('Get API keys');\nconst users = all('Get users');\n\nconst DAY = 24 * 60 * 60 * 1000;\nconst now = Date.now();\n// True when the date is missing or older than the number of days.\nconst olderThan = (date, days) => !date || now - new Date(date).getTime() > days * DAY;\nconst day = (date) => (date ? String(date).slice(0, 10) : 'never');\n\nconst place = (w) =>\n\tw.homeProject?.type === 'personal'\n\t\t? `personal space of ${w.owner?.email ?? 'an unknown user'}`\n\t\t: `project ${w.homeProject?.name ?? 'unknown'}`;\nconst workflowEntry = (w, detail) => ({\n\ttext: `${w.name} (${place(w)}${detail ? `, ${detail}` : ''})`,\n\tlink: `${instanceUrl}/workflow/${w.id}`,\n});\nconst keyEntry = (k, detail) => ({\n\ttext: `${k.label} of ${k.user.email ?? k.user.id} (${detail})`,\n});\nconst userEntry = (u, detail) => ({\n\ttext: `${u.email} (${detail})`,\n});\n\nconst failed = (w) => w.recentExecutions.filter((e) => e.status === 'error' || e.status === 'crashed');\n\nconst sections = [\n\t{\n\t\ttitle: 'Published workflows in personal spaces',\n\t\tentries: workflows\n\t\t\t.filter((w) => w.status === 'published' && w.homeProject?.type === 'personal')\n\t\t\t.map((w) => workflowEntry(w)),\n\t},\n\t{\n\t\ttitle: 'Published workflows with failed executions',\n\t\tentries: workflows\n\t\t\t.filter((w) => w.status === 'published' && failed(w).length > 0)\n\t\t\t.map((w) =>\n\t\t\t\tworkflowEntry(w, `${failed(w).length} of the last ${w.recentExecutions.length} executions failed`),\n\t\t\t),\n\t},\n\t{\n\t\ttitle: 'Published workflows with unpublished changes',\n\t\tentries: workflows.filter((w) => w.hasUnpublishedChanges).map((w) => workflowEntry(w)),\n\t},\n\t{\n\t\ttitle: 'Expired API keys',\n\t\tentries: apiKeys.filter((k) => k.expired).map((k) => keyEntry(k, `expired ${day(k.expiresAt)}`)),\n\t},\n\t{\n\t\ttitle: `API keys not used for ${settings.unusedKeyDays} days`,\n\t\tentries: apiKeys\n\t\t\t.filter(\n\t\t\t\t(k) =>\n\t\t\t\t\t!k.expired &&\n\t\t\t\t\tolderThan(k.lastUsedAt, settings.unusedKeyDays) &&\n\t\t\t\t\tolderThan(k.createdAt, settings.unusedKeyDays),\n\t\t\t)\n\t\t\t.map((k) => keyEntry(k, `last use ${day(k.lastUsedAt)}`)),\n\t},\n\t{\n\t\ttitle: `Users not active for ${settings.inactiveDays} days`,\n\t\tentries: users\n\t\t\t.filter(\n\t\t\t\t(u) =>\n\t\t\t\t\t!u.isPending &&\n\t\t\t\t\tolderThan(u.lastActiveAt, settings.inactiveDays) &&\n\t\t\t\t\tolderThan(u.createdAt, settings.inactiveDays),\n\t\t\t)\n\t\t\t.map((u) => userEntry(u, `last active ${day(u.lastActiveAt)}`)),\n\t},\n\t{\n\t\ttitle: `Invitations open for more than ${settings.pendingInviteDays} days`,\n\t\tentries: users\n\t\t\t.filter((u) => u.isPending && olderThan(u.createdAt, settings.pendingInviteDays))\n\t\t\t.map((u) => userEntry(u, `invited ${day(u.createdAt)}`)),\n\t},\n];\n\nconst summary = {\n\tworkflows: workflows.length,\n\tpublishedWorkflows: workflows.filter((w) => w.status === 'published').length,\n\tworkflowsInPersonalSpaces: workflows.filter((w) => w.homeProject?.type === 'personal').length,\n\tapiKeys: apiKeys.length,\n\tusers: users.filter((u) => !u.isPending).length,\n\tpendingInvitations: users.filter((u) => u.isPending).length,\n};\nconst findings = sections.reduce((total, section) => total + section.entries.length, 0);\nconst count = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;\nconst subject = `n8n governance report ${new Date().toISOString().slice(0, 10)}: ${count(findings, 'finding')}`;\n\n// Show at most this many entries in each section of the email.\nconst MAX_ENTRIES = 50;\nconst escape = (value) =>\n\tString(value).replace(\n\t\t/[&<>\"']/g,\n\t\t(c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', \"'\": '&#39;' })[c],\n\t);\nconst overview = [\n\t`${count(summary.workflows, 'workflow')} (${summary.publishedWorkflows} published, ${summary.workflowsInPersonalSpaces} in personal spaces)`,\n\tcount(summary.apiKeys, 'API key'),\n\t`${count(summary.users, 'user')} and ${count(summary.pendingInvitations, 'open invitation')}`,\n];\n\nlet text = `${subject}\\n\\n${overview.join('\\n')}\\n`;\nlet html = `<h1>${escape(subject)}</h1><p>${overview.map(escape).join('<br>')}</p>`;\nfor (const section of sections) {\n\tconst shown = section.entries.slice(0, MAX_ENTRIES);\n\tconst more = section.entries.length - shown.length;\n\ttext += `\\n${section.title}: ${section.entries.length}\\n`;\n\ttext += shown.map((entry) => `- ${entry.text}${entry.link ? ` ${entry.link}` : ''}\\n`).join('');\n\tif (more > 0) text += `- and ${more} more\\n`;\n\thtml += `<h2>${escape(section.title)}: ${section.entries.length}</h2>`;\n\tif (shown.length > 0) {\n\t\thtml += `<ul>${shown\n\t\t\t.map((entry) =>\n\t\t\t\tentry.link\n\t\t\t\t\t? `<li><a href=\"${escape(entry.link)}\">${escape(entry.text)}</a></li>`\n\t\t\t\t\t: `<li>${escape(entry.text)}</li>`,\n\t\t\t)\n\t\t\t.join('')}${more > 0 ? `<li>and ${more} more</li>` : ''}</ul>`;\n\t}\n}\n\nreturn [{ json: { subject, findings, summary, sections, text, html } }];\n"
+        "url": "={{ $('Settings').first().json.baseUrl.replace(/\\/+$/, '') }}/inventory/open-triggers",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "n8nApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "250"
+            }
+          ]
+        },
+        "options": {
+          "pagination": {
+            "pagination": {
+              "parameters": {
+                "parameters": [
+                  {
+                    "name": "cursor",
+                    "value": "={{ $response.body.nextCursor }}"
+                  }
+                ]
+              },
+              "paginationCompleteWhen": "other",
+              "completeExpression": "={{ !$response.body.nextCursor }}"
+            }
+          }
+        }
+      },
+      "id": "0c1a30ef-4bca-53ae-bd1e-7ec183043e17",
+      "name": "Get open triggers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        1200,
+        100
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Builds the governance report from the four answers of the public API.\nconst settings = $('Settings').first().json;\nconst instanceUrl = settings.baseUrl.replace(/\\/api\\/v1\\/?$/, '');\n\n// Each \"Get\" node gives one item for each page. Join the pages.\nconst all = (nodeName) => $(nodeName).all().flatMap((item) => item.json.data ?? []);\nconst workflows = all('Get workflows');\nconst apiKeys = all('Get API keys');\nconst users = all('Get users');\nconst openTriggers = all('Get open triggers');\n\nconst DAY = 24 * 60 * 60 * 1000;\nconst now = Date.now();\n// True when the date is missing or older than the number of days.\nconst olderThan = (date, days) => !date || now - new Date(date).getTime() > days * DAY;\nconst day = (date) => (date ? String(date).slice(0, 10) : 'never');\n\nconst place = (w) =>\n\tw.homeProject?.type === 'personal'\n\t\t? `personal space of ${w.owner?.email ?? 'an unknown user'}`\n\t\t: `project ${w.homeProject?.name ?? 'unknown'}`;\nconst workflowEntry = (w, detail) => ({\n\ttext: `${w.name} (${place(w)}${detail ? `, ${detail}` : ''})`,\n\tlink: `${instanceUrl}/workflow/${w.id}`,\n});\nconst keyEntry = (k, detail) => ({\n\ttext: `${k.label} of ${k.user.email ?? k.user.id} (${detail})`,\n});\nconst userEntry = (u, detail) => ({\n\ttext: `${u.email} (${detail})`,\n});\nconst TRIGGER_KINDS = { webhook: 'webhook', form: 'form', chat: 'public chat', mcp: 'MCP server' };\nconst triggerEntry = (t) => ({\n\ttext: `${t.nodeName}, ${TRIGGER_KINDS[t.kind] ?? t.kind} in ${t.workflowName} (${place(t)})`,\n\tlink: `${instanceUrl}/workflow/${t.workflowId}`,\n});\n\nconst failed = (w) => w.recentExecutions.filter((e) => e.status === 'error' || e.status === 'crashed');\n\nconst sections = [\n\t{\n\t\ttitle: 'Published workflows in personal spaces',\n\t\tentries: workflows\n\t\t\t.filter((w) => w.status === 'published' && w.homeProject?.type === 'personal')\n\t\t\t.map((w) => workflowEntry(w)),\n\t},\n\t{\n\t\ttitle: 'Published workflows with failed executions',\n\t\tentries: workflows\n\t\t\t.filter((w) => w.status === 'published' && failed(w).length > 0)\n\t\t\t.map((w) =>\n\t\t\t\tworkflowEntry(w, `${failed(w).length} of the last ${w.recentExecutions.length} executions failed`),\n\t\t\t),\n\t},\n\t{\n\t\ttitle: 'Published workflows with unpublished changes',\n\t\tentries: workflows.filter((w) => w.hasUnpublishedChanges).map((w) => workflowEntry(w)),\n\t},\n\t{\n\t\ttitle: 'Open triggers that no workflow review approved',\n\t\tentries: openTriggers.filter((t) => !t.approved).map((t) => triggerEntry(t)),\n\t},\n\t{\n\t\ttitle: 'Expired API keys',\n\t\tentries: apiKeys.filter((k) => k.expired).map((k) => keyEntry(k, `expired ${day(k.expiresAt)}`)),\n\t},\n\t{\n\t\ttitle: `API keys not used for ${settings.unusedKeyDays} days`,\n\t\tentries: apiKeys\n\t\t\t.filter(\n\t\t\t\t(k) =>\n\t\t\t\t\t!k.expired &&\n\t\t\t\t\tolderThan(k.lastUsedAt, settings.unusedKeyDays) &&\n\t\t\t\t\tolderThan(k.createdAt, settings.unusedKeyDays),\n\t\t\t)\n\t\t\t.map((k) => keyEntry(k, `last use ${day(k.lastUsedAt)}`)),\n\t},\n\t{\n\t\ttitle: `Users not active for ${settings.inactiveDays} days`,\n\t\tentries: users\n\t\t\t.filter(\n\t\t\t\t(u) =>\n\t\t\t\t\t!u.isPending &&\n\t\t\t\t\tolderThan(u.lastActiveAt, settings.inactiveDays) &&\n\t\t\t\t\tolderThan(u.createdAt, settings.inactiveDays),\n\t\t\t)\n\t\t\t.map((u) => userEntry(u, `last active ${day(u.lastActiveAt)}`)),\n\t},\n\t{\n\t\ttitle: `Invitations open for more than ${settings.pendingInviteDays} days`,\n\t\tentries: users\n\t\t\t.filter((u) => u.isPending && olderThan(u.createdAt, settings.pendingInviteDays))\n\t\t\t.map((u) => userEntry(u, `invited ${day(u.createdAt)}`)),\n\t},\n];\n\nconst summary = {\n\tworkflows: workflows.length,\n\tpublishedWorkflows: workflows.filter((w) => w.status === 'published').length,\n\tworkflowsInPersonalSpaces: workflows.filter((w) => w.homeProject?.type === 'personal').length,\n\topenTriggers: openTriggers.length,\n\tapprovedOpenTriggers: openTriggers.filter((t) => t.approved).length,\n\tapiKeys: apiKeys.length,\n\tusers: users.filter((u) => !u.isPending).length,\n\tpendingInvitations: users.filter((u) => u.isPending).length,\n};\nconst findings = sections.reduce((total, section) => total + section.entries.length, 0);\nconst count = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;\nconst subject = `n8n governance report ${new Date().toISOString().slice(0, 10)}: ${count(findings, 'finding')}`;\n\n// Show at most this many entries in each section of the email.\nconst MAX_ENTRIES = 50;\nconst escape = (value) =>\n\tString(value).replace(\n\t\t/[&<>\"']/g,\n\t\t(c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', \"'\": '&#39;' })[c],\n\t);\nconst overview = [\n\t`${count(summary.workflows, 'workflow')} (${summary.publishedWorkflows} published, ${summary.workflowsInPersonalSpaces} in personal spaces)`,\n\t`${count(summary.openTriggers, 'open trigger')} in published workflows (${summary.approvedOpenTriggers} approved)`,\n\tcount(summary.apiKeys, 'API key'),\n\t`${count(summary.users, 'user')} and ${count(summary.pendingInvitations, 'open invitation')}`,\n];\n\nlet text = `${subject}\\n\\n${overview.join('\\n')}\\n`;\nlet html = `<h1>${escape(subject)}</h1><p>${overview.map(escape).join('<br>')}</p>`;\nfor (const section of sections) {\n\tconst shown = section.entries.slice(0, MAX_ENTRIES);\n\tconst more = section.entries.length - shown.length;\n\ttext += `\\n${section.title}: ${section.entries.length}\\n`;\n\ttext += shown.map((entry) => `- ${entry.text}${entry.link ? ` ${entry.link}` : ''}\\n`).join('');\n\tif (more > 0) text += `- and ${more} more\\n`;\n\thtml += `<h2>${escape(section.title)}: ${section.entries.length}</h2>`;\n\tif (shown.length > 0) {\n\t\thtml += `<ul>${shown\n\t\t\t.map((entry) =>\n\t\t\t\tentry.link\n\t\t\t\t\t? `<li><a href=\"${escape(entry.link)}\">${escape(entry.text)}</a></li>`\n\t\t\t\t\t: `<li>${escape(entry.text)}</li>`,\n\t\t\t)\n\t\t\t.join('')}${more > 0 ? `<li>and ${more} more</li>` : ''}</ul>`;\n\t}\n}\n\nreturn [{ json: { subject, findings, summary, sections, text, html } }];\n"
       },
       "id": "60dc67ea-518b-59c4-abf1-1ce9d25b8e40",
       "name": "Build report",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1200,
+        1440,
         100
       ]
     },
@@ -263,7 +304,7 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        1440,
+        1680,
         100
       ],
       "webhookId": "2de5fcff-82a5-52e6-ae68-f6f2f2594da2"
@@ -329,7 +370,7 @@
       "main": [
         [
           {
-            "node": "Build report",
+            "node": "Get open triggers",
             "type": "main",
             "index": 0
           }
@@ -341,6 +382,17 @@
         [
           {
             "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get open triggers": {
+      "main": [
+        [
+          {
+            "node": "Build report",
             "type": "main",
             "index": 0
           }
