@@ -1,6 +1,5 @@
 import type { Scope } from '@n8n/permissions';
 import { useRBACStore } from '@n8n/stores/rbac.store';
-import { useSettingsStore } from '@n8n/stores/settings.store';
 import { createPinia, setActivePinia } from 'pinia';
 
 import {
@@ -12,10 +11,6 @@ import { OpenTriggersModule } from './open-triggers.module';
 describe('OpenTriggersModule', () => {
 	const settingsPage = () =>
 		OpenTriggersModule.settingsPages?.find(({ id }) => id === 'settings-open-triggers');
-
-	const activate = (active: boolean) => {
-		useSettingsStore().$patch({ settings: { activeModules: active ? ['open-triggers'] : [] } });
-	};
 
 	const grant = (scopes: Scope[]) => useRBACStore().setGlobalScopes(scopes);
 
@@ -46,8 +41,7 @@ describe('OpenTriggersModule', () => {
 		});
 	});
 
-	it('shows the sidebar item to a user with the scope when the module is on', () => {
-		activate(true);
+	it('shows the sidebar item to a user with the scope', () => {
 		grant(['workflow:list']);
 
 		expect(settingsPage()).toMatchObject({
@@ -58,15 +52,7 @@ describe('OpenTriggersModule', () => {
 	});
 
 	it('hides the sidebar item from a user without the scope', () => {
-		activate(true);
 		grant(['user:list']);
-
-		expect(settingsPage()?.available).toBe(false);
-	});
-
-	it('hides the sidebar item when the module is off', () => {
-		activate(false);
-		grant(['workflow:list']);
 
 		expect(settingsPage()?.available).toBe(false);
 	});

@@ -47,7 +47,7 @@ export class LdapController {
 	async updateConfig(req: LdapRequest.Update) {
 		try {
 			// The service checks the body against the schema of the configuration.
-			await this.ldapService.updateConfig(req.body);
+			await this.ldapService.updateConfig(req.body, req.user);
 		} catch (error) {
 			throw new BadRequestError(messageOf(error));
 		}
@@ -74,7 +74,7 @@ export class LdapController {
 	@Licensed('feat:ldap')
 	async syncLdap(req: LdapRequest.Sync) {
 		try {
-			await this.ldapService.runSync(req.body.type);
+			await this.ldapService.runSync(req.body.type, req.user);
 		} catch (error) {
 			throw new BadRequestError(messageOf(error));
 		}

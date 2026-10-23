@@ -1,7 +1,6 @@
 import { defineFrontendModule } from '@n8n/frontend-module-sdk';
 import { useI18n } from '@n8n/i18n';
 import { useRBACStore } from '@n8n/stores/rbac.store';
-import { useSettingsStore } from '@n8n/stores/settings.store';
 
 import {
 	AUDIT_LOG_MODULE_ID,
@@ -51,11 +50,9 @@ export const AuditLogModule = defineFrontendModule({
 			},
 			position: 'top',
 			route: { to: { name: AUDIT_LOG_SETTINGS_VIEW } },
+			// The shell lists the item only while the module is active, as for the core modules.
 			get available() {
-				return (
-					useSettingsStore().isModuleActive(AUDIT_LOG_MODULE_ID) &&
-					useRBACStore().hasScope(AUDIT_LOG_SCOPE)
-				);
+				return useRBACStore().hasScope(AUDIT_LOG_SCOPE);
 			},
 		},
 	],

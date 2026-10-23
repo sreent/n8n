@@ -48,11 +48,11 @@ export class LdapPublicController {
 	@ApiTags(tags)
 	@ApiResponse(200, LdapConfigurationPublicDto)
 	async updateLdapConfiguration(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Body body: UpdateLdapConfigurationPublicDto,
 	): Promise<LdapConfigurationPublicDto> {
-		await this.ldapService.updateConfig(body);
+		await this.ldapService.updateConfig(body, req.user);
 		const config = await this.ldapService.loadConfig();
 		return redactLdapConfig(config);
 	}

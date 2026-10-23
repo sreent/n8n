@@ -144,12 +144,18 @@ synchronization of the timer (see "Differences from the original"). Each run:
   (see "Differences from the original"). `subject.ts` names the code under test.
 - The ordinary upstream tests run against the fork module: `test/integration/ldap/ldap.api.test.ts`,
   `test/integration/public-api/ldap.test.ts` and `test/integration/commands/ldap/reset.test.ts`.
+- `test/integration/ldap/ldap.audit-events.test.ts` tests the audit events of the fork: a change
+  of the configuration (`n8n.audit.ldap.settings.saved`) and a synchronization that a user starts
+  (`n8n.audit.ldap.synchronized`), each with the user, from the REST API and the public API. A
+  synchronization of the timer has no user and sends no audit event. The original does not send
+  these events, so the golden test leaves them out of its record.
 
 ## Upstream updates
 
 - The public API files `controllers/ldap.public.controller.ts` and `handlers/ldap/ldap.handler.ts`,
   the three ordinary tests, `controllers/__tests__/auth.controller.test.ts` and the `ldap` group of
-  the test server import the fork module. Keep the fork import paths.
+  the test server import the fork module. Keep the fork import paths, and the user arguments of
+  the audit events in the two public API files.
 - The pubsub command `reload-ldap-config` is a fork line in `pubsub-metadata.ts` of
   `@n8n/decorators`, and in `pubsub.event-map.ts` and `pubsub.types.ts` of
   `packages/cli/src/scaling/pubsub`. Keep it.

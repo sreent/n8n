@@ -4,6 +4,7 @@ import { createTestingPinia } from '@pinia/testing';
 import { fireEvent, screen, waitFor } from '@testing-library/vue';
 import { setActivePinia } from 'pinia';
 
+import { createMockEnterpriseSettings } from '@/__tests__/mocks';
 import { renderComponent } from '@/__tests__/render';
 import { mockedStore } from '@/__tests__/utils';
 import { LOG_STREAM_MODAL_KEY } from '@/app/constants';
@@ -42,11 +43,28 @@ describe('SettingsLogStreamingView', () => {
 
 	it('tells how to turn the module on while it is off', () => {
 		settingsStore.isModuleActive.mockReturnValue(false);
+		settingsStore.isEnterpriseFeatureEnabled = createMockEnterpriseSettings({ logStreaming: true });
 
 		renderComponent(SettingsLogStreamingView);
 
-		expect(screen.getByTestId('action-box-unlicensed')).toHaveTextContent('Log streaming is off');
+		const box = screen.getByTestId('action-box-unlicensed');
+		expect(box).toHaveTextContent('Log streaming is off');
+		expect(box).toHaveTextContent('N8N_DISABLED_MODULES');
 		expect(logStreamingStore.fetchDestinations).not.toHaveBeenCalled();
+	});
+
+	it('tells how to turn on the fork features while the fork switch is off', () => {
+		settingsStore.isModuleActive.mockReturnValue(false);
+		settingsStore.isEnterpriseFeatureEnabled = createMockEnterpriseSettings({
+			logStreaming: false,
+		});
+
+		renderComponent(SettingsLogStreamingView);
+
+		const box = screen.getByTestId('action-box-unlicensed');
+		expect(box).toHaveTextContent('Log streaming is off');
+		expect(box).toHaveTextContent('N8N_FORK_FEATURES_ENABLED');
+		expect(box).not.toHaveTextContent('N8N_DISABLED_MODULES');
 	});
 
 	it('loads the destinations and the event names, and opens a new destination', async () => {

@@ -68,6 +68,15 @@ const testServer = utils.setupTestServer({
 
 const rec = new GoldenRecorder();
 
+// The audit events of the fork (`ForkGovernanceEventRelay`). The original module does not send
+// them, so the record leaves them out.
+const FORK_AUDIT_EVENTS = new Set([
+	'source-control-settings-saved',
+	'source-control-disconnected',
+	'source-control-pushed',
+	'source-control-pulled',
+]);
+
 type Who = 'owner' | 'admin' | 'member' | 'projAdmin' | 'editor';
 
 const USER_IDS: Record<Who, string> = {
@@ -220,7 +229,10 @@ beforeAll(async () => {
 	const eventService = Container.get(EventService);
 	const emit = eventService.emit.bind(eventService);
 	eventService.emit = ((name: string, ...rest: unknown[]) => {
-		if (String(name).startsWith('source-control') || String(name) === 'workflow-imported') {
+		if (
+			!FORK_AUDIT_EVENTS.has(String(name)) &&
+			(String(name).startsWith('source-control') || String(name) === 'workflow-imported')
+		) {
 			events.push({ name: String(name), payload: deepCopy(rest[0] ?? null) });
 		}
 		return emit(name as never, ...(rest as never[]));

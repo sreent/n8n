@@ -6,6 +6,7 @@ import { Service } from '@n8n/di';
 import { OnPubSubEvent } from '@n8n/decorators';
 import { BadRequestError } from '@n8n/errors';
 import { ensureError } from '@n8n/utils/errors/ensure-error';
+import { scrubSecretsInText } from '@n8n/utils/scrub-secrets';
 import { mkdir, rm } from 'node:fs/promises';
 import { jsonParse } from 'n8n-workflow';
 
@@ -138,16 +139,16 @@ export class SourceControlService {
 		return await this.exclusive(async () => await this.doConnect(user, body));
 	}
 
-	async updatePreferences(body: unknown) {
-		return await this.exclusive(async () => await this.doUpdatePreferences(body));
+	async updatePreferences(user: User, body: unknown) {
+		return await this.exclusive(async () => await this.doUpdatePreferences(user, body));
 	}
 
 	async setBranch(branch: string) {
 		return await this.exclusive(async () => await this.doSetBranch(branch));
 	}
 
-	async disconnect(options: { keepKeyPair?: boolean } = {}) {
-		return await this.exclusive(async () => await this.doDisconnect(options));
+	async disconnect(user: User, options: { keepKeyPair?: boolean } = {}) {
+		return await this.exclusive(async () => await this.doDisconnect(options, user));
 	}
 
 	async getBranches() {
@@ -220,6 +221,25 @@ export class SourceControlService {
 		this.eventService.emit('source-control-settings-updated', payload);
 	}
 
+	/** The audit event of saved preferences (`ForkGovernanceEventRelay`). */
+	private emitSettingsSaved(user: User, preferences: SourceControlPreferences, isNew: boolean) {
+		this.eventService.emit('source-control-settings-saved', {
+			user,
+			repositoryUrl: scrubSecretsInText(preferences.repositoryUrl ?? ''),
+			branchName: preferences.branchName ?? '',
+			branchReadOnly: preferences.branchReadOnly ?? false,
+			connectionType: preferences.connectionType ?? 'ssh',
+			connected: preferences.connected ?? false,
+			isNew,
+		});
+	}
+
+	/** The repository and the branch of the audit events of a push or a pull. */
+	private auditTarget() {
+		const { repositoryUrl = '', branchName = '' } = this.preferencesService.getPreferences();
+		return { repositoryUrl: scrubSecretsInText(repositoryUrl), branchName };
+	}
+
 	// #endregion
 
 	// #region Preferences
@@ -259,6 +279,7 @@ export class SourceControlService {
 
 		const result = this.preferencesService.getPreferences();
 		this.emitSettingsUpdated(result);
+		this.emitSettingsSaved(user, result, true);
 		await this.broadcastReload();
 		return result;
 	}
@@ -267,7 +288,7 @@ export class SourceControlService {
 	 * Changes the preferences of a connection. A new branch must exist in the remote. The URL of
 	 * the repository does not change: a new URL needs a new connection.
 	 */
-	private async doUpdatePreferences(body: unknown) {
+	private async doUpdatePreferences(user: User, body: unknown) {
 		const {
 			connected: _connected,
 			publicKey: _publicKey,
@@ -297,6 +318,7 @@ export class SourceControlService {
 
 		const result = this.preferencesService.getPreferences();
 		this.emitSettingsUpdated(result);
+		this.emitSettingsSaved(user, result, false);
 		await this.broadcastReload();
 		return result;
 	}
@@ -323,7 +345,9 @@ export class SourceControlService {
 	 * Ends the connection: resets the preferences, deletes the HTTPS credentials and the work
 	 * folder. The key pair stays.
 	 */
-	private async doDisconnect(options: { keepKeyPair?: boolean } = {}) {
+	/** Without a user, as after a failed connection, the disconnection sends no audit event. */
+	private async doDisconnect(options: { keepKeyPair?: boolean } = {}, user?: User) {
+		const { repositoryUrl = '' } = this.preferencesService.getPreferences();
 		await this.preferencesService.setPreferences({
 			connected: false,
 			branchName: '',
@@ -338,6 +362,12 @@ export class SourceControlService {
 		}
 		this.gitReady = false;
 		await this.broadcastReload();
+		if (user) {
+			this.eventService.emit('source-control-disconnected', {
+				user,
+				repositoryUrl: scrubSecretsInText(repositoryUrl),
+			});
+		}
 		return this.preferencesService.getPreferences();
 	}
 
@@ -454,6 +484,14 @@ export class SourceControlService {
 			...getTrackingInformationFromPostPushResult(user.id, pushed),
 			publicApi: origin === 'publicApi',
 		});
+		this.eventService.emit('source-control-pushed', {
+			user,
+			...this.auditTarget(),
+			commit: pushResult?.hash ?? null,
+			changedFiles: pushed.length,
+			forced: options.force ?? false,
+			publicApi: origin === 'publicApi',
+		});
 		return { statusCode: 200, pushResult, statusResult: pushed };
 	}
 
@@ -529,6 +567,13 @@ export class SourceControlService {
 		}
 
 		await this.importFiles(user, status, options.autoPublish ?? 'none');
+		this.eventService.emit('source-control-pulled', {
+			user,
+			...this.auditTarget(),
+			changedFiles: status.length,
+			forced: options.force ?? false,
+			publicApi: origin === 'publicApi',
+		});
 		return { statusCode: 200, statusResult: status };
 	}
 

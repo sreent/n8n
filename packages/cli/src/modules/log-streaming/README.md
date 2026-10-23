@@ -19,7 +19,8 @@ destinations, and the REST API that the ordinary Playwright tests use.
 
 The module is on by default. To turn it off, add `log-streaming` to `N8N_DISABLED_MODULES`. It
 starts only with the licence value `feat:logStreaming`, which the fork switch gives. With
-`N8N_FORK_FEATURES_ENABLED=false`, the licence decides, as in upstream n8n.
+`N8N_FORK_FEATURES_ENABLED=false`, the licence decides, as in upstream n8n. While the module is
+off, the page Settings > Log streaming tells which of the two settings turns it on.
 
 Environment variables can manage the destinations:
 

@@ -1,6 +1,5 @@
 import type { Scope } from '@n8n/permissions';
 import { useRBACStore } from '@n8n/stores/rbac.store';
-import { useSettingsStore } from '@n8n/stores/settings.store';
 import { createPinia, setActivePinia } from 'pinia';
 
 import { AUDIT_LOG_SETTINGS_VIEW } from './audit-log.constants';
@@ -9,10 +8,6 @@ import { AuditLogModule } from './audit-log.module';
 describe('AuditLogModule', () => {
 	const settingsPage = () =>
 		AuditLogModule.settingsPages?.find(({ id }) => id === 'settings-audit-log');
-
-	const activate = (active: boolean) => {
-		useSettingsStore().$patch({ settings: { activeModules: active ? ['audit-log'] : [] } });
-	};
 
 	const grant = (scopes: Scope[]) => useRBACStore().setGlobalScopes(scopes);
 
@@ -36,8 +31,7 @@ describe('AuditLogModule', () => {
 		});
 	});
 
-	it('shows the sidebar item to a user with the scope when the module is on', () => {
-		activate(true);
+	it('shows the sidebar item to a user with the scope', () => {
 		grant(['auditLogs:manage']);
 
 		expect(settingsPage()).toMatchObject({
@@ -48,15 +42,7 @@ describe('AuditLogModule', () => {
 	});
 
 	it('hides the sidebar item from a user without the scope', () => {
-		activate(true);
 		grant(['user:list']);
-
-		expect(settingsPage()?.available).toBe(false);
-	});
-
-	it('hides the sidebar item when the module is off', () => {
-		activate(false);
-		grant(['auditLogs:manage']);
 
 		expect(settingsPage()?.available).toBe(false);
 	});

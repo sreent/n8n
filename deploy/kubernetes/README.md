@@ -275,7 +275,9 @@ A cluster in the same VPC network (GKE) reaches it. Another cluster needs a VPN 
 ## Update n8n
 
 1. Make a backup of the database. A new version can change the database.
-2. Set `image.tag` and `runnersImage.tag` to the new tag, and run `helm upgrade n8n
+2. In the checkout of the fork, check out the commit of the tag (the part after the version). The
+   chart of that commit has the settings of [settings.yaml](../settings.yaml) of that commit.
+3. Set `image.tag` and `runnersImage.tag` to the new tag, and run `helm upgrade n8n
    deploy/kubernetes/n8n -n n8n -f values-n8n.yaml`.
 
 ## Limits

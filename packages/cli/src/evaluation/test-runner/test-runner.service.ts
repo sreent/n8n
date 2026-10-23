@@ -42,6 +42,8 @@ import {
 	resolveEvaluationConcurrencyLimit,
 } from '@/evaluation/evaluation-concurrency.helper';
 import { License } from '@/license';
+import { Publisher } from '@/scaling/pubsub/publisher.service';
+import type { PubSub } from '@/scaling/pubsub/pubsub.types';
 import { Telemetry } from '@/telemetry';
 import { WorkflowRunner } from '@/workflow-runner';
 
@@ -154,6 +156,7 @@ export class TestRunnerService {
 		private readonly globalConfig: GlobalConfig,
 		private readonly license: License,
 		private readonly instanceSettings: InstanceSettings,
+		private readonly publisher: Publisher,
 	) {}
 
 	static getEvaluationNodes(workflow: IWorkflowBase): INode[] {
@@ -221,24 +224,41 @@ export class TestRunnerService {
 
 	/**
 	 * Cancels a run. A run of this instance stops its cases, and ends as `cancelled`. Any other
-	 * run gets the cancellation flag and ends as `cancelled` at once, with its pending cases.
+	 * run gets the cancellation flag and ends as `cancelled` at once, with its pending cases. In
+	 * multi-main mode, the main instance that runs it gets the command `cancel-test-run`, and
+	 * stops its cases at once.
 	 */
 	async cancelTestRun(testRunId: string) {
 		if (this.cancelTestRunLocally(testRunId)) return;
 
-		await this.testRunRepository.requestCancellation(testRunId);
-		await this.testRunRepository.markAsCancelled(testRunId);
-		await this.testCaseExecutionRepository.markAllPendingAsCancelled(testRunId);
+		await this.markAsCancelled(testRunId);
+		await this.publishToOtherMains({ command: 'cancel-test-run', payload: { testRunId } });
 	}
 
-	/** Cancels the runs of a collection that this instance runs. Other runs end at once. */
+	/**
+	 * Cancels the runs of a collection. The runs of this instance stop, and the other runs end at
+	 * once. In multi-main mode, the other main instances get the command `cancel-collection`.
+	 */
 	async cancelCollection(collectionId: string, testRunIds: string[]) {
 		this.cancelCollectionLocally(collectionId);
 		for (const testRunId of testRunIds) {
 			if (this.abortControllers.has(testRunId)) continue;
 			const testRun = await this.testRunRepository.findOneBy({ id: testRunId });
-			if (testRun && !this.canBeCancelled(testRun)) await this.cancelTestRun(testRunId);
+			if (testRun && !this.canBeCancelled(testRun)) await this.markAsCancelled(testRunId);
 		}
+		await this.publishToOtherMains({ command: 'cancel-collection', payload: { collectionId } });
+	}
+
+	/** Ends a run of another instance as `cancelled`, with its pending cases. */
+	private async markAsCancelled(testRunId: string) {
+		await this.testRunRepository.requestCancellation(testRunId);
+		await this.testRunRepository.markAsCancelled(testRunId);
+		await this.testCaseExecutionRepository.markAllPendingAsCancelled(testRunId);
+	}
+
+	private async publishToOtherMains(command: PubSub.Command) {
+		if (!this.instanceSettings.isMultiMain) return;
+		await this.publisher.publishCommand(command);
 	}
 
 	/** Gives `true` when this instance runs the run, and stops it. */

@@ -128,4 +128,54 @@ describe('ForkGovernanceEventRelay', () => {
 			},
 		});
 	});
+
+	it('sends a push of source control as an audit event', () => {
+		eventService.emit('source-control-pushed', {
+			user: user(),
+			repositoryUrl: 'https://git.example.com/team/instance.git',
+			branchName: 'main',
+			commit: 'abc123',
+			changedFiles: 2,
+			forced: false,
+			publicApi: true,
+		});
+
+		expect(eventBus.sendAuditEvent).toHaveBeenCalledWith({
+			eventName: 'n8n.audit.source-control.pushed',
+			payload: {
+				...redactedUser,
+				repositoryUrl: 'https://git.example.com/team/instance.git',
+				branchName: 'main',
+				commit: 'abc123',
+				changedFiles: 2,
+				forced: false,
+				publicApi: true,
+			},
+		});
+	});
+
+	it('sends an LDAP synchronization that a user starts as an audit event', () => {
+		eventService.emit('ldap-synchronized', {
+			user: user(),
+			mode: 'live',
+			status: 'success',
+			created: 1,
+			updated: 2,
+			disabled: 0,
+			scanned: 3,
+		});
+
+		expect(eventBus.sendAuditEvent).toHaveBeenCalledWith({
+			eventName: 'n8n.audit.ldap.synchronized',
+			payload: {
+				...redactedUser,
+				mode: 'live',
+				status: 'success',
+				created: 1,
+				updated: 2,
+				disabled: 0,
+				scanned: 3,
+			},
+		});
+	});
 });

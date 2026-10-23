@@ -182,22 +182,42 @@ Only Caddy is reachable from outside. n8n, the runners and PostgreSQL have no op
 
 ## Update n8n
 
+A tag has the n8n version and the first 10 characters of a commit of the fork, for example
+`2.42.0-05390eb0d0`. `latest` is the newest push. Use the files of `deploy/` from the commit of
+the tag: a new version can change `docker-compose.yml`, `.env.example` or a script, and the new
+images can need these changes.
+
 1. Make a backup. A new version can change the database.
 
    ```bash
    ./backup.sh
    ```
 
-2. Get the new images and start them:
+2. On your computer, check out the commit of the tag in a clone of the fork, and copy the files of
+   `deploy/` to the server. The copy keeps `.env` and `backups/`:
+
+   ```bash
+   git checkout 05390eb0d0
+   rsync -a --exclude .env --exclude backups deploy/ you@your-server:/opt/n8n/
+   ```
+
+3. On the server, compare `.env` with the new `.env.example`. This command lists the settings
+   that only `.env.example` has. Copy them to `.env`, and set their values:
+
+   ```bash
+   comm -13 <(grep -o '^[A-Z_0-9]*=' .env | sort) <(grep -o '^[A-Z_0-9]*=' .env.example | sort)
+   ```
+
+   Also compare the values of the settings that you set yourself: a new version can add a value
+   to a list. For example, from `2.42.0-05390eb0d0`, `ENABLED_MODULES` also has `agent-evals`.
+
+4. Set the tag in `N8N_IMAGE` and in `N8N_RUNNERS_IMAGE`. Use the same tag for the two images.
+   Then get the new images and start them:
 
    ```bash
    docker compose pull
    docker compose up -d
    ```
-
-To run a specific version, set its tag in `N8N_IMAGE` and in `N8N_RUNNERS_IMAGE`. Use the same
-tag for the two images. A tag has the n8n version and the first 10 characters of the commit, for
-example `2.42.0-d6cf9d5ab6`. `latest` is the newest push.
 
 ## Development and production
 

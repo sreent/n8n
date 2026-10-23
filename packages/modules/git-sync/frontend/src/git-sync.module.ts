@@ -1,7 +1,6 @@
 import { defineFrontendModule } from '@n8n/frontend-module-sdk';
 import { useI18n } from '@n8n/i18n';
 import { useRBACStore } from '@n8n/stores/rbac.store';
-import { useSettingsStore } from '@n8n/stores/settings.store';
 
 import { GIT_SYNC_MODULE_ID, GIT_SYNC_SCOPE, GIT_SYNC_SETTINGS_VIEW } from './git-sync.constants';
 
@@ -49,11 +48,9 @@ export const GitSyncModule = defineFrontendModule({
 			},
 			position: 'top',
 			route: { to: { name: GIT_SYNC_SETTINGS_VIEW } },
+			// The shell lists the item only while the module is active, as for the core modules.
 			get available() {
-				return (
-					useSettingsStore().isModuleActive(GIT_SYNC_MODULE_ID) &&
-					useRBACStore().hasScope(GIT_SYNC_SCOPE)
-				);
+				return useRBACStore().hasScope(GIT_SYNC_SCOPE);
 			},
 		},
 	],

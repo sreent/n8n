@@ -49,8 +49,10 @@ flowchart LR
   governance actions of the fork features in the same way, on the main instances:
   `n8n.audit.git-sync.*` (settings saved, disconnected, pushed, pulled), `n8n.audit.ai-gateway.*`
   (settings updated, top-up added), `n8n.audit.log-streaming.destination.*` (created, updated,
-  deleted) and `n8n.audit.git-connection.*` (providers and connections created, updated and
-  deleted, promoted, applied). The list is in
+  deleted), `n8n.audit.git-connection.*` (providers and connections created, updated and
+  deleted, promoted, applied), `n8n.audit.source-control.*` (settings saved, disconnected, pushed,
+  pulled) and `n8n.audit.ldap.*` (settings saved, and a synchronization that a user starts). The
+  list is in
   `packages/cli/src/eventbus/event-message-classes/fork-audit-event-names.ts`. No payload holds a
   token, a password or a key, and repository URLs lose any user and password.
 - The module listens to the event `metrics.eventBus.event` of the bus, which the bus emits for each

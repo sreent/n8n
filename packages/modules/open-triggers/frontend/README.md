@@ -72,7 +72,8 @@ same rule as the backend check (`openTriggerKindOf` of `@n8n/api-types`, with th
 
 `views/SettingsOpenTriggersView.vue`. The route is `/settings/open-triggers`. The `rbac` middleware
 needs the global scope `workflow:list`, which the owner and the admins have. The settings sidebar
-shows the page when the backend module is on and the user has the scope.
+shows the page when the backend module is on and the user has the scope: the descriptor checks the
+scope, and the shell lists the item only while the module is active, as for the core modules.
 
 - A callout tells whether the publish check is on (the module setting `needApproval`).
 - The table shows each open trigger of a published workflow: the workflow (a link to it), the

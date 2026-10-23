@@ -67,6 +67,10 @@ The module is a clean-room rebuild. It uses only these sources:
 - **Telemetry**: the events `source-control-settings-updated`, `source-control-user-started-push-ui`,
   `source-control-user-finished-push-ui`, `source-control-user-started-pull-ui`,
   `source-control-user-finished-pull-ui` and `source-control-user-pulled-api`, as in the original.
+- **Audit events** (fork addition): a connection or a change of the preferences, a disconnection, a
+  push and a pull send `n8n.audit.source-control.*` with the user, the repository URL without a
+  user or a password, and the branch, through `ForkGovernanceEventRelay` (see the README of the
+  audit log module). A push and a pull through the public API send them too.
 
 ## The files of the branch
 
@@ -142,6 +146,8 @@ and the pull test masks the random id of a column.
 - A repository URL that starts with `-` is an invalid preference.
 - The work folder operations run one at a time. The tests do not show if the original does
   this.
+- The audit events `n8n.audit.source-control.*` are not in the original. The golden tests leave
+  them out of their records, and `source-control.audit-events.test.ts` tests them.
 
 ## Upstream updates
 

@@ -240,7 +240,10 @@ an EC2 instance or a VPC environment of AWS CloudShell in the security group `n8
    aws rds create-db-snapshot --db-instance-identifier n8n-db --db-snapshot-identifier n8n-before-update
    ```
 
-2. Set `image_tag` to the new tag, and run `terraform apply`. If the new tasks do not get healthy,
+2. Use the module of the commit of the tag (the part after the version), so that n8n gets the
+   settings of [settings.yaml](../settings.yaml) of that commit. In a checkout of the fork, check
+   out the commit. With a Git source, set `ref=` to the commit, and run `terraform init -upgrade`.
+3. Set `image_tag` to the new tag, and run `terraform apply`. If the new tasks do not get healthy,
    ECS goes back to the old version.
 
 ## Back up and restore

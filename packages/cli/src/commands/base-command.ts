@@ -438,7 +438,7 @@ export abstract class BaseCommand<F = never> {
 			}
 			if (!isS3Configured) {
 				this.logger.error(
-					'S3 execution data storage requires `N8N_EXTERNAL_STORAGE_S3_BUCKET_NAME` to be set.',
+					'S3 execution data storage requires `N8N_EXTERNAL_STORAGE_S3_BUCKET_NAME` to be set, or `N8N_EXTERNAL_STORAGE_GCS_BUCKET_NAME` for Google Cloud Storage.',
 				);
 				process.exit(1);
 			}
@@ -469,7 +469,9 @@ export abstract class BaseCommand<F = never> {
 			}
 		} catch {
 			if (isS3WriteMode || isExecutionDataS3Mode) {
-				this.logger.error('Failed to connect to S3. Please check your S3 configuration.');
+				this.logger.error(
+					'Failed to connect to S3 or Google Cloud Storage. Please check your object store configuration.',
+				);
 				process.exit(1);
 			}
 		}

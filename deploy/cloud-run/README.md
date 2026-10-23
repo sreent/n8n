@@ -254,7 +254,10 @@ credentials.
    gcloud sql backups create --instance=n8n-db --project=my-project
    ```
 
-2. Set `image_tag` to the new tag, and run `terraform apply`. Cloud Run starts the new instances
+2. Use the module of the commit of the tag (the part after the version), so that n8n gets the
+   settings of [settings.yaml](../settings.yaml) of that commit. In a checkout of the fork, check
+   out the commit. With a Git source, set `ref=` to the commit, and run `terraform init -upgrade`.
+3. Set `image_tag` to the new tag, and run `terraform apply`. Cloud Run starts the new instances
    before it stops the old ones.
 
 In queue mode, old and new instances run together for some minutes. Update when few executions

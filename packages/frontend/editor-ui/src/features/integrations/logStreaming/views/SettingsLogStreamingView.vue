@@ -2,7 +2,8 @@
 /**
  * Fork code (not in upstream n8n): the settings page of log streaming. It replaces the enterprise
  * page of the same name. The fork needs no licence: the page works while the module
- * `log-streaming` is on. `../FORK.md` describes it.
+ * `log-streaming` is on, and the module starts with the licence value that the fork switch gives.
+ * `../FORK.md` describes it.
  */
 import { useToast } from '@n8n/composables/useToast';
 import { N8nButton, N8nCallout, N8nEmptyState, N8nHeading, N8nText } from '@n8n/design-system';
@@ -12,7 +13,7 @@ import { useSettingsStore } from '@n8n/stores/settings.store';
 import { computed, onMounted } from 'vue';
 
 import { useDocumentTitle } from '@/app/composables/useDocumentTitle';
-import { LOG_STREAM_MODAL_KEY } from '@/app/constants';
+import { EnterpriseEditionFeature, LOG_STREAM_MODAL_KEY } from '@/app/constants';
 import { useUIStore } from '@/app/stores/ui.store';
 
 import EventDestinationCard from '../components/EventDestinationCard.vue';
@@ -26,6 +27,12 @@ const documentTitle = useDocumentTitle();
 const i18n = useI18n();
 
 const isModuleActive = computed(() => settingsStore.isModuleActive('log-streaming') === true);
+// Without the licence value, the fork switch is off, and the module does not start.
+const moduleOffDescription = computed(() =>
+	settingsStore.isEnterpriseFeatureEnabled[EnterpriseEditionFeature.LogStreaming]
+		? i18n.baseText('settings.log-streaming.moduleOff.description')
+		: i18n.baseText('settings.log-streaming.moduleOff.forkFeaturesOff'),
+);
 const managedByEnv = computed(() => settingsStore.settings.logStreaming?.managedByEnv === true);
 
 onMounted(async () => {
@@ -83,7 +90,7 @@ function openDestination(destination?: EventDestination) {
 			v-else
 			data-test-id="action-box-unlicensed"
 			:heading="i18n.baseText('settings.log-streaming.moduleOff.title')"
-			:description="i18n.baseText('settings.log-streaming.moduleOff.description')"
+			:description="moduleOffDescription"
 		/>
 	</div>
 </template>

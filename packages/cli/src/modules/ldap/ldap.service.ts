@@ -112,9 +112,10 @@ export class LdapService implements IPasswordAuthHandler<User> {
 
 	/**
 	 * Checks and stores a configuration. The blanking value keeps the stored password. With the
-	 * login off, the LDAP users become email users and the synchronization turns off.
+	 * login off, the LDAP users become email users and the synchronization turns off. With a user,
+	 * the change sends an audit event.
 	 */
-	async updateConfig(ldapConfig: unknown): Promise<void> {
+	async updateConfig(ldapConfig: unknown, user?: User): Promise<void> {
 		if (!isLdapConfig(ldapConfig)) {
 			throw new BadRequestError(validateLdapConfigurationSchema(ldapConfig).message);
 		}
@@ -150,6 +151,16 @@ export class LdapService implements IPasswordAuthHandler<User> {
 		// Fork: the other main instances load the new configuration, as for OIDC and SAML.
 		if (this.instanceSettings.isMultiMain) {
 			void this.publisher.publishCommand({ command: 'reload-ldap-config' });
+		}
+
+		if (user) {
+			this.eventService.emit('ldap-settings-saved', {
+				user,
+				loginEnabled: config.loginEnabled,
+				connectionUrl: config.connectionUrl,
+				synchronizationEnabled: config.synchronizationEnabled,
+				synchronizationInterval: config.synchronizationInterval,
+			});
 		}
 	}
 
@@ -336,7 +347,7 @@ export class LdapService implements IPasswordAuthHandler<User> {
 	 * counts the changes. A live run also creates, updates and disables the users. Each run goes
 	 * into the history.
 	 */
-	async runSync(mode: RunningMode): Promise<AuthProviderSyncHistory> {
+	async runSync(mode: RunningMode, user?: User): Promise<AuthProviderSyncHistory> {
 		this.logger.debug(`LDAP - Starting a synchronization run in ${mode} mode`);
 
 		let entries: Entry[];
@@ -391,6 +402,18 @@ export class LdapService implements IPasswordAuthHandler<User> {
 			usersSynced: usersToCreate.length + usersToUpdate.length + usersToDisable.length,
 			error: errorMessage,
 		});
+		// A run that a user starts sends an audit event. A scheduled run has no user.
+		if (user) {
+			this.eventService.emit('ldap-synchronized', {
+				user,
+				mode,
+				status,
+				created: usersToCreate.length,
+				updated: usersToUpdate.length,
+				disabled: usersToDisable.length,
+				scanned: entries.length,
+			});
+		}
 
 		return history;
 	}

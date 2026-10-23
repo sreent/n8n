@@ -70,7 +70,7 @@ export class SourceControlController {
 	@GlobalScope('sourceControl:manage')
 	async updatePreferences(req: AuthenticatedRequest) {
 		const body: unknown = req.body;
-		return await this.sourceControlService.updatePreferences(body);
+		return await this.sourceControlService.updatePreferences(req.user, body);
 	}
 
 	@Post('/disconnect')
@@ -82,7 +82,7 @@ export class SourceControlController {
 			body !== null &&
 			'keepKeyPair' in body &&
 			body.keepKeyPair === true;
-		return await this.sourceControlService.disconnect({ keepKeyPair });
+		return await this.sourceControlService.disconnect(req.user, { keepKeyPair });
 	}
 
 	@Get('/get-branches')

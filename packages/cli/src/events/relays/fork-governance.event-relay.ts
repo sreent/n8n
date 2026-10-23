@@ -26,6 +26,12 @@ const AUDIT_EVENT_NAMES = {
 	'git-connection-deleted': 'n8n.audit.git-connection.deleted',
 	'git-connection-promoted': 'n8n.audit.git-connection.promoted',
 	'git-connection-applied': 'n8n.audit.git-connection.applied',
+	'source-control-settings-saved': 'n8n.audit.source-control.settings.saved',
+	'source-control-disconnected': 'n8n.audit.source-control.disconnected',
+	'source-control-pushed': 'n8n.audit.source-control.pushed',
+	'source-control-pulled': 'n8n.audit.source-control.pulled',
+	'ldap-settings-saved': 'n8n.audit.ldap.settings.saved',
+	'ldap-synchronized': 'n8n.audit.ldap.synchronized',
 } as const satisfies Record<keyof ForkGovernanceEventMap, EventNamesAuditType>;
 
 type ForkGovernanceEvent = ForkGovernanceEventMap[keyof ForkGovernanceEventMap];
@@ -82,6 +88,16 @@ export class ForkGovernanceEventRelay extends EventRelay {
 				this.send(event, AUDIT_EVENT_NAMES['git-connection-promoted']),
 			'git-connection-applied': (event) =>
 				this.send(event, AUDIT_EVENT_NAMES['git-connection-applied']),
+			'source-control-settings-saved': (event) =>
+				this.send(event, AUDIT_EVENT_NAMES['source-control-settings-saved']),
+			'source-control-disconnected': (event) =>
+				this.send(event, AUDIT_EVENT_NAMES['source-control-disconnected']),
+			'source-control-pushed': (event) =>
+				this.send(event, AUDIT_EVENT_NAMES['source-control-pushed']),
+			'source-control-pulled': (event) =>
+				this.send(event, AUDIT_EVENT_NAMES['source-control-pulled']),
+			'ldap-settings-saved': (event) => this.send(event, AUDIT_EVENT_NAMES['ldap-settings-saved']),
+			'ldap-synchronized': (event) => this.send(event, AUDIT_EVENT_NAMES['ldap-synchronized']),
 		};
 		this.setupListeners(handlers);
 	}

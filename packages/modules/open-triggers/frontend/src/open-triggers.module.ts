@@ -1,7 +1,6 @@
 import { defineFrontendModule } from '@n8n/frontend-module-sdk';
 import { useI18n } from '@n8n/i18n';
 import { useRBACStore } from '@n8n/stores/rbac.store';
-import { useSettingsStore } from '@n8n/stores/settings.store';
 
 import {
 	OPEN_TRIGGER_FIXES_MODAL_KEY,
@@ -63,11 +62,9 @@ export const OpenTriggersModule = defineFrontendModule({
 			},
 			position: 'top',
 			route: { to: { name: OPEN_TRIGGERS_SETTINGS_VIEW } },
+			// The shell lists the item only while the module is active, as for the core modules.
 			get available() {
-				return (
-					useSettingsStore().isModuleActive(OPEN_TRIGGERS_MODULE_ID) &&
-					useRBACStore().hasScope(OPEN_TRIGGERS_SCOPE)
-				);
+				return useRBACStore().hasScope(OPEN_TRIGGERS_SCOPE);
 			},
 		},
 	],

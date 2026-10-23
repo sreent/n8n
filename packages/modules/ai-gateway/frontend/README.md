@@ -16,7 +16,8 @@ balance and their calls.
 - `views/SettingsAiGatewayAdminView.vue` is the page. The route is `/settings/ai-gateway`. The
   `rbac` middleware needs the scope `aiAssistant:manage`, and the `custom` middleware hides the page
   when the backend module is off. The settings sidebar shows the page under the same two
-  conditions.
+  conditions: the descriptor checks the scope, and the shell lists the item only while the
+  module is active, as for the core modules.
 - The switch at the top turns the gateway on or off. The page asks for a confirmation before it
   turns the gateway off. The gateway is on only when it also has a credential for at least one
   provider. After a change of the switch or of the providers, the page reads the settings of the
