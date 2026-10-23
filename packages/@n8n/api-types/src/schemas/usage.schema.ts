@@ -17,6 +17,8 @@ export const usageStateSchema = z.object({
 		license: z.object({
 			planId: z.string(), // community
 			planName: z.string(), // defaults to Community
+			// Fork: the fork switch (N8N_FORK_FEATURES_ENABLED) turns the rebuilt features on.
+			forkFeaturesEnabled: z.boolean().optional(),
 		}),
 		managementToken: z.string().optional(),
 	}),

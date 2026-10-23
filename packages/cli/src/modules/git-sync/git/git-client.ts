@@ -1,8 +1,10 @@
+import { GIT_SYNC_ERROR_CODES } from '@n8n/api-types';
 import { execFile, type ExecFileException } from 'node:child_process';
 import { devNull } from 'node:os';
 import path from 'node:path';
 
-import { GIT_SYNC_ERROR_CODES } from '../git-sync.constants';
+import { GIT_CA_VARIABLES, GIT_MAX_OUTPUT_BYTES } from '@/utils/git-process';
+
 import { GitSyncError } from '../git-sync.errors';
 
 /** Settings that turn off Git features that could run code or read outside the repository. */
@@ -36,10 +38,8 @@ const PASSTHROUGH_ENV = [
 	'no_proxy',
 	'SSL_CERT_FILE',
 	'SSL_CERT_DIR',
-	'GIT_SSL_CAINFO',
+	...GIT_CA_VARIABLES,
 ];
-
-const MAX_OUTPUT_BYTES = 256 * 1024 * 1024;
 
 export interface GitIdentity {
 	name: string;
@@ -146,7 +146,7 @@ export class GitClient {
 					cwd: options.cwd ?? this.options.repoDir,
 					env: { ...this.buildEnv(), ...options.env },
 					timeout: this.options.timeoutMs,
-					maxBuffer: MAX_OUTPUT_BYTES,
+					maxBuffer: GIT_MAX_OUTPUT_BYTES,
 					encoding: 'utf8',
 					windowsHide: true,
 				},

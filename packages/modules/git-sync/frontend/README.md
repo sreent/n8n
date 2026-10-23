@@ -4,11 +4,17 @@ Fork module (not in upstream n8n). It adds the **Settings > Git sync** page. The
 instance owner and admins connect one project to a branch of a Git repository, see
 what changed on each side, and push or pull.
 
-- `SettingsGitSyncView.vue` is the page. The route is `/settings/git-sync`. The `role`
-  middleware lets in the owner and admins only, and the `custom` middleware hides the
-  page when the backend module is off.
+- `SettingsGitSyncView.vue` is the page. The route is `/settings/git-sync`. The `rbac`
+  middleware lets in only users with the global scope `sourceControl:manage` (the owner,
+  the admins and custom roles with the scope), as the backend does. The `custom`
+  middleware hides the page when the backend module is off. When the user leaves the
+  page with unsaved changes, the page asks first and can save them, as the page of
+  OpenTelemetry does.
+- The sidebar item has the icon `arrow-left-right`. Environments and Environments v2 use
+  `git-branch`. The description of the page tells how Git sync differs from Environments.
 - `git-sync.store.ts` holds the form, the status and the results. `git-sync.api.ts`
-  calls `/rest/git-sync/*`.
+  calls `/rest/git-sync/*`. The request and response types, the defaults and the error codes
+  come from `@n8n/api-types`, which the backend module uses too.
 - The backend module is `packages/cli/src/modules/git-sync`. Its README explains how
   push and pull work, and the limits.
 
@@ -34,7 +40,7 @@ yet. Turbo builds them first; the bare pnpm form does not.
 
 - Depend on foundation and platform packages only (`@n8n/design-system`,
   `@n8n/stores`, `@n8n/composables`, `@n8n/i18n`, `@n8n/rest-api-client`,
-  `@n8n/api-types`, `@n8n/permissions`, `n8n-workflow`,
+  `@n8n/api-types`, `@n8n/permissions`, `n8n-workflow`, `@n8n/utils`,
   `@n8n/frontend-module-sdk`). Never import another
   `@n8n/frontend-module-*`, and never import `@/…` from the shell.
 - `@n8n/stores` and `@n8n/composables` are **subpath-only** — import

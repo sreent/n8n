@@ -1,6 +1,6 @@
-import type { CurrentUserResponse } from '@n8n/rest-api-client/api/users';
+import type { Scope } from '@n8n/permissions';
+import { useRBACStore } from '@n8n/stores/rbac.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
-import { useUsersStore } from '@n8n/stores/users.store';
 import { createPinia, setActivePinia } from 'pinia';
 
 import { GIT_SYNC_SETTINGS_VIEW } from './git-sync.constants';
@@ -10,20 +10,7 @@ describe('GitSyncModule', () => {
 	const settingsPage = () =>
 		GitSyncModule.settingsPages?.find(({ id }) => id === 'settings-git-sync');
 
-	const signIn = (role: string) => {
-		const usersStore = useUsersStore();
-		usersStore.addUsers([
-			{
-				id: 'user-1',
-				email: 'user@example.com',
-				firstName: 'Ada',
-				lastName: 'Lovelace',
-				role,
-				isPending: false,
-			} as CurrentUserResponse,
-		]);
-		usersStore.currentUserId = 'user-1';
-	};
+	const grant = (scopes: Scope[]) => useRBACStore().setGlobalScopes(scopes);
 
 	const activate = (active: boolean) => {
 		useSettingsStore().$patch({ settings: { activeModules: active ? ['git-sync'] : [] } });
@@ -33,30 +20,33 @@ describe('GitSyncModule', () => {
 		setActivePinia(createPinia());
 	});
 
-	it('limits the settings route to the owner and admins', () => {
+	it('limits the settings route to users with the scope of source control', () => {
 		const route = GitSyncModule.routes?.find(({ name }) => name === GIT_SYNC_SETTINGS_VIEW);
 
 		expect(route?.path).toBe('git-sync');
 		expect(route?.meta).toMatchObject({
-			middleware: ['authenticated', 'role', 'custom'],
-			middlewareOptions: { role: ['global:owner', 'global:admin'] },
+			middleware: ['authenticated', 'rbac', 'custom'],
+			middlewareOptions: { rbac: { scope: 'sourceControl:manage' } },
 		});
 	});
 
-	it.each([
-		['global:owner', true],
-		['global:admin', true],
-		['global:member', false],
-	])('shows the sidebar item to %s: %s', (role, visible) => {
+	it.each<[string, Scope[], boolean]>([
+		['with the scope', ['sourceControl:manage'], true],
+		['without the scope', ['workflow:list'], false],
+	])('shows the sidebar item to a user %s: %s', (_label, scopes, visible) => {
 		activate(true);
-		signIn(role);
+		grant(scopes);
 
 		expect(settingsPage()?.available).toBe(visible);
 	});
 
+	it('has its own sidebar icon, not the icon of Environments', () => {
+		expect(settingsPage()?.icon).toBe('arrow-left-right');
+	});
+
 	it('hides the sidebar item when the module is off', () => {
 		activate(false);
-		signIn('global:owner');
+		grant(['sourceControl:manage']);
 
 		expect(settingsPage()?.available).toBe(false);
 	});

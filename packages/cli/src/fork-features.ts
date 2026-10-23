@@ -101,6 +101,10 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	// The AI gateway of the Gateway credits: the fork module ai-gateway (the owner chose this on
 	// 2026-10-15). An admin turns it on and sets the providers at Settings > AI gateway.
 	[LICENSE_FEATURES.AI_GATEWAY]: true,
+	// Log streaming and the audit log: the fork modules of the audit log export. They are on by
+	// default (the owner chose this on 2026-10-11), and the switch turns them off with the other
+	// rebuilt features (the owner chose this on 2026-10-23).
+	[LICENSE_FEATURES.LOG_STREAMING]: true,
 };
 
 const FORK_FEATURE_VALUES_WITH_BANNER: FeatureReturnType = {

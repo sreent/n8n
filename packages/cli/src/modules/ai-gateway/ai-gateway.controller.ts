@@ -1,3 +1,13 @@
+import {
+	AiGatewayAdminUsageQueryDto,
+	type AiGatewayAdminUsagePage,
+	type AiGatewayOverview,
+	type AiGatewayPriceTable,
+	AiGatewaySettingsDto,
+	type AiGatewaySettingsResponse,
+	AiGatewayTopUpDto,
+	type AiGatewayTopUpEntry,
+} from '@n8n/api-types';
 import { AuthenticatedRequest } from '@n8n/db';
 import {
 	Body,
@@ -12,7 +22,6 @@ import {
 import type { Response } from 'express';
 
 import { AiGatewayAdminService } from './ai-gateway-admin.service';
-import { AiGatewaySettingsDto, AiGatewayTopUpDto, AiGatewayUsageQueryDto } from './ai-gateway.dto';
 
 /**
  * The settings of the AI gateway, for users with the scope `aiAssistant:manage` ("Manage AI
@@ -25,7 +34,7 @@ export class AiGatewayAdminController {
 	@Get('/settings')
 	@Licensed('feat:aiGateway')
 	@GlobalScope('aiAssistant:manage')
-	async getSettings() {
+	async getSettings(): Promise<AiGatewaySettingsResponse> {
 		return await this.admin.getSettings();
 	}
 
@@ -33,45 +42,53 @@ export class AiGatewayAdminController {
 	@Licensed('feat:aiGateway')
 	@GlobalScope('aiAssistant:manage')
 	async updateSettings(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Body body: AiGatewaySettingsDto,
-	) {
-		return await this.admin.updateSettings(body);
+	): Promise<AiGatewaySettingsResponse> {
+		return await this.admin.updateSettings(body, req.user);
 	}
 
 	@Get('/overview')
 	@Licensed('feat:aiGateway')
 	@GlobalScope('aiAssistant:manage')
-	async overview() {
+	async overview(): Promise<AiGatewayOverview> {
 		return await this.admin.overview();
 	}
 
 	@Get('/top-ups')
 	@Licensed('feat:aiGateway')
 	@GlobalScope('aiAssistant:manage')
-	async listTopUps() {
+	async listTopUps(): Promise<AiGatewayTopUpEntry[]> {
 		return await this.admin.listTopUps();
 	}
 
 	@Post('/top-ups')
 	@Licensed('feat:aiGateway')
 	@GlobalScope('aiAssistant:manage')
-	async addTopUp(req: AuthenticatedRequest, _res: Response, @Body body: AiGatewayTopUpDto) {
-		return await this.admin.addTopUp(body, req.user.id);
+	async addTopUp(
+		req: AuthenticatedRequest,
+		_res: Response,
+		@Body body: AiGatewayTopUpDto,
+	): Promise<AiGatewayOverview> {
+		return await this.admin.addTopUp(body, req.user);
 	}
 
 	@Get('/prices')
 	@Licensed('feat:aiGateway')
 	@GlobalScope('aiAssistant:manage')
-	prices() {
+	prices(): AiGatewayPriceTable {
 		return this.admin.prices();
 	}
 
 	@Get('/usage')
 	@Licensed('feat:aiGateway')
 	@GlobalScope('aiAssistant:manage')
-	async usage(_req: AuthenticatedRequest, _res: Response, @Query query: AiGatewayUsageQueryDto) {
+	async usage(
+		_req: AuthenticatedRequest,
+		_res: Response,
+		@Query query: AiGatewayAdminUsageQueryDto,
+	): Promise<AiGatewayAdminUsagePage> {
 		const { skip, take, ...filter } = query;
 		return await this.admin.usage(filter, skip, take);
 	}

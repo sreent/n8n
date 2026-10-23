@@ -1,6 +1,6 @@
 import { PublicCreateDestinationDto } from '@n8n/api-types';
 import { Logger } from '@n8n/backend-common';
-import { CredentialsFinderService } from '@n8n/backend-services';
+import { CredentialsFinderService, EventService } from '@n8n/backend-services';
 import { InstanceSettingsLoaderConfig } from '@n8n/config';
 import type { User } from '@n8n/db';
 import { OnPubSubEvent } from '@n8n/decorators';
@@ -29,6 +29,7 @@ import {
 	buildDestinationOptions,
 	fromPublicDestination,
 	parseDestinationOptions,
+	PUBLIC_TYPES,
 	type DestinationInput,
 	type DestinationOptions,
 } from './destinations/destination-options';
@@ -59,6 +60,17 @@ const toJsonObject = (options: DestinationOptions) =>
  * take it delivered it. A message that a destination did not take stays unconfirmed in the event
  * log, and the event bus sends it again.
  */
+/** The audit event of a change of a destination. It holds no credential and no URL. */
+function auditEventOf(options: DestinationOptions, user: User) {
+	return {
+		user,
+		destinationId: options.id,
+		destinationType: PUBLIC_TYPES[options.__type],
+		label: options.label ?? '',
+		enabled: options.enabled ?? false,
+	};
+}
+
 @Service()
 export class LogStreamingService {
 	private destinations = new Map<string, LogStreamingDestination>();
@@ -79,6 +91,7 @@ export class LogStreamingService {
 		private readonly publisher: Publisher,
 		private readonly instanceSettings: InstanceSettings,
 		private readonly loaderConfig: InstanceSettingsLoaderConfig,
+		private readonly eventService: EventService,
 	) {
 		this.logger = this.logger.scoped('log-streaming');
 	}
@@ -264,15 +277,20 @@ export class LogStreamingService {
 
 		await this.repository.saveDestination({ id, destination: toJsonObject(options) });
 		await this.reloadEverywhere();
+		this.eventService.emit(
+			stored ? 'log-streaming-destination-updated' : 'log-streaming-destination-created',
+			auditEventOf(options, user),
+		);
 		return options;
 	}
 
 	/** Deletes a destination, and gives its options. */
-	async deleteDestination(id: string): Promise<DestinationOptions> {
+	async deleteDestination(id: string, user: User): Promise<DestinationOptions> {
 		this.assertNotManagedByEnv();
 		const options = await this.findDestinationOrFail(id);
 		if (!(await this.repository.deleteDestination(id))) throw this.notFound(id);
 		await this.reloadEverywhere();
+		this.eventService.emit('log-streaming-destination-deleted', auditEventOf(options, user));
 		return options;
 	}
 

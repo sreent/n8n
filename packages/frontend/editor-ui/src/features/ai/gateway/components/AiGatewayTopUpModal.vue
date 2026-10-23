@@ -3,6 +3,7 @@ import { computed, onMounted, ref, type Component } from 'vue';
 import { ROLE } from '@n8n/api-types';
 import { N8nAlertDialog, N8nText } from '@n8n/design-system';
 import { useI18n, type BaseTextKey } from '@n8n/i18n';
+import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { AI_GATEWAY_TOP_UP_MODAL_KEY } from '@/app/constants';
 import type { AiGatewayTopUpVariant } from '@/app/composables/useAiGatewayTopUp';
@@ -120,7 +121,18 @@ const title = computed(() => {
 	return i18n.baseText(keys[props.variant]);
 });
 
+// Fork: the self-hosted gateway of the fork has no Cloud Admin Panel. An admin adds top-ups there.
+const settingsStore = useSettingsStore();
+const isForkGateway = computed(
+	() =>
+		settingsStore.moduleSettings['ai-gateway']?.selfHosted === true &&
+		!settingsStore.isCloudDeployment,
+);
+
 const description = computed(() => {
+	if (props.variant === 'member' && isForkGateway.value) {
+		return i18n.baseText('aiGateway.topUp.fork.member');
+	}
 	const keys = {
 		ownerTrial: 'aiGateway.topUp.modal.description.trial',
 		memberTrial: 'aiGateway.topUp.modal.description.member.trial',

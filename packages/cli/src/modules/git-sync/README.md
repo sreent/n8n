@@ -6,7 +6,7 @@ to the branch, and pull changes from the branch. Use it to keep a history of you
 workflows, and to move workflows from a development instance to a production instance.
 
 This module does not use enterprise code. It uses the package export and import of
-n8n (`packages/cli/src/modules/n8n-packages`) through one adapter file, and runs the
+n8n (`packages/cli/src/modules/n8n-packages`) through one adapter file (and `package-layout.ts`, which takes the file names of the package from it), and runs the
 `git` program of the host.
 
 ```mermaid
@@ -63,7 +63,8 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 
 ## Security
 
-- Only the instance owner and admins can use Git sync.
+- Git sync needs the global scope `sourceControl:manage`, as source control does. The owner and
+  the admins hold it, and a custom instance role can hold it.
 - n8n stores the token encrypted. The API never returns it.
 - Git gets the token as an HTTP header for the repository origin only. The token is
   never in the URL, in `.git/config`, in a log, or in an error message.
@@ -73,6 +74,9 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 - Write access to the branch is the same as write access to the workflows of every
   instance that pulls from it. Protect the branch, and use a token with the
   smallest possible permissions.
+- Each saved setting, disconnect, push and pull sends an audit event
+  (`n8n.audit.git-sync.*`) to log streaming and the audit log, with the user, the project, the
+  repository URL and the branch. The token is never in the event.
 
 ## Limits
 
@@ -92,12 +96,13 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 | File | Purpose |
 |---|---|
 | `git-sync.service.ts` | Status, push, pull, and the settings |
-| `git-sync.controller.ts` | REST routes under `/rest/git-sync`, for the owner and admins only |
+| `git-sync.controller.ts` | REST routes under `/rest/git-sync`, for the global scope `sourceControl:manage` |
 | `git-sync-settings.service.ts` | Connection and sync state in the settings table |
 | `git/git-client.ts` | Runs Git with a fixed, minimal environment |
 | `git/git-validation.ts` | Checks the URL, the branch, and the folder |
 | `package/n8n-packages.adapter.ts` | The only connection to the package export and import |
 | `package/package-changes.ts` | Finds changed workflows (pure functions) |
+| `packages/@n8n/api-types/src/dto/git-sync/git-sync.dto.ts` | The request and response types of the REST API, the defaults and the error codes. The backend and the editor use the same types |
 
 Run the tests:
 

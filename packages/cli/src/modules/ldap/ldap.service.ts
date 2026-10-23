@@ -6,12 +6,12 @@ import { LDAP_FEATURE_NAME } from '@n8n/constants';
 import type { AuthProviderSyncHistory, RunningMode } from '@n8n/db';
 import { SettingsRepository, User } from '@n8n/db';
 import type { IPasswordAuthHandler } from '@n8n/decorators';
-import { AuthHandler } from '@n8n/decorators';
+import { AuthHandler, OnPubSubEvent, OnShutdown } from '@n8n/decorators';
 import { Container } from '@n8n/di';
 import { BadRequestError } from '@n8n/errors';
 import type { ClientOptions, Entry } from 'ldapts';
 import { Client, ResultCodeError } from 'ldapts';
-import { Cipher } from 'n8n-core';
+import { Cipher, InstanceSettings } from 'n8n-core';
 import {
 	CREDENTIAL_BLANKING_VALUE,
 	jsonParse,
@@ -21,6 +21,7 @@ import {
 } from 'n8n-workflow';
 import type { ConnectionOptions } from 'tls';
 
+import { Publisher } from '@/scaling/pubsub/publisher.service';
 import { PasswordUtility } from '@/services/password.utility';
 import {
 	assertAuthenticationMethodCanBeEnabled,
@@ -72,6 +73,8 @@ export class LdapService implements IPasswordAuthHandler<User> {
 		private readonly cipher: Cipher,
 		private readonly eventService: EventService,
 		private readonly licenseState: LicenseState,
+		private readonly instanceSettings: InstanceSettings,
+		private readonly publisher: Publisher,
 	) {}
 
 	/** The configuration in use. `init` or `setConfig` sets it. */
@@ -143,6 +146,17 @@ export class LdapService implements IPasswordAuthHandler<User> {
 		this.client = undefined;
 		this.stopSync();
 		if (scheduleSync) this.scheduleSync();
+
+		// Fork: the other main instances load the new configuration, as for OIDC and SAML.
+		if (this.instanceSettings.isMultiMain) {
+			void this.publisher.publishCommand({ command: 'reload-ldap-config' });
+		}
+	}
+
+	/** Fork: another main instance changed the configuration. */
+	@OnPubSubEvent('reload-ldap-config', { instanceType: 'main' })
+	async reloadConfig() {
+		await this.init();
 	}
 
 	/** Uses a configuration without a check, and schedules its synchronization. */
@@ -285,7 +299,11 @@ export class LdapService implements IPasswordAuthHandler<User> {
 		await this.bindAdmin();
 	}
 
-	/** Runs the synchronization each interval of the configuration, in live mode. */
+	/**
+	 * Runs the synchronization each interval of the configuration, in live mode. Fork: each main
+	 * instance keeps the timer, as the original does, but only the leader of a multi-main setup runs
+	 * the synchronization when the timer fires. A new leader needs no takeover hook.
+	 */
 	scheduleSync() {
 		const minutes = this.config.synchronizationInterval;
 		// An interval of zero minutes or less would run the synchronization without a pause.
@@ -294,13 +312,23 @@ export class LdapService implements IPasswordAuthHandler<User> {
 			return;
 		}
 		this.syncTimer = setInterval(async () => {
-			await this.runSync('live');
+			if (this.instanceSettings.isFollower) return;
+			try {
+				await this.runSync('live');
+			} catch (error) {
+				this.logger.error('LDAP - The scheduled synchronization failed', { error });
+			}
 		}, minutes * 60_000);
 	}
 
 	stopSync() {
 		clearInterval(this.syncTimer);
 		this.syncTimer = undefined;
+	}
+
+	@OnShutdown()
+	stopSyncOnShutdown() {
+		this.stopSync();
 	}
 
 	/**

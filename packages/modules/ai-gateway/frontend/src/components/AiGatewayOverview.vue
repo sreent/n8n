@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { N8nHeading, N8nText } from '@n8n/design-system';
+import type { AiGatewayOverview, AiGatewayProjectSpend } from '@n8n/api-types';
+import { N8nDataTableServer, N8nHeading, N8nText, type TableHeader } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
 import { computed } from 'vue';
 
-import type { AiGatewayOverview } from '../ai-gateway.api';
+import { TABLE_PAGE_SIZES } from '../ai-gateway.constants';
 import { formatUsd, formatUtcDay } from '../ai-gateway.utils';
+import { useTablePage } from '../composables/useTablePage';
 
 const props = defineProps<{ overview: AiGatewayOverview }>();
 
@@ -59,6 +61,29 @@ const userLimit = computed(() =>
 const projects = computed(() =>
 	[...props.overview.projects].sort((a, b) => b.spentThisMonth - a.spentThisMonth),
 );
+
+const { page, itemsPerPage, pageItems } = useTablePage(projects);
+
+const headers = computed<Array<TableHeader<AiGatewayProjectSpend>>>(() => [
+	{
+		title: i18n.baseText('settings.forkAiGateway.overview.project'),
+		key: 'name',
+		disableSort: true,
+		minWidth: 200,
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.overview.projectBudget'),
+		key: 'monthlyBudget',
+		disableSort: true,
+		align: 'end',
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.overview.projectSpent'),
+		key: 'spentThisMonth',
+		disableSort: true,
+		align: 'end',
+	},
+]);
 </script>
 
 <template>
@@ -85,30 +110,33 @@ const projects = computed(() =>
 		<N8nText v-if="projects.length === 0" size="small" color="text-light">
 			{{ i18n.baseText('settings.forkAiGateway.overview.noProjects') }}
 		</N8nText>
-		<table v-else :class="$style.table" data-test-id="ai-gateway-overview-projects">
-			<thead>
-				<tr>
-					<th>{{ i18n.baseText('settings.forkAiGateway.overview.project') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.overview.projectBudget') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.overview.projectSpent') }}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="project in projects" :key="project.projectId">
-					<td :title="project.projectId">
-						{{ project.name ?? i18n.baseText('settings.forkAiGateway.overview.deletedProject') }}
-					</td>
-					<td>
-						{{
-							project.monthlyBudget === null
-								? i18n.baseText('settings.forkAiGateway.overview.noBudget')
-								: formatUsd(project.monthlyBudget)
-						}}
-					</td>
-					<td>{{ formatUsd(project.spentThisMonth, 4) }}</td>
-				</tr>
-			</tbody>
-		</table>
+		<N8nDataTableServer
+			v-else
+			v-model:page="page"
+			v-model:items-per-page="itemsPerPage"
+			:headers="headers"
+			:items="pageItems"
+			:items-length="projects.length"
+			:page-sizes="TABLE_PAGE_SIZES"
+			item-value="projectId"
+			data-test-id="ai-gateway-overview-projects"
+		>
+			<template #[`item.name`]="{ item }">
+				<span :title="item.projectId">
+					{{ item.name ?? i18n.baseText('settings.forkAiGateway.overview.deletedProject') }}
+				</span>
+			</template>
+			<template #[`item.monthlyBudget`]="{ item }">
+				{{
+					item.monthlyBudget === null
+						? i18n.baseText('settings.forkAiGateway.overview.noBudget')
+						: formatUsd(item.monthlyBudget)
+				}}
+			</template>
+			<template #[`item.spentThisMonth`]="{ item }">
+				{{ formatUsd(item.spentThisMonth, 4) }}
+			</template>
+		</N8nDataTableServer>
 		<N8nText v-if="overview.spentWithoutProject > 0" size="small" color="text-light">
 			{{
 				i18n.baseText('settings.forkAiGateway.overview.withoutProject', {
@@ -140,23 +168,5 @@ const projects = computed(() =>
 	border: var(--border);
 	border-radius: var(--radius--lg);
 	background-color: var(--color--background--light-3);
-}
-
-.table {
-	width: 100%;
-	border-collapse: collapse;
-
-	th,
-	td {
-		padding: var(--spacing--2xs) var(--spacing--xs);
-		border-bottom: var(--border);
-		text-align: left;
-		font-size: var(--font-size--sm);
-	}
-
-	th {
-		color: var(--color--text--tint-1);
-		font-weight: var(--font-weight--bold);
-	}
 }
 </style>

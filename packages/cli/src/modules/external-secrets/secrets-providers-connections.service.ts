@@ -4,8 +4,8 @@ import type {
 } from '@n8n/api-types';
 import { EventService } from '@n8n/backend-services';
 import {
-	ExternalSecretsConnectionRepository,
-	ExternalSecretsProjectAccessRepository,
+	SecretsProviderConnectionRepository,
+	ProjectSecretsProviderAccessRepository,
 	ProjectRelationRepository,
 	type SecretsProviderAccessRole,
 	type SecretsProviderConnection,
@@ -46,8 +46,8 @@ const OWNER_ROLE: SecretsProviderAccessRole = 'secretsProviderConnection:owner';
 export class SecretsProvidersConnectionsService {
 	constructor(
 		private readonly config: ExternalSecretsConfig,
-		private readonly connectionRepository: ExternalSecretsConnectionRepository,
-		private readonly accessRepository: ExternalSecretsProjectAccessRepository,
+		private readonly connectionRepository: SecretsProviderConnectionRepository,
+		private readonly accessRepository: ProjectSecretsProviderAccessRepository,
 		private readonly projectRelationRepository: ProjectRelationRepository,
 		private readonly connectionManager: ExternalSecretsProviderConnectionManager,
 		private readonly registry: ExternalSecretsProviderRegistry,

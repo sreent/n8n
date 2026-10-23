@@ -28,7 +28,11 @@ import type { Response } from 'express';
 import { WorkflowInventoryService } from '@/governance/workflow-inventory.service';
 
 import { assertOffsetPage } from '../shared/services/offset-page';
-import { encodeNextCursor, resolveOffsetPagination } from '../shared/services/pagination.service';
+import {
+	encodeNextCursor,
+	paginateArray,
+	resolveOffsetPagination,
+} from '../shared/services/pagination.service';
 
 @PublicApiController('/inventory')
 export class InventoryPublicController {
@@ -98,9 +102,6 @@ export class InventoryPublicController {
 			projectId: query.projectId,
 		});
 
-		return {
-			data: items.slice(offset, offset + limit),
-			nextCursor: encodeNextCursor({ offset, limit, numberOfTotalRecords: items.length }),
-		};
+		return paginateArray(items, { offset, limit });
 	}
 }

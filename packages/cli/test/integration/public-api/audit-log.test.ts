@@ -18,6 +18,7 @@ vi.unmock('@/eventbus/message-event-bus/message-event-bus');
 
 const testServer = utils.setupTestServer({
 	endpointGroups: ['publicApi'],
+	enabledFeatures: ['feat:logStreaming'],
 	modules: ['audit-log'],
 });
 
@@ -207,6 +208,16 @@ describe('GET /audit-log/events', () => {
 		vi.spyOn(Container.get(ModuleRegistry), 'isActive').mockReturnValue(false);
 
 		await testServer.publicApiAgentFor(owner).get('/audit-log/events').expect(503);
+	});
+
+	test('returns 403 without the licence value of the module', async () => {
+		testServer.license.disable('feat:logStreaming');
+		try {
+			await testServer.publicApiAgentFor(owner).get('/audit-log/events').expect(403);
+			await testServer.publicApiAgentFor(owner).get('/audit-log/export').expect(403);
+		} finally {
+			testServer.license.enable('feat:logStreaming');
+		}
 	});
 });
 

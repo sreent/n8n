@@ -4,7 +4,7 @@ import type { CredentialsEntity, ICredentialsDb } from '@n8n/db';
 import {
 	CredentialsRepository,
 	isEntityNotFoundError,
-	ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository,
+	SecretsProviderConnectionRepository,
 } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { Credentials, FULL_ACCESS_NODE_TYPES, getAdditionalKeys } from 'n8n-core';

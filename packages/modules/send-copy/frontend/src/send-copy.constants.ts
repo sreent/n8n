@@ -7,8 +7,8 @@ export const SEND_COPY_MODAL_KEY = 'sendCopy';
 /** ID of the "Send a copy" item in the workflow menus of the shell. */
 export const SEND_COPY_ACTION_ID = 'send-copy';
 
-/** Maximum number of recipients in one send request. The backend uses the same limit. */
-export const SEND_COPY_MAX_RECIPIENTS = 20;
-
 /** Number of colleagues that one search shows. */
 export const SEND_COPY_SEARCH_LIMIT = 20;
+
+/** The global scope that the search for recipients needs (`GET /rest/send-copy/recipients`). */
+export const SEND_COPY_RECIPIENTS_SCOPE = 'user:list';

@@ -21,6 +21,12 @@ import { canvasEventBus } from '@/features/workflows/canvas/canvas.eventBus';
 
 import { useOpenTriggerFixes } from './useOpenTriggerFixes';
 
+const getPublishViolations = vi.fn();
+vi.mock('@n8n/frontend-module-open-triggers', async (importOriginal) => ({
+	...(await importOriginal<object>()),
+	getPublishViolations: async (...args: unknown[]) => await getPublishViolations(...args),
+}));
+
 const violation = (subject: string, kind = 'open-trigger'): PolicyViolation => ({
 	kind,
 	checkId: kind === 'open-trigger' ? 'open-triggers' : 'node-type-availability',
@@ -199,8 +205,53 @@ describe('useOpenTriggerFixes', () => {
 
 		it('refuses a node that is not on the canvas', async () => {
 			await expect(useOpenTriggerFixes().applyFix('w1', 'gone', 'signIn')).rejects.toThrow(
-				'The node is not on the canvas any more.',
+				"The node isn't on the canvas anymore.",
 			);
+		});
+	});
+
+	describe('checkBeforePublish', () => {
+		const turnOnCheck = (needApproval: boolean) => {
+			const settingsStore = useSettingsStore();
+			settingsStore.$patch({
+				settings: { activeModules: ['open-triggers'] },
+				moduleSettings: { 'open-triggers': { needApproval, publicChatDisabled: false } },
+			});
+		};
+
+		afterEach(() => {
+			getPublishViolations.mockReset();
+		});
+
+		it('opens the modal of the fixes before the dialogs of a publish', async () => {
+			turnOnCheck(true);
+			getPublishViolations.mockResolvedValue([violation('hook')]);
+
+			expect(await useOpenTriggerFixes().checkBeforePublish('w1')).toBe(true);
+			expect(getPublishViolations).toHaveBeenCalledWith(expect.anything(), 'w1');
+			expect(useUIStore().isModalActiveById[OPEN_TRIGGER_FIXES_MODAL_KEY]).toBe(true);
+		});
+
+		it('lets the publish go on without open triggers', async () => {
+			turnOnCheck(true);
+			getPublishViolations.mockResolvedValue([]);
+
+			expect(await useOpenTriggerFixes().checkBeforePublish('w1')).toBe(false);
+			expect(useUIStore().isModalActiveById[OPEN_TRIGGER_FIXES_MODAL_KEY]).toBeFalsy();
+		});
+
+		it('asks nothing while the check is off', async () => {
+			turnOnCheck(false);
+
+			expect(await useOpenTriggerFixes().checkBeforePublish('w1')).toBe(false);
+			expect(getPublishViolations).not.toHaveBeenCalled();
+		});
+
+		it('lets the publish go on when the request fails, because the publish checks again', async () => {
+			turnOnCheck(true);
+			getPublishViolations.mockRejectedValue(new Error('Network error'));
+
+			expect(await useOpenTriggerFixes().checkBeforePublish('w1')).toBe(false);
 		});
 	});
 

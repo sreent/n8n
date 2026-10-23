@@ -148,13 +148,13 @@ async function run() {
 			<div :class="$style.actions">
 				<N8nButton
 					v-if="!isNewCase"
-					type="secondary"
+					variant="subtle"
 					size="small"
 					data-test-id="tests-detail-create-case"
 					@click="panel.openCreate()"
 					>{{ i18n.baseText('evaluations.tests.results.createCase') }}</N8nButton
 				>
-				<N8nButton type="primary" size="small" data-test-id="tests-detail-run" @click="run">{{
+				<N8nButton variant="solid" size="small" data-test-id="tests-detail-run" @click="run">{{
 					i18n.baseText('evaluations.tests.detail.run')
 				}}</N8nButton>
 			</div>

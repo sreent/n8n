@@ -16,6 +16,11 @@ and the platform setup tool.
 The owner accepted a second exception on 2026-10-21: four more deployment options in `deploy/`,
 next to the VM. They are Google Cloud Run, Amazon ECS, Azure Container Apps and Kubernetes.
 
+The owner accepted the uniformity fixes on 2026-10-23. Core n8n, the rebuilt enterprise features
+and the features of the fork must work as one product: the same tech stack, architecture,
+patterns, design system, copy and user experience. The fixes close the gaps that an audit found.
+`deploy/` also stops the telemetry, the "What's new" notes and the update notices of n8n.
+
 a7c is a new product in `sreent/a7c`. Other companies will use it, so it contains no n8n code.
 The licence of n8n allows changes for internal business use only (`LICENSE.md`).
 
@@ -49,8 +54,8 @@ The licence of n8n allows changes for internal business use only (`LICENSE.md`).
   n8n Cloud for Gateway credits. Users run AI nodes without an API key of their own. The gateway
   calls the provider (or Azure OpenAI or Vertex AI) with a credential of an admin, records the
   cost of each call and stops the calls when a budget is spent. The frontend module
-  `packages/modules/ai-gateway/frontend` adds the page Settings > AI gateway. Their READMEs
-  describe them.
+  `packages/modules/ai-gateway/frontend` adds the page Settings > Gateway credits admin. Their
+  READMEs describe them.
 - **Open triggers**: the backend module `packages/cli/src/modules/open-triggers` finds the
   webhooks, forms, public chats and MCP servers without authentication. With
   `N8N_OPEN_TRIGGERS_NEED_APPROVAL=true`, a publish stops for a new open trigger until a workflow
@@ -210,7 +215,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    instances and worker pools also need `N8N_MULTI_MAIN_SETUP_ENABLED=true` and
    `N8N_WORKER_POOLS_ENABLED=true`, as in upstream n8n. On 2026-10-15 the owner added the AI gateway
    (Gateway credits) to the list. Without a credential of a provider and without the switch on the
-   page Settings > AI gateway, the gateway stays off.
+   page Settings > Gateway credits admin, the gateway stays off. On 2026-10-23 the owner added log streaming
+   and the audit log (`feat:logStreaming`): they stay on by default, and the switch turns them off
+   with the other rebuilt features.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.
@@ -223,6 +230,10 @@ update can bring new enterprise files: see "Upstream updates".
 
 - **No new features.** Do not add fork features (see "Feature freeze"). Put new work in a7c. Do
   not copy code from this fork into a7c.
+- **Uniformity.** Build fork code as core n8n builds its code: the same stack, module
+  architecture, patterns, design system and copy rules (`AGENTS.md`, the module guides and
+  `.agents/skills`). When a safety default of the fork changes a core flow, the editor tells the
+  user why and offers the fix at that place.
 - **Clean room.** Do not open, read, edit, copy or search the contents of enterprise files
   (`*.ee.*` files and `*.ee/` folders), also not their build output in `dist/`, the Git history
   or upstream. Exclude them from searches, for example
@@ -346,12 +357,23 @@ update can bring new enterprise files: see "Upstream updates".
   paths of the fork module, as `packages/cli/src/modules/source-control/README.md` tells.
 - When an upstream update changes the public API controller
   `packages/cli/src/public-api/v1/controllers/promotions.public.controller.ts`, keep the import
-  paths of the fork module, as `packages/cli/src/modules/promotions/README.md` tells.
+  paths of the fork module and the user arguments of the audit events, as
+  `packages/cli/src/modules/promotions/README.md` tells.
+- When an upstream update changes the pubsub commands (`pubsub-metadata.ts` of `@n8n/decorators`,
+  and `pubsub.event-map.ts` and `pubsub.types.ts` of `packages/cli/src/scaling/pubsub`), keep the
+  fork command `reload-ldap-config`, as
+  [packages/cli/src/modules/ldap/README.md](packages/cli/src/modules/ldap/README.md) tells.
+- When an upstream update changes `packages/cli/src/server.ts`, the list `eventNamesAudit` of
+  `packages/cli/src/eventbus/event-message-classes/index.ts` or the type `RelayEventMap`, keep the
+  fork lines of the governance audit events (`ForkGovernanceEventRelay`), as
+  [packages/cli/src/modules/audit-log/README.md](packages/cli/src/modules/audit-log/README.md)
+  tells.
 - When an upstream update changes `packages/cli/src/services/ai-gateway.service.ts`,
-  `packages/cli/src/services/frontend.service.ts` or
-  `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`, keep the fork lines of the
-  AI gateway. When it changes the protocol of the gateway or adds a provider to Gateway credits,
-  change the fork module, as
+  `packages/cli/src/services/frontend.service.ts`,
+  `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts` or
+  `packages/frontend/editor-ui/src/features/ai/gateway/components/AiGatewayTopUpModal.vue`, keep the
+  fork lines of the AI gateway. When it changes the protocol of the gateway or adds a provider to
+  Gateway credits, change the fork module, as
   [packages/cli/src/modules/ai-gateway/README.md](packages/cli/src/modules/ai-gateway/README.md)
   tells.
 - When an upstream update changes the lists of `packages/nodes-base/package.json`, keep the two
@@ -386,9 +408,10 @@ update can bring new enterprise files: see "Upstream updates".
   [packages/cli/src/instance-settings-loader/FORK.md](packages/cli/src/instance-settings-loader/FORK.md)
   tells.
 - When an upstream update changes `packages/frontend/editor-ui/src/app/composables/useWorkflowActivate.ts`,
-  `src/app/capabilities.manifest.ts`, `src/app/event-bus/node-view.ts` or
-  `src/app/components/MainHeader/WorkflowHeaderDraftPublishActions.vue` of editor-ui, keep the fork
-  lines of the open-trigger fixes, as
+  `src/app/capabilities.manifest.ts`, `src/app/event-bus/node-view.ts`,
+  `src/app/components/MainHeader/WorkflowHeaderDraftPublishActions.vue` or
+  `src/features/ndv/panel/components/TriggerPanel.vue` of editor-ui, keep the fork lines of the
+  open-trigger fixes, the check before the dialogs of a publish and the notice of a test URL, as
   [packages/modules/open-triggers/frontend/README.md](packages/modules/open-triggers/frontend/README.md)
   tells. When it changes the authentication options of the Webhook, Form Trigger, Chat Trigger or
   MCP Server Trigger node, change `open-trigger.detector.ts` of the open-triggers module. When it

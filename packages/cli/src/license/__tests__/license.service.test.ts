@@ -3,6 +3,7 @@ import type { WorkflowRepository } from '@n8n/db';
 import type { TEntitlement } from '@n8n_io/license-sdk';
 import { mock } from 'vitest-mock-extended';
 
+import type { ForkFeaturesConfig } from '@/fork-features';
 import type { License } from '@/license';
 import { LicenseService } from '@/license/license.service';
 
@@ -12,7 +13,13 @@ describe('LicenseService', () => {
 	const workflowRepository = mock<WorkflowRepository>();
 	const entitlement = mock<TEntitlement>({ productId: '123' });
 	// Fork: the service only reads the licence data (packages/cli/src/license/FORK.md).
-	const licenseService = new LicenseService(license, licenseState, workflowRepository);
+	const forkFeaturesConfig = mock<ForkFeaturesConfig>({ enabled: true });
+	const licenseService = new LicenseService(
+		license,
+		licenseState,
+		workflowRepository,
+		forkFeaturesConfig,
+	);
 
 	license.getMainPlan.mockReturnValue(entitlement);
 	license.getTriggerLimit.mockReturnValue(400);
@@ -41,6 +48,7 @@ describe('LicenseService', () => {
 				license: {
 					planId: '123',
 					planName: 'Test Plan',
+					forkFeaturesEnabled: true,
 				},
 			});
 		});

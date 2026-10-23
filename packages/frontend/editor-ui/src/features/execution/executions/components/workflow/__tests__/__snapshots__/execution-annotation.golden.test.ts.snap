@@ -217,7 +217,7 @@ exports[`WorkflowExecutionAnnotationTags > shows a toast when the save fails 1`]
       "showError",
       [
         "<Error save failed>",
-        "executionAnnotationView.tag.error",
+        "Unable to save annotation tags",
       ],
     ],
   ],

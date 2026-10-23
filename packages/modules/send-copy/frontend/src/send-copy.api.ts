@@ -1,19 +1,6 @@
+import type { CopyRecipient, SendWorkflowCopyResponse } from '@n8n/api-types';
 import type { IRestApiContext } from '@n8n/rest-api-client';
 import { makeRestApiRequest } from '@n8n/rest-api-client';
-
-/** A colleague who can receive a copy. */
-export interface CopyRecipient {
-	id: string;
-	firstName: string | null;
-	lastName: string | null;
-	email: string;
-}
-
-export type SendCopyFailureReason = 'self' | 'not-found' | 'not-eligible' | 'error';
-
-export type SendCopyResult =
-	| { recipientId: string; status: 'sent'; workflowId: string; workflowName: string }
-	| { recipientId: string; status: 'failed'; reason: SendCopyFailureReason; message?: string };
 
 export async function getCopyRecipients(
 	context: IRestApiContext,
@@ -26,7 +13,7 @@ export async function sendWorkflowCopy(
 	context: IRestApiContext,
 	workflowId: string,
 	recipientIds: string[],
-): Promise<{ results: SendCopyResult[] }> {
+): Promise<SendWorkflowCopyResponse> {
 	return await makeRestApiRequest(
 		context,
 		'POST',

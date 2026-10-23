@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import type { AuditLogEventResponse } from '@n8n/api-types';
 import { N8nDialog, N8nText } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
 import { computed } from 'vue';
 
-import type { AuditLogEvent } from '../audit-log.api';
 import { formatTimestamp, useProjectTypeLabel } from '../audit-log.utils';
 
 const props = defineProps<{
 	/** The event to show. The dialog is closed when there is none. */
-	event: AuditLogEvent | null;
+	event: AuditLogEventResponse | null;
 	locale?: string;
 }>();
 

@@ -1,4 +1,5 @@
 import type { WorkflowReviewRequestForWorkflow } from '@n8n/api-types';
+import type { Scope } from '@n8n/permissions';
 
 import { createComponentRenderer } from '@/__tests__/render';
 import { type MockedStore, mockedStore } from '@/__tests__/utils';
@@ -19,7 +20,10 @@ import { STORES } from '@n8n/stores';
 import type { INodeUi } from '@/Interface';
 import type { IUsedCredential } from '@/features/credentials/credentials.types';
 import { ProjectTypes } from '@/features/collaboration/projects/projects.types';
-import { createTestProject } from '@/features/collaboration/projects/__tests__/utils';
+import {
+	createProjectListItem,
+	createTestProject,
+} from '@/features/collaboration/projects/__tests__/utils';
 import {
 	useWorkflowDocumentStore,
 	createWorkflowDocumentId,
@@ -42,6 +46,14 @@ import {
 	updateWorkflowReviewRequestVersion,
 } from '@/features/workflow-reviews/workflowReviews.api';
 import { ResponseError } from '@n8n/rest-api-client';
+
+// Fork: the check of open triggers before the dialogs of a publish.
+const { mockCheckBeforePublish } = vi.hoisted(() => ({
+	mockCheckBeforePublish: vi.fn().mockResolvedValue(false),
+}));
+vi.mock('@/app/composables/useOpenTriggerFixes', () => ({
+	useOpenTriggerFixes: () => ({ checkBeforePublish: mockCheckBeforePublish }),
+}));
 
 // Hoisted: the vue-router mock factory runs before module-level consts initialize
 const { mockRouterPush, mockRouterResolve } = vi.hoisted(() => ({
@@ -475,6 +487,24 @@ describe('WorkflowHeaderDraftPublishActions', () => {
 
 			expect(mockSaveCurrentWorkflow).toHaveBeenCalledWith({}, true);
 			expect(openModalSpy).toHaveBeenCalledWith({
+				name: WORKFLOW_PUBLISH_MODAL_KEY,
+				data: {},
+			});
+		});
+
+		// Fork: the modal of the open-trigger fixes comes before the publish modal.
+		it('should not open the publish modal when the check of open triggers shows its fixes', async () => {
+			mockCheckBeforePublish.mockResolvedValueOnce(true);
+			const openModalSpy = vi.spyOn(uiStore, 'openModalWithData');
+			uiStore.markStateClean();
+			setupEnabledPublishButton();
+
+			const { getByTestId } = renderComponent();
+
+			await userEvent.click(getByTestId('workflow-open-publish-modal-button'));
+
+			expect(mockCheckBeforePublish).toHaveBeenCalledWith(defaultWorkflowProps.id);
+			expect(openModalSpy).not.toHaveBeenCalledWith({
 				name: WORKFLOW_PUBLISH_MODAL_KEY,
 				data: {},
 			});
@@ -1095,12 +1125,18 @@ describe('WorkflowHeaderDraftPublishActions', () => {
 		};
 		const moveButton = 'workflow-move-to-team-project-button';
 
+		const teamProject = (scopes: Scope[]) => ({
+			...createProjectListItem(ProjectTypes.Team),
+			scopes,
+		});
+
 		beforeEach(() => {
 			projectsStore.currentProject = createTestProject({
 				id: 'personal-project-id',
 				type: ProjectTypes.Personal,
 			});
 			projectsStore.isTeamProjectFeatureEnabled = true;
+			projectsStore.myProjects = [teamProject(['workflow:create'])];
 		});
 
 		it('should ask the header menu to move the workflow', async () => {
@@ -1157,6 +1193,23 @@ describe('WorkflowHeaderDraftPublishActions', () => {
 			});
 
 			expect(queryByTestId(moveButton)).not.toBeInTheDocument();
+		});
+
+		it.each<[string, Scope[][]]>([
+			['no team project', []],
+			['only team projects that cannot take a workflow', [['workflow:read']]],
+		])('should ask the user to ask an admin when the user has %s', (_label, projectScopes) => {
+			projectsStore.myProjects = projectScopes.map(teamProject);
+			const { queryByTestId, getByText } = renderComponent({
+				props: { ...defaultWorkflowProps, workflowPermissions: blockedPermissions },
+			});
+
+			expect(queryByTestId(moveButton)).not.toBeInTheDocument();
+			expect(
+				getByText(
+					"Workflow publishing is disabled in personal spaces, and you're not in a team project that can take this workflow. Ask an admin to add you to one.",
+				),
+			).toBeInTheDocument();
 		});
 	});
 

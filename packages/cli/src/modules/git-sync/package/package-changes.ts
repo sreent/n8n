@@ -1,6 +1,7 @@
+import type { GitSyncWorkflowChange } from '@n8n/api-types';
 import { jsonParse } from 'n8n-workflow';
 
-import type { GitSyncWorkflowChange, PublishState, WorkflowBaseline } from '../git-sync.types';
+import type { PublishState, WorkflowBaseline } from '../git-sync.types';
 import {
 	WORKFLOW_FILE_NAME,
 	WORKFLOW_METADATA_FILE_NAME,

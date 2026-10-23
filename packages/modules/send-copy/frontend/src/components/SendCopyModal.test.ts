@@ -1,10 +1,10 @@
 import { capabilityRegistry } from '@n8n/frontend-module-sdk';
+import type { CopyRecipient } from '@n8n/api-types';
 import { createComponentRenderer } from '@n8n/frontend-test-utils';
 import { createTestingPinia } from '@pinia/testing';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/vue';
 
-import type { CopyRecipient } from '../send-copy.api';
 import { sendCopyModalCloser } from '../send-copy.capabilities';
 import SendCopyModal from './SendCopyModal.vue';
 
@@ -93,6 +93,21 @@ describe('SendCopyModal', () => {
 		expect(await screen.findByTestId('send-copy-modal')).toBeInTheDocument();
 	});
 
+	it('labels the search for colleagues', async () => {
+		render();
+
+		const select = await screen.findByTestId('send-copy-recipient-select');
+		expect(screen.getByLabelText('Send to')).toBe(select.querySelector('input'));
+	});
+
+	it('tells what the copy includes and what it leaves out', async () => {
+		render();
+
+		const contents = await screen.findByTestId('send-copy-contents');
+		expect(contents).toHaveTextContent('The copy includes the values typed into node parameters');
+		expect(contents).toHaveTextContent("The copy doesn't include credentials, pinned data");
+	});
+
 	it('disables Send until a colleague is selected', async () => {
 		render();
 
@@ -147,7 +162,7 @@ describe('SendCopyModal', () => {
 			expect(showMessage).toHaveBeenCalledWith(
 				expect.objectContaining({
 					type: 'error',
-					message: 'carol@example.com: the user cannot receive copies',
+					message: "carol@example.com: the user can't receive copies",
 					dangerouslyUseHTMLString: false,
 				}),
 			),
@@ -163,7 +178,7 @@ describe('SendCopyModal', () => {
 
 		await userEvent.click(screen.getByTestId('send-copy-submit'));
 
-		await waitFor(() => expect(showError).toHaveBeenCalledWith(error, 'Could not send the copy'));
+		await waitFor(() => expect(showError).toHaveBeenCalledWith(error, "Couldn't send the copy"));
 		expect(closeModal).not.toHaveBeenCalled();
 	});
 

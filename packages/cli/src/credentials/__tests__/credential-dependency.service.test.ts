@@ -1,7 +1,4 @@
-import type {
-	CredentialDependencyRepository,
-	ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository,
-} from '@n8n/db';
+import type { CredentialDependencyRepository, SecretsProviderConnectionRepository } from '@n8n/db';
 import { In } from '@n8n/typeorm';
 import type { EntityManager } from '@n8n/typeorm';
 import { mock } from 'vitest-mock-extended';

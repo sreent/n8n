@@ -1,81 +1,19 @@
+import type {
+	GitSyncConnectionTestResult,
+	GitSyncProjectOption,
+	GitSyncPullResult,
+	GitSyncPushResult,
+	GitSyncSettingsResponse,
+	GitSyncStatus,
+} from '@n8n/api-types';
 import type { IRestApiContext } from '@n8n/rest-api-client';
 import { makeRestApiRequest } from '@n8n/rest-api-client';
 
-export type CredentialMatchingMode = 'name-and-type' | 'id-only';
-
-/** The connection fields of the settings form. */
-export interface GitSyncSettingsForm {
-	repositoryUrl: string;
-	branch: string;
-	directory: string;
-	projectId: string;
-	username: string;
-	/** The blanking value keeps the stored token. An empty value removes it. */
-	accessToken: string;
-	authorName: string;
-	authorEmail: string;
-	credentialMatchingMode: CredentialMatchingMode;
-}
-
-export interface GitSyncSettings extends GitSyncSettingsForm {
-	projectName: string | null;
-}
-
-export interface GitSyncConnectionTestResult {
-	defaultBranch: string | null;
-	branchExists: boolean;
-	branchHead: string | null;
-}
-
-export interface GitSyncProjectOption {
-	id: string;
-	name: string;
-	type: string;
-}
-
-export interface GitSyncWorkflowChange {
-	id: string;
-	name: string;
-	change: 'created' | 'modified' | 'deleted';
-}
-
-export interface GitSyncStatus {
-	branch: string;
-	remoteHead: string | null;
-	lastSyncedCommit: string | null;
-	remoteChanged: boolean;
-	outgoing: GitSyncWorkflowChange[];
-	incoming: GitSyncWorkflowChange[];
-	conflicts: GitSyncWorkflowChange[];
-	lastPush: { at: string; userId: string; commit: string; message: string } | null;
-	lastPull: {
-		at: string;
-		userId: string;
-		commit: string;
-		created: number;
-		updated: number;
-		skipped: number;
-	} | null;
-}
-
-export type GitSyncPushResult =
-	| { result: 'up-to-date'; commit: string | null }
-	| { result: 'pushed'; commit: string; changedFiles: number };
-
-export type GitSyncPullResult =
-	| { result: 'no-remote-branch' }
-	| { result: 'no-package'; commit: string }
-	| { result: 'up-to-date'; commit: string; removedUpstream: GitSyncWorkflowChange[] }
-	| {
-			result: 'pulled';
-			commit: string;
-			created: string[];
-			updated: string[];
-			skipped: string[];
-			stubbedCredentials: string[];
-			publishingBlocked: string[];
-			removedUpstream: GitSyncWorkflowChange[];
-	  };
+/**
+ * The connection fields of the settings form. The blanking value of `accessToken` keeps the stored
+ * token. An empty value removes it.
+ */
+export type GitSyncSettingsForm = Omit<GitSyncSettingsResponse, 'projectName'>;
 
 /** Fields the form may leave empty. The backend fills in the defaults. */
 const toRequestBody = (form: GitSyncSettingsForm) => ({
@@ -85,14 +23,14 @@ const toRequestBody = (form: GitSyncSettingsForm) => ({
 
 export async function getGitSyncSettings(
 	context: IRestApiContext,
-): Promise<GitSyncSettings | null> {
+): Promise<GitSyncSettingsResponse | null> {
 	return await makeRestApiRequest(context, 'GET', '/git-sync/settings');
 }
 
 export async function saveGitSyncSettings(
 	context: IRestApiContext,
 	form: GitSyncSettingsForm,
-): Promise<GitSyncSettings> {
+): Promise<GitSyncSettingsResponse> {
 	return await makeRestApiRequest(context, 'PUT', '/git-sync/settings', toRequestBody(form));
 }
 

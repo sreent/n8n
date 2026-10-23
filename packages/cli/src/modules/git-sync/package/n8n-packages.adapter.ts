@@ -1,3 +1,4 @@
+import { GIT_SYNC_ERROR_CODES, type GitSyncCredentialMatchingMode } from '@n8n/api-types';
 import type { User } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { jsonParse } from 'n8n-workflow';
@@ -40,9 +41,7 @@ import {
 } from '@/modules/n8n-packages/spec/manifest.schema';
 import { WorkflowFinderService } from '@/workflows/workflow-finder.service';
 
-import { GIT_SYNC_ERROR_CODES } from '../git-sync.constants';
 import { GitSyncError } from '../git-sync.errors';
-import type { GitSyncCredentialMatchingMode } from '../git-sync.types';
 import type { PackageFile } from './package-changes';
 import {
 	MANAGED_PACKAGE_ENTRIES,

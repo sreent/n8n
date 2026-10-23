@@ -1608,6 +1608,8 @@ describe('LDAP', () => {
 			'as the leader: PUT with the login off and the synchronization off',
 			async () => await put({ ...CONFIG, loginEnabled: false }),
 		);
+		// Fork: the timer logs a failed run, where the original lets the error escape. See
+		// "Differences from the original" in the README of the module.
 		await step('as the leader: the timer fires with a failed search', async () => {
 			await put({ ...CONFIG, synchronizationEnabled: true, synchronizationInterval: 8 });
 			ldap.failures.set('search', 'refused');
@@ -1620,12 +1622,15 @@ describe('LDAP', () => {
 		});
 		ldap.failures.clear();
 		await step('as the leader: stopSync', async () => service().stopSync());
+		// Fork: a follower starts the timer, as the original does, but skips the run when the timer
+		// fires. See "Differences from the original" in the README of the module.
 		instanceSettings.markAsFollower();
 		await step(
 			'as a follower: PUT with the synchronization on',
 			async () =>
 				await put({ ...CONFIG, synchronizationEnabled: true, synchronizationInterval: 9 }),
 		);
+		await step('as a follower: the timer fires', async () => await fireTimer(540_000));
 		await step('as a follower: init', async () => await service().init());
 		await step('as a follower: stopSync', async () => service().stopSync());
 		expect(transcript).toMatchSnapshot();

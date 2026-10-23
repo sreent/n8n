@@ -40,7 +40,7 @@ describe('AiGatewayModule', () => {
 		grant(['aiAssistant:manage']);
 
 		expect(settingsPage()).toMatchObject({
-			label: 'AI gateway',
+			label: 'Gateway credits admin',
 			route: { to: { name: AI_GATEWAY_ADMIN_VIEW } },
 			available: true,
 		});

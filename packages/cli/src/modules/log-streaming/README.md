@@ -6,8 +6,10 @@ page **Settings > Log streaming**, in the REST API and in the public API. The se
 `packages/frontend/editor-ui/src/features/integrations/logStreaming`. Its FORK.md describes it.
 
 The repository owner chose this on 2026-10-11: the fork builds an audit log and a new log
-streaming, and both are on by default, without a licence check. The audit log is the module
-`audit-log`.
+streaming, and both are on by default. The audit log is the module `audit-log`. On 2026-10-23 the
+owner put both under the fork switch: the modules start with the licence value
+`feat:logStreaming`, which `N8N_FORK_FEATURES_ENABLED` gives, so the switch turns them off with the
+other rebuilt features.
 
 This module does not use enterprise code. It replaces the enterprise module `log-streaming.ee`,
 which the fork removed. It uses the ordinary table `event_destinations`, the ordinary types of the
@@ -149,6 +151,9 @@ role can have it.
   until the body sets `enabled` to `true`. The id of a destination is a UUID.
 - The test ignores `enabled`, the subscriptions and the circuit breaker.
 - When the environment manages the destinations, `POST` and `DELETE` answer with the status 409.
+- Each added, changed or deleted destination sends an audit event
+  (`n8n.audit.log-streaming.destination.*`) with the user, the id, the kind, the label and the
+  switch. The event has no URL and no credential.
 - The test sends the data of the credential of the destination. Thus the user must have the scope
   `credential:read` on the credential.
 
@@ -177,8 +182,9 @@ files of upstream.
   the fields that the public API does not show.
 - When the environment manages the destinations, `POST`, `PUT` and `DELETE` answer with the status
   409.
-- The fork needs no licence for these routes, although the upstream OpenAPI text tells so. While
-  the module is off, the routes answer with the status 403.
+- As in upstream n8n, the routes need the licence value `feat:logStreaming`, which the fork switch
+  gives (`packages/cli/src/fork-features.ts`). Without it, they answer with the status 403. While
+  the module is off, they answer with the status 503, as the promotions routes of n8n do.
 
 ## Limits
 

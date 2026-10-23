@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import type { GitSyncWorkflowChange } from '@n8n/api-types';
 import { N8nBadge, N8nText } from '@n8n/design-system';
 import type { BadgeVariant } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
-
-import type { GitSyncWorkflowChange } from '../git-sync.api';
 
 defineProps<{
 	title: string;

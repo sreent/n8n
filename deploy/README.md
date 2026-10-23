@@ -42,6 +42,8 @@ values of the chart. This file gives the names of `.env`. This table gives the n
 | `FORK_FEATURES_ENABLED` | `N8N_FORK_FEATURES_ENABLED` |
 | `NON_PRODUCTION_BANNER` | `N8N_FORK_NON_PRODUCTION_BANNER` |
 | `WORKFLOW_HISTORY_PRUNE_TIME` | `N8N_WORKFLOW_HISTORY_PRUNE_TIME` |
+| `TELEMETRY` | `N8N_DIAGNOSTICS_ENABLED` |
+| `UPDATE_NOTICES` | `N8N_VERSION_NOTIFICATIONS_ENABLED` and `N8N_VERSION_NOTIFICATIONS_WHATS_NEW_ENABLED`, both with the same value |
 | `SSRF_PROTECTION` | `N8N_SSRF_PROTECTION_ENABLED` |
 | `SSRF_ALLOWED_HOSTNAMES` | `N8N_SSRF_ALLOWED_HOSTNAMES` |
 | `SSRF_ALLOWED_IP_RANGES` | `N8N_SSRF_ALLOWED_IP_RANGES`. Keep `127.0.0.1/32` in it for the AI gateway. |
@@ -229,8 +231,8 @@ Gemini, Ollama and other providers) without an API key of their own. To set it u
    and the open models of Vertex AI (for example Llama and DeepSeek) through Vertex AI. The fork
    node Google Cloud OCR reads text with the Cloud Vision API and Document AI through the gateway
    too.
-2. Opens **Settings > AI gateway**, picks the credential of each provider, sets the monthly
-   budget, and turns on the gateway.
+2. Opens **Settings > Gateway credits admin**, picks the credential of each provider, sets the
+   monthly budget, and turns on the gateway.
 
 Users then pick **Use Gateway credits** on a supported node. The gateway records the cost of each
 call and stops the calls when a budget is spent. An admin adds top-ups and sets the prices on the
@@ -272,6 +274,7 @@ defaults. Each line of `.env.example` tells how to change one of them.
 | No publishing and sharing from personal spaces | Users can build and run workflows in their personal spaces, with their own credentials. To publish or share a workflow, or to use the credentials of a team, they work in a team project: build there from the start, or use **Move to a team project** next to the Publish button. The owner and the admins are not limited. | `PERSONAL_SPACE_PUBLISHING`, `PERSONAL_SPACE_SHARING` |
 | Workflow reviews on | A user can send a workflow version to a reviewer. The approval publishes it. | `WORKFLOW_REVIEWS` |
 | Open triggers need an approval | A new webhook, form, public chat or MCP server without authentication does not publish. The editor offers a one-click fix (a token, or n8n sign-in) and **Request approval**. The triggers that are published now keep running. The test URL of such a trigger takes calls only from n8n users who may run the workflow: a builder tests in the browser as before, and a call from another system needs the token of the trigger. | `OPEN_TRIGGERS_NEED_APPROVAL` |
+| No usage data to n8n.io | n8n sends no telemetry and asks users for no feedback. The editor shows no "What's new" notes and no update notices of n8n, because the fork gets its updates from its own repository. The templates of n8n stay available. | `TELEMETRY`, `UPDATE_NOTICES` |
 | Limits for webhooks and forms | None until you set the IP ranges. Then other addresses get 403 for webhooks, chats and MCP servers, or for forms. | `WEBHOOK_ALLOWED_RANGES`, `FORM_ALLOWED_RANGES` |
 
 - **Open the internal services before users start.** SSRF protection stops the calls to private

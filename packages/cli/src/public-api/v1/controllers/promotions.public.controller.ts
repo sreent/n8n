@@ -93,11 +93,11 @@ export class PromotionsPublicController {
 	@ApiResponse(201, PromotionProviderCreatedPublicDto)
 	@ApiErrorResponse(503)
 	async createPromotionProvider(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Body input: CreatePromotionProviderDto,
 	): Promise<PromotionProviderCreatedPublicDto> {
-		return await (await this.providersService()).create(input);
+		return await (await this.providersService()).create(input, req.user);
 	}
 
 	@Get('/providers')
@@ -155,13 +155,13 @@ export class PromotionsPublicController {
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
 	async updatePromotionProvider(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('promotionProviderId', promotionProviderIdParamSchema)
 		promotionProviderId: string,
 		@Body input: UpdatePromotionProviderDto,
 	): Promise<PromotionProviderPublicDto> {
-		return await (await this.providersService()).update(promotionProviderId, input);
+		return await (await this.providersService()).update(promotionProviderId, input, req.user);
 	}
 
 	@Delete('/providers/:promotionProviderId')
@@ -176,12 +176,12 @@ export class PromotionsPublicController {
 	@ApiErrorResponse(409)
 	@ApiErrorResponse(503)
 	async deletePromotionProvider(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('promotionProviderId', promotionProviderIdParamSchema)
 		promotionProviderId: string,
 	): Promise<void> {
-		await (await this.providersService()).delete(promotionProviderId);
+		await (await this.providersService()).delete(promotionProviderId, req.user);
 	}
 
 	// -- Connections ---------------------------------------------------------
@@ -200,11 +200,11 @@ export class PromotionsPublicController {
 	@ApiErrorResponse(409)
 	@ApiErrorResponse(503)
 	async createPromotionConnection(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Body input: CreatePromotionConnectionDto,
 	): Promise<PromotionConnectionPublicDto> {
-		return await (await this.connectionsService()).create(input);
+		return await (await this.connectionsService()).create(input, req.user);
 	}
 
 	@Get('/connections')
@@ -267,13 +267,13 @@ export class PromotionsPublicController {
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
 	async updatePromotionConnection(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
 		@Body input: UpdatePromotionConnectionDto,
 	): Promise<PromotionConnectionPublicDto> {
-		return await (await this.connectionsService()).update(promotionConnectionId, input);
+		return await (await this.connectionsService()).update(promotionConnectionId, input, req.user);
 	}
 
 	@Delete('/connections/:promotionConnectionId')
@@ -289,12 +289,12 @@ export class PromotionsPublicController {
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
 	async deletePromotionConnection(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
 	): Promise<void> {
-		await (await this.connectionsService()).delete(promotionConnectionId);
+		await (await this.connectionsService()).delete(promotionConnectionId, req.user);
 	}
 
 	// -- Configurations ------------------------------------------------------
@@ -313,16 +313,20 @@ export class PromotionsPublicController {
 	@ApiErrorResponse(409)
 	@ApiErrorResponse(503)
 	async upsertPromotionApplyConfig(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
 		@Body input: UpsertPromotionApplyConfigDto,
 	): Promise<PromotionApplyConfigPublicDto> {
-		return await (await this.connectionsService()).upsertConfig(promotionConnectionId, {
-			config: { direction: 'apply', settings: input.settings },
-			name: input.name,
-		});
+		return await (await this.connectionsService()).upsertConfig(
+			promotionConnectionId,
+			{
+				config: { direction: 'apply', settings: input.settings },
+				name: input.name,
+			},
+			req.user,
+		);
 	}
 
 	@Put('/connections/:promotionConnectionId/configs/promote')
@@ -339,16 +343,20 @@ export class PromotionsPublicController {
 	@ApiErrorResponse(409)
 	@ApiErrorResponse(503)
 	async upsertPromotionPromoteConfig(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
 		@Body input: UpsertPromotionPromoteConfigDto,
 	): Promise<PromotionPromoteConfigPublicDto> {
-		return await (await this.connectionsService()).upsertConfig(promotionConnectionId, {
-			config: { direction: 'promote', settings: input.settings },
-			name: input.name,
-		});
+		return await (await this.connectionsService()).upsertConfig(
+			promotionConnectionId,
+			{
+				config: { direction: 'promote', settings: input.settings },
+				name: input.name,
+			},
+			req.user,
+		);
 	}
 
 	@Delete('/connections/:promotionConnectionId/configs/:direction')
@@ -362,7 +370,7 @@ export class PromotionsPublicController {
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
 	async deletePromotionConfig(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
@@ -371,6 +379,7 @@ export class PromotionsPublicController {
 		await (await this.connectionsService()).deleteConfig(
 			promotionConnectionId,
 			parseDirection(direction),
+			req.user,
 		);
 	}
 
@@ -390,7 +399,7 @@ export class PromotionsPublicController {
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
 	async clonePromotionCheckout(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
@@ -399,6 +408,7 @@ export class PromotionsPublicController {
 		return await (await this.promotionsService()).clone(
 			promotionConnectionId,
 			parseDirection(direction),
+			req.user,
 		);
 	}
 
@@ -415,7 +425,7 @@ export class PromotionsPublicController {
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
 	async disconnectPromotionCheckout(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
@@ -424,6 +434,7 @@ export class PromotionsPublicController {
 		return await (await this.promotionsService()).disconnect(
 			promotionConnectionId,
 			parseDirection(direction),
+			req.user,
 		);
 	}
 

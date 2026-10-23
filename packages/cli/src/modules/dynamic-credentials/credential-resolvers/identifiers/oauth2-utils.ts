@@ -23,9 +23,6 @@ export function extractToken(identity: string) {
 	return identity.replace(/^bearer\s+/i, '');
 }
 
-export const isRecord = (value: unknown): value is Record<string, unknown> =>
-	value !== null && typeof value === 'object' && !Array.isArray(value);
-
 /** Throws unless the `aud` value of a token names the expected audience. */
 export function checkAudience(audience: unknown, expectedAudience: string) {
 	const audiences = Array.isArray(audience) ? audience : [audience];

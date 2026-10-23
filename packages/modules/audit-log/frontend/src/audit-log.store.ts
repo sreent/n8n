@@ -1,3 +1,8 @@
+import {
+	AUDIT_LOG_DEFAULT_PAGE_SIZE,
+	type AuditLogEventResponse,
+	type AuditLogExportFormat,
+} from '@n8n/api-types';
 import type { DateRange } from '@n8n/design-system';
 import { useRootStore } from '@n8n/stores/useRootStore';
 import { defineStore } from 'pinia';
@@ -7,12 +12,10 @@ import {
 	exportAuditLog,
 	getAuditLogEventNames,
 	getAuditLogEvents,
-	type AuditLogEvent,
 	type AuditLogExportFile,
-	type AuditLogExportFormat,
 	type AuditLogFilters,
 } from './audit-log.api';
-import { AUDIT_LOG_STORE, DEFAULT_PAGE_SIZE } from './audit-log.constants';
+import { AUDIT_LOG_STORE } from './audit-log.constants';
 import { endOfDay, startOfDay } from './audit-log.utils';
 
 const emptyDateRange = (): DateRange => ({ start: undefined, end: undefined });
@@ -29,9 +32,9 @@ export const useAuditLogStore = defineStore(AUDIT_LOG_STORE, () => {
 	/** The days of the date filter, as the date picker shows them. */
 	const dateRange = shallowRef<DateRange>(emptyDateRange());
 	const page = ref(0);
-	const itemsPerPage = ref(DEFAULT_PAGE_SIZE);
+	const itemsPerPage = ref(AUDIT_LOG_DEFAULT_PAGE_SIZE);
 
-	const events = ref<AuditLogEvent[]>([]);
+	const events = ref<AuditLogEventResponse[]>([]);
 	const count = ref(0);
 	const loading = ref(false);
 	const eventNames = ref<string[]>([]);

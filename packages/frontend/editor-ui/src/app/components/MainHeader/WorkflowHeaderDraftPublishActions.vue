@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { IWorkflowDb } from '@/Interface';
-import type { PermissionsRecord } from '@n8n/permissions';
+import { getResourcePermissions, type PermissionsRecord } from '@n8n/permissions';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import {
 	VIEWS,
@@ -37,6 +37,7 @@ import { useCollaborationStore } from '@/features/collaboration/collaboration/co
 import { ProjectTypes } from '@/features/collaboration/projects/projects.types';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
 import { useWorkflowActivate } from '@/app/composables/useWorkflowActivate';
+import { useOpenTriggerFixes } from '@/app/composables/useOpenTriggerFixes';
 import { useToast } from '@n8n/composables/useToast';
 import { createEventBus } from '@n8n/utils/event-bus';
 import type { WorkflowVersionFormModalEventBusEvents } from '@/features/workflows/workflowHistory/components/WorkflowVersionFormModal.vue';
@@ -98,6 +99,8 @@ const toast = useToast();
 const saveStore = useWorkflowSaveStore();
 const { saveCurrentWorkflow, cancelAutoSave } = useWorkflowSaving({ router });
 const workflowActivate = useWorkflowActivate();
+// Fork: the check of open triggers before the dialogs of a publish.
+const openTriggerFixes = useOpenTriggerFixes();
 const { isWorkflowReviewsEnabled } = useWorkflowReviewsFeature();
 const reviewRequiredStore = useReviewRequiredStore();
 const reviewStatusStore = useWorkflowReviewStatusStore();
@@ -243,6 +246,14 @@ const hasPublishPermission = computed(() => props.workflowPermissions.publish);
 const hasUnpublishPermission = computed(() => props.workflowPermissions.unpublish);
 
 const isPersonalSpace = computed(() => projectStore.currentProject?.type === ProjectTypes.Personal);
+// Fork: the move dialog offers only the team projects where the user can create workflows.
+const hasTeamProjectToMoveTo = computed(() =>
+	projectStore.myProjects.some(
+		(project) =>
+			project.type === ProjectTypes.Team &&
+			(!project.scopes || getResourcePermissions(project.scopes).workflow.create),
+	),
+);
 // Fork: a direct way out of a publish that the personal space policy blocks.
 const showMoveToTeamProject = computed(
 	() =>
@@ -251,7 +262,12 @@ const showMoveToTeamProject = computed(
 		isPersonalSpace.value &&
 		!hasPublishPermission.value &&
 		!!props.workflowPermissions.move &&
-		projectStore.isTeamProjectFeatureEnabled,
+		projectStore.isTeamProjectFeatureEnabled &&
+		hasTeamProjectToMoveTo.value,
+);
+// Fork: with team projects on but none that can take the workflow, the user must ask an admin.
+const mustAskAdminToMove = computed(
+	() => projectStore.isTeamProjectFeatureEnabled && !hasTeamProjectToMoveTo.value,
 );
 
 /**
@@ -393,6 +409,9 @@ const onPublishButtonClick = async () => {
 
 	if (!(await ensureWorkflowSaved())) return;
 
+	// Fork: the check of open triggers comes before the review and version dialogs.
+	if (await openTriggerFixes.checkBeforePublish(props.id)) return;
+
 	if (isWorkflowReviewsEnabled.value) {
 		// TODO(LIGO-604): backend publish enforcement. Until then this gate is
 		// best-effort: a not-yet-fetched status (e.g. Publish clicked before the
@@ -457,7 +476,11 @@ const publishButtonConfig = computed(() => {
 			showIndicator: false,
 			indicatorClass: '',
 			tooltip: isPersonalSpace.value
-				? i18n.baseText('workflows.publish.personalSpaceRestricted')
+				? i18n.baseText(
+						mustAskAdminToMove.value
+							? 'workflows.publish.personalSpaceRestricted.askAdmin'
+							: 'workflows.publish.personalSpaceRestricted',
+					)
 				: i18n.baseText('workflows.publish.permissionDenied'),
 			showVersionInfo: false,
 		};

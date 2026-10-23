@@ -24,6 +24,11 @@ export class OpenTriggersModule implements ModuleInterface {
 
 	async settings() {
 		const { OpenTriggersConfig } = await import('./open-triggers.config.js');
-		return { needApproval: Container.get(OpenTriggersConfig).needApproval };
+		const { ChatTriggerConfig } = await import('@n8n/config');
+		return {
+			needApproval: Container.get(OpenTriggersConfig).needApproval,
+			// The editor finds the open triggers with the same rule as the check.
+			publicChatDisabled: Container.get(ChatTriggerConfig).disablePublicChat,
+		};
 	}
 }

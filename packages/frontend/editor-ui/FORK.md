@@ -237,14 +237,20 @@ The enterprise file was not read. It has no enterprise test.
 When the personal space policy takes the publish permission away (`deploy/` does this), the
 Publish button of a workflow in a personal space is grey. Next to it, the fork shows
 **Move to a team project**. The button opens the move dialog of n8n, so the user can publish the
-workflow in a team project. It shows only when the user may move the workflow and team projects
-are on.
+workflow in a team project. It shows only when the user may move the workflow, team projects are
+on, and the user has a team project where the user can create workflows
+(`projectsStore.myProjects`, the rule of the move dialog). Without such a project, the tooltip of
+the Publish button tells the user to ask an admin
+(`workflows.publish.personalSpaceRestricted.askAdmin`), because the move dialog would offer
+nothing.
 
 - `src/app/components/MainHeader/WorkflowHeaderDraftPublishActions.vue` shows the button and sends
   the command `moveWorkflowToProject` over `nodeViewEventBus` (`src/app/event-bus/node-view.ts`).
 - `src/app/components/MainHeader/ActionsDropdownMenu.vue` runs its own Move action for the command,
   so the dialog, the toast and the page after the move are those of upstream n8n.
-- The text is `workflows.publish.moveToTeamProject` of `@n8n/i18n`.
+- The texts are `workflows.publish.moveToTeamProject` and
+  `workflows.publish.personalSpaceRestricted.askAdmin` of `@n8n/i18n`. With team projects off, the
+  tooltip keeps the text of upstream n8n.
 - The tests are in `WorkflowHeaderDraftPublishActions.test.ts` and `WorkflowDetails.test.ts`.
 
 ## Removed enterprise files

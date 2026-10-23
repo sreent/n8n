@@ -2,8 +2,9 @@ import { OutboundHttp } from '@n8n/backend-network';
 import { Service } from '@n8n/di';
 import { formatPemBlock } from '@n8n/utils/format-pem-block';
 import { isRecord } from '@n8n/utils/is-record';
+import { SignJWT } from 'jose';
 import type { ICredentialDataDecryptedObject } from 'n8n-workflow';
-import { createHash, createPrivateKey, createSign, type KeyObject } from 'node:crypto';
+import { createHash, createPrivateKey, type KeyObject } from 'node:crypto';
 
 import { stringField, vertexHost } from './backends';
 
@@ -19,13 +20,11 @@ const TOKEN_REQUEST_TIMEOUT_MS = 30_000;
 /** The service account could not sign in. The message has no secret. */
 export class VertexSignInError extends Error {}
 
-const base64url = (value: string | Buffer) => Buffer.from(value).toString('base64url');
-
 /**
  * The signed JWT of a service account for the token endpoint of Google (RFC 7523). It is not a
  * token of n8n, so it does not go through `JwtService`.
  */
-function serviceAccountAssertion(email: string, privateKeyPem: string) {
+async function serviceAccountAssertion(email: string, privateKeyPem: string) {
 	let key: KeyObject;
 	try {
 		key = createPrivateKey(privateKeyPem);
@@ -35,17 +34,13 @@ function serviceAccountAssertion(email: string, privateKeyPem: string) {
 	if (key.asymmetricKeyType !== 'rsa') {
 		throw new VertexSignInError('The private key of the credential is not an RSA key.');
 	}
-	const now = Math.floor(Date.now() / 1000);
-	const header = { alg: 'RS256', typ: 'JWT' };
-	const claims = {
-		iss: email,
-		scope: CLOUD_PLATFORM_SCOPE,
-		aud: TOKEN_URL,
-		iat: now,
-		exp: now + 3600,
-	};
-	const input = `${base64url(JSON.stringify(header))}.${base64url(JSON.stringify(claims))}`;
-	return `${input}.${base64url(createSign('RSA-SHA256').update(input).sign(key))}`;
+	return await new SignJWT({ scope: CLOUD_PLATFORM_SCOPE })
+		.setProtectedHeader({ alg: 'RS256', typ: 'JWT' })
+		.setIssuer(email)
+		.setAudience(TOKEN_URL)
+		.setIssuedAt()
+		.setExpirationTime('1h')
+		.sign(key);
 }
 
 /**
@@ -101,7 +96,7 @@ export class AiGatewayVertexService {
 	}
 
 	private async requestToken(key: string, email: string, privateKey: string) {
-		const assertion = serviceAccountAssertion(email, privateKey);
+		const assertion = await serviceAccountAssertion(email, privateKey);
 		let response: unknown;
 		try {
 			response = await this.outboundHttp.requests().request({

@@ -18,13 +18,13 @@ interface ProviderKeysFilter {
 }
 
 /**
- * Fork repository (not in upstream n8n): the connections to external secrets providers. Ordinary
- * code uses it in place of the enterprise `SecretsProviderConnectionRepository`, which the
- * enterprise module still uses. A connection without project access rows is global. The queries
- * order the connections by ID. packages/cli/src/modules/external-secrets/FORK.md describes them.
+ * Fork repository (not in upstream n8n): the connections to external secrets providers. It has the
+ * name of the upstream repository, so ordinary code and the upstream tests use it unchanged. A
+ * connection without project access rows is global. The queries order the connections by ID.
+ * packages/cli/src/modules/external-secrets/FORK.md describes them.
  */
 @Service()
-export class ExternalSecretsConnectionRepository extends BaseRepository<SecretsProviderConnection> {
+export class SecretsProviderConnectionRepository extends BaseRepository<SecretsProviderConnection> {
 	constructor(dataSource: DataSource, txRunner: TransactionRunner) {
 		super(SecretsProviderConnection, dataSource.manager, txRunner);
 	}

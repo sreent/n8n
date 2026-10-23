@@ -24,6 +24,10 @@ and of [Document AI](https://cloud.google.com/document-ai/docs/send-request)
   `/processorVersions/<id>`). The output has `text`, `pageCount` and the `entities` (type, text,
   confidence and normalized value).
 - The option **Include Full Response** adds the full answer of the API.
+- The node is also a tool of an AI agent (`usableAsTool`), as the ordinary Google nodes are. The
+  agent can fill the parameters, for example the **Image URL** of **Read Text**. The tool variant
+  offers **Use Gateway credits** too, because the editor compares node types without the suffix
+  `Tool`.
 
 ## Authentication
 

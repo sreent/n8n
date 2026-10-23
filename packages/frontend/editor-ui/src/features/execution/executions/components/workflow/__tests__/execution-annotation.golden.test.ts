@@ -228,6 +228,7 @@ describe('WorkflowExecutionAnnotationTags', () => {
 	});
 
 	it('shows a toast when the save fails', async () => {
+		// The enterprise original showed the raw i18n key as the title. The fork shows its text.
 		setUp();
 		executionsStore.annotateExecution.mockRejectedValueOnce(new Error('save failed'));
 		const view = render({ execution: { ...execution, annotation: undefined } });

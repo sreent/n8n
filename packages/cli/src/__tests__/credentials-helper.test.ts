@@ -1,7 +1,7 @@
 import type { LicenseState } from '@n8n/backend-common';
 import {
 	CredentialsEntity,
-	type ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository,
+	type SecretsProviderConnectionRepository,
 	type CredentialsRepository,
 } from '@n8n/db';
 import { Container } from '@n8n/di';

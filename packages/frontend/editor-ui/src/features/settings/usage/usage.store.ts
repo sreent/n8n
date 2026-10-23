@@ -37,6 +37,8 @@ export const useUsageStore = defineStore('usage', () => {
 
 	const planName = computed(() => state.data.license.planName || DEFAULT_PLAN_NAME);
 	const planId = computed(() => state.data.license.planId);
+	// Fork: the fork switch turns the rebuilt features on without a licence.
+	const forkFeaturesEnabled = computed(() => state.data.license.forkFeaturesEnabled === true);
 	const activeWorkflowTriggersLimit = computed(() => state.data.usage.activeWorkflowTriggers.limit);
 	const activeWorkflowTriggersCount = computed(() => state.data.usage.activeWorkflowTriggers.value);
 	const workflowsWithEvaluationsLimit = computed(
@@ -70,6 +72,7 @@ export const useUsageStore = defineStore('usage', () => {
 		hasLoadedLicense,
 		planName,
 		planId,
+		forkFeaturesEnabled,
 		activeWorkflowTriggersLimit,
 		activeWorkflowTriggersCount,
 		workflowsWithEvaluationsLimit,

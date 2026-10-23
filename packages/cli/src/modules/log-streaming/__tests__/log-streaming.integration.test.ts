@@ -17,7 +17,11 @@ import { LogStreamingService } from '../log-streaming.service';
 vi.unmock('@/eventbus/message-event-bus/message-event-bus');
 
 // A non-empty endpoint group makes the test server initialize the modules.
-const testServer = setupTestServer({ endpointGroups: ['me'], modules: ['log-streaming'] });
+const testServer = setupTestServer({
+	endpointGroups: ['me'],
+	enabledFeatures: ['feat:logStreaming'],
+	modules: ['log-streaming'],
+});
 
 interface ReceivedRequest {
 	method: string;

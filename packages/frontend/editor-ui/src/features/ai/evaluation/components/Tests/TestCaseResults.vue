@@ -25,14 +25,14 @@ const rowIndexes = computed(() => wizard.datasetNamesByRow.map((_, index) => ind
 			}}</N8nText>
 			<div :class="$style.actions">
 				<N8nButton
-					type="secondary"
+					variant="subtle"
 					size="small"
 					data-test-id="tests-results-create-case"
 					@click="panel.openCreate()"
 					>{{ i18n.baseText('evaluations.tests.results.createCase') }}</N8nButton
 				>
 				<N8nButton
-					type="primary"
+					variant="solid"
 					size="small"
 					:disabled="rowIndexes.length === 0"
 					data-test-id="tests-results-run-all"

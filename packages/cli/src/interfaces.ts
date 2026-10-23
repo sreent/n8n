@@ -289,6 +289,8 @@ export interface ILicenseReadResponse {
 	license: {
 		planId: string;
 		planName: string;
+		/** Fork: the fork switch (`N8N_FORK_FEATURES_ENABLED`) turns the rebuilt features on. */
+		forkFeaturesEnabled?: boolean;
 	};
 }
 

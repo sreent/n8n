@@ -127,6 +127,21 @@ describe('SettingsUsageAndPlan', () => {
 			expect(queryByText(/plans/i)).toBeNull();
 		});
 
+		it.each([
+			[true, true],
+			[false, false],
+		])(
+			'should tell that the fork switch turns the features on: %s',
+			async (forkFeaturesEnabled, shown) => {
+				usageStore.forkFeaturesEnabled = forkFeaturesEnabled;
+
+				const { queryByTestId } = renderComponent();
+				await waitAllPromises();
+
+				expect(Boolean(queryByTestId('usage-fork-features'))).toBe(shown);
+			},
+		);
+
 		it('should show an error when the licence data does not load', async () => {
 			usageStore.getLicenseInfo = vi.fn().mockRejectedValue(new Error('Request failed'));
 

@@ -1,4 +1,4 @@
-import { ExternalSecretsConnectionRepository } from '@n8n/db';
+import { SecretsProviderConnectionRepository } from '@n8n/db';
 import { Service } from '@n8n/di';
 
 /**
@@ -7,7 +7,7 @@ import { Service } from '@n8n/di';
  */
 @Service()
 export class SecretsProviderAccessCheckService {
-	constructor(private readonly connectionRepository: ExternalSecretsConnectionRepository) {}
+	constructor(private readonly connectionRepository: SecretsProviderConnectionRepository) {}
 
 	/**
 	 * A global connection is available in each project; a connection with access rows only in its

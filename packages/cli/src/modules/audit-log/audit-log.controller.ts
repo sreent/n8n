@@ -1,8 +1,12 @@
+import {
+	AuditLogEventsQueryDto,
+	type AuditLogEventsPage,
+	AuditLogExportQueryDto,
+} from '@n8n/api-types';
 import type { AuthenticatedRequest } from '@n8n/db';
 import { Get, GlobalScope, Query, RestController } from '@n8n/decorators';
 import type { Response } from 'express';
 
-import { AuditLogEventsQueryDto, AuditLogExportQueryDto } from './audit-log.dto';
 import { AuditLogService } from './audit-log.service';
 
 /** The audit log, for users with the global scope `auditLogs:manage`: the owner and admins. */
@@ -16,7 +20,7 @@ export class AuditLogController {
 		_req: AuthenticatedRequest,
 		_res: Response,
 		@Query query: AuditLogEventsQueryDto,
-	) {
+	): Promise<AuditLogEventsPage> {
 		const { skip, take, ...filter } = query;
 		return await this.auditLogService.listEvents(filter, skip, take);
 	}

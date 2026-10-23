@@ -1,3 +1,4 @@
+import type { BaseTextKey } from '@n8n/i18n';
 import {
 	CHAT_TRIGGER_NODE_TYPE,
 	FORM_TRIGGER_NODE_TYPE,
@@ -13,6 +14,13 @@ import {
  * - `bearerAuth`: a new Bearer Auth credential with a random token for an MCP server.
  */
 export type OpenTriggerFix = 'signIn' | 'headerAuth' | 'bearerAuth';
+
+/** The label of the button of each fix. */
+export const OPEN_TRIGGER_FIX_LABEL_KEYS: Record<OpenTriggerFix, BaseTextKey> = {
+	signIn: 'openTriggers.fixes.signIn',
+	headerAuth: 'openTriggers.fixes.headerAuth',
+	bearerAuth: 'openTriggers.fixes.bearerAuth',
+};
 
 /** The token of a new credential. The editor shows it once. */
 export interface OpenTriggerSecret {

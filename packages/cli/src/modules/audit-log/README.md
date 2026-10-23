@@ -7,7 +7,9 @@ an event after 90 days.
 
 The repository owner chose this on 2026-10-11: the fork builds an audit log and a new log
 streaming, the audit log is on by default, and it keeps the events for 90 days. The settings page is
-the frontend module `packages/modules/audit-log/frontend`. Its README describes it.
+the frontend module `packages/modules/audit-log/frontend`. Its README describes it. On 2026-10-23
+the owner put the module under the fork switch: it starts with the licence value of log streaming,
+`feat:logStreaming`, which `N8N_FORK_FEATURES_ENABLED` gives.
 
 This module does not use enterprise code. Upstream n8n has no audit log of its own. The table
 `activity_event` of upstream is a different feed: it keeps a short history of workflows and
@@ -41,6 +43,14 @@ flowchart LR
 
 - The ordinary relay `LogStreamingEventRelay` sends the audit events to the event bus of each
   process: main, webhook and worker. The bus writes each message to its log file, and emits it.
+- The fork relay `ForkGovernanceEventRelay` (`packages/cli/src/events/relays`) sends the
+  governance actions of the fork features in the same way, on the main instances:
+  `n8n.audit.git-sync.*` (settings saved, disconnected, pushed, pulled), `n8n.audit.ai-gateway.*`
+  (settings updated, top-up added), `n8n.audit.log-streaming.destination.*` (created, updated,
+  deleted) and `n8n.audit.git-connection.*` (providers and connections created, updated and
+  deleted, promoted, applied). The list is in
+  `packages/cli/src/eventbus/event-message-classes/fork-audit-event-names.ts`. No payload holds a
+  token, a password or a key, and repository URLs lose any user and password.
 - The module listens to the event `metrics.eventBus.event` of the bus, which the bus emits for each
   message that it sends. It does not listen to the event `message`: a listener of `message`
   confirms the delivery of each message, and that belongs to the destinations of log streaming.
@@ -168,9 +178,9 @@ curl -H "X-N8N-API-KEY: $N8N_API_KEY" \
 | `audit-log-projects.service.ts` | Finds the project of each event |
 | `audit-log-pruning.service.ts`, `audit-log-pruning.task.ts` | Delete old events |
 | `audit-log.service.ts` | The list, the event names and the export |
-| `audit-log.controller.ts`, `audit-log.dto.ts` | The REST API |
+| `audit-log.controller.ts` | The REST API |
 | `packages/cli/src/public-api/v1/controllers/audit-log.public.controller.ts` | The public API |
-| `packages/@n8n/api-types/src/dto/audit-log/` | The query and response types of the public API |
+| `packages/@n8n/api-types/src/dto/audit-log/` | The query and response types of the REST API (`audit-log.dto.ts`) and of the public API (`audit-log-public.dto.ts`). The backend and the editor use the same types |
 | `database/` | The entity and the repository of the table |
 
 ## Sources

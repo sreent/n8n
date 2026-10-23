@@ -1,4 +1,6 @@
+import type { GitSyncSettingsDto } from '@n8n/api-types';
 import { LockAcquisitionTimeoutError, type LockService, type Logger } from '@n8n/backend-common';
+import type { EventService } from '@n8n/backend-services';
 import type { ProjectRepository, User } from '@n8n/db';
 import { mock } from 'vitest-mock-extended';
 import type { InstanceSettings } from 'n8n-core';
@@ -9,7 +11,6 @@ import path from 'node:path';
 
 import type { GitSyncSettingsService } from '../git-sync-settings.service';
 import type { GitSyncConfig } from '../git-sync.config';
-import type { GitSyncSettingsDto } from '../git-sync.dto';
 import { GitSyncError } from '../git-sync.errors';
 import { GitSyncService } from '../git-sync.service';
 import type { StoredConnection } from '../git-sync.types';
@@ -45,6 +46,7 @@ const logger = mock<Logger>();
 const settingsService = mock<GitSyncSettingsService>();
 const lockService = mock<LockService>();
 const projectRepository = mock<ProjectRepository>();
+const eventService = mock<EventService>();
 
 let baseDir: string;
 let service: GitSyncService;
@@ -67,6 +69,7 @@ beforeEach(() => {
 		mock<N8nPackagesAdapter>(),
 		lockService,
 		projectRepository,
+		eventService,
 	);
 
 	lockService.withLease.mockImplementation(
@@ -96,6 +99,21 @@ afterEach(() => {
 const savedConnection = () => settingsService.saveConnection.mock.calls[0][0];
 
 describe('GitSyncService.saveSettings', () => {
+	it('sends an audit event without the token', async () => {
+		await service.saveSettings(user, form({ accessToken: 'new-token' }));
+
+		expect(eventService.emit).toHaveBeenCalledWith('git-sync-settings-saved', {
+			user,
+			projectId: stored.projectId,
+			repositoryUrl: stored.repositoryUrl,
+			branch: stored.branch,
+			directory: stored.directory,
+			isNew: false,
+			tokenChanged: true,
+		});
+		expect(JSON.stringify(eventService.emit.mock.calls)).not.toContain('new-token');
+	});
+
 	it('keeps the stored token when the form sends the blanking value or nothing', async () => {
 		await service.saveSettings(user, form({ accessToken: CREDENTIAL_BLANKING_VALUE }));
 		expect(savedConnection().encryptedToken).toBe('encrypted:old');

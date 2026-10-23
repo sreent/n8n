@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { AiGatewayAdminUsageEntry } from '@n8n/api-types';
 import { useToast } from '@n8n/composables/useToast';
 import {
 	N8nBadge,
@@ -13,7 +14,6 @@ import { useI18n } from '@n8n/i18n';
 import { computed, onMounted, ref, watch } from 'vue';
 
 import { useAiGatewayAdminStore } from '../ai-gateway-admin.store';
-import type { AiGatewayUsageRow } from '../ai-gateway.api';
 import { USAGE_PAGE_SIZES } from '../ai-gateway.constants';
 import { formatDateTime, formatUsd } from '../ai-gateway.utils';
 
@@ -23,7 +23,7 @@ const store = useAiGatewayAdminStore();
 
 const modelFilter = ref(store.usageFilters.model ?? '');
 
-const headers = computed<Array<TableHeader<AiGatewayUsageRow>>>(() => [
+const headers = computed<Array<TableHeader<AiGatewayAdminUsageEntry>>>(() => [
 	{
 		title: i18n.baseText('settings.forkAiGateway.usage.date'),
 		key: 'timestamp',

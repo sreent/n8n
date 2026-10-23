@@ -1,3 +1,4 @@
+import type { CopyRecipient, SendCopyResult } from '@n8n/api-types';
 import { Logger } from '@n8n/backend-common';
 import type { User } from '@n8n/db';
 import { GLOBAL_CHAT_USER_ROLE, ProjectRepository } from '@n8n/db';
@@ -10,7 +11,6 @@ import { WorkflowFinderService } from '@/workflows/workflow-finder.service';
 
 import { SendCopyRecipientRepository } from './database/repositories/send-copy-recipient.repository';
 import { SEND_COPY_UI_CONTEXT } from './send-copy.constants';
-import type { CopyRecipient, SendCopyResult } from './send-copy.types';
 import { buildWorkflowCopy } from './workflow-copy.builder';
 
 /** Returns true when the user can receive a copy. */

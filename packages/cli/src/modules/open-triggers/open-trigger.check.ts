@@ -4,6 +4,7 @@ import {
 	type OpenTriggerKind,
 } from '@n8n/api-types';
 import type {
+	PolicedWorkflow,
 	PolicyCheckResult,
 	PolicyViolation,
 	RegisteredPolicyCheck,
@@ -16,8 +17,6 @@ import { WorkflowReviewPolicyService } from '@/services/workflow-review-policy.s
 import { openTriggerKey, type OpenTrigger } from './open-trigger.detector';
 import { OpenTriggersConfig } from './open-triggers.config';
 import { OpenTriggersService } from './open-triggers.service';
-
-const NO_VIOLATIONS: PolicyCheckResult = { violations: [] };
 
 const DESCRIPTION: Record<OpenTriggerKind, (name: string) => string> = {
 	webhook: (name) => `The webhook "${name}" accepts calls without authentication`,
@@ -57,16 +56,24 @@ export class OpenTriggerCheck implements RegisteredPolicyCheck {
 	) {}
 
 	async onWorkflowPublish({ workflow }: WorkflowPublishContext): Promise<PolicyCheckResult> {
-		if (!this.config.needApproval) return NO_VIOLATIONS;
+		return { violations: await this.violationsFor(workflow) };
+	}
+
+	/**
+	 * The violations that stop a publish of the workflow. The editor also asks for them before it
+	 * opens the dialogs of a publish (`OpenTriggersController`).
+	 */
+	async violationsFor(workflow: Pick<PolicedWorkflow, 'id' | 'nodes'>): Promise<PolicyViolation[]> {
+		if (!this.config.needApproval) return [];
 
 		const open = this.service.findOpenTriggers(workflow.nodes);
-		if (open.length === 0) return NO_VIOLATIONS;
+		if (open.length === 0) return [];
 
 		const allowed = workflow.id ? await this.service.allowedTriggerKeys(workflow.id) : new Set();
 		const blocked = open.filter((trigger) => !allowed.has(openTriggerKey(trigger)));
-		if (blocked.length === 0) return NO_VIOLATIONS;
+		if (blocked.length === 0) return [];
 
 		const { enabled: reviewsEnabled } = await this.reviewPolicyService.get();
-		return { violations: blocked.map((trigger) => toViolation(trigger, reviewsEnabled)) };
+		return blocked.map((trigger) => toViolation(trigger, reviewsEnabled));
 	}
 }

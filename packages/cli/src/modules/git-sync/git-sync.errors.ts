@@ -1,6 +1,5 @@
+import type { GitSyncErrorCode } from '@n8n/api-types';
 import { ResponseError } from '@n8n/errors';
-
-import type { GitSyncErrorCode } from './git-sync.constants';
 
 /**
  * An error that the Git sync API sends to the client. The client reads

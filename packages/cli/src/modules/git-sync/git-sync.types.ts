@@ -1,8 +1,7 @@
+import { gitSyncCredentialMatchingModeSchema } from '@n8n/api-types';
 import { z } from 'zod';
 
-/** How the import matches package credentials to credentials on this instance. */
-export const credentialMatchingModeSchema = z.enum(['name-and-type', 'id-only']);
-export type GitSyncCredentialMatchingMode = z.infer<typeof credentialMatchingModeSchema>;
+// The schemas of the settings table. The shapes of the REST API are in `@n8n/api-types`.
 
 /** The connection as stored in the settings table. */
 export const storedConnectionSchema = z.object({
@@ -15,7 +14,7 @@ export const storedConnectionSchema = z.object({
 	encryptedToken: z.string().nullable(),
 	authorName: z.string(),
 	authorEmail: z.string(),
-	credentialMatchingMode: credentialMatchingModeSchema,
+	credentialMatchingMode: gitSyncCredentialMatchingModeSchema,
 });
 export type StoredConnection = z.infer<typeof storedConnectionSchema>;
 
@@ -66,66 +65,3 @@ export type StoredState = z.infer<typeof storedStateSchema>;
 export interface GitSyncConnection extends Omit<StoredConnection, 'encryptedToken' | 'version'> {
 	token: string | null;
 }
-
-/** The connection as the API returns it. The token is never returned. */
-export interface GitSyncSettingsResponse
-	extends Omit<StoredConnection, 'encryptedToken' | 'version'> {
-	/** The blanking value when a token is stored, or an empty string. */
-	accessToken: string;
-	projectName: string | null;
-}
-
-export interface GitSyncConnectionTestResult {
-	/** The default branch of the repository, or null for an empty repository. */
-	defaultBranch: string | null;
-	branchExists: boolean;
-	branchHead: string | null;
-}
-
-export interface GitSyncProjectOption {
-	id: string;
-	name: string;
-	type: string;
-}
-
-/** One workflow that changed. */
-export interface GitSyncWorkflowChange {
-	id: string;
-	name: string;
-	change: 'created' | 'modified' | 'deleted';
-}
-
-export interface GitSyncStatus {
-	branch: string;
-	remoteHead: string | null;
-	lastSyncedCommit: string | null;
-	/** True when the branch has commits that this instance has not pulled. */
-	remoteChanged: boolean;
-	/** Workflows changed in n8n since the last sync. */
-	outgoing: GitSyncWorkflowChange[];
-	/** Workflows changed in Git since the last sync. */
-	incoming: GitSyncWorkflowChange[];
-	/** Workflows changed in both places. */
-	conflicts: GitSyncWorkflowChange[];
-	lastPush: StoredState['lastPush'];
-	lastPull: StoredState['lastPull'];
-}
-
-export type GitSyncPushResult =
-	| { result: 'up-to-date'; commit: string | null }
-	| { result: 'pushed'; commit: string; changedFiles: number };
-
-export type GitSyncPullResult =
-	| { result: 'no-remote-branch' }
-	| { result: 'no-package'; commit: string }
-	| { result: 'up-to-date'; commit: string; removedUpstream: GitSyncWorkflowChange[] }
-	| {
-			result: 'pulled';
-			commit: string;
-			created: string[];
-			updated: string[];
-			skipped: string[];
-			stubbedCredentials: string[];
-			publishingBlocked: string[];
-			removedUpstream: GitSyncWorkflowChange[];
-	  };

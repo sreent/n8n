@@ -144,7 +144,7 @@ The fork removed the enterprise files and their two enterprise editor tests
   tags store, the texts of the annotation tags and the same toasts.
 - `WorkflowExecutionAnnotationTags` shows the tags of an execution and an add button. A click opens
   the dropdown. A blur saves a changed selection with `executionsStore.annotateExecution`. Escape
-  cancels. When the save fails, the toast `executionAnnotationView.tag.error` shows.
+  cancels. When the save fails, a toast shows the text of `executionAnnotationView.tag.error`.
 - `WorkflowExecutionAnnotationPanel` is a button with the number of items of highlighted data. The
   user must have the `workflow:update` scope on the workflow. The dropdown of the button shows the
   key and the value of each item, or a note when there are no items.
@@ -160,6 +160,10 @@ below give the same snapshots. Known points:
   annotation tags.
 - The controller reads the raw request body, as the recorded API does: it has no DTO validation
   before the service.
+- When a save of the tags fails, the original passes the i18n key
+  `executionAnnotationView.tag.error` as the title of the toast, so the toast shows the key. The
+  fork shows the text of the key (2026-10-23, a uniformity fix). The golden test of
+  `WorkflowExecutionAnnotationTags` records the text, and a comment marks the change.
 
 ### Clean-room sources
 

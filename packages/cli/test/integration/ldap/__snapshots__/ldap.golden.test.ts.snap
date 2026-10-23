@@ -4650,9 +4650,15 @@ exports[`LDAP > the scheduled synchronization 1`] = `
         "error",
         "LDAP - Unwilling to perform Code: 0x35",
       ],
+      [
+        "error",
+        "LDAP - The scheduled synchronization failed",
+      ],
     ],
     "outcome": {
-      "threw": "LdapRejectionError < UserError < BaseError: Unwilling to perform Code: 0x35",
+      "value": {
+        "timers": 1,
+      },
     },
     "step": "as the leader: the timer fires with a failed search",
     "timers": [
@@ -4737,6 +4743,15 @@ exports[`LDAP > the scheduled synchronization 1`] = `
         540000,
       ],
     ],
+  },
+  {
+    "outcome": {
+      "value": {
+        "result": "<undefined>",
+        "timers": 1,
+      },
+    },
+    "step": "as a follower: the timer fires",
   },
   {
     "outcome": "done",

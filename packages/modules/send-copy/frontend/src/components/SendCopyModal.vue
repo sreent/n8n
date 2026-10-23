@@ -1,4 +1,10 @@
 <script lang="ts" setup>
+import {
+	SEND_COPY_MAX_RECIPIENTS,
+	type CopyRecipient,
+	type SendCopyFailureReason,
+	type SendCopyResult,
+} from '@n8n/api-types';
 import { useDebounce } from '@n8n/composables/useDebounce';
 import { useToast } from '@n8n/composables/useToast';
 import {
@@ -11,20 +17,15 @@ import {
 	N8nUserInfo,
 	N8nUserSelect,
 } from '@n8n/design-system';
+import { DEBOUNCE_TIME } from '@n8n/frontend-constants/durations';
 import { capabilityRegistry } from '@n8n/frontend-module-sdk';
 import { useI18n } from '@n8n/i18n';
 import { useRootStore } from '@n8n/stores/useRootStore';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, useId, watch } from 'vue';
 
-import {
-	getCopyRecipients,
-	sendWorkflowCopy,
-	type CopyRecipient,
-	type SendCopyFailureReason,
-	type SendCopyResult,
-} from '../send-copy.api';
+import { getCopyRecipients, sendWorkflowCopy } from '../send-copy.api';
 import { sendCopyModalCloser } from '../send-copy.capabilities';
-import { SEND_COPY_MAX_RECIPIENTS, SEND_COPY_SEARCH_LIMIT } from '../send-copy.constants';
+import { SEND_COPY_SEARCH_LIMIT } from '../send-copy.constants';
 
 const props = defineProps<{
 	modalName: string;
@@ -36,6 +37,7 @@ const i18n = useI18n();
 const toast = useToast();
 const rootStore = useRootStore();
 const { debounce } = useDebounce();
+const recipientsInputId = useId();
 
 const candidates = ref<CopyRecipient[]>([]);
 const selected = ref<CopyRecipient[]>([]);
@@ -81,7 +83,11 @@ async function search(query: string) {
 	}
 }
 
-const debouncedSearch = debounce(search, { debounceTime: 300, trailing: true });
+// `debounce` applies `getDebounceTime` to the time itself.
+const debouncedSearch = debounce(search, {
+	debounceTime: DEBOUNCE_TIME.INPUT.SEARCH,
+	trailing: true,
+});
 
 function onSearch(query: string) {
 	void debouncedSearch(query);
@@ -198,10 +204,11 @@ async function onSend() {
 	>
 		<!-- N8nDialog renders no element of its own, so the test id goes on the body. -->
 		<div :class="$style.body" data-test-id="send-copy-modal">
-			<N8nText tag="label" size="small" bold>
+			<N8nText tag="label" size="small" bold :for="recipientsInputId">
 				{{ i18n.baseText('sendCopy.modal.recipientsLabel') }}
 			</N8nText>
 			<N8nUserSelect
+				:id="recipientsInputId"
 				:users="candidateUsers"
 				:ignore-ids="selectedIds"
 				model-value=""
@@ -244,7 +251,8 @@ async function onSend() {
 				</li>
 			</ul>
 
-			<N8nCallout theme="secondary" slim>
+			<N8nCallout theme="secondary" slim data-test-id="send-copy-contents">
+				{{ i18n.baseText('sendCopy.modal.copied') }}
 				{{ i18n.baseText('sendCopy.modal.notCopied') }}
 				{{ i18n.baseText('sendCopy.modal.savedVersionNote') }}
 			</N8nCallout>

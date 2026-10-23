@@ -10,6 +10,13 @@ import { promisify } from 'node:util';
 import { UserError } from 'n8n-workflow';
 
 import {
+	GIT_CA_VARIABLES,
+	GIT_MAX_OUTPUT_BYTES,
+	GIT_PATH,
+	gitCredentialHelper,
+} from '@/utils/git-process';
+
+import {
 	SOURCE_CONTROL_DEFAULT_BRANCH,
 	SOURCE_CONTROL_DEFAULT_EMAIL,
 	SOURCE_CONTROL_DEFAULT_NAME,
@@ -21,19 +28,9 @@ import { SourceControlPreferencesService } from './source-control-preferences.se
 
 const execFileAsync = promisify(execFile);
 
-/** Git runs with this `PATH` only, as in the original. The Docker image has Git and ssh there. */
-const GIT_PATH = '/usr/bin:/bin';
-
-const MAX_OUTPUT_BYTES = 256 * 1024 * 1024;
-
-/** Variables that name a private certificate authority for Git over HTTPS. */
-const CA_VARIABLES = ['GIT_SSL_CAINFO', 'GIT_SSL_CAPATH'];
-
 const USERNAME_VARIABLE = 'N8N_SOURCE_CONTROL_GIT_USERNAME';
 const PASSWORD_VARIABLE = 'N8N_SOURCE_CONTROL_GIT_PASSWORD';
-
-/** A credential helper that gives Git the HTTPS credentials from the environment. */
-const CREDENTIAL_HELPER = `!f() { echo "username=\${${USERNAME_VARIABLE}}"; echo "password=\${${PASSWORD_VARIABLE}}"; }; f`;
+const CREDENTIAL_HELPER = gitCredentialHelper(USERNAME_VARIABLE, PASSWORD_VARIABLE);
 
 export interface GitCommitResult {
 	hash: string;
@@ -299,7 +296,7 @@ export class SourceControlGitService {
 			const { username, password } = await this.preferencesService.getDecryptedHttpsCredentials();
 			env[USERNAME_VARIABLE] = username;
 			env[PASSWORD_VARIABLE] = password;
-			for (const name of CA_VARIABLES) {
+			for (const name of GIT_CA_VARIABLES) {
 				if (process.env[name]) env[name] = process.env[name];
 			}
 			config.push('-c', 'credential.helper=', '-c', `credential.helper=${CREDENTIAL_HELPER}`);
@@ -321,7 +318,7 @@ export class SourceControlGitService {
 			const { stdout } = await execFileAsync('git', [...call.config, ...args], {
 				cwd: this.folder,
 				env: call.env,
-				maxBuffer: MAX_OUTPUT_BYTES,
+				maxBuffer: GIT_MAX_OUTPUT_BYTES,
 			});
 			return stdout;
 		} catch (error) {

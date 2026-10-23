@@ -1,10 +1,10 @@
+import type { GitSyncSettingsResponse, GitSyncStatus } from '@n8n/api-types';
 import { createComponentRenderer } from '@n8n/frontend-test-utils';
 import { createTestingPinia } from '@pinia/testing';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor, within } from '@testing-library/vue';
+import { CREDENTIAL_BLANKING_VALUE } from 'n8n-workflow';
 
-import type { GitSyncSettings, GitSyncStatus } from './git-sync.api';
-import { CREDENTIALS_BLANKING_VALUE } from './git-sync.constants';
 import SettingsGitSyncView from './SettingsGitSyncView.vue';
 
 const showMessage = vi.fn();
@@ -16,6 +16,17 @@ vi.mock('@n8n/composables/useToast', () => ({
 vi.mock('@n8n/stores/useRootStore', () => ({
 	useRootStore: () => ({ restApiContext: { baseUrl: '', pushRef: '' } }),
 }));
+
+let routeLeaveGuard: Parameters<typeof import('vue-router')['onBeforeRouteLeave']>[0] | null = null;
+vi.mock('vue-router', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('vue-router')>();
+	return {
+		...actual,
+		onBeforeRouteLeave: (guard: typeof routeLeaveGuard) => {
+			routeLeaveGuard = guard;
+		},
+	};
+});
 
 type ApiMock = (...args: unknown[]) => Promise<unknown>;
 const getSettingsMock = vi.fn<ApiMock>();
@@ -37,14 +48,14 @@ vi.mock('./git-sync.api', () => ({
 	pullFromGit: async (...args: unknown[]) => await pullMock(...args),
 }));
 
-const saved: GitSyncSettings = {
+const saved: GitSyncSettingsResponse = {
 	repositoryUrl: 'https://github.com/acme/flows.git',
 	branch: 'main',
 	directory: 'n8n',
 	projectId: 'project-1',
 	projectName: 'Ada Lovelace',
 	username: 'x-access-token',
-	accessToken: CREDENTIALS_BLANKING_VALUE,
+	accessToken: CREDENTIAL_BLANKING_VALUE,
 	authorName: 'n8n Git sync',
 	authorEmail: 'bot@example.com',
 	credentialMatchingMode: 'name-and-type',
@@ -226,6 +237,71 @@ describe('SettingsGitSyncView', () => {
 		expect(
 			await screen.findByText('Fill in these new empty credentials: Basic auth'),
 		).toBeVisible();
+	});
+
+	describe('when the user leaves the page', () => {
+		const leave = () => {
+			const next = vi.fn();
+			routeLeaveGuard?.({} as never, {} as never, next);
+			return next;
+		};
+
+		const editBranch = async () => {
+			const branch = await screen.findByTestId('git-sync-branch');
+			await userEvent.type(branch.querySelector('input') ?? branch, '-next');
+		};
+
+		it('leaves at once without unsaved changes', async () => {
+			getSettingsMock.mockResolvedValue(saved);
+			render();
+			await screen.findByTestId('git-sync-branch');
+
+			expect(leave()).toHaveBeenCalledWith();
+			expect(screen.queryByTestId('git-sync-unsaved-changes-dialog')).not.toBeInTheDocument();
+		});
+
+		it('asks first, and stays when the user keeps editing', async () => {
+			getSettingsMock.mockResolvedValue(saved);
+			render();
+			await editBranch();
+
+			const next = leave();
+			expect(await screen.findByTestId('git-sync-unsaved-changes-dialog')).toBeInTheDocument();
+			expect(next).not.toHaveBeenCalled();
+
+			await userEvent.click(screen.getByRole('button', { name: 'Keep editing' }));
+			await waitFor(() => expect(next).toHaveBeenCalledWith(false));
+		});
+
+		it('leaves without saving', async () => {
+			getSettingsMock.mockResolvedValue(saved);
+			render();
+			await editBranch();
+
+			const next = leave();
+			await screen.findByTestId('git-sync-unsaved-changes-dialog');
+			await userEvent.click(screen.getByRole('button', { name: 'Leave without saving' }));
+
+			await waitFor(() => expect(next).toHaveBeenCalledWith());
+			expect(saveSettingsMock).not.toHaveBeenCalled();
+		});
+
+		it('saves, then leaves', async () => {
+			getSettingsMock.mockResolvedValue(saved);
+			saveSettingsMock.mockResolvedValue({ ...saved, branch: 'main-next' });
+			render();
+			await editBranch();
+
+			const next = leave();
+			await screen.findByTestId('git-sync-unsaved-changes-dialog');
+			await userEvent.click(screen.getByRole('button', { name: 'Save and leave' }));
+
+			await waitFor(() => expect(next).toHaveBeenCalledWith());
+			expect(saveSettingsMock).toHaveBeenCalledWith(
+				expect.anything(),
+				expect.objectContaining({ branch: 'main-next' }),
+			);
+		});
 	});
 
 	it('disconnects after a confirmation', async () => {

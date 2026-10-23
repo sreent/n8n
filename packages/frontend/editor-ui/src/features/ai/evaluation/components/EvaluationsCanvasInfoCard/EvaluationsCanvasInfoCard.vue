@@ -131,7 +131,7 @@ onMounted(() => {
 			}}</N8nText>
 			<div>
 				<N8nButton
-					type="primary"
+					variant="solid"
 					size="small"
 					data-test-id="evaluations-canvas-info-card-setup"
 					@click="openWizard"

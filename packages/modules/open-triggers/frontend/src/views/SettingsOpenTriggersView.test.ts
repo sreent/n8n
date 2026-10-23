@@ -111,7 +111,7 @@ describe('SettingsOpenTriggersView', () => {
 		render(true);
 
 		await vi.waitFor(() =>
-			expect(showError).toHaveBeenCalledWith(error, 'Could not load the open triggers'),
+			expect(showError).toHaveBeenCalledWith(error, "Couldn't load the open triggers"),
 		);
 	});
 });

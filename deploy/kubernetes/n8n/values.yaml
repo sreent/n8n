@@ -181,6 +181,11 @@ settings:
   N8N_FORK_NON_PRODUCTION_BANNER: "false"
   # The hours that n8n keeps old workflow versions. -1 keeps all versions.
   N8N_WORKFLOW_HISTORY_PRUNE_TIME: "-1"
+  # n8n sends no usage data to n8n.io. The editor shows no "What's new" notes and no update notices
+  # of n8n, because the fork gets its updates from its own repository.
+  N8N_DIAGNOSTICS_ENABLED: "false"
+  N8N_VERSION_NOTIFICATIONS_ENABLED: "false"
+  N8N_VERSION_NOTIFICATIONS_WHATS_NEW_ENABLED: "false"
   # SSRF protection: a node cannot call private, loopback or link-local addresses, also not the
   # metadata server of the cloud, until these settings open the host. The AI nodes call the AI
   # gateway of the fork on 127.0.0.1, so it stays open.

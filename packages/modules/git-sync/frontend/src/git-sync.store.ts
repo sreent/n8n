@@ -1,3 +1,14 @@
+import {
+	GIT_SYNC_DEFAULT_AUTHOR_NAME,
+	GIT_SYNC_DEFAULT_DIRECTORY,
+	GIT_SYNC_DEFAULT_USERNAME,
+	type GitSyncConnectionTestResult,
+	type GitSyncProjectOption,
+	type GitSyncPullResult,
+	type GitSyncPushResult,
+	type GitSyncSettingsResponse,
+	type GitSyncStatus,
+} from '@n8n/api-types';
 import { useRootStore } from '@n8n/stores/useRootStore';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
@@ -11,36 +22,25 @@ import {
 	pushToGit,
 	saveGitSyncSettings,
 	testGitSyncConnection,
-	type GitSyncConnectionTestResult,
-	type GitSyncProjectOption,
-	type GitSyncPullResult,
-	type GitSyncPushResult,
-	type GitSyncSettings,
 	type GitSyncSettingsForm,
-	type GitSyncStatus,
 } from './git-sync.api';
-import {
-	DEFAULT_AUTHOR_NAME,
-	DEFAULT_DIRECTORY,
-	DEFAULT_USERNAME,
-	GIT_SYNC_STORE,
-} from './git-sync.constants';
+import { GIT_SYNC_STORE } from './git-sync.constants';
 
 export function emptyForm(authorEmail = ''): GitSyncSettingsForm {
 	return {
 		repositoryUrl: '',
 		branch: 'main',
-		directory: DEFAULT_DIRECTORY,
+		directory: GIT_SYNC_DEFAULT_DIRECTORY,
 		projectId: '',
-		username: DEFAULT_USERNAME,
+		username: GIT_SYNC_DEFAULT_USERNAME,
 		accessToken: '',
-		authorName: DEFAULT_AUTHOR_NAME,
+		authorName: GIT_SYNC_DEFAULT_AUTHOR_NAME,
 		authorEmail,
 		credentialMatchingMode: 'name-and-type',
 	};
 }
 
-function toForm(settings: GitSyncSettings): GitSyncSettingsForm {
+function toForm(settings: GitSyncSettingsResponse): GitSyncSettingsForm {
 	const { projectName: _projectName, ...form } = settings;
 	return form;
 }
@@ -48,7 +48,7 @@ function toForm(settings: GitSyncSettings): GitSyncSettingsForm {
 export const useGitSyncStore = defineStore(GIT_SYNC_STORE, () => {
 	const rootStore = useRootStore();
 
-	const settings = ref<GitSyncSettings | null>(null);
+	const settings = ref<GitSyncSettingsResponse | null>(null);
 	const form = ref<GitSyncSettingsForm>(emptyForm());
 	const projects = ref<GitSyncProjectOption[]>([]);
 	const status = ref<GitSyncStatus | null>(null);

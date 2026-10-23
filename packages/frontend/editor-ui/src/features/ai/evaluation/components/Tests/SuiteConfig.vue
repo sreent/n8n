@@ -80,7 +80,7 @@ function onSelectNode(name: string) {
 		<N8nButton
 			v-for="metric in selectedMetrics"
 			:key="metric.key"
-			type="secondary"
+			variant="subtle"
 			size="small"
 			:aria-label="i18n.baseText('evaluations.tests.detail.removeMetric')"
 			:data-test-id="`tests-suite-config-metric-${metric.key}`"
@@ -111,7 +111,7 @@ function onSelectNode(name: string) {
 		</div>
 		<N8nDropdownMenu :items="addItems" placement="bottom-start" @select="onAdd">
 			<template #trigger>
-				<N8nButton type="tertiary" size="small" data-test-id="tests-suite-config-add-metric"
+				<N8nButton variant="ghost" size="small" data-test-id="tests-suite-config-add-metric"
 					>{{ i18n.baseText('evaluations.tests.detail.addMetric')
 					}}<N8nIcon icon="plus" size="xsmall"
 				/></N8nButton>

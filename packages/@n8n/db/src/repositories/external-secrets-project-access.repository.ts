@@ -7,11 +7,11 @@ import { TransactionRunner } from '../services/transaction';
 
 /**
  * Fork repository (not in upstream n8n): the access rows that give projects the use of secrets
- * provider connections. Ordinary code uses it in place of the enterprise
- * `ProjectSecretsProviderAccessRepository`, which the enterprise module still uses.
+ * provider connections. It has the name of the upstream repository, so ordinary code and the
+ * upstream tests use it unchanged.
  */
 @Service()
-export class ExternalSecretsProjectAccessRepository extends BaseRepository<ProjectSecretsProviderAccess> {
+export class ProjectSecretsProviderAccessRepository extends BaseRepository<ProjectSecretsProviderAccess> {
 	constructor(dataSource: DataSource, txRunner: TransactionRunner) {
 		super(ProjectSecretsProviderAccess, dataSource.manager, txRunner);
 	}

@@ -1,7 +1,5 @@
-import type { GitSyncWorkflowChange } from './git-sync.api';
-
-const isRecord = (value: unknown): value is Record<string, unknown> =>
-	typeof value === 'object' && value !== null && !Array.isArray(value);
+import type { GitSyncWorkflowChange } from '@n8n/api-types';
+import { isRecord } from '@n8n/utils/is-record';
 
 const CHANGE_KINDS: ReadonlySet<string> = new Set(['created', 'modified', 'deleted']);
 

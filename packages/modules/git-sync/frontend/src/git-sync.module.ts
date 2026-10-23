@@ -1,10 +1,9 @@
-import { ROLE } from '@n8n/api-types';
 import { defineFrontendModule } from '@n8n/frontend-module-sdk';
 import { useI18n } from '@n8n/i18n';
+import { useRBACStore } from '@n8n/stores/rbac.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
-import { useUsersStore } from '@n8n/stores/users.store';
 
-import { GIT_SYNC_MODULE_ID, GIT_SYNC_SETTINGS_VIEW } from './git-sync.constants';
+import { GIT_SYNC_MODULE_ID, GIT_SYNC_SCOPE, GIT_SYNC_SETTINGS_VIEW } from './git-sync.constants';
 
 // typescript-eslint reads an SFC import as `any`, because only vue-tsc can type one.
 // `pnpm turbo typecheck` is what checks this component for real.
@@ -13,14 +12,17 @@ const SettingsGitSyncView = async () => await import('./SettingsGitSyncView.vue'
 
 /**
  * Fork module (not in upstream n8n). The settings page connects one project to a
- * branch of a Git repository. Only the instance owner and admins see it.
+ * branch of a Git repository. Only users with the global scope `sourceControl:manage` see it:
+ * the instance owner and admins.
  */
 export const GitSyncModule = defineFrontendModule({
 	// Must match the backend module id: both gate off `/rest/module-settings`.
 	id: GIT_SYNC_MODULE_ID,
 	name: 'Git sync',
-	description: 'Push the workflows of a project to Git, and pull changes from Git',
-	icon: 'git-branch',
+	description:
+		'Sync the workflows of one project with a Git branch (Environments syncs the whole instance)',
+	// Environments and Environments v2 use `git-branch`. A different icon keeps the items apart.
+	icon: 'arrow-left-right',
 	routes: [
 		{
 			path: 'git-sync',
@@ -28,9 +30,9 @@ export const GitSyncModule = defineFrontendModule({
 			component: SettingsGitSyncView,
 			meta: {
 				layout: 'settings',
-				middleware: ['authenticated', 'role', 'custom'],
+				middleware: ['authenticated', 'rbac', 'custom'],
 				middlewareOptions: {
-					role: [ROLE.Owner, ROLE.Admin],
+					rbac: { scope: GIT_SYNC_SCOPE },
 				},
 				telemetry: {
 					pageCategory: 'settings',
@@ -41,7 +43,7 @@ export const GitSyncModule = defineFrontendModule({
 	settingsPages: [
 		{
 			id: 'settings-git-sync',
-			icon: 'git-branch',
+			icon: 'arrow-left-right',
 			get label() {
 				return useI18n().baseText('settings.gitSync');
 			},
@@ -49,7 +51,8 @@ export const GitSyncModule = defineFrontendModule({
 			route: { to: { name: GIT_SYNC_SETTINGS_VIEW } },
 			get available() {
 				return (
-					useSettingsStore().isModuleActive(GIT_SYNC_MODULE_ID) && useUsersStore().isAdminOrOwner
+					useSettingsStore().isModuleActive(GIT_SYNC_MODULE_ID) &&
+					useRBACStore().hasScope(GIT_SYNC_SCOPE)
 				);
 			},
 		},

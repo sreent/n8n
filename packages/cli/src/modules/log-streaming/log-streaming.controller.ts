@@ -56,11 +56,11 @@ export class LogStreamingController {
 	@Delete('/destination')
 	@GlobalScope('logStreaming:manage')
 	async deleteDestination(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Query query: DeleteDestinationQueryDto,
 	) {
-		await this.logStreamingService.deleteDestination(query.id);
+		await this.logStreamingService.deleteDestination(query.id, req.user);
 		return true;
 	}
 

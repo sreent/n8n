@@ -238,13 +238,13 @@ onMounted(async () => {
 		<template #footer>
 			<div :class="$style.footer">
 				<N8nButton
-					type="secondary"
+					variant="subtle"
 					:label="i18n.baseText('generic.cancel')"
 					data-test-id="add-execution-to-dataset-cancel"
 					@click="close"
 				/>
 				<N8nButton
-					type="primary"
+					variant="solid"
 					:label="i18n.baseText('evaluations.addToDataset.submit')"
 					:disabled="!candidate || mappedCount === 0 || isSaving"
 					data-test-id="add-execution-to-dataset-submit"

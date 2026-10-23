@@ -6,9 +6,10 @@ import {
 	type HookDescription,
 	type IContextEstablishmentHook,
 } from '@n8n/decorators';
+import { isRecord } from '@n8n/utils/is-record';
 import type { INodeExecutionData } from 'n8n-workflow';
 
-import { isRecord, isWebhookTrigger, MASKED_HEADER_VALUE } from './applicable-triggers';
+import { isWebhookTrigger, MASKED_HEADER_VALUE } from './applicable-triggers';
 
 const TIMESTAMP_HEADER = 'x-slack-request-timestamp';
 const SIGNATURE_HEADER = 'x-slack-signature';

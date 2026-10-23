@@ -18,8 +18,8 @@ import { mock } from 'vitest-mock-extended';
 // n8n, import `SecretsProviderConnectionRepository` and `ProjectSecretsProviderAccessRepository`
 // here.
 import {
-	ExternalSecretsConnectionRepository as ConnectionRepository,
-	ExternalSecretsProjectAccessRepository as AccessRepository,
+	SecretsProviderConnectionRepository as ConnectionRepository,
+	ProjectSecretsProviderAccessRepository as AccessRepository,
 } from '@n8n/db';
 
 import { createMember } from '@test-integration/db/users';

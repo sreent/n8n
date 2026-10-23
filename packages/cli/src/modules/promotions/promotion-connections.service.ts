@@ -9,10 +9,14 @@ import type {
 	PromotionPromoteConfigPublicDto,
 	UpdatePromotionConnectionDto,
 } from '@n8n/api-types';
+import { EventService } from '@n8n/backend-services';
 import type { User } from '@n8n/db';
 import { ProjectRepository } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { BadRequestError, ConflictError, NotFoundError } from '@n8n/errors';
+import { scrubSecretsInText } from '@n8n/utils/scrub-secrets';
+
+import type { ForkGovernanceEventMap } from '@/events/maps/fork-governance.event-map';
 
 import type { PromotionConfig } from './database/entities/promotion-config.entity';
 import type { PromotionConnection } from './database/entities/promotion-connection.entity';
@@ -84,9 +88,10 @@ export class PromotionConnectionsService {
 		private readonly providersService: PromotionProvidersService,
 		private readonly checkouts: PromotionCheckouts,
 		private readonly git: PromotionGitRunner,
+		private readonly eventService: EventService,
 	) {}
 
-	async create(input: CreatePromotionConnectionDto) {
+	async create(input: CreatePromotionConnectionDto, user: User) {
 		const provider = await this.providersService.getEntity(input.providerId);
 		checkRemoteUrl(input.target.remoteUrl, provider.authType);
 		const configs: PromotionConfigInput[] = [];
@@ -129,6 +134,13 @@ export class PromotionConnectionsService {
 				}),
 			);
 		}
+		this.eventService.emit('git-connection-created', {
+			user,
+			connectionId: connection.id,
+			connectionName: connection.name,
+			scope: connection.scope,
+			remoteUrl: scrubSecretsInText(connection.target.remoteUrl),
+		});
 		return await this.findOne(connection.id);
 	}
 
@@ -168,7 +180,7 @@ export class PromotionConnectionsService {
 	}
 
 	/** Changes the name, the remote or the provider. A new provider or remote checks the URL again. */
-	async update(id: string, input: UpdatePromotionConnectionDto) {
+	async update(id: string, input: UpdatePromotionConnectionDto, user: User) {
 		const connection = await this.getConnection(id);
 		const provider =
 			input.providerId !== undefined
@@ -184,27 +196,35 @@ export class PromotionConnectionsService {
 		connection.providerId = provider.id;
 		connection.provider = provider;
 		await this.connectionRepository.save(connection);
+		this.emitUpdated(user, connection, { change: 'settings' });
 		return await this.findOne(id);
 	}
 
 	/** Deletes a connection with its configurations, its project links and its checkouts. */
-	async delete(id: string) {
-		await this.getConnection(id);
+	async delete(id: string, user: User) {
+		const connection = await this.getConnection(id);
 		const configs = await this.configRepository.findByConnectionIds([id]);
 		await this.connectionRepository.delete({ id });
 		for (const config of configs) await this.checkouts.remove(config.id);
+		this.eventService.emit('git-connection-deleted', {
+			user,
+			connectionId: connection.id,
+			connectionName: connection.name,
+		});
 	}
 
 	/** Replaces the configuration of a direction. A new configuration gets an id. */
 	async upsertConfig(
 		connectionId: string,
 		input: ApplyConfigInput,
+		user: User,
 	): Promise<PromotionApplyConfigPublicDto>;
 	async upsertConfig(
 		connectionId: string,
 		input: PromoteConfigInput,
+		user: User,
 	): Promise<PromotionPromoteConfigPublicDto>;
-	async upsertConfig(connectionId: string, input: PromotionConfigInput) {
+	async upsertConfig(connectionId: string, input: PromotionConfigInput, user: User) {
 		const connection = await this.getConnection(connectionId);
 		const { direction, settings } = input.config;
 		await this.checkBranchNames(settings);
@@ -228,12 +248,13 @@ export class PromotionConnectionsService {
 				throw error;
 			}
 		}
+		this.emitUpdated(user, connection, { change: 'configuration', direction });
 		return { ...(await this.toConfigPublicFields(connection, config)), settings: config.settings };
 	}
 
 	/** Deletes the configuration of a direction and its checkout. Nothing changes in Git. */
-	async deleteConfig(connectionId: string, direction: PromotionDirection) {
-		await this.getConnection(connectionId);
+	async deleteConfig(connectionId: string, direction: PromotionDirection, user: User) {
+		const connection = await this.getConnection(connectionId);
 		const config = await this.configRepository.findByConnectionAndDirection(
 			connectionId,
 			direction,
@@ -241,6 +262,7 @@ export class PromotionConnectionsService {
 		if (!config) throw new NotFoundError('Promotion configuration not found');
 		await this.configRepository.delete({ id: config.id });
 		await this.checkouts.remove(config.id);
+		this.emitUpdated(user, connection, { change: 'configuration-removed', direction });
 	}
 
 	async listProjects(connectionId: string) {
@@ -250,6 +272,7 @@ export class PromotionConnectionsService {
 
 	/** Links a team project to a `projects` connection. A link that exists gives the same answer. */
 	async addProject({
+		user,
 		connectionId,
 		projectId,
 	}: {
@@ -270,6 +293,7 @@ export class PromotionConnectionsService {
 		if (!link) {
 			try {
 				await this.linkRepository.insertLink(projectId, connectionId);
+				this.emitUpdated(user, connection, { change: 'project-linked', projectId });
 				return { projectId, connectionId };
 			} catch (error) {
 				if (!(error instanceof PromotionRowConflictError)) throw error;
@@ -284,6 +308,7 @@ export class PromotionConnectionsService {
 
 	/** Removes the link of a project. A project without a link gives no error. */
 	async removeProject({
+		user,
 		connectionId,
 		projectId,
 	}: {
@@ -291,13 +316,30 @@ export class PromotionConnectionsService {
 		connectionId: string;
 		projectId: string;
 	}) {
-		await this.getConnection(connectionId);
+		const connection = await this.getConnection(connectionId);
 		const link = await this.linkRepository.findByProjectId(projectId);
 		if (!link) return;
 		if (link.connectionId !== connectionId) {
 			throw new ConflictError('This project is linked to another promotion connection');
 		}
 		await this.linkRepository.delete({ projectId });
+		this.emitUpdated(user, connection, { change: 'project-unlinked', projectId });
+	}
+
+	private emitUpdated(
+		user: User,
+		connection: PromotionConnection,
+		details: Pick<
+			ForkGovernanceEventMap['git-connection-updated'],
+			'change' | 'direction' | 'projectId'
+		>,
+	) {
+		this.eventService.emit('git-connection-updated', {
+			user,
+			connectionId: connection.id,
+			connectionName: connection.name,
+			...details,
+		});
 	}
 
 	async getConnection(id: string) {

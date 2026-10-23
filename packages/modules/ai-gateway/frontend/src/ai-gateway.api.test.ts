@@ -1,11 +1,7 @@
+import type { AiGatewaySettings } from '@n8n/api-types';
 import { makeRestApiRequest } from '@n8n/rest-api-client';
 
-import {
-	addAiGatewayTopUp,
-	getAiGatewayUsage,
-	updateAiGatewaySettings,
-	type AiGatewaySettings,
-} from './ai-gateway.api';
+import { addAiGatewayTopUp, getAiGatewayUsage, updateAiGatewaySettings } from './ai-gateway.api';
 
 vi.mock('@n8n/rest-api-client', () => ({ makeRestApiRequest: vi.fn(async () => ({})) }));
 

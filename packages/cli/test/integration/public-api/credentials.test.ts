@@ -12,7 +12,7 @@ import {
 	CredentialsRepository,
 	SharedCredentialsRepository,
 	ProjectRepository,
-	ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository,
+	SecretsProviderConnectionRepository,
 } from '@n8n/db';
 import { Container } from '@n8n/di';
 import { QueryFailedError } from '@n8n/typeorm';

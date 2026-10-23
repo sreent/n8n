@@ -1,3 +1,4 @@
+import { AI_GATEWAY_GOOGLE_CLOUD_PROJECT, AI_GATEWAY_VERTEX_LOCATION } from '@n8n/api-types';
 import type { ICredentialDataDecryptedObject } from 'n8n-workflow';
 
 /**
@@ -15,9 +16,6 @@ export function stringField(data: ICredentialDataDecryptedObject, field: string)
 // ── Azure OpenAI ─────────────────────────────────────────────────────────────
 
 const AZURE_RESOURCE_NAME = /^[a-z0-9][a-z0-9-]{0,62}$/i;
-
-/** The name of an Azure OpenAI deployment, which the calls send as the model. */
-export const AZURE_DEPLOYMENT_NAME = /^[\w.-]{1,64}$/;
 
 /** Adds `/openai/v1` to an endpoint of Azure, unless the endpoint has it. */
 function withOpenAiV1Path(endpoint: string) {
@@ -46,12 +44,6 @@ export function azureOpenAiBaseUrl(data: ICredentialDataDecryptedObject): string
 }
 
 // ── Vertex AI ────────────────────────────────────────────────────────────────
-
-/** A location of Vertex AI, for example `global`, `us`, `eu` or `europe-west4`. */
-export const VERTEX_LOCATION = /^[a-z][a-z0-9-]{0,30}[a-z0-9]$/;
-
-/** A project of Google Cloud: its id, an id with a domain, or its number. */
-export const GOOGLE_CLOUD_PROJECT = /^([a-z][a-z0-9.:-]{4,61}[a-z0-9]|\d{1,20})$/;
 
 /** The multi-region locations, which have their own host. */
 const MULTI_REGION_LOCATIONS = new Set(['eu', 'us']);
@@ -84,21 +76,14 @@ export function vertexTarget(
 	data: ICredentialDataDecryptedObject,
 ): VertexTarget | undefined {
 	const project = settings.projectId ?? projectOfServiceAccount(stringField(data, 'email'));
-	if (!project || !GOOGLE_CLOUD_PROJECT.test(project)) return undefined;
+	if (!project || !AI_GATEWAY_GOOGLE_CLOUD_PROJECT.test(project)) return undefined;
 	const region = stringField(data, 'region');
 	const location =
-		settings.location ?? (VERTEX_LOCATION.test(region) ? region : undefined) ?? 'global';
+		settings.location ?? (AI_GATEWAY_VERTEX_LOCATION.test(region) ? region : undefined) ?? 'global';
 	return { project, location };
 }
 
 // ── Document AI ──────────────────────────────────────────────────────────────
-
-/**
- * An entry of the processors of Document AI that the gateway serves: a project, a location of a
- * project, or one processor (`projects/<project>/locations/<location>/processors/<ID>`).
- */
-export const DOCUMENT_AI_PROCESSOR_ENTRY =
-	/^projects\/([a-z][a-z0-9.:-]{4,61}[a-z0-9]|\d{1,20})(\/locations\/[a-z][a-z0-9-]{0,30}[a-z0-9](\/processors\/[\w-]{1,64})?)?$/;
 
 /**
  * Whether the gateway serves a processor of Document AI (its resource name, from the path of the

@@ -1,29 +1,8 @@
+import type { AuditLogEventsPage, AuditLogExportFormat } from '@n8n/api-types';
 import { getBrowserId } from '@n8n/constants';
 import type { IRestApiContext } from '@n8n/rest-api-client';
 import { makeRestApiRequest, ResponseError } from '@n8n/rest-api-client';
 import { isRecord } from '@n8n/utils/is-record';
-
-/** An audit event as the REST API gives it. */
-export interface AuditLogEvent {
-	id: string;
-	eventName: string;
-	/** The time of the event, in ISO 8601 (UTC). */
-	timestamp: string;
-	userId: string | null;
-	userEmail: string | null;
-	/** The project of the event, for example the home project of the workflow that it names. */
-	projectId: string | null;
-	/** `personal` or `team`. */
-	projectType: string | null;
-	payload: Record<string, unknown>;
-}
-
-export interface AuditLogEventsPage {
-	/** The number of all events that match the filters. */
-	count: number;
-	/** One page of the events, newest first. */
-	events: AuditLogEvent[];
-}
 
 /** The filters of the list and of the export. The backend uses each filter that is set. */
 export interface AuditLogFilters {
@@ -39,8 +18,6 @@ export interface AuditLogFilters {
 }
 
 export type AuditLogProjectType = 'personal' | 'team';
-
-export type AuditLogExportFormat = 'csv' | 'json';
 
 export interface AuditLogExportFile {
 	blob: Blob;

@@ -16,6 +16,7 @@ import {
 	ApiTags,
 	Get,
 	GlobalScope,
+	Licensed,
 	PublicApiController,
 	Query,
 } from '@n8n/decorators';
@@ -44,7 +45,10 @@ const toFilter = ({ from, to, ...filter }: AuditLogFilterQuery) => ({
 export class AuditLogPublicController {
 	constructor(private readonly moduleRegistry: ModuleRegistry) {}
 
-	/** The service of the audit log module. The module can be off: then the routes answer 503. */
+	/**
+	 * The service of the audit log module. As the promotions routes of n8n do, the routes answer 403
+	 * without the licence value of the module, and 503 while the module is off.
+	 */
 	private async service() {
 		if (!this.moduleRegistry.isActive('audit-log')) {
 			throw new ServiceUnavailableError('The audit log module is not enabled');
@@ -54,6 +58,7 @@ export class AuditLogPublicController {
 	}
 
 	@Get('/events')
+	@Licensed('feat:logStreaming')
 	@ApiKeyScope('auditLogs:manage')
 	@GlobalScope('auditLogs:manage')
 	@ApiSummary('Retrieve audit events')
@@ -84,6 +89,7 @@ export class AuditLogPublicController {
 	}
 
 	@Get('/export')
+	@Licensed('feat:logStreaming')
 	@ApiKeyScope('auditLogs:manage')
 	@GlobalScope('auditLogs:manage')
 	@ApiSummary('Export audit events')

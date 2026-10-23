@@ -1,4 +1,4 @@
-import type { AiGatewayPrice, AiGatewayPrices } from './ai-gateway.api';
+import type { AiGatewayPrice, AiGatewayPrices } from '@n8n/api-types';
 
 /** An amount in US dollars, with two decimals, or more for a small amount. */
 export function formatUsd(value: number, maximumFractionDigits = 2) {
@@ -81,26 +81,10 @@ export function withAdminPrice(
 	return next;
 }
 
-/** A project of Google Cloud: its id, an id with a domain, or its number. The backend checks the same. */
-export const GOOGLE_CLOUD_PROJECT = /^([a-z][a-z0-9.:-]{4,61}[a-z0-9]|\d{1,20})$/;
-
-/** A location of Vertex AI, for example `global`, `us` or `europe-west4`. */
-export const VERTEX_LOCATION = /^[a-z][a-z0-9-]{0,30}[a-z0-9]$/;
-
-/** The name of an Azure OpenAI deployment. */
-export const AZURE_DEPLOYMENT_NAME = /^[\w.-]{1,64}$/;
-
 /** The deployment names of a text with commas, spaces or line breaks, without duplicates. */
 export function parseDeployments(text: string) {
 	return [...new Set(text.split(/[\s,]+/).filter((name) => name.length > 0))];
 }
-
-/**
- * An entry of the processors of Document AI: a project, a location of a project, or one processor
- * (`projects/<project>/locations/<location>/processors/<ID>`). The backend checks the same.
- */
-export const DOCUMENT_AI_PROCESSOR_ENTRY =
-	/^projects\/([a-z][a-z0-9.:-]{4,61}[a-z0-9]|\d{1,20})(\/locations\/[a-z][a-z0-9-]{0,30}[a-z0-9](\/processors\/[\w-]{1,64})?)?$/;
 
 /**
  * The processors of Document AI of a text with commas, spaces or line breaks, without duplicates.

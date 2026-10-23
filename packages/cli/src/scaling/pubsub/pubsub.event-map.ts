@@ -35,6 +35,8 @@ export type PubSubCommandMap = {
 
 	'reload-oidc-config': never;
 	'reload-saml-config': never;
+	// Fork: the LDAP module of the fork.
+	'reload-ldap-config': never;
 
 	// # sso provisioning
 	'reload-sso-provisioning-configuration': never;

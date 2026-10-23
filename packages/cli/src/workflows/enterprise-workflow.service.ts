@@ -60,6 +60,10 @@ function credentialIdsOf(nodes: INode[] = []) {
 	return [...ids];
 }
 
+/**
+ * Unlike `isRecord` of `@n8n/utils`, this accepts arrays too. A sharing check must count the
+ * references of a malformed node, not skip the node.
+ */
 function isObject(value: unknown): value is Record<string, unknown> {
 	return typeof value === 'object' && value !== null;
 }

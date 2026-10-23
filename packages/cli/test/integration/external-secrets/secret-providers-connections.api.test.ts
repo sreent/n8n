@@ -3,8 +3,8 @@ import { createTeamProject, mockInstance, testDb } from '@n8n/backend-test-utils
 import type { Project } from '@n8n/db';
 import {
 	ProjectRepository,
-	ExternalSecretsProjectAccessRepository as ProjectSecretsProviderAccessRepository,
-	ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository,
+	ProjectSecretsProviderAccessRepository,
+	SecretsProviderConnectionRepository,
 } from '@n8n/db';
 import { Container } from '@n8n/di';
 import { Cipher } from 'n8n-core';

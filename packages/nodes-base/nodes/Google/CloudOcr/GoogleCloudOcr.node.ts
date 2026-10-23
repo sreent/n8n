@@ -68,6 +68,7 @@ export class GoogleCloudOcr implements INodeType {
 		defaults: {
 			name: 'Google Cloud OCR',
 		},
+		usableAsTool: true,
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		credentials: [

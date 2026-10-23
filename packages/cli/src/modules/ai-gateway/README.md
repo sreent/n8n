@@ -25,8 +25,8 @@ public API documentation of the providers.
 1. An admin creates a credential for each provider, with the API key of the organization, for
    example an OpenAI credential, or a credential of a backend of the provider (see "Backends"),
    for example an Azure OpenAI credential. Users do not need access to these credentials.
-2. On the page **Settings > AI gateway**, the admin turns on the gateway, picks the credential of
-   each provider, and sets the budgets.
+2. On the page **Settings > Gateway credits admin**, the admin turns on the gateway, picks the
+   credential of each provider, and sets the budgets.
 3. Users pick **Use Gateway credits** on a supported node.
 
 The licence value `feat:aiGateway` turns on the ordinary code of the gateway. The fork switch gives
@@ -305,9 +305,10 @@ estimate does not count the hidden reasoning tokens of a model or the tokens of 
 
 ## The settings page
 
-The frontend module `packages/modules/ai-gateway/frontend` adds the page **Settings > AI gateway**
-for users with the scope `aiAssistant:manage`: the switch of the gateway, an overview of the month,
-the credential of each provider, the budgets, the top-ups, the prices and the calls. Other users
+The frontend module `packages/modules/ai-gateway/frontend` adds the page **Settings > Gateway
+credits admin** for users with the scope `aiAssistant:manage`: the switch of the gateway, an
+overview of the month, the credential of each provider, the budgets, the top-ups, the prices and
+the calls. Other users
 keep the ordinary page **Settings > Gateway credits**: their balance and their calls.
 
 ## Settings and tables
@@ -343,12 +344,19 @@ have.
 | `GET /rest/ai-gateway/prices` | The list prices and the prices of the admin |
 | `GET /rest/ai-gateway/usage` | The calls, with filters and pages |
 
+The request and response types, the schema of the settings and the patterns of the backend options
+are in `packages/@n8n/api-types/src/dto/ai-gateway/ai-gateway-admin.dto.ts`. The backend and the
+editor use the same types, so the settings page checks a field with the rule of the backend.
+
 The ordinary routes of upstream stay: `GET /rest/ai/gateway/config`, `GET /rest/ai/gateway/wallet`
 and `GET /rest/ai/gateway/usage`. The module answers them through the hook. A user who is not an
 admin sees only their own calls in the usage.
 
 ## Security
 
+- A change of the settings and a top-up send an audit event (`n8n.audit.ai-gateway.*`) to log
+  streaming and the audit log, with the user. The event of the settings names the settings that
+  changed, the providers, the switch and the budgets, but no credential.
 - A token of the gateway is a JWT of the ordinary `JwtService` with the audience
   `n8n:fork-ai-gateway`. It holds the user and expires after one hour. The tokens for sign-in, for
   invitations and for OAuth have other audiences, so a token cannot serve another purpose.
@@ -388,15 +396,17 @@ admin sees only their own calls in the usage.
   stays with the project when a project changes owner.
 - `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`: when the module settings
   of this module say `selfHosted: true` and the instance is not n8n Cloud, **Top up** opens the page
-  **Settings > AI gateway** for a user with the scope `aiAssistant:manage`, and asks other users to
-  contact an admin.
+  **Settings > Gateway credits admin** for a user with the scope `aiAssistant:manage`. Other users
+  get the top-up dialog of n8n, which asks them to contact an admin.
+  `src/features/ai/gateway/components/AiGatewayTopUpModal.vue` shows the text of the self-hosted
+  gateway (`aiGateway.topUp.fork.member`) in place of the text about the Cloud Admin Panel.
 - `packages/@n8n/api-types/src/frontend-settings.ts`: the module settings `'ai-gateway'` with
   `selfHosted`.
 - `packages/nodes-base/package.json`: the fork node Google Cloud OCR and its credential type
   `googleCloudOcrApi`.
 - The registrations of the frontend module `packages/modules/ai-gateway/frontend` (the page
-  **Settings > AI gateway**) in `@n8n/frontend-vite-config` and editor-ui, and its texts in
-  `@n8n/i18n`. Its README describes the page.
+  **Settings > Gateway credits admin**) in `@n8n/frontend-vite-config` and editor-ui, and its texts
+  in `@n8n/i18n`. Its README describes the page.
 
 ## Tests
 

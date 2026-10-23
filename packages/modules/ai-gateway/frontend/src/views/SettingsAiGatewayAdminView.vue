@@ -2,6 +2,7 @@
 import { useDocumentTitle } from '@n8n/composables/useDocumentTitle';
 import { useToast } from '@n8n/composables/useToast';
 import {
+	N8nAlertDialog,
 	N8nCallout,
 	N8nLoading,
 	N8nSettingsLayout,
@@ -13,7 +14,8 @@ import {
 } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
 import { useSettingsStore } from '@n8n/stores/settings.store';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, useTemplateRef } from 'vue';
+import { onBeforeRouteLeave, type NavigationGuardNext } from 'vue-router';
 
 import { useAiGatewayAdminStore } from '../ai-gateway-admin.store';
 import AiGatewayBudgets from '../components/AiGatewayBudgets.vue';
@@ -44,14 +46,67 @@ const tabs = computed<Array<TabOptions<Tab>>>(() => [
 ]);
 
 const enabled = computed(() => store.settings?.enabled ?? false);
+const showDisableDialog = ref(false);
 
-async function onEnabledChange(value: boolean) {
+async function saveEnabled(value: boolean) {
 	try {
 		await store.saveSettings({ enabled: value });
 		toast.showMessage({ title: i18n.baseText('settings.forkAiGateway.saved'), type: 'success' });
 	} catch (error) {
 		toast.showError(error, i18n.baseText('settings.forkAiGateway.saveError'));
 	}
+}
+
+// Turning the gateway off stops the AI nodes that use Gateway credits. So the page asks first.
+function onEnabledChange(value: boolean) {
+	if (value) {
+		void saveEnabled(true);
+		return;
+	}
+	showDisableDialog.value = true;
+}
+
+async function confirmDisable() {
+	await saveEnabled(false);
+	showDisableDialog.value = false;
+}
+
+// The tabs with a form stay mounted, so a change of tab keeps their unsaved changes.
+const providersTab = useTemplateRef<InstanceType<typeof AiGatewayProviders>>('providersTab');
+const budgetsTab = useTemplateRef<InstanceType<typeof AiGatewayBudgets>>('budgetsTab');
+
+const hasUnsavedChanges = computed(
+	() =>
+		(providersTab.value?.hasUnsavedChanges ?? false) ||
+		(budgetsTab.value?.hasUnsavedChanges ?? false),
+);
+
+const showLeaveDialog = ref(false);
+const pendingNext = ref<NavigationGuardNext | null>(null);
+
+onBeforeRouteLeave((_to, _from, next) => {
+	if (!hasUnsavedChanges.value) {
+		next();
+		return;
+	}
+	pendingNext.value = next;
+	showLeaveDialog.value = true;
+});
+
+function onLeaveWithoutSaving() {
+	showLeaveDialog.value = false;
+	pendingNext.value?.();
+	pendingNext.value = null;
+}
+
+function onKeepEditing() {
+	showLeaveDialog.value = false;
+	pendingNext.value?.(false);
+	pendingNext.value = null;
+}
+
+function onLeaveDialogOpen(open: boolean) {
+	if (!open) onKeepEditing();
 }
 
 onMounted(async () => {
@@ -108,15 +163,42 @@ onMounted(async () => {
 			<N8nTabs v-model="activeTab" :options="tabs" data-test-id="ai-gateway-tabs" />
 
 			<AiGatewayOverview
-				v-if="activeTab === 'overview' && store.overview"
+				v-if="store.overview"
+				v-show="activeTab === 'overview'"
 				:overview="store.overview"
 			/>
-			<AiGatewayProviders v-else-if="activeTab === 'providers'" />
-			<AiGatewayBudgets v-else-if="activeTab === 'budgets'" />
-			<AiGatewayTopUps v-else-if="activeTab === 'topUps'" />
-			<AiGatewayPrices v-else-if="activeTab === 'prices'" />
-			<AiGatewayUsage v-else-if="activeTab === 'usage'" />
+			<AiGatewayProviders v-show="activeTab === 'providers'" ref="providersTab" />
+			<AiGatewayBudgets v-show="activeTab === 'budgets'" ref="budgetsTab" />
+			<AiGatewayTopUps v-show="activeTab === 'topUps'" />
+			<AiGatewayPrices v-show="activeTab === 'prices'" />
+			<!-- The calls load when the tab opens. -->
+			<AiGatewayUsage v-if="activeTab === 'usage'" />
 		</template>
+
+		<N8nAlertDialog
+			:open="showDisableDialog"
+			:title="i18n.baseText('settings.forkAiGateway.disable.confirmTitle')"
+			:description="i18n.baseText('settings.forkAiGateway.disable.confirmDescription')"
+			:action-label="i18n.baseText('settings.forkAiGateway.disable.confirm')"
+			:cancel-label="i18n.baseText('generic.cancel')"
+			action-variant="destructive"
+			:loading="store.saving"
+			size="medium"
+			@action="confirmDisable"
+			@update:open="showDisableDialog = $event"
+		/>
+
+		<N8nAlertDialog
+			:open="showLeaveDialog"
+			:title="i18n.baseText('settings.forkAiGateway.unsavedChanges.title')"
+			:description="i18n.baseText('settings.forkAiGateway.unsavedChanges.message')"
+			:action-label="i18n.baseText('settings.forkAiGateway.unsavedChanges.leaveWithoutSaving')"
+			:cancel-label="i18n.baseText('generic.keepEditing')"
+			action-variant="destructive"
+			size="medium"
+			@action="onLeaveWithoutSaving"
+			@update:open="onLeaveDialogOpen"
+		/>
 	</N8nSettingsLayout>
 </template>
 

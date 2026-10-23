@@ -24,7 +24,10 @@ switch is off (`N8N_FORK_FEATURES_ENABLED=false`). See
 
 ## What stays
 
-- **The page Settings > Usage and plan** shows the plan and the use of active workflows.
+- **The page Settings > Usage and plan** shows the plan and the use of active workflows. While the
+  fork switch is on, a callout tells that the fork features are on without a licence: the licence
+  data has the fork field `forkFeaturesEnabled` (2026-10-23, a uniformity fix), because the plan
+  name alone says "Community".
 - **A stored licence certificate.** The `License` class still reads a certificate that the database
   or `N8N_LICENSE_CERT` holds, for example from an upstream n8n before the change to the fork, and
   the licence renewal task renews it with the licence server of n8n. The fork makes no new

@@ -28,14 +28,15 @@ export function useAiGatewayTopUp() {
 
 	/**
 	 * Fork: the self-hosted AI gateway (`packages/cli/src/modules/ai-gateway`) has no Cloud Admin
-	 * Panel. An admin adds top-ups on its settings page, and other users ask an admin.
+	 * Panel. An admin adds top-ups on its settings page. Other users get the dialog of n8n that asks
+	 * them to contact an admin, with the text of the self-hosted gateway.
 	 */
 	async function openForkTopUp() {
 		if (hasPermission(['rbac'], { rbac: { scope: 'aiAssistant:manage' } })) {
 			await router.push({ name: AI_GATEWAY_ADMIN_VIEW });
 			return;
 		}
-		toast.showMessage({ title: i18n.baseText('aiGateway.topUp.fork.member'), type: 'info' });
+		uiStore.openModalWithData({ name: AI_GATEWAY_TOP_UP_MODAL_KEY, data: { variant: 'member' } });
 	}
 
 	function resolveVariant(): AiGatewayTopUpVariant {

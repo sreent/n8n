@@ -1,4 +1,5 @@
-import { GIT_SYNC_ERROR_CODES } from '../git-sync.constants';
+import { GIT_SYNC_ERROR_CODES } from '@n8n/api-types';
+
 import { GitSyncError } from '../git-sync.errors';
 
 const invalid = (message: string) =>

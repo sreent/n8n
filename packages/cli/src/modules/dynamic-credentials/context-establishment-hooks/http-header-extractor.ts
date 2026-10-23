@@ -6,8 +6,9 @@ import {
 	type HookDescription,
 	type IContextEstablishmentHook,
 } from '@n8n/decorators';
+import { isRecord } from '@n8n/utils/is-record';
 
-import { isRecord, isWebhookTrigger, MASKED_HEADER_VALUE } from './applicable-triggers';
+import { isWebhookTrigger, MASKED_HEADER_VALUE } from './applicable-triggers';
 
 const DEFAULT_HEADER_NAME = 'authorization';
 const DEFAULT_HEADER_PATTERN = '[Bb][Ee][Aa][Rr][Ee][Rr]\\s+(.+)';

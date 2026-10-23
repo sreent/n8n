@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 
 import { Logger } from '@n8n/backend-common';
 import { Service } from '@n8n/di';
+import { isRecord } from '@n8n/utils/is-record';
 import type { ICredentialContext } from 'n8n-workflow';
 
 import {
@@ -15,7 +16,6 @@ import {
 	checkAudience,
 	claimValue,
 	extractToken,
-	isRecord,
 	NO_EXPECTED_AUDIENCE_WARNING,
 } from './oauth2-utils';
 import { oauthIntrospectionOptionsSchema } from '../oauth-options';

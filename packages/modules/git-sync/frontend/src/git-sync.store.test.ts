@@ -1,7 +1,7 @@
+import type { GitSyncSettingsResponse } from '@n8n/api-types';
+import { CREDENTIAL_BLANKING_VALUE } from 'n8n-workflow';
 import { createPinia, setActivePinia } from 'pinia';
 
-import type { GitSyncSettings } from './git-sync.api';
-import { CREDENTIALS_BLANKING_VALUE } from './git-sync.constants';
 import { emptyForm, useGitSyncStore } from './git-sync.store';
 
 vi.mock('@n8n/stores/useRootStore', () => ({
@@ -27,14 +27,14 @@ vi.mock('./git-sync.api', () => ({
 	pullFromGit: async (...args: unknown[]) => await pullMock(...args),
 }));
 
-const saved: GitSyncSettings = {
+const saved: GitSyncSettingsResponse = {
 	repositoryUrl: 'https://github.com/acme/flows.git',
 	branch: 'main',
 	directory: 'n8n',
 	projectId: 'project-1',
 	projectName: 'Ada Lovelace',
 	username: 'x-access-token',
-	accessToken: CREDENTIALS_BLANKING_VALUE,
+	accessToken: CREDENTIAL_BLANKING_VALUE,
 	authorName: 'n8n Git sync',
 	authorEmail: 'bot@example.com',
 	credentialMatchingMode: 'name-and-type',
@@ -64,7 +64,7 @@ describe('useGitSyncStore', () => {
 
 		await store.fetchSettings();
 		expect(store.isConnected).toBe(true);
-		expect(store.form.accessToken).toBe(CREDENTIALS_BLANKING_VALUE);
+		expect(store.form.accessToken).toBe(CREDENTIAL_BLANKING_VALUE);
 		expect(store.isDirty).toBe(false);
 
 		store.form.branch = 'prod';

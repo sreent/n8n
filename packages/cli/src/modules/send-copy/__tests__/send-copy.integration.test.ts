@@ -1,3 +1,4 @@
+import type { SendCopyResult } from '@n8n/api-types';
 import { createWorkflow, testDb } from '@n8n/backend-test-utils';
 import type { User } from '@n8n/db';
 import {
@@ -17,8 +18,6 @@ import {
 	createUserShell,
 } from '@test-integration/db/users';
 import { setupTestServer } from '@test-integration/utils';
-
-import type { SendCopyResult } from '../send-copy.types';
 
 // A non-empty endpoint group makes the test server initialize the modules.
 const testServer = setupTestServer({ endpointGroups: ['me'], modules: ['send-copy'] });
@@ -128,16 +127,24 @@ describe('POST /send-copy/workflows/:workflowId', () => {
 		expect(original.nodes.find((n) => n.name === 'HTTP Request')?.credentials).toBeDefined();
 	});
 
-	it('returns 404 when the sender cannot read the workflow', async () => {
+	it('returns 403 when the sender cannot read the workflow, as the routes of n8n do', async () => {
 		const source = await createSourceWorkflow(alice);
 
 		await testServer
 			.authAgentFor(bob)
 			.post(`/send-copy/workflows/${source.id}`)
 			.send({ recipientIds: [owner.id] })
-			.expect(404);
+			.expect(403);
 
 		expect(await Container.get(WorkflowRepository).count()).toBe(1);
+	});
+
+	it('returns 404 for an unknown workflow', async () => {
+		await testServer
+			.authAgentFor(bob)
+			.post('/send-copy/workflows/unknown-workflow-id')
+			.send({ recipientIds: [owner.id] })
+			.expect(404);
 	});
 
 	it('reports recipients who cannot receive a copy', async () => {
