@@ -294,7 +294,7 @@ export class AiGatewayProxyService {
 			const start = url.pathname.indexOf(`${AI_GATEWAY_ROUTE}/`);
 			const path = start === -1 ? '' : url.pathname.slice(start + AI_GATEWAY_ROUTE.length);
 			const parsed = parseGatewayPath(path);
-			if (!parsed) throw new GatewayError(404, 'The AI gateway does not know this path.');
+			if (!parsed) throw new GatewayError(404, "Gateway credits don't know this path.");
 			format = parsed.provider.format;
 			await this.forward(req, res, url, parsed.provider, parsed.rest, parsed.attribution);
 		} catch (error) {
@@ -309,7 +309,12 @@ export class AiGatewayProxyService {
 			// The details can name hosts of the admin's credentials, so only the log gets them.
 			const message = error instanceof Error ? error.message : String(error);
 			this.logger.warn('A call through the AI gateway failed', { error: message });
-			sendError(res, format, 502, 'The AI gateway could not reach the provider.');
+			sendError(
+				res,
+				format,
+				502,
+				"Gateway credits couldn't reach the provider. Try again, or ask an admin to check the credential of the provider.",
+			);
 		}
 	}
 
@@ -328,19 +333,22 @@ export class AiGatewayProxyService {
 			!this.globalConfig.aiGateway.enabled ||
 			!this.licenseState.isAiGatewayLicensed()
 		) {
-			throw new GatewayError(503, 'The AI gateway is off.');
+			throw new GatewayError(503, 'Gateway credits are off. Ask an admin to turn them on.');
 		}
 		const providerSettings = settings.providers[provider.slug];
 		if (!providerSettings) {
-			throw new GatewayError(503, `The AI gateway has no credential for ${provider.displayName}.`);
+			throw new GatewayError(
+				503,
+				`Gateway credits have no credential for ${provider.displayName}. Ask an admin to add one.`,
+			);
 		}
 
 		const userId = this.tokens.verify(this.tokenOf(req, url, provider));
-		if (!userId) throw new GatewayError(401, 'The token of the AI gateway is not valid.');
+		if (!userId) throw new GatewayError(401, "The Gateway credits token isn't valid.");
 
 		const method = req.method.toUpperCase();
 		const endpoint = endpointOf(provider.format, method, rest);
-		if (!endpoint) throw new GatewayError(403, 'The AI gateway does not support this endpoint.');
+		if (!endpoint) throw new GatewayError(403, "Gateway credits don't support this endpoint.");
 
 		const credential = await this.credentialData(providerSettings.credentialId, provider);
 		let call: GatewayCall = {
@@ -369,7 +377,7 @@ export class AiGatewayProxyService {
 			if (!price) {
 				throw new GatewayError(
 					403,
-					`The model ${model} has no price in the AI gateway. Ask an admin to add one.`,
+					`The model ${model} has no price in Gateway credits. Ask an admin to add one.`,
 				);
 			}
 			const blocked = await this.budgets.blockReason({ userId, projectId: attribution.projectId });
@@ -482,11 +490,11 @@ export class AiGatewayProxyService {
 		if (model === undefined) {
 			throw new GatewayError(
 				403,
-				'The AI gateway sends the calls of Google Gemini to Vertex AI, which has no File API. Ask an admin for a Gemini API credential in the AI gateway, or send the files inline.',
+				'Gateway credits send the calls of Google Gemini to Vertex AI, which has no File API. Ask an admin for a Gemini API credential in Gateway credits, or send the files inline.',
 			);
 		}
 		if (this.prices.priceOf(provider, model) === undefined) {
-			throw new GatewayError(404, `The AI gateway offers no model ${model}.`);
+			throw new GatewayError(404, `Gateway credits don't offer the model ${model}.`);
 		}
 		const [details] = geminiModelList([model]).models;
 		res.json(details);
@@ -506,7 +514,7 @@ export class AiGatewayProxyService {
 			if (!servesDocumentAiProcessor(processors, processor)) {
 				throw new GatewayError(
 					403,
-					'The AI gateway does not serve this processor of Document AI. Ask an admin to add it to the processors of Google Cloud OCR on the page Settings > AI gateway.',
+					"Gateway credits don't serve this processor of Document AI. Ask an admin to add it to the processors of Google Cloud OCR on the page Settings > Gateway credits admin.",
 				);
 			}
 			const valid =
@@ -516,7 +524,7 @@ export class AiGatewayProxyService {
 			if (!valid) {
 				throw new GatewayError(
 					403,
-					'A call of Document AI through the AI gateway sends the content of the document (rawDocument), with no field mask and no file of Cloud Storage.',
+					'A call of Document AI through Gateway credits sends the content of the document (rawDocument), with no field mask and no file of Cloud Storage.',
 				);
 			}
 			return;
@@ -530,20 +538,20 @@ export class AiGatewayProxyService {
 		) {
 			throw new GatewayError(
 				403,
-				'A call of the Cloud Vision API through the AI gateway has only the field "requests".',
+				'A call of the Cloud Vision API through Gateway credits has only the field "requests".',
 			);
 		}
 		for (const request of requests) {
 			if (!isRecord(request) || !isOneTextDetection(request.features)) {
 				throw new GatewayError(
 					403,
-					'The AI gateway allows one text detection (TEXT_DETECTION or DOCUMENT_TEXT_DETECTION) for each image or file, and no other features.',
+					'Gateway credits allow one text detection (TEXT_DETECTION or DOCUMENT_TEXT_DETECTION) for each image or file, and no other features.',
 				);
 			}
 			if (readsCloudStorage(request)) {
 				throw new GatewayError(
 					403,
-					'The AI gateway reads only the content of a file or a public URL, not a file of Cloud Storage.',
+					'Gateway credits read only the content of a file or a public URL, not a file of Cloud Storage.',
 				);
 			}
 		}
@@ -573,7 +581,7 @@ export class AiGatewayProxyService {
 		if (!backend || credential.type !== backend.credentialType) {
 			throw new GatewayError(
 				503,
-				'The credential of the open models of Vertex AI for the AI gateway is missing or has the wrong type.',
+				'The credential of the open models of Vertex AI for Gateway credits is missing or has the wrong type. Ask an admin to check it.',
 			);
 		}
 		return {
@@ -606,7 +614,7 @@ export class AiGatewayProxyService {
 			if (!base) {
 				throw new GatewayError(
 					503,
-					'The Azure OpenAI credential of the AI gateway has no endpoint and no resource name.',
+					'The Azure OpenAI credential of Gateway credits has no endpoint and no resource name. Ask an admin to add one.',
 				);
 			}
 			const apiKey = stringField(credential, 'apiKey');
@@ -630,7 +638,7 @@ export class AiGatewayProxyService {
 		if (provider.format === 'google-ocr' && !backend && documentAiLocation(rest)) {
 			throw new GatewayError(
 				403,
-				'Document AI takes no API keys. Ask an admin for a service account for Google Cloud OCR in the AI gateway.',
+				'Document AI takes no API keys. Ask an admin for a service account for Google Cloud OCR in Gateway credits.',
 			);
 		}
 
@@ -649,7 +657,7 @@ export class AiGatewayProxyService {
 		if (backend?.kind === 'vertex-ai') {
 			const target = this.vertexTargetOf(call);
 			const modelCall = geminiModelCall(rest);
-			if (!modelCall) throw new GatewayError(403, 'The AI gateway does not support this endpoint.');
+			if (!modelCall) throw new GatewayError(403, "Gateway credits don't support this endpoint.");
 			const path = vertexModelPath(target, modelCall.model, modelCall.action);
 			return {
 				url: query(new URL(`${this.vertex.origin(target.location)}${path}`)),
@@ -705,7 +713,7 @@ export class AiGatewayProxyService {
 		if (!target) {
 			throw new GatewayError(
 				503,
-				'The AI gateway needs the project of Google Cloud for Vertex AI. An admin sets it on the page Settings > AI gateway.',
+				'Gateway credits need the project of Google Cloud for Vertex AI. Ask an admin to set it on the page Settings > Gateway credits admin.',
 			);
 		}
 		return target;
@@ -721,7 +729,7 @@ export class AiGatewayProxyService {
 			});
 			throw new GatewayError(
 				503,
-				'The AI gateway could not sign in to Google Cloud with the credential of the admin.',
+				"Gateway credits couldn't sign in to Google Cloud with the credential of the admin. Ask an admin to check it.",
 			);
 		}
 	}
@@ -837,7 +845,7 @@ export class AiGatewayProxyService {
 		const raw: unknown = req.rawBody;
 		if (!Buffer.isBuffer(raw) || raw.length === 0) return {};
 		if (raw.length > this.config.maxRequestMb * 1024 * 1024) {
-			throw new GatewayError(413, 'The request is too large for the AI gateway.');
+			throw new GatewayError(413, 'The request is too large for Gateway credits.');
 		}
 		const json: unknown = req.is('application/json') ? req.body : undefined;
 		return { raw: new Uint8Array(raw), json };
@@ -851,7 +859,7 @@ export class AiGatewayProxyService {
 					: undefined
 				: endpoint.model.fromPath;
 		if (typeof model !== 'string' || !model.trim()) {
-			throw new GatewayError(400, 'The AI gateway needs the model of the call.');
+			throw new GatewayError(400, 'Gateway credits need the model of the call.');
 		}
 		return model.trim();
 	}
@@ -1035,7 +1043,7 @@ export class AiGatewayProxyService {
 		if (!credential || !credentialTypesOf(provider).includes(credential.type)) {
 			throw new GatewayError(
 				503,
-				`The credential of ${provider.displayName} for the AI gateway is missing or has the wrong type.`,
+				`The credential of ${provider.displayName} for Gateway credits is missing or has the wrong type. Ask an admin to check it.`,
 			);
 		}
 		// Load lazily because the execution stack imports the modules.

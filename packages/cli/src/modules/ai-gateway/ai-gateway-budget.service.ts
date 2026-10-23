@@ -75,18 +75,18 @@ export class AiGatewayBudgetService {
 	async blockReason(context: AiGatewayCallContext, now = new Date()) {
 		const instance = await this.instanceStatus(now);
 		if (instance.remaining <= 0) {
-			return 'The budget of the AI gateway is spent. Ask an admin to raise the budget or to add a top-up.';
+			return 'The Gateway credits of this instance are spent. Ask an admin to raise the budget or add a top-up.';
 		}
 		if (context.projectId) {
 			const projectLeft = await this.projectRemaining(context.projectId, now);
 			if (projectLeft !== undefined && projectLeft <= 0) {
-				return 'The monthly budget of this project for the AI gateway is spent. Ask an admin to raise it.';
+				return 'The monthly budget of Gateway credits for this project is spent. Ask an admin to raise it.';
 			}
 		}
 		if (context.userId) {
 			const userLeft = await this.userRemaining(context.userId, now);
 			if (userLeft !== undefined && userLeft <= 0) {
-				return 'Your monthly limit for the AI gateway is spent. Ask an admin to raise it.';
+				return 'Your monthly limit of Gateway credits is spent. Ask an admin to raise it.';
 			}
 		}
 		return undefined;

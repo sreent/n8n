@@ -110,8 +110,8 @@ types of the config that the gateway gives.
   the same place. It removes the headers `cookie`, `host`, the hop-by-hop headers, the other
   authentication headers and `x-goog-user-project`, which bills another project of Google Cloud.
 - Only the endpoints of text, chat, embeddings, token counts and model lists pass. The other
-  endpoints (images, audio, files, batches, fine-tuning) give the status 403 with "The AI gateway
-  does not support this endpoint". The config of the gateway also limits the operations of the app
+  endpoints (images, audio, files, batches, fine-tuning) give the status 403 with "Gateway credits
+  don't support this endpoint". The config of the gateway also limits the operations of the app
   nodes (OpenAI, Anthropic, Google Gemini) to the operations that the gateway can price.
 - The document and image analysis of the Google Gemini node (OCR) uploads each file with the File
   API of Gemini first. The proxy passes the start of an upload (`POST /upload/v1beta/files`) and
@@ -276,7 +276,7 @@ input for each token, and marks the call as estimated.
 
 `prices.ts` holds the list prices of common models, with the date when the fork read them. The
 admin changes a price or adds a model on the settings page. A model without a price is blocked
-("The model <model> has no price in the AI gateway. Ask an admin to add one."), so that no call is
+("The model <model> has no price in Gateway credits. Ask an admin to add one."), so that no call is
 free by mistake. Ollama models have the price 0 unless the admin sets one.
 
 ### Estimates
