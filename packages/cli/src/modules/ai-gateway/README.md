@@ -392,8 +392,10 @@ admin sees only their own calls in the usage.
   stays with the project when a project changes owner.
 - `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`: when the module settings
   of this module say `selfHosted: true` and the instance is not n8n Cloud, **Top up** opens the page
-  **Settings > Gateway credits admin** for a user with the scope `aiAssistant:manage`, and asks
-  other users to contact an admin.
+  **Settings > Gateway credits admin** for a user with the scope `aiAssistant:manage`. Other users
+  get the top-up dialog of n8n, which asks them to contact an admin.
+  `src/features/ai/gateway/components/AiGatewayTopUpModal.vue` shows the text of the self-hosted
+  gateway (`aiGateway.topUp.fork.member`) in place of the text about the Cloud Admin Panel.
 - `packages/@n8n/api-types/src/frontend-settings.ts`: the module settings `'ai-gateway'` with
   `selfHosted`.
 - `packages/nodes-base/package.json`: the fork node Google Cloud OCR and its credential type

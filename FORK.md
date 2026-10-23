@@ -369,10 +369,11 @@ update can bring new enterprise files: see "Upstream updates".
   [packages/cli/src/modules/audit-log/README.md](packages/cli/src/modules/audit-log/README.md)
   tells.
 - When an upstream update changes `packages/cli/src/services/ai-gateway.service.ts`,
-  `packages/cli/src/services/frontend.service.ts` or
-  `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`, keep the fork lines of the
-  AI gateway. When it changes the protocol of the gateway or adds a provider to Gateway credits,
-  change the fork module, as
+  `packages/cli/src/services/frontend.service.ts`,
+  `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts` or
+  `packages/frontend/editor-ui/src/features/ai/gateway/components/AiGatewayTopUpModal.vue`, keep the
+  fork lines of the AI gateway. When it changes the protocol of the gateway or adds a provider to
+  Gateway credits, change the fork module, as
   [packages/cli/src/modules/ai-gateway/README.md](packages/cli/src/modules/ai-gateway/README.md)
   tells.
 - When an upstream update changes the lists of `packages/nodes-base/package.json`, keep the two

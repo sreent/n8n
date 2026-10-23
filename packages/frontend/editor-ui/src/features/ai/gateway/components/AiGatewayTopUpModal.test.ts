@@ -7,6 +7,7 @@ import { setActivePinia } from 'pinia';
 import { ROLE } from '@n8n/api-types';
 import { mockedStore } from '@/__tests__/utils';
 import { createComponentRenderer } from '@/__tests__/render';
+import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { AI_GATEWAY_TOP_UP_MODAL_KEY } from '@/app/constants';
 import type { AiGatewayTopUpVariant } from '@/app/composables/useAiGatewayTopUp';
@@ -86,6 +87,24 @@ describe('AiGatewayTopUpModal.vue', () => {
 		expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Contact admin' })).toBeInTheDocument();
 		expect(screen.queryByRole('button', { name: 'Upgrade' })).not.toBeInTheDocument();
+	});
+
+	// Fork: the self-hosted gateway of the fork (packages/cli/src/modules/ai-gateway).
+	it('tells members of the fork gateway to ask an admin, without the Cloud Admin Panel', () => {
+		const pinia = createTestingPinia();
+		setActivePinia(pinia);
+		useSettingsStore().$patch({ moduleSettings: { 'ai-gateway': { selfHosted: true } } });
+		mockedStore(useUsersStore).fetchUsers = vi.fn().mockResolvedValue(undefined);
+		renderComponent({ pinia, props: { variant: 'member' } });
+
+		expect(screen.getByText('Contact your admin to top-up')).toBeInTheDocument();
+		expect(
+			screen.getByText(
+				'Ask an admin of this instance to add a top-up or to raise the budget for Gateway credits.',
+			),
+		).toBeInTheDocument();
+		expect(screen.queryByText(/Cloud Admin Panel/)).not.toBeInTheDocument();
+		expect(screen.getByRole('button', { name: 'Contact admin' })).toBeInTheDocument();
 	});
 
 	it('tells trial non-owners that the Instance Owner must upgrade and top up', () => {

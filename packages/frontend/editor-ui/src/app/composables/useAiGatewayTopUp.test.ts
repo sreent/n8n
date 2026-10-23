@@ -171,20 +171,19 @@ describe('useAiGatewayTopUp', () => {
 			expect(routerPushMock).not.toHaveBeenCalled();
 		});
 
-		it('asks other users to contact an admin', async () => {
+		it('opens the contact-admin dialog of n8n for other users', async () => {
 			const uiStore = mockedStore(useUIStore);
 			useRBACStore().setGlobalScopes(['workflow:read']);
 
 			const { openTopUp } = useAiGatewayTopUp();
 			await openTopUp({ source: 'settings_page' });
 
-			expect(showMessageMock).toHaveBeenCalledWith({
-				title:
-					'Ask an admin of this instance to add a top-up or to raise the budget for Gateway credits.',
-				type: 'info',
+			expect(uiStore.openModalWithData).toHaveBeenCalledWith({
+				name: AI_GATEWAY_TOP_UP_MODAL_KEY,
+				data: { variant: 'member' },
 			});
+			expect(showMessageMock).not.toHaveBeenCalled();
 			expect(routerPushMock).not.toHaveBeenCalled();
-			expect(uiStore.openModalWithData).not.toHaveBeenCalled();
 		});
 	});
 });
