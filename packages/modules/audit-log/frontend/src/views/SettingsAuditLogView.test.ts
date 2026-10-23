@@ -284,7 +284,7 @@ describe('SettingsAuditLogView', () => {
 		await userEvent.click(await screen.findByTestId('audit-log-export-item-json'));
 
 		await waitFor(() =>
-			expect(showError).toHaveBeenCalledWith(error, 'Could not export the audit log'),
+			expect(showError).toHaveBeenCalledWith(error, "Couldn't export the audit log"),
 		);
 		expect(saveFileMock).not.toHaveBeenCalled();
 	});
@@ -296,7 +296,7 @@ describe('SettingsAuditLogView', () => {
 		render(pinia);
 
 		await waitFor(() =>
-			expect(showError).toHaveBeenCalledWith(error, 'Could not load the audit log'),
+			expect(showError).toHaveBeenCalledWith(error, "Couldn't load the audit log"),
 		);
 	});
 

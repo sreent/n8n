@@ -1,11 +1,23 @@
 <script setup lang="ts">
 import { useToast } from '@n8n/composables/useToast';
-import { N8nButton, N8nInput, N8nInputLabel, N8nInputNumber, N8nText } from '@n8n/design-system';
+import {
+	N8nAlertDialog,
+	N8nButton,
+	N8nDataTableServer,
+	N8nInput,
+	N8nInputLabel,
+	N8nInputNumber,
+	N8nText,
+	type TableHeader,
+} from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
 import { computed, ref } from 'vue';
 
 import { useAiGatewayAdminStore } from '../ai-gateway-admin.store';
+import type { AiGatewayTopUp } from '../ai-gateway.api';
+import { TABLE_PAGE_SIZES } from '../ai-gateway.constants';
 import { formatDateTime, formatUsd } from '../ai-gateway.utils';
+import { useTablePage } from '../composables/useTablePage';
 
 /** The backend accepts top-ups up to one million dollars. */
 const MAX_TOP_UP = 1_000_000;
@@ -17,10 +29,50 @@ const store = useAiGatewayAdminStore();
 const amount = ref<number | undefined>(undefined);
 const note = ref('');
 const adding = ref(false);
+const showConfirm = ref(false);
+/** The amount that the confirmation shows. It stays while the dialog closes. */
+const confirmAmount = ref('');
 
 const valid = computed(
 	() => amount.value !== undefined && amount.value > 0 && amount.value <= MAX_TOP_UP,
 );
+
+const { page, itemsPerPage, pageItems } = useTablePage(() => store.topUps);
+
+const headers = computed<Array<TableHeader<AiGatewayTopUp>>>(() => [
+	{
+		title: i18n.baseText('settings.forkAiGateway.topUps.date'),
+		key: 'createdAt',
+		disableSort: true,
+		minWidth: 170,
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.topUps.amount'),
+		key: 'amount',
+		disableSort: true,
+		align: 'end',
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.topUps.by'),
+		key: 'createdBy',
+		value: (row) => row.createdByEmail ?? row.createdById ?? '—',
+		disableSort: true,
+		minWidth: 180,
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.topUps.note'),
+		key: 'note',
+		disableSort: true,
+		minWidth: 200,
+	},
+]);
+
+// A top-up stays on the balance: the backend has no way to remove one. So the page asks first.
+function confirmAdd() {
+	if (!valid.value || amount.value === undefined) return;
+	confirmAmount.value = formatUsd(amount.value);
+	showConfirm.value = true;
+}
 
 async function add() {
 	if (!valid.value || amount.value === undefined) return;
@@ -37,6 +89,7 @@ async function add() {
 		toast.showError(error, i18n.baseText('settings.forkAiGateway.topUps.addError'));
 	} finally {
 		adding.value = false;
+		showConfirm.value = false;
 	}
 }
 </script>
@@ -77,31 +130,49 @@ async function add() {
 				:disabled="!valid"
 				:loading="adding"
 				data-test-id="ai-gateway-top-up-add"
-				@click="add"
+				@click="confirmAdd"
 			/>
 		</div>
 
 		<N8nText v-if="store.topUps.length === 0" size="small" color="text-light">
 			{{ i18n.baseText('settings.forkAiGateway.topUps.empty') }}
 		</N8nText>
-		<table v-else :class="$style.table" data-test-id="ai-gateway-top-up-list">
-			<thead>
-				<tr>
-					<th>{{ i18n.baseText('settings.forkAiGateway.topUps.date') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.topUps.amount') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.topUps.by') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.topUps.note') }}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="topUp in store.topUps" :key="topUp.id">
-					<td>{{ formatDateTime(topUp.createdAt) }}</td>
-					<td>{{ formatUsd(topUp.amount) }}</td>
-					<td>{{ topUp.createdByEmail ?? topUp.createdById ?? '—' }}</td>
-					<td>{{ topUp.note ?? '' }}</td>
-				</tr>
-			</tbody>
-		</table>
+		<N8nDataTableServer
+			v-else
+			v-model:page="page"
+			v-model:items-per-page="itemsPerPage"
+			:headers="headers"
+			:items="pageItems"
+			:items-length="store.topUps.length"
+			:page-sizes="TABLE_PAGE_SIZES"
+			data-test-id="ai-gateway-top-up-list"
+		>
+			<template #[`item.createdAt`]="{ item }">
+				{{ formatDateTime(item.createdAt) }}
+			</template>
+			<template #[`item.amount`]="{ item }">
+				{{ formatUsd(item.amount) }}
+			</template>
+			<template #[`item.note`]="{ item }">
+				{{ item.note ?? '' }}
+			</template>
+		</N8nDataTableServer>
+
+		<N8nAlertDialog
+			:open="showConfirm"
+			:title="
+				i18n.baseText('settings.forkAiGateway.topUps.confirmTitle', {
+					interpolate: { amount: confirmAmount },
+				})
+			"
+			:description="i18n.baseText('settings.forkAiGateway.topUps.confirmDescription')"
+			:action-label="i18n.baseText('settings.forkAiGateway.topUps.add')"
+			:cancel-label="i18n.baseText('generic.cancel')"
+			:loading="adding"
+			size="medium"
+			@action="add"
+			@update:open="showConfirm = $event"
+		/>
 	</div>
 </template>
 
@@ -126,23 +197,5 @@ async function add() {
 .note {
 	flex: 1;
 	min-width: 16rem;
-}
-
-.table {
-	width: 100%;
-	border-collapse: collapse;
-
-	th,
-	td {
-		padding: var(--spacing--2xs) var(--spacing--xs);
-		border-bottom: var(--border);
-		text-align: left;
-		font-size: var(--font-size--sm);
-	}
-
-	th {
-		color: var(--color--text--tint-1);
-		font-weight: var(--font-weight--bold);
-	}
 }
 </style>

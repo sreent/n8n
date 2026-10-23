@@ -1,5 +1,6 @@
 import type { FrontendSettings } from '@n8n/api-types';
 import { capabilities, capabilityRegistry } from '@n8n/frontend-module-sdk';
+import { useRBACStore } from '@n8n/stores/rbac.store';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { createPinia, setActivePinia } from 'pinia';
 
@@ -30,10 +31,17 @@ describe('useSendCopyAction', () => {
 		expect(useSendCopyAction().isAvailable.value).toBe(false);
 	});
 
-	it('is available when the backend module is active', () => {
+	it('is available when the backend module is active and the user can list users', () => {
 		useSettingsStore().$patch({ settings: { activeModules: ['send-copy'] } as FrontendSettings });
+		useRBACStore().addGlobalScope('user:list');
 
 		expect(useSendCopyAction().isAvailable.value).toBe(true);
+	});
+
+	it('is not available when the user cannot list users', () => {
+		useSettingsStore().$patch({ settings: { activeModules: ['send-copy'] } as FrontendSettings });
+
+		expect(useSendCopyAction().isAvailable.value).toBe(false);
 	});
 
 	it('gives the menu label', () => {

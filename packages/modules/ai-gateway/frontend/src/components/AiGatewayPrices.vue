@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useToast } from '@n8n/composables/useToast';
 import {
+	N8nAlertDialog,
 	N8nButton,
+	N8nDataTableServer,
 	N8nIconButton,
 	N8nInput,
 	N8nInputLabel,
@@ -10,13 +12,16 @@ import {
 	N8nSelect,
 	N8nSwitch,
 	N8nText,
+	type TableHeader,
 } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { useAiGatewayAdminStore } from '../ai-gateway-admin.store';
 import type { AiGatewayPrice } from '../ai-gateway.api';
+import { FREE_BY_DEFAULT_PROVIDER, TABLE_PAGE_SIZES } from '../ai-gateway.constants';
 import { priceRows, withAdminPrice, type AiGatewayPriceRow } from '../ai-gateway.utils';
+import { useTablePage } from '../composables/useTablePage';
 
 const i18n = useI18n();
 const toast = useToast();
@@ -64,6 +69,64 @@ const rows = computed(() => {
 			store.providerName(row.provider).toLowerCase().includes(query),
 	);
 });
+
+const { page, itemsPerPage, pageItems } = useTablePage(rows);
+
+watch(search, () => {
+	page.value = 0;
+});
+
+const rowId = (row: AiGatewayPriceRow) => `${row.provider}/${row.model}`;
+
+const headers = computed<Array<TableHeader<AiGatewayPriceRow>>>(() => [
+	{
+		title: i18n.baseText('settings.forkAiGateway.prices.provider'),
+		key: 'provider',
+		disableSort: true,
+		minWidth: 160,
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.prices.model'),
+		key: 'model',
+		disableSort: true,
+		minWidth: 220,
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.prices.input'),
+		key: 'input',
+		value: (row) => formatPrice(row.price.input),
+		disableSort: true,
+		align: 'end',
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.prices.cachedInput'),
+		key: 'cachedInput',
+		value: (row) => formatPrice(row.price.cachedInput),
+		disableSort: true,
+		align: 'end',
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.prices.output'),
+		key: 'output',
+		value: (row) => formatPrice(row.price.output),
+		disableSort: true,
+		align: 'end',
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.prices.source'),
+		key: 'source',
+		disableSort: true,
+	},
+	{
+		title: '',
+		key: 'actions',
+		value: () => undefined,
+		disableSort: true,
+		align: 'end',
+		width: 100,
+		resize: false,
+	},
+]);
 
 const valid = computed(
 	() =>
@@ -115,12 +178,39 @@ async function setPrice() {
 	}
 }
 
+/** The price that waits for a confirmation of its removal. */
+const priceToRemove = ref<AiGatewayPriceRow | null>(null);
+
+// Without its price, a model that has no list price is blocked. So the page asks first.
+const blocksModel = (row: AiGatewayPriceRow) =>
+	!row.listPrice && row.provider !== FREE_BY_DEFAULT_PROVIDER;
+
 async function removePrice(row: AiGatewayPriceRow) {
 	if (!store.settings) return;
 	await savePrices(withAdminPrice(store.settings.prices, row.provider, row.model, undefined));
 }
 
-const formatPrice = (value: number | undefined) => (value === undefined ? '—' : `$${value}`);
+function onRemoveClick(row: AiGatewayPriceRow) {
+	if (blocksModel(row)) {
+		priceToRemove.value = row;
+		return;
+	}
+	void removePrice(row);
+}
+
+async function confirmRemove() {
+	if (!priceToRemove.value) return;
+	await removePrice(priceToRemove.value);
+	priceToRemove.value = null;
+}
+
+function onRemoveDialogOpen(open: boolean) {
+	if (!open) priceToRemove.value = null;
+}
+
+function formatPrice(value: number | undefined) {
+	return value === undefined ? '—' : `$${value}`;
+}
 </script>
 
 <template>
@@ -236,65 +326,74 @@ const formatPrice = (value: number | undefined) => (value === undefined ? '—' 
 		<N8nText v-if="rows.length === 0" size="small" color="text-light">
 			{{ i18n.baseText('settings.forkAiGateway.prices.empty') }}
 		</N8nText>
-		<table v-else :class="$style.table" data-test-id="ai-gateway-price-list">
-			<thead>
-				<tr>
-					<th>{{ i18n.baseText('settings.forkAiGateway.prices.provider') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.prices.model') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.prices.input') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.prices.cachedInput') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.prices.output') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.prices.source') }}</th>
-					<th />
-				</tr>
-			</thead>
-			<tbody>
-				<tr
-					v-for="row in rows"
-					:key="`${row.provider}/${row.model}`"
-					:data-test-id="`ai-gateway-price-${row.provider}-${row.model}`"
-				>
-					<td>
-						<div>{{ store.providerName(row.provider) }}</div>
-						<N8nText v-if="pricesPages(row.provider)" size="xsmall" color="text-light">
-							{{ i18n.baseText('settings.forkAiGateway.prices.perMillionPages') }}
-						</N8nText>
-					</td>
-					<td>
-						<code>{{ row.model }}</code>
-					</td>
-					<td>{{ formatPrice(row.price.input) }}</td>
-					<td>{{ formatPrice(row.price.cachedInput) }}</td>
-					<td>{{ formatPrice(row.price.output) }}</td>
-					<td>
-						{{
-							row.source === 'admin'
-								? i18n.baseText('settings.forkAiGateway.prices.source.admin')
-								: i18n.baseText('settings.forkAiGateway.prices.source.list')
-						}}
-					</td>
-					<td :class="$style.rowActions">
-						<N8nIconButton
-							icon="pencil"
-							variant="ghost"
-							size="small"
-							:aria-label="i18n.baseText('settings.forkAiGateway.prices.edit')"
-							:title="i18n.baseText('settings.forkAiGateway.prices.edit')"
-							@click="edit(row)"
-						/>
-						<N8nIconButton
-							v-if="row.source === 'admin'"
-							icon="trash-2"
-							variant="ghost"
-							size="small"
-							:aria-label="i18n.baseText('settings.forkAiGateway.prices.remove')"
-							:title="i18n.baseText('settings.forkAiGateway.prices.remove')"
-							@click="removePrice(row)"
-						/>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<N8nDataTableServer
+			v-else
+			v-model:page="page"
+			v-model:items-per-page="itemsPerPage"
+			:headers="headers"
+			:items="pageItems"
+			:items-length="rows.length"
+			:page-sizes="TABLE_PAGE_SIZES"
+			:item-value="rowId"
+			data-test-id="ai-gateway-price-list"
+		>
+			<template #[`item.provider`]="{ item }">
+				<div :data-test-id="`ai-gateway-price-${item.provider}-${item.model}`">
+					<div>{{ store.providerName(item.provider) }}</div>
+					<N8nText v-if="pricesPages(item.provider)" size="xsmall" color="text-light">
+						{{ i18n.baseText('settings.forkAiGateway.prices.perMillionPages') }}
+					</N8nText>
+				</div>
+			</template>
+			<template #[`item.model`]="{ item }">
+				<code>{{ item.model }}</code>
+			</template>
+			<template #[`item.source`]="{ item }">
+				{{
+					item.source === 'admin'
+						? i18n.baseText('settings.forkAiGateway.prices.source.admin')
+						: i18n.baseText('settings.forkAiGateway.prices.source.list')
+				}}
+			</template>
+			<template #[`item.actions`]="{ item }">
+				<div :class="$style.rowActions">
+					<N8nIconButton
+						icon="pencil"
+						variant="ghost"
+						size="small"
+						:aria-label="i18n.baseText('settings.forkAiGateway.prices.edit')"
+						:title="i18n.baseText('settings.forkAiGateway.prices.edit')"
+						@click="edit(item)"
+					/>
+					<N8nIconButton
+						v-if="item.source === 'admin'"
+						icon="trash-2"
+						variant="ghost"
+						size="small"
+						:aria-label="i18n.baseText('settings.forkAiGateway.prices.remove')"
+						:title="i18n.baseText('settings.forkAiGateway.prices.remove')"
+						@click="onRemoveClick(item)"
+					/>
+				</div>
+			</template>
+		</N8nDataTableServer>
+
+		<N8nAlertDialog
+			:open="priceToRemove !== null"
+			:title="i18n.baseText('settings.forkAiGateway.prices.removeConfirmTitle')"
+			:description="
+				i18n.baseText('settings.forkAiGateway.prices.removeConfirmDescription', {
+					interpolate: { model: priceToRemove?.model ?? '' },
+				})
+			"
+			:action-label="i18n.baseText('settings.forkAiGateway.prices.removeConfirm')"
+			:cancel-label="i18n.baseText('generic.cancel')"
+			action-variant="destructive"
+			:loading="store.saving"
+			size="medium"
+			@action="confirmRemove"
+			@update:open="onRemoveDialogOpen"
+		/>
 	</div>
 </template>
 
@@ -335,26 +434,9 @@ const formatPrice = (value: number | undefined) => (value === undefined ? '—' 
 	max-width: 20rem;
 }
 
-.table {
-	width: 100%;
-	border-collapse: collapse;
-
-	th,
-	td {
-		padding: var(--spacing--2xs) var(--spacing--xs);
-		border-bottom: var(--border);
-		text-align: left;
-		font-size: var(--font-size--sm);
-	}
-
-	th {
-		color: var(--color--text--tint-1);
-		font-weight: var(--font-weight--bold);
-	}
-}
-
 .rowActions {
-	white-space: nowrap;
-	text-align: right;
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--spacing--4xs);
 }
 </style>

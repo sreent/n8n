@@ -2,11 +2,13 @@
 import { useToast } from '@n8n/composables/useToast';
 import {
 	N8nButton,
+	N8nDataTableServer,
 	N8nInput,
 	N8nInputLabel,
 	N8nOption,
 	N8nSelect,
 	N8nText,
+	type TableHeader,
 } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
 import { computed, ref, watch } from 'vue';
@@ -18,6 +20,7 @@ import type {
 	AiGatewayProviderInfo,
 	AiGatewayProviderSettings,
 } from '../ai-gateway.api';
+import { TABLE_PAGE_SIZES } from '../ai-gateway.constants';
 import {
 	AZURE_DEPLOYMENT_NAME,
 	DOCUMENT_AI_PROCESSOR_ENTRY,
@@ -26,6 +29,7 @@ import {
 	parseDocumentAiProcessors,
 	VERTEX_LOCATION,
 } from '../ai-gateway.utils';
+import { useTablePage } from '../composables/useTablePage';
 
 /** The fields of one provider. An empty credential id is no credential. */
 interface ProviderForm {
@@ -82,8 +86,6 @@ function reset() {
 		}),
 	);
 }
-
-watch(() => [store.providers, store.settings], reset, { immediate: true });
 
 /** The form of a provider. It is always there, so the template can bind its fields. */
 function formOf(slug: string) {
@@ -208,6 +210,16 @@ const changed = computed(() =>
 	),
 );
 
+// A save on another tab also changes the settings. The form then keeps the unsaved changes.
+watch(
+	() => [store.providers, store.settings] as const,
+	(_, previous) => {
+		if (previous?.[1] && changed.value) return;
+		reset();
+	},
+	{ immediate: true },
+);
+
 async function save() {
 	const providers: Record<string, AiGatewayProviderSettings> = {};
 	for (const provider of store.providers) {
@@ -221,6 +233,28 @@ async function save() {
 		toast.showError(error, i18n.baseText('settings.forkAiGateway.saveError'));
 	}
 }
+
+const { page, itemsPerPage, pageItems } = useTablePage(() => store.providers);
+
+const headers = computed<Array<TableHeader<AiGatewayProviderInfo>>>(() => [
+	{
+		title: i18n.baseText('settings.forkAiGateway.providers.provider'),
+		key: 'displayName',
+		disableSort: true,
+		width: 240,
+		resize: false,
+	},
+	{
+		title: i18n.baseText('settings.forkAiGateway.providers.credential'),
+		key: 'credential',
+		value: () => undefined,
+		disableSort: true,
+		width: 720,
+		resize: false,
+	},
+]);
+
+defineExpose({ hasUnsavedChanges: changed });
 </script>
 
 <template>
@@ -228,224 +262,221 @@ async function save() {
 		<N8nText size="small" color="text-light">
 			{{ i18n.baseText('settings.forkAiGateway.providers.description') }}
 		</N8nText>
-		<table :class="$style.table">
-			<thead>
-				<tr>
-					<th>{{ i18n.baseText('settings.forkAiGateway.providers.provider') }}</th>
-					<th>{{ i18n.baseText('settings.forkAiGateway.providers.credential') }}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr
-					v-for="provider in store.providers"
-					:key="provider.slug"
-					:data-test-id="`ai-gateway-provider-${provider.slug}`"
-				>
-					<td>
-						<div>{{ provider.displayName }}</div>
-						<code :class="$style.type">{{ credentialTypes(provider) }}</code>
-					</td>
-					<td>
+		<N8nDataTableServer
+			v-model:page="page"
+			v-model:items-per-page="itemsPerPage"
+			:headers="headers"
+			:items="pageItems"
+			:items-length="store.providers.length"
+			:page-sizes="TABLE_PAGE_SIZES"
+			item-value="slug"
+			data-test-id="ai-gateway-provider-list"
+		>
+			<template #[`item.displayName`]="{ item }">
+				<div :data-test-id="`ai-gateway-provider-${item.slug}`">
+					<div>{{ item.displayName }}</div>
+					<code :class="$style.type">{{ credentialTypes(item) }}</code>
+				</div>
+			</template>
+			<template #[`item.credential`]="{ item }">
+				<div :class="$style.credentialCell">
+					<N8nSelect
+						v-if="item.credentialOptions.length > 0"
+						v-model="formOf(item.slug).credentialId"
+						:class="$style.select"
+						size="medium"
+						clearable
+						:placeholder="i18n.baseText('settings.forkAiGateway.providers.none')"
+						:data-test-id="`ai-gateway-provider-credential-${item.slug}`"
+					>
+						<N8nOption
+							v-for="option in item.credentialOptions"
+							:key="option.id"
+							:value="option.id"
+							:label="optionLabel(item, option)"
+						/>
+					</N8nSelect>
+					<N8nText v-else size="small" color="text-light">
+						{{
+							i18n.baseText('settings.forkAiGateway.providers.noCredentials', {
+								interpolate: { type: credentialTypes(item) },
+							})
+						}}
+					</N8nText>
+
+					<div
+						v-if="pickedBackend(item)?.kind === 'azure-openai'"
+						:class="$style.backendOptions"
+						:data-test-id="`ai-gateway-provider-azure-${item.slug}`"
+					>
+						<N8nInputLabel
+							:label="i18n.baseText('settings.forkAiGateway.providers.deployments')"
+							:bold="false"
+							size="small"
+						>
+							<N8nInput
+								v-model="formOf(item.slug).deployments"
+								:class="$style.select"
+								size="small"
+								:placeholder="
+									i18n.baseText('settings.forkAiGateway.providers.deployments.placeholder')
+								"
+								:data-test-id="`ai-gateway-provider-deployments-${item.slug}`"
+							/>
+						</N8nInputLabel>
+						<N8nText size="xsmall" color="text-light">
+							{{ i18n.baseText('settings.forkAiGateway.providers.deployments.hint') }}
+						</N8nText>
+					</div>
+
+					<div
+						v-if="pickedBackend(item)?.kind === 'google-cloud'"
+						:class="$style.backendOptions"
+						:data-test-id="`ai-gateway-provider-document-ai-${item.slug}`"
+					>
+						<N8nInputLabel
+							:label="i18n.baseText('settings.forkAiGateway.providers.documentAiProcessors')"
+							:bold="false"
+							size="small"
+						>
+							<N8nInput
+								v-model="formOf(item.slug).documentAiProcessors"
+								type="textarea"
+								:rows="3"
+								size="small"
+								:placeholder="
+									i18n.baseText('settings.forkAiGateway.providers.documentAiProcessors.placeholder')
+								"
+								:data-test-id="`ai-gateway-provider-document-ai-processors-${item.slug}`"
+							/>
+						</N8nInputLabel>
+						<N8nText size="xsmall" color="text-light">
+							{{ i18n.baseText('settings.forkAiGateway.providers.documentAiProcessors.hint') }}
+						</N8nText>
+					</div>
+
+					<div
+						v-if="isVertex(pickedBackend(item))"
+						:class="$style.backendOptions"
+						:data-test-id="`ai-gateway-provider-vertex-${item.slug}`"
+					>
+						<div :class="$style.row">
+							<N8nInputLabel
+								:label="i18n.baseText('settings.forkAiGateway.providers.projectId')"
+								:bold="false"
+								size="small"
+							>
+								<N8nInput
+									v-model="formOf(item.slug).projectId"
+									size="small"
+									:placeholder="
+										i18n.baseText('settings.forkAiGateway.providers.projectId.placeholder')
+									"
+									:data-test-id="`ai-gateway-provider-project-${item.slug}`"
+								/>
+							</N8nInputLabel>
+							<N8nInputLabel
+								:label="i18n.baseText('settings.forkAiGateway.providers.location')"
+								:bold="false"
+								size="small"
+							>
+								<N8nInput
+									v-model="formOf(item.slug).location"
+									size="small"
+									:placeholder="
+										i18n.baseText('settings.forkAiGateway.providers.location.placeholder')
+									"
+									:data-test-id="`ai-gateway-provider-location-${item.slug}`"
+								/>
+							</N8nInputLabel>
+						</div>
+						<N8nText size="xsmall" color="text-light">
+							{{
+								i18n.baseText(
+									pickedBackend(item)?.kind === 'vertex-openai'
+										? 'settings.forkAiGateway.providers.vertexOpenAi.hint'
+										: 'settings.forkAiGateway.providers.vertex.hint',
+								)
+							}}
+						</N8nText>
+					</div>
+
+					<div
+						v-if="offersOpenModels(item)"
+						:class="$style.backendOptions"
+						:data-test-id="`ai-gateway-provider-open-models-${item.slug}`"
+					>
+						<N8nText size="small" :bold="true">
+							{{ i18n.baseText('settings.forkAiGateway.providers.openModels') }}
+						</N8nText>
 						<N8nSelect
-							v-if="provider.credentialOptions.length > 0"
-							v-model="formOf(provider.slug).credentialId"
-							:class="$style.select"
-							size="medium"
+							v-if="openModelsOptions(item).length > 0"
+							v-model="formOf(item.slug).openModelsCredentialId"
+							size="small"
 							clearable
-							:placeholder="i18n.baseText('settings.forkAiGateway.providers.none')"
-							:data-test-id="`ai-gateway-provider-credential-${provider.slug}`"
+							:placeholder="i18n.baseText('settings.forkAiGateway.providers.openModels.none')"
+							:data-test-id="`ai-gateway-provider-open-models-credential-${item.slug}`"
 						>
 							<N8nOption
-								v-for="option in provider.credentialOptions"
+								v-for="option in openModelsOptions(item)"
 								:key="option.id"
 								:value="option.id"
-								:label="optionLabel(provider, option)"
+								:label="option.name"
 							/>
 						</N8nSelect>
-						<N8nText v-else size="small" color="text-light">
+						<N8nText v-else size="xsmall" color="text-light">
 							{{
 								i18n.baseText('settings.forkAiGateway.providers.noCredentials', {
-									interpolate: { type: credentialTypes(provider) },
+									interpolate: { type: openModelsBackend(item)?.credentialType ?? '' },
 								})
 							}}
 						</N8nText>
-
-						<div
-							v-if="pickedBackend(provider)?.kind === 'azure-openai'"
-							:class="$style.backendOptions"
-							:data-test-id="`ai-gateway-provider-azure-${provider.slug}`"
-						>
+						<div v-if="formOf(item.slug).openModelsCredentialId" :class="$style.row">
 							<N8nInputLabel
-								:label="i18n.baseText('settings.forkAiGateway.providers.deployments')"
+								:label="i18n.baseText('settings.forkAiGateway.providers.projectId')"
 								:bold="false"
 								size="small"
 							>
 								<N8nInput
-									v-model="formOf(provider.slug).deployments"
-									:class="$style.select"
+									v-model="formOf(item.slug).openModelsProjectId"
 									size="small"
 									:placeholder="
-										i18n.baseText('settings.forkAiGateway.providers.deployments.placeholder')
+										i18n.baseText('settings.forkAiGateway.providers.projectId.placeholder')
 									"
-									:data-test-id="`ai-gateway-provider-deployments-${provider.slug}`"
+									:data-test-id="`ai-gateway-provider-open-models-project-${item.slug}`"
 								/>
 							</N8nInputLabel>
-							<N8nText size="xsmall" color="text-light">
-								{{ i18n.baseText('settings.forkAiGateway.providers.deployments.hint') }}
-							</N8nText>
-						</div>
-
-						<div
-							v-if="pickedBackend(provider)?.kind === 'google-cloud'"
-							:class="$style.backendOptions"
-							:data-test-id="`ai-gateway-provider-document-ai-${provider.slug}`"
-						>
 							<N8nInputLabel
-								:label="i18n.baseText('settings.forkAiGateway.providers.documentAiProcessors')"
+								:label="i18n.baseText('settings.forkAiGateway.providers.location')"
 								:bold="false"
 								size="small"
 							>
 								<N8nInput
-									v-model="formOf(provider.slug).documentAiProcessors"
-									type="textarea"
-									:rows="3"
+									v-model="formOf(item.slug).openModelsLocation"
 									size="small"
 									:placeholder="
-										i18n.baseText(
-											'settings.forkAiGateway.providers.documentAiProcessors.placeholder',
-										)
+										i18n.baseText('settings.forkAiGateway.providers.location.placeholder')
 									"
-									:data-test-id="`ai-gateway-provider-document-ai-processors-${provider.slug}`"
+									:data-test-id="`ai-gateway-provider-open-models-location-${item.slug}`"
 								/>
 							</N8nInputLabel>
-							<N8nText size="xsmall" color="text-light">
-								{{ i18n.baseText('settings.forkAiGateway.providers.documentAiProcessors.hint') }}
-							</N8nText>
 						</div>
-
-						<div
-							v-if="isVertex(pickedBackend(provider))"
-							:class="$style.backendOptions"
-							:data-test-id="`ai-gateway-provider-vertex-${provider.slug}`"
-						>
-							<div :class="$style.row">
-								<N8nInputLabel
-									:label="i18n.baseText('settings.forkAiGateway.providers.projectId')"
-									:bold="false"
-									size="small"
-								>
-									<N8nInput
-										v-model="formOf(provider.slug).projectId"
-										size="small"
-										:placeholder="
-											i18n.baseText('settings.forkAiGateway.providers.projectId.placeholder')
-										"
-										:data-test-id="`ai-gateway-provider-project-${provider.slug}`"
-									/>
-								</N8nInputLabel>
-								<N8nInputLabel
-									:label="i18n.baseText('settings.forkAiGateway.providers.location')"
-									:bold="false"
-									size="small"
-								>
-									<N8nInput
-										v-model="formOf(provider.slug).location"
-										size="small"
-										:placeholder="
-											i18n.baseText('settings.forkAiGateway.providers.location.placeholder')
-										"
-										:data-test-id="`ai-gateway-provider-location-${provider.slug}`"
-									/>
-								</N8nInputLabel>
-							</div>
-							<N8nText size="xsmall" color="text-light">
-								{{
-									i18n.baseText(
-										pickedBackend(provider)?.kind === 'vertex-openai'
-											? 'settings.forkAiGateway.providers.vertexOpenAi.hint'
-											: 'settings.forkAiGateway.providers.vertex.hint',
-									)
-								}}
-							</N8nText>
-						</div>
-
-						<div
-							v-if="offersOpenModels(provider)"
-							:class="$style.backendOptions"
-							:data-test-id="`ai-gateway-provider-open-models-${provider.slug}`"
-						>
-							<N8nText size="small" :bold="true">
-								{{ i18n.baseText('settings.forkAiGateway.providers.openModels') }}
-							</N8nText>
-							<N8nSelect
-								v-if="openModelsOptions(provider).length > 0"
-								v-model="formOf(provider.slug).openModelsCredentialId"
-								size="small"
-								clearable
-								:placeholder="i18n.baseText('settings.forkAiGateway.providers.openModels.none')"
-								:data-test-id="`ai-gateway-provider-open-models-credential-${provider.slug}`"
-							>
-								<N8nOption
-									v-for="option in openModelsOptions(provider)"
-									:key="option.id"
-									:value="option.id"
-									:label="option.name"
-								/>
-							</N8nSelect>
-							<N8nText v-else size="xsmall" color="text-light">
-								{{
-									i18n.baseText('settings.forkAiGateway.providers.noCredentials', {
-										interpolate: { type: openModelsBackend(provider)?.credentialType ?? '' },
-									})
-								}}
-							</N8nText>
-							<div v-if="formOf(provider.slug).openModelsCredentialId" :class="$style.row">
-								<N8nInputLabel
-									:label="i18n.baseText('settings.forkAiGateway.providers.projectId')"
-									:bold="false"
-									size="small"
-								>
-									<N8nInput
-										v-model="formOf(provider.slug).openModelsProjectId"
-										size="small"
-										:placeholder="
-											i18n.baseText('settings.forkAiGateway.providers.projectId.placeholder')
-										"
-										:data-test-id="`ai-gateway-provider-open-models-project-${provider.slug}`"
-									/>
-								</N8nInputLabel>
-								<N8nInputLabel
-									:label="i18n.baseText('settings.forkAiGateway.providers.location')"
-									:bold="false"
-									size="small"
-								>
-									<N8nInput
-										v-model="formOf(provider.slug).openModelsLocation"
-										size="small"
-										:placeholder="
-											i18n.baseText('settings.forkAiGateway.providers.location.placeholder')
-										"
-										:data-test-id="`ai-gateway-provider-open-models-location-${provider.slug}`"
-									/>
-								</N8nInputLabel>
-							</div>
-							<N8nText size="xsmall" color="text-light">
-								{{ i18n.baseText('settings.forkAiGateway.providers.openModels.hint') }}
-							</N8nText>
-						</div>
-
-						<N8nText
-							v-if="!isValid(provider)"
-							size="xsmall"
-							color="danger"
-							:data-test-id="`ai-gateway-provider-invalid-${provider.slug}`"
-						>
-							{{ i18n.baseText('settings.forkAiGateway.providers.invalid') }}
+						<N8nText size="xsmall" color="text-light">
+							{{ i18n.baseText('settings.forkAiGateway.providers.openModels.hint') }}
 						</N8nText>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+					</div>
+
+					<N8nText
+						v-if="!isValid(item)"
+						size="xsmall"
+						color="danger"
+						:data-test-id="`ai-gateway-provider-invalid-${item.slug}`"
+					>
+						{{ i18n.baseText('settings.forkAiGateway.providers.invalid') }}
+					</N8nText>
+				</div>
+			</template>
+		</N8nDataTableServer>
 		<div :class="$style.actions">
 			<N8nButton
 				variant="solid"
@@ -467,28 +498,13 @@ async function save() {
 	gap: var(--spacing--sm);
 }
 
-.table {
-	width: 100%;
-	border-collapse: collapse;
-
-	th,
-	td {
-		padding: var(--spacing--2xs) var(--spacing--xs);
-		border-bottom: var(--border);
-		text-align: left;
-		vertical-align: middle;
-		font-size: var(--font-size--sm);
-	}
-
-	th {
-		color: var(--color--text--tint-1);
-		font-weight: var(--font-weight--bold);
-	}
-}
-
 .type {
 	font-size: var(--font-size--2xs);
 	color: var(--color--text--tint-1);
+}
+
+.credentialCell {
+	padding-block: var(--spacing--2xs);
 }
 
 .select {

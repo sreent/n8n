@@ -19,8 +19,10 @@ export const GitSyncModule = defineFrontendModule({
 	// Must match the backend module id: both gate off `/rest/module-settings`.
 	id: GIT_SYNC_MODULE_ID,
 	name: 'Git sync',
-	description: 'Push the workflows of a project to Git, and pull changes from Git',
-	icon: 'git-branch',
+	description:
+		'Sync the workflows of one project with a Git branch (Environments syncs the whole instance)',
+	// Environments and Environments v2 use `git-branch`. A different icon keeps the items apart.
+	icon: 'arrow-left-right',
 	routes: [
 		{
 			path: 'git-sync',
@@ -41,7 +43,7 @@ export const GitSyncModule = defineFrontendModule({
 	settingsPages: [
 		{
 			id: 'settings-git-sync',
-			icon: 'git-branch',
+			icon: 'arrow-left-right',
 			get label() {
 				return useI18n().baseText('settings.gitSync');
 			},

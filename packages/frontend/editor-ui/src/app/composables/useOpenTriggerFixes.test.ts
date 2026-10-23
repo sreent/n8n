@@ -199,7 +199,7 @@ describe('useOpenTriggerFixes', () => {
 
 		it('refuses a node that is not on the canvas', async () => {
 			await expect(useOpenTriggerFixes().applyFix('w1', 'gone', 'signIn')).rejects.toThrow(
-				'The node is not on the canvas any more.',
+				"The node isn't on the canvas anymore.",
 			);
 		});
 	});

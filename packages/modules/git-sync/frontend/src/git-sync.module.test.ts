@@ -54,6 +54,10 @@ describe('GitSyncModule', () => {
 		expect(settingsPage()?.available).toBe(visible);
 	});
 
+	it('has its own sidebar icon, not the icon of Environments', () => {
+		expect(settingsPage()?.icon).toBe('arrow-left-right');
+	});
+
 	it('hides the sidebar item when the module is off', () => {
 		activate(false);
 		signIn('global:owner');

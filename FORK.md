@@ -54,8 +54,8 @@ The licence of n8n allows changes for internal business use only (`LICENSE.md`).
   n8n Cloud for Gateway credits. Users run AI nodes without an API key of their own. The gateway
   calls the provider (or Azure OpenAI or Vertex AI) with a credential of an admin, records the
   cost of each call and stops the calls when a budget is spent. The frontend module
-  `packages/modules/ai-gateway/frontend` adds the page Settings > AI gateway. Their READMEs
-  describe them.
+  `packages/modules/ai-gateway/frontend` adds the page Settings > Gateway credits admin. Their
+  READMEs describe them.
 - **Open triggers**: the backend module `packages/cli/src/modules/open-triggers` finds the
   webhooks, forms, public chats and MCP servers without authentication. With
   `N8N_OPEN_TRIGGERS_NEED_APPROVAL=true`, a publish stops for a new open trigger until a workflow
@@ -215,7 +215,7 @@ The fork removes the enterprise code step by step, and builds its own versions o
    instances and worker pools also need `N8N_MULTI_MAIN_SETUP_ENABLED=true` and
    `N8N_WORKER_POOLS_ENABLED=true`, as in upstream n8n. On 2026-10-15 the owner added the AI gateway
    (Gateway credits) to the list. Without a credential of a provider and without the switch on the
-   page Settings > AI gateway, the gateway stays off. On 2026-10-23 the owner added log streaming
+   page Settings > Gateway credits admin, the gateway stays off. On 2026-10-23 the owner added log streaming
    and the audit log (`feat:logStreaming`): they stay on by default, and the switch turns them off
    with the other rebuilt features.
 

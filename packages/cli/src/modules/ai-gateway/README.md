@@ -25,8 +25,8 @@ public API documentation of the providers.
 1. An admin creates a credential for each provider, with the API key of the organization, for
    example an OpenAI credential, or a credential of a backend of the provider (see "Backends"),
    for example an Azure OpenAI credential. Users do not need access to these credentials.
-2. On the page **Settings > AI gateway**, the admin turns on the gateway, picks the credential of
-   each provider, and sets the budgets.
+2. On the page **Settings > Gateway credits admin**, the admin turns on the gateway, picks the
+   credential of each provider, and sets the budgets.
 3. Users pick **Use Gateway credits** on a supported node.
 
 The licence value `feat:aiGateway` turns on the ordinary code of the gateway. The fork switch gives
@@ -305,9 +305,10 @@ estimate does not count the hidden reasoning tokens of a model or the tokens of 
 
 ## The settings page
 
-The frontend module `packages/modules/ai-gateway/frontend` adds the page **Settings > AI gateway**
-for users with the scope `aiAssistant:manage`: the switch of the gateway, an overview of the month,
-the credential of each provider, the budgets, the top-ups, the prices and the calls. Other users
+The frontend module `packages/modules/ai-gateway/frontend` adds the page **Settings > Gateway
+credits admin** for users with the scope `aiAssistant:manage`: the switch of the gateway, an
+overview of the month, the credential of each provider, the budgets, the top-ups, the prices and
+the calls. Other users
 keep the ordinary page **Settings > Gateway credits**: their balance and their calls.
 
 ## Settings and tables
@@ -391,15 +392,15 @@ admin sees only their own calls in the usage.
   stays with the project when a project changes owner.
 - `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`: when the module settings
   of this module say `selfHosted: true` and the instance is not n8n Cloud, **Top up** opens the page
-  **Settings > AI gateway** for a user with the scope `aiAssistant:manage`, and asks other users to
-  contact an admin.
+  **Settings > Gateway credits admin** for a user with the scope `aiAssistant:manage`, and asks
+  other users to contact an admin.
 - `packages/@n8n/api-types/src/frontend-settings.ts`: the module settings `'ai-gateway'` with
   `selfHosted`.
 - `packages/nodes-base/package.json`: the fork node Google Cloud OCR and its credential type
   `googleCloudOcrApi`.
 - The registrations of the frontend module `packages/modules/ai-gateway/frontend` (the page
-  **Settings > AI gateway**) in `@n8n/frontend-vite-config` and editor-ui, and its texts in
-  `@n8n/i18n`. Its README describes the page.
+  **Settings > Gateway credits admin**) in `@n8n/frontend-vite-config` and editor-ui, and its texts
+  in `@n8n/i18n`. Its README describes the page.
 
 ## Tests
 

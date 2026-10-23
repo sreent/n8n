@@ -1,8 +1,10 @@
 # @n8n/frontend-module-ai-gateway
 
-Fork module (not in upstream n8n). It adds the page **Settings > AI gateway** for the self-hosted
-AI gateway. Users with the global scope `aiAssistant:manage` ("Manage AI usage") see it: the owner
-and the admins. The repository owner chose the gateway on 2026-10-15.
+Fork module (not in upstream n8n). It adds the page **Settings > Gateway credits admin** for the
+self-hosted AI gateway. Users with the global scope `aiAssistant:manage` ("Manage AI usage") see it:
+the owner and the admins. The repository owner chose the gateway on 2026-10-15. The texts that
+users see call the feature Gateway credits, as `AGENTS.md` tells. The code, the i18n keys and the
+comments keep the name AI gateway.
 
 The backend module is `packages/cli/src/modules/ai-gateway`. Its README tells how a call goes
 through the gateway, how the budgets and the prices work, and the REST API that this page uses.
@@ -15,10 +17,15 @@ balance and their calls.
   `rbac` middleware needs the scope `aiAssistant:manage`, and the `custom` middleware hides the page
   when the backend module is off. The settings sidebar shows the page under the same two
   conditions.
-- The switch at the top turns the gateway on or off. The gateway is on only when it also has a
-  credential for at least one provider. After a change of the switch or of the providers, the page
-  reads the settings of the editor again, so the option **Use Gateway credits** of the nodes follows
-  without a reload.
+- The switch at the top turns the gateway on or off. The page asks for a confirmation before it
+  turns the gateway off. The gateway is on only when it also has a credential for at least one
+  provider. After a change of the switch or of the providers, the page reads the settings of the
+  editor again, so the option **Use Gateway credits** of the nodes follows without a reload.
+- The tabs with a form stay mounted (`v-show`), so a change of tab keeps the unsaved changes. A save
+  on another tab keeps them too. When the user leaves the page with unsaved changes on the tabs
+  Providers or Budgets, the page asks first. The tab Usage loads the calls when it opens.
+- The tables use `N8nDataTableServer`. The page has all the rows, and gives the table one page of
+  25, 50 or 100 rows (`composables/useTablePage.ts`).
 - The tabs:
   - **Overview** (`components/AiGatewayOverview.vue`): the month (UTC), the monthly budget, the
     spend of the month, what is left of the budget, the balance of the top-ups, and what the calls
@@ -36,16 +43,21 @@ balance and their calls.
     endpoint of the Google Cloud console as the resource name of its processor. The page checks
     these fields as the backend does.
   - **Budgets** (`components/AiGatewayBudgets.vue`): the monthly budget of the instance, the
-    monthly limit of each user (empty is no limit), and the monthly budgets of team projects.
+    monthly limit of each user (empty is no limit), and the monthly budgets of team projects. The
+    project and the amount of each row have a label for screen readers.
   - **Top-ups** (`components/AiGatewayTopUps.vue`): add a top-up with an amount and a note, and the
-    newest 100 top-ups with the admin who added each one.
+    newest 100 top-ups with the admin who added each one. The page shows the amount and asks for a
+    confirmation first, because the backend cannot remove a top-up.
   - **Prices** (`components/AiGatewayPrices.vue`): the list prices and the prices that an admin set,
     in dollars for one million tokens, or for one million pages or images for Google Cloud OCR
     (the provider info `priceUnit`). An admin sets a price for any model of a provider, edits a
     list price, and removes a price of an admin. For Google Cloud OCR, a hint tells how to price
     one processor of Document AI (the model `document-ai/<processor ID>`). The switch **Estimate
     the usage of calls without usage** turns the estimates of the gateway on or off (the setting
-    `estimateUsage`, see "Estimates" in the README of the backend module).
+    `estimateUsage`, see "Estimates" in the README of the backend module). Before the page removes
+    a price of an admin for a model without a list price, it asks for a confirmation, because the
+    gateway then blocks the model. Ollama models cost nothing without a price, so their prices go
+    without a question (`FREE_BY_DEFAULT_PROVIDER`).
   - **Usage** (`components/AiGatewayUsage.vue`): the calls, newest first, with filters for the
     provider, the project and the model. A call whose tokens the gateway estimated has the mark
     **Estimate** next to its cost.
@@ -55,7 +67,9 @@ balance and their calls.
 ## Tests
 
 The tests check the REST client, the store, the descriptor, the helpers of the prices and the page
-(`views/SettingsAiGatewayAdminView.test.ts`) with a mocked REST API. The fork tests of
+(`views/SettingsAiGatewayAdminView.test.ts`) with a mocked REST API. The page test also checks the
+confirmations, the labels of the budget rows, the unsaved changes across tabs and the question when
+the user leaves the page. The fork tests of
 `useAiGatewayTopUp.test.ts` in editor-ui check the **Top up** button.
 
 ## Changes outside the module

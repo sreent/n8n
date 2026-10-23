@@ -231,8 +231,8 @@ Gemini, Ollama and other providers) without an API key of their own. To set it u
    and the open models of Vertex AI (for example Llama and DeepSeek) through Vertex AI. The fork
    node Google Cloud OCR reads text with the Cloud Vision API and Document AI through the gateway
    too.
-2. Opens **Settings > AI gateway**, picks the credential of each provider, sets the monthly
-   budget, and turns on the gateway.
+2. Opens **Settings > Gateway credits admin**, picks the credential of each provider, sets the
+   monthly budget, and turns on the gateway.
 
 Users then pick **Use Gateway credits** on a supported node. The gateway records the cost of each
 call and stops the calls when a budget is spent. An admin adds top-ups and sets the prices on the

@@ -12,3 +12,6 @@ export const SEND_COPY_MAX_RECIPIENTS = 20;
 
 /** Number of colleagues that one search shows. */
 export const SEND_COPY_SEARCH_LIMIT = 20;
+
+/** The global scope that the search for recipients needs (`GET /rest/send-copy/recipients`). */
+export const SEND_COPY_RECIPIENTS_SCOPE = 'user:list';

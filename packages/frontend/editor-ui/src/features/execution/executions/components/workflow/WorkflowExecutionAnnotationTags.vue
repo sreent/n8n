@@ -52,7 +52,8 @@ async function onTagsBlur() {
 	try {
 		await executionsStore.annotateExecution(props.execution.id, { tags: selectedTagIds });
 	} catch (error) {
-		showError(error, 'executionAnnotationView.tag.error');
+		// The original passed the raw key as the title. The fork shows the text.
+		showError(error, i18n.baseText('executionAnnotationView.tag.error'));
 	}
 }
 

@@ -19,6 +19,17 @@ vi.mock('@n8n/stores/useRootStore', () => ({
 	useRootStore: () => ({ restApiContext }),
 }));
 
+let routeLeaveGuard: Parameters<typeof import('vue-router')['onBeforeRouteLeave']>[0] | null = null;
+vi.mock('vue-router', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('vue-router')>();
+	return {
+		...actual,
+		onBeforeRouteLeave: (guard: typeof routeLeaveGuard) => {
+			routeLeaveGuard = guard;
+		},
+	};
+});
+
 type ApiMock = (...args: unknown[]) => Promise<unknown>;
 const api = {
 	getAiGatewaySettings: vi.fn<ApiMock>(),
@@ -54,9 +65,12 @@ async function openTab(label: string) {
 }
 
 async function pickOption(testId: string, label: string) {
-	await userEvent.click(within(screen.getByTestId(testId)).getByRole('combobox'));
+	const combobox = within(screen.getByTestId(testId)).getByRole('combobox');
+	await userEvent.click(combobox);
+	// The tabs stay mounted, so other selects have options with the same labels.
+	const listbox = () => document.getElementById(combobox.getAttribute('aria-controls') ?? '');
 	const findOption = () =>
-		Array.from(document.querySelectorAll('li.el-select-dropdown__item')).find(
+		Array.from(listbox()?.querySelectorAll('li.el-select-dropdown__item') ?? []).find(
 			(item) => item.textContent?.trim() === label,
 		);
 	await waitFor(() => expect(findOption()).toBeDefined());
@@ -73,6 +87,19 @@ function textField(testId: string) {
 			: root.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
 	if (!input) throw new Error(`No input in ${testId}`);
 	return input;
+}
+
+/** The table row that holds the element with the test id. */
+function rowOf(testId: string) {
+	const row = screen.getByTestId(testId).closest('tr');
+	if (!row) throw new Error(`No table row for ${testId}`);
+	return row;
+}
+
+/** Clicks a button of the open confirmation dialog. */
+async function confirm(buttonName: string) {
+	const dialog = await screen.findByRole('dialog');
+	await userEvent.click(within(dialog).getByRole('button', { name: buttonName }));
 }
 
 /** Types a number into an `N8nInputNumber`, and leaves the field so that it keeps the value. */
@@ -114,13 +141,30 @@ describe('SettingsAiGatewayAdminView', () => {
 		expect(within(projects).getByText('Deleted project')).toBeInTheDocument();
 	});
 
-	it('turns the gateway off', async () => {
+	it('turns the gateway off after a confirmation', async () => {
 		setUp();
 		// The test id is on the switch button itself.
 		await userEvent.click(await screen.findByTestId('ai-gateway-enabled'));
 
+		expect(await screen.findByText('Turn off Gateway credits?')).toBeInTheDocument();
+		expect(api.updateAiGatewaySettings).not.toHaveBeenCalled();
+		await confirm('Turn off');
+
 		await waitFor(() => expect(lastSaved()).toMatchObject({ enabled: false }));
-		expect(showMessage).toHaveBeenCalledWith(expect.objectContaining({ type: 'success' }));
+		expect(showMessage).toHaveBeenCalledWith(
+			expect.objectContaining({ title: 'Settings saved', type: 'success' }),
+		);
+	});
+
+	it('keeps the gateway on when the user cancels', async () => {
+		setUp();
+		await userEvent.click(await screen.findByTestId('ai-gateway-enabled'));
+
+		await confirm('Cancel');
+
+		await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+		expect(api.updateAiGatewaySettings).not.toHaveBeenCalled();
+		expect(screen.getByTestId('ai-gateway-status')).toHaveTextContent('On');
 	});
 
 	it('shows an error when the settings do not load', async () => {
@@ -130,7 +174,7 @@ describe('SettingsAiGatewayAdminView', () => {
 		await waitFor(() =>
 			expect(showError).toHaveBeenCalledWith(
 				expect.any(Error),
-				'Could not load the settings of the AI gateway',
+				"Couldn't load the Gateway credits settings",
 			),
 		);
 		expect(screen.queryByTestId('ai-gateway-tabs')).not.toBeInTheDocument();
@@ -141,7 +185,7 @@ describe('SettingsAiGatewayAdminView', () => {
 		await screen.findByTestId('ai-gateway-tabs');
 		await openTab('Providers');
 
-		const google = screen.getByTestId('ai-gateway-provider-google');
+		const google = rowOf('ai-gateway-provider-google');
 		expect(
 			within(google).getByText('No credential of the type googlePalmApi / googleApi'),
 		).toBeInTheDocument();
@@ -333,7 +377,7 @@ describe('SettingsAiGatewayAdminView', () => {
 		);
 	});
 
-	it('adds a top-up', async () => {
+	it('adds a top-up after a confirmation that shows the amount', async () => {
 		setUp();
 		await screen.findByTestId('ai-gateway-tabs');
 		await openTab('Top-ups');
@@ -345,15 +389,17 @@ describe('SettingsAiGatewayAdminView', () => {
 		await userEvent.type(screen.getByTestId('ai-gateway-top-up-note'), 'November');
 		await userEvent.click(screen.getByTestId('ai-gateway-top-up-add'));
 
+		expect(await screen.findByText('Add a top-up of $40.00?')).toBeInTheDocument();
+		expect(api.addAiGatewayTopUp).not.toHaveBeenCalled();
+		await confirm('Add top-up');
+
 		await waitFor(() =>
 			expect(api.addAiGatewayTopUp).toHaveBeenCalledWith(restApiContext, {
 				amount: 40,
 				note: 'November',
 			}),
 		);
-		expect(showMessage).toHaveBeenCalledWith(
-			expect.objectContaining({ title: 'The top-up is added' }),
-		);
+		expect(showMessage).toHaveBeenCalledWith(expect.objectContaining({ title: 'Top-up added' }));
 	});
 
 	it('lists the prices, sets a price and removes the price of the admin', async () => {
@@ -365,14 +411,12 @@ describe('SettingsAiGatewayAdminView', () => {
 		expect(within(list).getByText('gpt-4o')).toBeInTheDocument();
 		expect(within(list).getByText('claude-sonnet-4-5')).toBeInTheDocument();
 		expect(
-			within(screen.getByTestId('ai-gateway-price-openai-gpt-custom')).getByText('Your price'),
+			within(rowOf('ai-gateway-price-openai-gpt-custom')).getByText('Your price'),
 		).toBeInTheDocument();
-		expect(screen.getByTestId('ai-gateway-price-google-ocr-vision-ocr')).toHaveTextContent(
+		expect(rowOf('ai-gateway-price-google-ocr-vision-ocr')).toHaveTextContent(
 			'Prices for one million pages or images',
 		);
-		expect(screen.getByTestId('ai-gateway-price-openai-gpt-4o')).not.toHaveTextContent(
-			'pages or images',
-		);
+		expect(rowOf('ai-gateway-price-openai-gpt-4o')).not.toHaveTextContent('pages or images');
 
 		await pickOption('ai-gateway-price-provider', 'Anthropic');
 		await userEvent.type(screen.getByTestId('ai-gateway-price-model'), 'claude-new');
@@ -387,17 +431,42 @@ describe('SettingsAiGatewayAdminView', () => {
 			}),
 		);
 
+		// gpt-custom has no list price, so the page asks before it removes the price.
 		await userEvent.click(
-			within(screen.getByTestId('ai-gateway-price-openai-gpt-custom')).getByRole('button', {
+			within(rowOf('ai-gateway-price-openai-gpt-custom')).getByRole('button', {
 				name: 'Remove your price',
 			}),
 		);
+		expect(await screen.findByText(/gpt-custom has no list price/)).toBeInTheDocument();
+		await confirm('Remove price');
 		await waitFor(() => expect(lastSaved()?.prices).toEqual({}));
+	});
+
+	it('removes a price over a list price without a confirmation', async () => {
+		const adminPrices = { openai: { 'gpt-4o': { input: 2, output: 8 } } };
+		const response = settingsResponse();
+		response.settings.prices = adminPrices;
+		api.getAiGatewaySettings.mockResolvedValue(response);
+		api.getAiGatewayPrices.mockResolvedValue({ ...priceTable(), adminPrices });
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Prices');
+
+		await userEvent.click(
+			within(rowOf('ai-gateway-price-openai-gpt-4o')).getByRole('button', {
+				name: 'Remove your price',
+			}),
+		);
+
+		await waitFor(() => expect(lastSaved()?.prices).toEqual({}));
+		expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 	});
 
 	it('lists the calls and filters them by provider', async () => {
 		setUp();
 		await screen.findByTestId('ai-gateway-tabs');
+		// The calls load when the tab opens.
+		expect(api.getAiGatewayUsage).not.toHaveBeenCalled();
 		await openTab('Usage');
 
 		const table = await screen.findByTestId('ai-gateway-usage-table');
@@ -431,7 +500,7 @@ describe('SettingsAiGatewayAdminView', () => {
 		expect(badge).toHaveTextContent('Estimate');
 		expect(badge).toHaveAttribute(
 			'title',
-			'The answer did not report all its tokens, so the gateway estimated them',
+			"The answer didn't report all its tokens, so n8n estimated them",
 		);
 	});
 
@@ -471,5 +540,68 @@ describe('SettingsAiGatewayAdminView', () => {
 				'google-ocr': { 'document-ai/abc123': { input: 30000, output: 0 } },
 			}),
 		);
+	});
+
+	it('labels the inputs of the project budgets', async () => {
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Budgets');
+
+		const row = screen.getByTestId('ai-gateway-project-budget-0');
+		expect(within(row).getByRole('combobox', { name: 'Project' })).toBeInTheDocument();
+		expect(within(row).getByLabelText('Monthly budget of the project (USD)')).toBe(
+			row.querySelector('input[role="spinbutton"]'),
+		);
+	});
+
+	it('keeps unsaved changes when the user changes tabs or saves on another tab', async () => {
+		setUp();
+		await screen.findByTestId('ai-gateway-tabs');
+		await openTab('Budgets');
+		expect(screen.getByTestId('ai-gateway-budgets-save')).toBeDisabled();
+		await typeNumber('ai-gateway-monthly-budget', '250');
+
+		await openTab('Prices');
+		await userEvent.click(screen.getByTestId('ai-gateway-estimate-usage'));
+		await waitFor(() => expect(lastSaved()).toMatchObject({ estimateUsage: false }));
+		await openTab('Budgets');
+
+		expect(screen.getByTestId('ai-gateway-monthly-budget').querySelector('input')).toHaveValue(
+			'250.00',
+		);
+		expect(screen.getByTestId('ai-gateway-budgets-save')).toBeEnabled();
+	});
+
+	describe('when the user leaves the page', () => {
+		const leave = () => {
+			const next = vi.fn();
+			routeLeaveGuard?.({} as never, {} as never, next);
+			return next;
+		};
+
+		it('leaves at once without unsaved changes', async () => {
+			setUp();
+			await screen.findByTestId('ai-gateway-tabs');
+
+			expect(leave()).toHaveBeenCalledWith();
+			expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+		});
+
+		it('asks first, and stays or leaves as the user chooses', async () => {
+			setUp();
+			await screen.findByTestId('ai-gateway-tabs');
+			await openTab('Budgets');
+			await typeNumber('ai-gateway-monthly-budget', '250');
+
+			const stay = leave();
+			expect(await screen.findByText('Leave without saving?')).toBeInTheDocument();
+			await confirm('Keep editing');
+			await waitFor(() => expect(stay).toHaveBeenCalledWith(false));
+
+			const go = leave();
+			await confirm('Leave without saving');
+			await waitFor(() => expect(go).toHaveBeenCalledWith());
+			expect(api.updateAiGatewaySettings).not.toHaveBeenCalled();
+		});
 	});
 });

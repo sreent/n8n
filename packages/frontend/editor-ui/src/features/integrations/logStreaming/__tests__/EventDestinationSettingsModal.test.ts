@@ -177,7 +177,7 @@ describe('EventDestinationSettingsModal', () => {
 
 			await userEvent.click(button);
 			await waitFor(() =>
-				expect(button).toHaveAttribute('title', 'The destination did not take the test event'),
+				expect(button).toHaveAttribute('title', "The destination didn't accept the test event"),
 			);
 		});
 

@@ -180,7 +180,7 @@ describe('useAiGatewayTopUp', () => {
 
 			expect(showMessageMock).toHaveBeenCalledWith({
 				title:
-					'Ask an admin of this instance to add a top-up or to raise the budget of the AI gateway.',
+					'Ask an admin of this instance to add a top-up or to raise the budget for Gateway credits.',
 				type: 'info',
 			});
 			expect(routerPushMock).not.toHaveBeenCalled();

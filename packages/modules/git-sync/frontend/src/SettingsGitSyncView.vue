@@ -7,6 +7,9 @@ import {
 	N8nButton,
 	N8nCallout,
 	N8nCheckbox,
+	N8nDialog,
+	N8nDialogClose,
+	N8nDialogFooter,
 	N8nIcon,
 	N8nInput,
 	N8nOption,
@@ -23,6 +26,7 @@ import { useI18n } from '@n8n/i18n';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { computed, onMounted, ref, watch } from 'vue';
+import { onBeforeRouteLeave, type NavigationGuardNext } from 'vue-router';
 
 import GitSyncChangeList from './components/GitSyncChangeList.vue';
 import type { GitSyncPullResult, GitSyncWorkflowChange } from './git-sync.api';
@@ -46,6 +50,8 @@ const showDisconnectDialog = ref(false);
 const showReplaceDialog = ref(false);
 const pullConflicts = ref<GitSyncWorkflowChange[]>([]);
 const showConflictDialog = ref(false);
+const showUnsavedChangesDialog = ref(false);
+const pendingNext = ref<NavigationGuardNext | null>(null);
 
 // ── Connection form ───────────────────────────────────────────────────────
 
@@ -131,14 +137,51 @@ watch(
 	},
 );
 
-async function save(): Promise<void> {
+async function save(): Promise<boolean> {
 	try {
 		await gitSyncStore.saveSettings();
 		toast.showMessage({ title: i18n.baseText('settings.gitSync.saved'), type: 'success' });
-		await refreshStatus();
 	} catch (error) {
 		toast.showError(error, i18n.baseText('settings.gitSync.saveError'));
+		return false;
 	}
+	await refreshStatus();
+	return true;
+}
+
+// ── Unsaved changes ───────────────────────────────────────────────────────
+
+onBeforeRouteLeave((_to, _from, next) => {
+	if (!gitSyncStore.isDirty) {
+		next();
+		return;
+	}
+	pendingNext.value = next;
+	showUnsavedChangesDialog.value = true;
+});
+
+function onLeaveWithoutSaving() {
+	showUnsavedChangesDialog.value = false;
+	pendingNext.value?.();
+	pendingNext.value = null;
+}
+
+async function onSaveAndLeave() {
+	const saved = await save();
+	if (!saved) return;
+	showUnsavedChangesDialog.value = false;
+	pendingNext.value?.();
+	pendingNext.value = null;
+}
+
+function onKeepEditing() {
+	showUnsavedChangesDialog.value = false;
+	pendingNext.value?.(false);
+	pendingNext.value = null;
+}
+
+function onUnsavedChangesDialogOpen(open: boolean) {
+	if (!open) onKeepEditing();
 }
 
 async function disconnect(): Promise<void> {
@@ -762,6 +805,38 @@ onMounted(async () => {
 			action-variant="destructive"
 			@action="push"
 		/>
+
+		<N8nDialog
+			:open="showUnsavedChangesDialog"
+			:header="i18n.baseText('settings.gitSync.unsavedChanges')"
+			:description="i18n.baseText('settings.gitSync.unsavedChanges.message')"
+			size="medium"
+			@update:open="onUnsavedChangesDialogOpen"
+		>
+			<div data-test-id="git-sync-unsaved-changes-dialog">
+				<N8nDialogFooter>
+					<N8nDialogClose as-child>
+						<N8nButton
+							variant="outline"
+							:label="i18n.baseText('generic.keepEditing')"
+							@click="onKeepEditing"
+						/>
+					</N8nDialogClose>
+					<N8nButton
+						variant="outline"
+						:label="i18n.baseText('settings.gitSync.unsavedChanges.leaveWithoutSaving')"
+						@click="onLeaveWithoutSaving"
+					/>
+					<N8nButton
+						variant="solid"
+						:label="i18n.baseText('settings.gitSync.unsavedChanges.saveAndLeave')"
+						:loading="gitSyncStore.saving"
+						:disabled="!gitSyncStore.canSave"
+						@click="onSaveAndLeave"
+					/>
+				</N8nDialogFooter>
+			</div>
+		</N8nDialog>
 
 		<N8nAlertDialog
 			v-model:open="showConflictDialog"

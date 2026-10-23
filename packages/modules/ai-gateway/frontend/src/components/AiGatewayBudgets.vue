@@ -8,6 +8,7 @@ import {
 	N8nOption,
 	N8nSelect,
 	N8nText,
+	N8nVisuallyHidden,
 } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
 import { computed, ref, watch } from 'vue';
@@ -37,8 +38,6 @@ function reset() {
 		amount,
 	}));
 }
-
-watch(() => store.settings, reset, { immediate: true });
 
 function projectName(projectId: string) {
 	return store.projects.find((project) => project.id === projectId)?.name ?? projectId;
@@ -77,6 +76,36 @@ const valid = computed(
 		),
 );
 
+/** The project budgets as sorted pairs, so that the order of the rows does not count. */
+const budgetPairs = (pairs: Array<[string, number | null]>) =>
+	JSON.stringify([...pairs].sort(([a], [b]) => a.localeCompare(b)));
+
+const changed = computed(() => {
+	const settings = store.settings;
+	if (!settings) return false;
+	return (
+		monthlyBudget.value !== settings.monthlyBudget ||
+		(userMonthlyLimit.value ?? null) !== (settings.userMonthlyLimit ?? null) ||
+		budgetPairs(
+			projectRows.value
+				.filter((row) => row.projectId)
+				.map((row): [string, number | null] => [row.projectId, row.amount ?? null]),
+		) !== budgetPairs(Object.entries(settings.projectBudgets))
+	);
+});
+
+// A save on another tab also changes the settings. The form then keeps the unsaved changes.
+watch(
+	() => store.settings,
+	(_, previous) => {
+		if (previous && changed.value) return;
+		reset();
+	},
+	{ immediate: true },
+);
+
+const amountInputId = (index: number) => `ai-gateway-project-budget-amount-${index}`;
+
 async function save() {
 	if (!valid.value || monthlyBudget.value === undefined) return;
 	const projectBudgets: Record<string, number> = {};
@@ -94,6 +123,8 @@ async function save() {
 		toast.showError(error, i18n.baseText('settings.forkAiGateway.saveError'));
 	}
 }
+
+defineExpose({ hasUnsavedChanges: changed });
 </script>
 
 <template>
@@ -101,10 +132,12 @@ async function save() {
 		<div :class="$style.field">
 			<N8nInputLabel
 				:label="i18n.baseText('settings.forkAiGateway.budgets.monthlyBudget')"
+				input-name="ai-gateway-monthly-budget-input"
 				:bold="false"
 				size="medium"
 			>
 				<N8nInputNumber
+					id="ai-gateway-monthly-budget-input"
 					v-model="monthlyBudget"
 					:class="$style.amount"
 					:min="0"
@@ -121,10 +154,12 @@ async function save() {
 		<div :class="$style.field">
 			<N8nInputLabel
 				:label="i18n.baseText('settings.forkAiGateway.budgets.userLimit')"
+				input-name="ai-gateway-user-limit-input"
 				:bold="false"
 				size="medium"
 			>
 				<N8nInputNumber
+					id="ai-gateway-user-limit-input"
 					v-model="userMonthlyLimit"
 					:class="$style.amount"
 					:min="0"
@@ -156,6 +191,7 @@ async function save() {
 					:class="$style.project"
 					size="medium"
 					filterable
+					:aria-label="i18n.baseText('settings.forkAiGateway.budgets.project')"
 					:placeholder="i18n.baseText('settings.forkAiGateway.budgets.project.placeholder')"
 				>
 					<N8nOption
@@ -166,7 +202,19 @@ async function save() {
 						:disabled="isTaken(option.id, index)"
 					/>
 				</N8nSelect>
-				<N8nInputNumber v-model="row.amount" :class="$style.amount" :min="0" :precision="2" />
+				<!-- The input of N8nInputNumber takes its id, but not its other attributes. -->
+				<N8nVisuallyHidden>
+					<label :for="amountInputId(index)">
+						{{ i18n.baseText('settings.forkAiGateway.budgets.project.amount') }}
+					</label>
+				</N8nVisuallyHidden>
+				<N8nInputNumber
+					:id="amountInputId(index)"
+					v-model="row.amount"
+					:class="$style.amount"
+					:min="0"
+					:precision="2"
+				/>
 				<N8nIconButton
 					icon="trash-2"
 					variant="ghost"
@@ -193,7 +241,7 @@ async function save() {
 				variant="solid"
 				size="medium"
 				:label="i18n.baseText('settings.forkAiGateway.save')"
-				:disabled="!valid"
+				:disabled="!changed || !valid"
 				:loading="store.saving"
 				data-test-id="ai-gateway-budgets-save"
 				@click="save"

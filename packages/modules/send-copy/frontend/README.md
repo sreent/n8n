@@ -6,10 +6,15 @@ independent copy of the workflow in their personal space. This is not live shari
 
 - `SendCopyModal.vue` is registered in the shell modal registry (`modals` surface).
 - The shell opens it through `useSendCopyAction()`, and provides `sendCopyModalCloser`
-  in `editor-ui/src/app/capabilities.manifest.ts`, so the modal can close itself.
+  in `editor-ui/src/app/capabilities.manifest.ts`, so the modal can close itself. The
+  action shows only when the backend module is active and the user has the global scope
+  `user:list`, which the search for colleagues needs.
 - The backend module is `packages/cli/src/modules/send-copy`. It decides what the copy
   keeps: no credentials, pinned data, static data, or settings that point to resources
-  of the sender.
+  of the sender. The values typed into node parameters stay in the copy, and the callout
+  of the modal tells the user so.
+- The search for colleagues waits `DEBOUNCE_TIME.INPUT.SEARCH` of
+  `@n8n/frontend-constants/durations`, as the searches of the shell do.
 
 Frontend feature module. Consumed from source by the editor-ui shell through
 `src/app/modules.manifest.ts`; there is no build step and no `dist`.
@@ -32,8 +37,8 @@ yet. Turbo builds them first; the bare pnpm form does not.
 ## Import rules
 
 - Depend on foundation and platform packages only (`@n8n/design-system`,
-  `@n8n/stores`, `@n8n/composables`, `@n8n/i18n`, `@n8n/rest-api-client`,
-  `@n8n/api-types`, `@n8n/permissions`, `n8n-workflow`,
+  `@n8n/stores`, `@n8n/composables`, `@n8n/frontend-constants`, `@n8n/i18n`,
+  `@n8n/rest-api-client`, `@n8n/api-types`, `@n8n/permissions`, `n8n-workflow`,
   `@n8n/frontend-module-sdk`). Never import another
   `@n8n/frontend-module-*`, and never import `@/…` from the shell.
 - `@n8n/stores` and `@n8n/composables` are **subpath-only** — import

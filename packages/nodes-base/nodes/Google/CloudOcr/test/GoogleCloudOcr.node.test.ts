@@ -53,6 +53,10 @@ const readText = {
 };
 
 describe('GoogleCloudOcr', () => {
+	it('is usable as a tool of an AI agent', () => {
+		expect(new GoogleCloudOcr().description.usableAsTool).toBe(true);
+	});
+
 	it('reads the text of an image with an API key', async () => {
 		const { context, httpRequestWithAuthentication } = setup({
 			...readText,

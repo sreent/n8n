@@ -14,3 +14,14 @@ export const AI_GATEWAY_SCOPE = 'aiAssistant:manage';
 export const USAGE_PAGE_SIZES = [25, 50, 100, 250];
 
 export const DEFAULT_USAGE_PAGE_SIZE = 50;
+
+/** The page sizes of the tables that get all their rows at once. */
+export const TABLE_PAGE_SIZES = [25, 50, 100];
+
+export const DEFAULT_TABLE_PAGE_SIZE = 25;
+
+/**
+ * The provider whose models cost nothing without a price. The backend marks it `freeByDefault`,
+ * but it does not send that flag to the page.
+ */
+export const FREE_BY_DEFAULT_PROVIDER = 'ollama';
