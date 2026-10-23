@@ -125,7 +125,9 @@ const logStreamingHandlers: LogStreamingHandlers = {
 		apiKeyHasScopeWithGlobalScopeFallback({ scope: 'eventBusDestination:delete' }),
 		async (req, res) => {
 			const { service, toPublicDestination } = await logStreaming();
-			return res.json(toPublicDestination(await service.deleteDestination(req.params.id)));
+			return res.json(
+				toPublicDestination(await service.deleteDestination(req.params.id, req.user)),
+			);
 		},
 	],
 };

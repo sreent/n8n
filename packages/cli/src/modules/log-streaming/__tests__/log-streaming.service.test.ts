@@ -1,5 +1,5 @@
 import { mockLogger } from '@n8n/backend-test-utils';
-import type { CredentialsFinderService } from '@n8n/backend-services';
+import type { CredentialsFinderService, EventService } from '@n8n/backend-services';
 import type { InstanceSettingsLoaderConfig } from '@n8n/config';
 import type { CredentialsEntity, User } from '@n8n/db';
 import { BadRequestError, ConflictError, ForbiddenError, NotFoundError } from '@n8n/errors';
@@ -48,6 +48,7 @@ describe('LogStreamingService', () => {
 	const instanceSettings = mock<InstanceSettings>({ instanceType: 'main' });
 	const loaderConfig = mock<InstanceSettingsLoaderConfig>();
 	const user = mock<User>({ id: 'user-1' });
+	const eventService = mock<EventService>();
 
 	let service: LogStreamingService;
 
@@ -83,6 +84,7 @@ describe('LogStreamingService', () => {
 			publisher,
 			instanceSettings,
 			loaderConfig,
+			eventService,
 		);
 	});
 
@@ -265,6 +267,13 @@ describe('LogStreamingService', () => {
 			});
 			expect(repository.findAllDestinations).toHaveBeenCalled();
 			expect(publisher.publishCommand).toHaveBeenCalledWith({ command: 'restart-event-bus' });
+			expect(eventService.emit).toHaveBeenCalledWith('log-streaming-destination-created', {
+				user,
+				destinationId: saved.id,
+				destinationType: 'syslog',
+				label: expect.any(String),
+				enabled: false,
+			});
 		});
 
 		it('changes the given options of a stored destination', async () => {
@@ -281,6 +290,10 @@ describe('LogStreamingService', () => {
 			);
 
 			expect(saved).toMatchObject({ id: ID_A, port: 6514, enabled: true });
+			expect(eventService.emit).toHaveBeenCalledWith(
+				'log-streaming-destination-updated',
+				expect.objectContaining({ destinationId: ID_A, destinationType: 'syslog' }),
+			);
 		});
 
 		it('rejects a change while the environment manages the destinations', async () => {
@@ -292,7 +305,7 @@ describe('LogStreamingService', () => {
 					user,
 				),
 			).rejects.toThrow(ConflictError);
-			await expect(service.deleteDestination(ID_A)).rejects.toThrow(ConflictError);
+			await expect(service.deleteDestination(ID_A, user)).rejects.toThrow(ConflictError);
 			expect(repository.saveDestination).not.toHaveBeenCalled();
 		});
 
@@ -362,14 +375,21 @@ describe('LogStreamingService', () => {
 			repository.findAllDestinations.mockResolvedValue([syslogRow(ID_A)]);
 			repository.deleteDestination.mockResolvedValue(true);
 
-			await expect(service.deleteDestination(ID_A)).resolves.toMatchObject({ id: ID_A });
+			await expect(service.deleteDestination(ID_A, user)).resolves.toMatchObject({ id: ID_A });
 
 			expect(repository.deleteDestination).toHaveBeenCalledWith(ID_A);
 			expect(publisher.publishCommand).toHaveBeenCalledWith({ command: 'restart-event-bus' });
+			expect(eventService.emit).toHaveBeenCalledWith('log-streaming-destination-deleted', {
+				user,
+				destinationId: ID_A,
+				destinationType: 'syslog',
+				label: expect.any(String),
+				enabled: true,
+			});
 		});
 
 		it('fails for an unknown destination', async () => {
-			await expect(service.deleteDestination(ID_A)).rejects.toThrow(NotFoundError);
+			await expect(service.deleteDestination(ID_A, user)).rejects.toThrow(NotFoundError);
 			expect(repository.deleteDestination).not.toHaveBeenCalled();
 		});
 	});

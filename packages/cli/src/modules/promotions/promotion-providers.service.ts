@@ -7,6 +7,8 @@ import type {
 	UpdatePromotionProviderDto,
 } from '@n8n/api-types';
 import { promotionGitConfigSchemas } from '@n8n/api-types';
+import { EventService } from '@n8n/backend-services';
+import type { User } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { BadRequestError, ConflictError, NotFoundError } from '@n8n/errors';
 import { generateKeyPairSync } from 'node:crypto';
@@ -61,9 +63,10 @@ export class PromotionProvidersService {
 		private readonly providerRepository: PromotionProviderRepository,
 		private readonly connectionRepository: PromotionConnectionRepository,
 		private readonly cipher: Cipher,
+		private readonly eventService: EventService,
 	) {}
 
-	async create(input: CreatePromotionProviderDto) {
+	async create(input: CreatePromotionProviderDto, user: User) {
 		const { config, credentials } = this.makeAuth(input.auth);
 		const provider = this.providerRepository.create({
 			name: input.name,
@@ -73,6 +76,12 @@ export class PromotionProvidersService {
 			auth: await this.encrypt(credentials),
 		});
 		const saved = await this.providerRepository.save(provider);
+		this.eventService.emit('git-connection-provider-created', {
+			user,
+			providerId: saved.id,
+			providerName: saved.name,
+			authType: saved.authType,
+		});
 		return {
 			provider: toProviderPublic(saved),
 			publicKey: 'publicKey' in config ? config.publicKey : null,
@@ -89,7 +98,7 @@ export class PromotionProvidersService {
 	}
 
 	/** Renames a provider, and replaces its credentials when `auth` is sent. */
-	async update(id: string, input: UpdatePromotionProviderDto) {
+	async update(id: string, input: UpdatePromotionProviderDto, user: User) {
 		const provider = await this.getEntity(id);
 		if (input.auth) {
 			if (input.auth.authType !== provider.authType) {
@@ -102,12 +111,19 @@ export class PromotionProvidersService {
 			provider.auth = await this.encrypt(credentials);
 		}
 		if (input.name !== undefined) provider.name = input.name;
-		return toProviderPublic(await this.providerRepository.save(provider));
+		const saved = await this.providerRepository.save(provider);
+		this.eventService.emit('git-connection-provider-updated', {
+			user,
+			providerId: saved.id,
+			providerName: saved.name,
+			credentialsReplaced: input.auth !== undefined,
+		});
+		return toProviderPublic(saved);
 	}
 
 	/** Deletes a provider. A provider that a connection uses stays. */
-	async delete(id: string) {
-		await this.getEntity(id);
+	async delete(id: string, user: User) {
+		const provider = await this.getEntity(id);
 		if (await this.connectionRepository.isProviderInUse(id)) {
 			throw new ConflictError('This provider is used by a connection');
 		}
@@ -119,6 +135,11 @@ export class PromotionProvidersService {
 			}
 			throw error;
 		}
+		this.eventService.emit('git-connection-provider-deleted', {
+			user,
+			providerId: provider.id,
+			providerName: provider.name,
+		});
 	}
 
 	async getEntity(id: string) {

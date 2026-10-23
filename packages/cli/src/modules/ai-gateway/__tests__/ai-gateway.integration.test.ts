@@ -1,4 +1,5 @@
 import { createTeamProject } from '@n8n/backend-test-utils';
+import { EventService } from '@n8n/backend-services';
 import type { Project, User } from '@n8n/db';
 import { Container } from '@n8n/di';
 import type { ICredentialType } from 'n8n-workflow';
@@ -447,6 +448,32 @@ describe('settings', () => {
 			apiKeyField: 'apiKey',
 		});
 		expect(response.body.data.nodes).toContain('@n8n/n8n-nodes-langchain.lmChatOpenAi');
+	});
+
+	it('sends audit events for a change of the settings and for a top-up', async () => {
+		const emit = vi.spyOn(Container.get(EventService), 'emit');
+		await saveSettings({ enabled: false, monthlyBudget: 25 });
+		await testServer
+			.authAgentFor(owner)
+			.post('/ai-gateway/top-ups')
+			.send({ amount: 5 })
+			.expect(200);
+
+		expect(emit).toHaveBeenCalledWith(
+			'ai-gateway-settings-updated',
+			expect.objectContaining({
+				user: expect.objectContaining({ id: owner.id }),
+				enabled: false,
+				changed: expect.arrayContaining(['enabled', 'monthlyBudget']),
+				monthlyBudget: 25,
+			}),
+		);
+		expect(emit).toHaveBeenCalledWith('ai-gateway-top-up-added', {
+			user: expect.objectContaining({ id: owner.id }),
+			amount: 5,
+			note: null,
+		});
+		emit.mockRestore();
 	});
 
 	it('turns the gateway off', async () => {

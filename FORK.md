@@ -355,7 +355,13 @@ update can bring new enterprise files: see "Upstream updates".
   paths of the fork module, as `packages/cli/src/modules/source-control/README.md` tells.
 - When an upstream update changes the public API controller
   `packages/cli/src/public-api/v1/controllers/promotions.public.controller.ts`, keep the import
-  paths of the fork module, as `packages/cli/src/modules/promotions/README.md` tells.
+  paths of the fork module and the user arguments of the audit events, as
+  `packages/cli/src/modules/promotions/README.md` tells.
+- When an upstream update changes `packages/cli/src/server.ts`, the list `eventNamesAudit` of
+  `packages/cli/src/eventbus/event-message-classes/index.ts` or the type `RelayEventMap`, keep the
+  fork lines of the governance audit events (`ForkGovernanceEventRelay`), as
+  [packages/cli/src/modules/audit-log/README.md](packages/cli/src/modules/audit-log/README.md)
+  tells.
 - When an upstream update changes `packages/cli/src/services/ai-gateway.service.ts`,
   `packages/cli/src/services/frontend.service.ts` or
   `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`, keep the fork lines of the

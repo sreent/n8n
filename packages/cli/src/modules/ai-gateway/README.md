@@ -349,6 +349,9 @@ admin sees only their own calls in the usage.
 
 ## Security
 
+- A change of the settings and a top-up send an audit event (`n8n.audit.ai-gateway.*`) to log
+  streaming and the audit log, with the user. The event of the settings names the settings that
+  changed, the providers, the switch and the budgets, but no credential.
 - A token of the gateway is a JWT of the ordinary `JwtService` with the audience
   `n8n:fork-ai-gateway`. It holds the user and expires after one hour. The tokens for sign-in, for
   invitations and for OAuth have other audiences, so a token cannot serve another purpose.

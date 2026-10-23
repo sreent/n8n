@@ -33,11 +33,11 @@ export class AiGatewayAdminController {
 	@Licensed('feat:aiGateway')
 	@GlobalScope('aiAssistant:manage')
 	async updateSettings(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Body body: AiGatewaySettingsDto,
 	) {
-		return await this.admin.updateSettings(body);
+		return await this.admin.updateSettings(body, req.user);
 	}
 
 	@Get('/overview')
@@ -58,7 +58,7 @@ export class AiGatewayAdminController {
 	@Licensed('feat:aiGateway')
 	@GlobalScope('aiAssistant:manage')
 	async addTopUp(req: AuthenticatedRequest, _res: Response, @Body body: AiGatewayTopUpDto) {
-		return await this.admin.addTopUp(body, req.user.id);
+		return await this.admin.addTopUp(body, req.user);
 	}
 
 	@Get('/prices')

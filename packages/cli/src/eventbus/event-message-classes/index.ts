@@ -7,6 +7,7 @@ import type { EventMessageNode } from './event-message-node';
 import type { EventMessageQueue } from './event-message-queue';
 import type { EventMessageRunner } from './event-message-runner';
 import type { EventMessageWorkflow } from './event-message-workflow';
+import { forkEventNamesAudit } from './fork-audit-event-names';
 
 /**
  * Naming rules for log streaming events:
@@ -171,6 +172,8 @@ export const eventNamesAudit = [
 	'n8n.audit.node-type-policy.document.deleted',
 	'n8n.audit.node-type-policy.attachments.updated',
 	'n8n.audit.policy.decision.blocked',
+	// Fork: the audit events of the governance actions of the fork features.
+	...forkEventNamesAudit,
 ] as const;
 
 // Instance MCP server events. Kept as their own list and message class because the payload

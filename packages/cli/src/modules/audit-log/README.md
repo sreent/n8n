@@ -41,6 +41,14 @@ flowchart LR
 
 - The ordinary relay `LogStreamingEventRelay` sends the audit events to the event bus of each
   process: main, webhook and worker. The bus writes each message to its log file, and emits it.
+- The fork relay `ForkGovernanceEventRelay` (`packages/cli/src/events/relays`) sends the
+  governance actions of the fork features in the same way, on the main instances:
+  `n8n.audit.git-sync.*` (settings saved, disconnected, pushed, pulled), `n8n.audit.ai-gateway.*`
+  (settings updated, top-up added), `n8n.audit.log-streaming.destination.*` (created, updated,
+  deleted) and `n8n.audit.git-connection.*` (providers and connections created, updated and
+  deleted, promoted, applied). The list is in
+  `packages/cli/src/eventbus/event-message-classes/fork-audit-event-names.ts`. No payload holds a
+  token, a password or a key, and repository URLs lose any user and password.
 - The module listens to the event `metrics.eventBus.event` of the bus, which the bus emits for each
   message that it sends. It does not listen to the event `message`: a listener of `message`
   confirms the delivery of each message, and that belongs to the destinations of log streaming.

@@ -149,6 +149,9 @@ role can have it.
   until the body sets `enabled` to `true`. The id of a destination is a UUID.
 - The test ignores `enabled`, the subscriptions and the circuit breaker.
 - When the environment manages the destinations, `POST` and `DELETE` answer with the status 409.
+- Each added, changed or deleted destination sends an audit event
+  (`n8n.audit.log-streaming.destination.*`) with the user, the id, the kind, the label and the
+  switch. The event has no URL and no credential.
 - The test sends the data of the credential of the destination. Thus the user must have the scope
   `credential:read` on the credential.
 

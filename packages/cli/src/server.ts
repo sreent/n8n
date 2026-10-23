@@ -17,6 +17,8 @@ import { CLI_DIR, EDITOR_UI_DIST_DIR, inE2ETests } from '@/constants';
 import { ControllerRegistry } from '@/controller.registry';
 import { CredentialsOverwrites } from '@/credentials-overwrites';
 import { MessageEventBus } from '@/eventbus/message-event-bus/message-event-bus';
+// Fork: the audit events of the governance actions of the fork features.
+import { ForkGovernanceEventRelay } from '@/events/relays/fork-governance.event-relay';
 import { LogStreamingEventRelay } from '@/events/relays/log-streaming.event-relay';
 import type { ICredentialsOverwrite } from '@/interfaces';
 import { LoadNodesAndCredentials } from '@/load-nodes-and-credentials';
@@ -286,6 +288,7 @@ export class Server extends AbstractServer {
 		const eventBus = Container.get(MessageEventBus);
 		await eventBus.initialize();
 		Container.get(LogStreamingEventRelay).init();
+		Container.get(ForkGovernanceEventRelay).init();
 
 		// ----------------------------------------
 		// Workflow Indexing Setup

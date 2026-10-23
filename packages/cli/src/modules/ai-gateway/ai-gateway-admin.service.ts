@@ -1,4 +1,5 @@
-import { ProjectRepository, UserRepository } from '@n8n/db';
+import { EventService } from '@n8n/backend-services';
+import { ProjectRepository, type User, UserRepository } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { BadRequestError } from '@n8n/errors';
 import { randomUUID } from 'node:crypto';
@@ -10,6 +11,7 @@ import { AiGatewayProtocolService, toUsageEntry } from './ai-gateway-protocol.se
 import { AiGatewayProxyService } from './ai-gateway-proxy.service';
 import {
 	type AiGatewayProviderSettings,
+	type AiGatewaySettings,
 	AiGatewaySettingsService,
 } from './ai-gateway-settings.service';
 import {
@@ -29,6 +31,17 @@ import {
 
 const ALL_CREDENTIAL_TYPES = [...new Set(AI_GATEWAY_PROVIDERS.flatMap(credentialTypesOf))];
 
+/** The settings that the audit event `ai-gateway-settings-updated` compares. */
+const SETTING_KEYS = [
+	'enabled',
+	'providers',
+	'monthlyBudget',
+	'userMonthlyLimit',
+	'projectBudgets',
+	'prices',
+	'estimateUsage',
+] as const satisfies ReadonlyArray<keyof AiGatewaySettings>;
+
 /** The REST API of the settings page **Settings > AI gateway**. See `README.md`. */
 @Service()
 export class AiGatewayAdminService {
@@ -44,6 +57,7 @@ export class AiGatewayAdminService {
 		private readonly credentialOptions: AiGatewayCredentialOptionsRepository,
 		private readonly projectRepository: ProjectRepository,
 		private readonly userRepository: UserRepository,
+		private readonly eventService: EventService,
 	) {}
 
 	/**
@@ -79,7 +93,8 @@ export class AiGatewayAdminService {
 		return { settings, providers, projects, baseUrl: this.protocol.baseUrl() ?? null };
 	}
 
-	async updateSettings(update: AiGatewaySettingsDto) {
+	async updateSettings(update: AiGatewaySettingsDto, user: User) {
+		const previous = this.settings.current();
 		const credentials = await this.credentialOptions.ofTypes(ALL_CREDENTIAL_TYPES);
 		const providers: Record<string, AiGatewayProviderSettings> = {};
 		for (const [slug, providerSettings] of Object.entries(update.providers)) {
@@ -103,7 +118,7 @@ export class AiGatewayAdminService {
 			if (!providerBySlug(slug))
 				throw new BadRequestError(`The AI gateway has no provider "${slug}".`);
 		}
-		await this.settings.save({
+		const next = {
 			enabled: update.enabled,
 			providers,
 			monthlyBudget: update.monthlyBudget,
@@ -111,8 +126,19 @@ export class AiGatewayAdminService {
 			projectBudgets: update.projectBudgets,
 			prices: update.prices,
 			estimateUsage: update.estimateUsage,
-		});
+		};
+		await this.settings.save(next);
 		this.proxy.clearCredentialCache();
+		this.eventService.emit('ai-gateway-settings-updated', {
+			user,
+			enabled: next.enabled,
+			changed: SETTING_KEYS.filter(
+				(key) => JSON.stringify(next[key]) !== JSON.stringify(previous[key]),
+			),
+			providers: Object.keys(providers),
+			monthlyBudget: next.monthlyBudget,
+			userMonthlyLimit: next.userMonthlyLimit,
+		});
 		return await this.getSettings();
 	}
 
@@ -208,12 +234,17 @@ export class AiGatewayAdminService {
 		}));
 	}
 
-	async addTopUp(topUp: AiGatewayTopUpDto, userId: string) {
+	async addTopUp(topUp: AiGatewayTopUpDto, user: User) {
 		await this.walletRepository.addTopUp({
 			id: randomUUID(),
 			createdAt: new Date(),
 			amount: topUp.amount,
-			createdById: userId,
+			createdById: user.id,
+			note: topUp.note ?? null,
+		});
+		this.eventService.emit('ai-gateway-top-up-added', {
+			user,
+			amount: topUp.amount,
 			note: topUp.note ?? null,
 		});
 		return await this.overview();

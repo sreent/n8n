@@ -73,6 +73,9 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 - Write access to the branch is the same as write access to the workflows of every
   instance that pulls from it. Protect the branch, and use a token with the
   smallest possible permissions.
+- Each saved setting, disconnect, push and pull sends an audit event
+  (`n8n.audit.git-sync.*`) to log streaming and the audit log, with the user, the project, the
+  repository URL and the branch. The token is never in the event.
 
 ## Limits
 

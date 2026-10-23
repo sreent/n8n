@@ -283,7 +283,10 @@ The answer `applied` has the counts of the import and the warnings of the prefli
 
 ## Differences from the original
 
-None is known. The golden tests show the same behaviour for each recorded case.
+The golden tests show the same behaviour for each recorded case. The golden tests do not record
+events. The fork sends an audit event for each change of a provider or a connection, for a clone
+or a removed checkout, and for each promote and apply (`n8n.audit.git-connection.*`, see the README
+of the audit log). The services therefore take the user of the request.
 
 ## Tests
 
@@ -302,5 +305,6 @@ None is known. The golden tests show the same behaviour for each recorded case.
 
 When an upstream update changes the public API controller
 `packages/cli/src/public-api/v1/controllers/promotions.public.controller.ts`, keep the import paths
-of the fork module (`@/modules/promotions/`). When it changes the n8n-packages engine or the DTOs
+of the fork module (`@/modules/promotions/`), and keep `req.user` as the last argument of each call
+to a service that changes something: the audit events need it. When it changes the n8n-packages engine or the DTOs
 of `@n8n/api-types/src/dto/promotions`, run the golden tests.

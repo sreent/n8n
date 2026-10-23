@@ -39,6 +39,8 @@ import type { McpCallerAuth } from '@/services/oauth-token-verifier-proxy.servic
 import type { UserLike } from '@/types/user-like.types';
 
 import type { AiEventMap } from './ai.event-map';
+// Fork: the events of the governance actions of the fork features.
+import type { ForkGovernanceEventMap } from './fork-governance.event-map';
 
 export type WorkflowActionSource =
 	| 'ui'
@@ -1410,4 +1412,5 @@ export type RelayEventMap = {
 	'policy-decision-blocked': PolicyDecisionAudit & AuditedActor;
 
 	// #endregion
-} & AiEventMap;
+} & AiEventMap &
+	ForkGovernanceEventMap;

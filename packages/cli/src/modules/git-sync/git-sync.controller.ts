@@ -42,8 +42,8 @@ export class GitSyncController {
 	}
 
 	@Delete('/settings')
-	async disconnect() {
-		await this.gitSyncService.disconnect();
+	async disconnect(req: AuthenticatedRequest) {
+		await this.gitSyncService.disconnect(req.user);
 		return { success: true };
 	}
 

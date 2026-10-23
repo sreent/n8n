@@ -4,9 +4,11 @@ import {
 	LockService,
 	Logger,
 } from '@n8n/backend-common';
+import { EventService } from '@n8n/backend-services';
 import type { User } from '@n8n/db';
 import { ProjectRepository } from '@n8n/db';
 import { Service } from '@n8n/di';
+import { scrubSecretsInText } from '@n8n/utils/scrub-secrets';
 import { InstanceSettings } from 'n8n-core';
 import { CREDENTIAL_BLANKING_VALUE, UserError } from 'n8n-workflow';
 import { lstat, mkdir, rm, writeFile } from 'node:fs/promises';
@@ -91,6 +93,7 @@ export class GitSyncService {
 		private readonly packagesAdapter: N8nPackagesAdapter,
 		private readonly lockService: LockService,
 		private readonly projectRepository: ProjectRepository,
+		private readonly eventService: EventService,
 	) {
 		this.logger = this.logger.scoped('git-sync');
 		this.baseDir = this.config.dir || path.join(instanceSettings.n8nFolder, 'git-sync');
@@ -157,15 +160,31 @@ export class GitSyncService {
 			await this.settingsService.saveConnection(connection);
 		});
 
+		this.eventService.emit('git-sync-settings-saved', {
+			user,
+			projectId: connection.projectId,
+			repositoryUrl: scrubSecretsInText(connection.repositoryUrl),
+			branch: connection.branch,
+			directory: connection.directory,
+			isNew: previous === null,
+			tokenChanged: fields.token !== undefined,
+		});
+
 		const saved = await this.getSettings();
 		if (!saved) throw notConfigured();
 		return saved;
 	}
 
-	async disconnect(): Promise<void> {
+	async disconnect(user: User): Promise<void> {
+		const previous = await this.settingsService.getConnection();
 		await this.withLock(async () => {
 			await this.settingsService.deleteAll();
 			await rm(this.repoDir, { recursive: true, force: true });
+		});
+		this.eventService.emit('git-sync-disconnected', {
+			user,
+			projectId: previous?.projectId ?? null,
+			repositoryUrl: previous ? scrubSecretsInText(previous.repositoryUrl) : null,
 		});
 	}
 
@@ -326,6 +345,15 @@ export class GitSyncService {
 				lastPush: { at: new Date().toISOString(), userId: user.id, commit, message },
 			});
 			this.logger.info('Pushed workflows to Git', { commit, changedFiles: changedFiles.length });
+			this.eventService.emit('git-sync-pushed', {
+				user,
+				projectId: connection.projectId,
+				repositoryUrl: scrubSecretsInText(connection.repositoryUrl),
+				branch: connection.branch,
+				commit,
+				changedFiles: changedFiles.length,
+				replacedRemoteContent: replaceRemoteContent,
+			});
 
 			return { result: 'pushed', commit, changedFiles: changedFiles.length };
 		});
@@ -475,6 +503,17 @@ export class GitSyncService {
 				commit: remoteHead,
 				created: created.length,
 				updated: updated.length,
+			});
+			this.eventService.emit('git-sync-pulled', {
+				user,
+				projectId,
+				repositoryUrl: scrubSecretsInText(connection.repositoryUrl),
+				branch: connection.branch,
+				commit: remoteHead,
+				created: created.length,
+				updated: updated.length,
+				skipped: skipped.length,
+				overwroteLocalChanges: overwriteLocalChanges,
 			});
 
 			const credentialNames = new Map(

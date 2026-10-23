@@ -3,10 +3,12 @@ import type {
 	PromotionDirection,
 	PromotionBindingPreflightResult,
 } from '@n8n/api-types';
+import { EventService } from '@n8n/backend-services';
 import type { User } from '@n8n/db';
 import { ProjectRepository, SharedWorkflowRepository } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { BadRequestError } from '@n8n/errors';
+import { jsonParse, type JsonValue } from 'n8n-workflow';
 import { mkdir, mkdtemp, rename, rm } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -57,6 +59,9 @@ function authorOf(user: User) {
  * Apply imports the branch of the apply configuration after the preflight of its bindings. Each
  * configuration runs one operation at a time on this instance. See `README.md`.
  */
+/** The counts of an operation as JSON, for its audit event. */
+const toJson = (value: unknown) => jsonParse<JsonValue>(JSON.stringify(value));
+
 @Service()
 export class PromotionsService {
 	/** The operations of each configuration, one after the other. */
@@ -72,13 +77,14 @@ export class PromotionsService {
 		private readonly projectRepository: ProjectRepository,
 		private readonly sharedWorkflowRepository: SharedWorkflowRepository,
 		private readonly projectService: ProjectService,
+		private readonly eventService: EventService,
 	) {}
 
 	/**
 	 * Clones the branch of a configuration again. The new clone goes to a temporary folder first, so
 	 * a failed clone keeps the old checkout.
 	 */
-	async clone(connectionId: string, direction: PromotionDirection) {
+	async clone(connectionId: string, direction: PromotionDirection, user: User) {
 		const { connection, config } = await this.targets.forConnection(connectionId, direction);
 		const branchName = checkoutBranchOf(config);
 		await this.exclusive(config.id, async () => {
@@ -119,13 +125,27 @@ export class PromotionsService {
 				await rm(staging, { recursive: true, force: true });
 			}
 		});
+		this.eventService.emit('git-connection-updated', {
+			user,
+			connectionId,
+			connectionName: connection.name,
+			change: 'cloned',
+			direction,
+		});
 		return { connectionId, configId: config.id, direction, branchName, hasCheckout: true };
 	}
 
 	/** Removes the checkout, and keeps the configuration and the known hosts. */
-	async disconnect(connectionId: string, direction: PromotionDirection) {
-		const { config } = await this.targets.forConnection(connectionId, direction);
+	async disconnect(connectionId: string, direction: PromotionDirection, user: User) {
+		const { connection, config } = await this.targets.forConnection(connectionId, direction);
 		await this.exclusive(config.id, async () => await this.checkouts.clear(config.id));
+		this.eventService.emit('git-connection-updated', {
+			user,
+			connectionId,
+			connectionName: connection.name,
+			change: 'checkout-removed',
+			direction,
+		});
 		return {
 			connectionId,
 			configId: config.id,
@@ -146,6 +166,12 @@ export class PromotionsService {
 			const git = await this.commitAndPush(connection, config, user, {
 				message: input.commitMessage,
 				force: input.force === true,
+			});
+			this.eventService.emit('git-connection-promoted', {
+				user,
+				connectionId,
+				...git,
+				counts: toJson(counts),
 			});
 			return { connectionId, configId: config.id, counts, git };
 		});
@@ -177,6 +203,13 @@ export class PromotionsService {
 			const git = await this.commitAndPush(connection, config, user, {
 				message: input.commitMessage ?? SELECTION_COMMIT_MESSAGE,
 				force: false,
+			});
+			this.eventService.emit('git-connection-promoted', {
+				user,
+				connectionId: connection.id,
+				projectId,
+				...git,
+				counts: toJson(counts),
 			});
 			return { connectionId: connection.id, configId: config.id, counts, git };
 		});
@@ -223,10 +256,18 @@ export class PromotionsService {
 
 			const result = await this.packages.importAll(user, repository);
 			const deleted = await this.deleteMissingProjects(user, result.packageProjectIds);
+			const counts = { ...result.counts, projects: { ...result.counts.projects, deleted } };
+			this.eventService.emit('git-connection-applied', {
+				user,
+				connectionId,
+				branchName,
+				commitSha,
+				counts: toJson(counts),
+			});
 			return {
 				...base,
 				status: 'applied',
-				counts: { ...result.counts, projects: { ...result.counts.projects, deleted } },
+				counts,
 				warnings: preflight.warnings,
 			};
 		});
