@@ -260,7 +260,10 @@ reaches the VNet, for example a VM in a peered network.
 
 1. Make a backup. A new version can change the database. The flexible server keeps automatic
    backups. For a backup of your own, use `pg_dump`, or make an on-demand backup in the portal.
-2. Set `image_tag` to the new tag, and run `terraform apply`. Container Apps starts the new
+2. Use the module of the commit of the tag (the part after the version), so that n8n gets the
+   settings of [settings.yaml](../settings.yaml) of that commit. In a checkout of the fork, check
+   out the commit. With a Git source, set `ref=` to the commit, and run `terraform init -upgrade`.
+3. Set `image_tag` to the new tag, and run `terraform apply`. Container Apps starts the new
    revision before it stops the old one.
 
 ## Back up and restore
