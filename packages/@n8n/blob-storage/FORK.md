@@ -145,8 +145,8 @@ The owner chose this fork feature on 2026-10-14, after the six rebuilds of
   names are part of the ids of binary data and of the config schemas of upstream n8n, so a new
   mode would change many upstream files. Two upstream files have a fork line: `src/index.ts`
   exports `GcsStorageConfig`, and `packages/cli/src/commands/base-command.ts` starts the object
-  store when one of the two buckets is set. The client uses `fetch` and `node:crypto`, and needs no
-  new dependency.
+  store when one of the two buckets is set. Its two error messages of the object store name Google
+  Cloud Storage too. The client uses `fetch` and `node:crypto`, and needs no new dependency.
 - The native mode uses the same object keys and the same custom metadata field (`filename`) as
   the S3 client.
 - `init()` reads the credentials: the JSON key of `N8N_EXTERNAL_STORAGE_GCS_CREDENTIALS`, else the
@@ -201,6 +201,7 @@ The owner chose this fork feature on 2026-10-14, after the six rebuilds of
   method, add it to the fork classes. Add a new method of `ObjectStoreService` to the native client
   of Google Cloud Storage too.
 - When upstream changes `initBinaryDataService` or `initObjectStoreIfConfigured` of
-  `packages/cli/src/commands/base-command.ts`, keep the fork method `isObjectStoreConfigured`.
+  `packages/cli/src/commands/base-command.ts`, keep the fork method `isObjectStoreConfigured` and
+  the two error messages that name Google Cloud Storage.
 - When upstream changes the enterprise classes, record the snapshots again against them, as
   FORK.md tells. Keep the fork results of the steps in "Differences from the enterprise classes".
