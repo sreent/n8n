@@ -5586,6 +5586,7 @@
 	"workflows.publish.permissionDenied": "You don't have permission to publish this workflow",
 	"workflows.publish.personalSpaceRestricted": "Workflow publishing is disabled in personal spaces. Move the workflow to a team space to activate",
 	"workflows.publish.moveToTeamProject": "Move to a team project",
+	"workflows.publish.personalSpaceRestricted.askAdmin": "Workflow publishing is disabled in personal spaces, and you're not in a team project that can take this workflow. Ask an admin to add you to one.",
 	"workflows.publish.publishing": "Publishing…",
 	"workflows.publish.publishing.tooltip": "Activating triggers — this can take a moment.",
 	"workflows.publish.partial.tooltip": "The workflow is partially published, but some triggers failed to activate. Publish again to retry.",

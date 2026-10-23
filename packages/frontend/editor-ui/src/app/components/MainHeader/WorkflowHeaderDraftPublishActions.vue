@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { IWorkflowDb } from '@/Interface';
-import type { PermissionsRecord } from '@n8n/permissions';
+import { getResourcePermissions, type PermissionsRecord } from '@n8n/permissions';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import {
 	VIEWS,
@@ -246,6 +246,14 @@ const hasPublishPermission = computed(() => props.workflowPermissions.publish);
 const hasUnpublishPermission = computed(() => props.workflowPermissions.unpublish);
 
 const isPersonalSpace = computed(() => projectStore.currentProject?.type === ProjectTypes.Personal);
+// Fork: the move dialog offers only the team projects where the user can create workflows.
+const hasTeamProjectToMoveTo = computed(() =>
+	projectStore.myProjects.some(
+		(project) =>
+			project.type === ProjectTypes.Team &&
+			(!project.scopes || getResourcePermissions(project.scopes).workflow.create),
+	),
+);
 // Fork: a direct way out of a publish that the personal space policy blocks.
 const showMoveToTeamProject = computed(
 	() =>
@@ -254,7 +262,12 @@ const showMoveToTeamProject = computed(
 		isPersonalSpace.value &&
 		!hasPublishPermission.value &&
 		!!props.workflowPermissions.move &&
-		projectStore.isTeamProjectFeatureEnabled,
+		projectStore.isTeamProjectFeatureEnabled &&
+		hasTeamProjectToMoveTo.value,
+);
+// Fork: with team projects on but none that can take the workflow, the user must ask an admin.
+const mustAskAdminToMove = computed(
+	() => projectStore.isTeamProjectFeatureEnabled && !hasTeamProjectToMoveTo.value,
 );
 
 /**
@@ -463,7 +476,11 @@ const publishButtonConfig = computed(() => {
 			showIndicator: false,
 			indicatorClass: '',
 			tooltip: isPersonalSpace.value
-				? i18n.baseText('workflows.publish.personalSpaceRestricted')
+				? i18n.baseText(
+						mustAskAdminToMove.value
+							? 'workflows.publish.personalSpaceRestricted.askAdmin'
+							: 'workflows.publish.personalSpaceRestricted',
+					)
 				: i18n.baseText('workflows.publish.permissionDenied'),
 			showVersionInfo: false,
 		};
