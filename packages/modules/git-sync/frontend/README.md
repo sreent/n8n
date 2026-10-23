@@ -7,7 +7,8 @@ what changed on each side, and push or pull.
 - `SettingsGitSyncView.vue` is the page. The route is `/settings/git-sync`. The `rbac`
   middleware lets in only users with the global scope `sourceControl:manage` (the owner,
   the admins and custom roles with the scope), as the backend and the page Settings >
-  Environments do. The settings sidebar shows the page under the same scope. The `custom`
+  Environments do. The settings sidebar shows the page under the same scope, and the shell
+  lists the item only while the module is active, as for the core modules. The `custom`
   middleware hides the page when the backend module is off. When the user leaves the
   page with unsaved changes, the page asks first and can save them, as the page of
   OpenTelemetry does.

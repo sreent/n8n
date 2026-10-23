@@ -1,7 +1,6 @@
 import { defineFrontendModule } from '@n8n/frontend-module-sdk';
 import { useI18n } from '@n8n/i18n';
 import { useRBACStore } from '@n8n/stores/rbac.store';
-import { useSettingsStore } from '@n8n/stores/settings.store';
 
 import {
 	AI_GATEWAY_ADMIN_VIEW,
@@ -53,11 +52,9 @@ export const AiGatewayModule = defineFrontendModule({
 			},
 			position: 'top',
 			route: { to: { name: AI_GATEWAY_ADMIN_VIEW } },
+			// The shell lists the item only while the module is active, as for the core modules.
 			get available() {
-				return (
-					useSettingsStore().isModuleActive(AI_GATEWAY_MODULE_ID) &&
-					useRBACStore().hasScope(AI_GATEWAY_SCOPE)
-				);
+				return useRBACStore().hasScope(AI_GATEWAY_SCOPE);
 			},
 		},
 	],

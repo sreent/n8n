@@ -16,7 +16,9 @@ features. Without the licence value, the module does not start, and the editor h
 
 - `views/SettingsAuditLogView.vue` is the page. The route is `/settings/audit-log`. The `rbac`
   middleware needs the scope `auditLogs:manage`, and the `custom` middleware hides the page when
-  the backend module is off. The settings sidebar shows the page under the same two conditions.
+  the backend module is off. The settings sidebar shows the page under the same two conditions:
+  the descriptor checks the scope, and the shell lists the item only while the module is active,
+  as for the core modules.
 - The description tells how long the audit log keeps an event. The value comes from the module
   settings (`retentionDays`).
 - The table shows one page of the events, newest first: the time in the locale of the browser,
