@@ -27,7 +27,7 @@ import {
 import { AI_GATEWAY_ADMIN_STORE } from './ai-gateway.constants';
 
 /**
- * The state of the page **Settings > AI gateway**: the settings, the overview of the month, the
+ * The state of the page **Settings > Gateway credits admin**: the settings, the overview of the month, the
  * top-ups, the prices and one page of calls. A save sends the full settings, so the store keeps
  * the last settings that the backend gave.
  */

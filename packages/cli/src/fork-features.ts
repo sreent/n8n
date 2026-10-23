@@ -99,7 +99,7 @@ export const FORK_FEATURE_VALUES: FeatureReturnType = {
 	// upstream n8n.
 	[LICENSE_FEATURES.DYNAMIC_CREDENTIALS]: true,
 	// The AI gateway of the Gateway credits: the fork module ai-gateway (the owner chose this on
-	// 2026-10-15). An admin turns it on and sets the providers at Settings > AI gateway.
+	// 2026-10-15). An admin turns it on and sets the providers at Settings > Gateway credits admin.
 	[LICENSE_FEATURES.AI_GATEWAY]: true,
 	// Log streaming and the audit log: the fork modules of the audit log export. They are on by
 	// default (the owner chose this on 2026-10-11), and the switch turns them off with the other

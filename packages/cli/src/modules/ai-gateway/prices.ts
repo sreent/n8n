@@ -1,7 +1,7 @@
 /**
  * The list prices of common models, in US dollars for one million tokens. The fork read them from
  * the public price pages of the providers on 2026-10-15. Prices change: an admin checks them, and
- * changes them or adds models on the page Settings > AI gateway. A model without a price is
+ * changes them or adds models on the page Settings > Gateway credits admin. A model without a price is
  * blocked. See `README.md`, "Prices".
  */
 

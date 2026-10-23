@@ -49,7 +49,7 @@ const SETTING_KEYS = [
 	'estimateUsage',
 ] as const satisfies ReadonlyArray<keyof AiGatewaySettings>;
 
-/** The REST API of the settings page **Settings > AI gateway**. See `README.md`. */
+/** The REST API of the settings page **Settings > Gateway credits admin**. See `README.md`. */
 @Service()
 export class AiGatewayAdminService {
 	constructor(
