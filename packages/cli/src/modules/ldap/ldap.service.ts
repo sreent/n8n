@@ -6,13 +6,7 @@ import { LDAP_FEATURE_NAME } from '@n8n/constants';
 import type { AuthProviderSyncHistory, RunningMode } from '@n8n/db';
 import { SettingsRepository, User } from '@n8n/db';
 import type { IPasswordAuthHandler } from '@n8n/decorators';
-import {
-	AuthHandler,
-	OnLeaderStepdown,
-	OnLeaderTakeover,
-	OnPubSubEvent,
-	OnShutdown,
-} from '@n8n/decorators';
+import { AuthHandler, OnPubSubEvent, OnShutdown } from '@n8n/decorators';
 import { Container } from '@n8n/di';
 import { BadRequestError } from '@n8n/errors';
 import type { ClientOptions, Entry } from 'ldapts';
@@ -306,12 +300,11 @@ export class LdapService implements IPasswordAuthHandler<User> {
 	}
 
 	/**
-	 * Runs the synchronization each interval of the configuration, in live mode. Fork: only one
-	 * main instance runs it. A follower of a multi-main setup starts no timer, and the instance that
-	 * becomes the leader starts it.
+	 * Runs the synchronization each interval of the configuration, in live mode. Fork: each main
+	 * instance keeps the timer, as the original does, but only the leader of a multi-main setup runs
+	 * the synchronization when the timer fires. A new leader needs no takeover hook.
 	 */
 	scheduleSync() {
-		if (this.instanceSettings.isFollower) return;
 		const minutes = this.config.synchronizationInterval;
 		// An interval of zero minutes or less would run the synchronization without a pause.
 		if (!(minutes > 0)) {
@@ -319,6 +312,7 @@ export class LdapService implements IPasswordAuthHandler<User> {
 			return;
 		}
 		this.syncTimer = setInterval(async () => {
+			if (this.instanceSettings.isFollower) return;
 			try {
 				await this.runSync('live');
 			} catch (error) {
@@ -332,15 +326,8 @@ export class LdapService implements IPasswordAuthHandler<User> {
 		this.syncTimer = undefined;
 	}
 
-	/** Fork: the new leader of a multi-main setup runs the scheduled synchronization. */
-	@OnLeaderTakeover()
-	startSyncOnTakeover() {
-		if (this.currentConfig?.synchronizationEnabled && !this.syncTimer) this.scheduleSync();
-	}
-
-	@OnLeaderStepdown()
 	@OnShutdown()
-	stopSyncOnStepdown() {
+	stopSyncOnShutdown() {
 		this.stopSync();
 	}
 

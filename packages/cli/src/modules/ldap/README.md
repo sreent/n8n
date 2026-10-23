@@ -114,11 +114,11 @@ the route tries the email and n8n password first, and then LDAP for all users ex
 - A synchronization interval of zero minutes or less does not start a timer.
 - The writes of a live run run one after the other. The original runs them at the same time, so
   after a failure its result can change from run to run.
-- With multiple main instances, only the leader runs the timer: a follower starts none, and the
-  instance that becomes the leader starts it. The original starts a timer on each main instance,
-  so each one runs the synchronization. A changed configuration reaches the other main instances
-  through the pubsub command `reload-ldap-config`, as for OIDC and SAML. The original changes it
-  only on the instance that gets the request.
+- With multiple main instances, each main instance starts the timer, as the original does, but
+  only the leader runs the synchronization when its timer fires. The original runs it on each
+  main instance. A new leader needs no takeover hook: its timer already runs. A changed
+  configuration reaches the other main instances through the pubsub command `reload-ldap-config`,
+  as for OIDC and SAML. The original changes it only on the instance that gets the request.
 - A failed scheduled synchronization logs `LDAP - The scheduled synchronization failed`. In the
   original, the error escapes the timer.
 
@@ -139,8 +139,8 @@ the route tries the email and n8n password first, and then LDAP for all users ex
   client) and records the REST routes, the sign-in, the synchronization, the timer, the module,
   the events, the warnings and the database. The snapshot was recorded against the enterprise
   module, two times with the same result, and the fork module gives the same snapshot, except the
-  two steps of the multi-main fix (see "Differences from the original"). `subject.ts` names the
-  code under test.
+  steps `as the leader: the timer fires with a failed search` and `as a follower: the timer fires`
+  (see "Differences from the original"). `subject.ts` names the code under test.
 - The ordinary upstream tests run against the fork module: `test/integration/ldap/ldap.api.test.ts`,
   `test/integration/public-api/ldap.test.ts` and `test/integration/commands/ldap/reset.test.ts`.
 

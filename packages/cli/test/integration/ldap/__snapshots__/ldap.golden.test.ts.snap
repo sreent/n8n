@@ -4737,14 +4737,45 @@ exports[`LDAP > the scheduled synchronization 1`] = `
       "status": 200,
     },
     "step": "as a follower: PUT with the synchronization on",
+    "timers": [
+      [
+        "setInterval",
+        540000,
+      ],
+    ],
+  },
+  {
+    "outcome": {
+      "value": {
+        "result": "<undefined>",
+        "timers": 1,
+      },
+    },
+    "step": "as a follower: the timer fires",
   },
   {
     "outcome": "done",
     "step": "as a follower: init",
+    "timers": [
+      [
+        "clearInterval",
+        540000,
+      ],
+      [
+        "setInterval",
+        540000,
+      ],
+    ],
   },
   {
     "outcome": "done",
     "step": "as a follower: stopSync",
+    "timers": [
+      [
+        "clearInterval",
+        540000,
+      ],
+    ],
   },
 ]
 `;
