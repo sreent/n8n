@@ -1,6 +1,7 @@
+import { AI_GATEWAY_DOCUMENT_AI_PROCESSOR_ENTRY } from '@n8n/api-types';
+
 import {
 	azureOpenAiBaseUrl,
-	DOCUMENT_AI_PROCESSOR_ENTRY,
 	geminiModelCall,
 	geminiModelInfo,
 	geminiModelList,
@@ -63,7 +64,7 @@ describe('Document AI', () => {
 		'projects/acme-ocr/locations/eu',
 		'projects/acme-ocr/locations/eu/processors/abc123',
 	])('accepts the entry %s', (entry) => {
-		expect(DOCUMENT_AI_PROCESSOR_ENTRY.test(entry)).toBe(true);
+		expect(AI_GATEWAY_DOCUMENT_AI_PROCESSOR_ENTRY.test(entry)).toBe(true);
 	});
 
 	it.each([
@@ -76,7 +77,7 @@ describe('Document AI', () => {
 		'projects/acme-ocr/locations/eu/processors/a%2Fb',
 		'https://eu-documentai.googleapis.com/v1/projects/acme-ocr/locations/eu/processors/abc123',
 	])('refuses the entry %s', (entry) => {
-		expect(DOCUMENT_AI_PROCESSOR_ENTRY.test(entry)).toBe(false);
+		expect(AI_GATEWAY_DOCUMENT_AI_PROCESSOR_ENTRY.test(entry)).toBe(false);
 	});
 
 	it('serves all processors without a list, else the processors, locations and projects in it', () => {

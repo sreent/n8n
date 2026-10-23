@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { AiGatewayPrice } from '@n8n/api-types';
 import { useToast } from '@n8n/composables/useToast';
 import {
 	N8nAlertDialog,
@@ -18,7 +19,6 @@ import { useI18n } from '@n8n/i18n';
 import { computed, ref, watch } from 'vue';
 
 import { useAiGatewayAdminStore } from '../ai-gateway-admin.store';
-import type { AiGatewayPrice } from '../ai-gateway.api';
 import { FREE_BY_DEFAULT_PROVIDER, TABLE_PAGE_SIZES } from '../ai-gateway.constants';
 import { priceRows, withAdminPrice, type AiGatewayPriceRow } from '../ai-gateway.utils';
 import { useTablePage } from '../composables/useTablePage';

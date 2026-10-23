@@ -23,6 +23,9 @@ To turn the module off, add `send-copy` to `N8N_DISABLED_MODULES`.
   30 requests in one minute.
 - As the workflow routes of n8n do, the route answers 403 when the sender cannot read the
   workflow, and 404 when the workflow does not exist.
+- The request and response types and the limits are in
+  `packages/@n8n/api-types/src/dto/send-copy/send-copy.dto.ts`. The backend and the editor use
+  the same types.
 
 The answer of `POST` has one result for each recipient, in the order of the request. A failure
 for one recipient does not stop the copies for the other recipients.

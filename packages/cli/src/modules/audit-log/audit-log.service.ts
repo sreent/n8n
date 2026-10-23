@@ -1,3 +1,8 @@
+import type {
+	AuditLogEventResponse,
+	AuditLogEventsPage,
+	AuditLogExportFormat,
+} from '@n8n/api-types';
 import { Service } from '@n8n/di';
 import { Readable } from 'node:stream';
 
@@ -10,14 +15,6 @@ import {
 	type AuditLogCursor,
 	type AuditLogFilter,
 } from './database/audit-log-event.repository';
-
-export type AuditLogExportFormat = 'csv' | 'json';
-
-/** An audit event as the REST API gives it. */
-export type AuditLogEventResponse = Pick<
-	AuditLogEvent,
-	'id' | 'eventName' | 'userId' | 'userEmail' | 'projectId' | 'projectType' | 'payload'
-> & { timestamp: string };
 
 const toResponse = (event: AuditLogEvent): AuditLogEventResponse => ({
 	id: event.id,
@@ -69,7 +66,11 @@ export class AuditLogService {
 	constructor(private readonly repository: AuditLogEventRepository) {}
 
 	/** One page of the events that match the filter, newest first. */
-	async listEvents(filter: AuditLogFilter, skip: number, take: number) {
+	async listEvents(
+		filter: AuditLogFilter,
+		skip: number,
+		take: number,
+	): Promise<AuditLogEventsPage> {
 		const { count, events } = await this.repository.findPage(filter, skip, take);
 		return { count, events: events.map(toResponse) };
 	}

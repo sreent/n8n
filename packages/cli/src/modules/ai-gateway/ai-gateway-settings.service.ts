@@ -1,80 +1,14 @@
+import { aiGatewaySettingsSchema, type AiGatewaySettings } from '@n8n/api-types';
 import { Logger } from '@n8n/backend-common';
 import { SettingsRepository } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { jsonParse } from 'n8n-workflow';
-import { z } from 'zod';
-
-import {
-	AZURE_DEPLOYMENT_NAME,
-	DOCUMENT_AI_PROCESSOR_ENTRY,
-	GOOGLE_CLOUD_PROJECT,
-	VERTEX_LOCATION,
-} from './backends';
 
 /** The key of the settings row. */
 export const AI_GATEWAY_SETTINGS_KEY = 'fork.aiGateway';
 
 /** Other processes read changed settings after this time. */
 const REFRESH_INTERVAL_MS = 30_000;
-
-const amount = z.number().finite().min(0).max(1_000_000_000);
-
-export const aiGatewayPriceSchema = z.object({
-	input: amount,
-	output: amount,
-	cachedInput: amount.optional(),
-});
-
-/** The open models of Vertex AI behind the provider OpenAI: a service account and its target. */
-export const aiGatewayOpenModelsSchema = z.object({
-	credentialId: z.string().min(1).max(36),
-	/** The type of the credential. The backend sets it when an admin saves the settings. */
-	credentialType: z.string().max(128).optional(),
-	projectId: z.string().regex(GOOGLE_CLOUD_PROJECT).optional(),
-	location: z.string().regex(VERTEX_LOCATION).optional(),
-});
-
-export const aiGatewayProviderSettingsSchema = z.object({
-	credentialId: z.string().min(1).max(36),
-	/** The type of the credential. The backend sets it when an admin saves the settings. */
-	credentialType: z.string().max(128).optional(),
-	/** Vertex AI: the project of Google Cloud. The default comes from the e-mail of the service account. */
-	projectId: z.string().regex(GOOGLE_CLOUD_PROJECT).optional(),
-	/** Vertex AI: the location. The default is the region of the credential. */
-	location: z.string().regex(VERTEX_LOCATION).optional(),
-	/** Azure OpenAI: the names of the deployments, which the model list of the nodes shows. */
-	deployments: z.array(z.string().regex(AZURE_DEPLOYMENT_NAME)).max(100).optional(),
-	/**
-	 * Google Cloud OCR with a service account: the projects, locations and processors of Document
-	 * AI that the gateway serves. Without a list, it serves all processors of the service account.
-	 */
-	documentAiProcessors: z.array(z.string().regex(DOCUMENT_AI_PROCESSOR_ENTRY)).max(100).optional(),
-	/** OpenAI with an OpenAI or Azure credential: a model of a publisher goes to Vertex AI. */
-	openModels: aiGatewayOpenModelsSchema.optional(),
-});
-
-export type AiGatewayProviderSettings = z.infer<typeof aiGatewayProviderSettingsSchema>;
-
-export const aiGatewaySettingsSchema = z.object({
-	enabled: z.boolean(),
-	/** The credential of the admin for each provider slug, and the options of its backend. */
-	providers: z.record(z.string(), aiGatewayProviderSettingsSchema),
-	/** Dollars for each month, for the whole instance. */
-	monthlyBudget: amount,
-	/** Dollars for each month and user, or `null` for no limit. */
-	userMonthlyLimit: amount.nullable(),
-	/** Dollars for each month, by project id. */
-	projectBudgets: z.record(z.string().max(36), amount),
-	/** The prices of the admin: provider slug, then model. */
-	prices: z.record(z.string(), z.record(z.string().min(1).max(255), aiGatewayPriceSchema)),
-	/**
-	 * Whether the gateway records an estimate for an answer without usage or that stopped early.
-	 * Off, such an answer costs nothing. Settings from before this switch have it on.
-	 */
-	estimateUsage: z.boolean().default(true),
-});
-
-export type AiGatewaySettings = z.infer<typeof aiGatewaySettingsSchema>;
 
 export const DEFAULT_AI_GATEWAY_SETTINGS: AiGatewaySettings = {
 	enabled: false,

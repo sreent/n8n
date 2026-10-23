@@ -1,3 +1,4 @@
+import type { AiGatewayProviderSettings } from '@n8n/api-types';
 import { LicenseState, Logger } from '@n8n/backend-common';
 import { OutboundHttp } from '@n8n/backend-network';
 import { GlobalConfig } from '@n8n/config';
@@ -13,10 +14,7 @@ import { ForkAiGatewayConfig } from './ai-gateway.config';
 import { AiGatewayBudgetService } from './ai-gateway-budget.service';
 import { AiGatewayPriceService } from './ai-gateway-price.service';
 import { AI_GATEWAY_ROUTE } from './ai-gateway-protocol.service';
-import {
-	type AiGatewayProviderSettings,
-	AiGatewaySettingsService,
-} from './ai-gateway-settings.service';
+import { AiGatewaySettingsService } from './ai-gateway-settings.service';
 import { AiGatewayTokenService } from './ai-gateway-token.service';
 import { AiGatewayVertexService, VertexSignInError } from './ai-gateway-vertex.service';
 import {

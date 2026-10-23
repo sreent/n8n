@@ -1,3 +1,15 @@
+import type {
+	AiGatewayAdminUsagePage,
+	AiGatewayOverview,
+	AiGatewayPriceTable,
+	AiGatewayProviderInfo,
+	AiGatewayProviderSettings,
+	AiGatewaySettings,
+	AiGatewaySettingsDto,
+	AiGatewaySettingsResponse,
+	AiGatewayTopUpDto,
+	AiGatewayTopUpEntry,
+} from '@n8n/api-types';
 import { EventService } from '@n8n/backend-services';
 import { ProjectRepository, type User, UserRepository } from '@n8n/db';
 import { Service } from '@n8n/di';
@@ -5,15 +17,10 @@ import { BadRequestError } from '@n8n/errors';
 import { randomUUID } from 'node:crypto';
 
 import { AiGatewayBudgetService, monthStart, nextMonthStart } from './ai-gateway-budget.service';
-import type { AiGatewaySettingsDto, AiGatewayTopUpDto } from './ai-gateway.dto';
 import { AiGatewayPriceService } from './ai-gateway-price.service';
 import { AiGatewayProtocolService, toUsageEntry } from './ai-gateway-protocol.service';
 import { AiGatewayProxyService } from './ai-gateway-proxy.service';
-import {
-	type AiGatewayProviderSettings,
-	type AiGatewaySettings,
-	AiGatewaySettingsService,
-} from './ai-gateway-settings.service';
+import { AiGatewaySettingsService } from './ai-gateway-settings.service';
 import {
 	type AiGatewayUsageFilter,
 	AiGatewayCredentialOptionsRepository,
@@ -64,10 +71,10 @@ export class AiGatewayAdminService {
 	 * The settings, each provider with its credential and the credentials of its types (its own
 	 * type and the types of its backends), the team projects, and the URL of the gateway.
 	 */
-	async getSettings() {
+	async getSettings(): Promise<AiGatewaySettingsResponse> {
 		const settings = this.settings.current();
 		const credentials = await this.credentialOptions.ofTypes(ALL_CREDENTIAL_TYPES);
-		const providers = AI_GATEWAY_PROVIDERS.map((provider) => {
+		const providers = AI_GATEWAY_PROVIDERS.map((provider): AiGatewayProviderInfo => {
 			const types = credentialTypesOf(provider);
 			const credentialOptions = credentials
 				.filter((credential) => types.includes(credential.type))
@@ -93,7 +100,10 @@ export class AiGatewayAdminService {
 		return { settings, providers, projects, baseUrl: this.protocol.baseUrl() ?? null };
 	}
 
-	async updateSettings(update: AiGatewaySettingsDto, user: User) {
+	async updateSettings(
+		update: AiGatewaySettingsDto,
+		user: User,
+	): Promise<AiGatewaySettingsResponse> {
 		const previous = this.settings.current();
 		const credentials = await this.credentialOptions.ofTypes(ALL_CREDENTIAL_TYPES);
 		const providers: Record<string, AiGatewayProviderSettings> = {};
@@ -186,7 +196,7 @@ export class AiGatewayAdminService {
 	}
 
 	/** The month, the budgets, the spend and the projects with a budget or a spend. */
-	async overview(now = new Date()) {
+	async overview(now = new Date()): Promise<AiGatewayOverview> {
 		const instance = await this.budgets.instanceStatus(now);
 		const { projectBudgets, userMonthlyLimit } = this.settings.current();
 		const spendByProject = await this.usageRepository.spendByProject({ from: monthStart(now) });
@@ -218,7 +228,7 @@ export class AiGatewayAdminService {
 	}
 
 	/** The newest 100 top-ups, with the e-mail of the admin who added each one. */
-	async listTopUps() {
+	async listTopUps(): Promise<AiGatewayTopUpEntry[]> {
 		const topUps = await this.topUpRepository.newestFirst(100);
 		const userIds = [
 			...new Set(topUps.flatMap((topUp) => (topUp.createdById ? [topUp.createdById] : []))),
@@ -226,7 +236,7 @@ export class AiGatewayAdminService {
 		const users = userIds.length > 0 ? await this.userRepository.findManyByIds(userIds) : [];
 		return topUps.map((topUp) => ({
 			id: topUp.id,
-			createdAt: topUp.createdAt,
+			createdAt: topUp.createdAt.toISOString(),
 			amount: topUp.amount,
 			createdById: topUp.createdById,
 			createdByEmail: users.find((user) => user.id === topUp.createdById)?.email ?? null,
@@ -234,7 +244,7 @@ export class AiGatewayAdminService {
 		}));
 	}
 
-	async addTopUp(topUp: AiGatewayTopUpDto, user: User) {
+	async addTopUp(topUp: AiGatewayTopUpDto, user: User): Promise<AiGatewayOverview> {
 		await this.walletRepository.addTopUp({
 			id: randomUUID(),
 			createdAt: new Date(),
@@ -250,12 +260,16 @@ export class AiGatewayAdminService {
 		return await this.overview();
 	}
 
-	prices() {
+	prices(): AiGatewayPriceTable {
 		return this.priceService.table();
 	}
 
 	/** One page of calls, with the e-mail of the user and the name of the project. */
-	async usage(filter: AiGatewayUsageFilter, skip: number, take: number) {
+	async usage(
+		filter: AiGatewayUsageFilter,
+		skip: number,
+		take: number,
+	): Promise<AiGatewayAdminUsagePage> {
 		const { rows, count } = await this.usageRepository.findPage(filter, skip, take);
 		const userIds = [...new Set(rows.flatMap((row) => (row.userId ? [row.userId] : [])))];
 		const users = userIds.length > 0 ? await this.userRepository.findManyByIds(userIds) : [];

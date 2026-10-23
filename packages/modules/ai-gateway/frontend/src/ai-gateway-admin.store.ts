@@ -1,3 +1,14 @@
+import {
+	AI_GATEWAY_USAGE_DEFAULT_PAGE_SIZE,
+	type AiGatewayAdminUsageEntry,
+	type AiGatewayOption,
+	type AiGatewayOverview,
+	type AiGatewayPriceTable,
+	type AiGatewayProviderInfo,
+	type AiGatewaySettings,
+	type AiGatewaySettingsResponse,
+	type AiGatewayTopUpEntry,
+} from '@n8n/api-types';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useRootStore } from '@n8n/stores/useRootStore';
 import { defineStore } from 'pinia';
@@ -11,17 +22,9 @@ import {
 	getAiGatewayTopUps,
 	getAiGatewayUsage,
 	updateAiGatewaySettings,
-	type AiGatewayOption,
-	type AiGatewayOverview,
-	type AiGatewayPriceTable,
-	type AiGatewayProviderInfo,
-	type AiGatewaySettings,
-	type AiGatewaySettingsResponse,
-	type AiGatewayTopUp,
 	type AiGatewayUsageFilters,
-	type AiGatewayUsageRow,
 } from './ai-gateway.api';
-import { AI_GATEWAY_ADMIN_STORE, DEFAULT_USAGE_PAGE_SIZE } from './ai-gateway.constants';
+import { AI_GATEWAY_ADMIN_STORE } from './ai-gateway.constants';
 
 /**
  * The state of the page **Settings > AI gateway**: the settings, the overview of the month, the
@@ -37,14 +40,14 @@ export const useAiGatewayAdminStore = defineStore(AI_GATEWAY_ADMIN_STORE, () => 
 	const projects = ref<AiGatewayOption[]>([]);
 	const baseUrl = ref<string | null>(null);
 	const overview = ref<AiGatewayOverview | null>(null);
-	const topUps = ref<AiGatewayTopUp[]>([]);
+	const topUps = ref<AiGatewayTopUpEntry[]>([]);
 	const priceTable = ref<AiGatewayPriceTable | null>(null);
 
-	const usage = ref<AiGatewayUsageRow[]>([]);
+	const usage = ref<AiGatewayAdminUsageEntry[]>([]);
 	const usageCount = ref(0);
 	const usageFilters = ref<AiGatewayUsageFilters>({});
 	const usagePage = ref(0);
-	const usagePageSize = ref(DEFAULT_USAGE_PAGE_SIZE);
+	const usagePageSize = ref(AI_GATEWAY_USAGE_DEFAULT_PAGE_SIZE);
 	const loadingUsage = ref(false);
 	const saving = ref(false);
 

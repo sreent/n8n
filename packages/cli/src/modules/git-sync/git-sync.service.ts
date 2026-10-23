@@ -1,4 +1,15 @@
 import {
+	GIT_SYNC_ERROR_CODES,
+	type GitSyncConnectionTestResult,
+	type GitSyncProjectOption,
+	type GitSyncPullResult,
+	type GitSyncPushResult,
+	type GitSyncSettingsDto,
+	type GitSyncSettingsResponse,
+	type GitSyncStatus,
+	type GitSyncWorkflowChange,
+} from '@n8n/api-types';
+import {
 	LockAcquisitionTimeoutError,
 	LockNamespace,
 	LockService,
@@ -18,18 +29,10 @@ import { GitClient, type GitIdentity } from './git/git-client';
 import { validateBranch, validateDirectory, validateRepositoryUrl } from './git/git-validation';
 import { GitSyncSettingsService, connectionFingerprint } from './git-sync-settings.service';
 import { GitSyncConfig } from './git-sync.config';
-import { GIT_SYNC_ERROR_CODES, GIT_SYNC_LOCK_KEY, MIN_GIT_VERSION } from './git-sync.constants';
-import type { GitSyncSettingsDto } from './git-sync.dto';
+import { GIT_SYNC_LOCK_KEY, MIN_GIT_VERSION } from './git-sync.constants';
 import { GitSyncError } from './git-sync.errors';
 import type {
 	GitSyncConnection,
-	GitSyncConnectionTestResult,
-	GitSyncProjectOption,
-	GitSyncPullResult,
-	GitSyncPushResult,
-	GitSyncSettingsResponse,
-	GitSyncStatus,
-	GitSyncWorkflowChange,
 	PublishState,
 	StoredConnection,
 	StoredState,

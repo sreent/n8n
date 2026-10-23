@@ -102,6 +102,7 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 | `git/git-validation.ts` | Checks the URL, the branch, and the folder |
 | `package/n8n-packages.adapter.ts` | The only connection to the package export and import |
 | `package/package-changes.ts` | Finds changed workflows (pure functions) |
+| `packages/@n8n/api-types/src/dto/git-sync/git-sync.dto.ts` | The request and response types of the REST API, the defaults and the error codes. The backend and the editor use the same types |
 
 Run the tests:
 

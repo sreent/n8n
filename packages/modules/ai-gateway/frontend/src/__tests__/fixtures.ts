@@ -2,9 +2,9 @@ import type {
 	AiGatewayOverview,
 	AiGatewayPriceTable,
 	AiGatewaySettingsResponse,
-	AiGatewayTopUp,
-	AiGatewayUsagePage,
-} from '../ai-gateway.api';
+	AiGatewayTopUpEntry,
+	AiGatewayAdminUsagePage,
+} from '@n8n/api-types';
 
 export const settingsResponse = (): AiGatewaySettingsResponse => ({
 	settings: {
@@ -88,7 +88,7 @@ export const overview = (): AiGatewayOverview => ({
 	spentWithoutProject: 0.25,
 });
 
-export const topUps = (): AiGatewayTopUp[] => [
+export const topUps = (): AiGatewayTopUpEntry[] => [
 	{
 		id: 't1',
 		createdAt: '2026-10-02T08:00:00.000Z',
@@ -109,7 +109,7 @@ export const priceTable = (): AiGatewayPriceTable => ({
 	adminPrices: { openai: { 'gpt-custom': { input: 1, output: 2 } } },
 });
 
-export const usagePage = (): AiGatewayUsagePage => ({
+export const usagePage = (): AiGatewayAdminUsagePage => ({
 	count: 1,
 	entries: [
 		{

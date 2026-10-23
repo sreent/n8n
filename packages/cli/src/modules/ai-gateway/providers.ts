@@ -1,3 +1,5 @@
+import type { AiGatewayBackendKind } from '@n8n/api-types';
+
 /**
  * The providers that the gateway serves, keyed by the credential type of their nodes. The gateway
  * changes the URL field of a credential, so a credential type needs a base URL field. See
@@ -14,8 +16,6 @@ export type AiGatewayAuthStyle = 'bearer' | 'x-api-key' | 'google';
  * Another service that serves the API of a provider. See `backends.ts`. `vertex-ai` serves the
  * Gemini API, and `vertex-openai` serves the Chat Completions of the open models of Vertex AI.
  */
-export type AiGatewayBackendKind = 'azure-openai' | 'vertex-ai' | 'vertex-openai' | 'google-cloud';
-
 export interface AiGatewayBackend {
 	kind: AiGatewayBackendKind;
 	/** The credential type of the admin's credential for this backend. */

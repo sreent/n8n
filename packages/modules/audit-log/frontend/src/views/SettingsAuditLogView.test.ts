@@ -1,3 +1,4 @@
+import type { AuditLogEventResponse, AuditLogEventsPage } from '@n8n/api-types';
 import { createComponentRenderer } from '@n8n/frontend-test-utils';
 import type { Scope } from '@n8n/permissions';
 import type { IUser } from '@n8n/rest-api-client/api/users';
@@ -8,7 +9,6 @@ import { createTestingPinia } from '@pinia/testing';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor, within } from '@testing-library/vue';
 
-import type { AuditLogEvent, AuditLogEventsPage } from '../audit-log.api';
 import { useAuditLogStore } from '../audit-log.store';
 import SettingsAuditLogView from './SettingsAuditLogView.vue';
 
@@ -38,7 +38,7 @@ vi.mock('../audit-log.utils', async (importOriginal) => ({
 	saveFile: (...args: unknown[]) => saveFileMock(...args),
 }));
 
-const login: AuditLogEvent = {
+const login: AuditLogEventResponse = {
 	id: 'e2',
 	eventName: 'n8n.audit.user.login.success',
 	timestamp: '2026-10-02T08:00:00.000Z',
@@ -49,7 +49,7 @@ const login: AuditLogEvent = {
 	payload: { userId: 'user-1', _email: 'ann@example.com', authenticationMethod: 'email' },
 };
 
-const installed: AuditLogEvent = {
+const installed: AuditLogEventResponse = {
 	id: 'e1',
 	eventName: 'n8n.audit.package.installed',
 	timestamp: '2026-10-01T08:00:00.000Z',
@@ -60,7 +60,7 @@ const installed: AuditLogEvent = {
 	payload: {},
 };
 
-const workflowUpdated: AuditLogEvent = {
+const workflowUpdated: AuditLogEventResponse = {
 	id: 'e3',
 	eventName: 'n8n.audit.workflow.updated',
 	timestamp: '2026-10-03T08:00:00.000Z',
@@ -71,7 +71,10 @@ const workflowUpdated: AuditLogEvent = {
 	payload: { userId: 'user-1', workflowId: 'wf-1' },
 };
 
-const page = (events: AuditLogEvent[]): AuditLogEventsPage => ({ count: events.length, events });
+const page = (events: AuditLogEventResponse[]): AuditLogEventsPage => ({
+	count: events.length,
+	events,
+});
 
 const ann = {
 	id: 'user-1',

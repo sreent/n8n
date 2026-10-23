@@ -1,4 +1,14 @@
 <script setup lang="ts">
+import {
+	AI_GATEWAY_AZURE_DEPLOYMENT_NAME,
+	AI_GATEWAY_DOCUMENT_AI_PROCESSOR_ENTRY,
+	AI_GATEWAY_GOOGLE_CLOUD_PROJECT,
+	AI_GATEWAY_VERTEX_LOCATION,
+	type AiGatewayBackendInfo,
+	type AiGatewayCredentialOption,
+	type AiGatewayProviderInfo,
+	type AiGatewayProviderSettings,
+} from '@n8n/api-types';
 import { useToast } from '@n8n/composables/useToast';
 import {
 	N8nButton,
@@ -14,21 +24,8 @@ import { useI18n } from '@n8n/i18n';
 import { computed, ref, watch } from 'vue';
 
 import { useAiGatewayAdminStore } from '../ai-gateway-admin.store';
-import type {
-	AiGatewayBackendInfo,
-	AiGatewayCredentialOption,
-	AiGatewayProviderInfo,
-	AiGatewayProviderSettings,
-} from '../ai-gateway.api';
 import { TABLE_PAGE_SIZES } from '../ai-gateway.constants';
-import {
-	AZURE_DEPLOYMENT_NAME,
-	DOCUMENT_AI_PROCESSOR_ENTRY,
-	GOOGLE_CLOUD_PROJECT,
-	parseDeployments,
-	parseDocumentAiProcessors,
-	VERTEX_LOCATION,
-} from '../ai-gateway.utils';
+import { parseDeployments, parseDocumentAiProcessors } from '../ai-gateway.utils';
 import { useTablePage } from '../composables/useTablePage';
 
 /** The fields of one provider. An empty credential id is no credential. */
@@ -192,11 +189,15 @@ function isValid(provider: AiGatewayProviderInfo) {
 	const projectIds = [settings.projectId, settings.openModels?.projectId];
 	const locations = [settings.location, settings.openModels?.location];
 	return (
-		projectIds.every((projectId) => !projectId || GOOGLE_CLOUD_PROJECT.test(projectId)) &&
-		locations.every((location) => !location || VERTEX_LOCATION.test(location)) &&
-		(settings.deployments ?? []).every((name) => AZURE_DEPLOYMENT_NAME.test(name)) &&
+		projectIds.every(
+			(projectId) => !projectId || AI_GATEWAY_GOOGLE_CLOUD_PROJECT.test(projectId),
+		) &&
+		locations.every((location) => !location || AI_GATEWAY_VERTEX_LOCATION.test(location)) &&
+		(settings.deployments ?? []).every((name) => AI_GATEWAY_AZURE_DEPLOYMENT_NAME.test(name)) &&
 		(settings.documentAiProcessors ?? []).length <= MAX_DOCUMENT_AI_PROCESSORS &&
-		(settings.documentAiProcessors ?? []).every((entry) => DOCUMENT_AI_PROCESSOR_ENTRY.test(entry))
+		(settings.documentAiProcessors ?? []).every((entry) =>
+			AI_GATEWAY_DOCUMENT_AI_PROCESSOR_ENTRY.test(entry),
+		)
 	);
 }
 

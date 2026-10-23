@@ -1,8 +1,7 @@
 import { CalendarDate } from '@internationalized/date';
+import { AUDIT_LOG_DEFAULT_PAGE_SIZE, type AuditLogEventsPage } from '@n8n/api-types';
 import { createPinia, setActivePinia } from 'pinia';
 
-import type { AuditLogEventsPage } from './audit-log.api';
-import { DEFAULT_PAGE_SIZE } from './audit-log.constants';
 import { useAuditLogStore } from './audit-log.store';
 
 vi.mock('@n8n/stores/useRootStore', () => ({
@@ -61,8 +60,8 @@ describe('useAuditLogStore', () => {
 		expect(getEventsMock).toHaveBeenCalledWith(
 			context,
 			{ eventName: 'n8n.audit.user.' },
-			2 * DEFAULT_PAGE_SIZE,
-			DEFAULT_PAGE_SIZE,
+			2 * AUDIT_LOG_DEFAULT_PAGE_SIZE,
+			AUDIT_LOG_DEFAULT_PAGE_SIZE,
 		);
 		expect(store.events.map(({ id }) => id)).toEqual(['e1', 'e2']);
 		expect(store.count).toBe(120);

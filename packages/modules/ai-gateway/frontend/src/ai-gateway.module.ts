@@ -11,7 +11,7 @@ import {
 
 // typescript-eslint reads an SFC import as `any`, because only vue-tsc can type one.
 // `pnpm turbo typecheck` is what checks this component for real.
-// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+
 const SettingsAiGatewayAdminView = async () =>
 	await import('./views/SettingsAiGatewayAdminView.vue');
 

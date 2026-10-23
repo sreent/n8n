@@ -765,3 +765,96 @@ export {
 	openTriggerItemSchema,
 } from './workflows/open-trigger.dto';
 export type { OpenTriggerItem, OpenTriggerKind } from './workflows/open-trigger.dto';
+
+// Fork: the REST API of the audit log (packages/cli/src/modules/audit-log/README.md).
+export {
+	AUDIT_LOG_DEFAULT_PAGE_SIZE,
+	AUDIT_LOG_EXPORT_FORMATS,
+	AUDIT_LOG_MAX_PAGE_SIZE,
+	AuditLogEventsQueryDto,
+	AuditLogExportQueryDto,
+} from './audit-log/audit-log.dto';
+export type {
+	AuditLogEventResponse,
+	AuditLogEventsPage,
+	AuditLogExportFormat,
+} from './audit-log/audit-log.dto';
+
+// Fork: the REST API of Git sync (packages/cli/src/modules/git-sync/README.md).
+export {
+	GIT_SYNC_DEFAULT_AUTHOR_NAME,
+	GIT_SYNC_DEFAULT_DIRECTORY,
+	GIT_SYNC_DEFAULT_USERNAME,
+	GIT_SYNC_ERROR_CODES,
+	GitSyncProjectsQueryDto,
+	GitSyncPullDto,
+	GitSyncPushDto,
+	GitSyncSettingsDto,
+	gitSyncCredentialMatchingModeSchema,
+} from './git-sync/git-sync.dto';
+export type {
+	GitSyncConnectionTestResult,
+	GitSyncCredentialMatchingMode,
+	GitSyncErrorCode,
+	GitSyncLastPull,
+	GitSyncLastPush,
+	GitSyncProjectOption,
+	GitSyncPullResult,
+	GitSyncPushResult,
+	GitSyncSettingsResponse,
+	GitSyncStatus,
+	GitSyncWorkflowChange,
+} from './git-sync/git-sync.dto';
+
+// Fork: the REST API of Send a copy (packages/cli/src/modules/send-copy/README.md).
+export {
+	ListCopyRecipientsQueryDto,
+	SEND_COPY_MAX_RECIPIENTS,
+	SEND_COPY_RECIPIENTS_DEFAULT_LIMIT,
+	SEND_COPY_RECIPIENTS_MAX_LIMIT,
+	SEND_COPY_SEARCH_MAX_LENGTH,
+	SendWorkflowCopyDto,
+} from './send-copy/send-copy.dto';
+export type {
+	CopyRecipient,
+	SendCopyFailureReason,
+	SendCopyResult,
+	SendWorkflowCopyResponse,
+} from './send-copy/send-copy.dto';
+
+// Fork: the REST API of the page Settings > Gateway credits admin
+// (packages/cli/src/modules/ai-gateway/README.md).
+export {
+	AI_GATEWAY_AZURE_DEPLOYMENT_NAME,
+	AI_GATEWAY_DOCUMENT_AI_PROCESSOR_ENTRY,
+	AI_GATEWAY_GOOGLE_CLOUD_PROJECT,
+	AI_GATEWAY_USAGE_DEFAULT_PAGE_SIZE,
+	AI_GATEWAY_USAGE_MAX_PAGE_SIZE,
+	AI_GATEWAY_VERTEX_LOCATION,
+	AiGatewayAdminUsageQueryDto,
+	AiGatewaySettingsDto,
+	AiGatewayTopUpDto,
+	aiGatewayOpenModelsSchema,
+	aiGatewayPriceSchema,
+	aiGatewayProviderSettingsSchema,
+	aiGatewaySettingsSchema,
+} from './ai-gateway/ai-gateway-admin.dto';
+export type {
+	AiGatewayAdminUsageEntry,
+	AiGatewayAdminUsagePage,
+	AiGatewayBackendInfo,
+	AiGatewayBackendKind,
+	AiGatewayCredentialOption,
+	AiGatewayOpenModelsSettings,
+	AiGatewayOption,
+	AiGatewayOverview,
+	AiGatewayPrice,
+	AiGatewayPrices,
+	AiGatewayPriceTable,
+	AiGatewayProjectSpend,
+	AiGatewayProviderInfo,
+	AiGatewayProviderSettings,
+	AiGatewaySettings,
+	AiGatewaySettingsResponse,
+	AiGatewayTopUpEntry,
+} from './ai-gateway/ai-gateway-admin.dto';

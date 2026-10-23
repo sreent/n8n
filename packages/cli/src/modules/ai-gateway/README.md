@@ -344,6 +344,10 @@ have.
 | `GET /rest/ai-gateway/prices` | The list prices and the prices of the admin |
 | `GET /rest/ai-gateway/usage` | The calls, with filters and pages |
 
+The request and response types, the schema of the settings and the patterns of the backend options
+are in `packages/@n8n/api-types/src/dto/ai-gateway/ai-gateway-admin.dto.ts`. The backend and the
+editor use the same types, so the settings page checks a field with the rule of the backend.
+
 The ordinary routes of upstream stay: `GET /rest/ai/gateway/config`, `GET /rest/ai/gateway/wallet`
 and `GET /rest/ai/gateway/usage`. The module answers them through the hook. A user who is not an
 admin sees only their own calls in the usage.

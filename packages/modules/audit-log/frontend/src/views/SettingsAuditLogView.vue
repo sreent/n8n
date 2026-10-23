@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { AuditLogEventResponse, AuditLogExportFormat } from '@n8n/api-types';
 import { useDocumentTitle } from '@n8n/composables/useDocumentTitle';
 import { useToast } from '@n8n/composables/useToast';
 import {
@@ -23,7 +24,7 @@ import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { computed, onMounted, ref, shallowRef, watch } from 'vue';
 
-import type { AuditLogEvent, AuditLogExportFormat, AuditLogProjectType } from '../audit-log.api';
+import type { AuditLogProjectType } from '../audit-log.api';
 import { AUDIT_LOG_MODULE_ID, PAGE_SIZES, USER_SEARCH_SIZE } from '../audit-log.constants';
 import { useAuditLogStore } from '../audit-log.store';
 import {
@@ -86,7 +87,7 @@ watch(
 	{ deep: true },
 );
 
-const headers = computed<Array<TableHeader<AuditLogEvent>>>(() => [
+const headers = computed<Array<TableHeader<AuditLogEventResponse>>>(() => [
 	{
 		title: i18n.baseText('settings.auditLog.column.time'),
 		key: 'timestamp',
@@ -125,13 +126,13 @@ const headers = computed<Array<TableHeader<AuditLogEvent>>>(() => [
 
 const showEmptyState = computed(() => loadedOnce.value && !store.loading && store.count === 0);
 
-const selectedEvent = shallowRef<AuditLogEvent | null>(null);
+const selectedEvent = shallowRef<AuditLogEventResponse | null>(null);
 
-function openDetails(event: AuditLogEvent) {
+function openDetails(event: AuditLogEventResponse) {
 	selectedEvent.value = event;
 }
 
-function onRowClick(_event: MouseEvent, { item }: { item: AuditLogEvent }) {
+function onRowClick(_event: MouseEvent, { item }: { item: AuditLogEventResponse }) {
 	openDetails(item);
 }
 

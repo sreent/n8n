@@ -1,3 +1,4 @@
+import type { GitSyncSettingsDto } from '@n8n/api-types';
 import { LockAcquisitionTimeoutError, type LockService, type Logger } from '@n8n/backend-common';
 import type { EventService } from '@n8n/backend-services';
 import type { ProjectRepository, User } from '@n8n/db';
@@ -10,7 +11,6 @@ import path from 'node:path';
 
 import type { GitSyncSettingsService } from '../git-sync-settings.service';
 import type { GitSyncConfig } from '../git-sync.config';
-import type { GitSyncSettingsDto } from '../git-sync.dto';
 import { GitSyncError } from '../git-sync.errors';
 import { GitSyncService } from '../git-sync.service';
 import type { StoredConnection } from '../git-sync.types';

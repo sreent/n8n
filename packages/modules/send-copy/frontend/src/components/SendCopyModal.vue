@@ -1,4 +1,10 @@
 <script lang="ts" setup>
+import {
+	SEND_COPY_MAX_RECIPIENTS,
+	type CopyRecipient,
+	type SendCopyFailureReason,
+	type SendCopyResult,
+} from '@n8n/api-types';
 import { useDebounce } from '@n8n/composables/useDebounce';
 import { useToast } from '@n8n/composables/useToast';
 import {
@@ -17,15 +23,9 @@ import { useI18n } from '@n8n/i18n';
 import { useRootStore } from '@n8n/stores/useRootStore';
 import { computed, ref, useId, watch } from 'vue';
 
-import {
-	getCopyRecipients,
-	sendWorkflowCopy,
-	type CopyRecipient,
-	type SendCopyFailureReason,
-	type SendCopyResult,
-} from '../send-copy.api';
+import { getCopyRecipients, sendWorkflowCopy } from '../send-copy.api';
 import { sendCopyModalCloser } from '../send-copy.capabilities';
-import { SEND_COPY_MAX_RECIPIENTS, SEND_COPY_SEARCH_LIMIT } from '../send-copy.constants';
+import { SEND_COPY_SEARCH_LIMIT } from '../send-copy.constants';
 
 const props = defineProps<{
 	modalName: string;

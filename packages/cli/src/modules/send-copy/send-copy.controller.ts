@@ -1,3 +1,9 @@
+import {
+	type CopyRecipient,
+	ListCopyRecipientsQueryDto,
+	type SendWorkflowCopyResponse,
+	SendWorkflowCopyDto,
+} from '@n8n/api-types';
 import type { AuthenticatedRequest } from '@n8n/db';
 import {
 	Body,
@@ -10,7 +16,6 @@ import {
 	RestController,
 } from '@n8n/decorators';
 
-import { ListCopyRecipientsQueryDto, SendWorkflowCopyDto } from './send-copy.dto';
 import { SendCopyService } from './send-copy.service';
 
 @RestController('/send-copy')
@@ -24,7 +29,7 @@ export class SendCopyController {
 		req: AuthenticatedRequest,
 		_res: unknown,
 		@Query query: ListCopyRecipientsQueryDto,
-	) {
+	): Promise<CopyRecipient[]> {
 		return await this.sendCopyService.listRecipients(req.user, {
 			search: query.search,
 			limit: query.limit,
@@ -41,7 +46,7 @@ export class SendCopyController {
 		_res: unknown,
 		@Param('workflowId') workflowId: string,
 		@Body body: SendWorkflowCopyDto,
-	) {
+	): Promise<SendWorkflowCopyResponse> {
 		const results = await this.sendCopyService.sendWorkflowCopy(
 			req.user,
 			workflowId,

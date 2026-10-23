@@ -1,10 +1,10 @@
+import { GIT_SYNC_ERROR_CODES } from '@n8n/api-types';
 import { execFile, type ExecFileException } from 'node:child_process';
 import { devNull } from 'node:os';
 import path from 'node:path';
 
 import { GIT_CA_VARIABLES, GIT_MAX_OUTPUT_BYTES } from '@/utils/git-process';
 
-import { GIT_SYNC_ERROR_CODES } from '../git-sync.constants';
 import { GitSyncError } from '../git-sync.errors';
 
 /** Settings that turn off Git features that could run code or read outside the repository. */

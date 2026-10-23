@@ -1,3 +1,4 @@
+import type { SendCopyResult } from '@n8n/api-types';
 import { createWorkflow, testDb } from '@n8n/backend-test-utils';
 import type { User } from '@n8n/db';
 import {
@@ -17,8 +18,6 @@ import {
 	createUserShell,
 } from '@test-integration/db/users';
 import { setupTestServer } from '@test-integration/utils';
-
-import type { SendCopyResult } from '../send-copy.types';
 
 // A non-empty endpoint group makes the test server initialize the modules.
 const testServer = setupTestServer({ endpointGroups: ['me'], modules: ['send-copy'] });

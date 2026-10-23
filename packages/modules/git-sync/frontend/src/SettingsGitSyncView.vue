@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import {
+	GIT_SYNC_ERROR_CODES,
+	type GitSyncPullResult,
+	type GitSyncWorkflowChange,
+} from '@n8n/api-types';
 import { useDocumentTitle } from '@n8n/composables/useDocumentTitle';
 import { useToast } from '@n8n/composables/useToast';
 import {
@@ -25,12 +30,11 @@ import {
 import { useI18n } from '@n8n/i18n';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useUsersStore } from '@n8n/stores/users.store';
+import { CREDENTIAL_BLANKING_VALUE } from 'n8n-workflow';
 import { computed, onMounted, ref, watch } from 'vue';
 import { onBeforeRouteLeave, type NavigationGuardNext } from 'vue-router';
 
 import GitSyncChangeList from './components/GitSyncChangeList.vue';
-import type { GitSyncPullResult, GitSyncWorkflowChange } from './git-sync.api';
-import { CREDENTIALS_BLANKING_VALUE, GIT_SYNC_ERROR_CODES } from './git-sync.constants';
 import { useGitSyncStore } from './git-sync.store';
 import { errorCode, errorConflicts } from './git-sync.utils';
 
@@ -56,14 +60,14 @@ const pendingNext = ref<NavigationGuardNext | null>(null);
 // ── Connection form ───────────────────────────────────────────────────────
 
 const hasStoredToken = computed(
-	() => gitSyncStore.settings?.accessToken === CREDENTIALS_BLANKING_VALUE,
+	() => gitSyncStore.settings?.accessToken === CREDENTIAL_BLANKING_VALUE,
 );
 const tokenWillBeRemoved = computed(
 	() => hasStoredToken.value && gitSyncStore.form.accessToken === '',
 );
 // The input never shows the blanking value. An empty input keeps the stored token.
 const tokenInputValue = computed(() =>
-	gitSyncStore.form.accessToken === CREDENTIALS_BLANKING_VALUE ? '' : gitSyncStore.form.accessToken,
+	gitSyncStore.form.accessToken === CREDENTIAL_BLANKING_VALUE ? '' : gitSyncStore.form.accessToken,
 );
 const tokenPlaceholder = computed(() =>
 	hasStoredToken.value
@@ -73,7 +77,7 @@ const tokenPlaceholder = computed(() =>
 
 function onTokenInput(value: string) {
 	gitSyncStore.form.accessToken =
-		value === '' && hasStoredToken.value ? CREDENTIALS_BLANKING_VALUE : value;
+		value === '' && hasStoredToken.value ? CREDENTIAL_BLANKING_VALUE : value;
 }
 
 function removeToken() {

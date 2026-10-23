@@ -1,10 +1,10 @@
 import { capabilityRegistry } from '@n8n/frontend-module-sdk';
+import type { CopyRecipient } from '@n8n/api-types';
 import { createComponentRenderer } from '@n8n/frontend-test-utils';
 import { createTestingPinia } from '@pinia/testing';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/vue';
 
-import type { CopyRecipient } from '../send-copy.api';
 import { sendCopyModalCloser } from '../send-copy.capabilities';
 import SendCopyModal from './SendCopyModal.vue';
 

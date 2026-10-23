@@ -178,9 +178,9 @@ curl -H "X-N8N-API-KEY: $N8N_API_KEY" \
 | `audit-log-projects.service.ts` | Finds the project of each event |
 | `audit-log-pruning.service.ts`, `audit-log-pruning.task.ts` | Delete old events |
 | `audit-log.service.ts` | The list, the event names and the export |
-| `audit-log.controller.ts`, `audit-log.dto.ts` | The REST API |
+| `audit-log.controller.ts` | The REST API |
 | `packages/cli/src/public-api/v1/controllers/audit-log.public.controller.ts` | The public API |
-| `packages/@n8n/api-types/src/dto/audit-log/` | The query and response types of the public API |
+| `packages/@n8n/api-types/src/dto/audit-log/` | The query and response types of the REST API (`audit-log.dto.ts`) and of the public API (`audit-log-public.dto.ts`). The backend and the editor use the same types |
 | `database/` | The entity and the repository of the table |
 
 ## Sources

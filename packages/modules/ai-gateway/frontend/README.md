@@ -84,6 +84,9 @@ the user leaves the page. The fork tests of
   page for a user with the scope `aiAssistant:manage`, and tells other users to ask an admin.
 - The module settings `'ai-gateway'` (`selfHosted`) in `FrontendModuleSettings` of
   `@n8n/api-types`. The backend module gives them.
+- The request and response types of `/rest/ai-gateway/*` and the patterns of the backend options
+  (`packages/@n8n/api-types/src/dto/ai-gateway/ai-gateway-admin.dto.ts`). The page checks a field
+  with the same pattern as the backend.
 
 ## Commands
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { AiGatewayTopUpEntry } from '@n8n/api-types';
 import { useToast } from '@n8n/composables/useToast';
 import {
 	N8nAlertDialog,
@@ -14,7 +15,6 @@ import { useI18n } from '@n8n/i18n';
 import { computed, ref } from 'vue';
 
 import { useAiGatewayAdminStore } from '../ai-gateway-admin.store';
-import type { AiGatewayTopUp } from '../ai-gateway.api';
 import { TABLE_PAGE_SIZES } from '../ai-gateway.constants';
 import { formatDateTime, formatUsd } from '../ai-gateway.utils';
 import { useTablePage } from '../composables/useTablePage';
@@ -39,7 +39,7 @@ const valid = computed(
 
 const { page, itemsPerPage, pageItems } = useTablePage(() => store.topUps);
 
-const headers = computed<Array<TableHeader<AiGatewayTopUp>>>(() => [
+const headers = computed<Array<TableHeader<AiGatewayTopUpEntry>>>(() => [
 	{
 		title: i18n.baseText('settings.forkAiGateway.topUps.date'),
 		key: 'createdAt',

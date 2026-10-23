@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type { AiGatewayOverview, AiGatewayProjectSpend } from '@n8n/api-types';
 import { N8nDataTableServer, N8nHeading, N8nText, type TableHeader } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
 import { computed } from 'vue';
 
-import type { AiGatewayOverview, AiGatewayProjectSpend } from '../ai-gateway.api';
 import { TABLE_PAGE_SIZES } from '../ai-gateway.constants';
 import { formatUsd, formatUtcDay } from '../ai-gateway.utils';
 import { useTablePage } from '../composables/useTablePage';

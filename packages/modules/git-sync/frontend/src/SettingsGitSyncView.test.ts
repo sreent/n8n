@@ -1,10 +1,10 @@
+import type { GitSyncSettingsResponse, GitSyncStatus } from '@n8n/api-types';
 import { createComponentRenderer } from '@n8n/frontend-test-utils';
 import { createTestingPinia } from '@pinia/testing';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor, within } from '@testing-library/vue';
+import { CREDENTIAL_BLANKING_VALUE } from 'n8n-workflow';
 
-import type { GitSyncSettings, GitSyncStatus } from './git-sync.api';
-import { CREDENTIALS_BLANKING_VALUE } from './git-sync.constants';
 import SettingsGitSyncView from './SettingsGitSyncView.vue';
 
 const showMessage = vi.fn();
@@ -48,14 +48,14 @@ vi.mock('./git-sync.api', () => ({
 	pullFromGit: async (...args: unknown[]) => await pullMock(...args),
 }));
 
-const saved: GitSyncSettings = {
+const saved: GitSyncSettingsResponse = {
 	repositoryUrl: 'https://github.com/acme/flows.git',
 	branch: 'main',
 	directory: 'n8n',
 	projectId: 'project-1',
 	projectName: 'Ada Lovelace',
 	username: 'x-access-token',
-	accessToken: CREDENTIALS_BLANKING_VALUE,
+	accessToken: CREDENTIAL_BLANKING_VALUE,
 	authorName: 'n8n Git sync',
 	authorEmail: 'bot@example.com',
 	credentialMatchingMode: 'name-and-type',

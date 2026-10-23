@@ -1,3 +1,4 @@
+import type { AiGatewaySettings } from '@n8n/api-types';
 import { createComponentRenderer } from '@n8n/frontend-test-utils';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { createTestingPinia } from '@pinia/testing';
@@ -5,7 +6,6 @@ import userEvent from '@testing-library/user-event';
 import { screen, waitFor, within } from '@testing-library/vue';
 
 import { overview, priceTable, settingsResponse, topUps, usagePage } from '../__tests__/fixtures';
-import type { AiGatewaySettings } from '../ai-gateway.api';
 import SettingsAiGatewayAdminView from './SettingsAiGatewayAdminView.vue';
 
 const showMessage = vi.fn();

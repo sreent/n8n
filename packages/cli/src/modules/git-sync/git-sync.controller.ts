@@ -1,13 +1,13 @@
-import type { AuthenticatedRequest } from '@n8n/db';
-import { Body, Delete, Get, GlobalScope, Post, Put, Query, RestController } from '@n8n/decorators';
-import type { Response } from 'express';
-
 import {
 	GitSyncProjectsQueryDto,
 	GitSyncPullDto,
 	GitSyncPushDto,
 	GitSyncSettingsDto,
-} from './git-sync.dto';
+} from '@n8n/api-types';
+import type { AuthenticatedRequest } from '@n8n/db';
+import { Body, Delete, Get, GlobalScope, Post, Put, Query, RestController } from '@n8n/decorators';
+import type { Response } from 'express';
+
 import { GitSyncService } from './git-sync.service';
 
 /**
