@@ -1,7 +1,8 @@
 # Git sync
 
 Fork module (not in upstream n8n). Git sync connects one n8n project to one branch
-of a Git repository. The instance owner and admins push the workflows of the project
+of a Git repository. Users with the global scope `sourceControl:manage` (the instance
+owner, the admins and custom roles with the scope) push the workflows of the project
 to the branch, and pull changes from the branch. Use it to keep a history of your
 workflows, and to move workflows from a development instance to a production instance.
 
@@ -47,12 +48,14 @@ The branch holds a workflow package, as the package export writes it:
 - **Push** exports all workflows of the project, archived workflows included, and
   commits them on top of the branch. It never uses `--force`. If the branch has
   changes in the package that are not in n8n yet, the push stops with
-  `GIT_SYNC_PULL_FIRST`. **Replace content in Git** commits the n8n content on top
+  `GIT_SYNC_PULL_FIRST`. **Replace the content in Git** commits the n8n content on top
   of the branch anyway.
 - **Pull** imports the workflows that changed in Git since the last sync. The
   workflow IDs stay the same on every instance, so a second pull updates the same
   workflows. If a workflow also changed in n8n, the pull stops with
   `GIT_SYNC_LOCAL_CHANGES`. Pull again with **Replace my changes** to continue.
+  **Import all workflows** imports every workflow of the branch, not only the
+  workflows that changed.
 - A new workflow from Git stays unpublished. A pull republishes an update only when
   the workflow is already published here and the source publishes the same version.
 
@@ -64,13 +67,17 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 ## Security
 
 - Git sync needs the global scope `sourceControl:manage`, as source control does. The owner and
-  the admins hold it, and a custom instance role can hold it.
+  the admins hold it, and a custom instance role can hold it. The REST API and the page
+  **Settings > Git sync** (the frontend module `packages/modules/git-sync/frontend`) both check
+  the scope, so a user with a custom role that holds it also gets the page.
 - n8n stores the token encrypted. The API never returns it.
 - Git gets the token as an HTTP header for the repository origin only. The token is
   never in the URL, in `.git/config`, in a log, or in an error message.
-- Git runs without a shell, with an empty environment and no system or user
-  configuration. Hooks, submodules, symbolic links, redirects and credential helpers
-  are off.
+- Git runs without a shell, with a minimal environment, an empty home folder and no
+  system or user configuration. From the environment of n8n, Git gets only `PATH`, the
+  proxy variables and the variables of a private certificate authority (`SSL_CERT_FILE`,
+  `SSL_CERT_DIR`, `GIT_SSL_CAINFO` and `GIT_SSL_CAPATH`). Hooks, submodules, symbolic
+  links, redirects and credential helpers are off.
 - Write access to the branch is the same as write access to the workflows of every
   instance that pulls from it. Protect the branch, and use a token with the
   smallest possible permissions.
@@ -81,6 +88,9 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 ## Limits
 
 - One connection for each instance, and one project for each connection.
+- Git sync runs one operation at a time. With queue mode or multiple main instances,
+  the lock is in Redis and covers all main instances. Another operation answers 409
+  with `GIT_SYNC_BUSY`.
 - The package has no folders. A pull puts new workflows at the root of the project.
 - A pull never deletes a workflow. It reports workflows that Git no longer has.
   Archive or delete them in n8n, or push to put them back in Git.
@@ -103,6 +113,7 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 | `package/n8n-packages.adapter.ts` | The only connection to the package export and import |
 | `package/package-changes.ts` | Finds changed workflows (pure functions) |
 | `packages/@n8n/api-types/src/dto/git-sync/git-sync.dto.ts` | The request and response types of the REST API, the defaults and the error codes. The backend and the editor use the same types |
+| `packages/cli/src/utils/git-process.ts` | The Git settings that Git sync shares with source control and Git connections: the variables of a private certificate authority and the largest output of a Git call (256 MB) |
 
 Run the tests:
 

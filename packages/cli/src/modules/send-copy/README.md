@@ -18,7 +18,8 @@ To turn the module off, add `send-copy` to `N8N_DISABLED_MODULES`.
 | `POST /rest/send-copy/workflows/:workflowId` | Project scope `workflow:read` | Sends a copy of the workflow to the recipients |
 
 - `GET /recipients` takes `search` (at most 100 characters) and `limit` (1 to 50, default 20).
-  It gives `id`, `firstName`, `lastName` and `email` only, and leaves out the sender.
+  It gives `id`, `firstName`, `lastName` and `email` only. It leaves out the sender and the users
+  who cannot receive a copy (see `not-eligible` below).
 - `POST /workflows/:workflowId` takes `recipientIds`: 1 to 20 user IDs. A user can send at most
   30 requests in one minute.
 - As the workflow routes of n8n do, the route answers 403 when the sender cannot read the

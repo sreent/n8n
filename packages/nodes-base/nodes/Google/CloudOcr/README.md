@@ -15,9 +15,10 @@ and of [Document AI](https://cloud.google.com/document-ai/docs/send-request)
   `gs://` URI of Cloud Storage), or of a PDF, TIFF or GIF file. The node reads a file 5 pages at a
   time (the most of one request of `files:annotate`): the first request leaves out the pages, so
   that the API gives the page count, and the next requests ask for the next pages up to the option
-  **Max Pages** (default 20). The text type is **Document** (`DOCUMENT_TEXT_DETECTION`, for scans)
-  or **Text in Images** (`TEXT_DETECTION`, for photos). The output has `text`, `pageCount`, the
-  text of each page (`pages`) and the language of an image.
+  **Max Pages** (default 20). The text type is **Document (Dense Text)**
+  (`DOCUMENT_TEXT_DETECTION`, for scans) or **Text in Images (Sparse Text)** (`TEXT_DETECTION`, for
+  photos). The option **Language Hints** gives the languages of the text, for example `en,de`. The
+  output has `text`, `pageCount`, the text of each page (`pages`) and the language of an image.
 - **Process Document** (Document AI): a binary file through a processor, for example the Document
   OCR, the Form Parser or an invoice processor. The processor is its resource name
   (`projects/<project>/locations/<location>/processors/<id>`, with an optional
@@ -44,6 +45,7 @@ and of [Document AI](https://cloud.google.com/document-ai/docs/send-request)
 ## Files
 
 - `GoogleCloudOcr.node.ts`: the node and the two operations.
+- `GoogleCloudOcr.node.json`: the codex of the node (its categories and documentation links).
 - `GenericFunctions.ts`: the requests to the two APIs with the credential of the node.
 - `googleCloudOcr.svg`: the icon of the fork.
 - `test/GoogleCloudOcr.node.test.ts`: the operations, the paging of a PDF, the hosts of the two

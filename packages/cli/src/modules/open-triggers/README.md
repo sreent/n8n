@@ -15,6 +15,10 @@ approves them:
 The module starts by default, also with the check off. `N8N_DISABLED_MODULES=open-triggers` turns
 it off.
 
+The frontend module `packages/modules/open-triggers/frontend` adds the one-click fixes,
+**Request approval**, the notice of a test URL and the page Settings > Open triggers. Its README
+describes the editor part.
+
 ## Set up
 
 1. Set `N8N_OPEN_TRIGGERS_NEED_APPROVAL=true`. n8n reads the variable at the start.
@@ -165,5 +169,7 @@ trigger. It is false for a trigger that was published before the check.
 | `open-triggers.module.ts` | The module, and the module settings `needApproval` and `publicChatDisabled` for the editor |
 
 The public API route is in
-`packages/cli/src/public-api/v1/controllers/open-triggers.public.controller.ts`, and the types are
-in `@n8n/api-types` (`dto/workflows/open-trigger.dto.ts`).
+`packages/cli/src/public-api/v1/controllers/inventory.public.controller.ts`, next to the inventory
+of workflows (see [the README of the governance routes](../../governance/README.md)). While the
+module is off, the route answers 503. The types are in `@n8n/api-types`
+(`dto/workflows/open-trigger.dto.ts`).

@@ -17,7 +17,9 @@ credentials for the n8n Assistant.
 
 ## Set up
 
-The module is on by default. To turn it off, add `audit-log` to `N8N_DISABLED_MODULES`.
+The module is on by default. To turn it off, add `audit-log` to `N8N_DISABLED_MODULES`. It starts
+only with the licence value `feat:logStreaming`, which the fork switch gives. With
+`N8N_FORK_FEATURES_ENABLED=false`, the licence decides.
 
 | Variable | Default | Purpose |
 |---|---|---|
@@ -124,8 +126,9 @@ The filters of `events` and `export`:
 | `projectId` | The id of a project |
 | `projectType` | `personal` (the personal spaces of users) or `team` |
 
-`events` also takes `skip` (default 0) and `take` (default 50, at most 250). An event has `id`,
-`eventName`, `timestamp`, `userId`, `userEmail`, `projectId`, `projectType` and `payload`.
+`events` also takes `skip` (default 0) and `take` (default 50, at most 250). A larger `take` gives
+250 events, and `take=0` answers 400. An event has `id`, `eventName`, `timestamp`, `userId`,
+`userEmail`, `projectId`, `projectType` and `payload`.
 
 `export` also takes `format`: `csv` (the default) or `json`. The file name is
 `audit-log-<date>.csv` or `audit-log-<date>.json`. The CSV file has the columns `timestamp`,
@@ -158,8 +161,9 @@ events, so a page must have 1 to 250 events: the route answers 400 for `limit=0`
 that a client changed to a larger page or to an offset that is not a whole number of 0 or more.
 `export` takes `format`: `csv` (the default) or `json`.
 
-When the module is off, the routes answer 503. The public API documentation
-(`/api/v1/docs`) lists the routes under the tag **AuditLog**.
+Without the licence value `feat:logStreaming`, the routes answer 403. When the module is off, the
+routes answer 503. The public API documentation (`/api/v1/docs`) lists the routes under the tag
+**AuditLog**.
 
 For example, read the workflow events of one day in the personal spaces of users:
 
@@ -174,6 +178,7 @@ curl -H "X-N8N-API-KEY: $N8N_API_KEY" \
 |---|---|
 | `audit-log.module.ts` | The entrypoint |
 | `audit-log.config.ts` | The environment variables |
+| `audit-log.constants.ts` | The prefix of the audit events, the batch sizes and the size of the buffer |
 | `audit-log-collection.service.ts` | Listens to the event bus and writes the events in batches |
 | `audit-log-projects.service.ts` | Finds the project of each event |
 | `audit-log-pruning.service.ts`, `audit-log-pruning.task.ts` | Delete old events |

@@ -106,6 +106,10 @@ a credential helper gives the stored user name and password, `GIT_SSL_CAINFO` an
 `GIT_SSL_CAPATH` of the environment apply, and the proxy of the environment applies
 (`resolveProxyUrl`). An error of Git is the message of the answer.
 
+Source control and Git connections take the `PATH`, the credential helper, the variables of a
+private certificate authority and the largest output of a Git call (256 MB) from
+`packages/cli/src/utils/git-process.ts`. Git sync takes the last two from there too.
+
 Git gets the repository URL after `--`, and runs with `-c protocol.ext.allow=never`. The
 preferences accept only a repository URL that does not start with `-`. The service runs its work
 folder operations one at a time: the connection, the changes of the preferences and the branch,

@@ -129,11 +129,16 @@ hasCheckout }`. A disconnect of a configuration without a checkout gives 200 too
 
 ### Git
 
-- Git runs with `PATH=/usr/bin:/bin` and `GIT_TERMINAL_PROMPT=0`, as in source control.
+- Git runs with `PATH=/usr/bin:/bin` and `GIT_TERMINAL_PROMPT=0`, as in source control. Source
+  control and Git connections take the `PATH`, the credential helper, the variables of a private
+  certificate authority and the largest output of a Git call (256 MB) from
+  `packages/cli/src/utils/git-process.ts`. Git sync takes the last two from there too.
 - For SSH, `GIT_SSH_COMMAND` gives `ssh` the private key in a temporary folder
   (`/tmp/n8n-promotions-XXXXXX/private-key`), the known hosts file of the configuration and
   `StrictHostKeyChecking=accept-new`. n8n removes the temporary folder after the call.
-- For HTTPS, n8n gives the username and the password to Git through `GIT_ASKPASS`, not in the URL.
+- For HTTPS, a credential helper gives Git the username and the password from two variables of
+  its environment, not in the URL. `GIT_SSL_CAINFO` and `GIT_SSL_CAPATH` of the environment apply,
+  and the proxy of the environment applies (`resolveProxyUrl`).
 - When a Git call fails, the answer is `Could not complete the Git operation` (400). The log has
   the details.
 

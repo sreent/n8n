@@ -1,7 +1,7 @@
 # Governance routes of the public API
 
 Fork code (not in upstream n8n). These routes help the owner and the admins review the instance:
-what users build, who has API keys, and which accounts nobody uses. They use the services and the
+what users build and how it runs, who has API keys, and which accounts nobody uses. They use the services and the
 repositories of upstream n8n. They add no table and no module.
 
 | Route | API key scopes | What it gives |
@@ -10,6 +10,7 @@ repositories of upstream n8n. They add no table and no module.
 | `GET /api/v1/api-keys` | `apiKey:manage` | The API keys of all users, with the user, the scopes, the expiry and the last use |
 | `GET /api/v1/users`, `GET /api/v1/users/{id}` | `user:list`, `user:read` (upstream) | The field `lastActiveAt` (fork) |
 | `GET /api/v1/inventory/open-triggers` | `workflow:list` | The triggers without authentication of the published workflows, with their approvals. [The README of the open-triggers module](../modules/open-triggers/README.md) describes it |
+| `GET /api/v1/insights/by-workflow` | `insights:read` | The production executions of each workflow in a date range: the executions, the failures, the failure rate, the run time and the time saved |
 
 ## The inventory of workflows
 
@@ -41,8 +42,8 @@ repositories of upstream n8n. They add no table and no module.
 `ApiKeyReviewService` (`api-key-review.service.ts`) and `ApiKeysPublicController`
 (`../public-api/v1/controllers/api-keys.public.controller.ts`).
 
-- Only the owner, the admins and a custom role with the option **API keys: Manage all** can use the
-  route. The key needs the scope `apiKey:manage`, and the user needs the global scope
+- Only the owner, the admins and a custom role with the option **API keys: Manage others** can use
+  the route. The key needs the scope `apiKey:manage`, and the user needs the global scope
   `apiKey:manage`. So a member gets 403, also with the scope on the key.
 - `apiKey:manage` is an upstream scope. The fork adds it as an API key scope (see
   [packages/@n8n/permissions/FORK.md](../../../@n8n/permissions/FORK.md#fork-scopes)).
@@ -65,11 +66,27 @@ repositories of upstream n8n. They add no table and no module.
 - To find unused accounts, list the users, and look for an old day or null. Compare with
   `createdAt`, so that you do not flag a new user.
 
+## The insights of each workflow
+
+`InsightsByWorkflowPublicController`
+(`../public-api/v1/controllers/insights-by-workflow.public.controller.ts`) gives the data of the
+REST route `GET /rest/insights/by-workflow`, which the Insights page of the editor shows. It uses
+the service of the upstream module `insights`.
+
+- The route needs the licence value `feat:insights:viewDashboard`, which the fork switch gives.
+  Without it, the route answers 403. While the module `insights` is off, it answers 503.
+- Each user gets the workflows that the user can read. A deleted workflow keeps its row, with
+  `workflowId: null`.
+- Query: `startDate` and `endDate` (ISO 8601 with an offset, by default the last 7 days),
+  `projectId`, `sortBy` (the sort options of the REST route, by default the most executions
+  first), `limit` (1 to 250, default 100) and `cursor`. A `startDate` after the `endDate` gives 400.
+  A `startDate` before the licensed history gives 403.
+
 ## A weekly report
 
-`deploy/workflows/governance-report.json` is an n8n workflow that uses these routes. Each Monday
-at 08:00, in the time zone of the instance, it reads all pages of each route and sends a report by
-email:
+`deploy/workflows/governance-report.json` is an n8n workflow that uses these routes, except the
+insights of each workflow. Each Monday at 08:00, in the time zone of the instance, it reads all
+pages of each route and sends a report by email:
 
 - the published workflows in personal spaces;
 - the published workflows with failed executions in their last 5 executions;
@@ -92,6 +109,11 @@ The report never holds the values of API keys.
   docs of the two routes.
 - `packages/cli/src/public-api/v1/controllers/inventory.public.controller.ts` and
   `api-keys.public.controller.ts`, and their imports in `controllers/index.ts`.
+- `packages/cli/src/public-api/v1/controllers/insights-by-workflow.public.controller.ts` (and its
+  import in `controllers/index.ts`) and
+  `packages/@n8n/api-types/src/dto/insights/insights-by-workflow-public.*.ts`: the route, the types
+  and the OpenAPI docs of the insights of each workflow. A separate controller keeps the upstream
+  file of `/insights/summary` as it is.
 - `packages/cli/src/public-api/v1/openapi.yml`: the tag `ApiKey`. The cli build writes the specs of
   the routes (`*.generated.yml`).
 - `packages/cli/src/public-api/v1/shared/services/offset-page.ts`: `assertOffsetPage` takes the
@@ -108,6 +130,7 @@ The report never holds the values of API keys.
 - `packages/cli/test/integration/public-api/workflow-inventory.test.ts`
 - `packages/cli/test/integration/public-api/api-keys-review.test.ts`
 - `packages/cli/test/integration/public-api/users-last-active.test.ts`
+- `packages/cli/test/integration/public-api/insights-by-workflow.test.ts`
 - `packages/@n8n/permissions/src/__tests__/fork-scopes.test.ts`
 - `deploy/workflows/governance-report.test.mjs`, for the report workflow. Run it with
   `node --test deploy/workflows/governance-report.test.mjs`.
