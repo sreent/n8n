@@ -63,7 +63,8 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 
 ## Security
 
-- Only the instance owner and admins can use Git sync.
+- Git sync needs the global scope `sourceControl:manage`, as source control does. The owner and
+  the admins hold it, and a custom instance role can hold it.
 - n8n stores the token encrypted. The API never returns it.
 - Git gets the token as an HTTP header for the repository origin only. The token is
   never in the URL, in `.git/config`, in a log, or in an error message.

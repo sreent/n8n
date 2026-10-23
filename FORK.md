@@ -357,6 +357,10 @@ update can bring new enterprise files: see "Upstream updates".
   `packages/cli/src/public-api/v1/controllers/promotions.public.controller.ts`, keep the import
   paths of the fork module and the user arguments of the audit events, as
   `packages/cli/src/modules/promotions/README.md` tells.
+- When an upstream update changes the pubsub commands (`pubsub-metadata.ts` of `@n8n/decorators`,
+  and `pubsub.event-map.ts` and `pubsub.types.ts` of `packages/cli/src/scaling/pubsub`), keep the
+  fork command `reload-ldap-config`, as
+  [packages/cli/src/modules/ldap/README.md](packages/cli/src/modules/ldap/README.md) tells.
 - When an upstream update changes `packages/cli/src/server.ts`, the list `eventNamesAudit` of
   `packages/cli/src/eventbus/event-message-classes/index.ts` or the type `RelayEventMap`, keep the
   fork lines of the governance audit events (`ForkGovernanceEventRelay`), as

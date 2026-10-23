@@ -21,6 +21,8 @@ export type PubSubEventName =
 	| 'reload-license'
 	| 'reload-oidc-config'
 	| 'reload-saml-config'
+	// Fork: the LDAP module of the fork.
+	| 'reload-ldap-config'
 	| 'reload-overwrite-credentials'
 	| 'response-to-get-worker-status'
 	| 'restart-event-bus'

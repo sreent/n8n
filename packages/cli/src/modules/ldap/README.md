@@ -114,6 +114,13 @@ the route tries the email and n8n password first, and then LDAP for all users ex
 - A synchronization interval of zero minutes or less does not start a timer.
 - The writes of a live run run one after the other. The original runs them at the same time, so
   after a failure its result can change from run to run.
+- With multiple main instances, only the leader runs the timer: a follower starts none, and the
+  instance that becomes the leader starts it. The original starts a timer on each main instance,
+  so each one runs the synchronization. A changed configuration reaches the other main instances
+  through the pubsub command `reload-ldap-config`, as for OIDC and SAML. The original changes it
+  only on the instance that gets the request.
+- A failed scheduled synchronization logs `LDAP - The scheduled synchronization failed`. In the
+  original, the error escapes the timer.
 
 ## Files
 
@@ -131,8 +138,9 @@ the route tries the email and n8n password first, and then LDAP for all users ex
 - `test/integration/ldap/ldap.golden.test.ts` runs a fake directory (a fake of the `ldapts`
   client) and records the REST routes, the sign-in, the synchronization, the timer, the module,
   the events, the warnings and the database. The snapshot was recorded against the enterprise
-  module, two times with the same result, and the fork module gives the same snapshot. `subject.ts`
-  names the code under test.
+  module, two times with the same result, and the fork module gives the same snapshot, except the
+  two steps of the multi-main fix (see "Differences from the original"). `subject.ts` names the
+  code under test.
 - The ordinary upstream tests run against the fork module: `test/integration/ldap/ldap.api.test.ts`,
   `test/integration/public-api/ldap.test.ts` and `test/integration/commands/ldap/reset.test.ts`.
 
@@ -141,5 +149,8 @@ the route tries the email and n8n password first, and then LDAP for all users ex
 - The public API files `controllers/ldap.public.controller.ts` and `handlers/ldap/ldap.handler.ts`,
   the three ordinary tests, `controllers/__tests__/auth.controller.test.ts` and the `ldap` group of
   the test server import the fork module. Keep the fork import paths.
+- The pubsub command `reload-ldap-config` is a fork line in `pubsub-metadata.ts` of
+  `@n8n/decorators`, and in `pubsub.event-map.ts` and `pubsub.types.ts` of
+  `packages/cli/src/scaling/pubsub`. Keep it.
 - When upstream changes `LdapConfig`, the migration of the settings row or the sign-in route,
   compare the change, update the fork module, and record the snapshot again.

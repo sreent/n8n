@@ -1,11 +1,7 @@
 import type { AuthenticatedRequest } from '@n8n/db';
-import { Body, Delete, Get, Middleware, Post, Put, Query, RestController } from '@n8n/decorators';
-import { ForbiddenError } from '@n8n/errors';
-import type { NextFunction, Response } from 'express';
+import { Body, Delete, Get, GlobalScope, Post, Put, Query, RestController } from '@n8n/decorators';
+import type { Response } from 'express';
 
-import { sendErrorResponse } from '@/response-helper';
-
-import { canUseGitSync } from './git-sync.access';
 import {
 	GitSyncProjectsQueryDto,
 	GitSyncPullDto,
@@ -14,45 +10,42 @@ import {
 } from './git-sync.dto';
 import { GitSyncService } from './git-sync.service';
 
+/**
+ * Git sync replaces the content of a whole project and writes to a shared repository. Each route
+ * needs the global scope `sourceControl:manage`: the owner and the admins hold it, and a custom
+ * instance role can hold it.
+ */
 @RestController('/git-sync')
 export class GitSyncController {
 	constructor(private readonly gitSyncService: GitSyncService) {}
 
-	/** Runs before every route of this controller, after authentication. */
-	@Middleware()
-	ownerAndAdminsOnly(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-		if (!canUseGitSync(req.user)) {
-			sendErrorResponse(
-				res,
-				new ForbiddenError('Only the instance owner and admins can use Git sync.'),
-			);
-			return;
-		}
-		next();
-	}
-
 	@Get('/settings')
+	@GlobalScope('sourceControl:manage')
 	async getSettings() {
 		return await this.gitSyncService.getSettings();
 	}
 
 	@Put('/settings')
+	@GlobalScope('sourceControl:manage')
 	async saveSettings(req: AuthenticatedRequest, _res: Response, @Body body: GitSyncSettingsDto) {
 		return await this.gitSyncService.saveSettings(req.user, body);
 	}
 
 	@Delete('/settings')
+	@GlobalScope('sourceControl:manage')
 	async disconnect(req: AuthenticatedRequest) {
 		await this.gitSyncService.disconnect(req.user);
 		return { success: true };
 	}
 
 	@Post('/test-connection', { keyedRateLimit: { source: 'user', limit: 10, windowMs: 60_000 } })
+	@GlobalScope('sourceControl:manage')
 	async testConnection(req: AuthenticatedRequest, _res: Response, @Body body: GitSyncSettingsDto) {
 		return await this.gitSyncService.testConnection(req.user, body);
 	}
 
 	@Get('/projects')
+	@GlobalScope('sourceControl:manage')
 	async listProjects(
 		_req: AuthenticatedRequest,
 		_res: Response,
@@ -62,16 +55,19 @@ export class GitSyncController {
 	}
 
 	@Get('/status')
+	@GlobalScope('sourceControl:manage')
 	async getStatus(req: AuthenticatedRequest) {
 		return await this.gitSyncService.getStatus(req.user);
 	}
 
 	@Post('/push')
+	@GlobalScope('sourceControl:manage')
 	async push(req: AuthenticatedRequest, _res: Response, @Body body: GitSyncPushDto) {
 		return await this.gitSyncService.push(req.user, body.message, body.replaceRemoteContent);
 	}
 
 	@Post('/pull')
+	@GlobalScope('sourceControl:manage')
 	async pull(req: AuthenticatedRequest, _res: Response, @Body body: GitSyncPullDto) {
 		return await this.gitSyncService.pull(req.user, body.overwriteLocalChanges, body.full);
 	}
