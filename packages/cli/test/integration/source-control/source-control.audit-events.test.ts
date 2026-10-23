@@ -44,7 +44,7 @@ let owner: User;
 let agent: SuperAgentTest;
 
 /** The payloads of one audit event since the last call, with the id of the user. */
-function take(name: string) {
+function take(name: string): Array<Record<string, unknown>> {
 	const taken = events
 		.filter((event) => event.name === name)
 		.map(({ payload }) => {
