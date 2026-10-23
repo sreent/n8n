@@ -68,8 +68,8 @@ message `sendWorkerStatusMessage` gives it the statuses (`updateWorkerStatus`).
 ## Clean-room sources
 
 - The ordinary code that uses these files (the table above), the push handler, the REST client
-  `@n8n/rest-api-client/api/orchestration.ts`, the type `WorkerStatus` of `@n8n/api-types` and the
-  i18n texts `workerList.*`.
+  `@n8n/rest-api-client/src/api/orchestration.ts`, the type `WorkerStatus` of `@n8n/api-types` and
+  the i18n texts `workerList.*`.
 - The ordinary Playwright page object `WorkerViewPage.ts` and its spec.
 - The behaviour of the original files, recorded black-box by the golden test below. Before the
   test, a black-box probe recorded the exports of the store module and the names of its members.

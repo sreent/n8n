@@ -174,7 +174,9 @@ key. The secrets are secrets of the apps.
 
 - **Queue mode** (the default) runs the main app and the workers. The main app serves the editor,
   the API and the webhooks, and the workers run the executions. Only the leader of the main replicas
-  runs the schedules and the polling triggers.
+  runs the schedules and the polling triggers. The module sets
+  `N8N_MULTI_MAIN_SETUP_ENABLED=true` and `OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS=true`, so the
+  workers also run the manual executions.
 - **Single mode** (`mode = "single"`) runs one replica, without Redis and without workers. Container
   Apps can run the old and the new replica together for a short time when a revision changes. A
   schedule can then run two times. Use single mode for development only.

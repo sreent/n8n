@@ -85,7 +85,8 @@ the route tries the email and n8n password first, and then LDAP for all users ex
 ## Synchronization
 
 `POST /rest/ldap/sync` with `type` `dry` or `live`, the public API, or the timer each
-`synchronizationInterval` minutes (live). Each run:
+`synchronizationInterval` minutes (live). With multiple main instances, only the leader runs the
+synchronization of the timer (see "Differences from the original"). Each run:
 
 1. Searches for `(&<user filter>(<login ID attribute>=*))`. A failure answers 400 with the message,
    and no history row: `LdapRejectionError` for an answer of the directory, `LdapConnectionError`

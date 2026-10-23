@@ -44,7 +44,8 @@ code. This is the second pull request of step 3.
 
 - `createTeamProject` adds the project and makes its creator the project admin, in one
   transaction (`ProjectRepository.insertTeamProjectWithAdmin`). At the team project quota it
-  throws `TeamProjectOverQuotaError`. An id that is in use gives a `ConflictError` (409). It emits
+  throws `TeamProjectOverQuotaError`. While the fork switch is on (step 5 of FORK.md), the quota
+  has no limit. An id that is in use gives a `ConflictError` (409). It emits
   `team-project-created`.
 - `updateProject` changes the name, icon, description or custom telemetry tags. It trims the keys
   of the tags, except for a package import (`preserveCustomTelemetryTags`). It emits
@@ -75,8 +76,9 @@ code. This is the second pull request of step 3.
 All member methods work on team projects only. A missing or personal project gives
 `ProjectNotFoundError`. A role that does not exist gives a `BadRequestError`. A role that is not
 licensed gives `UnlicensedProjectRoleError`, except a role that the user has in the project
-already. Instance owners and admins reach every project, so the methods leave them out or refuse
-to change them. The methods emit `team-project-updated` with all members of the project.
+already. While the fork switch is on, every project role is licensed. Instance owners and admins
+reach every project, so the methods leave them out or refuse to change them. The methods emit
+`team-project-updated` with all members of the project.
 
 - `addUsersToProject` adds users or changes their role. It refuses the personal owner role. A
   member with a new role loses their connections to the private credentials that they can no

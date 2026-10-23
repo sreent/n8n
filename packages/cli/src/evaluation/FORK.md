@@ -52,7 +52,7 @@ the repositories of test runs and test cases are fork files too, see
 - The ordinary engine code: `forceCustomOperation` of a node, the manual execution service, the
   workflow runner, the active executions and the evaluation queue of the concurrency control.
 - The ordinary code of the Evaluation nodes (`nodes-base/nodes/Evaluation/utils`), and the skill
-  `config-evals` of the AI assistant in `@n8n/instance-ai`.
+  `config-evals` of the n8n Assistant in `@n8n/instance-ai`.
 - The public documentation of
   [metric-based evaluations](https://docs.n8n.io/advanced-ai/evaluations/metric-based-evaluations/).
 - The behaviour of the original files, recorded black-box: the routes, the exports and the method
@@ -65,9 +65,10 @@ the repositories of test runs and test cases are fork files too, see
 
 - `POST /rest/workflows/:workflowId/test-runs/new` starts a run and answers 202 with
   `{ success: true, testRunId }`. The user needs `workflow:execute` on the workflow. The body can
-  name an evaluation config, ask for the compiled workflow of the config, and give the indices of
-  the dataset rows to run. The REST API does not check the quota of workflows with evaluations.
-  The public API checks it, as before.
+  name an evaluation config, ask for the compiled workflow of the config, give the indices of the
+  dataset rows to run, and ask for a number of parallel cases (`concurrency`, 1 by default). The
+  REST API does not check the quota of workflows with evaluations. The public API checks it, as
+  before.
 - The other routes list the runs (newest first, with the number of cases and the final result),
   read a run and its cases, delete a run, cancel a run and cancel one pending case. Reads need
   `workflow:read`, changes need `workflow:execute`.
@@ -90,12 +91,15 @@ the repositories of test runs and test cases are fork files too, see
      with an error code.
 - A cancel stops the cases of a run that this instance runs. For a run of another main instance,
   the run gets the cancellation flag and ends as `cancelled` at once, with its pending cases. The
-  pubsub commands `cancel-test-run` and `cancel-collection` stop the runs on the other main
-  instances.
+  instance that runs it reads the flag before each case, and then stops the run. The pubsub
+  commands `cancel-test-run` and `cancel-collection` stop the runs of a main instance that gets
+  them, but the fork code does not send these commands.
 - When n8n starts, `TestRunCleanupService` marks the runs with the status `new` or `running` as
   `error` with the code `INTERRUPTED`.
 - The limit of parallel cases: `N8N_CONCURRENCY_EVALUATION_LIMIT` when it is set, else the licence
-  quota, else the plan: Community and Pro 1, Business 3, Enterprise 5.
+  quota, else the plan: Community and Pro 1, Business 3, Enterprise 5. The fork switch gives no
+  quota and the fork has no licence keys, so the plan is Community: without the variable, the cases
+  run one at a time.
 
 ### Evaluation configs
 
@@ -110,7 +114,8 @@ the repositories of test runs and test cases are fork files too, see
   fails gives an `EvaluationApiError`, and the REST API answers 500 with its message, as in the
   original.
 - The first config of a workflow needs room in the quota of workflows with evaluations
-  (`quota:evaluations:maxWorkflows`). A quota of 0 or of no limit checks nothing.
+  (`quota:evaluations:maxWorkflows`). A quota of 0 or of no limit checks nothing. The fork switch
+  gives no limit.
 - The compiler copies the workflow. It removes the Evaluation Triggers and disables the Set
   Metrics and Set Outputs nodes. It adds a dataset trigger before the start node, and one Set
   Metrics node for each metric after the end node, with a chat model below each LLM judge. Nodes
@@ -128,14 +133,17 @@ the repositories of test runs and test cases are fork files too, see
   version of the history. The REST API is `/rest/workflows/:workflowId/eval-collections` and
   `/rest/workflows/:workflowId/eval-versions`, with the project scopes of the original. The
   feature flag of collections (or `N8N_EVAL_COLLECTIONS_ENABLED`) turns these routes and the
-  insights on. Without it, they answer 404. The routes of configs and test runs check no flag, as
-  in the original.
+  insights on. Without it, they answer 404. Without the telemetry of n8n (the default of
+  `deploy/`), only the variable turns them on. The routes of configs and test runs check no flag,
+  as in the original.
 - A rerun starts a new run for each version of a collection, and moves the old runs out of the
   collection. A second rerun of the same collection fails with 409 while the first starts its
   runs.
 - The insights name the best run, the regressions of the other runs and a next experiment. The
   fork computes them from the metrics of the runs, so `modelUsed` is `deterministic` and the
-  status is `fallback`. The route needs the licence of the AI assistant, as in the original.
+  status is `fallback`. The route needs the licence of the AI assistant (`feat:aiAssistant`), as in
+  the original. The fork switch does not give this value, and the fork has no licence keys, so the
+  route answers 403 in the fork.
 
 ## Differences from the original
 
@@ -168,7 +176,7 @@ enterprise files, before the switch, and the fork files give the same snapshot:
   the telemetry. They include runs that cannot start, failed cases, error workflows, Set Inputs,
   more than one Set Metrics node, row indices, a cancel while a case runs, and parallel cases.
 - `evaluation-config.golden.test.ts` and `evaluation-config-extra.golden.test.ts`: the config
-  service as the AI assistant calls it, the checks of a config, the quota, and a config whose
+  service as the n8n Assistant calls it, the checks of a config, the quota, and a config whose
   workflow changes.
 - `evaluation-features.golden.test.ts`: the REST API of configs, the dataset routes, the compiled
   runs, the collections, the versions and the insights, with the events and the telemetry.

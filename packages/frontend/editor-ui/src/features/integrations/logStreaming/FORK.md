@@ -5,8 +5,7 @@ Fork document (not in upstream n8n). Read it with [FORK.md](../../../../../../..
 
 This folder holds the settings page **Settings > Log streaming** and its modal. With the REST
 client `eventbus.ts` in `@n8n/rest-api-client`, they replace the enterprise folder
-`logStreaming.ee`, which the fork removed, and the enterprise client `eventbus.ee.ts`, which the
-fork removes now.
+`logStreaming.ee` and the enterprise client `eventbus.ee.ts`. The fork removed both.
 
 | Fork file | Enterprise file that it replaces |
 | --- | --- |
@@ -30,7 +29,9 @@ Three ordinary files use the page again, with the lines of upstream and the fork
 ### The page
 
 - While the module `log-streaming` is off, the page shows the box `action-box-unlicensed`. It
-  tells how to turn the module on. The fork needs no licence.
+  tells how to turn the module on with `N8N_DISABLED_MODULES`. The module also needs the licence
+  value `feat:logStreaming`. The fork switch (step 5 of FORK.md) gives it by default, so the fork
+  needs no licence.
 - Without destinations, the page shows the box `action-box-licensed` with the button **Add new
   destination**.
 - Each destination has a card (`destination-card`) with its name and type, a switch
@@ -49,7 +50,7 @@ Three ordinary files use the page again, with the lines of upstream and the fork
   - **Delete** (`destination-delete-button`) for a stored destination. It asks first.
   - **Send test event** (`destination-test-button`) for a stored destination without unsaved
     changes. After the test, its title tells the result: "Event sent and returned OK", or "The
-    destination did not take the test event".
+    destination didn't accept the test event".
   - **Save** (`destination-save-button`) only while there are unsaved changes.
 - The tab **Settings** uses the parameter inputs of the node view (`ParameterInputList`), with the
   fields of `logStreaming.descriptions.ts`. Thus each field has the test id
@@ -87,7 +88,9 @@ Each export sends one request with `makeRestApiRequest` and gives the `data` of 
 ## Differences from upstream
 
 - The upstream end-to-end test "should show the unlicensed view when the feature is disabled" does
-  not apply: the fork shows the page without a licence.
+  not apply. The page follows the module, and the module reads its licence value only when n8n
+  starts. Thus a change of the licence at run time does not turn the page off. Also, the box of the
+  fork has no button.
 - The method select has `GET`, `POST` and `PUT`, as the page object tells. The REST API also
   takes other methods.
 - The credential select offers the generic types that the backend supports.

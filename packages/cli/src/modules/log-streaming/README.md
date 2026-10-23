@@ -17,7 +17,9 @@ destinations, and the REST API that the ordinary Playwright tests use.
 
 ## Set up
 
-The module is on by default. To turn it off, add `log-streaming` to `N8N_DISABLED_MODULES`.
+The module is on by default. To turn it off, add `log-streaming` to `N8N_DISABLED_MODULES`. It
+starts only with the licence value `feat:logStreaming`, which the fork switch gives. With
+`N8N_FORK_FEATURES_ENABLED=false`, the licence decides, as in upstream n8n.
 
 Environment variables can manage the destinations:
 
@@ -182,6 +184,8 @@ files of upstream.
   the fields that the public API does not show.
 - When the environment manages the destinations, `POST`, `PUT` and `DELETE` answer with the status
   409.
+- A change sends the same audit event as a change in the REST API, and the other instances load
+  the destinations again in the same way.
 - As in upstream n8n, the routes need the licence value `feat:logStreaming`, which the fork switch
   gives (`packages/cli/src/fork-features.ts`). Without it, they answer with the status 403. While
   the module is off, they answer with the status 503, as the promotions routes of n8n do.

@@ -24,6 +24,7 @@ flowchart LR
 | Ingress `n8n`, or HTTPRoute `n8n` | The way in for the domain. Annotations for webhooks or forms move their paths to an Ingress of their own. |
 | ConfigMap `n8n-env` | The n8n settings. |
 | ConfigMap `n8n-edge` | With `edge.enabled`: the rules of the Caddy container that limits the addresses of webhooks and forms. |
+| ServiceAccount `n8n` | With `serviceAccount.create` (the default): the identity of the pods. |
 
 The names start with the name of the release, here `n8n`. Each pod runs n8n and the task runners in
 two containers. The task runners run the code of the Code nodes. They get no database password and
@@ -162,8 +163,9 @@ no encryption key. The pods run as user 1000 without the token of the API of Kub
   starts, so two instances never run the same schedule. n8n is not available for some minutes
   during an update.
 - **Queue mode** runs the main instances and the workers. Only the leader of the main instances
-  runs the schedules and the polling triggers. An update starts the new pods before it stops the old
-  ones.
+  runs the schedules and the polling triggers. The chart sets `N8N_MULTI_MAIN_SETUP_ENABLED=true`
+  and `OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS=true`, so the workers also run the manual executions.
+  An update starts the new pods before it stops the old ones.
 
   ```yaml
   mode: queue
@@ -300,5 +302,5 @@ node --test deploy/kubernetes/chart.test.mjs
 |---|---|
 | `n8n/Chart.yaml` | The chart |
 | `n8n/values.yaml` | The values and their defaults, with a copy of settings.yaml |
-| `n8n/templates/` | The Deployments, the Service, the Ingress, the HTTPRoute and the ConfigMaps |
+| `n8n/templates/` | The Deployments, the Service, the Ingress, the HTTPRoute, the ConfigMaps and the ServiceAccount |
 | `chart.test.mjs` | The tests of the chart |

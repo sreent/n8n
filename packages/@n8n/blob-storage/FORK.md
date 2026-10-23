@@ -2,7 +2,7 @@
 
 Fork document (not in upstream n8n). Read it with [FORK.md](../../../FORK.md).
 
-The S3 and Azure Blob storage of this package are enterprise code. The fork removed them in step 4
+The S3 and Azure Blob storage of this package were enterprise code. The fork removed them in step 4
 of FORK.md, and the owner chose on 2026-10-14 to rebuild them (FORK-FEATURES.md, "Parity with the
 Enterprise Edition", 2 of 6). The fork classes have the names and the exports of the enterprise
 classes, so the ordinary code that loads them stays as it is:
@@ -44,7 +44,7 @@ S3 variables:
 Give the service account the role Storage Object User or Storage Object Admin on the bucket. On a
 virtual machine of Compute Engine, the access scopes must also allow read and write access to
 Cloud Storage. Do not set `N8N_EXTERNAL_STORAGE_S3_BUCKET_NAME` too: n8n then logs an error and
-does not start the object store.
+does not start the object store. With the mode `s3`, n8n then stops.
 
 | Variable | Default | Meaning |
 | --- | --- | --- |
@@ -56,6 +56,7 @@ does not start the object store.
 
 The S3 API of Google Cloud Storage works too, with an HMAC key of a service account:
 
+- `N8N_EXTERNAL_STORAGE_S3_BUCKET_NAME`: the name of the bucket.
 - `N8N_EXTERNAL_STORAGE_S3_HOST=storage.googleapis.com`
 - `N8N_EXTERNAL_STORAGE_S3_BUCKET_REGION=auto` (or the region of the bucket)
 - `N8N_EXTERNAL_STORAGE_S3_ACCESS_KEY` and `N8N_EXTERNAL_STORAGE_S3_ACCESS_SECRET`: the HMAC key.
@@ -109,8 +110,9 @@ JSON API of Cloud Storage (multipart uploads, downloads, object metadata, delete
 - A delete sends `DeleteObjects` in batches of 1000, one after the other. The first failed batch
   stops it. Keys that S3 reports as not deleted give "Failed to delete <n> of <m> objects: ..."
   with the first five keys.
-- Each failed request gives "Request to S3 failed: <cause>". The SDK retries
-  `N8N_EXTERNAL_STORAGE_S3_MAX_ATTEMPTS` times. The S3 client does not use the proxy variables.
+- Each failed request gives "Request to S3 failed: <cause>". The SDK makes up to
+  `N8N_EXTERNAL_STORAGE_S3_MAX_ATTEMPTS` attempts of a request (3 by default). The S3 client does
+  not use the proxy variables.
 
 ### Azure Blob
 
@@ -141,9 +143,10 @@ The owner chose this fork feature on 2026-10-14, after the six rebuilds of
   (`src/gcs/gcs-storage.client.ts`) when `N8N_EXTERNAL_STORAGE_GCS_BUCKET_NAME` is set. The
   ordinary code, `S3ByteStore`, the mode `s3` and its licence values stay as they are: the mode
   names are part of the ids of binary data and of the config schemas of upstream n8n, so a new
-  mode would change many upstream files. One upstream file has a fork line:
-  `packages/cli/src/commands/base-command.ts` starts the object store when one of the two buckets
-  is set. The client uses `fetch` and `node:crypto`, and needs no new dependency.
+  mode would change many upstream files. Two upstream files have a fork line: `src/index.ts`
+  exports `GcsStorageConfig`, and `packages/cli/src/commands/base-command.ts` starts the object
+  store when one of the two buckets is set. The client uses `fetch` and `node:crypto`, and needs no
+  new dependency.
 - The native mode uses the same object keys and the same custom metadata field (`filename`) as
   the S3 client.
 - `init()` reads the credentials: the JSON key of `N8N_EXTERNAL_STORAGE_GCS_CREDENTIALS`, else the

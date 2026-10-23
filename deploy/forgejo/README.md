@@ -54,7 +54,9 @@ flowchart LR
   your computer. Cloud Shell has the CLI.
 - For the installation: the role Owner of the project, or the roles Editor and Storage Admin.
 - The internal IP addresses of the n8n servers. The n8n servers must be in the same VPC network as
-  the VM, so that they can use its internal name.
+  the VM, so that they can use its internal name. n8n on ECS, on Container Apps or on a Kubernetes
+  cluster outside this network needs a VPN to it: see "Forgejo and other private hosts" in the
+  README of the option.
 - An internal name for Forgejo, for example `git.corp.internal`.
 
 ## Install
@@ -150,7 +152,8 @@ the token in other places.
 ## Connect n8n
 
 Do these steps on each n8n server, in the folder of [deploy](../README.md) (for example
-`/opt/n8n`).
+`/opt/n8n`). For n8n on Cloud Run, ECS, Container Apps or Kubernetes, do the steps of "Forgejo and
+other private hosts" in the README of the option in place of steps 1 to 4.
 
 1. Copy `forgejo-root.crt` from `/opt/forgejo` on the Forgejo VM to `certs/forgejo-root.crt` on
    the n8n server. The file is a certificate, not a secret. For example:

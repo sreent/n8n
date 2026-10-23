@@ -79,7 +79,8 @@ state of its last test:
   connections. The title of the document is "External Secrets - n8n".
 - Without the licence, the page shows the box "Available on the Enterprise plan". The button "See
   plans" opens the upgrade page (source `external-secrets`, campaign `upgrade-external-secrets`).
-  The page sends no request. Step 5 of FORK.md removes the box.
+  The page sends no request. The fork switch (step 5 of FORK.md) is on by default and gives the
+  licence flag. Then the page does not show the box.
 - With the licence, the page reads the provider types, the connections and all projects, at the
   same time. A failed read of the provider types or of the projects shows an error toast. While
   the page has no connection and the provider types or the connections load, it shows a loading

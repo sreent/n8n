@@ -6,9 +6,9 @@ Fork document (not in upstream n8n). Read it with [FORK.md](../../../../../FORK.
 
 This module replaces the enterprise module `provisioning.ee` for all ordinary code: the user
 service, the project controllers, the public API, the instance settings loader, the test server and
-the ordinary tests. It is the third pull request of step 4. The module registry loads
-`modules/provisioning/` before `modules/provisioning.ee/`, so the module name `provisioning` stays.
-The class names and the methods that ordinary code calls stay too:
+the ordinary tests. It is the third pull request of step 4. The module name `provisioning` stays:
+the module registry loads `modules/provisioning/` first, and the fork deleted
+`modules/provisioning.ee/`. The class names and the methods that ordinary code calls stay too:
 
 | File | Replaces | Kept names |
 |---|---|---|
@@ -18,8 +18,9 @@ The class names and the methods that ordinary code calls stay too:
 | `constants.ts` | `constants.ts` of the enterprise folder | `PROVISIONING_PREFERENCES_DB_KEY` |
 | `provisioning.controller.ts`, `role-mapping-rule.controller.ts`, `provisioning.module.ts` | the files of the same name | the routes and the module name |
 
-The fork's OIDC and SAML sign-ins apply the roles. Until step 5, the module starts only with the
-`feat:saml` or the `feat:oidc` licence, as before.
+The fork's OIDC and SAML sign-ins apply the roles. The module starts only with the `feat:saml` or
+the `feat:oidc` licence, as before. While the fork switch is on (step 5 of FORK.md), the licence has
+both, so the module starts by default.
 
 ## Behaviour
 
@@ -27,6 +28,9 @@ The fork's OIDC and SAML sign-ins apply the roles. Until step 5, the module star
 
 - The settings row `features.provisioning` (`loadOnStartup`) holds the config as JSON: the fields
   of `ProvisioningConfigDto` in their order. `defaultInstanceRole` is there only when it is set.
+- With `N8N_SSO_MANAGED_BY_ENV=true` and the OIDC or SAML login on, the ordinary SSO instance
+  settings loader writes this row at each start, from `N8N_SSO_USER_ROLE_PROVISIONING` and
+  `sso.provisioning` of `GlobalConfig`.
 - The config lives in memory. The first read loads it (`getConfig()`); the start of the module does
   not. `init()` and the `reload-sso-provisioning-configuration` command load it again, on each main
   instance in each role.

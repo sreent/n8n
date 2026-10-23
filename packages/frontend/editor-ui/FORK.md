@@ -98,9 +98,9 @@ With the licence:
    the owner. Other users see the text for a team project, or the name of the personal owner.
 2. The select offers all projects except the owner project. The role is "User". The select is
    read-only and static without `credential:share`. Its placeholder is "Share with users or
-   projects..." when the projects store lists team projects, else "Share with user(s)". "Share
-   with all users" follows the global scope `credential:shareGlobally` of the user, not the scopes
-   of the credential.
+   projects..." when the projects store lists team projects, else "Share with user(s)". The option
+   "All users and projects" follows the global scope `credential:shareGlobally` of the user, not
+   the scopes of the credential.
 3. The tab emits `update:modelValue` with the projects, and `update:shareWithAllUsers`.
 
 With credential sharing (`N8N_ENV_FEAT_CRED_SHARING`):

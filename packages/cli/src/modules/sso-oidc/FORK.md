@@ -7,7 +7,8 @@ Fork document (not in upstream n8n). Read it with [FORK.md](../../../../../FORK.
 `oidc.controller.ee.ts` for all ordinary code: the module (`sso-oidc.module.ts`), the public API
 controller and the ordinary tests. This is the second pull request of step 4. The class name
 `OidcService` and the methods that ordinary code calls (`init`, `loadConfig` and `updateConfig`)
-stay. Until step 5, the module loads only with the `feat:oidc` licence, as before.
+stay. The module loads only with the `feat:oidc` licence, as before. While the fork switch is on
+(step 5 of FORK.md), the licence has `feat:oidc`, so the module loads by default.
 
 ## Behaviour
 
@@ -15,6 +16,9 @@ stay. Until step 5, the module loads only with the `feat:oidc` licence, as befor
 
 - The settings row `features.oidc` (`loadOnStartup`) holds the config as JSON: the fields of
   `OidcConfigDto` in their order, with the client secret encrypted by `Cipher.encryptV2`.
+- With `N8N_SSO_MANAGED_BY_ENV=true`, the ordinary SSO instance settings loader writes this row
+  from the `N8N_SSO_OIDC_*` variables at each start, before the module starts. With the OIDC login
+  off, the row holds only `loginEnabled: false`.
 - `loadConfig(decryptSecret = false)` reads the row each time. A missing row, a row that is not
   JSON, and a row that `OidcConfigDto` refuses give the default config: an empty client id and
   secret, the discovery endpoint `http://n8n.io/not-set`, the login off, the prompt
@@ -133,9 +137,10 @@ config endpoints also need the `oidc:manage` scope.
   metadata has an `end_session_endpoint`. Else, and after a failure, it is null.
 - The logout revokes the session token, and clears the session cookie and the id token cookie.
 
-### Not in this step
+### Rate limits
 
-- An IP rate limit. A probe in production mode found none on the endpoints of the original.
+- The fork has no IP rate limit on these endpoints. A probe in production mode found none on the
+  endpoints of the original.
 
 ## Clean-room sources
 

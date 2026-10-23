@@ -182,6 +182,13 @@ SQLite). Under the lock, a submit checks again for an open review of the workflo
 version, a decision and a comment check again that the review is open. Thus two calls at the same
 time cannot both pass these checks.
 
+The ordinary relay `LogStreamingEventRelay` sends the events of the reviews to log streaming and
+the audit log as `n8n.audit.workflow-review.requested`, `n8n.audit.workflow-review.version-updated`,
+`n8n.audit.workflow-review.approved`, `n8n.audit.workflow-review.changes-requested` and
+`n8n.audit.workflow-review.closed`. A comment sends no audit event. When an admin changes the
+setting at **Settings > Security & policies**, n8n sends `n8n.audit.workflow-reviews.enabled` or
+`n8n.audit.workflow-reviews.disabled`.
+
 ## Files
 
 | File | Purpose |

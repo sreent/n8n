@@ -30,7 +30,8 @@ variable from the cache, or `null`.
 ### Who may do what
 
 The service checks the scopes of the user. A global variable needs the global scope. A project
-variable needs the project scope in its project (`userHasScopes`), or the global scope.
+variable needs the project scope, in the global role of the user or in their role in its project
+(`userHasScopes`).
 
 | Action | Global variable | Project variable | Error |
 | --- | --- | --- | --- |
@@ -58,7 +59,7 @@ no role has one without the other. The fork uses the create scope.
 - The licence quota `quota:maxVariables` counts all variables together. When no variable is
   left, a create fails with `VariableCountLimitReachedError` "Variables limit reached". An update
   does not count. `getRemainingVariableQuota()` gives `{ limit, remaining }`, or `null` without a
-  limit.
+  limit. Without a licence certificate, there is no limit.
 - The order of the checks of a create: the permission, the quota, then the key.
 - An update of an unknown ID fails with 404 "Variable with id X not found" before the permission
   check. A delete of an unknown ID needs `variable:delete`, then succeeds.
@@ -85,6 +86,7 @@ project after the update. A delete of an unknown ID sends the event with an empt
 | `DELETE /:id` | `feat:variables` | `true`. |
 
 Without the licence feature, the three changes answer 403 "Plan lacks license for this feature".
+While the fork switch is on (step 5 of FORK.md), the licence has `feat:variables`.
 The DTOs of `@n8n/api-types` check the body and the query. A taken key, a full quota and a key
 that is not valid answer 400.
 

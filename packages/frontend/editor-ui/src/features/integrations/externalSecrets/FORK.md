@@ -91,8 +91,9 @@ sends `PATCH /secret-providers/connections/:key` with `{ isEnabled: true }`.
 
 - The title of the document is "External secrets - n8n".
 - Without the licence, the page shows the box "Available on the Enterprise plan" with the button
-  "See plans". As on the enterprise page, the button does nothing. The page sends no request. Step 5
-  of FORK.md removes the box.
+  "See plans". As on the enterprise page, the button does nothing. The page sends no request. The
+  fork switch (step 5 of FORK.md) is on by default and gives the licence flag. Then the page does
+  not show the box.
 - With the licence, the page shows an information callout with a link to the documentation, and a
   card for each provider type, in reverse order of the provider name. It reads the secret names
   (only with the global scope `externalSecret:list`) and the provider types, at the same time. It

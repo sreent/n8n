@@ -4,8 +4,7 @@ Fork document (not in upstream n8n). Read it with [FORK.md](../../../../FORK.md)
 
 `sso-helpers.ts` replaces the enterprise `sso.ee/sso-helpers.ts` for all ordinary code. This is the
 first pull request of step 4. The exports keep their names, so that the callers change only their
-import. The enterprise SAML and OIDC files still use the enterprise helpers. Both modules read and
-write the same state, so they agree.
+import. The fork's OIDC, SAML and LDAP modules use these helpers too.
 
 ## Behaviour
 
@@ -22,7 +21,8 @@ key.
 - `isSsoCurrentAuthenticationMethod()` is true for `ldap`, `saml` and `oidc`.
 - `isSamlCurrentAuthenticationMethod()` and `isOidcCurrentAuthenticationMethod()` compare the method
   with `saml` and `oidc`.
-- `isSamlLicensed()` reads `feat:saml` from `LicenseState`.
+- `isSamlLicensed()` reads `feat:saml` from `LicenseState`. While the fork switch is on (step 5 of
+  FORK.md), the licence has SAML.
 - `isSamlLicensedAndEnabled()` is true when `sso.saml.loginEnabled` is on, the licence has SAML, and
   the method is `saml`. It checks in this order, so with the SAML login off it does not read the
   licence.

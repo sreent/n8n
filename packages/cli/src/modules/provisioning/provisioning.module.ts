@@ -1,6 +1,6 @@
 // Fork module (not in upstream n8n): the role provisioning of SSO, in place of the enterprise
-// `provisioning.ee` module. The module registry loads this folder before the `.ee` folder of the
-// same name. packages/cli/src/modules/provisioning/FORK.md describes it.
+// `provisioning.ee` module, which the fork deleted. packages/cli/src/modules/provisioning/FORK.md
+// describes it.
 import { RoleDeletionCheckProxy } from '@n8n/backend-services';
 import type { ModuleInterface } from '@n8n/decorators';
 import { BackendModule } from '@n8n/decorators';

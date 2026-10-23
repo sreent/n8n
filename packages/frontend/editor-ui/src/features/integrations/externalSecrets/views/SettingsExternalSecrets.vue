@@ -70,7 +70,7 @@ onMounted(async () => {
 				:provider="provider"
 			/>
 		</div>
-		<!-- As on the enterprise page, the button opens nothing. The fork removes this box in step 5. -->
+		<!-- As on the enterprise page, the button opens nothing. While the fork switch is on, the licence has external secrets, so the box does not show. -->
 		<N8nEmptyState
 			v-else
 			data-test-id="external-secrets-content-unlicensed"

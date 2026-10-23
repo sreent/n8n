@@ -162,8 +162,8 @@ Vertex AI:
   action of the model on Vertex AI
   (`/v1/projects/<project>/locations/<location>/publishers/google/models/<model>:<action>`).
   Vertex AI has no `batchEmbedContents`: the gateway sends one `embedContent` call for each
-  request of a batch, 4 at a time. It records the tokens of the calls that worked, also when
-  another call of the batch fails.
+  request of a batch, 4 at a time. A batch can have up to 250 requests. It records the tokens of
+  the calls that worked, also when another call of the batch fails.
 - The model list comes from the prices: the models of Google Gemini that have a price.
 - Vertex AI has no File API. The gateway refuses an upload (status 403), and the config of the
   gateway does not offer Gateway credits for the analysis of documents and images of the Google
@@ -318,7 +318,9 @@ keep the ordinary page **Settings > Gateway credits**: their balance and their c
   OpenAI, the project and the location of Vertex AI, the processors of Document AI, and the service
   account of the open models of Vertex AI), the monthly budget, the monthly limit of a user, the
   budgets of projects, the prices that the admin set and the switch of the estimates
-  (`estimateUsage`, on when it is missing).
+  (`estimateUsage`, on when it is missing). Each process (main, worker and webhook) keeps a copy
+  of the settings and reads them again every 30 seconds. So the other processes, for example the
+  workers of queue mode, get a change of an admin within 30 seconds.
 - `fork_ai_gateway_usage` keeps one row for each call that the gateway priced: the time, the user,
   the project, the workflow, the execution, the provider, the model, the tokens, the cost, the
   part of the cost that came from top-ups, and whether the gateway estimated the tokens
@@ -331,8 +333,10 @@ keep the ordinary page **Settings > Gateway credits**: their balance and their c
 
 ## REST API
 
-The routes need the scope `aiAssistant:manage` ("Manage AI usage"), which the owner and the admins
-have.
+The routes need the scope `aiAssistant:manage` ("Manage AI Usage"), which the owner and the admins
+have. A custom instance role gets it with the option **n8n Assistant manage** or
+**Manage all settings**. The routes also need the licence value `feat:aiGateway`, else they answer
+403.
 
 | Route | Purpose |
 |---|---|
@@ -343,6 +347,11 @@ have.
 | `POST /rest/ai-gateway/top-ups` | Add a top-up |
 | `GET /rest/ai-gateway/prices` | The list prices and the prices of the admin |
 | `GET /rest/ai-gateway/usage` | The calls, with filters and pages |
+
+`usage` takes the filters `from` and `to` (times in ISO 8601 with an offset), `userId`,
+`projectId`, `provider` and `model`, and `skip` (default 0) and `take` (default 50, at most 250). A
+larger `take` gives 250 calls, and `take=0` answers 400. The answer is `{ count, entries }`, newest
+first.
 
 The request and response types, the schema of the settings and the patterns of the backend options
 are in `packages/@n8n/api-types/src/dto/ai-gateway/ai-gateway-admin.dto.ts`. The backend and the
@@ -362,7 +371,8 @@ admin sees only their own calls in the usage.
   invitations and for OAuth have other audiences, so a token cannot serve another purpose.
 - Users never get the API keys of the providers. The proxy reads them from the credentials that the
   admin picked, as `CredentialsHelper` does for an execution, so expressions such as `$secrets`
-  work.
+  work. The proxy keeps the decrypted data of a credential in the memory of the process for at
+  most 30 seconds.
 - The proxy forwards only to the base URL of the picked credential, with a path that it checks:
   no `..`, no absolute URL, and only the supported endpoints.
 - To the APIs of Google (the Gemini API, Vertex AI and the OCR), the proxy passes only the query

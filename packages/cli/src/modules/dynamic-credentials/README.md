@@ -34,7 +34,8 @@ recorded that behaviour. The enterprise files were not read.
   Dynamic Credential Check node also need `N8N_ENV_FEAT_DYNAMIC_CREDENTIALS=true`, as in upstream
   n8n. `deploy/` sets it.
 - The routes of the resolvers need the global scopes `credentialResolver:*`. The owner and the
-  admin have them.
+  admin have them. A member has only `credentialResolver:list`, so a member can list the resolvers
+  and their types.
 
 | Variable | Default | What it does |
 |---|---|---|
@@ -137,7 +138,8 @@ editor, or the static token of `N8N_DYNAMIC_CREDENTIALS_ENDPOINT_AUTH_TOKEN`. Th
 - `DELETE /rest/credentials/:id/revoke?resolverId=<id>` deletes the data of the identity.
 - `GET /rest/credentials/:id/authorize?token=<token>` opens an authorization link of the
   credential check. A link is valid for one hour. A link for an n8n user needs that user to sign
-  in.
+  in. When the caller has no session or is another user, n8n sends the audit event
+  `n8n.audit.credentials.authorize.rejected`.
 - The `OPTIONS` routes answer the CORS preflight.
 
 ## Hooks

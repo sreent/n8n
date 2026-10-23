@@ -3,8 +3,8 @@
 Fork document (not in upstream n8n). Read it with [FORK.md](../../../../FORK.md) and
 [packages/cli/src/workflows/FORK.md](../workflows/FORK.md).
 
-This document has two parts: the executions service (step 3 of FORK.md) and
-[the execution annotations](#execution-annotations) (step 4).
+This document has two parts: the executions service, which gives the execution view of step 3 of
+FORK.md, and [the execution annotations](#execution-annotations) (step 4).
 
 `enterprise-execution.service.ts` holds `EnterpriseExecutionsService`. It replaces the enterprise
 `execution.service.ee.ts` for all ordinary code. The class name stays, so that the executions
@@ -14,7 +14,8 @@ controller changes only its import.
 
 With the sharing licence, `GET /executions/:id` gets the execution from
 `EnterpriseExecutionsService.findOne(req, workflowIds)`. Without the licence, it gets it from
-`ExecutionService.findOne`. The controller makes this choice.
+`ExecutionService.findOne`. The controller makes this choice. While the fork switch is on (step 5
+of FORK.md), the sharing licence is on.
 
 `findOne` does these steps:
 
@@ -128,8 +129,9 @@ The fork removed the enterprise files and their two enterprise editor tests
 - `PATCH` with an ID that does not exist makes a tag with that ID. `DELETE` with an ID that does
   not exist gives `true`. The original did the same.
 - The routes have no licence check, as in the original. The ordinary code checks the licence
-  feature `feat:advancedExecutionFilters` (Advanced execution filters): the list of executions
-  ignores the annotation filters without it.
+  feature `feat:advancedExecutionFilters` (Advanced execution filters): without it, the list of
+  executions ignores the filters of the tags and of the custom data (`annotationTags` and
+  `metadata`). The vote filter stays.
 - Ordinary code sets the vote and the tags of an execution: `PATCH /rest/executions/:id` and the
   public API `/executions/{executionId}/tags` call `ExecutionService`, which uses the fork
   repositories.
@@ -149,7 +151,8 @@ The fork removed the enterprise files and their two enterprise editor tests
   user must have the `workflow:update` scope on the workflow. The dropdown of the button shows the
   key and the value of each item, or a note when there are no items.
 - The ordinary preview and the ordinary filter show these components only with the licence
-  feature `feat:advancedExecutionFilters`. The fork keeps these checks until step 5.
+  feature `feat:advancedExecutionFilters`. The fork keeps these checks. While the fork switch is
+  on (step 5 of FORK.md), the licence has this feature.
 
 ### Differences from the original
 

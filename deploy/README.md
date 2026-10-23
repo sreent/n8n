@@ -24,7 +24,7 @@ same two images (n8n and the task runners), with the same n8n settings and the s
   all options.
 
 Each option has a README. The rest of this file describes the VM. The sections
-[End-user credentials](#end-user-credentials), [AI gateway](#ai-gateway),
+[End-user credentials](#end-user-credentials), [Gateway credits](#gateway-credits),
 [Safer defaults](#safer-defaults), [SSO](#sso) and [Governance](#governance) describe n8n. They are
 true for all options, with the names of the next table in place of the names of `.env`.
 
@@ -122,7 +122,8 @@ Only Caddy is reachable from outside. n8n, the runners and PostgreSQL have no op
    ```
 
 4. On the server, make the settings file and set the values in it. Make each secret with
-   `openssl rand -hex 32`.
+   `openssl rand -hex 32`. `HTTP_PORT` and `HTTPS_PORT` set the ports of Caddy on the server, and
+   Caddy needs 80 and 443 to get the HTTPS certificate.
 
    ```bash
    cd /opt/n8n
@@ -144,8 +145,8 @@ Only Caddy is reachable from outside. n8n, the runners and PostgreSQL have no op
    docker compose up -d
    ```
 
-8. Open `https://<your domain>` and make the owner account. n8n then asks you to set up
-   two-factor authentication for it.
+8. Open `https://<your domain>` and make the owner account. Until then, anyone who reaches the
+   page can make it. n8n then asks you to set up two-factor authentication for it.
 
 `docker compose ps` shows the four services. `docker compose logs -f n8n` shows the n8n log.
 
@@ -165,17 +166,17 @@ Only Caddy is reachable from outside. n8n, the runners and PostgreSQL have no op
 
 ## Restore, or move to another server
 
-1. On the new server, do steps 1 to 7 of [Install](#install). Use the same `.env`, so that
+1. On the new server, do steps 2 to 7 of [Install](#install). Use the same `.env`, so that
    `N8N_ENCRYPTION_KEY` is the same.
 2. Copy the backup file to the server.
 3. Restore it. The script asks for a confirmation, stops n8n, restores the database, and starts
-   n8n again.
+   n8n again. With `--yes` before the file name, the script does not ask for the confirmation.
 
    ```bash
    ./restore.sh backups/n8n-<time>.dump
    ```
 
-4. Point the DNS record at the new server.
+4. Point the DNS record at the new server. Caddy then gets the HTTPS certificate.
 
 ## Update n8n
 
@@ -193,8 +194,8 @@ Only Caddy is reachable from outside. n8n, the runners and PostgreSQL have no op
    ```
 
 To run a specific version, set its tag in `N8N_IMAGE` and in `N8N_RUNNERS_IMAGE`. Use the same
-tag for the two images. A tag has the n8n version and the commit, for example
-`2.42.0-fb1b129d21`. `latest` is the newest push.
+tag for the two images. A tag has the n8n version and the first 10 characters of the commit, for
+example `2.42.0-d6cf9d5ab6`. `latest` is the newest push.
 
 ## Development and production
 
@@ -216,17 +217,17 @@ servers.
 The fork turns on end-user credentials (dynamic credentials). Each user connects their own account
 to an end-user credential, for example with the OAuth flow, and a run of that user uses it. For
 webhooks of apps, an admin adds a credential resolver at **Settings > Credential resolvers**: an
-OAuth2 server or a Slack app then identifies the user of each request. An app that calls the
-endpoints of dynamic credentials sets `DYNAMIC_CREDENTIALS_CORS_ORIGIN` and
+OAuth2 server or a Slack app then identifies the user of each request. For an app that calls the
+endpoints of dynamic credentials, set `DYNAMIC_CREDENTIALS_CORS_ORIGIN` and
 `DYNAMIC_CREDENTIALS_ENDPOINT_AUTH_TOKEN` in `.env`. See the
 [README of the module](../packages/cli/src/modules/dynamic-credentials/README.md).
 
-## AI gateway
+## Gateway credits
 
 The fork has its own AI gateway for Gateway credits. Users run AI nodes (OpenAI, Anthropic, Google
 Gemini, Ollama and other providers) without an API key of their own. To set it up, an admin:
 
-1. Creates a credential for each provider, with the API key of the organization. An Azure OpenAI
+1. Creates a credential for each provider, with the API key of the organisation. An Azure OpenAI
    credential can serve the OpenAI nodes, and a Google service account can serve the Gemini nodes
    and the open models of Vertex AI (for example Llama and DeepSeek) through Vertex AI. The fork
    node Google Cloud OCR reads text with the Cloud Vision API and Document AI through the gateway
@@ -254,12 +255,17 @@ other options set its address for them. See the
   [the FORK.md of the blob storage](../packages/@n8n/blob-storage/FORK.md#set-up) to the `n8n`
   service in a `docker-compose.override.yml`. The database backup then does not contain the
   files: back up the bucket too.
-- This setup does not use queue mode. Queue mode with workers needs Redis and more containers. The
+- This setup does not use queue mode. Queue mode with workers needs Redis and more containers.
+  Cloud Run and Container Apps use queue mode by default, and ECS and Kubernetes can use it. The
   fork then also gives the worker view (Settings > Workers), worker pools
   (`N8N_WORKER_POOLS_ENABLED=true`) and multiple main instances
   (`N8N_MULTI_MAIN_SETUP_ENABLED=true`). See
   [Queue mode](https://docs.n8n.io/hosting/scaling/queue-mode/) in the n8n documentation and
   [the FORK.md of the scaling code](../packages/cli/src/scaling/FORK.md).
+- deploy/ does not turn on token exchange (`N8N_ENV_FEAT_TOKEN_EXCHANGE=true`, then
+  `N8N_TOKEN_EXCHANGE_ENABLED=true` with `N8N_TOKEN_EXCHANGE_TRUSTED_KEYS`) or worker pools
+  (`N8N_WORKER_POOLS_ENABLED=true`, queue mode only). To use them, set the variables in a
+  `docker-compose.override.yml` on the VM, or in `settings` of the other options.
 
 ## Safer defaults
 
@@ -290,7 +296,8 @@ defaults. Each line of `.env.example` tells how to change one of them.
   protection always allows that address.
 - **The IP limits use the address that Caddy sees.** When a load balancer or another proxy is in
   front of Caddy, set its ranges in the `trusted_proxies` option of the `Caddyfile`, else Caddy sees
-  only the address of the proxy.
+  only the address of the proxy. Then set `N8N_PROXY_HOPS: 2` for the `n8n` service in a
+  `docker-compose.override.yml`, so that n8n gets the address of the caller too.
 - **An existing server gets the defaults with its next update.** A `.env` without these lines uses
   the defaults of `docker-compose.yml`. Add the lines to `.env` before the update to keep the old
   behaviour.
@@ -326,8 +333,12 @@ team projects and the team credentials from one config file. See
   and nobody can change these roles by hand. Change the groups in the identity provider, or change
   `platform.json` and run `apply`. Start with the instance roles: project rules set the members of
   all team projects (see [platform/README.md](platform/README.md#the-sso-group-rules)).
-- **SAML.** For SAML, keep `SSO_FROM_ENV=false`, and set SAML on the page Settings > SSO. The SSO
-  group rules work the same way: set `groupsClaim` to the name of the group attribute.
+- **SAML.** For SAML, keep `SSO_FROM_ENV=false`, and set SAML on the page Settings > SSO. With
+  `SSO_FROM_ENV=true` (`N8N_SSO_MANAGED_BY_ENV=true`), n8n replaces the SAML settings at each start
+  and the page cannot change them, so SAML from the environment always uses the default attribute
+  mapping and signing settings. On the same page, set **Role assignment** to "Instance and project roles via SSO", and **Role mapping
+  method** to "Map rules inside n8n". The SSO group rules then work the same way: set
+  `groupsClaim` to the name of the group attribute.
 - **Check the setup each week.** `node platform/setup.mjs check` tells whether the team projects,
   the rules and the team credentials are all there, and whether the personal space limits are on.
 
@@ -377,8 +388,14 @@ spaces. A user cannot hide a workflow from them.
   a workflow, and each execution, for 90 days. Each event keeps its project, so the filter
   **Project: Personal spaces** shows what users did in their personal spaces. An API key with the
   scope `auditLogs:manage` reads the same events with `GET /api/v1/audit-log/events` and
-  `GET /api/v1/audit-log/export` (filter `projectType=personal`). Log streaming sends the same
-  events to your log system.
+  `GET /api/v1/audit-log/export` (filter `projectType=personal`). Log streaming (Settings > Log
+  streaming) sends the same events to your log system: a webhook, a syslog server or Sentry.
+  `FORK_FEATURES_ENABLED=false` turns off the audit log and log streaming, with the other features
+  of the fork.
+- **Log streaming from the environment.** With `N8N_LOG_STREAMING_MANAGED_BY_ENV=true`, n8n takes
+  the destinations from `N8N_LOG_STREAMING_DESTINATIONS` (a JSON array) at each start, and
+  Settings > Log streaming shows them read-only. See the
+  [README of the module](../packages/cli/src/modules/log-streaming/README.md).
 - **Rules for personal spaces.** By default, users cannot publish or share the workflows of their
   personal spaces, and no execution data is hidden (`PERSONAL_SPACE_PUBLISHING`,
   `PERSONAL_SPACE_SHARING` and `REDACTION_FLOOR` in `.env`, see [Safer defaults](#safer-defaults)).

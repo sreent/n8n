@@ -182,6 +182,9 @@ files, and the fork files give the same snapshot:
 `harness.ts` gives a fake REST server, a router with the names and paths of the app routes, and a
 description of what a user sees: the text, the test IDs, the controls, the icons, the data of
 the charts, the toasts, the telemetry and the opened windows. It records no markup and no styles.
+Thus the snapshots do not show the variants of the buttons. The buttons use the variants of the
+design system, as core n8n does: `solid` for the main action, `subtle` for Cancel and the other
+actions, and `ghost` for "Add check".
 `node-types.json` holds the built descriptions of the Evaluation nodes, the manual trigger, the
 AI Agent and the OpenAI chat model. To make it again, build `nodes-base` and
 `@n8n/nodes-langchain`, copy these descriptions from the `dist/types/nodes.json` file of each

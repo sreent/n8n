@@ -152,7 +152,9 @@ of its own.
 
 - **Queue mode** (the default) runs the main instances and the workers. The main instances serve
   the editor, the API and the webhooks, and the workers run the executions. Only the leader of the
-  main instances runs the schedules and the polling triggers.
+  main instances runs the schedules and the polling triggers. The module sets
+  `N8N_MULTI_MAIN_SETUP_ENABLED=true` and `OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS=true`, so the
+  workers also run the manual executions.
 - **Single mode** (`mode = "single"`) runs one instance, without Redis and without workers. Cloud
   Run can run the old and the new instance together for a short time when a new version starts. A
   schedule can then run two times. Use single mode for development only.
@@ -161,8 +163,9 @@ of its own.
 
 `webhook_allowed_ranges` limits the addresses that can call webhooks, chats and MCP servers, and
 `form_allowed_ranges` limits the addresses that can open and send forms. Cloud Armor answers other
-addresses with 403. The editor, the API and the health path have no limit. Cloud Armor sees the
-address of the caller, and n8n gets it from `X-Forwarded-For` (`N8N_PROXY_HOPS=2`).
+addresses with 403. The editor, the API and the health path have no limit. Cloud Run reserves the
+paths that end with z, such as `/healthz`, so the health path of n8n is `/health` here. Cloud Armor
+sees the address of the caller, and n8n gets it from `X-Forwarded-For` (`N8N_PROXY_HOPS=2`).
 
 ## Redis
 

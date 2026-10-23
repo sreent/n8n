@@ -32,7 +32,7 @@ export const AI_GATEWAY_USAGE_MAX_PAGE_SIZE = 250;
 
 const amount = z.number().finite().min(0).max(1_000_000_000);
 
-/** A price in US dollars for one million tokens, or for one thousand pages of the OCR. */
+/** A price in US dollars for one million tokens, or for one million pages or images of the OCR. */
 export const aiGatewayPriceSchema = z.object({
 	input: amount,
 	output: amount,

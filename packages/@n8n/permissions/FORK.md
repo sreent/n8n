@@ -5,7 +5,7 @@ Fork document (not in upstream n8n). Read it with [FORK.md](../../../FORK.md) an
 
 Step 2 of the fork replaced the enterprise files of this package with ordinary fork code. The
 package has the same exports and the same behaviour as before. Ordinary code that imports it did
-not change.
+not change. Later, fork features added their own API key scopes (see [Fork scopes](#fork-scopes)).
 
 ## What the fork replaced
 
@@ -26,8 +26,9 @@ modules have the same names without `.ee`:
 | `roles/custom-role-scopes.ts` | What custom roles can hold, and the options of the role editors. |
 | `utilities/*.ts` | `hasScope`, `hasGlobalScope`, `combineScopes`, `getRoleScopes`, `getAuthPrincipalScopes`, `getGlobalScopes`, `getResourcePermissions`, `staticRolesWithScope`. |
 
-`src/index.ts`, `src/roles/all-roles.ts`, `src/scope-information.ts` and the tests are ordinary
-upstream files. The fork changed only their import paths.
+`src/index.ts`, `src/roles/all-roles.ts`, `src/scope-information.ts` and the ordinary tests are
+upstream files. The fork changed only their import paths. `src/index.ts` also exports the fork
+scopes of `src/fork-scopes.ts`.
 
 ## Clean-room sources
 
@@ -40,7 +41,7 @@ upstream files. The fork changed only their import paths.
 | API key scopes | A running n8n: `GET /rest/api-keys/scopes` for each system role and for custom roles that the script writes to the database. |
 | Function behaviour, types and schemas | The ordinary tests of this package, the ordinary code that imports it, and the DTO tests in `@n8n/api-types`. |
 | Custom role data | The ordinary tests of this package and of the editor role views, the editor texts in `@n8n/i18n`, and the public [custom roles](https://docs.n8n.io/administer/manage-users-and-access/set-permissions-and-roles-rbac/create-custom-roles.md) pages. |
-| `isAssignableProjectRoleSlug` | The enterprise project service imports this name. With the owner's approval, the name came from one compiler message (TS2724). The behaviour comes from its type and `assignableProjectRoleSchema`. |
+| `isAssignableProjectRoleSlug` | The enterprise project service imported this name. No code imports it now. With the owner's approval, the name came from one compiler message (TS2724). The behaviour comes from its type and `assignableProjectRoleSchema`. |
 
 The enterprise files, their build output in `dist/` and their Git history were not used.
 
@@ -61,12 +62,13 @@ every recorded user:
 
 ## Custom roles
 
-Custom roles need a licence, so a running n8n without a licence cannot show their data. The fork
-designed `roles/custom-role-scopes.ts` to pass the ordinary tests and to match the public
+Custom roles need a licence, so a running upstream n8n without a licence cannot show their data.
+The fork designed `roles/custom-role-scopes.ts` to pass the ordinary tests and to match the public
 documentation. Where these sources say nothing, the data is a fork decision. The main one: the
 **Instance settings: Manage** option holds the scopes of the instance settings that the admin role
-holds, except the scopes of the other options and the baseline scopes. Step 3 builds the fork's own
-custom roles on this data.
+holds, except the scopes of the other options and the baseline scopes. The ordinary role service
+(`RoleService` of `@n8n/backend-services`) and the role views of the editor use this data. The fork
+switch turns custom roles on (step 5 of FORK.md).
 
 ## Make the data again after an upstream update
 

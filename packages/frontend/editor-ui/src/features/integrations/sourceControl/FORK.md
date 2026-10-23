@@ -2,10 +2,11 @@
 
 Fork document (not in upstream n8n). Read it with [FORK.md](../../../../../../../FORK.md).
 
-The fork removed the source control backend (Settings > Environments) and its editor in step 1. It
-rebuilt both on 2026-10-14. The backend is the module `packages/cli/src/modules/source-control`
-(see its `README.md`). This folder is the editor. It replaces the enterprise editor folder
-`sourceControl.ee`, with the same store ID, exports, texts, REST calls, modal keys and test IDs.
+The fork removed the source control backend (Settings > Environments) in step 1, and replaced its
+editor with stand-ins in step 4. It rebuilt both on 2026-10-14. The backend is the module
+`packages/cli/src/modules/source-control` (see its `README.md`). This folder is the editor. It
+replaces the enterprise editor folder `sourceControl.ee`, with the same store ID, exports, texts,
+REST calls, modal keys and test IDs.
 
 ## Files
 
@@ -25,8 +26,10 @@ rebuilt both on 2026-10-14. The backend is the module `packages/cli/src/modules/
 
 ## Behaviour
 
-- **The settings page.** Without the licence feature, the page shows the box "Available on the
-  Enterprise plan". With it, the page loads the preferences. A disconnected instance shows the
+- **The settings page.** The route needs the global scope `sourceControl:manage`. Git sync uses the
+  same scope. Without the licence feature, the page shows the box "Available on the Enterprise
+  plan". The fork switch (step 5 of FORK.md) gives the feature by default. With it, the page loads
+  the preferences. A disconnected instance shows the
   connection type (SSH or HTTPS), the repository URL with its check, the SSH key (its type, the
   public key to copy and a button that makes a new key) or the HTTPS user name and personal access
   token, and the button "Connect". A connected instance shows the URL, the button "Disconnect

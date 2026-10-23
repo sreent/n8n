@@ -49,6 +49,8 @@ entities, with the same names and exports. Later in step 4, the fork rebuilt the
   test) runs each ordinary review repository on the fork entities.
 - The ordinary migration test of the activity tables and the ordinary integration test of
   `WorkflowHistoryRepository` save and read rows through these entities.
+- The ordinary unit tests of the review repositories in `../repositories/__tests__` use the fork
+  entities.
 
 ### Clean-room record
 
@@ -115,8 +117,8 @@ The entity files also export the types `AgentEvalColumnMapping`, `AgentEvalRunSt
 - `updateDataset` writes only the fields that the patch gives (`null` clears a field), and gives
   the dataset after the update, or `null` when the agent has no such dataset.
 - The state changes of a run and a result set the status and the time stamps. A finished run has
-  no `runningInstanceId`. `markAllIncompleteAsError` marks the runs with the status `new` or
-  `running` as interrupted.
+  no `runningInstanceId`. `markAllIncompleteAsError` gives the runs with the status `new` or
+  `running` the status `error` with the code `interrupted`.
 - The lists give the newest first, a page of runs breaks ties of `createdAt` with the ID, and the
   results of a run are in the order of `runIndex`. `countByStatus` counts in the database and gives
   a count for each status. `findLatestByRunId` gives the newest rating of each rated result of a
@@ -212,6 +214,29 @@ exports the type `TestRunSummary`.
 
 The slip with the recording proxies on the enterprise repositories of these tables is described
 in the section of the agent eval tables. The fork repositories come from the sources above.
+
+## The project pool settings table
+
+The table `project_pool_settings` keeps the worker pool of each project. The fork deleted its
+enterprise entity and repository with the worker pools in step 4. It rebuilt them with the worker
+pools (4 of 6 in
+[FORK-FEATURES.md](../../../../../FORK-FEATURES.md#parity-with-the-enterprise-edition)), with the
+same names and exports:
+
+| Fork file | Table | Enterprise file that it replaces |
+| --- | --- | --- |
+| `project-pool-settings.ts` | `project_pool_settings` | `project-pool-settings.ee.ts` |
+| `../repositories/project-pool-settings.repository.ts` | | `project-pool-settings.repository.ee.ts` |
+
+- The columns come from the ordinary migration `CreateProjectPoolSettings1788445119183`: the
+  project ID (the primary key), the pool (`defaultPool`, `null` for the default queue),
+  `createdAt` and `updatedAt`. The foreign key deletes the row of a deleted project.
+- `getDefaultPool` gives the pool of a project, or `null`. `setDefaultPool` inserts or updates the
+  row of a project.
+- `PoolConfigService` of the scaling code uses the repository.
+  [packages/cli/src/scaling/FORK.md](../../../../cli/src/scaling/FORK.md) describes the worker
+  pools. The golden test `packages/cli/test/integration/worker-pools/worker-pools.golden.test.ts`
+  records the rows of the table.
 
 ## Upstream updates
 
