@@ -8,25 +8,27 @@ This folder holds the fork's external secrets: the replacement of the enterprise
 
 - The fork builds all six providers of the public documentation, as a drop-in replacement: 1Password
   Connect, AWS Secrets Manager, Azure Key Vault, GCP Secrets Manager, HashiCorp Vault and Infisical.
-- The licence check (`feat:externalSecrets`) stays until step 5 of FORK.md. In step 5, external
-  secrets turn on by default, as SSO does.
-- Container CI leaves out the enterprise external secrets tests, as for SSO.
+- The licence check (`feat:externalSecrets`) stays. In step 5 of FORK.md, external secrets turn on
+  by default, as SSO does. Step 5 is done: the fork switch gives `feat:externalSecrets`, and
+  `N8N_FORK_FEATURES_ENABLED=false` turns external secrets off.
+- Container CI left out the enterprise external secrets tests, as for SSO. The fork deleted these
+  tests in step 4.
 
-The work comes in five pull requests:
+The work came in five pull requests:
 
 1. The base class of the providers, the config, the provider registry, and three providers:
    HashiCorp Vault, Infisical and 1Password Connect. (Done.)
 2. The providers AWS Secrets Manager, Azure Key Vault and GCP Secrets Manager. (Done.)
 3. The repositories of the two tables of the connections in `@n8n/db`, for ordinary code. (Done.)
 4. The module: the manager, the stored settings and connections, the REST APIs, the access checks
-   and the events. Ordinary code then uses this folder, and container CI leaves out the enterprise
+   and the events. Ordinary code then used this folder, and container CI left out the enterprise
    tests. (Done.)
 5. The editor, in two parts:
    - 5a: the REST clients, the store, and the settings page with one connection for each provider
      type, with its modal. (Done. See
      [the FORK.md of the editor folder](../../../../frontend/editor-ui/src/features/integrations/externalSecrets/FORK.md).)
    - 5b: the settings pages of the connections, their modals, and the connections of a project.
-     (This pull request. See
+     (Done. See
      [the FORK.md of the connections folder](../../../../frontend/editor-ui/src/features/integrations/secretsProviders/FORK.md).)
 
 Ordinary code uses this folder. The module registry loads
@@ -280,7 +282,8 @@ The access repository:
 ### The module (`external-secrets.module.ts`)
 
 The module has the name `external-secrets` and the licence flag `feat:externalSecrets`, as the
-original. n8n starts it only when the licence has that feature.
+original. n8n starts it only when the licence has that feature. The fork switch gives the feature,
+so n8n starts the module by default. With `N8N_FORK_FEATURES_ENABLED=false`, the licence decides.
 
 - `init` registers the controllers of the REST APIs and starts the manager.
 - `shutdown` (`@OnShutdown`) stops the manager.

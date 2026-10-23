@@ -109,6 +109,8 @@ Some features also need a setting, as in upstream n8n:
 | Multiple main instances | Queue mode and `N8N_MULTI_MAIN_SETUP_ENABLED=true` | In queue mode, not on the VM |
 | Worker view | Queue mode | In queue mode, not on the VM |
 | Worker pools | Queue mode and `N8N_WORKER_POOLS_ENABLED=true` | No |
+| Evaluation collections, config evaluations and agent evaluations | `N8N_EVAL_COLLECTIONS_ENABLED=true`, `N8N_CONFIG_EVALS_ENABLED=true` and `N8N_AGENT_EVALS_ENABLED=true`. They follow the feature flags of n8n, which come with the telemetry. Without the telemetry, only the variables turn them on. | No |
+| More than one parallel case of an evaluation | `N8N_CONCURRENCY_EVALUATION_LIMIT`. Without it, the cases run one at a time. | No |
 | Gateway credits | A credential of a provider, and the switch on the page Settings > Gateway credits admin | No |
 | The banner of a non-production instance | `N8N_FORK_NON_PRODUCTION_BANNER=true`. The banner is not in the list, so it is off by default. | No |
 

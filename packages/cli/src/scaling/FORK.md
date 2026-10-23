@@ -10,8 +10,8 @@ code.
 
 | Fork file | Enterprise file that it replaces | Ordinary code that uses it |
 | --- | --- | --- |
-| `multi-main-setup.ts` | `multi-main-setup.ee.ts` | `commands/start.ts`, the handlers of `@OnLeaderTakeover` and `@OnLeaderStepdown`, `wait-tracker.ts` and others |
-| `worker-status.service.ts` | `worker-status.service.ee.ts` | `controllers/orchestration.controller.ts`, the pub/sub handlers |
+| `multi-main-setup.ts` | `multi-main-setup.ee.ts` | `commands/start.ts`, `controllers/debug.controller.ts`, and the handlers of `@OnLeaderTakeover` and `@OnLeaderStepdown`, for example in `wait-tracker.ts` |
+| `worker-status.service.ts` | `worker-status.service.ee.ts` | `controllers/orchestration.controller.ts`, `commands/worker.ts`, the pub/sub handlers |
 | `worker-pools.service.ts` | `worker-pools.service.ee.ts` | `pool-config.service.ts` |
 | `pool-config.service.ts` | `pool-config.service.ee.ts` | `workflow-runner.ts` |
 | `../controllers/project-pool-settings.controller.ts` | `project-pool-settings.controller.ee.ts` | `server.ts` loads it |
@@ -55,6 +55,8 @@ golden tests below. The enterprise files were not read.
   becomes the leader. When the key names this instance, the instance becomes the leader again, and
   the error reporter gets a report of the mismatch.
 - A change of the role calls the handlers of `@OnLeaderTakeover` and `@OnLeaderStepdown`.
+- The class has no limit of listeners. Each handler adds a listener, and n8n has more handlers
+  than the default limit of 10 of Node.js.
 - At the shutdown, the leader frees the key for another main instance.
 
 ### Worker view
@@ -98,16 +100,20 @@ record a snapshot again after an upstream update, use a checkout of the upstream
 
 The ordinary tests of upstream n8n run against the fork files: `start.test.ts`, `worker.test.ts`,
 `wait-tracker.test.ts`, `workflow-runner.test.ts`, `orchestration.controller.test.ts`,
-`__tests__/worker-status.service.test.ts` and the integration test of the debug controller.
+`__tests__/worker-status.service.test.ts` and the integration test of the debug controller. The
+fork test `__tests__/multi-main-setup.test.ts` checks that the multi-main setup has no limit of
+listeners.
 
 ## Upstream updates
 
-- `wait-tracker.test.ts` and `__tests__/worker-status.service.test.ts` import the fork files. Keep
+- The ordinary files and tests that use these classes import the fork files, for example
+  `commands/start.ts`, `wait-tracker.test.ts` and `__tests__/worker-status.service.test.ts`. Keep
   the fork import paths.
 - The indexes of `@n8n/db` (`entities/index.ts` and `repositories/index.ts`) import the fork
   entity and repository of the pool settings. Keep the fork import paths.
 - `server.ts` loads the fork controller of the pool settings, and the manifest of the ownership
-  transfer names it. Keep the fork paths.
+  transfer (`services/ownership-transfer/ownership-transfer.manifest.json`) names the fork entity.
+  Keep the fork paths.
 - When upstream changes how ordinary code uses `MultiMainSetup`, `WorkerStatusService`,
   `WorkerPoolsService` or `PoolConfigService`, change the fork classes, and record the snapshots
   again to compare.

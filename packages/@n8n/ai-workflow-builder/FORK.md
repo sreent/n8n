@@ -44,8 +44,9 @@ import the same names from the same package name.
 ## The chat stand-in
 
 The ordinary `WorkflowBuilderService` of cli still makes an `AiWorkflowBuilderService`, and the REST
-routes of the chat stay behind the licence feature `feat:aiBuilder`. The stand-in takes the same
-arguments and does nothing with them:
+routes of the chat stay behind the licence feature `feat:aiBuilder`. The fork switch does not give
+`feat:aiBuilder`, and the fork has no licence keys, so these routes answer 403 before they reach
+the stand-in. The stand-in takes the same arguments and does nothing with them:
 
 - `chat` and `getBuilderInstanceCredits` fail with the `UserError` "The AI workflow builder chat is
   not available in this n8n."
