@@ -14,9 +14,11 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+import { RESPONSE_ERROR_MESSAGES } from '@/constants';
 import { CredentialTypes } from '@/credential-types';
 import { saveCredential } from '@test-integration/db/credentials';
-import { createAdmin, createMember, createOwner } from '@test-integration/db/users';
+import { createCustomRoleWithScopeSlugs } from '@test-integration/db/roles';
+import { createAdmin, createMember, createOwner, createUser } from '@test-integration/db/users';
 import { initNodeTypes, setupTestServer } from '@test-integration/utils';
 
 import { GIT_SYNC_CONNECTION_KEY } from '../git-sync.constants';
@@ -174,7 +176,18 @@ describe('access', () => {
 		const response = await testServer.authAgentFor(member).get('/git-sync/status').expect(403);
 		await testServer.authAgentFor(member).put('/git-sync/settings').send(settings()).expect(403);
 
-		expect(response.body.message).toContain('owner and admins');
+		expect(response.body.message).toBe(RESPONSE_ERROR_MESSAGES.MISSING_SCOPE);
+	});
+
+	it('lets a custom role with the scope sourceControl:manage in', async () => {
+		const gitSyncRole = await createCustomRoleWithScopeSlugs(['sourceControl:manage'], {
+			roleType: 'global',
+		});
+		const user = await createUser({ role: gitSyncRole });
+
+		const response = await testServer.authAgentFor(user).get('/git-sync/settings').expect(200);
+
+		expect(response.body.data).toBeNull();
 	});
 
 	it('lets admins in', async () => {
