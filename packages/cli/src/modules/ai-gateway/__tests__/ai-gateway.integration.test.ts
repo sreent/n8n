@@ -486,7 +486,9 @@ describe('settings', () => {
 			.set('authorization', `Bearer ${token}`)
 			.send({ model: 'gpt-4o' })
 			.expect(503);
-		expect(response.body.error.message).toBe('The AI gateway is off.');
+		expect(response.body.error.message).toBe(
+			'Gateway credits are off. Ask an admin to turn them on.',
+		);
 	});
 
 	it('stops the proxy without the licence value', async () => {
@@ -667,7 +669,7 @@ describe('proxy', () => {
 			.set('authorization', 'Bearer not-a-token')
 			.send({ model: 'gpt-4o' })
 			.expect(401);
-		expect(bad.body.error.message).toBe('The token of the AI gateway is not valid.');
+		expect(bad.body.error.message).toBe("The Gateway credits token isn't valid.");
 
 		await testServer.restlessAgent
 			.post(`${path}/images/generations`)
@@ -681,7 +683,7 @@ describe('proxy', () => {
 			.send({ model: 'unpriced-model' })
 			.expect(403);
 		expect(unpriced.body.error.message).toBe(
-			'The model unpriced-model has no price in the AI gateway. Ask an admin to add one.',
+			'The model unpriced-model has no price in Gateway credits. Ask an admin to add one.',
 		);
 		expect(received).toHaveLength(0);
 	});
@@ -714,7 +716,7 @@ describe('budgets', () => {
 		expect((await call()).status).toBe(200);
 		const blocked = await call();
 		expect(blocked.status).toBe(402);
-		expect(blocked.body.error.message).toContain('The budget of the AI gateway is spent');
+		expect(blocked.body.error.message).toContain('The Gateway credits of this instance are spent');
 
 		await testServer
 			.authAgentFor(owner)
@@ -748,7 +750,7 @@ describe('budgets', () => {
 		expect((await call(member, teamProject)).status).toBe(200);
 		const blocked = await call(member, teamProject);
 		expect(blocked.status).toBe(402);
-		expect(blocked.body.error.message).toContain('budget of this project');
+		expect(blocked.body.error.message).toContain('budget of Gateway credits for this project');
 		expect((await call(member, otherProject)).status).toBe(200);
 	});
 
@@ -1276,7 +1278,7 @@ describe('backends', () => {
 			.send({ contents: [] })
 			.expect(503);
 		expect(response.body.error.message).toBe(
-			'The AI gateway could not sign in to Google Cloud with the credential of the admin.',
+			"Gateway credits couldn't sign in to Google Cloud with the credential of the admin. Ask an admin to check it.",
 		);
 		expect(received).toHaveLength(0);
 	});
@@ -1477,7 +1479,7 @@ describe('Google Cloud OCR', () => {
 		]) {
 			const refused = await processDocument(processor);
 			expect(refused.status).toBe(403);
-			expect(refused.body.error.message).toContain('does not serve this processor');
+			expect(refused.body.error.message).toContain("don't serve this processor");
 		}
 		// The list is only for Document AI: the text detection of the Cloud Vision API stays.
 		await testServer.restlessAgent

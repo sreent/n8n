@@ -101,9 +101,9 @@ services:
       # The npm registry of community nodes, and its token. Empty values use the public registry.
       N8N_COMMUNITY_PACKAGES_REGISTRY: ${COMMUNITY_PACKAGES_REGISTRY:-https://registry.npmjs.org}
       N8N_COMMUNITY_PACKAGES_AUTH_TOKEN: ${COMMUNITY_PACKAGES_AUTH_TOKEN:-}
-      # Node type policies and Git connections also need their modules, which upstream n8n does not
-      # load by default. An empty ENABLED_MODULES in .env turns them off.
-      N8N_ENABLED_MODULES: ${ENABLED_MODULES-type-availability-policies,promotions}
+      # Node type policies, Git connections and agent evaluations also need their modules, which
+      # upstream n8n does not load by default. An empty ENABLED_MODULES in .env turns them off.
+      N8N_ENABLED_MODULES: ${ENABLED_MODULES-type-availability-policies,promotions,agent-evals}
       # The editor of Git connections (Settings > Environments v2 and the banners of the projects).
       # Upstream n8n shows it only with this rollout flag.
       N8N_ENV_FEAT_PROMOTIONS: ${PROMOTIONS_EDITOR:-true}
@@ -111,6 +111,14 @@ services:
       # hooks of the Webhook node and the Dynamic Credential Check node. Upstream n8n shows them
       # only with this rollout flag. The end-user credentials of each n8n user work without it.
       N8N_ENV_FEAT_DYNAMIC_CREDENTIALS: ${CREDENTIAL_RESOLVERS:-true}
+      # Evaluations: the collections of versions, the config evaluations (the Tests panel) and the
+      # agent evaluations. Upstream n8n turns them on with feature flags that come with the
+      # telemetry, which deploy/ turns off.
+      N8N_EVAL_COLLECTIONS_ENABLED: ${EVALUATIONS:-true}
+      N8N_CONFIG_EVALS_ENABLED: ${EVALUATIONS:-true}
+      N8N_AGENT_EVALS_ENABLED: ${EVALUATIONS:-true}
+      # The highest number of parallel cases of an evaluation, as the Enterprise plan.
+      N8N_CONCURRENCY_EVALUATION_LIMIT: ${EVALUATION_CONCURRENCY:-5}
       # The apps that call the endpoints of dynamic credentials: the origins that a browser can call
       # them from, and the token of a caller without a session. Empty values turn them off.
       N8N_DYNAMIC_CREDENTIALS_CORS_ORIGIN: ${DYNAMIC_CREDENTIALS_CORS_ORIGIN:-}

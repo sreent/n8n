@@ -60,11 +60,18 @@ settings:
   N8N_SSO_USER_ROLE_PROVISIONING: "instance_and_project_roles"
   # The npm registry of community nodes. Its token goes in the secret store.
   N8N_COMMUNITY_PACKAGES_REGISTRY: "https://registry.npmjs.org"
-  # Node type policies and Git connections need their modules.
-  N8N_ENABLED_MODULES: "type-availability-policies,promotions"
+  # Node type policies, Git connections and agent evaluations need their modules.
+  N8N_ENABLED_MODULES: "type-availability-policies,promotions,agent-evals"
   # The editor of Git connections, and the credential resolvers of dynamic credentials.
   N8N_ENV_FEAT_PROMOTIONS: "true"
   N8N_ENV_FEAT_DYNAMIC_CREDENTIALS: "true"
+  # Evaluations: the collections, the config evaluations and the agent evaluations. Upstream n8n
+  # turns them on with feature flags that come with the telemetry, which is off. Up to 5 parallel
+  # cases of an evaluation, as the Enterprise plan.
+  N8N_EVAL_COLLECTIONS_ENABLED: "true"
+  N8N_CONFIG_EVALS_ENABLED: "true"
+  N8N_AGENT_EVALS_ENABLED: "true"
+  N8N_CONCURRENCY_EVALUATION_LIMIT: "5"
   # The origins that a browser can call the endpoints of dynamic credentials from. Empty turns
   # them off. The token of a caller without a session goes in the secret store.
   N8N_DYNAMIC_CREDENTIALS_CORS_ORIGIN: ""

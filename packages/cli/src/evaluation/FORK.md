@@ -99,7 +99,7 @@ the repositories of test runs and test cases are fork files too, see
 - The limit of parallel cases: `N8N_CONCURRENCY_EVALUATION_LIMIT` when it is set, else the licence
   quota, else the plan: Community and Pro 1, Business 3, Enterprise 5. The fork switch gives no
   quota and the fork has no licence keys, so the plan is Community: without the variable, the cases
-  run one at a time.
+  run one at a time. `deploy/` sets the variable to 5, as the Enterprise plan.
 
 ### Evaluation configs
 
@@ -134,16 +134,16 @@ the repositories of test runs and test cases are fork files too, see
   `/rest/workflows/:workflowId/eval-versions`, with the project scopes of the original. The
   feature flag of collections (or `N8N_EVAL_COLLECTIONS_ENABLED`) turns these routes and the
   insights on. Without it, they answer 404. Without the telemetry of n8n (the default of
-  `deploy/`), only the variable turns them on. The routes of configs and test runs check no flag,
+  `deploy/`), only the variable turns them on, and `deploy/` sets it. The routes of configs and test runs check no flag,
   as in the original.
 - A rerun starts a new run for each version of a collection, and moves the old runs out of the
   collection. A second rerun of the same collection fails with 409 while the first starts its
   runs.
 - The insights name the best run, the regressions of the other runs and a next experiment. The
   fork computes them from the metrics of the runs, so `modelUsed` is `deterministic` and the
-  status is `fallback`. The route needs the licence of the AI assistant (`feat:aiAssistant`), as in
-  the original. The fork switch does not give this value, and the fork has no licence keys, so the
-  route answers 403 in the fork.
+  status is `fallback`. With the fork switch off, the route needs the licence of the AI assistant
+  (`feat:aiAssistant`), as in the original. While the switch is on, it needs no licence, because the
+  fork insights ask no language model.
 
 ## Differences from the original
 
@@ -155,6 +155,11 @@ the repositories of test runs and test cases are fork files too, see
 3. **No unhandled errors.** When the engine stopped a run before its first node (for example, a
    workflow with issues), the original left an unhandled promise rejection in the process. The
    fork ends the run with the same error code, and catches the error.
+4. **Insights need no licence while the fork switch is on.** The original needs the licence of the
+   AI assistant for the insights. The fork insights ask no language model, so the fork asks for
+   this licence only while the fork switch is off. The golden test runs with the switch off and
+   records the original behaviour. `insights/__tests__/eval-insights.controller.test.ts` tests both
+   cases.
 
 ## Changes to ordinary files
 

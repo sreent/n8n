@@ -109,7 +109,8 @@ export class AiGatewayAdminService {
 		const providers: Record<string, AiGatewayProviderSettings> = {};
 		for (const [slug, providerSettings] of Object.entries(update.providers)) {
 			const provider = providerBySlug(slug);
-			if (!provider) throw new BadRequestError(`The AI gateway has no provider "${slug}".`);
+			if (!provider)
+				throw new BadRequestError(`Gateway credits don't support the provider "${slug}".`);
 			const types = credentialTypesOf(provider);
 			const credential = credentials.find((option) => option.id === providerSettings.credentialId);
 			if (!credential || !types.includes(credential.type)) {
@@ -126,7 +127,7 @@ export class AiGatewayAdminService {
 		}
 		for (const slug of Object.keys(update.prices)) {
 			if (!providerBySlug(slug))
-				throw new BadRequestError(`The AI gateway has no provider "${slug}".`);
+				throw new BadRequestError(`Gateway credits don't support the provider "${slug}".`);
 		}
 		const next = {
 			enabled: update.enabled,

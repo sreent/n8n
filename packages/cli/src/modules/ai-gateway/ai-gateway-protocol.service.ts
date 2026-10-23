@@ -63,7 +63,7 @@ export class AiGatewayProtocolService implements ForkAiGatewayHandler {
 		if (method === 'GET' && route === 'config') return this.gatewayConfig();
 		if (method === 'POST' && route === 'credentials') {
 			const userId = request.headers?.['x-user-id'];
-			if (!userId) throw new UserError('The AI gateway needs a user for a token.');
+			if (!userId) throw new UserError('Gateway credits need a user for a token.');
 			return this.tokens.issue(userId);
 		}
 		if (method === 'GET' && route === 'wallet') {
@@ -79,7 +79,7 @@ export class AiGatewayProtocolService implements ForkAiGatewayHandler {
 			);
 			return await this.usageOf(userId, offset, limit);
 		}
-		throw new UnexpectedError(`Unknown request to the AI gateway: ${method} ${route}`);
+		throw new UnexpectedError(`Unknown request to Gateway credits: ${method} ${route}`);
 	}
 
 	/** The config that the editor and `AiGatewayService` read: the nodes and the providers. */
@@ -120,7 +120,7 @@ export class AiGatewayProtocolService implements ForkAiGatewayHandler {
 	private userOf(request: ForkAiGatewayRequest) {
 		const header = request.headers?.Authorization ?? request.headers?.authorization ?? '';
 		const userId = this.tokens.verify(header.replace(/^Bearer\s+/i, ''));
-		if (!userId) throw new UserError('The token of the AI gateway is not valid.');
+		if (!userId) throw new UserError("The Gateway credits token isn't valid.");
 		return userId;
 	}
 
