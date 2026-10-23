@@ -15,6 +15,9 @@ independent copy of the workflow in their personal space. This is not live shari
   of the modal tells the user so.
 - The search for colleagues waits `DEBOUNCE_TIME.INPUT.SEARCH` of
   `@n8n/frontend-constants/durations`, as the searches of the shell do.
+- `send-copy.api.ts` calls `/rest/send-copy/*`. The request and response types and the limit of
+  recipients come from `@n8n/api-types` (`dto/send-copy/send-copy.dto.ts`), which the backend
+  module uses too.
 
 Frontend feature module. Consumed from source by the editor-ui shell through
 `src/app/modules.manifest.ts`; there is no build step and no `dist`.

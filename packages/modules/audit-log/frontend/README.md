@@ -7,7 +7,10 @@ a custom role can have it.
 
 The backend module is `packages/cli/src/modules/audit-log`. Its README tells how the backend
 stores the events, how long it keeps them, and the REST API. The page has no licence check: the
-owner chose on 2026-10-11 that the audit log is on by default.
+owner chose on 2026-10-11 that the audit log is on by default. The backend module starts only with
+the licence value of log streaming, `feat:logStreaming`, which the fork switch (step 5 of FORK.md)
+gives. With `N8N_FORK_FEATURES_ENABLED=false`, the licence decides, as for the other rebuilt
+features. Without the licence value, the module does not start, and the editor hides the page.
 
 ## The page
 
@@ -44,6 +47,9 @@ owner chose on 2026-10-11 that the audit log is on by default.
   editor-ui.
 - The texts `settings.auditLog.*` in `packages/frontend/@n8n/i18n/src/locales/en.json`.
 - The module settings `'audit-log'` in `FrontendModuleSettings` of `@n8n/api-types`.
+- The request and response types, the page sizes and the export formats of `/rest/audit-log/*`
+  (`packages/@n8n/api-types/src/dto/audit-log/audit-log.dto.ts`). The backend module uses them
+  too.
 
 ## Commands
 
@@ -95,5 +101,5 @@ test while the module renders any design-system component.
 
 SCSS goes in a scoped `<style lang="scss">` block, with tokens from
 design-system — `stylelint.config.mjs` holds this package to the same rules the
-shell uses. Route components must load lazily — see the note in
-`src/audit-log.module.ts`.
+shell uses. Route components must load lazily, as in `src/audit-log.module.ts`. The section
+"Import-light descriptors" of the module guide tells why.

@@ -16,7 +16,8 @@ are open, when the check stops a publish, and how an approval works.
 
 `components/OpenTriggerFixesModal.vue`, with the modal key `openTriggerFixes`.
 
-1. When the user selects **Publish**, the header saves the workflow and asks
+1. When the user selects **Publish**, the header saves the workflow. While the module setting
+   `needApproval` is on, the header then asks
    `GET /rest/open-triggers/workflows/:workflowId/violations` (`getPublishViolations`) before it
    opens the dialog of a review or of the version (`useOpenTriggerFixes().checkBeforePublish`).
    With violations, this modal opens first. When the request fails, the publish goes on, and the
@@ -93,7 +94,8 @@ shows the page when the backend module is on and the user has the scope.
   `src/features/ndv/panel/components/TriggerPanel.vue` (the notice of a test URL). Their tests
   have fork tests.
 - The texts `openTriggers.*` in `packages/frontend/@n8n/i18n/src/locales/en.json`.
-- The module settings `'open-triggers'` in `FrontendModuleSettings` of `@n8n/api-types`, and the
+- The module settings `'open-triggers'` in `FrontendModuleSettings` of `@n8n/api-types`, the item
+  type and the violation kind of open triggers (`dto/workflows/open-trigger.dto.ts`), and the
   shared rule `openTriggerKindOf` (`utils/open-trigger-kind.ts`) in its index.
 
 ## Commands

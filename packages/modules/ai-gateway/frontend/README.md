@@ -1,7 +1,7 @@
 # @n8n/frontend-module-ai-gateway
 
 Fork module (not in upstream n8n). It adds the page **Settings > Gateway credits admin** for the
-self-hosted AI gateway. Users with the global scope `aiAssistant:manage` ("Manage AI usage") see it:
+self-hosted AI gateway. Users with the global scope `aiAssistant:manage` ("Manage AI Usage") see it:
 the owner and the admins. The repository owner chose the gateway on 2026-10-15. The texts that
 users see call the feature Gateway credits, as `AGENTS.md` tells. The code, the i18n keys and the
 comments keep the name AI gateway.
@@ -24,8 +24,10 @@ balance and their calls.
 - The tabs with a form stay mounted (`v-show`), so a change of tab keeps the unsaved changes. A save
   on another tab keeps them too. When the user leaves the page with unsaved changes on the tabs
   Providers or Budgets, the page asks first. The tab Usage loads the calls when it opens.
-- The tables use `N8nDataTableServer`. The page has all the rows, and gives the table one page of
-  25, 50 or 100 rows (`composables/useTablePage.ts`).
+- The tables use `N8nDataTableServer`. On the tabs Overview, Providers, Top-ups and Prices, the page
+  has all the rows, and gives the table one page of 25, 50 or 100 rows
+  (`composables/useTablePage.ts`). On the tab Usage, the table reads one page of 25, 50, 100 or 250
+  calls from the backend.
 - The tabs:
   - **Overview** (`components/AiGatewayOverview.vue`): the month (UTC), the monthly budget, the
     spend of the month, what is left of the budget, the balance of the top-ups, and what the calls
@@ -66,11 +68,13 @@ balance and their calls.
 
 ## Tests
 
-The tests check the REST client, the store, the descriptor, the helpers of the prices and the page
+The tests check the REST client, the store, the descriptor, the helpers of the prices, the pages of
+the tables (`composables/useTablePage.test.ts`) and the page
 (`views/SettingsAiGatewayAdminView.test.ts`) with a mocked REST API. The page test also checks the
 confirmations, the labels of the budget rows, the unsaved changes across tabs and the question when
 the user leaves the page. The fork tests of
-`useAiGatewayTopUp.test.ts` in editor-ui check the **Top up** button.
+`useAiGatewayTopUp.test.ts` in editor-ui check the **Top up** button, and the fork test of
+`AiGatewayTopUpModal.test.ts` checks the text of the top-up dialog for a member.
 
 ## Changes outside the module
 
@@ -81,7 +85,10 @@ the user leaves the page. The fork tests of
   `packages/frontend/@n8n/i18n/src/locales/en.json`.
 - `packages/frontend/editor-ui/src/app/composables/useAiGatewayTopUp.ts`: when the module settings
   of `ai-gateway` have `selfHosted: true` and the instance is not n8n Cloud, **Top up** opens this
-  page for a user with the scope `aiAssistant:manage`, and tells other users to ask an admin.
+  page for a user with the scope `aiAssistant:manage`. Other users get the top-up dialog of n8n.
+- `packages/frontend/editor-ui/src/features/ai/gateway/components/AiGatewayTopUpModal.vue`: with the
+  self-hosted gateway, the dialog tells a member to ask an admin of the instance
+  (`aiGateway.topUp.fork.member`), because the fork has no Cloud Admin Panel.
 - The module settings `'ai-gateway'` (`selfHosted`) in `FrontendModuleSettings` of
   `@n8n/api-types`. The backend module gives them.
 - The request and response types of `/rest/ai-gateway/*` and the patterns of the backend options

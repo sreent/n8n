@@ -1,9 +1,11 @@
 # The logos of the secrets providers
 
 Fork content (not in upstream n8n). The settings page of external secrets shows these logos on the
-cards of the provider types and in the provider modal. The fork downloaded them on 2026-10-11. The
-owner chose the official logos of the vendors on 2026-10-11, also for the icons whose terms name
-only diagrams and documentation.
+cards of the provider types and in the provider modal. The settings page of the connections
+(`src/features/integrations/secretsProviders`) shows them too: on the cards, in the empty state
+and in the connection modal. The fork downloaded them on 2026-10-11. The owner chose the official
+logos of the vendors on 2026-10-11, also for the icons whose terms name only diagrams and
+documentation.
 
 | File | Provider type | Source | Terms or licence | Changes |
 |---|---|---|---|---|
