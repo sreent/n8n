@@ -5,9 +5,11 @@ import { Container } from '@n8n/di';
 /**
  * Fork module (not in upstream n8n): stores the audit events of the event bus (`n8n.audit.*`),
  * deletes them after the retention, and gives them to the owner and admins in the REST API. Each
- * instance type stores the audit events that its own event bus sends. `README.md` describes it.
+ * instance type stores the audit events that its own event bus sends. It starts with the licence
+ * value of log streaming, `feat:logStreaming`, which the fork switch gives. `README.md` describes
+ * it.
  */
-@BackendModule({ name: 'audit-log' })
+@BackendModule({ name: 'audit-log', licenseFlag: 'feat:logStreaming' })
 export class AuditLogModule implements ModuleInterface {
 	async init() {
 		await import('./audit-log.controller.js');

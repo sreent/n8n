@@ -215,7 +215,9 @@ The fork removes the enterprise code step by step, and builds its own versions o
    instances and worker pools also need `N8N_MULTI_MAIN_SETUP_ENABLED=true` and
    `N8N_WORKER_POOLS_ENABLED=true`, as in upstream n8n. On 2026-10-15 the owner added the AI gateway
    (Gateway credits) to the list. Without a credential of a provider and without the switch on the
-   page Settings > AI gateway, the gateway stays off.
+   page Settings > AI gateway, the gateway stays off. On 2026-10-23 the owner added log streaming
+   and the audit log (`feat:logStreaming`): they stay on by default, and the switch turns them off
+   with the other rebuilt features.
 
 [FORK-FEATURES.md](FORK-FEATURES.md) lists each enterprise feature: what it does, its status in the
 fork, the plan, and the clean-room sources for a rebuild.

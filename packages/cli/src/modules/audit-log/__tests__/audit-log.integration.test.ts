@@ -23,7 +23,11 @@ import { AuditLogEventRepository } from '../database/audit-log-event.repository'
 vi.unmock('@/eventbus/message-event-bus/message-event-bus');
 
 // A non-empty endpoint group makes the test server initialize the modules.
-const testServer = setupTestServer({ endpointGroups: ['me'], modules: ['audit-log'] });
+const testServer = setupTestServer({
+	endpointGroups: ['me'],
+	enabledFeatures: ['feat:logStreaming'],
+	modules: ['audit-log'],
+});
 
 let owner: User;
 let admin: User;

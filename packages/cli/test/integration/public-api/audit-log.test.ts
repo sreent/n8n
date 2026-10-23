@@ -18,6 +18,7 @@ vi.unmock('@/eventbus/message-event-bus/message-event-bus');
 
 const testServer = utils.setupTestServer({
 	endpointGroups: ['publicApi'],
+	enabledFeatures: ['feat:logStreaming'],
 	modules: ['audit-log'],
 });
 

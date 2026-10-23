@@ -5,9 +5,10 @@ import { Container } from '@n8n/di';
 /**
  * Fork module (not in upstream n8n): sends the events of the event bus to log streaming
  * destinations (webhook, syslog and Sentry), and manages the destinations in the REST API. Each
- * instance type sends the events of its own event bus. `README.md` describes it.
+ * instance type sends the events of its own event bus. It starts with the licence value
+ * `feat:logStreaming`, which the fork switch gives. `README.md` describes it.
  */
-@BackendModule({ name: 'log-streaming' })
+@BackendModule({ name: 'log-streaming', licenseFlag: 'feat:logStreaming' })
 export class LogStreamingModule implements ModuleInterface {
 	async init() {
 		await import('./log-streaming.controller.js');

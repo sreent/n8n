@@ -7,7 +7,9 @@ an event after 90 days.
 
 The repository owner chose this on 2026-10-11: the fork builds an audit log and a new log
 streaming, the audit log is on by default, and it keeps the events for 90 days. The settings page is
-the frontend module `packages/modules/audit-log/frontend`. Its README describes it.
+the frontend module `packages/modules/audit-log/frontend`. Its README describes it. On 2026-10-23
+the owner put the module under the fork switch: it starts with the licence value of log streaming,
+`feat:logStreaming`, which `N8N_FORK_FEATURES_ENABLED` gives.
 
 This module does not use enterprise code. Upstream n8n has no audit log of its own. The table
 `activity_event` of upstream is a different feed: it keeps a short history of workflows and

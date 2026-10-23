@@ -52,7 +52,8 @@ services:
       # space policy, MFA enforcement, the diffs and the names of workflow versions, the private
       # registry of community nodes, token exchange, workflow reviews, the S3 and Azure Blob
       # storage, source control, Git connections, multiple main instances, the worker view, worker
-      # pools, LDAP, dynamic credentials and the AI gateway. They are on unless .env turns them off.
+      # pools, LDAP, dynamic credentials, the AI gateway, log streaming and the audit log. They are on
+      # unless .env turns them off.
       N8N_FORK_FEATURES_ENABLED: ${FORK_FEATURES_ENABLED:-true}
       # A banner on each page that tells that this instance is not for production.
       N8N_FORK_NON_PRODUCTION_BANNER: ${NON_PRODUCTION_BANNER:-false}

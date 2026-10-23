@@ -6,8 +6,10 @@ page **Settings > Log streaming**, in the REST API and in the public API. The se
 `packages/frontend/editor-ui/src/features/integrations/logStreaming`. Its FORK.md describes it.
 
 The repository owner chose this on 2026-10-11: the fork builds an audit log and a new log
-streaming, and both are on by default, without a licence check. The audit log is the module
-`audit-log`.
+streaming, and both are on by default. The audit log is the module `audit-log`. On 2026-10-23 the
+owner put both under the fork switch: the modules start with the licence value
+`feat:logStreaming`, which `N8N_FORK_FEATURES_ENABLED` gives, so the switch turns them off with the
+other rebuilt features.
 
 This module does not use enterprise code. It replaces the enterprise module `log-streaming.ee`,
 which the fork removed. It uses the ordinary table `event_destinations`, the ordinary types of the

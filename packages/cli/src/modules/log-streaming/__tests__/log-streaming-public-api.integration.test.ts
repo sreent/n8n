@@ -14,7 +14,11 @@ import { LogStreamingService } from '../log-streaming.service';
 // The global test setup mocks the event bus, which the module listens to.
 vi.unmock('@/eventbus/message-event-bus/message-event-bus');
 
-const testServer = setupTestServer({ endpointGroups: ['publicApi'], modules: ['log-streaming'] });
+const testServer = setupTestServer({
+	endpointGroups: ['publicApi'],
+	enabledFeatures: ['feat:logStreaming'],
+	modules: ['log-streaming'],
+});
 
 const BASE = '/settings/log-streaming';
 const UNKNOWN_ID = '3f1b8a52-6e7c-4f0e-9a51-2d9c7f8e1a20';
