@@ -131,7 +131,11 @@ echo "Merging the upstream changes from ${OLD:0:10} to ${NEW:0:10}..."
 result=$(mktemp)
 trap 'rm -f "$result"' EXIT
 status=0
-git merge-tree --write-tree -z --no-messages --merge-base="$OLD" HEAD "$NEW" >"$result" || status=$?
+# The fork moved some enterprise folders to fork folders, for example modules/promotions.ee to
+# modules/promotions. With directory rename detection, Git puts a file that upstream adds to the
+# old folder into the fork folder, under a name that is not an enterprise name. So it is off.
+git -c merge.directoryRenames=false merge-tree --write-tree -z --no-messages --merge-base="$OLD" \
+	HEAD "$NEW" >"$result" || status=$?
 [ "$status" -le 1 ] || fail "git merge-tree failed."
 
 # The output is the merged tree, then one "<mode> <object> <stage>\t<path>" entry for each side
@@ -145,6 +149,13 @@ while IFS= read -r -d '' field; do
 		conflicts+=("$field")
 	fi
 done <"$result"
+
+# Each path of the result must come from the fork or from upstream. A path that is in neither is
+# an upstream file that Git moved to a new path, and it can be an enterprise file.
+moved=$(LC_ALL=C comm -23 <(git ls-tree -r --name-only "$tree" | LC_ALL=C sort) \
+	<({ git ls-tree -r --name-only HEAD && git ls-tree -r --name-only "$NEW"; } | LC_ALL=C sort -u))
+[ -z "$moved" ] || fail "Git moved upstream files to these paths. Check the merge:
+$moved"
 
 # Move the index and the work tree to the merged tree. HEAD does not move.
 git read-tree -m -u HEAD "$tree"
