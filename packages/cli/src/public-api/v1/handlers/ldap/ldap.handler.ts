@@ -49,7 +49,7 @@ const ldapHandlers: LdapHandlers = {
 
 			let syncHistory;
 			try {
-				syncHistory = await Container.get(LdapService).runSync(payload.data.type);
+				syncHistory = await Container.get(LdapService).runSync(payload.data.type, req.user);
 			} catch (e) {
 				if (e instanceof ResponseError) throw e;
 				if (e instanceof LdapRejectionError || e instanceof LdapConnectionError) {

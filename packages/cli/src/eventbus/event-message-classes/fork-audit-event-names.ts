@@ -21,4 +21,10 @@ export const forkEventNamesAudit = [
 	'n8n.audit.git-connection.deleted',
 	'n8n.audit.git-connection.promoted',
 	'n8n.audit.git-connection.applied',
+	'n8n.audit.source-control.settings.saved',
+	'n8n.audit.source-control.disconnected',
+	'n8n.audit.source-control.pushed',
+	'n8n.audit.source-control.pulled',
+	'n8n.audit.ldap.settings.saved',
+	'n8n.audit.ldap.synchronized',
 ] as const;

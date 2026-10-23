@@ -308,6 +308,9 @@ const CONFIG: LdapConfig = {
 // #region Recording
 
 const events: unknown[][] = [];
+// The audit events of the fork (`ForkGovernanceEventRelay`). The original module does not send
+// them, so the record leaves them out.
+const FORK_AUDIT_EVENTS = new Set<string>(['ldap-settings-saved', 'ldap-synchronized']);
 const timers: unknown[][] = [];
 const timerHandlers = new Map<unknown, { delay: number; handler: () => unknown }>();
 
@@ -637,7 +640,9 @@ beforeEach(() => {
 	const eventService = Container.get(EventService);
 	const emit = eventService.emit.bind(eventService);
 	vi.spyOn(eventService, 'emit').mockImplementation((name, ...payload) => {
-		events.push([name, ...payload.map((entry) => rec.normalize(brief(entry)))]);
+		if (!FORK_AUDIT_EVENTS.has(name)) {
+			events.push([name, ...payload.map((entry) => rec.normalize(brief(entry)))]);
+		}
 		return emit(name, ...payload);
 	});
 

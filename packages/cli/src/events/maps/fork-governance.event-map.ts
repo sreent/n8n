@@ -163,4 +163,67 @@ export type ForkGovernanceEventMap = {
 	};
 
 	// #endregion
+
+	// #region Source control
+
+	'source-control-settings-saved': {
+		user: UserLike;
+		repositoryUrl: string;
+		branchName: string;
+		branchReadOnly: boolean;
+		connectionType: string;
+		connected: boolean;
+		/** `true` for a new connection, `false` for a change of its preferences. */
+		isNew: boolean;
+	};
+
+	'source-control-disconnected': {
+		user: UserLike;
+		repositoryUrl: string;
+	};
+
+	'source-control-pushed': {
+		user: UserLike;
+		repositoryUrl: string;
+		branchName: string;
+		/** `null` when the push had no change to commit. */
+		commit: string | null;
+		changedFiles: number;
+		forced: boolean;
+		publicApi: boolean;
+	};
+
+	'source-control-pulled': {
+		user: UserLike;
+		repositoryUrl: string;
+		branchName: string;
+		changedFiles: number;
+		forced: boolean;
+		publicApi: boolean;
+	};
+
+	// #endregion
+
+	// #region LDAP
+
+	'ldap-settings-saved': {
+		user: UserLike;
+		loginEnabled: boolean;
+		connectionUrl: string;
+		synchronizationEnabled: boolean;
+		synchronizationInterval: number;
+	};
+
+	/** A synchronization that a user started. A scheduled one sends no audit event. */
+	'ldap-synchronized': {
+		user: UserLike;
+		mode: 'dry' | 'live';
+		status: string;
+		created: number;
+		updated: number;
+		disabled: number;
+		scanned: number;
+	};
+
+	// #endregion
 };
