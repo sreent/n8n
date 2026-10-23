@@ -26,6 +26,8 @@ import { useI18n } from '@n8n/i18n';
 import { useInjectWorkflowId } from '@/app/composables/useInjectWorkflowId';
 import { useTelemetry } from '@n8n/composables/useTelemetry';
 import { injectWorkflowDocumentStore } from '@/app/stores/workflowDocument.store';
+// Fork: the notice of a test URL that refuses calls from outside n8n.
+import { OpenTriggerTestUrlNotice } from '@n8n/frontend-module-open-triggers';
 
 import {
 	N8nButton,
@@ -423,6 +425,7 @@ const onNodeExecute = () => {
 							@copy="onTestLinkCopied"
 						></CopyInput>
 					</N8nTooltip>
+					<OpenTriggerTestUrlNotice v-if="node" :workflow-id="workflowId" :node="node" />
 					<NodeExecuteButton
 						data-test-id="trigger-execute-button"
 						:node-name="nodeName"
@@ -440,6 +443,7 @@ const onNodeExecute = () => {
 							{{ listeningHint }}
 						</N8nText>
 					</div>
+					<OpenTriggerTestUrlNotice v-if="node" :workflow-id="workflowId" :node="node" />
 					<div v-if="displayChatButton">
 						<N8nButton class="mb-xl" @click="openWebhookUrl()">
 							{{ i18n.baseText('ndv.trigger.chatTrigger.openChat') }}

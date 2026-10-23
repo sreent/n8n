@@ -43,6 +43,14 @@ import {
 } from '@/features/workflow-reviews/workflowReviews.api';
 import { ResponseError } from '@n8n/rest-api-client';
 
+// Fork: the check of open triggers before the dialogs of a publish.
+const { mockCheckBeforePublish } = vi.hoisted(() => ({
+	mockCheckBeforePublish: vi.fn().mockResolvedValue(false),
+}));
+vi.mock('@/app/composables/useOpenTriggerFixes', () => ({
+	useOpenTriggerFixes: () => ({ checkBeforePublish: mockCheckBeforePublish }),
+}));
+
 // Hoisted: the vue-router mock factory runs before module-level consts initialize
 const { mockRouterPush, mockRouterResolve } = vi.hoisted(() => ({
 	mockRouterPush: vi.fn(),
@@ -475,6 +483,24 @@ describe('WorkflowHeaderDraftPublishActions', () => {
 
 			expect(mockSaveCurrentWorkflow).toHaveBeenCalledWith({}, true);
 			expect(openModalSpy).toHaveBeenCalledWith({
+				name: WORKFLOW_PUBLISH_MODAL_KEY,
+				data: {},
+			});
+		});
+
+		// Fork: the modal of the open-trigger fixes comes before the publish modal.
+		it('should not open the publish modal when the check of open triggers shows its fixes', async () => {
+			mockCheckBeforePublish.mockResolvedValueOnce(true);
+			const openModalSpy = vi.spyOn(uiStore, 'openModalWithData');
+			uiStore.markStateClean();
+			setupEnabledPublishButton();
+
+			const { getByTestId } = renderComponent();
+
+			await userEvent.click(getByTestId('workflow-open-publish-modal-button'));
+
+			expect(mockCheckBeforePublish).toHaveBeenCalledWith(defaultWorkflowProps.id);
+			expect(openModalSpy).not.toHaveBeenCalledWith({
 				name: WORKFLOW_PUBLISH_MODAL_KEY,
 				data: {},
 			});

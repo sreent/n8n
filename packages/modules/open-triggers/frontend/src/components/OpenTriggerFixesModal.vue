@@ -10,15 +10,15 @@ import {
 	N8nText,
 } from '@n8n/design-system';
 import { capabilityRegistry } from '@n8n/frontend-module-sdk';
-import { useI18n, type BaseTextKey } from '@n8n/i18n';
+import { useI18n } from '@n8n/i18n';
 import { computed, ref, watch } from 'vue';
 
 import { openTriggerActions, openTriggersModalCloser } from '../open-triggers.capabilities';
-import type {
-	OpenTriggerFix,
-	OpenTriggerFixesModalData,
-	OpenTriggerFixItem,
-	OpenTriggerSecret,
+import {
+	OPEN_TRIGGER_FIX_LABEL_KEYS,
+	type OpenTriggerFixesModalData,
+	type OpenTriggerFixItem,
+	type OpenTriggerSecret,
 } from '../open-triggers.fixes';
 
 const props = defineProps<{
@@ -30,12 +30,6 @@ const props = defineProps<{
 const i18n = useI18n();
 const toast = useToast();
 const clipboard = useClipboard();
-
-const FIX_LABEL_KEY: Record<OpenTriggerFix, BaseTextKey> = {
-	signIn: 'openTriggers.fixes.signIn',
-	headerAuth: 'openTriggers.fixes.headerAuth',
-	bearerAuth: 'openTriggers.fixes.bearerAuth',
-};
 
 /** The nodes that got their fix, and the token of each new credential. */
 const fixed = ref<Record<string, OpenTriggerSecret | null>>({});
@@ -147,7 +141,7 @@ function requestApproval() {
 								v-else-if="item.fix"
 								variant="outline"
 								size="small"
-								:label="i18n.baseText(FIX_LABEL_KEY[item.fix])"
+								:label="i18n.baseText(OPEN_TRIGGER_FIX_LABEL_KEYS[item.fix])"
 								:loading="applying === item.nodeId"
 								:disabled="applying !== null"
 								data-test-id="open-trigger-apply-fix"

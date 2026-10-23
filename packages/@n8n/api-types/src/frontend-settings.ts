@@ -474,6 +474,8 @@ export type FrontendModuleSettings = {
 	'open-triggers'?: {
 		/** A new trigger without authentication needs an approval (`N8N_OPEN_TRIGGERS_NEED_APPROVAL`). */
 		needApproval: boolean;
+		/** No chat is public on this instance (`N8N_DISABLE_PUBLIC_CHAT_TRIGGER`). */
+		publicChatDisabled: boolean;
 	};
 };
 

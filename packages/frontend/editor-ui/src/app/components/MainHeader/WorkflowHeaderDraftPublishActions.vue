@@ -37,6 +37,7 @@ import { useCollaborationStore } from '@/features/collaboration/collaboration/co
 import { ProjectTypes } from '@/features/collaboration/projects/projects.types';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
 import { useWorkflowActivate } from '@/app/composables/useWorkflowActivate';
+import { useOpenTriggerFixes } from '@/app/composables/useOpenTriggerFixes';
 import { useToast } from '@n8n/composables/useToast';
 import { createEventBus } from '@n8n/utils/event-bus';
 import type { WorkflowVersionFormModalEventBusEvents } from '@/features/workflows/workflowHistory/components/WorkflowVersionFormModal.vue';
@@ -98,6 +99,8 @@ const toast = useToast();
 const saveStore = useWorkflowSaveStore();
 const { saveCurrentWorkflow, cancelAutoSave } = useWorkflowSaving({ router });
 const workflowActivate = useWorkflowActivate();
+// Fork: the check of open triggers before the dialogs of a publish.
+const openTriggerFixes = useOpenTriggerFixes();
 const { isWorkflowReviewsEnabled } = useWorkflowReviewsFeature();
 const reviewRequiredStore = useReviewRequiredStore();
 const reviewStatusStore = useWorkflowReviewStatusStore();
@@ -392,6 +395,9 @@ const onPublishButtonClick = async () => {
 	}
 
 	if (!(await ensureWorkflowSaved())) return;
+
+	// Fork: the check of open triggers comes before the review and version dialogs.
+	if (await openTriggerFixes.checkBeforePublish(props.id)) return;
 
 	if (isWorkflowReviewsEnabled.value) {
 		// TODO(LIGO-604): backend publish enforcement. Until then this gate is

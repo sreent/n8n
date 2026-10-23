@@ -4,13 +4,17 @@
 import { OPEN_TRIGGER_VIOLATION_KIND, type PolicyViolation } from '@n8n/api-types';
 import {
 	createTriggerToken,
+	getPublishViolations,
 	OPEN_TRIGGER_FIXES_MODAL_KEY,
+	OPEN_TRIGGERS_MODULE_ID,
 	openTriggerFixFor,
 	type OpenTriggerFix,
 	type OpenTriggerFixesModalData,
 	type OpenTriggerFixResult,
 } from '@n8n/frontend-module-open-triggers';
 import { useI18n } from '@n8n/i18n';
+import { useSettingsStore } from '@n8n/stores/settings.store';
+import { useRootStore } from '@n8n/stores/useRootStore';
 
 import { WORKFLOW_PUBLISH_MODAL_KEY } from '@/app/constants';
 import { nodeViewEventBus } from '@/app/event-bus';
@@ -70,6 +74,29 @@ function showFixes(workflowId: string, violations: PolicyViolation[]): boolean {
 	uiStore.closeModal(WORKFLOW_PUBLISH_MODAL_KEY);
 	uiStore.openModalWithData({ name: OPEN_TRIGGER_FIXES_MODAL_KEY, data });
 	return true;
+}
+
+/**
+ * Runs the check of open triggers on the saved workflow before the dialogs of a publish, so the
+ * user fixes the triggers first. Returns true when it opened the modal of the fixes. A failed
+ * request lets the publish go on: the publish runs the check again.
+ */
+async function checkBeforePublish(workflowId: string): Promise<boolean> {
+	const settingsStore = useSettingsStore();
+	if (
+		!settingsStore.isModuleActive(OPEN_TRIGGERS_MODULE_ID) ||
+		settingsStore.moduleSettings[OPEN_TRIGGERS_MODULE_ID]?.needApproval !== true
+	) {
+		return false;
+	}
+
+	let violations: PolicyViolation[];
+	try {
+		violations = await getPublishViolations(useRootStore().restApiContext, workflowId);
+	} catch {
+		return false;
+	}
+	return showFixes(workflowId, violations);
 }
 
 /**
@@ -135,5 +162,5 @@ function showNode(nodeId: string): void {
 }
 
 export function useOpenTriggerFixes() {
-	return { showFixes, applyFix, publish, requestApproval, showNode };
+	return { showFixes, checkBeforePublish, applyFix, publish, requestApproval, showNode };
 }

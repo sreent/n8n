@@ -7,6 +7,7 @@ import { useWorkflowExecutionStateStore } from '@/app/stores/workflowExecutionSt
 import { createTestNode, mockNodeTypeDescription } from '@/__tests__/mocks';
 import { useNodeTypesStore } from '@/app/stores/nodeTypes.store';
 import { setActivePinia } from 'pinia';
+import { useSettingsStore } from '@n8n/stores/settings.store';
 import { computed, shallowRef } from 'vue';
 import { WorkflowIdKey } from '@/app/constants/injectionKeys';
 import {
@@ -149,4 +150,32 @@ describe('TriggerPanel.vue', () => {
 		});
 		expect(queryByTestId('trigger-listening')).not.toBeInTheDocument();
 	});
+
+	// Fork: the notice of a test URL that refuses calls from outside n8n (open-triggers module).
+	it.each([
+		[true, true],
+		[false, false],
+	])(
+		'shows the notice of an open trigger while it listens, with the publish check on: %s',
+		(needApproval, shown) => {
+			useSettingsStore().$patch({
+				moduleSettings: { 'open-triggers': { needApproval, publicChatDisabled: false } },
+			});
+			useWorkflowExecutionStateStore(createWorkflowDocumentId('1')).setExecutionWaitingForWebhook(
+				true,
+			);
+			setExecutedNode('Webhook');
+			const { queryByTestId } = renderComponent(TriggerPanel, {
+				props: { nodeName: 'Webhook' },
+				global: {
+					provide: {
+						[WorkflowIdKey as unknown as string]: computed(() => '1'),
+					},
+				},
+			});
+
+			expect(queryByTestId('trigger-listening')).toBeInTheDocument();
+			expect(Boolean(queryByTestId('open-trigger-test-url-notice'))).toBe(shown);
+		},
+	);
 });

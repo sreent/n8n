@@ -27,7 +27,9 @@ it off.
 
 ## Open triggers
 
-The check reads four node types. A disabled node is never open.
+The check reads four node types. A disabled node is never open. The rule is
+`openTriggerKindOf` of `@n8n/api-types` (`utils/open-trigger-kind.ts`), so the backend and the
+editor use the same one.
 
 | Node | Open when | Closed by |
 |---|---|---|
@@ -97,6 +99,10 @@ An admin can approve the review of an own workflow (`admin-override`, see
 - The check runs at publish only. An import from the CLI, source control or a Git connection does
   not run it. An imported workflow that is published at the import keeps its open triggers, because
   they are in the published version.
+- `GET /rest/open-triggers/workflows/:workflowId/violations` gives the violations that the check
+  would give for the saved workflow, with the same messages. It needs the project scope
+  `workflow:publish`. The editor asks for them before it opens the dialogs of a publish, so the
+  user fixes the triggers first. The publish runs the check again.
 - Approvals stay on the instance. A Git connection does not copy them to another instance, so turn
   the check on where the builders publish, for example the development instance, and keep it off
   where the Git connection publishes.
@@ -117,7 +123,8 @@ n8n answers any other call with 403 and a message that tells the caller to sign 
 authentication or to get an approval. The listener stays open. A trigger with authentication does
 not change: its node checks the credential, also without a session. A call from a system, for
 example curl, Postman or the test event of a SaaS service, needs the authentication of the
-trigger (the one-click fix) or an approval.
+trigger (the one-click fix) or an approval. While a trigger listens, the editor tells the builder
+so, next to the test URL, and offers the one-click fix.
 
 `TestWebhooks.executeWebhook` asks the guards of `TestWebhookCallGuards`
 (`packages/cli/src/webhooks/test-webhook-call-guards.ts`, a fork file) before n8n removes the
@@ -153,9 +160,9 @@ trigger. It is false for a trigger that was published before the check.
 | `open-trigger-test-call.guard.ts` | The guard of the test URLs |
 | `open-triggers.service.ts` | The allowed keys of a workflow, and the list |
 | `database/open-trigger.repository.ts` | The published version and the approved versions of workflows |
-| `open-triggers.controller.ts` | `GET /rest/open-triggers` |
+| `open-triggers.controller.ts` | `GET /rest/open-triggers` and `GET /rest/open-triggers/workflows/:workflowId/violations` |
 | `open-triggers.config.ts` | `N8N_OPEN_TRIGGERS_NEED_APPROVAL` |
-| `open-triggers.module.ts` | The module, and the module setting `needApproval` for the editor |
+| `open-triggers.module.ts` | The module, and the module settings `needApproval` and `publicChatDisabled` for the editor |
 
 The public API route is in
 `packages/cli/src/public-api/v1/controllers/open-triggers.public.controller.ts`, and the types are

@@ -407,9 +407,10 @@ update can bring new enterprise files: see "Upstream updates".
   [packages/cli/src/instance-settings-loader/FORK.md](packages/cli/src/instance-settings-loader/FORK.md)
   tells.
 - When an upstream update changes `packages/frontend/editor-ui/src/app/composables/useWorkflowActivate.ts`,
-  `src/app/capabilities.manifest.ts`, `src/app/event-bus/node-view.ts` or
-  `src/app/components/MainHeader/WorkflowHeaderDraftPublishActions.vue` of editor-ui, keep the fork
-  lines of the open-trigger fixes, as
+  `src/app/capabilities.manifest.ts`, `src/app/event-bus/node-view.ts`,
+  `src/app/components/MainHeader/WorkflowHeaderDraftPublishActions.vue` or
+  `src/features/ndv/panel/components/TriggerPanel.vue` of editor-ui, keep the fork lines of the
+  open-trigger fixes, the check before the dialogs of a publish and the notice of a test URL, as
   [packages/modules/open-triggers/frontend/README.md](packages/modules/open-triggers/frontend/README.md)
   tells. When it changes the authentication options of the Webhook, Form Trigger, Chat Trigger or
   MCP Server Trigger node, change `open-trigger.detector.ts` of the open-triggers module. When it

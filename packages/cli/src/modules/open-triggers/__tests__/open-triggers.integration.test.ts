@@ -254,3 +254,49 @@ describe('GET /open-triggers', () => {
 		await memberAgent.get('/open-triggers').expect(403);
 	});
 });
+
+describe('GET /open-triggers/workflows/:workflowId/violations', () => {
+	const violationsOf = async (agent: SuperAgentTest, workflowId: string) =>
+		await agent.get(`/open-triggers/workflows/${workflowId}/violations`);
+
+	test('should give the violations that would stop a publish of the saved workflow', async () => {
+		const orders = webhook('Orders');
+		const workflow = await createWorkflowWithHistory({ nodes: [orders] }, team);
+
+		const response = await violationsOf(ownerAgent, workflow.id);
+
+		expect(response.status).toBe(200);
+		expect(response.body.data).toEqual([
+			{
+				kind: 'open-trigger',
+				checkId: 'open-triggers',
+				message:
+					'The webhook "Orders" accepts calls without authentication. Add authentication, or get an approval in a workflow review.',
+				subject: orders.id,
+				subjectType: 'node',
+			},
+		]);
+	});
+
+	test('should give no violations for a trigger with authentication', async () => {
+		const workflow = await createWorkflowWithHistory(
+			{ nodes: [withHeaderAuth(webhook('Leads'))] },
+			team,
+		);
+
+		expect((await violationsOf(ownerAgent, workflow.id)).body.data).toEqual([]);
+	});
+
+	test('should give no violations while N8N_OPEN_TRIGGERS_NEED_APPROVAL is false', async () => {
+		config.needApproval = false;
+		const workflow = await createWorkflowWithHistory({ nodes: [webhook('Orders')] }, team);
+
+		expect((await violationsOf(ownerAgent, workflow.id)).body.data).toEqual([]);
+	});
+
+	test('should refuse a user who cannot publish the workflow', async () => {
+		const workflow = await createWorkflowWithHistory({ nodes: [webhook('Orders')] }, team);
+
+		expect((await violationsOf(memberAgent, workflow.id)).status).toBe(403);
+	});
+});

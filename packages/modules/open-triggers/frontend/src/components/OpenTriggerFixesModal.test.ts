@@ -125,7 +125,7 @@ describe('OpenTriggerFixesModal', () => {
 		await userEvent.click(await screen.findByTestId('open-trigger-apply-fix'));
 
 		await waitFor(() =>
-			expect(showError).toHaveBeenCalledWith(error, 'Could not add the authentication'),
+			expect(showError).toHaveBeenCalledWith(error, "Couldn't add the authentication"),
 		);
 		expect(screen.queryByTestId('open-trigger-fixed')).not.toBeInTheDocument();
 	});

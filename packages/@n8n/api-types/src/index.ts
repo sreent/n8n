@@ -882,6 +882,8 @@ export {
 } from './schemas/eval-insights.schema';
 
 export { ALLOWED_DOMAINS, isAllowedDomain } from './utils/allowed-domains';
+// Fork: the rule of the open-triggers module, shared by the backend and the editor.
+export { openTriggerKindOf, type OpenTriggerKindOptions } from './utils/open-trigger-kind';
 
 export type { PublishTimelineEvent } from './schemas/workflow-publish-timeline.schema';
 export {

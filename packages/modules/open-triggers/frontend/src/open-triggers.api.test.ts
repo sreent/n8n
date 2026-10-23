@@ -1,4 +1,4 @@
-import { getOpenTriggers } from './open-triggers.api';
+import { getOpenTriggers, getPublishViolations } from './open-triggers.api';
 
 const makeRestApiRequest = vi.fn();
 vi.mock('@n8n/rest-api-client', async (importOriginal) => ({
@@ -14,5 +14,16 @@ describe('open triggers API', () => {
 
 		expect(await getOpenTriggers(context)).toEqual([]);
 		expect(makeRestApiRequest).toHaveBeenCalledWith(context, 'GET', '/open-triggers');
+	});
+
+	it('reads the violations that would stop a publish of a workflow', async () => {
+		makeRestApiRequest.mockResolvedValue([]);
+
+		expect(await getPublishViolations(context, 'wf-1')).toEqual([]);
+		expect(makeRestApiRequest).toHaveBeenCalledWith(
+			context,
+			'GET',
+			'/open-triggers/workflows/wf-1/violations',
+		);
 	});
 });
