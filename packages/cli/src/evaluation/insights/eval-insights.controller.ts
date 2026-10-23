@@ -5,6 +5,7 @@ import { Body, Post, ProjectScope, RestController } from '@n8n/decorators';
 import { ForbiddenError, NotFoundError } from '@n8n/errors';
 import type { Response } from 'express';
 
+import { ForkFeaturesConfig } from '@/fork-features';
 import { PostHogClient } from '@/posthog';
 
 import { EvalInsightsService } from './eval-insights.service';
@@ -14,8 +15,9 @@ type CollectionParams = { workflowId: string; collectionId: string };
 /**
  * Fork code (not in upstream n8n): the insights of an evaluation collection
  * (`POST /rest/workflows/:workflowId/eval-collections/:collectionId/insights`). It needs the
- * PostHog flag of collections and the licence feature `feat:aiAssistant`. It replaces the
- * enterprise controller of the same name. See `../FORK.md`.
+ * PostHog flag of collections. It replaces the enterprise controller of the same name, which also
+ * needs the licence feature `feat:aiAssistant`. The fork insights ask no language model, so the
+ * route needs that feature only while the fork switch is off. See `../FORK.md`.
  */
 @RestController('/workflows')
 export class EvalInsightsController {
@@ -23,6 +25,7 @@ export class EvalInsightsController {
 		private readonly evalInsightsService: EvalInsightsService,
 		private readonly postHogClient: PostHogClient,
 		private readonly licenseState: LicenseState,
+		private readonly forkFeatures: ForkFeaturesConfig,
 	) {}
 
 	@Post('/:workflowId/eval-collections/:collectionId/insights')
@@ -33,7 +36,7 @@ export class EvalInsightsController {
 		@Body _payload: GenerateInsightsDto,
 	) {
 		await this.assertFlagEnabled(req.user);
-		if (!this.licenseState.isAiAssistantLicensed()) {
+		if (!this.forkFeatures.enabled && !this.licenseState.isAiAssistantLicensed()) {
 			throw new ForbiddenError('AI Assistant license required for eval-collection insights');
 		}
 		const { workflowId, collectionId } = req.params;
