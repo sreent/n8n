@@ -16,6 +16,11 @@ and the platform setup tool.
 The owner accepted a second exception on 2026-10-21: four more deployment options in `deploy/`,
 next to the VM. They are Google Cloud Run, Amazon ECS, Azure Container Apps and Kubernetes.
 
+The owner accepted the uniformity fixes on 2026-10-23. Core n8n, the rebuilt enterprise features
+and the features of the fork must work as one product: the same tech stack, architecture,
+patterns, design system, copy and user experience. The fixes close the gaps that an audit found.
+`deploy/` also stops the telemetry, the "What's new" notes and the update notices of n8n.
+
 a7c is a new product in `sreent/a7c`. Other companies will use it, so it contains no n8n code.
 The licence of n8n allows changes for internal business use only (`LICENSE.md`).
 
@@ -223,6 +228,10 @@ update can bring new enterprise files: see "Upstream updates".
 
 - **No new features.** Do not add fork features (see "Feature freeze"). Put new work in a7c. Do
   not copy code from this fork into a7c.
+- **Uniformity.** Build fork code as core n8n builds its code: the same stack, module
+  architecture, patterns, design system and copy rules (`AGENTS.md`, the module guides and
+  `.agents/skills`). When a safety default of the fork changes a core flow, the editor tells the
+  user why and offers the fix at that place.
 - **Clean room.** Do not open, read, edit, copy or search the contents of enterprise files
   (`*.ee.*` files and `*.ee/` folders), also not their build output in `dist/`, the Git history
   or upstream. Exclude them from searches, for example
