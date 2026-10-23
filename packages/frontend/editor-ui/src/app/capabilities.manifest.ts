@@ -14,6 +14,9 @@ import {
 } from '@/app/stores/workflowDocument.store';
 import { useWorkflowsListStore } from '@/app/stores/workflowsList.store';
 import { useExposeAllWorkflowsToMcpStore } from '@/experiments/exposeAllWorkflowsToMcp/stores/exposeAllWorkflowsToMcp.store';
+// Experiment cleanup (123_surface_mcp_to_claude_trial_users)
+import { mcpDiscoverySettings } from '@/experiments/surfaceMcpToClaudeTrialUsers/mcpDiscoverySettings';
+// EOF Experiment cleanup
 
 /**
  * Shell actions that a module calls but cannot import — the counterpart to
@@ -86,6 +89,9 @@ export const registerShellCapabilities = () => {
 	capabilityRegistry.provide(capabilities.modalOpeners, modalOpeners);
 	capabilityRegistry.provide(capabilities.workflowMcpAccessSync, syncWorkflowMcpAccess);
 	capabilityRegistry.provide(capabilities.mcpExposeAllOffer, mcpExposeAllOffer);
+	// Experiment cleanup (123_surface_mcp_to_claude_trial_users)
+	capabilityRegistry.provide(capabilities.mcpDiscoverySettings, mcpDiscoverySettings);
+	// EOF Experiment cleanup
 	// Fork module (not in upstream n8n): lets the send-copy modal close itself.
 	capabilityRegistry.provide(sendCopyModalCloser, closeModuleModal);
 	// Fork module (not in upstream n8n): the modal of the open-trigger fixes.

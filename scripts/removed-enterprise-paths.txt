@@ -87,6 +87,7 @@ packages/@n8n/db/src/entities/test-case-execution.ee.ts
 packages/@n8n/db/src/entities/test-run.ee.ts
 packages/@n8n/db/src/repositories/test-case-execution.repository.ee.ts
 packages/@n8n/db/src/repositories/test-run.repository.ee.ts
+packages/@n8n/db/src/repositories/__tests__/test-run.repository.ee.test.ts
 packages/@n8n/db/src/utils/__tests__/get-test-run-final-result.ee.test.ts
 packages/cli/test/integration/test-run.repository.ee.test.ts
 

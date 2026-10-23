@@ -50,6 +50,7 @@ import { useTrialIntroModalStore } from '@/experiments/trialIntroModal/stores/tr
 import EmptyStateLayout from '@/app/components/layouts/EmptyStateLayout.vue';
 import { useReadyToRunStore } from '@/features/workflows/readyToRun/stores/readyToRun.store';
 import { useEmptyStateDetection } from '@/features/workflows/readyToRun/composables/useEmptyStateDetection';
+import { useAgentListStore } from '@/features/agents/agentList.store';
 import { InsightsSummary, useInsightsStore } from '@n8n/frontend-module-insights';
 import { useWorkflowsEmptyState } from '@/features/workflows/composables/useWorkflowsEmptyState';
 import type {
@@ -63,6 +64,7 @@ import type {
 	WorkflowResource,
 } from '@/Interface';
 import { useFoldersStore } from '@/features/core/folders/folders.store';
+import { foldersEventBus } from '@/features/core/folders/folders.eventBus';
 import { useFavoritesStore } from '@/app/stores/favorites.store';
 import { usePostHog } from '@/app/stores/posthog.store';
 import { WORKFLOW_CARD_MCP_TOGGLE_EXPERIMENT } from '@/app/constants/experiments';
@@ -79,9 +81,11 @@ import { useWorkflowsListStore } from '@/app/stores/workflowsList.store';
 import { useCredentialsStore } from '@/features/credentials/credentials.store';
 import { useEnvironmentsStore } from '@/features/settings/environments/environments.store';
 import { useDataTableStore } from '@/features/core/dataTable/dataTable.store';
-import { MCP_SETTINGS_VIEW } from '@/features/ai/mcpAccess/mcp.constants';
-import { useMCPStore } from '@/features/ai/mcpAccess/mcp.store';
-import type { ToggleWorkflowsMcpAccessResponse } from '@/features/ai/mcpAccess/mcp.api';
+import {
+	MCP_SETTINGS_VIEW,
+	useMCPStore,
+	type ToggleWorkflowsMcpAccessResponse,
+} from '@n8n/frontend-module-mcp';
 import {
 	type Project,
 	type ProjectSharingData,
@@ -92,6 +96,7 @@ import { useI18n } from '@n8n/i18n';
 import { getResourcePermissions } from '@n8n/permissions';
 import { createEventBus } from '@n8n/utils/event-bus';
 import debounce from 'lodash/debounce';
+import isEqual from 'lodash/isEqual';
 import { type IUser, PROJECT_ROOT } from 'n8n-workflow';
 import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue';
 import { type LocationQueryRaw, useRoute, useRouter } from 'vue-router';
@@ -167,6 +172,7 @@ const readyToRunWorkflowsStore = useReadyToRunWorkflowsStore();
 const personalizedTemplatesV2Store = usePersonalizedTemplatesV2Store();
 const personalizedTemplatesV3Store = usePersonalizedTemplatesV3Store();
 const readyToRunStore = useReadyToRunStore();
+const agentListStore = useAgentListStore();
 const trialIntroModalStore = useTrialIntroModalStore();
 
 const documentTitle = useDocumentTitle();
@@ -668,6 +674,11 @@ const refreshWorkflows = async () => {
 	]);
 };
 
+const onFolderCreated = async (payload: { projectId: string }) => {
+	if (currentBreadcrumbsProject.value?.id !== payload.projectId) return;
+	await refreshWorkflows();
+};
+
 const onFolderDeleted = async (payload: {
 	folderId: string;
 	workflowCount: number;
@@ -741,6 +752,7 @@ onMounted(async () => {
 	workflowListEventBus.on('folder-transferred', onFolderTransferred);
 	workflowListEventBus.on('workflow-moved', onWorkflowMoved);
 	workflowListEventBus.on('workflow-transferred', onWorkflowTransferred);
+	foldersEventBus.on('folder-created', onFolderCreated);
 	promotionEventBus.on('applied', onPromotionApplied);
 });
 
@@ -753,6 +765,7 @@ onBeforeUnmount(() => {
 	workflowListEventBus.off('folder-transferred', onFolderTransferred);
 	workflowListEventBus.off('workflow-moved', onWorkflowMoved);
 	workflowListEventBus.off('workflow-transferred', onWorkflowTransferred);
+	foldersEventBus.off('folder-created', onFolderCreated);
 });
 
 /**
@@ -773,6 +786,7 @@ const fetchEmptyStateData = async () => {
 			credentialsStore.fetchAllCredentials(),
 			variablesEnabled ? environmentsStore.fetchAllVariables() : Promise.resolve(),
 			dataTablesEnabled ? dataTableStore.fetchDataTables('', 1, 1) : Promise.resolve(),
+			settingsStore.isAgentsEnabled ? agentListStore.fetchTotalCount() : Promise.resolve(),
 		]);
 	} catch (error) {
 		toast.showError(error, i18n.baseText('workflows.list.error.fetching.emptyStateData'));
@@ -1048,6 +1062,7 @@ const saveFiltersOnQueryString = () => {
 };
 
 const setFiltersFromQueryString = async () => {
+	const { fullPath } = route;
 	const newQuery: LocationQueryRaw = { ...route.query };
 	const { tags, status, search, homeProject, sort, showArchived } = route.query ?? {};
 
@@ -1118,7 +1133,13 @@ const setFiltersFromQueryString = async () => {
 		filters.value.showArchived = false;
 	}
 
-	void router.replace({ query: newQuery });
+	// The route changed while the stores loaded. Do not write this query onto the new route.
+	if (route.fullPath !== fullPath) return;
+
+	// A replace cancels any pending navigation, e.g. a tab click made while this view loads.
+	if (!isEqual(newQuery, route.query)) {
+		void router.replace({ query: newQuery });
+	}
 };
 
 // Misc methods
@@ -2232,7 +2253,7 @@ const onNameSubmit = async (name: string) => {
 				<template #trailingContent>
 					<div :class="$style['callout-trailing-content']">
 						<N8nButton
-							variant="subtle"
+							variant="outline"
 							data-test-id="easy-ai-button"
 							size="small"
 							@click="createAIStarterWorkflows('callout')"
@@ -2270,7 +2291,7 @@ const onNameSubmit = async (name: string) => {
 				<template #trailingContent>
 					<div :class="$style['callout-trailing-content']">
 						<N8nButton
-							variant="subtle"
+							variant="outline"
 							data-test-id="easy-ai-button"
 							size="small"
 							@click="handleCreateReadyToRunWorkflows('callout')"

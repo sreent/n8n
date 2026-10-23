@@ -470,9 +470,16 @@ const onSelect = (action: string, source: CreateSource) => {
 			<div :class="$style.projectDetails">
 				<ProjectIcon v-if="showProjectIcon" :icon="headerIcon" :border-less="true" size="medium" />
 				<div :class="$style.headerActions">
-					<N8nHeading v-if="projectName" bold tag="h2" size="xlarge" data-test-id="project-name">{{
-						projectName
-					}}</N8nHeading>
+					<div :class="$style.titleRow">
+						<N8nHeading
+							v-if="projectName"
+							bold
+							tag="h2"
+							size="xlarge"
+							data-test-id="project-name"
+							>{{ projectName }}</N8nHeading
+						>
+					</div>
 					<N8nText v-if="sectionDescription" color="text-light" data-test-id="project-subtitle">
 						{{ sectionDescription }}
 					</N8nText>
@@ -512,6 +519,7 @@ const onSelect = (action: string, source: CreateSource) => {
 						<ProjectCreateResource
 							data-test-id="add-resource-buttons"
 							:actions="menu"
+							variant="brand"
 							:disabled="sourceControlStore.preferences.branchReadOnly"
 							@action="(action: string) => onSelect(action, 'dropdown')"
 						>
@@ -519,6 +527,7 @@ const onSelect = (action: string, source: CreateSource) => {
 								:data-test-id="`add-resource-${selectedMainButtonType}`"
 								v-bind="mainButtonConfig"
 								size="medium"
+								variant="brand"
 								@click="onSelect(selectedMainButtonType, 'button')"
 							/>
 						</ProjectCreateResource>
@@ -590,6 +599,12 @@ const onSelect = (action: string, source: CreateSource) => {
 	&.favoriteBtnActive {
 		color: var(--color--yellow-500);
 	}
+}
+
+.titleRow {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing--2xs);
 }
 
 .projectDetails:hover .favoriteBtn {

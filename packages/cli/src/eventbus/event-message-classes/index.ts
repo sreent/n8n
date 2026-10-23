@@ -79,6 +79,7 @@ export const eventNamesExecution = [
 export const eventNamesAudit = [
 	'n8n.audit.user.login.success',
 	'n8n.audit.user.login.failed',
+	'n8n.audit.user.login.emailConflict',
 	'n8n.audit.user.signedup',
 	'n8n.audit.user.updated',
 	'n8n.audit.user.deleted',
@@ -161,6 +162,8 @@ export const eventNamesAudit = [
 	'n8n.audit.credentials.authorize.rejected',
 	'n8n.audit.workflow-reviews.enabled',
 	'n8n.audit.workflow-reviews.disabled',
+	'n8n.audit.public-api-rate-limit.enabled',
+	'n8n.audit.public-api-rate-limit.disabled',
 	'n8n.audit.workflow-review.requested',
 	'n8n.audit.workflow-review.version-updated',
 	'n8n.audit.workflow-review.approved',
@@ -172,6 +175,9 @@ export const eventNamesAudit = [
 	'n8n.audit.node-type-policy.document.deleted',
 	'n8n.audit.node-type-policy.attachments.updated',
 	'n8n.audit.policy.decision.blocked',
+	'n8n.audit.trusted-source.created',
+	'n8n.audit.trusted-source.updated',
+	'n8n.audit.trusted-source.deleted',
 	// Fork: the audit events of the governance actions of the fork features.
 	...forkEventNamesAudit,
 ] as const;

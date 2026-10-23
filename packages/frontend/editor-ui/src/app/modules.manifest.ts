@@ -1,15 +1,16 @@
 import type { FrontendModuleDescription } from '@n8n/frontend-module-sdk';
 import { DataTableModule } from '@/features/core/dataTable/module.descriptor';
-import { MCPModule } from '@/features/ai/mcpAccess/module.descriptor';
+import { MCPModule } from '@n8n/frontend-module-mcp/mcp.module';
 import { ChatModule } from '@/features/ai/chatHub/module.descriptor';
 import { InstanceAiModule } from '@/features/ai/instanceAi/module.descriptor';
 import { AgentsModule } from '@/features/agents/module.descriptor';
-import { WorkflowReviewsModule } from '@/features/workflow-reviews/module.descriptor';
+import { InboxModule } from '@n8n/frontend-module-inbox';
 import { InstanceRegistryModule } from '@n8n/frontend-module-instance-registry';
 import { OtelModule } from '@n8n/frontend-module-otel';
 import { InsightsModule } from '@n8n/frontend-module-insights/insights.module';
 import { PromotionsModule } from '@/features/integrations/promotions/module.descriptor';
 import { ContextModule } from '@/features/settings/context/module.descriptor';
+import { LogStreamingModule } from '@/features/integrations/logStreaming/module.descriptor';
 import { TypeAvailabilityPoliciesModule } from '@n8n/frontend-module-type-availability-policies';
 import { SendCopyModule } from '@n8n/frontend-module-send-copy';
 import { GitSyncModule } from '@n8n/frontend-module-git-sync';
@@ -40,12 +41,13 @@ export const modules: FrontendModuleDescription[] = [
 	InstanceAiModule,
 	AgentsModule,
 	OtelModule,
-	WorkflowReviewsModule,
+	InboxModule,
 	InstanceRegistryModule,
 	InsightsModule,
 	PromotionsModule,
 	ContextModule,
 	TypeAvailabilityPoliciesModule,
+	LogStreamingModule,
 	SendCopyModule,
 	GitSyncModule,
 	AuditLogModule,

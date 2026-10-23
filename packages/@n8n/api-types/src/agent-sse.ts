@@ -146,6 +146,24 @@ export type AgentSseEvent =
 	  }
 	| { type: 'message'; message: AgentSseMessage }
 	| {
+			/**
+			 * A custom event from a system-agent provider during a turn. The
+			 * client renders it through an extension keyed by `name`. A client
+			 * without an extension for the name ignores it. The runtime records
+			 * the event with the turn, so history returns it as a `host-event`
+			 * content part.
+			 */
+			type: 'host-event';
+			name: string;
+			/**
+			 * Set when the event can update. The client replaces the earlier
+			 * event of the same message with the same name and key, and keeps
+			 * its position.
+			 */
+			key?: string;
+			payload: unknown;
+	  }
+	| {
 			/** A warning message from the MCP server when it fails to connect or initialize. */
 			type: 'warning';
 			message: string;
@@ -165,10 +183,11 @@ export type AgentSseEvent =
 	| {
 			/**
 			 * Preview chat only. Monthly spend crossed the alert line.
-			 * The run continues.
+			 * The run continues. Also emitted when a delegate subagent hits an alert or cap.
 			 */
 			type: 'budget-notice';
-			code: 'budget.alert';
+			code: AgentBudgetNoticeCode;
+			agentId?: string;
 	  }
 	| {
 			type: 'error';
@@ -181,3 +200,15 @@ export type AgentSseEvent =
 			missing?: string[];
 	  }
 	| { type: 'done'; sessionId?: string; executionId?: string };
+
+export type AgentBudgetNoticeCode = 'budget.alert' | 'budget.session' | 'budget.monthly';
+
+/** A budget alert or stop. `agentId` is the budget owner; absent for the run's own agent. */
+export interface AgentBudgetNotice {
+	code: AgentBudgetNoticeCode;
+	agentId?: string; // Only populated for delegated sub-agents.
+}
+
+export function isAgentBudgetNoticeCode(code: string): code is AgentBudgetNoticeCode {
+	return code === 'budget.alert' || code === 'budget.session' || code === 'budget.monthly';
+}
