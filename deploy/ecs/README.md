@@ -155,8 +155,10 @@ database and Redis.
   deploy.
 - **Queue mode** (`mode = "queue"`) runs the main tasks and the workers. The main tasks serve the
   editor, the API and the webhooks, and the workers run the executions. Only the leader of the main
-  tasks runs the schedules and the polling triggers. A deploy starts the new tasks before it stops
-  the old ones.
+  tasks runs the schedules and the polling triggers. The module sets
+  `N8N_MULTI_MAIN_SETUP_ENABLED=true` and `OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS=true`, so the
+  workers also run the manual executions. A deploy starts the new tasks before it stops the old
+  ones.
 
 ## IP limits for webhooks and forms
 
@@ -164,7 +166,9 @@ database and Redis.
 `form_allowed_ranges` limits the addresses that can open and send forms. AWS WAF answers other
 addresses with 403. The editor, the API and the health path have no limit. The load balancer has
 only IPv4 addresses, so the module ignores IPv6 ranges. `alb_allowed_ranges` limits the addresses
-that can reach the load balancer at all.
+that can reach the load balancer at all. The calls of n8n to its own public URL, for example the
+calls of the weekly governance report, come from the address of the NAT gateway, so put that
+address in the ranges.
 
 ## Forgejo and other private hosts
 

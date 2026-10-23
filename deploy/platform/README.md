@@ -22,8 +22,9 @@ flowchart LR
 
 ## Before you start
 
-1. Set up the SSO sign-in. Use OIDC or SAML. With deploy/, set the values of the section "SSO" of
-   `.env` (see [the README of deploy/](../README.md#sso)). Without deploy/, use the page
+1. Set up the SSO sign-in. Use OIDC or SAML. For OIDC with deploy/, set the values of the section
+   "SSO" of `.env`, or the same settings of the other options (see
+   [the README of deploy/](../README.md#sso)). For SAML, or without deploy/, use the page
    Settings > SSO: set **Role assignment** to "Instance and project roles via SSO", and
    **Role mapping method** to "Map rules inside n8n".
 2. In the identity provider, give the n8n application only to the groups of n8n. Then the other
@@ -179,8 +180,9 @@ report (`deploy/workflows/governance-report.json`).
 - It never deletes a team project or a credential.
 - It deletes SSO group rules only with `--prune-rules`.
 - It adds no users to projects. The SSO group rules give the project roles at the sign-in.
-- It does not change the settings of `deploy/.env`: the personal space limits, the workflow
-  reviews and the check of open triggers. `check` reads the personal space limits.
+- It does not change the settings of `deploy/.env`, or the same settings of the other options: the
+  personal space limits, the workflow reviews and the check of open triggers. `check` reads the
+  personal space limits.
 
 ## Tests
 
