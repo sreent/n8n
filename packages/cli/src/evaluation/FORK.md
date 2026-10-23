@@ -91,9 +91,10 @@ the repositories of test runs and test cases are fork files too, see
      with an error code.
 - A cancel stops the cases of a run that this instance runs. For a run of another main instance,
   the run gets the cancellation flag and ends as `cancelled` at once, with its pending cases. The
-  instance that runs it reads the flag before each case, and then stops the run. The pubsub
-  commands `cancel-test-run` and `cancel-collection` stop the runs of a main instance that gets
-  them, but the fork code does not send these commands.
+  instance that runs it reads the flag before each case, and then stops the run. In multi-main
+  mode, the cancel also sends the pubsub command `cancel-test-run` (for a collection,
+  `cancel-collection`). The main instance that runs the run then stops its cases at once, also the
+  cases that run now.
 - When n8n starts, `TestRunCleanupService` marks the runs with the status `new` or `running` as
   `error` with the code `INTERRUPTED`.
 - The limit of parallel cases: `N8N_CONCURRENCY_EVALUATION_LIMIT` when it is set, else the licence
@@ -191,9 +192,10 @@ enterprise files, before the switch, and the fork files give the same snapshot:
   `llm-judge-provider-registry.golden.test.ts`: the cleanup, the limit of parallel cases and the
   providers of the LLM judges.
 
-Fork tests: `evaluation-collections.rerun.test.ts` (the rerun) and
+Fork tests: `evaluation-collections.rerun.test.ts` (the rerun),
 `test-runner/__tests__/workflow-compiler.service.test.ts` (the boolean metrics, a lost end node
-and the version of the chat model). The ordinary tests of the REST API, the public API, the
+and the version of the chat model), and `test-runner/__tests__/test-runner.service.test.ts` (the
+cancel commands of multi-main mode). The ordinary tests of the REST API, the public API, the
 repositories, the migration of the scaling fields, and the modules `agent-evals` and
 `instance-ai` run on the fork files.
 
