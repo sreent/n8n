@@ -8,7 +8,14 @@ import { useToast } from '@n8n/composables/useToast';
 import { useDocumentTitle } from '@/app/composables/useDocumentTitle';
 import { I18nT } from 'vue-i18n';
 
-import { N8nBadge, N8nHeading, N8nInfoTip, N8nText, N8nTooltip } from '@n8n/design-system';
+import {
+	N8nBadge,
+	N8nCallout,
+	N8nHeading,
+	N8nInfoTip,
+	N8nText,
+	N8nTooltip,
+} from '@n8n/design-system';
 
 const usageStore = useUsageStore();
 const toast = useToast();
@@ -75,6 +82,16 @@ onMounted(async () => {
 				</span>
 			</N8nHeading>
 
+			<!-- Fork: the plan of the licence does not tell that the fork switch turns the features on. -->
+			<N8nCallout
+				v-if="usageStore.forkFeaturesEnabled"
+				theme="info"
+				:class="$style.forkFeatures"
+				data-test-id="usage-fork-features"
+			>
+				{{ locale.baseText('settings.usageAndPlan.forkFeatures') }}
+			</N8nCallout>
+
 			<div :class="$style.quota">
 				<N8nText size="medium" color="text-light">
 					{{ locale.baseText('settings.usageAndPlan.activeWorkflows') }}
@@ -110,6 +127,10 @@ onMounted(async () => {
 
 <style lang="scss" module>
 @use '@/app/css/variables' as *;
+
+.forkFeatures {
+	margin-bottom: var(--spacing--lg);
+}
 
 .actionBox {
 	margin: var(--spacing--2xl) 0 0;

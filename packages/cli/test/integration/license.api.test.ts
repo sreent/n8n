@@ -67,6 +67,8 @@ const DEFAULT_LICENSE_RESPONSE: { data: ILicenseReadResponse } = {
 		license: {
 			planId: '',
 			planName: 'Community',
+			// Fork: the cli tests run with the fork switch off (test/setup-fork-features.ts).
+			forkFeaturesEnabled: false,
 		},
 	},
 };

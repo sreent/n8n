@@ -4639,6 +4639,7 @@
 	"settings.api.tabs.mine": "Mine",
 	"settings.api.tabs.all": "All",
 	"settings.version": "Version",
+	"settings.usageAndPlan.forkFeatures": "Fork features are on. Sharing, team projects, SSO, external secrets, and the other rebuilt features of the Enterprise Edition work without a license. Set N8N_FORK_FEATURES_ENABLED=false to turn them off.",
 	"settings.usageAndPlan.title": "Usage and plan",
 	"settings.usageAndPlan.description": "You’re on the {name} {type}",
 	"settings.usageAndPlan.plan": "Plan",

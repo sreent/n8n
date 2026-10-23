@@ -2,6 +2,7 @@ import { LicenseState } from '@n8n/backend-common';
 import { WorkflowRepository } from '@n8n/db';
 import { Service } from '@n8n/di';
 
+import { ForkFeaturesConfig } from '@/fork-features';
 import { License } from '@/license';
 
 // Fork: the fork does not register the Community Edition, request a trial, or activate or renew a
@@ -13,6 +14,7 @@ export class LicenseService {
 		private readonly license: License,
 		private readonly licenseState: LicenseState,
 		private readonly workflowRepository: WorkflowRepository,
+		private readonly forkFeaturesConfig: ForkFeaturesConfig,
 	) {}
 
 	async getLicenseData() {
@@ -37,6 +39,8 @@ export class LicenseService {
 			license: {
 				planId: mainPlan?.productId ?? '',
 				planName: this.license.getPlanName(),
+				// The page Settings > Usage and plan tells that the fork switch turns the features on.
+				forkFeaturesEnabled: this.forkFeaturesConfig.enabled,
 			},
 		};
 	}
