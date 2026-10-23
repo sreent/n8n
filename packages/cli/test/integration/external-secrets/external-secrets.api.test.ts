@@ -1,7 +1,7 @@
 import { LicenseState } from '@n8n/backend-common';
 import type { EventService } from '@n8n/backend-services';
 import { mockInstance, mockLogger } from '@n8n/backend-test-utils';
-import { ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository } from '@n8n/db';
+import { SecretsProviderConnectionRepository } from '@n8n/db';
 import { Container } from '@n8n/di';
 import { Cipher } from 'n8n-core';
 import { CREDENTIAL_BLANKING_VALUE, type IDataObject } from 'n8n-workflow';

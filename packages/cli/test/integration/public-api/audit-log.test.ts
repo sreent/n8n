@@ -209,6 +209,16 @@ describe('GET /audit-log/events', () => {
 
 		await testServer.publicApiAgentFor(owner).get('/audit-log/events').expect(503);
 	});
+
+	test('returns 403 without the licence value of the module', async () => {
+		testServer.license.disable('feat:logStreaming');
+		try {
+			await testServer.publicApiAgentFor(owner).get('/audit-log/events').expect(403);
+			await testServer.publicApiAgentFor(owner).get('/audit-log/export').expect(403);
+		} finally {
+			testServer.license.enable('feat:logStreaming');
+		}
+	});
 });
 
 describe('GET /audit-log/export', () => {

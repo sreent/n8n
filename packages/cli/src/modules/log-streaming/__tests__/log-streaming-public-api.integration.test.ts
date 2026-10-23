@@ -187,11 +187,22 @@ describe('access', () => {
 		await agent.get(`${BASE}/destinations/${id}`).expect(403);
 	});
 
-	it('answers 403 while the module is off', async () => {
+	it('answers 403 without the licence value, as upstream n8n does', async () => {
+		testServer.license.disable('feat:logStreaming');
+		try {
+			const response = await ownerAgent().get(`${BASE}/destinations`).expect(403);
+
+			expect(response.body.message).toContain('feat:logStreaming');
+		} finally {
+			testServer.license.enable('feat:logStreaming');
+		}
+	});
+
+	it('answers 503 while the module is off, as the promotions routes do', async () => {
 		vi.spyOn(Container.get(ModuleRegistry), 'isActive').mockReturnValue(false);
 
-		const response = await ownerAgent().get(`${BASE}/destinations`).expect(403);
+		const response = await ownerAgent().get(`${BASE}/destinations`).expect(503);
 
-		expect(response.body.message).toBe('The log streaming module is turned off');
+		expect(response.body.message).toBe('The log streaming module is not enabled');
 	});
 });

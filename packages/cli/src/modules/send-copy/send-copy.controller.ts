@@ -1,5 +1,14 @@
 import type { AuthenticatedRequest } from '@n8n/db';
-import { Body, Get, GlobalScope, Param, Post, Query, RestController } from '@n8n/decorators';
+import {
+	Body,
+	Get,
+	GlobalScope,
+	Param,
+	Post,
+	ProjectScope,
+	Query,
+	RestController,
+} from '@n8n/decorators';
 
 import { ListCopyRecipientsQueryDto, SendWorkflowCopyDto } from './send-copy.dto';
 import { SendCopyService } from './send-copy.service';
@@ -22,13 +31,11 @@ export class SendCopyController {
 		});
 	}
 
-	/**
-	 * Sends a copy of a workflow to colleagues. The service checks that the sender
-	 * can read the workflow.
-	 */
+	/** Sends a copy of a workflow to colleagues. The sender must be able to read the workflow. */
 	@Post('/workflows/:workflowId', {
 		keyedRateLimit: { source: 'user', limit: 30, windowMs: 60_000 },
 	})
+	@ProjectScope('workflow:read')
 	async sendWorkflowCopy(
 		req: AuthenticatedRequest,
 		_res: unknown,

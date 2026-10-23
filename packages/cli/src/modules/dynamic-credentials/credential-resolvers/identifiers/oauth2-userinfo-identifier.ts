@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 
 import { Logger } from '@n8n/backend-common';
 import { Service } from '@n8n/di';
+import { isRecord } from '@n8n/utils/is-record';
 import { createLocalJWKSet, errors as joseErrors, jwtVerify, type JSONWebKeySet } from 'jose';
 import type { ICredentialContext } from 'n8n-workflow';
 
@@ -16,7 +17,6 @@ import {
 	checkAudience,
 	claimValue,
 	extractToken,
-	isRecord,
 	NO_EXPECTED_AUDIENCE_WARNING,
 	type OAuth2Metadata,
 } from './oauth2-utils';

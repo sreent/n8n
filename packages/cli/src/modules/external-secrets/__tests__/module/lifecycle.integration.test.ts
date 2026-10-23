@@ -10,8 +10,8 @@ import { LicenseState } from '@n8n/backend-common';
 import { createTeamProject, mockInstance, testDb, testModules } from '@n8n/backend-test-utils';
 import type { Project } from '@n8n/db';
 import {
-	ExternalSecretsConnectionRepository,
-	ExternalSecretsProjectAccessRepository,
+	SecretsProviderConnectionRepository,
+	ProjectSecretsProviderAccessRepository,
 	SettingsRepository,
 } from '@n8n/db';
 import { Container } from '@n8n/di';
@@ -112,7 +112,7 @@ async function storeConnection(
 	settings: unknown,
 	options: { isEnabled?: boolean; projects?: string[]; asObject?: boolean } = {},
 ) {
-	const repository = Container.get(ExternalSecretsConnectionRepository);
+	const repository = Container.get(SecretsProviderConnectionRepository);
 	const cipher = Container.get(Cipher);
 	const connection = await repository.save(
 		repository.create({
@@ -125,7 +125,7 @@ async function storeConnection(
 		}),
 	);
 	for (const project of options.projects ?? []) {
-		const access = Container.get(ExternalSecretsProjectAccessRepository);
+		const access = Container.get(ProjectSecretsProviderAccessRepository);
 		await access.save(
 			access.create({
 				secretsProviderConnectionId: connection.id,
@@ -249,7 +249,7 @@ describe('Lifecycle of the external secrets module', () => {
 
 	test('a reload by a command with stored connections', async () => {
 		await storeConnection('addedLater', 'another', { username: 'added later' });
-		const repository = Container.get(ExternalSecretsConnectionRepository);
+		const repository = Container.get(SecretsProviderConnectionRepository);
 		await repository.update({ providerKey: 'globalDummy' }, { isEnabled: false });
 		expect(await step('reload command', reloadCommand)).toMatchSnapshot();
 	});

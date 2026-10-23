@@ -63,6 +63,8 @@ export const LOG_SCOPES = [
 	'git-sync',
 	'audit-log',
 	'log-streaming',
+	'ai-gateway',
+	'open-triggers',
 ] as const;
 
 export type LogScope = (typeof LOG_SCOPES)[number];

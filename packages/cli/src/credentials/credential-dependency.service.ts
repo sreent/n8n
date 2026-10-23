@@ -2,7 +2,7 @@ import type { CredentialDependencyType } from '@n8n/db';
 import {
 	CredentialDependencyRepository,
 	EXTERNAL_SECRET_PROVIDER_DEPENDENCY_TYPE,
-	ExternalSecretsConnectionRepository as SecretsProviderConnectionRepository,
+	SecretsProviderConnectionRepository,
 } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { In, type EntityManager } from '@n8n/typeorm';

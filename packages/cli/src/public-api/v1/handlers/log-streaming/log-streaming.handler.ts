@@ -8,16 +8,20 @@ import { eventNamesAll } from '@/eventbus/event-message-classes';
 
 import type { LogStreamingRequest } from '../../../types';
 import type { PublicAPIEndpoint } from '../../shared/handler.types';
-import { apiKeyHasScopeWithGlobalScopeFallback } from '../../shared/middlewares/global.middleware';
+import {
+	apiKeyHasScopeWithGlobalScopeFallback,
+	isLicensed,
+} from '../../shared/middlewares/global.middleware';
 
 /*
  * Fork handler (upstream n8n calls its enterprise log streaming module here). The routes call the
- * fork module `log-streaming`, and need no licence. They answer 403 while the module is off.
+ * fork module `log-streaming`. As in upstream n8n, they answer 403 without the licence value, which
+ * the fork switch gives. They answer 503 while the module is off, as the promotions routes do.
  */
 
 const moduleIsActive = (_req: Request, res: Response, next: NextFunction) => {
 	if (Container.get(ModuleRegistry).isActive('log-streaming')) return next();
-	return res.status(403).json({ message: 'The log streaming module is turned off' });
+	return res.status(503).json({ message: 'The log streaming module is not enabled' });
 };
 
 /** The service and the helpers of the module. The routes load them only when the module is on. */
@@ -54,6 +58,7 @@ type LogStreamingHandlers = {
 
 const logStreamingHandlers: LogStreamingHandlers = {
 	getEventTypes: [
+		isLicensed('feat:logStreaming'),
 		moduleIsActive,
 		apiKeyHasScopeWithGlobalScopeFallback({ scope: 'eventBusDestination:list' }),
 		async (_req, res) => {
@@ -62,6 +67,7 @@ const logStreamingHandlers: LogStreamingHandlers = {
 	],
 
 	getDestinations: [
+		isLicensed('feat:logStreaming'),
 		moduleIsActive,
 		apiKeyHasScopeWithGlobalScopeFallback({ scope: 'eventBusDestination:list' }),
 		async (_req, res) => {
@@ -72,6 +78,7 @@ const logStreamingHandlers: LogStreamingHandlers = {
 	],
 
 	getDestination: [
+		isLicensed('feat:logStreaming'),
 		moduleIsActive,
 		apiKeyHasScopeWithGlobalScopeFallback({ scope: 'eventBusDestination:read' }),
 		async (req, res) => {
@@ -81,6 +88,7 @@ const logStreamingHandlers: LogStreamingHandlers = {
 	],
 
 	createDestination: [
+		isLicensed('feat:logStreaming'),
 		moduleIsActive,
 		apiKeyHasScopeWithGlobalScopeFallback({ scope: 'eventBusDestination:create' }),
 		async (req, res) => {
@@ -93,6 +101,7 @@ const logStreamingHandlers: LogStreamingHandlers = {
 
 	/** Changes the fields of the body. The fields that the body leaves out keep their values. */
 	updateDestination: [
+		isLicensed('feat:logStreaming'),
 		moduleIsActive,
 		apiKeyHasScopeWithGlobalScopeFallback({ scope: 'eventBusDestination:update' }),
 		async (req, res) => {
@@ -105,6 +114,7 @@ const logStreamingHandlers: LogStreamingHandlers = {
 	],
 
 	testDestination: [
+		isLicensed('feat:logStreaming'),
 		moduleIsActive,
 		apiKeyHasScopeWithGlobalScopeFallback({ scope: 'eventBusDestination:test' }),
 		async (req, res) => {
@@ -121,6 +131,7 @@ const logStreamingHandlers: LogStreamingHandlers = {
 	],
 
 	deleteDestination: [
+		isLicensed('feat:logStreaming'),
 		moduleIsActive,
 		apiKeyHasScopeWithGlobalScopeFallback({ scope: 'eventBusDestination:delete' }),
 		async (req, res) => {

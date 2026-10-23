@@ -1,6 +1,6 @@
 import { Logger } from '@n8n/backend-common';
 import { EventService } from '@n8n/backend-services';
-import { ExternalSecretsConnectionRepository, type SecretsProviderConnection } from '@n8n/db';
+import { SecretsProviderConnectionRepository, type SecretsProviderConnection } from '@n8n/db';
 import { OnPubSubEvent } from '@n8n/decorators';
 import { Container, Service } from '@n8n/di';
 import { ensureError } from '@n8n/utils/errors/ensure-error';
@@ -52,7 +52,7 @@ export class ExternalSecretsManager implements IExternalSecretsManager {
 		private readonly providerLifecycle: ExternalSecretsProviderLifecycle,
 		_providerConnectionManager: ExternalSecretsProviderConnectionManager,
 		private readonly secretsCache: ExternalSecretsSecretsCache,
-		private readonly connectionRepository: ExternalSecretsConnectionRepository,
+		private readonly connectionRepository: SecretsProviderConnectionRepository,
 		private readonly cipher: Cipher,
 	) {
 		this.logger = this.logger.scoped('external-secrets');

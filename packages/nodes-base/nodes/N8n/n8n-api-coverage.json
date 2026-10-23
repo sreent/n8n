@@ -5,6 +5,12 @@
 			"status": "covered",
 			"nodeOperation": "audit:generate"
 		},
+		"GET /audit-log/events": {
+			"status": "gap"
+		},
+		"GET /audit-log/export": {
+			"status": "gap"
+		},
 		"GET /roles": {
 			"status": "gap"
 		},
@@ -84,6 +90,9 @@
 			"status": "gap"
 		},
 		"GET /insights/summary": {
+			"status": "gap"
+		},
+		"GET /insights/by-workflow": {
 			"status": "gap"
 		},
 		"GET /executions": {
@@ -205,6 +214,12 @@
 		"GET /workflows/{workflowId}/test-runs/{runId}/test-cases": {
 			"status": "gap"
 		},
+		"GET /inventory/workflows": {
+			"status": "gap"
+		},
+		"GET /inventory/open-triggers": {
+			"status": "gap"
+		},
 		"GET /users": {
 			"status": "gap"
 		},
@@ -218,6 +233,9 @@
 			"status": "gap"
 		},
 		"PATCH /users/{userId}/role": {
+			"status": "gap"
+		},
+		"GET /api-keys": {
 			"status": "gap"
 		},
 		"POST /source-control/pull": {

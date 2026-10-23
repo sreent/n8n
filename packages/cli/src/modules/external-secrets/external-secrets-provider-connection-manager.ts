@@ -1,4 +1,4 @@
-import { ExternalSecretsConnectionRepository, type SecretsProviderConnection } from '@n8n/db';
+import { SecretsProviderConnectionRepository, type SecretsProviderConnection } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { Cipher } from 'n8n-core';
 import { type IDataObject, jsonParse } from 'n8n-workflow';
@@ -10,7 +10,7 @@ import { type IDataObject, jsonParse } from 'n8n-workflow';
 @Service()
 export class ExternalSecretsProviderConnectionManager {
 	constructor(
-		private readonly connectionRepository: ExternalSecretsConnectionRepository,
+		private readonly connectionRepository: SecretsProviderConnectionRepository,
 		private readonly cipher: Cipher,
 	) {}
 

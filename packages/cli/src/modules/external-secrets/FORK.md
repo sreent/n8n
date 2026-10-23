@@ -238,13 +238,13 @@ The provider uses the GCP SDK (`@google-cloud/secret-manager`), which makes its 
 
 ### The repositories (`@n8n/db`)
 
-`ExternalSecretsConnectionRepository` (the table `secrets_provider_connection`) and
-`ExternalSecretsProjectAccessRepository` (the table `project_secrets_provider_access`) are fork
-repositories in `@n8n/db`. The fork module and ordinary code use them in place of the enterprise
-`SecretsProviderConnectionRepository` and `ProjectSecretsProviderAccessRepository`. Ordinary code
-imports them under the names of the enterprise repositories, so only the import lines of the
-upstream files change. The enterprise repositories had more methods, which only the enterprise
-module used.
+`SecretsProviderConnectionRepository` (the table `secrets_provider_connection`) and
+`ProjectSecretsProviderAccessRepository` (the table `project_secrets_provider_access`) are fork
+repositories in `@n8n/db`, in the files `external-secrets-connection.repository.ts` and
+`external-secrets-project-access.repository.ts`. The fork module and ordinary code use them in
+place of the enterprise repositories. They have the names of the enterprise repositories, so
+ordinary code and the upstream tests use them without a change. The enterprise repositories had
+more methods, which only the enterprise module used.
 
 A connection without access rows is global. A connection loads its access rows, and each row loads
 its project (eager relations of the entities). The queries of the connection repository:

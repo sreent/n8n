@@ -45,7 +45,9 @@ export class OpenTriggerTestCallGuard implements TestWebhookCallGuard {
 		private readonly service: OpenTriggersService,
 		private readonly authService: AuthService,
 		private readonly logger: Logger,
-	) {}
+	) {
+		this.logger = this.logger.scoped('open-triggers');
+	}
 
 	async check(request: Request, workflow: IWorkflowBase, node: INode): Promise<void> {
 		if (!this.config.needApproval || !workflow.id) return;

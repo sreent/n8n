@@ -2,9 +2,10 @@ import { OutboundHttp, type HttpRequestClient } from '@n8n/backend-network';
 import { CredentialResolverError } from '@n8n/decorators';
 import { Service } from '@n8n/di';
 import { ensureError } from '@n8n/utils/errors/ensure-error';
+import { isRecord } from '@n8n/utils/is-record';
 import type { IHttpRequestOptions } from 'n8n-workflow';
 
-import { isRecord, oauth2MetadataSchema, type OAuth2Metadata } from './oauth2-utils';
+import { oauth2MetadataSchema, type OAuth2Metadata } from './oauth2-utils';
 
 export type HttpAnswer = { status: number; body: unknown };
 

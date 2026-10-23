@@ -99,7 +99,9 @@ export class AiGatewaySettingsService {
 	constructor(
 		private readonly settingsRepository: SettingsRepository,
 		private readonly logger: Logger,
-	) {}
+	) {
+		this.logger = this.logger.scoped('ai-gateway');
+	}
 
 	/** Reads the settings, and reads them again every 30 seconds. */
 	async init() {

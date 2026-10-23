@@ -279,7 +279,9 @@ export class AiGatewayProxyService {
 		private readonly outboundHttp: OutboundHttp,
 		private readonly globalConfig: GlobalConfig,
 		private readonly licenseState: LicenseState,
-	) {}
+	) {
+		this.logger = this.logger.scoped('ai-gateway');
+	}
 
 	/** Forgets the decrypted credentials, for example after a change of the settings. */
 	clearCredentialCache() {

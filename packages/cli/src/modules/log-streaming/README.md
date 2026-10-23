@@ -182,8 +182,9 @@ files of upstream.
   the fields that the public API does not show.
 - When the environment manages the destinations, `POST`, `PUT` and `DELETE` answer with the status
   409.
-- The fork needs no licence for these routes, although the upstream OpenAPI text tells so. While
-  the module is off, the routes answer with the status 403.
+- As in upstream n8n, the routes need the licence value `feat:logStreaming`, which the fork switch
+  gives (`packages/cli/src/fork-features.ts`). Without it, they answer with the status 403. While
+  the module is off, they answer with the status 503, as the promotions routes of n8n do.
 
 ## Limits
 
