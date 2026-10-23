@@ -50,6 +50,10 @@ them. The n8n Assistant can use your own model (`N8N_INSTANCE_AI_*`).
 
 ## How to build a fork feature
 
+The feature freeze of [FORK.md](FORK.md#feature-freeze) stops new fork features. Use these steps
+only for a rebuild that the owner chooses, for example of an enterprise feature that an upstream
+update brings.
+
 1. **Write the spec first.** Put it in the README of the new fork module, before the code. Name
    the sources that you used.
 2. **Use only clean-room sources:**
@@ -69,24 +73,6 @@ them. The n8n Assistant can use your own model (`N8N_INSTANCE_AI_*`).
    FORK.md: add permission scopes as `packages/@n8n/permissions/FORK.md` tells, and make no
    changes to licence checks around enterprise code.
 5. **Update this file:** the status, the module and the spec.
-
-## Priorities
-
-The owner chose these on 2026-10-04:
-
-1. Team projects and roles (sharing, project roles, the admin role, custom roles, API key scopes).
-   Needs step 2 (our own permission core, done) and step 3 (our own project and sharing
-   services, done). Sharing, team projects, the project roles, the admin role and custom roles
-   turn on in step 5 of FORK.md, when no enterprise code is left (the owner chose this on
-   2026-10-09).
-2. SSO: OIDC first, then SAML, with role provisioning. A drop-in replacement of the enterprise SSO
-   that turns on in step 5 of FORK.md (the owner chose this on 2026-10-09).
-3. External secrets: a drop-in replacement with all six providers that turns on in step 5 of
-   FORK.md (the owner chose this on 2026-10-10).
-4. An audit log export (in place of log streaming). The owner chose these on 2026-10-11: the fork
-   builds an audit log (the audit events in the database, a settings page, and a CSV or JSON
-   export) and a new log streaming (webhook, syslog and Sentry destinations). Both are on by
-   default, without a licence check, as Git sync is. The audit log keeps the events for 90 days.
 
 ## Status values
 
@@ -113,7 +99,7 @@ The owner chose these on 2026-10-04:
 | Role provisioning | (part of SAML and OIDC) | Set roles from claims of the identity provider. | Fork (`cli/src/modules/provisioning`, step 4): the config, the rules, and the roles of an OIDC or SAML sign-in. The fork deleted the enterprise files (`modules/provisioning.ee`). Licence checks: gated ordinary code | Priority 2. Drop-in replacement. On by default (step 5 of FORK.md). `N8N_FORK_FEATURES_ENABLED=false` turns it off. | [OIDC](https://docs.n8n.io/user-management/oidc/) and [SAML](https://docs.n8n.io/user-management/saml/) role provisioning, `packages/cli/src/modules/provisioning/FORK.md`, public API `role-mapping-rules.public.controller.ts` |
 | MFA enforcement | `feat:mfaEnforcement` | Require two-factor sign-in for all users. | Gated, ordinary code (`mfa/mfa.service.ts`, `auth/auth.service.ts`, the page Settings > Security & policies) | On by default (the owner chose this on 2026-10-14). `N8N_FORK_FEATURES_ENABLED=false` turns it off. An admin who signed in with 2FA turns on the enforcement on Settings > Security & policies, or `N8N_SECURITY_POLICY_MANAGED_BY_ENV=true` with `N8N_MFA_ENFORCED_ENABLED=true` turns it on. It applies to the users who sign in with email and password. | [Two-factor authentication](https://docs.n8n.io/user-management/two-factor-auth/) |
 | External secrets | `feat:externalSecrets` | Credentials read values from a secret store (Vault, AWS, Azure, GCP and others). | Backend: Fork (`cli/src/modules/external-secrets`, step 4), used by ordinary code: the base class, all six providers (HashiCorp Vault, Infisical, 1Password Connect, AWS Secrets Manager, Azure Key Vault and GCP Secrets Manager), the manager, the settings API, the connections API, the project API, the completions, the provider types and the access check. Repositories of the connections: Fork (`@n8n/db`). The editor: Fork (`editor-ui/src/features/integrations/externalSecrets`, step 4), used by ordinary code: the REST clients, the store, and the settings page with one connection for each provider type, with its modal. The settings pages of the connections: Fork (`editor-ui/src/features/integrations/secretsProviders`, step 4), used by ordinary code: the settings page of the connections, the connection modal, the delete modal, and the composables that the settings of a project also use. The fork deleted the enterprise module `modules/external-secrets.ee`, the `@n8n/db` `*.repository.ee.ts` files, the enterprise REST clients and the enterprise editor folders `externalSecrets.ee` and `secretsProviders.ee` | Priority 3. Drop-in replacement with all six providers. On by default (step 5 of FORK.md). `N8N_FORK_FEATURES_ENABLED=false` turns it off. | [External secrets](https://docs.n8n.io/administer/manage-credentials/use-external-secret-stores/), `packages/cli/src/modules/external-secrets/FORK.md`, `test/shared/external-secrets/utils.ts`, the frontend settings type of `@n8n/api-types`, ordinary tests in `test/integration/external-secrets`, `credentials-helper.ts`, `credentials/credential-dependency.service.ts`, `@n8n/db` entities `secrets-provider-connection`, `project-secrets-provider-access`, `ProjectExternalSecrets.vue`, `packages/frontend/editor-ui/src/features/integrations/externalSecrets/FORK.md`, `packages/frontend/editor-ui/src/features/integrations/secretsProviders/FORK.md` |
-| Log streaming | `feat:logStreaming` | Send events to a webhook, syslog or Sentry. | Removed (backend and editor). Audit log: Fork (`cli/src/modules/audit-log` and `modules/audit-log/frontend`, step 4): the backend, which stores the audit events, deletes them after 90 days, and gives them with a CSV or JSON export in the REST API and the public API (`/audit-log`, with the API key scope `auditLogs:manage`), and the page Settings > Audit log. Log streaming: Fork (`cli/src/modules/log-streaming` and `editor-ui/src/features/integrations/logStreaming`, step 4): the backend, which delivers the events to webhook, syslog and Sentry destinations, the REST API `/eventbus`, the public API `/settings/log-streaming`, and the page Settings > Log streaming | Priority 4. Done. On by default, without a licence check. | [Log streaming](https://docs.n8n.io/log-streaming/), `packages/cli/src/eventbus`, destination schemas in `packages/workflow/src/message-event-bus.ts`, `N8N_LOG_STREAMING_*` in `InstanceSettingsLoaderConfig`, removed public API `handlers/log-streaming`, `packages/cli/src/modules/audit-log/README.md`, `packages/modules/audit-log/frontend/README.md`, `packages/cli/src/modules/log-streaming/README.md`, `packages/frontend/editor-ui/src/features/integrations/logStreaming/FORK.md` |
+| Log streaming | `feat:logStreaming` | Send events to a webhook, syslog or Sentry. | The fork deleted the enterprise backend and editor. Audit log: Fork (`cli/src/modules/audit-log` and `modules/audit-log/frontend`, step 4): the backend, which stores the audit events, deletes them after 90 days, and gives them with a CSV or JSON export in the REST API and the public API (`/audit-log`, with the API key scope `auditLogs:manage`), and the page Settings > Audit log. Log streaming: Fork (`cli/src/modules/log-streaming` and `editor-ui/src/features/integrations/logStreaming`, step 4): the backend, which delivers the events to webhook, syslog and Sentry destinations, the REST API `/eventbus`, the public API `/settings/log-streaming`, and the page Settings > Log streaming | Priority 4. Done. On by default (step 5 of FORK.md). `N8N_FORK_FEATURES_ENABLED=false` turns off log streaming and the audit log (the owner chose this on 2026-10-23). Before, they were on without a licence check. | [Log streaming](https://docs.n8n.io/log-streaming/), `packages/cli/src/eventbus`, destination schemas in `packages/workflow/src/message-event-bus.ts`, `N8N_LOG_STREAMING_*` in `InstanceSettingsLoaderConfig`, removed public API `handlers/log-streaming`, `packages/cli/src/modules/audit-log/README.md`, `packages/modules/audit-log/frontend/README.md`, `packages/cli/src/modules/log-streaming/README.md`, `packages/frontend/editor-ui/src/features/integrations/logStreaming/FORK.md` |
 | Source control | `feat:sourceControl` | Git-based environments: push and pull, protected instances. | Fork (`cli/src/modules/source-control`, the rebuild): the REST API, the work folder, the status, the push, the pull, the protected instance, the telemetry and the public API (`/api/v1/source-control`). The fork deleted the enterprise module (`modules/source-control.ee`). Editor: Fork (`editor-ui/src/features/integrations/sourceControl`, the rebuild): the settings page "Environments", the push, pull and result modals, the store `sourceControl` and the requests of the REST API. The fork deleted the enterprise editor (`sourceControl.ee`). | Done. Rebuilt, 3 of 6 (the owner chose this on 2026-10-14). On by default (step 5 of FORK.md). `N8N_FORK_FEATURES_ENABLED=false` turns it off. Git sync (one project, workflows) stays | [Source control](https://docs.n8n.io/source-control-environments/), `packages/cli/src/modules/source-control/README.md`, the FORK.md of the editor folder, `services/instance-write-access.service.ts`, `public-api/v1/controllers/source-control.public.controller.ts`, Git sync README |
 | Git connections | `feat:gitConnections` | Promotions: connect projects to Git and move packages between instances. | Fork (`cli/src/modules/promotions`, the rebuild): the Git providers, the connections, the configurations, the project links, the checkouts, promote, selective promote, the change list, apply with the preflight, and the public API (`/api/v1/promotions`). The packages come from the n8n-packages module. Editor: fork (`editor-ui/src/features/integrations/promotions`, the rebuild): the settings page "Environments v2", the banners of a team project, the selection modal and the dialog of the missing credentials and variables | Done. Rebuilt, 3 of 6 (the owner chose this on 2026-10-14). On by default (step 5 of FORK.md). `N8N_FORK_FEATURES_ENABLED=false` turns it off. It also needs its module (`N8N_ENABLED_MODULES=promotions`), as upstream n8n does not load it by default, and the editor needs `N8N_ENV_FEAT_PROMOTIONS=true`. `deploy/` sets both. Git sync (one project, workflows) stays | `packages/cli/src/modules/promotions/README.md`, the FORK.md of `editor-ui/src/features/integrations/promotions`, `public-api/v1/controllers/promotions.public.controller.ts`, the promotion DTOs in `@n8n/api-types`, the n8n-packages module |
 | LDAP | `feat:ldap` | Sign-in and user sync with an LDAP directory. | Fork (`cli/src/modules/ldap`, the rebuild): the configuration, the test of the connection, the sign-in handler, the synchronization with its timer and history, the REST API `/rest/ldap`, and the public API (`/api/v1/settings/ldap`, ordinary code). The fork deleted the enterprise module (`modules/ldap.ee`). The LDAP settings page of the editor is ordinary code and stays | Done. Rebuilt, 5 of 6 (the owner chose this on 2026-10-14). On by default (step 5 of FORK.md). `N8N_FORK_FEATURES_ENABLED=false` turns it off. An admin sets the directory at Settings > LDAP | [LDAP](https://docs.n8n.io/user-management/ldap/), `packages/cli/src/modules/ldap/README.md`, `LdapConfig` in `@n8n/constants`, public API `ldap.public.controller.ts` |
@@ -153,3 +139,98 @@ The owner chose these on 2026-10-04:
 | `quota:evaluations:*` | 0 workflows with evaluations, 1 parallel case | No limit of workflows (the owner chose this on 2026-10-13). The parallel cases: the default of the plan, or `N8N_CONCURRENCY_EVALUATION_LIMIT`. |
 | `quota:aiCredits` | 0 | Not planned |
 | `quota:aiGatewayBudget` | Not checked | Not used. The fork gateway has its own budgets on Settings > Gateway credits admin. |
+
+## History
+
+### The priorities
+
+The owner chose these on 2026-10-04. The table above calls them Priority 1 to 4.
+
+1. Team projects and roles (sharing, project roles, the admin role, custom roles, API key scopes).
+   They needed step 2 (our own permission core) and step 3 (our own project and sharing
+   services).
+2. SSO: OIDC first, then SAML, with role provisioning, as a drop-in replacement of the enterprise
+   SSO.
+3. External secrets, as a drop-in replacement with all six providers.
+4. An audit log export in place of log streaming: an audit log (the audit events in the database
+   for 90 days, a settings page, and a CSV or JSON export) and a new log streaming (webhook, syslog
+   and Sentry destinations).
+
+### The five steps
+
+FORK.md names the five steps. This is what each step did, in order.
+
+1. **The rules and the tooling.** The clean-room rules, the list of removed areas, the checks of
+   container CI, and the removal of the enterprise modules that do nothing without a licence.
+2. **The permission core.** Our own scopes, roles and `hasScope` in place of the enterprise files
+   of `@n8n/permissions` ([packages/@n8n/permissions/FORK.md](packages/@n8n/permissions/FORK.md)).
+3. **Projects and sharing.** The scope check `userHasScopes`
+   ([packages/cli/src/permissions/FORK.md](packages/cli/src/permissions/FORK.md)), the project
+   service ([packages/cli/src/services/FORK.md](packages/cli/src/services/FORK.md)), the sharing
+   services ([packages/cli/src/workflows/FORK.md](packages/cli/src/workflows/FORK.md)), the
+   execution view ([packages/cli/src/executions/FORK.md](packages/cli/src/executions/FORK.md)),
+   and the sharing UI and the `EnterpriseEdition` gate of the editor
+   ([packages/frontend/editor-ui/FORK.md](packages/frontend/editor-ui/FORK.md)).
+4. **The other features.** In this order:
+   - SSO: the SSO helpers ([packages/cli/src/sso/FORK.md](packages/cli/src/sso/FORK.md)), OIDC
+     ([packages/cli/src/modules/sso-oidc/FORK.md](packages/cli/src/modules/sso-oidc/FORK.md)), role
+     provisioning
+     ([packages/cli/src/modules/provisioning/FORK.md](packages/cli/src/modules/provisioning/FORK.md))
+     and SAML ([packages/cli/src/modules/sso-saml/FORK.md](packages/cli/src/modules/sso-saml/FORK.md)).
+   - External secrets with all six providers: the base class and the Vault, Infisical and
+     1Password providers, the AWS, Azure and GCP providers, the repositories of the connections,
+     the module
+     ([packages/cli/src/modules/external-secrets/FORK.md](packages/cli/src/modules/external-secrets/FORK.md)),
+     the REST clients, the store and the settings page
+     ([the FORK.md of the editor folder](packages/frontend/editor-ui/src/features/integrations/externalSecrets/FORK.md)),
+     and the settings pages of the connections
+     ([the FORK.md of the connections folder](packages/frontend/editor-ui/src/features/integrations/secretsProviders/FORK.md)).
+   - The audit log export: the backend of the audit log
+     ([packages/cli/src/modules/audit-log/README.md](packages/cli/src/modules/audit-log/README.md)),
+     its settings page
+     ([packages/modules/audit-log/frontend/README.md](packages/modules/audit-log/frontend/README.md)),
+     the backend of log streaming and its public API
+     ([packages/cli/src/modules/log-streaming/README.md](packages/cli/src/modules/log-streaming/README.md)),
+     and its settings page
+     ([the FORK.md of the page](packages/frontend/editor-ui/src/features/integrations/logStreaming/FORK.md)).
+   - The parts of the rest of the enterprise code that needed no decision of the owner: the S3 and
+     Azure Blob storage, the multi-main setup, the worker view and the worker pools (first removed,
+     with stand-ins), and the entities of the workflow review tables
+     ([packages/@n8n/db/src/entities/FORK.md](packages/@n8n/db/src/entities/FORK.md)).
+   - The features that the owner chose to rebuild on 2026-10-12: execution annotations
+     ([packages/cli/src/executions/FORK.md](packages/cli/src/executions/FORK.md#execution-annotations)),
+     variables
+     ([packages/cli/src/environments/variables/FORK.md](packages/cli/src/environments/variables/FORK.md)),
+     evaluations in four parts (the agent eval tables, see
+     [packages/@n8n/db/src/entities/FORK.md](packages/@n8n/db/src/entities/FORK.md#the-agent-eval-tables),
+     the Evaluation nodes, see
+     [packages/nodes-base/nodes/Evaluation/FORK.md](packages/nodes-base/nodes/Evaluation/FORK.md),
+     the backend, see [packages/cli/src/evaluation/FORK.md](packages/cli/src/evaluation/FORK.md),
+     and the editor, see
+     [the FORK.md of the editor folder](packages/frontend/editor-ui/src/features/ai/evaluation/FORK.md)),
+     and the local parts of the AI workflow builder
+     ([packages/@n8n/ai-workflow-builder/FORK.md](packages/@n8n/ai-workflow-builder/FORK.md)). The
+     chat of the AI builder needs a service of n8n, and went.
+   - The source control editor (first removed, with stand-ins), and last the enterprise files
+     that fork code replaced. Then the fork had no enterprise code.
+   - The six features that the fork removed without a replacement, rebuilt in the order of
+     "Parity with the Enterprise Edition" above.
+5. **The fork switch** ([FORK.md](FORK.md#the-fork-switch)). Its list grew with the decisions
+   below.
+
+### Decisions of the owner
+
+| Date | Decision |
+|---|---|
+| 2026-10-04 | The priorities above. |
+| 2026-10-09 | Keep the licence checks of ordinary code. Sharing, team projects, the project roles, the admin role, custom roles and SSO turn on in step 5, when no enterprise code is left. |
+| 2026-10-10 | External secrets turn on in step 5. |
+| 2026-10-11 | The audit log and the new log streaming are on by default, without a licence check, as Git sync is. |
+| 2026-10-12 | Rebuild execution annotations, variables, evaluations and the local parts of the AI workflow builder. |
+| 2026-10-13 | The switch turns on variables, execution annotations and filters, evaluations (no limit of workflows), API key scopes, folders, debug in editor, insights (no limit of history), data redaction, the custom span attributes of OpenTelemetry, node type policies and the personal space policy. The fork has no registration and no licence keys. An upstream update does not delete all new enterprise files: the owner decides about each one. |
+| 2026-10-14 | The switch turns on MFA enforcement, the diffs and the names of workflow versions, the workflow history without a time limit, the private registry of community nodes and token exchange. The banner of a non-production instance stays off unless an instance turns it on. Parity with the Enterprise Edition: rebuild the six removed features, and add each one to the switch when it is done. Add a native mode for Google Cloud Storage. |
+| 2026-10-15 | Add the AI gateway (Gateway credits), on with the switch. |
+| 2026-10-17 | The feature freeze. |
+| 2026-10-19 | Exception to the freeze: pull request sreent/n8n#53, with Forgejo, the safer defaults of `deploy/` with a Move button for a blocked publish, the publish check for open triggers and the platform setup tool. |
+| 2026-10-21 | Exception to the freeze: four more deployment options in `deploy/`, next to the VM: Google Cloud Run, Amazon ECS, Azure Container Apps and Kubernetes. |
+| 2026-10-23 | Exception to the freeze: the uniformity fixes. Core n8n, the rebuilt enterprise features and the features of the fork must work as one product: the same tech stack, architecture, patterns, design system, copy and user experience. `deploy/` stops the telemetry, the "What's new" notes and the update notices of n8n. The switch also turns off log streaming and the audit log. |
