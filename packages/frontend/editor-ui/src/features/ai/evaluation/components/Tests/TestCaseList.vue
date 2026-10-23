@@ -45,7 +45,7 @@ const panel = injectTestsPanel();
 		}}</N8nText>
 		<div>
 			<N8nButton
-				type="secondary"
+				variant="subtle"
 				size="small"
 				data-test-id="tests-list-create-manual"
 				@click="panel.createManually()"

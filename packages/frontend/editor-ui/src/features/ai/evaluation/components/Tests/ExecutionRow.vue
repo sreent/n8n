@@ -68,7 +68,7 @@ async function toggle() {
 				:data-test-id="`tests-execution-manual-${execution.id}`"
 			/>
 			<N8nButton
-				type="secondary"
+				variant="subtle"
 				size="small"
 				:class="$style.use"
 				:data-test-id="`tests-execution-create-${execution.id}`"

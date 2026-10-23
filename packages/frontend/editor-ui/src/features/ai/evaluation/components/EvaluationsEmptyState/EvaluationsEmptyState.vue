@@ -66,7 +66,7 @@ async function getStarted() {
 		</ul>
 		<div>
 			<N8nButton
-				type="primary"
+				variant="solid"
 				size="large"
 				data-test-id="evaluations-empty-state-get-started"
 				:label="i18n.baseText('evaluations.emptyState.getStarted')"

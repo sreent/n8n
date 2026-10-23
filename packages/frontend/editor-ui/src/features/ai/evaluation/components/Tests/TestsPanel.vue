@@ -64,7 +64,7 @@ function executeWorkflow() {
 	<div :class="$style.panel" data-test-id="tests-panel">
 		<div v-if="!panel.hasNodes.value" :class="$style.empty" data-test-id="tests-panel-add-node">
 			<N8nText color="text-base">{{ i18n.baseText('evaluations.tests.empty.noNode') }}</N8nText>
-			<N8nButton type="secondary" data-test-id="tests-panel-add-node-button" @click="addNode">{{
+			<N8nButton variant="subtle" data-test-id="tests-panel-add-node-button" @click="addNode">{{
 				i18n.baseText('evaluations.tests.empty.noNode.button')
 			}}</N8nButton>
 		</div>
@@ -79,7 +79,7 @@ function executeWorkflow() {
 			<N8nText color="text-base">{{
 				i18n.baseText('evaluations.tests.empty.noExecutions')
 			}}</N8nText>
-			<N8nButton type="primary" data-test-id="tests-panel-gate-run" @click="executeWorkflow">{{
+			<N8nButton variant="solid" data-test-id="tests-panel-gate-run" @click="executeWorkflow">{{
 				i18n.baseText('evaluations.tests.empty.execute')
 			}}</N8nButton>
 		</div>
