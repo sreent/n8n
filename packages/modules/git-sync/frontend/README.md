@@ -4,10 +4,12 @@ Fork module (not in upstream n8n). It adds the **Settings > Git sync** page. The
 instance owner and admins connect one project to a branch of a Git repository, see
 what changed on each side, and push or pull.
 
-- `SettingsGitSyncView.vue` is the page. The route is `/settings/git-sync`. The `role`
-  middleware lets in the owner and admins only, and the `custom` middleware hides the
-  page when the backend module is off. When the user leaves the page with unsaved
-  changes, the page asks first and can save them, as the page of OpenTelemetry does.
+- `SettingsGitSyncView.vue` is the page. The route is `/settings/git-sync`. The `rbac`
+  middleware lets in only users with the global scope `sourceControl:manage` (the owner,
+  the admins and custom roles with the scope), as the backend does. The `custom`
+  middleware hides the page when the backend module is off. When the user leaves the
+  page with unsaved changes, the page asks first and can save them, as the page of
+  OpenTelemetry does.
 - The sidebar item has the icon `arrow-left-right`. Environments and Environments v2 use
   `git-branch`. The description of the page tells how Git sync differs from Environments.
 - `git-sync.store.ts` holds the form, the status and the results. `git-sync.api.ts`

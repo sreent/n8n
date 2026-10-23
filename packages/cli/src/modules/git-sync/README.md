@@ -96,7 +96,7 @@ once on each instance. A workflow that uses an empty credential cannot be publis
 | File | Purpose |
 |---|---|
 | `git-sync.service.ts` | Status, push, pull, and the settings |
-| `git-sync.controller.ts` | REST routes under `/rest/git-sync`, for the owner and admins only |
+| `git-sync.controller.ts` | REST routes under `/rest/git-sync`, for the global scope `sourceControl:manage` |
 | `git-sync-settings.service.ts` | Connection and sync state in the settings table |
 | `git/git-client.ts` | Runs Git with a fixed, minimal environment |
 | `git/git-validation.ts` | Checks the URL, the branch, and the folder |
