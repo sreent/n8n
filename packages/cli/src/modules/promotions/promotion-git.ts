@@ -8,24 +8,21 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { promisify } from 'node:util';
 
+import {
+	GIT_CA_VARIABLES,
+	GIT_MAX_OUTPUT_BYTES,
+	GIT_PATH,
+	gitCredentialHelper,
+} from '@/utils/git-process';
+
 import type { PromotionCredentials } from './promotion-providers.service';
 import { GIT_OPERATION_FAILED } from './promotions.constants';
 
 const execFileAsync = promisify(execFile);
 
-/** Git runs with this `PATH` only, as in source control. The Docker image has Git and ssh there. */
-const GIT_PATH = '/usr/bin:/bin';
-
-const MAX_OUTPUT_BYTES = 256 * 1024 * 1024;
-
-/** Variables that name a private certificate authority for Git over HTTPS. */
-const CA_VARIABLES = ['GIT_SSL_CAINFO', 'GIT_SSL_CAPATH'];
-
 const USERNAME_VARIABLE = 'N8N_PROMOTIONS_GIT_USERNAME';
 const PASSWORD_VARIABLE = 'N8N_PROMOTIONS_GIT_PASSWORD';
-
-/** A credential helper that gives Git the HTTPS credentials from the environment. */
-const CREDENTIAL_HELPER = `!f() { echo "username=\${${USERNAME_VARIABLE}}"; echo "password=\${${PASSWORD_VARIABLE}}"; }; f`;
+const CREDENTIAL_HELPER = gitCredentialHelper(USERNAME_VARIABLE, PASSWORD_VARIABLE);
 
 /** The settings of every Git call. Promotions use only the SSH and HTTPS transports of Git. */
 const BASE_CONFIG = ['-c', 'core.autocrlf=false', '-c', 'protocol.ext.allow=never'];
@@ -85,7 +82,7 @@ export class PromotionGitRunner {
 		if (credentials.authType === 'token') {
 			env[USERNAME_VARIABLE] = credentials.username;
 			env[PASSWORD_VARIABLE] = credentials.password;
-			for (const name of CA_VARIABLES) {
+			for (const name of GIT_CA_VARIABLES) {
 				if (process.env[name]) env[name] = process.env[name];
 			}
 			config.push('-c', 'credential.helper=', '-c', `credential.helper=${CREDENTIAL_HELPER}`);
@@ -115,7 +112,7 @@ export class PromotionGitRunner {
 			const { stdout } = await execFileAsync('git', [...BASE_CONFIG, ...config, ...args], {
 				cwd,
 				env,
-				maxBuffer: MAX_OUTPUT_BYTES,
+				maxBuffer: GIT_MAX_OUTPUT_BYTES,
 			});
 			return stdout;
 		} catch (error) {

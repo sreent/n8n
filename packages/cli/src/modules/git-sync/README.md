@@ -6,7 +6,7 @@ to the branch, and pull changes from the branch. Use it to keep a history of you
 workflows, and to move workflows from a development instance to a production instance.
 
 This module does not use enterprise code. It uses the package export and import of
-n8n (`packages/cli/src/modules/n8n-packages`) through one adapter file, and runs the
+n8n (`packages/cli/src/modules/n8n-packages`) through one adapter file (and `package-layout.ts`, which takes the file names of the package from it), and runs the
 `git` program of the host.
 
 ```mermaid
