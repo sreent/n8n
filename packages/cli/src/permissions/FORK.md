@@ -65,9 +65,9 @@ record the snapshot again after an upstream update, use a checkout of the upstre
 `@/permissions.ee/check-access`, and run it with `-u`. Then use its snapshot in the fork and run the
 test with `-u` again. The second run may change only that message.
 
-The enterprise unit test `permissions.ee/__tests__/check-access.test.ts` replaces the database with
-mocks of the original's repository calls, so it cannot check another implementation. Its counts:
-26 of 26 pass against the original, 26 of 26 fail against the fork.
+The enterprise unit test `permissions.ee/__tests__/check-access.test.ts` replaced the database with
+mocks of the original's repository calls, so it could not check another implementation. Its counts:
+26 of 26 passed against the original, 26 of 26 failed against the fork.
 
 ## Removed enterprise files and the lint allowlist
 

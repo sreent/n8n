@@ -9,8 +9,9 @@ Fork document (not in upstream n8n). Read it with [FORK.md](../../../../../FORK.
 module (`sso-saml.module.ts`), the SAML helpers, the public API controller and its mapper, the test
 server and the ordinary tests. This is the fourth pull request of step 4. The class name
 `SamlService`, the functions of the service provider, the methods that ordinary code calls, and the
-members that ordinary tests use (`_samlPreferences` and `getDecryptedSigningPrivateKey`) stay. Until
-step 5, the module loads only with the `feat:saml` licence, as before.
+members that ordinary tests use (`_samlPreferences` and `getDecryptedSigningPrivateKey`) stay. The
+module loads only with the `feat:saml` licence, as before. While the fork switch is on (step 5 of
+FORK.md), the licence has `feat:saml`, so the module loads by default.
 
 ## Behaviour
 
@@ -27,6 +28,10 @@ step 5, the module loads only with the `feat:saml` licence, as before.
   config (`sso.saml`).
 - The settings row `features.saml` (`loadOnStartup`) holds the preferences as JSON, with the signing
   key encrypted by `Cipher.encryptV2`. The key in memory is encrypted too.
+- With `N8N_SSO_MANAGED_BY_ENV=true`, the ordinary SSO instance settings loader replaces this row
+  at each start, before the module starts. The row then holds only the metadata, the metadata URL
+  and the login state of the `N8N_SSO_SAML_*` variables. With the SAML login off, the row holds
+  only `loginEnabled: false`.
 - `setSamlPreferences(preferences)` does these steps:
   1. It checks the signing settings (below). An error changes nothing.
   2. It loads samlify and the validator, the first time. samlify then checks each SAML message

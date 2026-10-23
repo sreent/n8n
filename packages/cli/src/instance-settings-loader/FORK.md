@@ -1,5 +1,7 @@
 # Fork changes to the instance settings loaders
 
+Fork document (not in upstream n8n). Read it with [FORK.md](../../../../FORK.md).
+
 The instance settings loaders are ordinary upstream code. At each start they set parts of the
 configuration of n8n from environment variables, for example the security policy when
 `N8N_SECURITY_POLICY_MANAGED_BY_ENV=true`. The page Settings > Security & policies is then
@@ -23,7 +25,13 @@ of the security policy, and only when `N8N_SECURITY_POLICY_MANAGED_BY_ENV=true`:
 The defaults are the defaults of the page, so an instance that turns on the environment management
 without these variables gets the upstream behaviour. `deploy/` sets workflow reviews on.
 
+The loader writes both settings at each start. So the values of the variables replace the values
+that an admin set on the page before.
+
 The loader does not emit the event `instance-policies-updated`, as the upstream loader.
+
+`__tests__/fork-security-policy.instance-settings-loader.test.ts` (fork file) tests the loader and
+its variables.
 
 ## Upstream files
 
