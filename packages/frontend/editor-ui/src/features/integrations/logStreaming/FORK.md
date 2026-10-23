@@ -28,10 +28,11 @@ Three ordinary files use the page again, with the lines of upstream and the fork
 
 ### The page
 
-- While the module `log-streaming` is off, the page shows the box `action-box-unlicensed`. It
-  tells how to turn the module on with `N8N_DISABLED_MODULES`. The module also needs the licence
-  value `feat:logStreaming`. The fork switch (step 5 of FORK.md) gives it by default, so the fork
-  needs no licence.
+- While the module `log-streaming` is off, the page shows the box `action-box-unlicensed`. The
+  module needs the licence value `feat:logStreaming`. The fork switch (step 5 of FORK.md) gives it
+  by default, so the fork needs no licence. While the switch is off, the box tells to set
+  `N8N_FORK_FEATURES_ENABLED` to `true`. While the switch is on, the box tells to remove
+  `log-streaming` from `N8N_DISABLED_MODULES`.
 - Without destinations, the page shows the box `action-box-licensed` with the button **Add new
   destination**.
 - Each destination has a card (`destination-card`) with its name and type, a switch

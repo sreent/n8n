@@ -4485,6 +4485,7 @@
 	"settings.log-streaming.credential.placeholder": "Select a credential",
 	"settings.log-streaming.moduleOff.title": "Log streaming is off",
 	"settings.log-streaming.moduleOff.description": "To turn it on, remove <code>log-streaming</code> from the environment variable <code>N8N_DISABLED_MODULES</code>.",
+	"settings.log-streaming.moduleOff.forkFeaturesOff": "To turn it on, set the environment variable <code>N8N_FORK_FEATURES_ENABLED</code> to <code>true</code>.",
 	"settings.log-streaming.parameters.url": "URL",
 	"settings.log-streaming.parameters.url.description": "The URL that receives the events",
 	"settings.log-streaming.parameters.method": "Method",
