@@ -184,19 +184,13 @@ export class ProjectService {
 			.map(({ projectId }) => projectId);
 	}
 
-	/** The projects with these ids where the user holds all `scopes`, in the order of creation. */
+	/** The projects with these ids where the user holds all `scopes`, the oldest first, then by id. */
 	async findProjectsByIdsForUser(user: User, projectIds: string[], scopes: Scope[]) {
-		const projects = (await this.projectRepository.find()).filter(({ id }) =>
-			projectIds.includes(id),
-		);
-		if (hasGlobalScope(user, scopes, { mode: 'allOf' })) return projects;
-
-		const roles = await this.projectRolesWithScopes(scopes);
-		const relations = await this.projectRelationRepository.findAllByUser(user.id);
-		const allowed = new Set(
-			relations.filter(({ role }) => roles.includes(role.slug)).map(({ projectId }) => projectId),
-		);
-		return projects.filter(({ id }) => allowed.has(id));
+		// Without a role list, the repository gives each project: the user has the scopes globally.
+		const roles = hasGlobalScope(user, scopes, { mode: 'allOf' })
+			? undefined
+			: await this.projectRolesWithScopes(scopes);
+		return await this.projectRepository.findByIdsWithUserRoles(projectIds, user.id, roles);
 	}
 
 	/** The scopes of the user in a project: their global scopes and the scopes of their role in it. */

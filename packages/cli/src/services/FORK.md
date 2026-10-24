@@ -18,7 +18,9 @@ code. This is the second pull request of step 3.
   `projectIds` when given. An empty `projectIds` list gives none. Through a project role, it gives
   only team projects: the callers add the personal project themselves.
 - `findProjectsByIdsForUser(user, projectIds, scopes)` gives the projects with these ids where the
-  user holds all `scopes`, personal projects too, in the order of creation.
+  user holds all `scopes`, personal projects too: the oldest first, then by id, as the test
+  `test/integration/project.service.integration.test.ts` of upstream n8n 2.45 expects. It uses
+  `ProjectRepository.findByIdsWithUserRoles`.
 - `getProjectScopesForUser(user, projectId)` gives the global scopes of the user and the scopes of
   their role in the project. `addUserScopes(user, projects)` adds the role and the scopes of the
   user to each project: the project role when there is one, else the global role.
