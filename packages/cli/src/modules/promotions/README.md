@@ -11,6 +11,30 @@ The sources of the rebuild are the ordinary code of n8n (the public API controll
 `packages/cli/src/modules/n8n-packages`), and the behaviour of the original module. Black-box
 golden tests recorded that behaviour through the public API (see "Tests").
 
+## Git connections stay
+
+Upstream n8n 2.45 replaced Git connections with environments, which are enterprise code. The fork
+keeps Git connections as they are (the owner chose this on 2026-10-24):
+
+- The tables stay `promotion_provider`, `promotion_connection`, `promotion_config` and
+  `promotion_connection_project`. The fork leaves out the upstream migrations
+  `CreatePromotionRunAndReviewTables1792139680417` and
+  `ReplacePromotionConnectionsWithEnvironments1792417570699`, which replace these tables with the
+  tables of environments. `scripts/removed-enterprise-paths.txt` lists them, with the upstream
+  tests of environments, so each upstream update deletes them again. The migration
+  `AllowGitLabPromotionProvider1791377741439` stays: it only widens a check.
+- The DTOs of the configurations, the connections, the operations and the provider bodies are fork
+  copies of the upstream DTOs from before environments, under the names `PromotionConnection*`
+  where upstream reused a name (`promotion-config.dto.ts`, `promotion-connection.dto.ts`,
+  `promotion-connection-operations.dto.ts` and `promotion-connection-provider.dto.ts` in
+  `@n8n/api-types/src/dto/promotions`).
+- The public API of Git connections does not change. A provider is only `git`, and a token needs a
+  username, as before. The API key scope `gitConnection:discover` is upstream data, but no route of
+  the fork takes it: it belongs to the discovery routes of Git hosts, which environments have.
+- The packages of Git connections have no agents (`includeAgents: false`). The fork also reads the
+  requirements of the packages that older versions wrote
+  ([the FORK.md of the n8n-packages module](../n8n-packages/FORK.md)).
+
 ## Turn it on
 
 - The licence value `feat:gitConnections`. The fork switch gives it
@@ -302,11 +326,22 @@ of the audit log). The services therefore take the user of the request.
 - The golden test `promotions-rest` records the REST route of the change list next to the public
   API route, for an owner, a member, an unknown project, a personal project and a wrong direction.
   Two runs against the original module gave the same snapshot, and the fork gives it too.
-- `packages/cli/test/integration/public-api/promotions.test.ts` is the upstream test of the public
-  API, with the import paths of the fork module.
+- Upstream n8n 2.45 replaced the original module with environments, so the snapshots can no
+  longer be recorded again against an original. For 2.45, the four snapshots `promotions-setup`,
+  `promotions-operations`, `promotions-dependencies` and `promotions-rest` were updated from a run
+  of the fork, because only ordinary upstream code changed what they record: the requirements of a
+  package use `usedBy` entries in place of `usedByWorkflows`, a package names n8n 2.45, an export
+  of a data table gives the IDs of its columns, the message about the scope `variable:list` names
+  "entities", and `limit=0` in the public API gives the default page of 100 items.
+- `packages/cli/test/integration/public-api/git-connections.test.ts` is the upstream test of the
+  public API from before environments, with the fork DTOs and the import paths of the fork module.
 - `__tests__/` has unit tests of the URL check and of the merge of the manifest.
 
 ## Upstream updates
+
+When an upstream update brings a migration that changes the promotion tables, check it before the
+merge: the fork has the tables of Git connections, not the tables of environments. Leave out a
+migration of environments, and add its path to `scripts/removed-enterprise-paths.txt`.
 
 When an upstream update changes the public API controller
 `packages/cli/src/public-api/v1/controllers/promotions.public.controller.ts`, keep the import paths

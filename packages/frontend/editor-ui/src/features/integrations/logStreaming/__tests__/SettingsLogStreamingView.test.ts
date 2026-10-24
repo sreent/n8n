@@ -7,9 +7,9 @@ import { setActivePinia } from 'pinia';
 import { createMockEnterpriseSettings } from '@/__tests__/mocks';
 import { renderComponent } from '@/__tests__/render';
 import { mockedStore } from '@/__tests__/utils';
-import { LOG_STREAM_MODAL_KEY } from '@/app/constants';
 import { useUIStore } from '@/app/stores/ui.store';
 
+import { LOG_STREAM_MODAL_KEY } from '../logStreaming.constants';
 import { useLogStreamingStore } from '../logStreaming.store';
 import SettingsLogStreamingView from '../views/SettingsLogStreamingView.vue';
 

@@ -393,7 +393,7 @@ onMounted(async () => {
 					<N8nButton
 						v-if="!isConnected"
 						size="large"
-						variant="subtle"
+						variant="outline"
 						icon="refresh-cw"
 						data-test-id="source-control-refresh-ssh-key-button"
 						@click="refreshSshKey"
@@ -443,7 +443,7 @@ onMounted(async () => {
 							</template>
 							<N8nIconButton
 								size="small"
-								variant="subtle"
+								variant="outline"
 								icon="refresh-cw"
 								:aria-label="i18n.baseText('generic.refresh')"
 								data-test-id="source-control-refresh-branches-button"

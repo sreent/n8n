@@ -111,7 +111,9 @@ apply.
 
 - The ordinary code that uses these files (the table above), `usePromotionsEnabled.ts`, the
   variable modal and the credential editor.
-- The i18n texts `settings.promotions.*` and `promotions.*`.
+- The i18n texts `settings.promotions.*` and `promotions.*`. Upstream n8n 2.45 removed many of them
+  and gave three of them new values for environments. The fork keeps the old texts in `@n8n/i18n`,
+  and the three old values under `settings.promotions.gitConnections.*`.
 - The DTOs of Git connections in `@n8n/api-types`, the public API controller of the backend
   module, and the documentation of the `@n8n/cli` client
   (`packages/@n8n/cli/docs/commands/promotions.md`).
@@ -138,7 +140,9 @@ fork files give the same snapshots. The permission data of the fork lists the sc
 order than upstream n8n. Thus the fixtures sort the scopes of a project (`sorted` in
 `fixtures.ts`).
 
-To record a snapshot again after an upstream update, use a checkout of the upstream commit in
-`scripts/sync-upstream.base`. Copy the folder `__tests__/golden` and the harness of the evaluation
-editor into the same paths there. Point the exports of `subject.ts` at the files in
-`@/features/integrations/promotions.ee/`, and run the test with `-u`.
+Since n8n 2.45, upstream n8n has environments in place of Git connections, so a snapshot cannot be
+recorded again against upstream. When an upstream update changes a shared part (for example a
+component of the design system or a text), check that the snapshot changes only there. Then run
+the test with `-u`. Before 2.45, a snapshot was recorded again in a checkout of the upstream
+commit in `scripts/sync-upstream.base`, with the exports of `subject.ts` pointed at the files in
+`@/features/integrations/promotions.ee/`.

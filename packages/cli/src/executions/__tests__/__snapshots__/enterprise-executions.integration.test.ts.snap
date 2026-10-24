@@ -222,7 +222,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
         "sharedWithProjects": [],
         "usedCredentials": [
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@alpha",
@@ -235,7 +235,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@beta",
@@ -1154,7 +1154,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -2027,7 +2027,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -2203,7 +2203,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -3076,7 +3076,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -3231,7 +3231,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -3999,7 +3999,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -4175,7 +4175,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -5048,7 +5048,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -5439,7 +5439,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
         "updatedAt": "<date>",
         "usedCredentials": [
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@alpha",
@@ -5452,7 +5452,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@beta",
@@ -6859,7 +6859,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
         "updatedAt": "<date>",
         "usedCredentials": [
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -7287,7 +7287,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
         "updatedAt": "<date>",
         "usedCredentials": [
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -9305,7 +9305,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
         "sharedWithProjects": [],
         "usedCredentials": [
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@alpha",
@@ -9318,7 +9318,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@beta",
@@ -10237,7 +10237,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -11110,7 +11110,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -11286,7 +11286,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -12159,7 +12159,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -12314,7 +12314,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -13082,7 +13082,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -13258,7 +13258,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -14131,7 +14131,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -14522,7 +14522,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
         "updatedAt": "<date>",
         "usedCredentials": [
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@alpha",
@@ -14535,7 +14535,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@beta",
@@ -15942,7 +15942,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
         "updatedAt": "<date>",
         "usedCredentials": [
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -16370,7 +16370,7 @@ exports[`EnterpriseExecutionsService.findOne > each execution as each user, with
         "updatedAt": "<date>",
         "usedCredentials": [
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -18689,7 +18689,7 @@ exports[`EnterpriseExecutionsService.findOne > the redaction query 1`] = `
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -19208,7 +19208,7 @@ exports[`EnterpriseExecutionsService.findOne > the redaction query 1`] = `
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",
@@ -19727,7 +19727,7 @@ exports[`EnterpriseExecutionsService.findOne > the redaction query 1`] = `
             "type": "httpHeaderAuth",
           },
           {
-            "currentUserCanUse": false,
+            "currentUserCanUse": true,
             "homeProject": {
               "icon": null,
               "id": "@personal:owner",

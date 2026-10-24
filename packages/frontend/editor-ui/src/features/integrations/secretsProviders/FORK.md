@@ -85,8 +85,9 @@ state of its last test:
   same time. A failed read of the provider types or of the projects shows an error toast. While
   the page has no connection and the provider types or the connections load, it shows a loading
   placeholder.
-- Without connections, the page shows the logos of the first and the third provider type, a text,
-  "Learn more" (the documentation), and "Add secrets vault" for a user who may create connections.
+- Without connections, the page shows the logo of the first provider type and the logo of the
+  provider type in the middle of the list (index ⌈n/2⌉, or the last one), a text, "Learn more" (the
+  documentation), and "Add secrets vault" for a user who may create connections.
 - With connections, the page shows a description with a link to the documentation, "Add secrets
   vault" for a user who may create connections, and a card for each connection, by name.
 - With role-based access in the module settings, a switch gives the project roles the scopes of

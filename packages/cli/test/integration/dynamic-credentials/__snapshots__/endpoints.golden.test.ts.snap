@@ -942,6 +942,12 @@ exports[`dynamic credential endpoints > the execution status 1`] = `
     "step": "no session, the endpoint token as a bearer token",
   },
   {
+    "logs": [
+      [
+        "warn",
+        "Identity metadata is invalid",
+      ],
+    ],
     "outcome": {
       "body": {
         "data": {

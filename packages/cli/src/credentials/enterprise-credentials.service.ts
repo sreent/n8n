@@ -10,6 +10,7 @@ import { NotFoundError } from '@n8n/errors';
 import type { ICredentialDataDecryptedObject } from 'n8n-workflow';
 
 import { TransferCredentialError } from '@/errors/response-errors/transfer-credential.error';
+import { PolicyEnforcementService } from '@/policy/policy-enforcement.service';
 import { OwnershipService } from '@/services/ownership.service';
 import { ProjectService } from '@/services/project.service';
 
@@ -25,6 +26,7 @@ export class EnterpriseCredentialsService {
 		private readonly credentialsFinderService: CredentialsFinderService,
 		private readonly projectService: ProjectService,
 		private readonly connectionStatusProxy: CredentialConnectionStatusProxy,
+		private readonly policyEnforcementService: PolicyEnforcementService,
 	) {}
 
 	/**
@@ -152,6 +154,14 @@ export class EnterpriseCredentialsService {
 			this.credentialsService.ensureEndUserCredentialAllowedInProject(destinationProject);
 			await this.credentialsService.ensureCanManageEndUserCredential(user, destinationProject.id);
 		}
+
+		await this.policyEnforcementService.enforceCredentialTransfer(
+			{
+				credential: { id: credential.id, type: credential.type },
+				targetProjectId: destinationProject.id,
+			},
+			{ kind: 'user', user },
+		);
 
 		await this.sharingRepository.transferCredential(credential.id, destinationProject.id);
 

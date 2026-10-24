@@ -178,7 +178,7 @@ async function onDelete() {
 		</template>
 		<template #footer>
 			<div :class="$style.footer">
-				<N8nButton variant="subtle" @click="close">
+				<N8nButton variant="outline" @click="close">
 					{{ i18n.baseText('generic.cancel') }}
 				</N8nButton>
 				<N8nButton

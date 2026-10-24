@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { AuditLogEventResponse } from '@n8n/api-types';
-import { N8nDialog, N8nText } from '@n8n/design-system';
+import { N8nDialog, N8nDialogBody, N8nText } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
 import { computed } from 'vue';
 
@@ -70,20 +70,24 @@ function onOpenChange(open: boolean) {
 		data-test-id="audit-log-event-details"
 		@update:open="onOpenChange"
 	>
-		<dl :class="$style.fields">
-			<template v-for="field in fields" :key="field.id">
-				<dt>
-					<N8nText size="small" color="text-light">{{ field.label }}</N8nText>
-				</dt>
-				<dd :data-test-id="`audit-log-event-details-${field.id}`">
-					<N8nText size="small">{{ field.value ?? '—' }}</N8nText>
-				</dd>
-			</template>
-		</dl>
-		<N8nText tag="p" size="small" color="text-light" :class="$style.payloadLabel">
-			{{ i18n.baseText('settings.auditLog.details.payload') }}
-		</N8nText>
-		<pre :class="$style.payload" data-test-id="audit-log-event-details-payload">{{ payload }}</pre>
+		<N8nDialogBody>
+			<dl :class="$style.fields">
+				<template v-for="field in fields" :key="field.id">
+					<dt>
+						<N8nText size="small" color="text-light">{{ field.label }}</N8nText>
+					</dt>
+					<dd :data-test-id="`audit-log-event-details-${field.id}`">
+						<N8nText size="small">{{ field.value ?? '—' }}</N8nText>
+					</dd>
+				</template>
+			</dl>
+			<N8nText tag="p" size="small" color="text-light" :class="$style.payloadLabel">
+				{{ i18n.baseText('settings.auditLog.details.payload') }}
+			</N8nText>
+			<pre :class="$style.payload" data-test-id="audit-log-event-details-payload">{{
+				payload
+			}}</pre>
+		</N8nDialogBody>
 	</N8nDialog>
 </template>
 
@@ -92,7 +96,7 @@ function onOpenChange(open: boolean) {
 	display: grid;
 	grid-template-columns: max-content 1fr;
 	gap: var(--spacing--3xs) var(--spacing--sm);
-	margin: var(--spacing--xs) 0 0;
+	margin: 0;
 
 	dd {
 		margin: 0;

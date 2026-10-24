@@ -123,6 +123,12 @@ The entity files also export the types `AgentEvalColumnMapping`, `AgentEvalRunSt
   results of a run are in the order of `runIndex`. `countByStatus` counts in the database and gives
   a count for each status. `findLatestByRunId` gives the newest rating of each rated result of a
   run, with two queries.
+- Since n8n 2.45, a result has a `verdict` (the ordinary migration
+  `AddVerdictToAgentEvalResult1791448888000`). `null` means that no judge graded the case. A new
+  attempt clears the fields of the old attempt, the verdict too. `claimForRerun` takes a settled
+  result (`success`, `error` or `cancelled`) for a new run, and `deleteById` deletes a result only
+  in its own run. The run repository also has `updateMetrics`, and the dataset repository tells
+  whether another dataset reads the same data table (`isDataTableReadByOtherDataset`).
 
 ### Tests
 

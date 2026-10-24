@@ -154,7 +154,11 @@ function v2Snapshot(workflowId: string, executionId = V2_EXECUTION_ID): Executio
 		status: 'completed',
 		mode: 'manual',
 		hostMode: 'manual',
-		graph: { nodes: [{ id: 'trigger', name: 'Manual Trigger', type: 'trigger' }], edges: [] },
+		graph: {
+			nodes: [{ id: 'trigger', name: 'Manual Trigger', type: 'trigger' }],
+			edges: [],
+			seeded: [],
+		},
 		workflow: {
 			id: workflowId,
 			name: 'As it ran',
@@ -488,6 +492,7 @@ beforeAll(async () => {
 			return undefined;
 		}),
 		searchExecutions: vi.fn().mockResolvedValue({ items: [], nextCursor: null, total: 0 }),
+		findLatestExecution: vi.fn(),
 		cancelExecution: vi.fn(),
 	});
 

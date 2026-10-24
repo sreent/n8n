@@ -218,8 +218,11 @@ exports[`SAML > before the first config 1`] = `
     "passwords": {},
     "published": [],
     "result": {
-      "body": "{"code":0,"message":"Samlify is not initialized"}",
-      "contentType": "text/xml; charset=utf-8",
+      "body": {
+        "code": 0,
+        "message": "Samlify is not initialized",
+      },
+      "contentType": "application/json; charset=utf-8",
       "cookies": [],
       "status": 500,
     },
@@ -555,7 +558,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user claim-a-list@example.com","email":"claim-a-list@example.com","firstName":"Claim-a-list","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin"}",
+          "{"id":"@new user claim-a-list@example.com","email":"claim-a-list@example.com","firstName":"Claim-a-list","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin","kind":"person"}",
         ],
       },
     },
@@ -578,6 +581,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Claim-a-list",
             "id": "@new user claim-a-list@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -595,6 +599,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user claim-a-list@example.com",
         },
       ],
     ],
@@ -656,7 +667,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user claim-admin@example.com","email":"claim-admin@example.com","firstName":"Claim-admin","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin"}",
+          "{"id":"@new user claim-admin@example.com","email":"claim-admin@example.com","firstName":"Claim-admin","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin","kind":"person"}",
         ],
       },
     },
@@ -679,6 +690,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Claim-admin",
             "id": "@new user claim-admin@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -696,6 +708,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user claim-admin@example.com",
         },
       ],
     ],
@@ -757,7 +776,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user claim-chat-user@example.com","email":"claim-chat-user@example.com","firstName":"Claim-chat-user","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:chatUser"}",
+          "{"id":"@new user claim-chat-user@example.com","email":"claim-chat-user@example.com","firstName":"Claim-chat-user","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:chatUser","kind":"person"}",
         ],
       },
     },
@@ -780,6 +799,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Claim-chat-user",
             "id": "@new user claim-chat-user@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -797,6 +817,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user claim-chat-user@example.com",
         },
       ],
     ],
@@ -858,7 +885,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user claim-missing@example.com","email":"claim-missing@example.com","firstName":"Claim-missing","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user claim-missing@example.com","email":"claim-missing@example.com","firstName":"Claim-missing","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -874,6 +901,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Claim-missing",
             "id": "@new user claim-missing@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -891,6 +919,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user claim-missing@example.com",
         },
       ],
     ],
@@ -982,7 +1017,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user claim-owner@example.com","email":"claim-owner@example.com","firstName":"Claim-owner","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user claim-owner@example.com","email":"claim-owner@example.com","firstName":"Claim-owner","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -998,6 +1033,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Claim-owner",
             "id": "@new user claim-owner@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -1015,6 +1051,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user claim-owner@example.com",
         },
       ],
     ],
@@ -1076,7 +1119,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user claim-unknown@example.com","email":"claim-unknown@example.com","firstName":"Claim-unknown","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user claim-unknown@example.com","email":"claim-unknown@example.com","firstName":"Claim-unknown","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -1092,6 +1135,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Claim-unknown",
             "id": "@new user claim-unknown@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -1109,6 +1153,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user claim-unknown@example.com",
         },
       ],
     ],
@@ -1200,7 +1251,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user probe-19@example.com","email":"probe-19@example.com","firstName":"Probe-19","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin"}",
+          "{"id":"@new user probe-19@example.com","email":"probe-19@example.com","firstName":"Probe-19","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin","kind":"person"}",
         ],
       },
     },
@@ -1241,6 +1292,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Probe-19",
             "id": "@new user probe-19@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -1258,6 +1310,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user probe-19@example.com",
         },
       ],
     ],
@@ -1319,7 +1378,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user probe-24@example.com","email":"probe-24@example.com","firstName":"Probe-24","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin"}",
+          "{"id":"@new user probe-24@example.com","email":"probe-24@example.com","firstName":"Probe-24","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin","kind":"person"}",
         ],
       },
     },
@@ -1360,6 +1419,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Probe-24",
             "id": "@new user probe-24@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -1377,6 +1437,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user probe-24@example.com",
         },
       ],
     ],
@@ -1438,7 +1505,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user probe-18@example.com","email":"probe-18@example.com","firstName":"Probe-18","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin"}",
+          "{"id":"@new user probe-18@example.com","email":"probe-18@example.com","firstName":"Probe-18","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin","kind":"person"}",
         ],
       },
     },
@@ -1479,6 +1546,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Probe-18",
             "id": "@new user probe-18@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -1496,6 +1564,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user probe-18@example.com",
         },
       ],
     ],
@@ -1557,7 +1632,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user probe-22@example.com","email":"probe-22@example.com","firstName":"Probe-22","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin"}",
+          "{"id":"@new user probe-22@example.com","email":"probe-22@example.com","firstName":"Probe-22","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin","kind":"person"}",
         ],
       },
     },
@@ -1598,6 +1673,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Probe-22",
             "id": "@new user probe-22@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -1615,6 +1691,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user probe-22@example.com",
         },
       ],
     ],
@@ -1676,7 +1759,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user probe-23@example.com","email":"probe-23@example.com","firstName":"Probe-23","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin"}",
+          "{"id":"@new user probe-23@example.com","email":"probe-23@example.com","firstName":"Probe-23","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin","kind":"person"}",
         ],
       },
     },
@@ -1717,6 +1800,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Probe-23",
             "id": "@new user probe-23@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -1734,6 +1818,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user probe-23@example.com",
         },
       ],
     ],
@@ -1795,7 +1886,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user probe-21@example.com","email":"probe-21@example.com","firstName":"Probe-21","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user probe-21@example.com","email":"probe-21@example.com","firstName":"Probe-21","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -1829,6 +1920,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Probe-21",
             "id": "@new user probe-21@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -1846,6 +1938,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user probe-21@example.com",
         },
       ],
     ],
@@ -1907,7 +2006,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user probe-20@example.com","email":"probe-20@example.com","firstName":"Probe-20","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin"}",
+          "{"id":"@new user probe-20@example.com","email":"probe-20@example.com","firstName":"Probe-20","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin","kind":"person"}",
         ],
       },
     },
@@ -1948,6 +2047,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Probe-20",
             "id": "@new user probe-20@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -1965,6 +2065,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user probe-20@example.com",
         },
       ],
     ],
@@ -2026,7 +2133,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user probe-25@example.com","email":"probe-25@example.com","firstName":"Probe-25","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin"}",
+          "{"id":"@new user probe-25@example.com","email":"probe-25@example.com","firstName":"Probe-25","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:admin","kind":"person"}",
         ],
       },
     },
@@ -2067,6 +2174,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Probe-25",
             "id": "@new user probe-25@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -2084,6 +2192,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user probe-25@example.com",
         },
       ],
     ],
@@ -2147,7 +2262,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-list@example.com","email":"project-list@example.com","firstName":"Project-list","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-list@example.com","email":"project-list@example.com","firstName":"Project-list","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -2171,6 +2286,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-list",
             "id": "@new user project-list@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -2188,6 +2304,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-list@example.com",
         },
       ],
     ],
@@ -2253,7 +2376,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-mixed-5@example.com","email":"project-mixed-5@example.com","firstName":"Project-mixed-5","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-mixed-5@example.com","email":"project-mixed-5@example.com","firstName":"Project-mixed-5","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -2277,6 +2400,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-mixed-5",
             "id": "@new user project-mixed-5@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -2294,6 +2418,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-mixed-5@example.com",
         },
       ],
     ],
@@ -2358,7 +2489,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-mixed-4@example.com","email":"project-mixed-4@example.com","firstName":"Project-mixed-4","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-mixed-4@example.com","email":"project-mixed-4@example.com","firstName":"Project-mixed-4","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -2382,6 +2513,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-mixed-4",
             "id": "@new user project-mixed-4@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -2399,6 +2531,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-mixed-4@example.com",
         },
       ],
     ],
@@ -2463,7 +2602,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-mixed-0@example.com","email":"project-mixed-0@example.com","firstName":"Project-mixed-0","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-mixed-0@example.com","email":"project-mixed-0@example.com","firstName":"Project-mixed-0","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -2487,6 +2626,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-mixed-0",
             "id": "@new user project-mixed-0@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -2504,6 +2644,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-mixed-0@example.com",
         },
       ],
     ],
@@ -2568,7 +2715,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-mixed-1@example.com","email":"project-mixed-1@example.com","firstName":"Project-mixed-1","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-mixed-1@example.com","email":"project-mixed-1@example.com","firstName":"Project-mixed-1","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -2592,6 +2739,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-mixed-1",
             "id": "@new user project-mixed-1@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -2609,6 +2757,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-mixed-1@example.com",
         },
       ],
     ],
@@ -2673,7 +2828,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-mixed-3@example.com","email":"project-mixed-3@example.com","firstName":"Project-mixed-3","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-mixed-3@example.com","email":"project-mixed-3@example.com","firstName":"Project-mixed-3","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -2697,6 +2852,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-mixed-3",
             "id": "@new user project-mixed-3@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -2714,6 +2870,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-mixed-3@example.com",
         },
       ],
     ],
@@ -2778,7 +2941,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-mixed-2@example.com","email":"project-mixed-2@example.com","firstName":"Project-mixed-2","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-mixed-2@example.com","email":"project-mixed-2@example.com","firstName":"Project-mixed-2","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -2802,6 +2965,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-mixed-2",
             "id": "@new user project-mixed-2@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -2819,6 +2983,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-mixed-2@example.com",
         },
       ],
     ],
@@ -2883,7 +3054,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-mixed-6@example.com","email":"project-mixed-6@example.com","firstName":"Project-mixed-6","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-mixed-6@example.com","email":"project-mixed-6@example.com","firstName":"Project-mixed-6","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -2907,6 +3078,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-mixed-6",
             "id": "@new user project-mixed-6@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -2924,6 +3096,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-mixed-6@example.com",
         },
       ],
     ],
@@ -2988,7 +3167,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-invalid@example.com","email":"project-invalid@example.com","firstName":"Project-invalid","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-invalid@example.com","email":"project-invalid@example.com","firstName":"Project-invalid","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -3012,6 +3191,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-invalid",
             "id": "@new user project-invalid@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -3029,6 +3209,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-invalid@example.com",
         },
       ],
     ],
@@ -3093,7 +3280,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-one@example.com","email":"project-one@example.com","firstName":"Project-one","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-one@example.com","email":"project-one@example.com","firstName":"Project-one","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -3117,6 +3304,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-one",
             "id": "@new user project-one@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -3134,6 +3322,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-one@example.com",
         },
       ],
     ],
@@ -3197,7 +3392,7 @@ exports[`SAML > role provisioning 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user project-only-invalid@example.com","email":"project-only-invalid@example.com","firstName":"Project-only-invalid","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user project-only-invalid@example.com","email":"project-only-invalid@example.com","firstName":"Project-only-invalid","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -3213,6 +3408,7 @@ exports[`SAML > role provisioning 1`] = `
             "firstName": "Project-only-invalid",
             "id": "@new user project-only-invalid@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -3230,6 +3426,13 @@ exports[`SAML > role provisioning 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user project-only-invalid@example.com",
         },
       ],
     ],
@@ -7571,7 +7774,7 @@ exports[`SAML > signing keys 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user signed@example.com","email":"signed@example.com","firstName":"Signed","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user signed@example.com","email":"signed@example.com","firstName":"Signed","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -7587,6 +7790,7 @@ exports[`SAML > signing keys 1`] = `
             "firstName": "Signed",
             "id": "@new user signed@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -7604,6 +7808,13 @@ exports[`SAML > signing keys 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user signed@example.com",
         },
       ],
     ],
@@ -7910,10 +8121,10 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@user disabled","email":"disabled@example.com","firstName":"Disabled","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":1,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user disabled","email":"disabled@example.com","firstName":"Disabled","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":1,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@user disabled","email":"disabled@example.com","firstName":"Disabled","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":1,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user disabled","email":"disabled@example.com","firstName":"Disabled","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":1,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -7929,6 +8140,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Disabled",
             "id": "@user disabled",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -7946,6 +8158,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user disabled",
         },
       ],
     ],
@@ -8005,7 +8224,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user newone@example.com","email":"newone@example.com","firstName":"Newone","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user newone@example.com","email":"newone@example.com","firstName":"Newone","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -8021,6 +8240,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Newone",
             "id": "@new user newone@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -8038,6 +8258,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user newone@example.com",
         },
       ],
     ],
@@ -8103,6 +8330,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -8120,6 +8348,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -8183,6 +8418,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -8200,6 +8436,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -8259,7 +8502,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user upper@example.com","email":"upper@example.com","firstName":"Upper","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user upper@example.com","email":"upper@example.com","firstName":"Upper","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -8275,6 +8518,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Upper",
             "id": "@new user upper@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -8292,6 +8536,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user upper@example.com",
         },
       ],
     ],
@@ -8351,10 +8602,10 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@user existing","email":"existing@example.com","firstName":"Existing","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user existing","email":"existing@example.com","firstName":"Existing","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@user existing","email":"existing@example.com","firstName":"Existing","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user existing","email":"existing@example.com","firstName":"Existing","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -8370,6 +8621,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Existing",
             "id": "@user existing",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -8387,6 +8639,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user existing",
         },
       ],
     ],
@@ -8511,10 +8770,10 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@user verifiedoptional3","email":"verifiedoptional3@example.com","firstName":"Verifiedoptional3","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedoptional3","email":"verifiedoptional3@example.com","firstName":"Verifiedoptional3","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@user verifiedoptional3","email":"verifiedoptional3@example.com","firstName":"Verifiedoptional3","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedoptional3","email":"verifiedoptional3@example.com","firstName":"Verifiedoptional3","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -8530,6 +8789,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Verifiedoptional3",
             "id": "@user verifiedoptional3",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -8547,6 +8807,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user verifiedoptional3",
         },
       ],
     ],
@@ -8604,10 +8871,10 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@user verifiedrequired3","email":"verifiedrequired3@example.com","firstName":"Verifiedrequired3","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedrequired3","email":"verifiedrequired3@example.com","firstName":"Verifiedrequired3","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@user verifiedrequired3","email":"verifiedrequired3@example.com","firstName":"Verifiedrequired3","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedrequired3","email":"verifiedrequired3@example.com","firstName":"Verifiedrequired3","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -8623,6 +8890,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Verifiedrequired3",
             "id": "@user verifiedrequired3",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -8640,6 +8908,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user verifiedrequired3",
         },
       ],
     ],
@@ -8699,7 +8974,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user newoptionalabsent@example.com","email":"newoptionalabsent@example.com","firstName":"Newoptionalabsent","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user newoptionalabsent@example.com","email":"newoptionalabsent@example.com","firstName":"Newoptionalabsent","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -8715,6 +8990,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Newoptionalabsent",
             "id": "@new user newoptionalabsent@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -8732,6 +9008,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user newoptionalabsent@example.com",
         },
       ],
     ],
@@ -8791,10 +9074,10 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@user verifiedoptional0","email":"verifiedoptional0@example.com","firstName":"Verifiedoptional0","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedoptional0","email":"verifiedoptional0@example.com","firstName":"Verifiedoptional0","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@user verifiedoptional0","email":"verifiedoptional0@example.com","firstName":"Verifiedoptional0","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedoptional0","email":"verifiedoptional0@example.com","firstName":"Verifiedoptional0","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -8810,6 +9093,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Verifiedoptional0",
             "id": "@user verifiedoptional0",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -8827,6 +9111,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user verifiedoptional0",
         },
       ],
     ],
@@ -8886,7 +9177,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user newrequiredabsent@example.com","email":"newrequiredabsent@example.com","firstName":"Newrequiredabsent","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user newrequiredabsent@example.com","email":"newrequiredabsent@example.com","firstName":"Newrequiredabsent","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -8902,6 +9193,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Newrequiredabsent",
             "id": "@new user newrequiredabsent@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -8919,6 +9211,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user newrequiredabsent@example.com",
         },
       ],
     ],
@@ -9015,7 +9314,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user newoptionalfalse@example.com","email":"newoptionalfalse@example.com","firstName":"Newoptionalfalse","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user newoptionalfalse@example.com","email":"newoptionalfalse@example.com","firstName":"Newoptionalfalse","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -9031,6 +9330,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Newoptionalfalse",
             "id": "@new user newoptionalfalse@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -9048,6 +9348,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user newoptionalfalse@example.com",
         },
       ],
     ],
@@ -9144,7 +9451,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user newrequiredfalse@example.com","email":"newrequiredfalse@example.com","firstName":"Newrequiredfalse","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user newrequiredfalse@example.com","email":"newrequiredfalse@example.com","firstName":"Newrequiredfalse","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -9160,6 +9467,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Newrequiredfalse",
             "id": "@new user newrequiredfalse@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -9177,6 +9485,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user newrequiredfalse@example.com",
         },
       ],
     ],
@@ -9271,10 +9586,10 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@user verifiedoptional1","email":"verifiedoptional1@example.com","firstName":"Verifiedoptional1","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedoptional1","email":"verifiedoptional1@example.com","firstName":"Verifiedoptional1","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@user verifiedoptional1","email":"verifiedoptional1@example.com","firstName":"Verifiedoptional1","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedoptional1","email":"verifiedoptional1@example.com","firstName":"Verifiedoptional1","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -9290,6 +9605,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Verifiedoptional1",
             "id": "@user verifiedoptional1",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -9307,6 +9623,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user verifiedoptional1",
         },
       ],
     ],
@@ -9364,10 +9687,10 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@user verifiedrequired1","email":"verifiedrequired1@example.com","firstName":"Verifiedrequired1","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedrequired1","email":"verifiedrequired1@example.com","firstName":"Verifiedrequired1","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@user verifiedrequired1","email":"verifiedrequired1@example.com","firstName":"Verifiedrequired1","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedrequired1","email":"verifiedrequired1@example.com","firstName":"Verifiedrequired1","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -9383,6 +9706,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Verifiedrequired1",
             "id": "@user verifiedrequired1",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -9400,6 +9724,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user verifiedrequired1",
         },
       ],
     ],
@@ -9457,10 +9788,10 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@user verifiedoptional4","email":"verifiedoptional4@example.com","firstName":"Verifiedoptional4","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedoptional4","email":"verifiedoptional4@example.com","firstName":"Verifiedoptional4","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@user verifiedoptional4","email":"verifiedoptional4@example.com","firstName":"Verifiedoptional4","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@user verifiedoptional4","email":"verifiedoptional4@example.com","firstName":"Verifiedoptional4","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -9476,6 +9807,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Verifiedoptional4",
             "id": "@user verifiedoptional4",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -9493,6 +9825,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user verifiedoptional4",
         },
       ],
     ],
@@ -9587,7 +9926,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user emptynames@example.com","email":"emptynames@example.com","firstName":"[object Object]","lastName":"[object Object]","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user emptynames@example.com","email":"emptynames@example.com","firstName":"[object Object]","lastName":"[object Object]","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -9603,6 +9942,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "[object Object]",
             "id": "@new user emptynames@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "[object Object]",
             "mfaEnabled": false,
@@ -9620,6 +9960,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user emptynames@example.com",
         },
       ],
     ],
@@ -9681,7 +10028,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user nobody@example.com","email":"nobody@example.com","firstName":"Nobody","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user nobody@example.com","email":"nobody@example.com","firstName":"Nobody","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -9697,6 +10044,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Nobody",
             "id": "@new user nobody@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -9851,6 +10199,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -9868,6 +10217,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -9927,7 +10283,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user relay@example.com","email":"relay@example.com","firstName":"Relay","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user relay@example.com","email":"relay@example.com","firstName":"Relay","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -9943,6 +10299,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -9960,6 +10317,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10025,6 +10389,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10042,6 +10407,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10105,6 +10477,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10122,6 +10495,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10185,6 +10565,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10202,6 +10583,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10265,6 +10653,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10282,6 +10671,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10345,6 +10741,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10362,6 +10759,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10425,6 +10829,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10442,6 +10847,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10505,6 +10917,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10522,6 +10935,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10585,6 +11005,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10602,6 +11023,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10665,6 +11093,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10682,6 +11111,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10745,6 +11181,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Relay",
             "id": "@new user relay@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10762,6 +11199,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user relay@example.com",
         },
       ],
     ],
@@ -10853,7 +11297,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user variant38@example.com","email":"variant38@example.com","firstName":"Variant38","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user variant38@example.com","email":"variant38@example.com","firstName":"Variant38","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -10869,6 +11313,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Variant38",
             "id": "@new user variant38@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -10886,6 +11331,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user variant38@example.com",
         },
       ],
     ],
@@ -10979,7 +11431,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user variant47@example.com","email":"variant47@example.com","firstName":"Variant47","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user variant47@example.com","email":"variant47@example.com","firstName":"Variant47","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -10995,6 +11447,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Variant47",
             "id": "@new user variant47@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -11012,6 +11465,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user variant47@example.com",
         },
       ],
     ],
@@ -11073,7 +11533,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user variant48@example.com","email":"variant48@example.com","firstName":"Variant48","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user variant48@example.com","email":"variant48@example.com","firstName":"Variant48","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -11089,6 +11549,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Variant48",
             "id": "@new user variant48@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -11106,6 +11567,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user variant48@example.com",
         },
       ],
     ],
@@ -11199,7 +11667,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user variant49@example.com","email":"variant49@example.com","firstName":"Variant49","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user variant49@example.com","email":"variant49@example.com","firstName":"Variant49","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -11215,6 +11683,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Variant49",
             "id": "@new user variant49@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -11232,6 +11701,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user variant49@example.com",
         },
       ],
     ],
@@ -11357,7 +11833,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user variant41@example.com","email":"variant41@example.com","firstName":"Variant41","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user variant41@example.com","email":"variant41@example.com","firstName":"Variant41","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -11373,6 +11849,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Variant41",
             "id": "@new user variant41@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -11390,6 +11867,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user variant41@example.com",
         },
       ],
     ],
@@ -11451,7 +11935,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user variant40@example.com","email":"variant40@example.com","firstName":"Variant40","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user variant40@example.com","email":"variant40@example.com","firstName":"Variant40","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -11467,6 +11951,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Variant40",
             "id": "@new user variant40@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -11484,6 +11969,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user variant40@example.com",
         },
       ],
     ],
@@ -11709,6 +12201,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Existing",
             "id": "@user existing",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -11726,6 +12219,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user existing",
         },
       ],
     ],
@@ -11789,6 +12289,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "",
             "id": "@user nameless",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "",
             "mfaEnabled": false,
@@ -11806,6 +12307,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user nameless",
         },
       ],
     ],
@@ -11850,6 +12358,47 @@ exports[`SAML > the assertion consumer service 1`] = `
     "database": {},
     "events": [
       [
+        "user-login-email-conflict",
+        {
+          "assertedEmail": "changedemail@example.com",
+          "authenticationMethod": "saml",
+          "user": {
+            "authIdentities": [
+              {
+                "createdAt": "<date>",
+                "providerId": "identityowner-upn",
+                "providerType": "saml",
+                "updatedAt": "<date>",
+                "userId": "@user identityowner",
+              },
+            ],
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "identityowner@example.com",
+            "firstName": "Identityowner",
+            "id": "@user identityowner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Fixture",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "saml",
@@ -11869,6 +12418,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Identityowner",
             "id": "@user identityowner",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -11886,6 +12436,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user identityowner",
         },
       ],
     ],
@@ -11927,6 +12484,47 @@ exports[`SAML > the assertion consumer service 1`] = `
     "database": {},
     "events": [
       [
+        "user-login-email-conflict",
+        {
+          "assertedEmail": "emailowner@example.com",
+          "authenticationMethod": "saml",
+          "user": {
+            "authIdentities": [
+              {
+                "createdAt": "<date>",
+                "providerId": "identityowner-upn",
+                "providerType": "saml",
+                "updatedAt": "<date>",
+                "userId": "@user identityowner",
+              },
+            ],
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "identityowner@example.com",
+            "firstName": "Identityowner",
+            "id": "@user identityowner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Fixture",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "saml",
@@ -11946,6 +12544,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Identityowner",
             "id": "@user identityowner",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -11963,6 +12562,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user identityowner",
         },
       ],
     ],
@@ -12020,10 +12626,10 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@user owner","email":"owner@example.com","firstName":"Owner","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:owner"}",
+          "{"id":"@user owner","email":"owner@example.com","firstName":"Owner","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:owner","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@user owner","email":"owner@example.com","firstName":"Owner","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:owner"}",
+          "{"id":"@user owner","email":"owner@example.com","firstName":"Owner","lastName":"Fixture","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:owner","kind":"person"}",
         ],
       },
     },
@@ -12039,6 +12645,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Owner",
             "id": "@user owner",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -12056,6 +12663,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user owner",
         },
       ],
     ],
@@ -12144,7 +12758,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user redirect@example.com","email":"redirect@example.com","firstName":"Redirect","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user redirect@example.com","email":"redirect@example.com","firstName":"Redirect","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -12160,6 +12774,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Redirect",
             "id": "@new user redirect@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -12177,6 +12792,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user redirect@example.com",
         },
       ],
     ],
@@ -12242,6 +12864,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Newone",
             "id": "@new user newone@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -12259,6 +12882,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user newone@example.com",
         },
       ],
     ],
@@ -12350,7 +12980,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user variant53@example.com","email":"variant53@example.com","firstName":"Variant53","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user variant53@example.com","email":"variant53@example.com","firstName":"Variant53","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -12366,6 +12996,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Variant53",
             "id": "@new user variant53@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -12383,6 +13014,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user variant53@example.com",
         },
       ],
     ],
@@ -12444,7 +13082,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user variant52@example.com","email":"variant52@example.com","firstName":"Variant52","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user variant52@example.com","email":"variant52@example.com","firstName":"Variant52","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -12460,6 +13098,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Variant52",
             "id": "@new user variant52@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -12477,6 +13116,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user variant52@example.com",
         },
       ],
     ],
@@ -12570,7 +13216,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user variant56@example.com","email":"variant56@example.com","firstName":"Variant56","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user variant56@example.com","email":"variant56@example.com","firstName":"Variant56","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -12586,6 +13232,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Variant56",
             "id": "@new user variant56@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -12603,6 +13250,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user variant56@example.com",
         },
       ],
     ],
@@ -12664,7 +13318,7 @@ exports[`SAML > the assertion consumer service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user variant55@example.com","email":"variant55@example.com","firstName":"Variant55","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user variant55@example.com","email":"variant55@example.com","firstName":"Variant55","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -12680,6 +13334,7 @@ exports[`SAML > the assertion consumer service 1`] = `
             "firstName": "Variant55",
             "id": "@new user variant55@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Saml",
             "mfaEnabled": false,
@@ -12697,6 +13352,13 @@ exports[`SAML > the assertion consumer service 1`] = `
             "settings": null,
             "updatedAt": "<date>",
           },
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user variant55@example.com",
         },
       ],
     ],
@@ -12923,7 +13585,7 @@ exports[`SAML > the connection test 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user tester@example.com","email":"tester@example.com","firstName":"Tester","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user tester@example.com","email":"tester@example.com","firstName":"Tester","lastName":"Saml","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },

@@ -1,40 +1,16 @@
+// Fork: upstream n8n removed this file when it replaced Git connections with environments. The
+// fork keeps Git connections, so it keeps the DTOs of their configs. The direction and the settings
+// of a direction have the same schemas as the settings of an environment, so this file takes them
+// from `promotion-environment.dto.ts`. See packages/cli/src/modules/promotions/README.md.
 import { z } from 'zod';
 
 import { promotionDisplayNameSchema } from './promotion-common.dto';
+import {
+	promotionGitApplySettingsSchema,
+	promotionGitPromoteSettingsSchema,
+} from './promotion-environment.dto';
 import { n8nIdSchema } from '../../schemas/id.schema';
 import { Z } from '../../zod-class';
-
-export const promotionDirectionSchema = z.enum(['apply', 'promote']);
-export type PromotionDirection = z.infer<typeof promotionDirectionSchema>;
-
-/**
- * Every config carries a branch for its direction. A direction that is not set up
- * has no config at all. Git sets no limit on branch names, so cap it here to keep
- * the payload small. The backend still checks the name with Git.
- */
-const branchNameSchema = z.string().trim().min(1).max(255);
-
-/** Apply imports the package from `branchName`. */
-export const promotionGitApplySettingsSchema = z
-	.object({ schemaVersion: z.literal(1), branchName: branchNameSchema })
-	.strict();
-
-/**
- * Promote starts from `baseBranchName`. With branching off it pushes there
- * directly. With branching on it creates the promotion branch from there. The
- * branch it really pushed to comes back in the result and is never saved here.
- *
- * `createBranchOnPromotion` is always required. A write replaces the whole config,
- * so a default here would let an unrelated edit reset it. The off-by-default
- * choice lives in the UI toggle and the CLI examples instead.
- */
-export const promotionGitPromoteSettingsSchema = z
-	.object({
-		schemaVersion: z.literal(1),
-		baseBranchName: branchNameSchema,
-		createBranchOnPromotion: z.boolean(),
-	})
-	.strict();
 
 /**
  * Settings schema for each direction. Use this map when the direction is known,

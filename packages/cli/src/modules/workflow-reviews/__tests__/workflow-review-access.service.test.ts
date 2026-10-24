@@ -2,12 +2,7 @@ import { mock } from 'vitest-mock-extended';
 
 import type { ReviewViewer } from '../workflow-review-access.service';
 import { WorkflowReviewAccessService } from '../workflow-review-access.service';
-import {
-	decodeActivityCursor,
-	decodeInboxCursor,
-	encodeActivityCursor,
-	encodeInboxCursor,
-} from '../workflow-review-cursor';
+import { decodeActivityCursor, encodeActivityCursor } from '../workflow-review-cursor';
 
 const service = new WorkflowReviewAccessService(mock(), mock(), mock(), mock(), mock(), mock());
 
@@ -95,21 +90,14 @@ describe('WorkflowReviewAccessService', () => {
 	});
 });
 
-describe('the review cursors', () => {
-	it('give back what they hold', () => {
-		const createdAt = new Date('2026-10-14T10:00:00.123Z');
-		expect(decodeInboxCursor(encodeInboxCursor(createdAt, 'request-1'))).toEqual({
-			createdAt,
-			id: 'request-1',
-		});
+describe('the activity cursor', () => {
+	it('gives back what it holds', () => {
 		expect(decodeActivityCursor(encodeActivityCursor(42))).toBe(42);
 	});
 
-	it('reject a cursor that is not theirs', () => {
-		for (const cursor of ['notACursor', encodeActivityCursor(42), '']) {
-			expect(() => decodeInboxCursor(cursor)).toThrow('Invalid pagination cursor');
-		}
-		for (const cursor of ['notACursor', encodeInboxCursor(new Date(), 'request-1')]) {
+	it('rejects a cursor that is not its own', () => {
+		const otherCursor = Buffer.from(JSON.stringify({ c: 'x', i: 'y' })).toString('base64url');
+		for (const cursor of ['notACursor', otherCursor, '']) {
 			expect(() => decodeActivityCursor(cursor)).toThrow('Invalid pagination cursor');
 		}
 	});

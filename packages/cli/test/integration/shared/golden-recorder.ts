@@ -183,7 +183,8 @@ export class GoldenRecorder {
 					.map(([key, entry]) => [
 						key,
 						(/(At|Date)$/.test(key) && entry !== null) ||
-						(key === 'timestamp' && typeof entry === 'number')
+						// `at` is the time of an event, for example of the first login of a user.
+						((key === 'timestamp' || key === 'at') && typeof entry === 'number')
 							? '<date>'
 							: isScopeList(key, entry)
 								? '<scope entities>'

@@ -1,6 +1,7 @@
 // Fork test (not in upstream n8n): a golden test of workflow reviews, end to end. It calls each
-// route of `/workflow-review-requests` as the owner, an admin and members with each project role
-// and with custom roles, publishes workflows that have an open review, archives, deletes and moves
+// route of `/workflow-review-requests` and the inbox routes (`/inbox` and `/inbox/summary`) as the
+// owner, an admin and members with each project role and with custom roles, publishes workflows
+// that have an open review, archives, deletes and moves
 // reviewed workflows, and records the status and the body of each answer, the rows of the review
 // tables and of the workflow history, and the events and the push signals of each step. The
 // snapshot was recorded against the original module of workflow reviews, and the fork module gives
@@ -55,10 +56,12 @@ const testServer = utils.setupTestServer({
 		'feat:projectRole:viewer',
 	],
 	quotas: { 'quota:maxTeamProjects': -1 },
-	modules: ['workflow-reviews'],
+	modules: ['workflow-reviews', 'inbox'],
 });
 
 const BASE = '/workflow-review-requests';
+/** The inbox lists the open reviews too, so its answers stay whole as the answers of `BASE`. */
+const INBOX = '/inbox';
 const rec = new GoldenRecorder();
 
 type Who =
@@ -222,7 +225,10 @@ function labelUrl(url: string) {
 	const params = search
 		.split('&')
 		.map((param) => {
-			const [key, value = ''] = param.split('=');
+			// Split at the first `=` only: a cursor can end with the `=` padding of base64.
+			const separator = param.indexOf('=');
+			const key = separator === -1 ? param : param.slice(0, separator);
+			const value = separator === -1 ? '' : param.slice(separator + 1);
 			return key === 'cursor' && cursorLabels.has(value)
 				? `${key}=${cursorLabel(value)}`
 				: `${key}=${rec.labelString(value)}`;
@@ -246,7 +252,10 @@ async function call(
 		call: `${who} ${method.toUpperCase()} ${labelUrl(url)}`,
 		...(body === undefined ? {} : { send: shorten(rec.normalize(compactUsers(body))) }),
 		status: response.status,
-		body: url.startsWith(BASE) ? cleanBody(response.body) : ordinaryBody(response),
+		body:
+			url.startsWith(BASE) || url.startsWith(INBOX)
+				? cleanBody(response.body)
+				: ordinaryBody(response),
 		// The events and push signals of this call. They get their labels when the step ends.
 		...(events.length > eventCount ? { events: events.splice(eventCount) } : {}),
 		...(broadcasts.length > broadcastCount
@@ -740,10 +749,10 @@ describe('Workflow reviews (golden)', () => {
 			await call(who, 'get', `${BASE}?workflowId=${wf1.id}`);
 			await call(who, 'get', `${BASE}/${r1}`);
 			await call(who, 'get', `${BASE}/${r1}/activity`);
-			await call(who, 'get', `${BASE}/inbox`);
-			await call(who, 'get', `${BASE}/inbox?category=waiting`);
-			await call(who, 'get', `${BASE}/inbox?category=authored`);
-			await call(who, 'get', `${BASE}/summary`);
+			await call(who, 'get', '/inbox');
+			await call(who, 'get', '/inbox?category=waiting');
+			await call(who, 'get', '/inbox?category=authored');
+			await call(who, 'get', '/inbox/summary');
 		}
 		await call('requester', 'get', `${BASE}?workflowId=${wf1.id}&take=1`);
 		await call('requester', 'get', `${BASE}?workflowId=${wf1.id}&state=closed`);
@@ -805,7 +814,7 @@ describe('Workflow reviews (golden)', () => {
 		await call('requester', 'get', `${BASE}?workflowId=${wf1.id}`);
 		await call('requester', 'get', `${BASE}/${r1}`);
 		await call('reviewer', 'get', `${BASE}/${r1}`);
-		await call('reviewer', 'get', `${BASE}/inbox?category=waiting`);
+		await call('reviewer', 'get', '/inbox?category=waiting');
 		await snapshotStep();
 	});
 
@@ -856,8 +865,8 @@ describe('Workflow reviews (golden)', () => {
 			updateBody(wf1v4, 'Release 3', { description: '' }),
 		);
 		await call('editor2', 'get', `${BASE}/${r1}`);
-		await call('editor2', 'get', `${BASE}/inbox?category=authored`);
-		await call('editor2', 'get', `${BASE}/inbox?category=waiting`);
+		await call('editor2', 'get', '/inbox?category=authored');
+		await call('editor2', 'get', '/inbox?category=waiting');
 		await call('requester', 'get', `${BASE}/${r1}/activity`);
 		await snapshotStep();
 	});
@@ -890,8 +899,8 @@ describe('Workflow reviews (golden)', () => {
 		}
 		await call('requester', 'get', `${BASE}/${r1}/activity`);
 		await call('requester', 'get', `${BASE}?workflowId=${wf1.id}`);
-		await call('reviewer', 'get', `${BASE}/inbox?state=closed`);
-		await call('reviewer', 'get', `${BASE}/summary`);
+		await call('reviewer', 'get', '/inbox?state=closed');
+		await call('reviewer', 'get', '/inbox/summary');
 		await call('requester', 'post', `/workflows/${wf1.id}/activate`, { versionId: wf1v3 });
 		await createReview('requester', wf1, wf1v4, { title: 'A new review after the close' });
 		await snapshotStep();
@@ -942,8 +951,8 @@ describe('Workflow reviews (golden)', () => {
 		});
 		await call('viewer2', 'get', `${BASE}/${r5}`);
 		await call('viewer2', 'get', `${BASE}?workflowId=${wf5.id}`);
-		await call('viewer2', 'get', `${BASE}/inbox`);
-		await call('viewer2', 'get', `${BASE}/summary`);
+		await call('viewer2', 'get', '/inbox');
+		await call('viewer2', 'get', '/inbox/summary');
 		await call('viewer2', 'post', `${BASE}/${r5}/comments`, { body: 'No access now' });
 		await call('viewer2', 'post', `${BASE}/${r5}/decision`, { decision: 'approved' });
 		await call('requester', 'get', `${BASE}/${r5}`);
@@ -1028,15 +1037,15 @@ describe('Workflow reviews (golden)', () => {
 		const wfPol2 = await makeWorkflow('Workflow Policy Two', 'wfPol2');
 		await call('requester', 'get', `${BASE}?workflowId=${wfPol.id}`);
 		await call('requester', 'get', `${BASE}/${rPol}`);
-		await call('requester', 'get', `${BASE}/inbox`);
-		await call('requester', 'get', `${BASE}/summary`);
+		await call('requester', 'get', '/inbox');
+		await call('requester', 'get', '/inbox/summary');
 		await createReview('requester', wfPol2, wfPol2.versionId);
 		await call('reviewer', 'post', `${BASE}/${rPol}/comments`, { body: 'Policy off' });
 		await call('requester', 'post', `/workflows/${wfPol.id}/activate`, { versionId: polV2 });
 		await Container.get(WorkflowReviewPolicyService).set(true);
 
 		testServer.license.disable('feat:workflowReviews');
-		await call('requester', 'get', `${BASE}/summary`);
+		await call('requester', 'get', '/inbox/summary');
 		await call('requester', 'get', `${BASE}/${rPol}`);
 		await call('reviewer', 'post', `${BASE}/${rPol}/decision`, { decision: 'approved' });
 		testServer.license.enable('feat:workflowReviews');
@@ -1079,7 +1088,7 @@ describe('Workflow reviews (golden)', () => {
 			});
 		}
 		await call('owner', 'get', `${BASE}/${rD}`);
-		await call('owner', 'get', `${BASE}/inbox?limit=2`);
+		await call('owner', 'get', '/inbox?limit=2');
 		await snapshotStep();
 	});
 
@@ -1127,7 +1136,7 @@ describe('Workflow reviews (golden)', () => {
 			await call(who, 'get', `${BASE}/${rMv}`);
 		}
 		await call('projAdmin2', 'post', `${BASE}/${rMv}/comments`, { body: 'After the move' });
-		await call('projAdmin2', 'get', `${BASE}/inbox?state=closed`);
+		await call('projAdmin2', 'get', '/inbox?state=closed');
 		await snapshotStep();
 	});
 
@@ -1194,7 +1203,7 @@ describe('Workflow reviews (golden)', () => {
 		await call('owner', 'get', `${BASE}?workflowId=${wfLeave.id}`);
 		await call('reviewer', 'post', `${BASE}/${rLeave}/decision`, { decision: 'approved' });
 		await call('owner', 'get', `${BASE}/${rLeave}/activity`);
-		await call('owner', 'get', `${BASE}/inbox?state=closed&limit=1`);
+		await call('owner', 'get', '/inbox?state=closed&limit=1');
 		await snapshotStep();
 	});
 
@@ -1272,20 +1281,20 @@ describe('Workflow reviews (golden)', () => {
 
 	it('pages through the inbox', async () => {
 		for (const state of ['open', 'closed']) {
-			let url = `${BASE}/inbox?state=${state}&limit=2`;
+			let url = `/inbox?state=${state}&limit=2`;
 			for (let page = 0; page < 10; page++) {
 				const response = await call('owner', 'get', url);
 				const cursor = String(dataOf(response).nextCursor ?? '');
 				if (!cursor) break;
-				url = `${BASE}/inbox?state=${state}&limit=2&cursor=${cursor}`;
+				url = `/inbox?state=${state}&limit=2&cursor=${cursor}`;
 			}
 		}
-		await call('reviewer', 'get', `${BASE}/inbox?limit=1&category=waiting`);
-		await call('owner', 'get', `${BASE}/inbox?limit=0`);
-		await call('owner', 'get', `${BASE}/inbox?limit=101`);
-		await call('owner', 'get', `${BASE}/inbox?state=bogus`);
-		await call('owner', 'get', `${BASE}/inbox?category=bogus`);
-		await call('owner', 'get', `${BASE}/inbox?cursor=notACursor`);
+		await call('reviewer', 'get', '/inbox?limit=1&category=waiting');
+		await call('owner', 'get', '/inbox?limit=0');
+		await call('owner', 'get', '/inbox?limit=101');
+		await call('owner', 'get', '/inbox?state=bogus');
+		await call('owner', 'get', '/inbox?category=bogus');
+		await call('owner', 'get', '/inbox?cursor=notACursor');
 		await call('owner', 'get', `${BASE}?workflowId=${wf1.id}&take=0`);
 		await call('owner', 'get', `${BASE}?workflowId=${wf1.id}&skip=-1`);
 		await call('owner', 'get', `${BASE}?workflowId=${wf1.id}&state=bogus`);

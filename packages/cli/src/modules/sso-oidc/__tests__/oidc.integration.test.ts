@@ -5,7 +5,7 @@
 // sign-in state, and the rows that the case changed. The snapshot records what n8n does, so a
 // change in behaviour shows up as a snapshot diff.
 // packages/cli/src/modules/sso-oidc/FORK.md tells how the fork made the snapshot.
-import { EventService } from '@n8n/backend-services';
+import { EventService, JwtService } from '@n8n/backend-services';
 import { mockInstance, testDb } from '@n8n/backend-test-utils';
 import { GlobalConfig, InstanceSettingsLoaderConfig } from '@n8n/config';
 import {
@@ -35,7 +35,6 @@ import {
 import { Publisher } from '@/scaling/pubsub/publisher.service';
 import { PubSubEventBus } from '@/scaling/pubsub/pubsub.eventbus';
 import { PubSubRegistry } from '@/scaling/pubsub/pubsub.registry';
-import { JwtService } from '@/services/jwt.service';
 import { setCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 
 import { createUser } from '@test-integration/db/users';

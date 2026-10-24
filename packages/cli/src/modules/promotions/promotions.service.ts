@@ -1,5 +1,5 @@
 import type {
-	ApplyPackageResultDto,
+	PromotionConnectionApplyResultDto,
 	PromotionDirection,
 	PromotionBindingPreflightResult,
 } from '@n8n/api-types';
@@ -224,7 +224,7 @@ export class PromotionsService {
 		connectionId: string,
 		user: User,
 		expectedSource: ExpectedSource | undefined,
-	): Promise<ApplyPackageResultDto> {
+	): Promise<PromotionConnectionApplyResultDto> {
 		const { connection, config } = await this.targets.forConnection(connectionId, 'apply');
 		this.targets.assertInstanceConnection(connection, 'apply');
 		await this.targets.assertCloned(connection, config);

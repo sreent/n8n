@@ -132,13 +132,14 @@ export class SharingRepository extends BaseRepository<SharedWorkflow> {
 		});
 	}
 
-	/** The ids of the workflows in these folders, archived workflows too. */
+	/** The ids of the workflows in these folders, archived workflows too, the oldest first. */
 	async findWorkflowIdsInFolders(folderIds: string[]) {
 		const ids: string[] = [];
 		for (const chunk of chunkIds(folderIds)) {
 			const workflows = await this.manager.find(WorkflowEntity, {
 				select: { id: true },
 				where: { parentFolder: { id: In(chunk) } },
+				order: { createdAt: 'ASC', id: 'ASC' },
 			});
 			ids.push(...workflows.map(({ id }) => id));
 		}

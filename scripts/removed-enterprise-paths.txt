@@ -87,6 +87,7 @@ packages/@n8n/db/src/entities/test-case-execution.ee.ts
 packages/@n8n/db/src/entities/test-run.ee.ts
 packages/@n8n/db/src/repositories/test-case-execution.repository.ee.ts
 packages/@n8n/db/src/repositories/test-run.repository.ee.ts
+packages/@n8n/db/src/repositories/__tests__/test-run.repository.ee.test.ts
 packages/@n8n/db/src/utils/__tests__/get-test-run-final-result.ee.test.ts
 packages/cli/test/integration/test-run.repository.ee.test.ts
 
@@ -142,3 +143,29 @@ packages/frontend/editor-ui/src/app/stores/workflows.ee.store.ts
 packages/frontend/editor-ui/src/features/credentials/credentials.ee.api.ts
 packages/frontend/editor-ui/src/features/credentials/components/CredentialEdit/CredentialSharing.ee.*
 packages/frontend/editor-ui/src/features/workflows/components/WorkflowShareModal.ee.*
+
+# Upstream files of enterprise features that the fork does not rebuild (feature freeze, FORK.md).
+# Git connections stay on their connection tables, so the fork leaves out the environments that
+# replace them upstream: two migrations and the tests of the environment API and of its reviews in
+# the inbox. The fork tests its own API in
+# packages/cli/test/integration/public-api/git-connections.test.ts. See
+# packages/cli/src/modules/promotions/README.md.
+packages/@n8n/db/src/migrations/common/1792139680417-CreatePromotionRunAndReviewTables.ts
+packages/@n8n/db/src/migrations/common/1792417570699-ReplacePromotionConnectionsWithEnvironments.ts
+packages/cli/test/migration/1792417570699-replace-promotion-connections-with-environments.test.ts
+packages/cli/test/integration/public-api/promotions.test.ts
+packages/cli/src/public-api/v1/controllers/__tests__/promotions.public.controller.test.ts
+packages/cli/test/integration/promotion-review-inbox.test.ts
+# The generated public API spec of the environment routes. The fork controller has the routes of
+# Git connections, and the spec drift test checks their files.
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/*PromotionEnvironment*.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/applyProjectSelection.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/continueApplyProjectSelection.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/connectPromotionCheckout.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/getPromotionProviderRepositor*.generated.yml
+packages/cli/src/public-api/v1/shared/spec/schemas/applyPackageResultDto.generated.yml
+packages/cli/src/public-api/v1/shared/spec/schemas/promotePackageResultDto.generated.yml
+packages/cli/src/public-api/v1/shared/spec/schemas/promotionCheckoutPublicDto.generated.yml
+packages/cli/src/public-api/v1/shared/spec/schemas/promotionEnvironmentPublicDto.generated.yml
+# The role mapping provider of trusted sources is enterprise code. Its test needs it.
+packages/cli/test/integration/inbound-auth-core/trusted-source-identity.service.integration.test.ts

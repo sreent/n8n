@@ -2,7 +2,7 @@ import { LicenseState, Logger } from '@n8n/backend-common';
 import { EventService } from '@n8n/backend-services';
 import { GlobalConfig } from '@n8n/config';
 import type { LdapConfig } from '@n8n/constants';
-import { LDAP_FEATURE_NAME } from '@n8n/constants';
+import { LDAP_FEATURE_NAME, Time } from '@n8n/constants';
 import type { AuthProviderSyncHistory, RunningMode } from '@n8n/db';
 import { SettingsRepository, User } from '@n8n/db';
 import type { IPasswordAuthHandler } from '@n8n/decorators';
@@ -35,6 +35,7 @@ import {
 	createFilter,
 	escapeFilter,
 	formatUrl,
+	getLdapSynchronizationsWithCount,
 	getMappingAttributes,
 	isLdapConfig,
 	mapLdapAttributesToUser,
@@ -59,8 +60,6 @@ export class LdapService implements IPasswordAuthHandler<User> {
 	readonly metadata = { name: 'ldap', type: 'password' } as const;
 
 	readonly userClass = User;
-
-	private client: Client | undefined;
 
 	private syncTimer: NodeJS.Timeout | undefined = undefined;
 
@@ -144,7 +143,6 @@ export class LdapService implements IPasswordAuthHandler<User> {
 		await this.setGlobalLdapConfigVariables(config);
 
 		this.currentConfig = { ...config, bindingAdminPassword: plainPassword };
-		this.client = undefined;
 		this.stopSync();
 		if (scheduleSync) this.scheduleSync();
 
@@ -173,7 +171,6 @@ export class LdapService implements IPasswordAuthHandler<User> {
 	/** Uses a configuration without a check, and schedules its synchronization. */
 	setConfig(ldapConfig: LdapConfig) {
 		this.currentConfig = ldapConfig;
-		this.client = undefined;
 		this.stopSync();
 		if (this.config.synchronizationEnabled) this.scheduleSync();
 	}
@@ -201,43 +198,49 @@ export class LdapService implements IPasswordAuthHandler<User> {
 	}
 
 	/**
-	 * The client of the directory. A new configuration makes a new client. With STARTTLS, the
-	 * client starts TLS once, when it is made.
+	 * Runs an operation with a new client of the directory, and unbinds at the end, also after an
+	 * error. With STARTTLS, the client starts TLS first. The client waits at most the search timeout
+	 * for the connection and for each answer.
 	 */
-	async getClient(): Promise<Client> {
-		if (this.client === undefined) {
-			const { connectionUrl, connectionPort, connectionSecurity, allowUnauthorizedCerts } =
-				this.config;
-			const options: ClientOptions = {
-				url: formatUrl(connectionUrl, connectionPort, connectionSecurity),
-			};
-			const tlsOptions: ConnectionOptions = { rejectUnauthorized: !allowUnauthorizedCerts };
-			if (connectionSecurity === 'tls') options.tlsOptions = tlsOptions;
-			this.client = new Client(options);
-			if (connectionSecurity === 'startTls') await this.client.startTLS(tlsOptions);
+	private async withClient<T>(operation: (client: Client) => Promise<T>): Promise<T> {
+		const { connectionUrl, connectionPort, connectionSecurity, allowUnauthorizedCerts } =
+			this.config;
+		const timeout = this.config.searchTimeout * Time.seconds.toMilliseconds;
+		const options: ClientOptions = {
+			url: formatUrl(connectionUrl, connectionPort, connectionSecurity),
+			timeout,
+			connectTimeout: timeout,
+		};
+		const tlsOptions: ConnectionOptions = { rejectUnauthorized: !allowUnauthorizedCerts };
+		if (connectionSecurity === 'tls') options.tlsOptions = tlsOptions;
+		const client = new Client(options);
+		try {
+			if (connectionSecurity === 'startTls') await client.startTLS(tlsOptions);
+			return await operation(client);
+		} finally {
+			// A failed unbind changes nothing: the connection ends anyway.
+			await client.unbind().catch(() => {});
 		}
-		return this.client;
 	}
 
 	/** Binds with the binding DN and password of the configuration. Empty ones bind anonymously. */
-	async bindAdmin(): Promise<void> {
-		const client = await this.getClient();
+	private async bindAdmin(client: Client): Promise<void> {
 		await client.bind(this.config.bindingAdminDn, this.config.bindingAdminPassword);
 	}
 
-	/** Searches the base DN as the binding user, and unbinds after the search. */
+	/** Searches the base DN as the binding user. */
 	async searchWithAdminBinding(filter: string): Promise<Entry[]> {
-		await this.bindAdmin();
-		const client = await this.getClient();
-		const { searchEntries } = await client.search(this.config.baseDn, {
-			attributes: getMappingAttributes(this.config),
-			explicitBufferAttributes: BINARY_AD_ATTRIBUTES,
-			filter,
-			timeLimit: this.config.searchTimeout,
-			paged: this.config.searchPageSize === 0 ? true : { pageSize: this.config.searchPageSize },
+		return await this.withClient(async (client) => {
+			await this.bindAdmin(client);
+			const { searchEntries } = await client.search(this.config.baseDn, {
+				attributes: getMappingAttributes(this.config),
+				explicitBufferAttributes: BINARY_AD_ATTRIBUTES,
+				filter,
+				timeLimit: this.config.searchTimeout,
+				paged: this.config.searchPageSize === 0 ? true : { pageSize: this.config.searchPageSize },
+			});
+			return searchEntries;
 		});
-		await client.unbind();
-		return searchEntries;
 	}
 
 	/** True when more than one entry of the directory has the email, or when the check fails. */
@@ -258,11 +261,9 @@ export class LdapService implements IPasswordAuthHandler<User> {
 		}
 	}
 
-	/** Binds as the user, and unbinds. It throws when the directory refuses the password. */
+	/** Binds as the user. It throws when the directory refuses the password. */
 	async validUser(dn: string, password: string): Promise<void> {
-		const client = await this.getClient();
-		await client.bind(dn, password);
-		await client.unbind();
+		await this.withClient(async (client) => await client.bind(dn, password));
 	}
 
 	/**
@@ -307,7 +308,7 @@ export class LdapService implements IPasswordAuthHandler<User> {
 
 	/** Binds with the configuration, to check it. */
 	async testConnection(): Promise<void> {
-		await this.bindAdmin();
+		await this.withClient(async (client) => await this.bindAdmin(client));
 	}
 
 	/**
@@ -416,6 +417,14 @@ export class LdapService implements IPasswordAuthHandler<User> {
 		}
 
 		return history;
+	}
+
+	/** A part of the synchronization history and the count of all runs, newest first. */
+	async getSynchronizations(
+		offset: number,
+		limit: number,
+	): Promise<[AuthProviderSyncHistory[], number]> {
+		return await getLdapSynchronizationsWithCount(offset, limit);
 	}
 
 	/** The users to create, to update and to disable. */

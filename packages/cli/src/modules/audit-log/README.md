@@ -158,9 +158,10 @@ fork adds the scope to API keys.
 Both routes take the filters of the REST API: `from`, `to`, `eventName`, `userId`, `projectId`
 and `projectType`. `events`
 pages as the other routes of the public API: `limit` (default 100, at most 250) and `cursor` (the
-`nextCursor` of the previous page). `nextCursor` is null on the last page. The table can hold many
-events, so a page must have 1 to 250 events: the route answers 400 for `limit=0`, and for a cursor
-that a client changed to a larger page or to an offset that is not a whole number of 0 or more.
+`nextCursor` of the previous page). `nextCursor` is null on the last page. As in the other routes
+of the public API since n8n 2.45, `limit=0` gives the default page. The table can hold many events,
+so the route answers 400 for a cursor that a client changed to a larger page or to an offset that
+is not a whole number of 0 or more.
 `export` takes `format`: `csv` (the default) or `json`.
 
 Without the licence value `feat:logStreaming`, the routes answer 403. When the module is off, the

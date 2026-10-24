@@ -552,6 +552,12 @@ exports[`dynamic credential resolution > the OAuth2 resolver with the userinfo e
     "step": "resolve an opaque token with an expected audience",
   },
   {
+    "logs": [
+      [
+        "warn",
+        "Identity metadata is invalid",
+      ],
+    ],
     "outcome": "done",
     "step": "identify a signed token",
   },
@@ -897,29 +903,19 @@ exports[`dynamic credential resolution > the OAuth2 resolver with token introspe
   {
     "logs": [
       [
+        "warn",
+        "Identity metadata is invalid",
+      ],
+      [
         "debug",
         "Dynamic credential resolution failed",
       ],
     ],
     "outcome": {
       "causes": [
-        "CredentialResolverError: Invalid context metadata: [",
+        "CredentialResolverError: Invalid context metadata: source: Invalid input",
       ],
-      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Via workflow": Invalid context metadata: [
-  {
-    "code": "invalid_union_discriminator",
-    "options": [
-      "manual-execution",
-      "chat-hub-injected",
-      "cookie-source",
-      "n8n-oauth"
-    ],
-    "path": [
-      "source"
-    ],
-    "message": "Invalid discriminator value. Expected 'manual-execution' | 'chat-hub-injected' | 'cookie-source' | 'n8n-oauth'"
-  }
-]",
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Via workflow": Invalid context metadata: source: Invalid input",
     },
     "step": "resolve a bearer token with the system resolver",
   },
@@ -936,6 +932,12 @@ exports[`dynamic credential resolution > the OAuth2 resolver with token introspe
     "step": "resolve the owner session with the introspection resolver",
   },
   {
+    "logs": [
+      [
+        "warn",
+        "Identity metadata is invalid",
+      ],
+    ],
     "outcome": "done",
     "step": "identify a bearer token for the introspection resolver",
   },
@@ -1284,7 +1286,12 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
         "verifyOAuthAccessToken",
         "token-owner",
         "http://localhost:5678/mcp/workflow",
-        null,
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
       ],
     ],
   },
@@ -1315,13 +1322,23 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
         "verifyOAuthAccessToken",
         "token-owner",
         "http://localhost:5678/mcp/workflow",
-        null,
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
       ],
       [
         "verifyOAuthAccessToken",
         "token-owner",
         "http://localhost:5678/mcp/workflow",
-        null,
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
       ],
     ],
   },
@@ -1344,7 +1361,12 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
         "verifyOAuthAccessToken",
         "token-member",
         "http://localhost:5678/mcp/workflow",
-        null,
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
       ],
     ],
   },
@@ -1367,7 +1389,12 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
         "verifyOAuthAccessToken",
         "token-unknown",
         "http://localhost:5678/mcp/workflow",
-        null,
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
       ],
     ],
   },
@@ -1395,23 +1422,27 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
     "step": "resolve with a sealed subject in the execution it was bound to",
     "verifier": [
       [
-        "authorizeSealedGrant",
-        "@owner",
+        "authorizeSealed",
         {
-          "audiences": [
-            "http://localhost:5678/mcp/workflow",
-          ],
-          "executeAccessWorkflowId": "wf-1",
+          "grant": {
+            "audiences": [
+              "http://localhost:5678/mcp/workflow",
+            ],
+            "executeAccessWorkflowId": "wf-1",
+          },
+          "userId": "@owner",
         },
       ],
       [
-        "authorizeSealedGrant",
-        "@owner",
+        "authorizeSealed",
         {
-          "audiences": [
-            "http://localhost:5678/mcp/workflow",
-          ],
-          "executeAccessWorkflowId": "wf-1",
+          "grant": {
+            "audiences": [
+              "http://localhost:5678/mcp/workflow",
+            ],
+            "executeAccessWorkflowId": "wf-1",
+          },
+          "userId": "@owner",
         },
       ],
     ],
@@ -1482,7 +1513,7 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
         "resolvedUserId": "@owner",
       },
     },
-    "step": "resolve with a sealed subject without a grant",
+    "step": "resolve with a legacy sealed subject without a grant",
   },
   {
     "logs": [
@@ -1500,13 +1531,15 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
     "step": "resolve with a sealed subject whose grant is withdrawn",
     "verifier": [
       [
-        "authorizeSealedGrant",
-        "@owner",
+        "authorizeSealed",
         {
-          "audiences": [
-            "http://localhost:5678/mcp/workflow",
-          ],
-          "executeAccessWorkflowId": "wf-1",
+          "grant": {
+            "audiences": [
+              "http://localhost:5678/mcp/workflow",
+            ],
+            "executeAccessWorkflowId": "wf-1",
+          },
+          "userId": "@owner",
         },
       ],
     ],
@@ -1535,23 +1568,27 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
     "step": "resolve with a sealed subject of a known token",
     "verifier": [
       [
-        "authorizeSealedGrant",
-        "@owner",
+        "authorizeSealed",
         {
-          "audiences": [
-            "http://localhost:5678/mcp/workflow",
-          ],
-          "executeAccessWorkflowId": "wf-1",
+          "grant": {
+            "audiences": [
+              "http://localhost:5678/mcp/workflow",
+            ],
+            "executeAccessWorkflowId": "wf-1",
+          },
+          "userId": "@owner",
         },
       ],
       [
-        "authorizeSealedGrant",
-        "@owner",
+        "authorizeSealed",
         {
-          "audiences": [
-            "http://localhost:5678/mcp/workflow",
-          ],
-          "executeAccessWorkflowId": "wf-1",
+          "grant": {
+            "audiences": [
+              "http://localhost:5678/mcp/workflow",
+            ],
+            "executeAccessWorkflowId": "wf-1",
+          },
+          "userId": "@owner",
         },
       ],
     ],
@@ -1580,23 +1617,84 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
     "step": "resolve with a sealed subject that is not the user of the token",
     "verifier": [
       [
-        "authorizeSealedGrant",
-        "@owner",
+        "authorizeSealed",
         {
-          "audiences": [
-            "http://localhost:5678/mcp/workflow",
-          ],
-          "executeAccessWorkflowId": "wf-1",
+          "grant": {
+            "audiences": [
+              "http://localhost:5678/mcp/workflow",
+            ],
+            "executeAccessWorkflowId": "wf-1",
+          },
+          "userId": "@owner",
         },
       ],
       [
-        "authorizeSealedGrant",
-        "@owner",
+        "authorizeSealed",
         {
-          "audiences": [
-            "http://localhost:5678/mcp/workflow",
-          ],
-          "executeAccessWorkflowId": "wf-1",
+          "grant": {
+            "audiences": [
+              "http://localhost:5678/mcp/workflow",
+            ],
+            "executeAccessWorkflowId": "wf-1",
+          },
+          "userId": "@owner",
+        },
+      ],
+    ],
+  },
+  {
+    "logs": [
+      [
+        "debug",
+        "Successfully resolved dynamic credentials",
+      ],
+    ],
+    "outcome": {
+      "value": {
+        "data": {
+          "clientId": "static-client",
+          "clientSecret": "static-secret",
+          "grantType": "authorizationCode",
+          "oauthTokenData": {
+            "access_token": "owner-access",
+          },
+        },
+        "isDynamic": true,
+        "resolvedUserId": "@owner",
+      },
+    },
+    "step": "resolve with a sealed subject that came through a trusted source",
+    "verifier": [
+      [
+        "authorizeSealed",
+        {
+          "binding": {
+            "sourceId": "source-1",
+            "subject": "external-owner",
+          },
+          "grant": {
+            "audiences": [
+              "http://localhost:5678/mcp/workflow",
+            ],
+            "executeAccessWorkflowId": "wf-1",
+          },
+          "userId": "@owner",
+        },
+      ],
+      [
+        "authorizeSealed",
+        {
+          "binding": {
+            "sourceId": "source-1",
+            "subject": "external-owner",
+          },
+          "grant": {
+            "audiences": [
+              "http://localhost:5678/mcp/workflow",
+            ],
+            "executeAccessWorkflowId": "wf-1",
+          },
+          "userId": "@owner",
         },
       ],
     ],
@@ -1611,7 +1709,12 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
         "verifyOAuthAccessToken",
         "token-owner",
         "http://localhost:5678/mcp/workflow",
-        null,
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
       ],
     ],
   },
@@ -1620,6 +1723,20 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
       "value": "@member",
     },
     "step": "identify a sealed subject",
+    "verifier": [
+      [
+        "authorizeSealed",
+        {
+          "grant": {
+            "audiences": [
+              "http://localhost:5678/mcp/workflow",
+            ],
+            "executeAccessWorkflowId": "wf-1",
+          },
+          "userId": "@member",
+        },
+      ],
+    ],
   },
   {
     "outcome": "done",
@@ -1629,7 +1746,12 @@ exports[`dynamic credential resolution > the system resolver with n8n OAuth toke
         "verifyOAuthAccessToken",
         "token-unknown",
         "http://localhost:5678/mcp/workflow",
-        null,
+        {
+          "audiences": [
+            "http://localhost:5678/mcp/workflow",
+          ],
+          "executeAccessWorkflowId": "wf-1",
+        },
       ],
     ],
   },
@@ -2019,28 +2141,9 @@ exports[`dynamic credential resolution > the system resolver with the session of
   {
     "logs": [
       [
-        "debug",
-        "Dynamic credential resolution failed",
+        "warn",
+        "Identity metadata is invalid",
       ],
-    ],
-    "outcome": {
-      "causes": [
-        "CredentialResolverError: Invalid context metadata: [",
-      ],
-      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Invalid context metadata: [
-  {
-    "code": "invalid_type",
-    "expected": "object",
-    "received": "undefined",
-    "path": [],
-    "message": "Required"
-  }
-]",
-    },
-    "step": "resolve with a context without metadata",
-  },
-  {
-    "logs": [
       [
         "debug",
         "Dynamic credential resolution failed",
@@ -2048,23 +2151,28 @@ exports[`dynamic credential resolution > the system resolver with the session of
     ],
     "outcome": {
       "causes": [
-        "CredentialResolverError: Invalid context metadata: [",
+        "CredentialResolverError: Invalid context metadata: Invalid input: expected object, received undefined",
       ],
-      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Invalid context metadata: [
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Invalid context metadata: Invalid input: expected object, received undefined",
+    },
+    "step": "resolve with a context without metadata",
+  },
   {
-    "code": "invalid_union_discriminator",
-    "options": [
-      "manual-execution",
-      "chat-hub-injected",
-      "cookie-source",
-      "n8n-oauth"
+    "logs": [
+      [
+        "warn",
+        "Identity metadata is invalid",
+      ],
+      [
+        "debug",
+        "Dynamic credential resolution failed",
+      ],
     ],
-    "path": [
-      "source"
-    ],
-    "message": "Invalid discriminator value. Expected 'manual-execution' | 'chat-hub-injected' | 'cookie-source' | 'n8n-oauth'"
-  }
-]",
+    "outcome": {
+      "causes": [
+        "CredentialResolverError: Invalid context metadata: source: Invalid input",
+      ],
+      "threw": "CredentialResolutionError < OperationalError < BaseError: Failed to resolve dynamic credentials for "Private": Invalid context metadata: source: Invalid input",
     },
     "step": "resolve with an unknown source",
   },
@@ -2195,6 +2303,12 @@ exports[`dynamic credential resolution > the system resolver with the session of
     "step": "identify a session that is not a JWT",
   },
   {
+    "logs": [
+      [
+        "warn",
+        "Identity metadata is invalid",
+      ],
+    ],
     "outcome": "done",
     "step": "identify a bearer token",
   },

@@ -20,7 +20,7 @@ modules have the same names without `.ee`:
 | `constants.ts` | `RESOURCES`, `API_KEY_RESOURCES`, the role slugs and the three setting objects. |
 | `types.ts` | `Scope`, `ApiKeyScope`, the role types, `AuthPrincipal`, `isApiKeyScope`, `isAssignableProjectRoleSlug`. |
 | `schemas.ts` | The zod schemas of roles, role slugs and scopes. |
-| `principal.ts` | `Principal`, `SecurityContext`, `AuthMethod`, `ResourceGrant`. |
+| `principal.ts` | `Principal`, `PrincipalType`, `SecurityContext`, `AuthMethod`, `ResourceGrant`, `ProtectedResourceRef`, `SubjectClaim`, `AuthAssurance`. |
 | `public-api-permissions.ts` | `getApiKeyScopesForRole`, `getOwnerOnlyApiKeyScopes`, `OWNER_API_KEY_SCOPES`, `MEMBER_API_KEY_SCOPES`. |
 | `roles/scopes/*.ts`, `roles/role-maps.ts` | The scope lists of the system roles, and the maps of each role namespace. |
 | `roles/custom-role-scopes.ts` | What custom roles can hold, and the options of the role editors. |
@@ -66,9 +66,16 @@ Custom roles need a licence, so a running upstream n8n without a licence cannot 
 The fork designed `roles/custom-role-scopes.ts` to pass the ordinary tests and to match the public
 documentation. Where these sources say nothing, the data is a fork decision. The main one: the
 **Instance settings: Manage** option holds the scopes of the instance settings that the admin role
-holds, except the scopes of the other options and the baseline scopes. The ordinary role service
+holds, except the scopes of the other options and the baseline scopes. Since n8n 2.45, the member
+role also holds `breakingChanges:list` and `trustedSource:list`. They stay out of the option, so
+that the option is not half-checked for the member role, as the ordinary editor test asks. The ordinary role service
 (`RoleService` of `@n8n/backend-services`) and the role views of the editor use this data. The fork
 switch turns custom roles on (step 5 of FORK.md).
+
+n8n 2.45 added the group **Apps** to the instance role editor. Its options come from the ordinary
+editor test (`instanceRoleScopes.test.ts`: **View** and **Manage**) and the editor texts
+(`instanceRoles.description.app.*`): **View** holds `app:read` and `app:list`, and **Manage** also
+holds `app:create`, `app:update` and `app:delete`, as for tags and variables.
 
 ## Make the data again after an upstream update
 

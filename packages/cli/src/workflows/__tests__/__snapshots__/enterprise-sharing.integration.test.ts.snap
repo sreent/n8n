@@ -614,6 +614,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -683,6 +815,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -756,6 +1020,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -825,6 +1221,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -897,6 +1425,51 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@alpha",
@@ -969,6 +1542,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@personal:globalViewer",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "globalviewer@example.com",
+            "firstName": "globalViewer",
+            "id": "@globalViewer",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "A test role for integration testing",
+              "displayName": "Global Viewer",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "custom:global-viewer",
+              "systemRole": false,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@personal:globalViewer",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "globalviewer@example.com",
+            "firstName": "globalViewer",
+            "id": "@globalViewer",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "A test role for integration testing",
+              "displayName": "Global Viewer",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "custom:global-viewer",
+              "systemRole": false,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@personal:globalViewer",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "globalviewer@example.com",
+            "firstName": "globalViewer",
+            "id": "@globalViewer",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "A test role for integration testing",
+              "displayName": "Global Viewer",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "custom:global-viewer",
+              "systemRole": false,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@personal:globalViewer",
@@ -1038,6 +1743,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberd@example.com",
+            "firstName": "memberD",
+            "id": "@memberD",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberd@example.com",
+            "firstName": "memberD",
+            "id": "@memberD",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberd@example.com",
+            "firstName": "memberD",
+            "id": "@memberD",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@beta",
@@ -1107,6 +1944,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberb@example.com",
+            "firstName": "memberB",
+            "id": "@memberB",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberb@example.com",
+            "firstName": "memberB",
+            "id": "@memberB",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberb@example.com",
+            "firstName": "memberB",
+            "id": "@memberB",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@beta",
@@ -1181,6 +2150,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "owner@example.com",
+            "firstName": "owner",
+            "id": "@owner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Owner",
+              "displayName": "Owner",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:owner",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "owner@example.com",
+            "firstName": "owner",
+            "id": "@owner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Owner",
+              "displayName": "Owner",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:owner",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "owner@example.com",
+            "firstName": "owner",
+            "id": "@owner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Owner",
+              "displayName": "Owner",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:owner",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@beta",
@@ -1260,6 +2361,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -1332,6 +2565,51 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@personal:memberA",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@alpha",
@@ -1353,73 +2631,53 @@ exports[`sharing services > changing methods 1`] = `
     },
   },
   "transferFolder to a project that a policy denies": {
-    "activeWorkflowManager": [
+    "error": "PolicyViolationError < UserError < BaseError: Transfers into @gamma are blocked [403]",
+    "policy": [
       [
-        "remove",
-        [
-          "@activeWorkflow",
-        ],
-      ],
-      [
-        "add",
-        [
-          "@activeWorkflow",
-          "update",
-          null,
-          {
-            "actor": {
-              "kind": "user",
-              "user": {
-                "id": "@memberA",
-              },
-            },
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
           },
-        ],
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
       ],
     ],
-    "db": {
-      "folder": {
-        "added": [
-          "{"id":"@folder1","name":"F1","parentFolderId":null,"projectId":"@gamma","createdAt":"<date>","updatedAt":"<date>"}",
-          "{"id":"@folder2","name":"F2","parentFolderId":"@folder1","projectId":"@gamma","createdAt":"<date>","updatedAt":"<date>"}",
-        ],
-        "removed": [
-          "{"id":"@folder1","name":"F1","parentFolderId":null,"projectId":"@alpha","createdAt":"<date>","updatedAt":"<date>"}",
-          "{"id":"@folder2","name":"F2","parentFolderId":"@folder1","projectId":"@alpha","createdAt":"<date>","updatedAt":"<date>"}",
-        ],
-      },
-      "shared_workflow": {
-        "added": [
-          "{"workflowId":"@activeWorkflow","projectId":"@gamma","role":"workflow:owner","createdAt":"<date>","updatedAt":"<date>"}",
-          "{"workflowId":"@folder1Workflow","projectId":"@gamma","role":"workflow:owner","createdAt":"<date>","updatedAt":"<date>"}",
-          "{"workflowId":"@folder2Workflow","projectId":"@gamma","role":"workflow:owner","createdAt":"<date>","updatedAt":"<date>"}",
-        ],
-        "removed": [
-          "{"workflowId":"@activeWorkflow","projectId":"@alpha","role":"workflow:owner","createdAt":"<date>","updatedAt":"<date>"}",
-          "{"workflowId":"@folder1Workflow","projectId":"@alpha","role":"workflow:owner","createdAt":"<date>","updatedAt":"<date>"}",
-          "{"workflowId":"@folder2Workflow","projectId":"@alpha","role":"workflow:owner","createdAt":"<date>","updatedAt":"<date>"}",
-        ],
-      },
-    },
-    "result": "<undefined>",
-    "workflowOwners": {
-      "activeWorkflow": "@gamma",
-      "adminWorkflow": "@personal:admin",
-      "agentEndUserWorkflow": "@alpha",
-      "agentWorkflow": "@alpha",
-      "alphaWorkflow": "@alpha",
-      "betaWorkflow": "@beta",
-      "emptyWorkflow": "@gamma",
-      "folder1Workflow": "@gamma",
-      "folder2Workflow": "@gamma",
-      "idlessWorkflow": "@alpha",
-      "memberBWorkflow": "@personal:memberB",
-      "namedWorkflow": "@alpha",
-      "ownerSharedWorkflow": "@personal:owner",
-      "ownerWorkflow": "@personal:owner",
-      "personalWorkflow": "@personal:memberA",
-      "subEndUserWorkflow": "@alpha",
-    },
   },
   "transferFolder to a project without access": {
     "error": "NotFoundError < ResponseError < BaseError: Could not find project with the id "@beta". Make sure you have the permission to create workflows in it. [404]",
@@ -1473,6 +2731,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -1563,6 +2953,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "owner@example.com",
+            "firstName": "owner",
+            "id": "@owner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Owner",
+              "displayName": "Owner",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:owner",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "owner@example.com",
+            "firstName": "owner",
+            "id": "@owner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Owner",
+              "displayName": "Owner",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:owner",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "owner@example.com",
+            "firstName": "owner",
+            "id": "@owner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Owner",
+              "displayName": "Owner",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:owner",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -1652,6 +3174,138 @@ exports[`sharing services > changing methods 1`] = `
       },
     },
     "error": ": Activation failed",
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "workflowOwners": {
       "activeWorkflow": "@gamma",
       "adminWorkflow": "@personal:admin",
@@ -1739,6 +3393,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -1815,6 +3601,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -1884,6 +3802,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberb@example.com",
+            "firstName": "memberB",
+            "id": "@memberB",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberb@example.com",
+            "firstName": "memberB",
+            "id": "@memberB",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@beta",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberb@example.com",
+            "firstName": "memberB",
+            "id": "@memberB",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@beta",
@@ -1956,6 +4006,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -2025,6 +4207,138 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder1Workflow",
+            "name": "folder1Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+              "HTTP endUser",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@folder2Workflow",
+            "name": "folder2Workflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP memberA",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+      [
+        "enforce",
+        "workflowTransfer",
+        {
+          "targetProjectId": "@gamma",
+          "workflow": {
+            "id": "@activeWorkflow",
+            "name": "activeWorkflow",
+            "nodes": [
+              "Manual Trigger",
+              "HTTP alpha",
+            ],
+          },
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
     "workflowOwners": {
       "activeWorkflow": "@gamma",
@@ -2056,6 +4370,47 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@globalCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@beta",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "owner@example.com",
+            "firstName": "owner",
+            "id": "@owner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Owner",
+              "displayName": "Owner",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:owner",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferOne a missing credential": {
@@ -2076,6 +4431,47 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@memberACredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@alpha",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferOne an end-user credential by a global viewer": {
@@ -2092,6 +4488,47 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@endUserCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@beta",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberd@example.com",
+            "firstName": "memberD",
+            "id": "@memberD",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferOne an end-user credential to a personal project": {
@@ -2111,6 +4548,47 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@endUserCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@beta",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "owner@example.com",
+            "firstName": "owner",
+            "id": "@owner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Owner",
+              "displayName": "Owner",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:owner",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferOne an end-user credential to its own project": {
@@ -2139,6 +4617,47 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@alphaCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@beta",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "owner@example.com",
+            "firstName": "owner",
+            "id": "@owner",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Owner",
+              "displayName": "Owner",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:owner",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferOne to a missing project": {
@@ -2155,20 +4674,92 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@alphaCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@personal:memberA",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferOne to a project that a policy denies": {
-    "db": {
-      "shared_credentials": {
-        "added": [
-          "{"credentialsId":"@alphaCredential","projectId":"@gamma","role":"credential:owner","createdAt":"<date>","updatedAt":"<date>"}",
-        ],
-        "removed": [
-          "{"credentialsId":"@alphaCredential","projectId":"@alpha","role":"credential:owner","createdAt":"<date>","updatedAt":"<date>"}",
-        ],
-      },
-    },
-    "result": "<undefined>",
+    "error": "PolicyViolationError < UserError < BaseError: Transfers into @gamma are blocked [403]",
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@alphaCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@gamma",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
   },
   "transferOne to a project that it is shared with": {
     "db": {
@@ -2182,6 +4773,47 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@betaCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@alpha",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberb@example.com",
+            "firstName": "memberB",
+            "id": "@memberB",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferOne to a project with a viewer role": {
@@ -2201,6 +4833,47 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@alphaCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@gamma",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferOne to its own project": {
@@ -2220,6 +4893,47 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@alphaCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@gamma",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "membera@example.com",
+            "firstName": "memberA",
+            "id": "@memberA",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferOne with the custom role credentialMover in the source": {
@@ -2233,6 +4947,47 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@alphaCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@personal:memberD",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberd@example.com",
+            "firstName": "memberD",
+            "id": "@memberD",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferOne with the custom role credentialReader in the destination": {
@@ -2249,6 +5004,47 @@ exports[`sharing services > changing methods 1`] = `
         ],
       },
     },
+    "policy": [
+      [
+        "enforce",
+        "credentialTransfer",
+        {
+          "credential": {
+            "id": "@alphaCredential",
+            "type": "httpHeaderAuth",
+          },
+          "targetProjectId": "@personal:memberD",
+        },
+        {
+          "kind": "user",
+          "user": {
+            "createdAt": "<date>",
+            "disabled": false,
+            "email": "memberd@example.com",
+            "firstName": "memberD",
+            "id": "@memberD",
+            "isPending": false,
+            "kind": "person",
+            "lastActiveAt": "<date>",
+            "lastName": "Test",
+            "mfaEnabled": false,
+            "personalizationAnswers": null,
+            "role": {
+              "createdAt": "<date>",
+              "description": "Can create and use their own workflows and credentials",
+              "displayName": "Member",
+              "roleType": "global",
+              "scopes": "<scope entities>",
+              "slug": "global:member",
+              "systemRole": true,
+              "updatedAt": "<date>",
+            },
+            "settings": null,
+            "updatedAt": "<date>",
+          },
+        },
+      ],
+    ],
     "result": "<undefined>",
   },
   "transferWorkflow a missing workflow": {
@@ -2293,6 +5089,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -2400,6 +5197,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -2519,6 +5317,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -2636,6 +5435,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -2709,6 +5509,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -2798,6 +5599,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -2876,6 +5678,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -2970,6 +5773,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "owner",
             "id": "@owner",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3048,6 +5852,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3134,6 +5939,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3227,6 +6033,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3296,6 +6103,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3353,6 +6161,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3434,6 +6243,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3513,6 +6323,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3576,6 +6387,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3650,6 +6462,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3733,6 +6546,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3822,6 +6636,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3891,6 +6706,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -3955,6 +6771,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -4033,6 +6850,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -4111,6 +6929,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberD",
             "id": "@memberD",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -4192,6 +7011,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberD",
             "id": "@memberD",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -4273,6 +7093,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -4333,6 +7154,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -4416,6 +7238,7 @@ exports[`sharing services > changing methods 1`] = `
             "firstName": "memberA",
             "id": "@memberA",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Test",
             "mfaEnabled": false,
@@ -4581,7 +7404,7 @@ exports[`sharing services > reading methods 1`] = `
   "addCredentialsToWorkflow activeWorkflow memberD": {
     "result": [
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@alpha",
@@ -5019,7 +7842,7 @@ exports[`sharing services > reading methods 1`] = `
   "addCredentialsToWorkflow alphaWorkflow memberD": {
     "result": [
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@alpha",
@@ -5128,7 +7951,7 @@ exports[`sharing services > reading methods 1`] = `
         "type": "httpHeaderAuth",
       },
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@personal:owner",
@@ -5370,7 +8193,7 @@ exports[`sharing services > reading methods 1`] = `
   "addCredentialsToWorkflow folder1Workflow memberD": {
     "result": [
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@alpha",
@@ -5383,7 +8206,7 @@ exports[`sharing services > reading methods 1`] = `
         "type": "httpHeaderAuth",
       },
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@alpha",
@@ -5430,7 +8253,7 @@ exports[`sharing services > reading methods 1`] = `
   "addCredentialsToWorkflow folder2Workflow memberA": {
     "result": [
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@personal:memberA",
@@ -5454,7 +8277,7 @@ exports[`sharing services > reading methods 1`] = `
   "addCredentialsToWorkflow folder2Workflow memberB": {
     "result": [
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@personal:memberA",
@@ -5640,7 +8463,7 @@ exports[`sharing services > reading methods 1`] = `
   "addCredentialsToWorkflow idlessWorkflow memberD": {
     "result": [
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@alpha",
@@ -5683,7 +8506,7 @@ exports[`sharing services > reading methods 1`] = `
         "type": "httpHeaderAuth",
       },
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@personal:owner",
@@ -8749,7 +11572,7 @@ exports[`sharing services > reading methods 1`] = `
   "getFolderUsedCredentials globalViewer folder1 in alpha": {
     "result": [
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@alpha",
@@ -8762,7 +11585,7 @@ exports[`sharing services > reading methods 1`] = `
         "type": "httpHeaderAuth",
       },
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@alpha",
@@ -8858,7 +11681,7 @@ exports[`sharing services > reading methods 1`] = `
         "type": "httpHeaderAuth",
       },
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@personal:memberA",
@@ -8885,7 +11708,7 @@ exports[`sharing services > reading methods 1`] = `
   "getFolderUsedCredentials memberA folder2 in alpha": {
     "result": [
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@personal:memberA",
@@ -8941,7 +11764,7 @@ exports[`sharing services > reading methods 1`] = `
         "type": "httpHeaderAuth",
       },
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@personal:memberA",
@@ -8968,7 +11791,7 @@ exports[`sharing services > reading methods 1`] = `
   "getFolderUsedCredentials memberB folder2 in alpha": {
     "result": [
       {
-        "currentUserCanUse": false,
+        "currentUserCanUse": true,
         "homeProject": {
           "icon": null,
           "id": "@personal:memberA",
@@ -13255,7 +16078,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering activeWorkflow new admin node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering activeWorkflow new admin node by memberB": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -13402,10 +16225,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering activeWorkflow new memberA node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering activeWorkflow new memberA node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering activeWorkflow new memberA node by memberC": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -13426,10 +16249,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering activeWorkflow new memberB node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering activeWorkflow new memberB node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering activeWorkflow new memberB node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -13450,7 +16273,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering activeWorkflow new memberC node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering activeWorkflow new memberC node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -13780,7 +16603,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering agentEndUserWorkflow new admin node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentEndUserWorkflow new admin node by memberB": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -13927,10 +16750,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering agentEndUserWorkflow new memberA node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentEndUserWorkflow new memberA node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentEndUserWorkflow new memberA node by memberC": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -13951,10 +16774,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering agentEndUserWorkflow new memberB node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentEndUserWorkflow new memberB node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentEndUserWorkflow new memberB node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -13975,7 +16798,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering agentEndUserWorkflow new memberC node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentEndUserWorkflow new memberC node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -14140,7 +16963,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering agentWorkflow new admin node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentWorkflow new admin node by memberB": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -14287,10 +17110,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering agentWorkflow new memberA node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentWorkflow new memberA node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentWorkflow new memberA node by memberC": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -14311,10 +17134,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering agentWorkflow new memberB node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentWorkflow new memberB node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentWorkflow new memberB node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -14335,7 +17158,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering agentWorkflow new memberC node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering agentWorkflow new memberC node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -15496,7 +18319,7 @@ exports[`sharing services > reading methods 1`] = `
         "{"credentials":{"httpHeaderAuth":{"id":"@alphaCredential","name":"alpha credential"}},"id":"alpha","name":"HTTP alpha","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
         "{"credentials":{"httpHeaderAuth":{"id":"@betaCredential","name":"beta credential"}},"id":"beta","name":"HTTP beta","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
         "{"credentials":{"httpHeaderAuth":{"id":"@globalCredential","name":"global credential"}},"id":"global","name":"HTTP global","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
-        "{"credentials":{"httpHeaderAuth":{"id":"@ownerCredential","name":"owner credential"}},"disabled":true,"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@memberACredential","name":"memberA credential"}},"disabled":true,"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://changed.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
       ],
       "returnsInput": true,
       "workflow": "{"connections":{},"name":"renamed"}",
@@ -15509,7 +18332,7 @@ exports[`sharing services > reading methods 1`] = `
         "{"credentials":{"httpHeaderAuth":{"id":"@alphaCredential","name":"alpha credential"}},"id":"alpha","name":"HTTP alpha","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
         "{"credentials":{"httpHeaderAuth":{"id":"@betaCredential","name":"beta credential"}},"id":"beta","name":"HTTP beta","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
         "{"credentials":{"httpHeaderAuth":{"id":"@globalCredential","name":"global credential"}},"id":"global","name":"HTTP global","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
-        "{"credentials":{"httpHeaderAuth":{"id":"@ownerCredential","name":"owner credential"}},"disabled":true,"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@memberACredential","name":"memberA credential"}},"disabled":true,"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://changed.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
       ],
       "returnsInput": true,
       "workflow": "{"connections":{},"name":"renamed"}",
@@ -15791,7 +18614,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering alphaWorkflow new admin node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering alphaWorkflow new admin node by memberB": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -15938,10 +18761,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering alphaWorkflow new memberA node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering alphaWorkflow new memberA node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering alphaWorkflow new memberA node by memberC": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -15962,10 +18785,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering alphaWorkflow new memberB node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering alphaWorkflow new memberB node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering alphaWorkflow new memberB node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -15986,7 +18809,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering alphaWorkflow new memberC node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering alphaWorkflow new memberC node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -16223,10 +19046,32 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering alphaWorkflow newMemberANode by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": {
+      "nodes": [
+        "{"id":"trigger","name":"Manual Trigger","parameters":{},"position":[0,0],"type":"n8n-nodes-base.manualTrigger","typeVersion":1}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@alphaCredential","name":"alpha credential"}},"id":"alpha","name":"HTTP alpha","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@betaCredential","name":"beta credential"}},"id":"beta","name":"HTTP beta","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@ownerCredential","name":"owner credential"}},"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@globalCredential","name":"global credential"}},"id":"global","name":"HTTP global","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@memberACredential","name":"memberA credential"}},"id":"new","name":"HTTP new","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+      ],
+      "returnsInput": true,
+      "workflow": "{"connections":{},"name":"renamed"}",
+    },
   },
   "preventTampering alphaWorkflow newMemberANode by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": {
+      "nodes": [
+        "{"id":"trigger","name":"Manual Trigger","parameters":{},"position":[0,0],"type":"n8n-nodes-base.manualTrigger","typeVersion":1}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@alphaCredential","name":"alpha credential"}},"id":"alpha","name":"HTTP alpha","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@betaCredential","name":"beta credential"}},"id":"beta","name":"HTTP beta","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@ownerCredential","name":"owner credential"}},"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@globalCredential","name":"global credential"}},"id":"global","name":"HTTP global","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@memberACredential","name":"memberA credential"}},"id":"new","name":"HTTP new","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+      ],
+      "returnsInput": true,
+      "workflow": "{"connections":{},"name":"renamed"}",
+    },
   },
   "preventTampering alphaWorkflow newMemberANode by memberC": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -17335,7 +20180,7 @@ exports[`sharing services > reading methods 1`] = `
         "{"credentials":{"httpHeaderAuth":{"id":"@alphaCredential","name":"alpha credential"}},"id":"alpha","name":"HTTP alpha","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
         "{"credentials":{"httpHeaderAuth":{"id":"@betaCredential","name":"beta credential"}},"id":"beta","name":"HTTP beta","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
         "{"credentials":{"httpHeaderAuth":{"id":"@globalCredential","name":"global credential"}},"id":"global","name":"HTTP global","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
-        "{"credentials":{"httpHeaderAuth":{"id":"@ownerCredential","name":"owner credential"}},"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@memberACredential","name":"memberA credential"}},"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://changed.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
       ],
       "returnsInput": true,
       "workflow": "{"connections":{},"name":"renamed"}",
@@ -17348,7 +20193,7 @@ exports[`sharing services > reading methods 1`] = `
         "{"credentials":{"httpHeaderAuth":{"id":"@alphaCredential","name":"alpha credential"}},"id":"alpha","name":"HTTP alpha","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
         "{"credentials":{"httpHeaderAuth":{"id":"@betaCredential","name":"beta credential"}},"id":"beta","name":"HTTP beta","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
         "{"credentials":{"httpHeaderAuth":{"id":"@globalCredential","name":"global credential"}},"id":"global","name":"HTTP global","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
-        "{"credentials":{"httpHeaderAuth":{"id":"@ownerCredential","name":"owner credential"}},"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@memberACredential","name":"memberA credential"}},"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://changed.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
       ],
       "returnsInput": true,
       "workflow": "{"connections":{},"name":"renamed"}",
@@ -18217,7 +21062,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering betaWorkflow new memberA node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering betaWorkflow new memberA node by memberC": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -18319,7 +21164,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering emptyWorkflow new admin node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering emptyWorkflow new admin node by memberB": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -18466,7 +21311,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering emptyWorkflow new memberA node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering emptyWorkflow new memberA node by memberB": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -18493,7 +21338,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering emptyWorkflow new memberB node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering emptyWorkflow new memberB node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -18514,7 +21359,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering emptyWorkflow new memberC node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering emptyWorkflow new memberC node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -18688,7 +21533,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering folder1Workflow new admin node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder1Workflow new admin node by memberB": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -18835,10 +21680,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering folder1Workflow new memberA node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder1Workflow new memberA node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder1Workflow new memberA node by memberC": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -18859,10 +21704,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering folder1Workflow new memberB node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder1Workflow new memberB node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder1Workflow new memberB node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -18883,7 +21728,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering folder1Workflow new memberC node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder1Workflow new memberC node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -18924,12 +21769,12 @@ exports[`sharing services > reading methods 1`] = `
   },
   "preventTampering folder2Workflow edits by memberA": {
     "result": {
-      "HTTP memberA": "reverted",
+      "HTTP memberA": "kept",
     },
   },
   "preventTampering folder2Workflow edits by memberB": {
     "result": {
-      "HTTP memberA": "reverted",
+      "HTTP memberA": "kept",
     },
   },
   "preventTampering folder2Workflow edits by memberC": {
@@ -18954,7 +21799,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering folder2Workflow new admin node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder2Workflow new admin node by memberB": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -19101,10 +21946,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering folder2Workflow new memberA node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder2Workflow new memberA node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder2Workflow new memberA node by memberC": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -19125,10 +21970,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering folder2Workflow new memberB node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder2Workflow new memberB node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder2Workflow new memberB node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -19149,7 +21994,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering folder2Workflow new memberC node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering folder2Workflow new memberC node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -19609,12 +22454,7 @@ exports[`sharing services > reading methods 1`] = `
   },
   "preventTampering fuzz 148": {
     "result": {
-      "after": [
-        "{"id":"trigger","name":"Manual Trigger","parameters":{},"position":[0,0],"type":"n8n-nodes-base.manualTrigger","typeVersion":1}",
-        "{"credentials":{"httpHeaderAuth":"owner credential"},"name":"HTTP n1","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
-        "{"credentials":{"httpBasicAuth":{"__aiGatewayManaged":true,"id":null,"name":"Managed"}},"id":"n2","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
-        "{"credentials":{"httpHeaderAuth":{"id":"@memberACredential","name":"memberA credential"}},"id":"memberA","name":"HTTP memberA","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
-      ],
+      "after": "unchanged",
       "before": [
         "{"id":"trigger","name":"Manual Trigger","parameters":{},"position":[0,0],"type":"n8n-nodes-base.manualTrigger","typeVersion":1}",
         "{"credentials":{"httpHeaderAuth":"owner credential"},"name":"HTTP n1","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
@@ -20032,12 +22872,7 @@ exports[`sharing services > reading methods 1`] = `
   },
   "preventTampering fuzz 2": {
     "result": {
-      "after": [
-        "{"credentials":{"oAuth2Api":"memberB credential"},"id":"n2","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
-        "{"credentials":{"httpHeaderAuth":{"__aiGatewayManaged":true,"id":null,"name":"Managed"}},"id":"alpha","name":"HTTP n2","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
-        "{"name":"Manual Trigger","parameters":{},"position":[0,0],"type":"n8n-nodes-base.manualTrigger","typeVersion":1}",
-        "{"credentials":{"httpHeaderAuth":{"id":"@memberACredential","name":"memberA credential"}},"id":"memberA","name":"HTTP memberA","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
-      ],
+      "after": "unchanged",
       "before": [
         "{"credentials":{"oAuth2Api":"memberB credential"},"id":"n2","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
         "{"credentials":{"httpHeaderAuth":{"__aiGatewayManaged":true,"id":null,"name":"Managed"}},"id":"alpha","name":"HTTP n2","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
@@ -20504,7 +23339,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP owner' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering fuzz 259": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP memberA' node. Ask the owner to share them with you. [400]",
+    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP alpha' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering fuzz 26": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP n1' node. Ask the owner to share them with you. [400]",
@@ -20816,7 +23651,17 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP n2' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering fuzz 299": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'Manual Trigger' node. Ask the owner to share them with you. [400]",
+    "result": {
+      "after": "unchanged",
+      "before": [
+        "{"credentials":{"oAuth2Api":{"id":"@adminCredential","name":"x"}},"id":"trigger","name":"Manual Trigger","parameters":{},"position":[0,0],"type":"n8n-nodes-base.manualTrigger","typeVersion":1}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@alphaCredential","name":"alpha credential"}},"id":"alpha","name":"HTTP alpha","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@ownerCredential","name":"owner credential"}},"id":"owner","name":"HTTP owner","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@globalCredential","name":"global credential"}},"id":"global","name":"HTTP alpha","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+      ],
+      "user": "memberA",
+      "workflow": "alphaWorkflow",
+    },
   },
   "preventTampering fuzz 3": {
     "result": {
@@ -21356,7 +24201,15 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'Manual Trigger' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering fuzz 368": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP memberA' node. Ask the owner to share them with you. [400]",
+    "result": {
+      "after": "unchanged",
+      "before": [
+        "{"name":"Manual Trigger","parameters":{},"position":[0,0],"type":"n8n-nodes-base.manualTrigger","typeVersion":1}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@memberACredential","name":"memberA credential"}},"name":"HTTP memberA","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+      ],
+      "user": "memberA",
+      "workflow": "folder2Workflow",
+    },
   },
   "preventTampering fuzz 369": {
     "result": {
@@ -21931,7 +24784,16 @@ exports[`sharing services > reading methods 1`] = `
     },
   },
   "preventTampering fuzz 77": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP memberA' node. Ask the owner to share them with you. [400]",
+    "result": {
+      "after": "unchanged",
+      "before": [
+        "{"id":"trigger","name":"Manual Trigger","parameters":{},"position":[0,0],"type":"n8n-nodes-base.manualTrigger","typeVersion":1}",
+        "{"credentials":{},"id":"n1","name":"HTTP n2","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+        "{"credentials":{"httpHeaderAuth":{"id":"@memberACredential","name":"memberA credential"}},"id":"x1","name":"HTTP memberA","parameters":{"authentication":"genericCredentialType","genericAuthType":"httpHeaderAuth","url":"https://a.example"},"position":[200,0],"type":"n8n-nodes-base.httpRequest","typeVersion":4.2}",
+      ],
+      "user": "memberA",
+      "workflow": "folder2Workflow",
+    },
   },
   "preventTampering fuzz 78": {
     "result": {
@@ -22950,7 +25812,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering namedWorkflow new admin node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering namedWorkflow new admin node by memberB": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -23097,10 +25959,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering namedWorkflow new memberA node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering namedWorkflow new memberA node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering namedWorkflow new memberA node by memberC": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -23121,10 +25983,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering namedWorkflow new memberB node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering namedWorkflow new memberB node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering namedWorkflow new memberB node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -23145,7 +26007,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering namedWorkflow new memberC node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering namedWorkflow new memberC node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -24026,7 +26888,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering personalWorkflow new memberB node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering personalWorkflow new memberB node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -24047,7 +26909,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering personalWorkflow new memberC node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering personalWorkflow new memberC node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -24384,7 +27246,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering subEndUserWorkflow new admin node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering subEndUserWorkflow new admin node by memberB": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -24531,10 +27393,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering subEndUserWorkflow new memberA node by memberA": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering subEndUserWorkflow new memberA node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering subEndUserWorkflow new memberA node by memberC": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -24555,10 +27417,10 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering subEndUserWorkflow new memberB node by memberB": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering subEndUserWorkflow new memberB node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering subEndUserWorkflow new memberB node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
@@ -24579,7 +27441,7 @@ exports[`sharing services > reading methods 1`] = `
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
   },
   "preventTampering subEndUserWorkflow new memberC node by memberC": {
-    "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",
+    "result": "allowed",
   },
   "preventTampering subEndUserWorkflow new memberC node by memberD": {
     "error": "BadRequestError < ResponseError < BaseError: You don't have access to the credentials in the 'HTTP new' node. Ask the owner to share them with you. [400]",

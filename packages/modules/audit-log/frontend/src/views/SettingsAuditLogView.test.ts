@@ -95,7 +95,7 @@ function setUp({
 	}
 	const usersStore = useUsersStore();
 	usersStore.addUsers([ann]);
-	const fetchUsers = vi.fn(async () => {});
+	const fetchUsers = vi.fn(async () => [ann]);
 	usersStore.fetchUsers = fetchUsers;
 	return { pinia, fetchUsers };
 }

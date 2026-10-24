@@ -7,6 +7,8 @@ import { useToast } from '@n8n/composables/useToast';
 import {
 	N8nButton,
 	N8nDialog,
+	N8nDialogBody,
+	N8nDialogFooter,
 	N8nDialogHeader,
 	N8nDialogTitle,
 	N8nInput,
@@ -78,32 +80,34 @@ function onOpenChange(open: boolean) {
 				i18n.baseText('settings.promotions.promote.dialog.title')
 			}}</N8nDialogTitle>
 		</N8nDialogHeader>
-		<form :class="$style.body" @submit.prevent="promote">
-			<N8nText tag="p" color="text-base">
-				{{
-					createBranch
-						? i18n.baseText('settings.promotions.promote.dialog.body.newBranch')
-						: i18n.baseText('settings.promotions.promote.dialog.body.toBranch', {
-								interpolate: { branch },
-							})
-				}}
-			</N8nText>
-			<N8nInputLabel
-				:label="i18n.baseText('settings.promotions.promote.dialog.commitMessage.label')"
-				required
-			>
-				<N8nInput
-					v-model="commitMessage"
-					type="textarea"
-					:rows="3"
-					:placeholder="
-						i18n.baseText('settings.promotions.promote.dialog.commitMessage.placeholder')
-					"
-					data-test-id="promote-commit-message"
-				/>
-			</N8nInputLabel>
-			<footer :class="$style.footer">
-				<N8nButton variant="subtle" data-test-id="promote-cancel-button" @click="emit('close')">
+		<form @submit.prevent="promote">
+			<N8nDialogBody :class="$style.body">
+				<N8nText tag="p" color="text-base">
+					{{
+						createBranch
+							? i18n.baseText('settings.promotions.promote.dialog.body.newBranch')
+							: i18n.baseText('settings.promotions.promote.dialog.body.toBranch', {
+									interpolate: { branch },
+								})
+					}}
+				</N8nText>
+				<N8nInputLabel
+					:label="i18n.baseText('settings.promotions.promote.dialog.commitMessage.label')"
+					required
+				>
+					<N8nInput
+						v-model="commitMessage"
+						type="textarea"
+						:rows="3"
+						:placeholder="
+							i18n.baseText('settings.promotions.promote.dialog.commitMessage.placeholder')
+						"
+						data-test-id="promote-commit-message"
+					/>
+				</N8nInputLabel>
+			</N8nDialogBody>
+			<N8nDialogFooter>
+				<N8nButton variant="outline" data-test-id="promote-cancel-button" @click="emit('close')">
 					{{ i18n.baseText('generic.cancel') }}
 				</N8nButton>
 				<N8nButton
@@ -114,21 +118,13 @@ function onOpenChange(open: boolean) {
 				>
 					{{ i18n.baseText('settings.promotions.promote.dialog.confirm') }}
 				</N8nButton>
-			</footer>
+			</N8nDialogFooter>
 		</form>
 	</N8nDialog>
 </template>
 
 <style module lang="scss">
 .body {
-	display: flex;
-	flex-direction: column;
 	gap: var(--spacing--sm);
-}
-
-.footer {
-	display: flex;
-	justify-content: flex-end;
-	gap: var(--spacing--2xs);
 }
 </style>

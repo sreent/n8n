@@ -177,16 +177,25 @@ describe('GET /audit-log/events', () => {
 		expect(second.body.nextCursor).toBeNull();
 	});
 
-	test('returns 400 for a page of 0 events or a changed cursor', async () => {
+	test('gives the default page for a limit of 0', async () => {
+		// Since n8n 2.45, a limit of 0 gives the default page, as in the other public API routes.
+		const defaultPage = await testServer
+			.publicApiAgentFor(owner)
+			.get('/audit-log/events')
+			.query({ limit: 0 })
+			.expect(200);
+		expect(ids(defaultPage.body)).toEqual(['e3', 'e2', 'e1']);
+		expect(defaultPage.body.nextCursor).toBeNull();
+	});
+
+	test('returns 400 for a changed cursor', async () => {
 		const agent = testServer.publicApiAgentFor(owner);
 		const cursor = (value: unknown) => Buffer.from(JSON.stringify(value)).toString('base64');
 
-		await agent.get('/audit-log/events').query({ limit: 0 }).expect(400);
 		for (const changed of [
 			{ offset: 0, limit: 1000 },
 			{ offset: -1, limit: 10 },
 			{ offset: '1', limit: 10 },
-			{ offset: 0, limit: 0 },
 		]) {
 			await agent
 				.get('/audit-log/events')

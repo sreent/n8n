@@ -179,7 +179,10 @@ describe('GET /api-keys', () => {
 		expect(second.body.nextCursor).toBeNull();
 		expect([...ids(first.body), ...ids(second.body)]).toEqual(newestFirst());
 
-		await agent.get('/api-keys').query({ limit: 0 }).expect(400);
+		// Since n8n 2.45, a limit of 0 gives the default page, as in the other public API routes.
+		const defaultPage = await agent.get('/api-keys').query({ limit: 0 }).expect(200);
+		expect(ids(defaultPage.body)).toEqual(newestFirst());
+		expect(defaultPage.body.nextCursor).toBeNull();
 	});
 
 	test('works with the session cookie of the owner', async () => {

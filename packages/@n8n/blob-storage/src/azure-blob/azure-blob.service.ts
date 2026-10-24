@@ -29,15 +29,27 @@ export class AzureBlobService {
 	/** Connects to the container once. */
 	async init() {
 		if (this.isReady) return;
-		const { containerName } = this.config;
-		if (!containerName) {
-			throw new UserError(
-				'Azure Blob container name not configured. Please set `N8N_EXTERNAL_STORAGE_AZURE_CONTAINER_NAME`.',
-			);
-		}
-		this.client = this.createServiceClient().getContainerClient(containerName);
-		await this.checkConnection(this.client);
+		await this.checkConnection();
 		this.isReady = true;
+	}
+
+	/** Checks that the container is reachable. It makes the client of the container first, when needed. */
+	async checkConnection() {
+		this.client ??= this.createContainerClient();
+		const client = this.client;
+		this.logger.debug('Checking connection to Azure Blob container', {
+			container: client.containerName,
+		});
+		try {
+			await client.listBlobsFlat().byPage({ maxPageSize: 1 }).next();
+		} catch (error) {
+			if (error instanceof RestError && error.statusCode === 404) {
+				throw new UserError(
+					`Azure Blob container "${client.containerName}" does not exist or is not accessible.`,
+				);
+			}
+			throw this.requestFailed(error);
+		}
 	}
 
 	/** Uploads `buffer`, with the MIME type as the content type and the file name as metadata. */
@@ -133,20 +145,14 @@ export class AzureBlobService {
 		return new BlobServiceClient(url, new StorageSharedKeyCredential(accountName, accountKey));
 	}
 
-	private async checkConnection(client: ContainerClient) {
-		this.logger.debug('Checking connection to Azure Blob container', {
-			container: client.containerName,
-		});
-		try {
-			await client.listBlobsFlat().byPage({ maxPageSize: 1 }).next();
-		} catch (error) {
-			if (error instanceof RestError && error.statusCode === 404) {
-				throw new UserError(
-					`Azure Blob container "${client.containerName}" does not exist or is not accessible.`,
-				);
-			}
-			throw this.requestFailed(error);
+	private createContainerClient() {
+		const { containerName } = this.config;
+		if (!containerName) {
+			throw new UserError(
+				'Azure Blob container name not configured. Please set `N8N_EXTERNAL_STORAGE_AZURE_CONTAINER_NAME`.',
+			);
 		}
+		return this.createServiceClient().getContainerClient(containerName);
 	}
 
 	private requestFailed(error: unknown) {

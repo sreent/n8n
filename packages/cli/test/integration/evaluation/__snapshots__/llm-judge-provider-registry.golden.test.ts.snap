@@ -38,15 +38,15 @@ exports[`the LLM judge providers 1`] = `
   "get @n8n/n8n-nodes-langchain.lmChatAzureOpenAi": {
     "credentialTypes": [
       {
-        "displayName": "Azure OpenAI",
+        "displayName": "Microsoft Foundry (API Key)",
         "name": "azureOpenAiApi",
       },
       {
-        "displayName": "Azure Entra (Cognitive Services)",
+        "displayName": "Microsoft Foundry (Entra ID)",
         "name": "azureEntraCognitiveServicesOAuth2Api",
       },
     ],
-    "displayName": "Azure AI Foundry Chat Model",
+    "displayName": "Microsoft Foundry Chat Model",
     "nodeType": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
   },
   "get @n8n/n8n-nodes-langchain.lmChatCohere": {
@@ -255,15 +255,15 @@ exports[`the LLM judge providers 1`] = `
     {
       "credentialTypes": [
         {
-          "displayName": "Azure OpenAI",
+          "displayName": "Microsoft Foundry (API Key)",
           "name": "azureOpenAiApi",
         },
         {
-          "displayName": "Azure Entra (Cognitive Services)",
+          "displayName": "Microsoft Foundry (Entra ID)",
           "name": "azureEntraCognitiveServicesOAuth2Api",
         },
       ],
-      "displayName": "Azure AI Foundry Chat Model",
+      "displayName": "Microsoft Foundry Chat Model",
       "nodeType": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
     },
     {

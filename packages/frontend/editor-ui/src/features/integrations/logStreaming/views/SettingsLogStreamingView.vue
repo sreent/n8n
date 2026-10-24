@@ -13,10 +13,15 @@ import { useSettingsStore } from '@n8n/stores/settings.store';
 import { computed, onMounted } from 'vue';
 
 import { useDocumentTitle } from '@/app/composables/useDocumentTitle';
-import { EnterpriseEditionFeature, LOG_STREAM_MODAL_KEY } from '@/app/constants';
+import { EnterpriseEditionFeature } from '@/app/constants';
 import { useUIStore } from '@/app/stores/ui.store';
 
 import EventDestinationCard from '../components/EventDestinationCard.vue';
+import {
+	LOG_STREAM_MODAL_KEY,
+	LOG_STREAMING_MODULE_ID,
+	type LogStreamModalData,
+} from '../logStreaming.constants';
 import { useLogStreamingStore } from '../logStreaming.store';
 
 const logStreamingStore = useLogStreamingStore();
@@ -26,7 +31,9 @@ const toast = useToast();
 const documentTitle = useDocumentTitle();
 const i18n = useI18n();
 
-const isModuleActive = computed(() => settingsStore.isModuleActive('log-streaming') === true);
+const isModuleActive = computed(
+	() => settingsStore.isModuleActive(LOG_STREAMING_MODULE_ID) === true,
+);
 // Without the licence value, the fork switch is off, and the module does not start.
 const moduleOffDescription = computed(() =>
 	settingsStore.isEnterpriseFeatureEnabled[EnterpriseEditionFeature.LogStreaming]
@@ -46,10 +53,8 @@ onMounted(async () => {
 });
 
 function openDestination(destination?: EventDestination) {
-	uiStore.openModalWithData({
-		name: LOG_STREAM_MODAL_KEY,
-		data: { destination, isNew: destination === undefined },
-	});
+	const data: LogStreamModalData = { destination, isNew: destination === undefined };
+	uiStore.openModalWithData({ name: LOG_STREAM_MODAL_KEY, data });
 }
 </script>
 

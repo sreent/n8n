@@ -9,8 +9,8 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
-          "button: Delete",
+          "input: Share with users or projects...",
+          "button: Remove access",
         ],
         "hidden": [
           "All users and projectsBBBen Betab@n8n.testCGCleo Gammac@n8n.test",
@@ -49,7 +49,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -59,8 +59,10 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [],
       },
     },
     "opened": {
@@ -71,7 +73,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
+          "input: Share with users or projects...",
           "button: Share",
         ],
         "hidden": [
@@ -84,11 +86,12 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
           "project-sharing-info: CGCleo Gammac@n8n.test",
           "project-sharing-owner: Owner",
           "project-sharing-info: Owner",
-          "credential-used-in-project: TATeam AlphaUsed in "Team flow"Only Share",
-          "project-sharing-info: TATeam AlphaUsed in "Team flow"Only Share",
+          "project-sharing-unshared-item: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "project-sharing-info: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "credential-used-in-can-view: Can view",
           "credential-used-in-project-share: Share",
         ],
-        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.All users and projectsBBBen Betab@n8n.testCGCleo Gammac@n8n.testOwnerTATeam AlphaUsed in "Team flow"Only Share",
+        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.All users and projectsBBBen Betab@n8n.testCGCleo Gammac@n8n.testOwnerTATeam AlphaUsed in "Team flow"Can viewShare",
       },
       "emitted": {},
       "sharing": {
@@ -100,7 +103,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         "modelValue": [],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -110,8 +113,15 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [
+          {
+            "project": "project p-team team Team Alpha",
+            "subtitle": "Used in "Team flow"",
+          },
+        ],
       },
     },
   },
@@ -122,8 +132,8 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
-          "button: Delete",
+          "input: Share with users or projects...",
+          "button: Remove access",
         ],
         "hidden": [
           "All users and projectsBBBen Betab@n8n.testCGCleo Gammac@n8n.test",
@@ -162,7 +172,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -172,8 +182,10 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [],
       },
     },
     "opened": {
@@ -184,7 +196,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
+          "input: Share with users or projects...",
           "button: Share",
         ],
         "hidden": [
@@ -197,11 +209,12 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
           "project-sharing-info: CGCleo Gammac@n8n.test",
           "project-sharing-owner: AAAnn Alphaa@n8n.testOwner",
           "project-sharing-info: AAAnn Alphaa@n8n.testOwner",
-          "credential-used-in-project: TATeam AlphaUsed in "Team flow"Only AnnShare",
-          "project-sharing-info: TATeam AlphaUsed in "Team flow"Only AnnShare",
+          "project-sharing-unshared-item: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "project-sharing-info: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "credential-used-in-can-view: Can view",
           "credential-used-in-project-share: Share",
         ],
-        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.All users and projectsBBBen Betab@n8n.testCGCleo Gammac@n8n.testAAAnn Alphaa@n8n.testOwnerTATeam AlphaUsed in "Team flow"Only AnnShare",
+        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.All users and projectsBBBen Betab@n8n.testCGCleo Gammac@n8n.testAAAnn Alphaa@n8n.testOwnerTATeam AlphaUsed in "Team flow"Can viewShare",
       },
       "emitted": {},
       "sharing": {
@@ -213,7 +226,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         "modelValue": [],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -223,23 +236,92 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [
+          {
+            "project": "project p-team team Team Alpha",
+            "subtitle": "Used in "Team flow"",
+          },
+        ],
       },
     },
   },
   "credential of memberB, without the share scope": {
-    "opened": {
+    "clicked Share": {
       "calls": [
-        "projects.searchShareableProjects({'search':'','take':50})",
+        "useDependencies.getDependencies('cred-1','credential')",
       ],
       "dom": {
-        "controls": [],
+        "controls": [
+          "button [disabled]: Remove access",
+        ],
         "testIds": [
           "project-sharing-owner: BBBen Betab@n8n.testOwner",
           "project-sharing-info: BBBen Betab@n8n.testOwner",
+          "project-sharing-list-item: TATeam AlphaCan use",
+          "project-sharing-info: TATeam AlphaCan use",
+          "project-sharing-static-role: Can use",
+          "project-sharing-remove: ",
         ],
-        "text": "Only Ben Beta or users with credential sharing permission can change who this credential is shared withBBBen Betab@n8n.testOwner",
+        "text": "Only Ben Beta or users with credential sharing permission can change who this credential is shared withBBBen Betab@n8n.testOwnerTATeam AlphaCan use",
+      },
+      "emitted": {
+        "update:modelValue": [
+          [
+            [
+              "project p-team team Team Alpha",
+            ],
+          ],
+        ],
+      },
+      "sharing": {
+        "canShareGlobally": false,
+        "confirmRemoval": "<function>",
+        "filterFn": "<function>",
+        "homeProject": "project p-b personal Ben Beta <b@n8n.test>",
+        "isSharedGlobally": false,
+        "modelValue": [
+          "project p-team team Team Alpha",
+        ],
+        "onUpdate:modelValue": "<function>",
+        "onUpdate:shareWithAllUsers": "<function>",
+        "placeholder": "Share with users or projects...",
+        "readonly": true,
+        "roleDescriptions": {
+          "credential:user": "Can use this credential. Can't edit it.",
+        },
+        "roles": [
+          "role credential:user Can use",
+        ],
+        "searchFn": "<function>",
+        "showSuffix": true,
+        "sortSelected": "",
+        "static": true,
+        "teleported": false,
+        "unsharedProjects": [],
+      },
+    },
+    "opened": {
+      "calls": [
+        "useDependencies.getDependencies('cred-1','credential')",
+        "useDependencies.fetchDependencies(['cred-1'],'credential')",
+        "projects.searchShareableProjects({'search':'','take':50})",
+      ],
+      "dom": {
+        "controls": [
+          "button [disabled]: Share",
+        ],
+        "testIds": [
+          "project-sharing-owner: BBBen Betab@n8n.testOwner",
+          "project-sharing-info: BBBen Betab@n8n.testOwner",
+          "project-sharing-unshared-item: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "project-sharing-info: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "credential-used-in-can-view: Can view",
+          "credential-used-in-project-share: Share",
+        ],
+        "text": "Only Ben Beta or users with credential sharing permission can change who this credential is shared withBBBen Betab@n8n.testOwnerTATeam AlphaUsed in "Team flow"Can viewShare",
       },
       "emitted": {},
       "sharing": {
@@ -251,7 +333,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         "modelValue": [],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": true,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -261,8 +343,15 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": true,
         "teleported": false,
+        "unsharedProjects": [
+          {
+            "project": "project p-team team Team Alpha",
+            "subtitle": "Used in "Team flow"",
+          },
+        ],
       },
     },
   },
@@ -273,8 +362,8 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
-          "button: Delete",
+          "input: Share with users or projects...",
+          "button: Remove access",
         ],
         "hidden": [
           "BBBen Betab@n8n.testCGCleo Gammac@n8n.test",
@@ -309,7 +398,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -319,8 +408,10 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [],
       },
     },
     "opened": {
@@ -331,7 +422,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
+          "input: Share with users or projects...",
           "button: Share",
         ],
         "hidden": [
@@ -341,11 +432,12 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
           "project-sharing-select: BBBen Betab@n8n.testCGCleo Gammac@n8n.test",
           "project-sharing-info: BBBen Betab@n8n.test",
           "project-sharing-info: CGCleo Gammac@n8n.test",
-          "credential-used-in-project: TATeam AlphaUsed in "Team flow"Only Share",
-          "project-sharing-info: TATeam AlphaUsed in "Team flow"Only Share",
+          "project-sharing-unshared-item: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "project-sharing-info: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "credential-used-in-can-view: Can view",
           "credential-used-in-project-share: Share",
         ],
-        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.BBBen Betab@n8n.testCGCleo Gammac@n8n.testTATeam AlphaUsed in "Team flow"Only Share",
+        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.BBBen Betab@n8n.testCGCleo Gammac@n8n.testTATeam AlphaUsed in "Team flow"Can viewShare",
       },
       "emitted": {},
       "sharing": {
@@ -356,7 +448,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         "modelValue": [],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -366,8 +458,15 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [
+          {
+            "project": "project p-team team Team Alpha",
+            "subtitle": "Used in "Team flow"",
+          },
+        ],
       },
     },
   },
@@ -380,7 +479,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
+          "input: Share with users or projects...",
         ],
         "hidden": [
           "BBBen Betab@n8n.testCGCleo Gammac@n8n.test",
@@ -404,7 +503,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         "modelValue": [],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -414,8 +513,10 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [],
       },
     },
   },
@@ -428,8 +529,8 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
-          "button: Delete",
+          "input: Share with users or projects...",
+          "button: Remove access",
         ],
         "hidden": [
           "BBBen Betab@n8n.testCGCleo Gammac@n8n.test",
@@ -459,7 +560,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -469,8 +570,10 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [],
       },
     },
   },
@@ -481,8 +584,8 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
-          "button: Delete",
+          "input: Share with users or projects...",
+          "button: Remove access",
         ],
         "hidden": [
           "BBBen Betab@n8n.testCGCleo Gammac@n8n.test",
@@ -520,7 +623,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -530,8 +633,10 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [],
       },
     },
     "opened": {
@@ -542,7 +647,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
+          "input: Share with users or projects...",
           "button: Share",
         ],
         "hidden": [
@@ -554,11 +659,12 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
           "project-sharing-info: CGCleo Gammac@n8n.test",
           "project-sharing-owner: AAAnn Alphaa@n8n.testOwner",
           "project-sharing-info: AAAnn Alphaa@n8n.testOwner",
-          "credential-used-in-project: TATeam AlphaUsed in "Team flow"Only youShare",
-          "project-sharing-info: TATeam AlphaUsed in "Team flow"Only youShare",
+          "project-sharing-unshared-item: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "project-sharing-info: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "credential-used-in-can-view: Can view",
           "credential-used-in-project-share: Share",
         ],
-        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.BBBen Betab@n8n.testCGCleo Gammac@n8n.testAAAnn Alphaa@n8n.testOwnerTATeam AlphaUsed in "Team flow"Only youShare",
+        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.BBBen Betab@n8n.testCGCleo Gammac@n8n.testAAAnn Alphaa@n8n.testOwnerTATeam AlphaUsed in "Team flow"Can viewShare",
       },
       "emitted": {},
       "sharing": {
@@ -570,7 +676,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         "modelValue": [],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -580,8 +686,15 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [
+          {
+            "project": "project p-team team Team Alpha",
+            "subtitle": "Used in "Team flow"",
+          },
+        ],
       },
     },
   },
@@ -592,8 +705,8 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
-          "button: Delete",
+          "input: Share with users or projects...",
+          "button: Remove access",
         ],
         "hidden": [
           "BBBen Betab@n8n.testCGCleo Gammac@n8n.test",
@@ -631,7 +744,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -641,8 +754,10 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [],
       },
     },
     "opened": {
@@ -653,7 +768,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
+          "input: Share with users or projects...",
           "button: Share",
         ],
         "hidden": [
@@ -665,11 +780,12 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
           "project-sharing-info: CGCleo Gammac@n8n.test",
           "project-sharing-owner: AAAnn Alphaa@n8n.testOwner",
           "project-sharing-info: AAAnn Alphaa@n8n.testOwner",
-          "credential-used-in-project: TATeam AlphaUsed in 2 workflowsOnly youShare",
-          "project-sharing-info: TATeam AlphaUsed in 2 workflowsOnly youShare",
+          "project-sharing-unshared-item: TATeam AlphaUsed in 2 workflowsCan viewShare",
+          "project-sharing-info: TATeam AlphaUsed in 2 workflowsCan viewShare",
+          "credential-used-in-can-view: Can view",
           "credential-used-in-project-share: Share",
         ],
-        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.BBBen Betab@n8n.testCGCleo Gammac@n8n.testAAAnn Alphaa@n8n.testOwnerTATeam AlphaUsed in 2 workflowsOnly youShare",
+        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.BBBen Betab@n8n.testCGCleo Gammac@n8n.testAAAnn Alphaa@n8n.testOwnerTATeam AlphaUsed in 2 workflowsCan viewShare",
       },
       "emitted": {},
       "sharing": {
@@ -681,7 +797,7 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         "modelValue": [],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
         "roleDescriptions": {
           "credential:user": "Can use this credential. Can't edit it.",
@@ -691,19 +807,27 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [
+          {
+            "project": "project p-team team Team Alpha",
+            "subtitle": "Used in 2 workflows",
+          },
+        ],
       },
     },
   },
   "own credential, without the credential sharing flag": {
-    "opened": {
+    "clicked Share": {
       "calls": [
-        "projects.searchShareableProjects({'search':'','take':50})",
+        "useDependencies.getDependencies('cred-1','credential')",
       ],
       "dom": {
         "controls": [
-          "input: Share with user(s)",
+          "input: Share with users or projects...",
+          "button: Remove access",
         ],
         "hidden": [
           "BBBen Betab@n8n.testCGCleo Gammac@n8n.test",
@@ -714,27 +838,105 @@ exports[`sharing UI with stubbed stores > credential sharing tab 1`] = `
           "project-sharing-info: CGCleo Gammac@n8n.test",
           "project-sharing-owner: AAAnn Alphaa@n8n.testOwner",
           "project-sharing-info: AAAnn Alphaa@n8n.testOwner",
+          "project-sharing-list-item: TATeam AlphaCan use",
+          "project-sharing-info: TATeam AlphaCan use",
+          "project-sharing-static-role: Can use",
+          "project-sharing-remove: ",
         ],
-        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.BBBen Betab@n8n.testCGCleo Gammac@n8n.testAAAnn Alphaa@n8n.testOwner",
+        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.BBBen Betab@n8n.testCGCleo Gammac@n8n.testAAAnn Alphaa@n8n.testOwnerTATeam AlphaCan use",
+      },
+      "emitted": {
+        "update:modelValue": [
+          [
+            [
+              "project p-team team Team Alpha",
+            ],
+          ],
+        ],
+      },
+      "sharing": {
+        "canShareGlobally": false,
+        "confirmRemoval": "<function>",
+        "filterFn": "<function>",
+        "homeProject": "project p-a personal Ann Alpha <a@n8n.test>",
+        "isSharedGlobally": false,
+        "modelValue": [
+          "project p-team team Team Alpha",
+        ],
+        "onUpdate:modelValue": "<function>",
+        "onUpdate:shareWithAllUsers": "<function>",
+        "placeholder": "Share with users or projects...",
+        "readonly": false,
+        "roleDescriptions": {
+          "credential:user": "Can use this credential. Can't edit it.",
+        },
+        "roles": [
+          "role credential:user Can use",
+        ],
+        "searchFn": "<function>",
+        "showSuffix": true,
+        "sortSelected": "",
+        "static": false,
+        "teleported": false,
+        "unsharedProjects": [],
+      },
+    },
+    "opened": {
+      "calls": [
+        "useDependencies.getDependencies('cred-1','credential')",
+        "useDependencies.fetchDependencies(['cred-1'],'credential')",
+        "projects.searchShareableProjects({'search':'','take':50})",
+      ],
+      "dom": {
+        "controls": [
+          "input: Share with users or projects...",
+          "button: Share",
+        ],
+        "hidden": [
+          "BBBen Betab@n8n.testCGCleo Gammac@n8n.test",
+        ],
+        "testIds": [
+          "project-sharing-select: BBBen Betab@n8n.testCGCleo Gammac@n8n.test",
+          "project-sharing-info: BBBen Betab@n8n.test",
+          "project-sharing-info: CGCleo Gammac@n8n.test",
+          "project-sharing-owner: AAAnn Alphaa@n8n.testOwner",
+          "project-sharing-info: AAAnn Alphaa@n8n.testOwner",
+          "project-sharing-unshared-item: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "project-sharing-info: TATeam AlphaUsed in "Team flow"Can viewShare",
+          "credential-used-in-can-view: Can view",
+          "credential-used-in-project-share: Share",
+        ],
+        "text": "Sharing a credential allows people to use it in their workflows. They cannot access credential details.BBBen Betab@n8n.testCGCleo Gammac@n8n.testAAAnn Alphaa@n8n.testOwnerTATeam AlphaUsed in "Team flow"Can viewShare",
       },
       "emitted": {},
       "sharing": {
         "canShareGlobally": false,
+        "confirmRemoval": "<function>",
         "filterFn": "<function>",
         "homeProject": "project p-a personal Ann Alpha <a@n8n.test>",
         "isSharedGlobally": false,
         "modelValue": [],
         "onUpdate:modelValue": "<function>",
         "onUpdate:shareWithAllUsers": "<function>",
-        "placeholder": "Share with user(s)",
+        "placeholder": "Share with users or projects...",
         "readonly": false,
+        "roleDescriptions": {
+          "credential:user": "Can use this credential. Can't edit it.",
+        },
         "roles": [
-          "role credential:user User",
+          "role credential:user Can use",
         ],
         "searchFn": "<function>",
         "showSuffix": true,
+        "sortSelected": "",
         "static": false,
         "teleported": false,
+        "unsharedProjects": [
+          {
+            "project": "project p-team team Team Alpha",
+            "subtitle": "Used in "Team flow"",
+          },
+        ],
       },
     },
   },
@@ -1375,9 +1577,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button: Save",
         ],
         "testIds": [
@@ -1453,9 +1655,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -1518,7 +1720,7 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -1587,9 +1789,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -1650,9 +1852,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button: Save",
         ],
         "testIds": [
@@ -1731,9 +1933,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button: Save",
         ],
         "testIds": [
@@ -1792,7 +1994,7 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -1865,9 +2067,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button: Save",
         ],
         "testIds": [
@@ -2429,9 +2631,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button: Save",
         ],
         "testIds": [
@@ -2508,9 +2710,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -2572,7 +2774,7 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -2643,9 +2845,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -2813,9 +3015,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled] [busy]: Save",
         ],
         "testIds": [
@@ -2887,9 +3089,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -2950,9 +3152,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled] [busy]: Save",
         ],
         "testIds": [
@@ -3023,9 +3225,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -3088,7 +3290,7 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled] [busy]: Save",
         ],
         "hidden": [
@@ -3146,9 +3348,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled] [busy]: Save",
         ],
         "testIds": [
@@ -3204,9 +3406,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button: Save",
         ],
         "testIds": [
@@ -3285,9 +3487,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -3347,9 +3549,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -3424,9 +3626,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -3485,9 +3687,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -3550,7 +3752,7 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -3622,9 +3824,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -3683,9 +3885,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -3746,9 +3948,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button: Save",
         ],
         "testIds": [
@@ -3824,9 +4026,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -3889,7 +4091,7 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -3958,9 +4160,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -4021,9 +4223,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button: Save",
         ],
         "testIds": [
@@ -4099,9 +4301,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -4164,7 +4366,7 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -4233,9 +4435,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -4296,9 +4498,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button: Save",
         ],
         "testIds": [
@@ -4374,9 +4576,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -4439,7 +4641,7 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -4508,9 +4710,9 @@ exports[`sharing UI with stubbed stores > workflow share modal 1`] = `
         "controls": [
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -5089,9 +5291,9 @@ exports[`sharing UI with stubbed stores > workflow share modal in the ordinary M
           "button: Close this dialog",
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button: Save",
         ],
         "testIds": [
@@ -5142,7 +5344,7 @@ exports[`sharing UI with stubbed stores > workflow share modal in the ordinary M
           "button: Close this dialog",
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -5207,9 +5409,9 @@ exports[`sharing UI with stubbed stores > workflow share modal in the ordinary M
           "button: Close this dialog",
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -5263,7 +5465,7 @@ exports[`sharing UI with stubbed stores > workflow share modal in the ordinary M
           "button: Close this dialog",
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -5314,9 +5516,9 @@ exports[`sharing UI with stubbed stores > workflow share modal in the ordinary M
           "button: Close this dialog",
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled] [busy]: Save",
         ],
         "testIds": [
@@ -5378,9 +5580,9 @@ exports[`sharing UI with stubbed stores > workflow share modal in the ordinary M
           "button: Close this dialog",
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled]: Save",
         ],
         "hidden": [
@@ -5434,7 +5636,7 @@ exports[`sharing UI with stubbed stores > workflow share modal in the ordinary M
           "button: Close this dialog",
           "input: Add users...",
           "input: Select",
-          "button: Delete",
+          "button: Remove access",
           "button [disabled] [busy]: Save",
         ],
         "hidden": [
@@ -5487,9 +5689,9 @@ exports[`sharing UI with stubbed stores > workflow share modal, before close 1`]
       "controls": [
         "input: Add users...",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "button: Save",
       ],
       "testIds": [
@@ -5562,9 +5764,9 @@ exports[`sharing UI with stubbed stores > workflow share modal, before close 1`]
       "controls": [
         "input: Add users...",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "button [disabled]: Save",
       ],
       "hidden": [
@@ -5640,9 +5842,9 @@ exports[`sharing UI with stubbed stores > workflow share modal, before close 1`]
       "controls": [
         "input: Add users...",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "button [disabled]: Save",
       ],
       "hidden": [
@@ -5722,9 +5924,9 @@ exports[`sharing UI with stubbed stores > workflow share modal, before close 1`]
       "controls": [
         "input: Add users...",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "button: Save",
       ],
       "testIds": [
@@ -5783,9 +5985,9 @@ exports[`sharing UI with stubbed stores > workflow share modal, before close 1`]
       "controls": [
         "input: Add users...",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "button: Save",
       ],
       "testIds": [
@@ -5860,9 +6062,9 @@ exports[`sharing UI with stubbed stores > workflow share modal, before close 1`]
       "controls": [
         "input: Add users...",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "button [disabled]: Save",
       ],
       "hidden": [
@@ -5942,9 +6144,9 @@ exports[`sharing UI with stubbed stores > workflow share modal, before close 1`]
       "controls": [
         "input: Add users...",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "button: Save",
       ],
       "testIds": [
@@ -6001,7 +6203,7 @@ exports[`sharing UI with stubbed stores > workflow share modal, before close 1`]
       "controls": [
         "input: Add users...",
         "input: Select",
-        "button: Delete",
+        "button: Remove access",
         "button [disabled]: Save",
       ],
       "hidden": [

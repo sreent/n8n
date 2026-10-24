@@ -121,6 +121,10 @@ JSON API of Cloud Storage (multipart uploads, downloads, object metadata, delete
   endpoint, the URL is `https://<account>.blob.core.windows.net`. Then it lists one blob of the
   container. A missing container gives "Azure Blob container "<name>" does not exist or is not
   accessible.". A second `init()` does nothing.
+- Since n8n 2.45, `checkConnection()` is public, because the apps module of n8n calls it without
+  `init()`. It makes the client when there is none, then lists one blob. Without a container name,
+  it gives "Azure Blob container name not configured. Please set
+  `N8N_EXTERNAL_STORAGE_AZURE_CONTAINER_NAME`.".
 - A write reads a stream to its end and uploads one block blob, with the MIME type as the content
   type (default `application/octet-stream`) and the file name as the metadata `filename`
   (URI-encoded).
@@ -154,7 +158,9 @@ The owner chose this fork feature on 2026-10-14, after the six rebuilds of
   changes its host). It logs the endpoint, the bucket and the source of the credentials, without
   a secret. Then it gets an access token and lists one object of the bucket, with the limit
   `N8N_EXTERNAL_STORAGE_GCS_STARTUP_TIMEOUT_MS`. The list needs access to the objects only, not to
-  the bucket. The errors are "Failed to read the credentials of Google Cloud Storage: ...",
+  the bucket. `checkConnection()` of `ObjectStoreService` does the same `init()` once when the
+  bucket of Google Cloud Storage is set. The errors are "Failed to read the credentials of Google
+  Cloud Storage: ...",
   "Failed to get an access token for Google Cloud Storage from <source>: ..." and "Failed to
   connect to Google Cloud Storage at <endpoint> (bucket: <bucket>): <cause>. Check ...".
 - With a key, n8n signs a JWT (RS256) with the scope `devstorage.read_write`, and exchanges it for
@@ -172,6 +178,10 @@ The owner chose this fork feature on 2026-10-14, after the six rebuilds of
   attempts, up to `N8N_EXTERNAL_STORAGE_GCS_MAX_ATTEMPTS`. The first wait is 250 ms, and each next
   wait is two times longer. A failed request gives "Request to Google Cloud Storage failed:
   <cause>".
+- The apps module of n8n (`packages/modules/apps`, not a default module) uses the object store only
+  when the S3 bucket (`N8N_EXTERNAL_STORAGE_S3_BUCKET_NAME`) is set. With only a bucket of Google
+  Cloud Storage and the binary data mode `s3`, the apps module does not start. The fork does not
+  change the module.
 - The requests go through the outbound HTTP transport of n8n (`OutboundHttp`), which uses
   `HTTP_PROXY`, `HTTPS_PROXY` and `NO_PROXY`. The token request to the metadata server uses no
   proxy, because only the machine itself reaches its metadata server. The transport does not apply

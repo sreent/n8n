@@ -1,3 +1,5 @@
+// Fork: upstream n8n removed this test with `../promotion-connection.dto.ts`. The fork keeps both, see
+// that file.
 import {
 	CreatePromotionConnectionDto,
 	PromotionConnectionPublicDto,

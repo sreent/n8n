@@ -141,14 +141,14 @@ async function run() {
 						:aria-label="i18n.baseText('workflowHistory.content.actions')"
 						data-test-id="tests-detail-menu"
 					>
-						<N8nIcon icon="ellipsis-vertical" size="small" />
+						<N8nIcon icon="ellipsis" size="small" />
 					</button>
 				</template>
 			</N8nDropdownMenu>
 			<div :class="$style.actions">
 				<N8nButton
 					v-if="!isNewCase"
-					variant="subtle"
+					variant="outline"
 					size="small"
 					data-test-id="tests-detail-create-case"
 					@click="panel.openCreate()"

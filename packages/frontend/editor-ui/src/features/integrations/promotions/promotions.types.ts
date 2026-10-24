@@ -2,11 +2,11 @@
 // public API of the fork module (`packages/cli/src/modules/promotions`). See `FORK.md` in this
 // folder.
 import type {
-	ApplyPackageResultDto,
-	PromotePackageResultDto,
+	PromotionConnectionApplyResultDto,
+	PromotionConnectionPromoteResultDto,
 	PromotionBindingPreflightResult,
-	PromotionChanges,
-	PromotionCheckoutPublicDto,
+	PromotionConnectionChanges,
+	PromotionConnectionCheckoutPublicDto,
 	PromotionConnectionPublicDto,
 	PromotionConnectionSummary,
 	PromotionDirection,
@@ -18,11 +18,11 @@ export type PromotionProvider = PromotionProviderPublicDto;
 export type PromotionProviderSummary = Omit<PromotionProviderPublicDto, 'config'>;
 export type PromotionConnection = PromotionConnectionPublicDto;
 export type { PromotionConnectionSummary, PromotionDirection, PromotionSshKeyType };
-export type PromotionCheckout = PromotionCheckoutPublicDto;
-export type PromotionChangeList = PromotionChanges;
-export type PromotionChange = PromotionChanges['changes'][number];
-export type PromoteResult = PromotePackageResultDto;
-export type ApplyResult = ApplyPackageResultDto;
+export type PromotionCheckout = PromotionConnectionCheckoutPublicDto;
+export type PromotionChangeList = PromotionConnectionChanges;
+export type PromotionChange = PromotionConnectionChanges['changes'][number];
+export type PromoteResult = PromotionConnectionPromoteResultDto;
+export type ApplyResult = PromotionConnectionApplyResultDto;
 export type BindingPreflight = PromotionBindingPreflightResult;
 
 /** The configuration of Apply that the incoming banner gives to the selection modal. */

@@ -596,10 +596,19 @@ export class TestRunnerService {
 
 		const executionId = await this.workflowRunner.run(data);
 		const run = await this.activeExecutions.getPostExecutePromise(executionId);
-		const error = run?.data.resultData.error;
-		if (error) throw new TestRunError('CANT_FETCH_TEST_CASES', { message: error.message });
-
-		return run?.data.resultData.runData[trigger.name]?.[0]?.data?.main?.[0] ?? [];
+		// Only the run of the trigger counts. A workflow that cannot start, for example because a
+		// node has issues, gives the trigger no run.
+		const triggerRun = run?.data.resultData.runData[trigger.name]?.[0];
+		if (triggerRun?.error) {
+			throw new TestRunError('CANT_FETCH_TEST_CASES', { message: triggerRun.error.message });
+		}
+		const rows = triggerRun?.data?.main?.[0];
+		if (!rows) {
+			throw new TestRunError('CANT_FETCH_TEST_CASES', {
+				message: 'Evaluation trigger node did not produce any output',
+			});
+		}
+		return rows;
 	}
 
 	private selectRows(rows: INodeExecutionData[], rowIndices: number[] | undefined) {

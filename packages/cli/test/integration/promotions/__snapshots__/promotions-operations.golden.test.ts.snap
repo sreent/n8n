@@ -382,8 +382,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -391,11 +394,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Old flow",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Old flow",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -403,28 +418,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -699,8 +723,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -708,11 +735,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Old flow",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Old flow",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -720,28 +759,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -1189,8 +1237,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -1198,11 +1249,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Old flow",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Old flow",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -1210,28 +1273,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -1502,8 +1574,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -1511,12 +1586,27 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Old flow",
-                    "@Flow B",
-                    "@Flow 3",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Old flow",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -1524,28 +1614,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -1850,8 +1949,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -1859,12 +1961,27 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Old flow",
-                    "@Flow B",
-                    "@Flow 3",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Old flow",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -1872,28 +1989,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -2218,8 +2344,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -2227,11 +2356,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow B",
-                    "@Flow 3",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -2239,28 +2380,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -2519,7 +2669,7 @@ exports[`the operations of Git connections 1`] = `
     },
     "request": "POST /promotions/connections/@connection Deployments/promote",
     "response": {
-      "message": "The exported workflows reference variables, but the API key is missing the variable:list scope needed to bundle their values. Add the scope or set includeVariableValues to false.",
+      "message": "The exported entities reference variables, but the API key is missing the variable:list scope needed to bundle their values. Add the scope or set includeVariableValues to false.",
     },
     "status": 403,
     "step": "promote without the variable scope",
@@ -2595,8 +2745,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -2604,11 +2757,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow B",
-                    "@Flow 3",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -2616,28 +2781,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -2882,8 +3056,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -2891,11 +3068,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -2903,28 +3092,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -3208,8 +3406,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -3217,11 +3418,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow B",
-                    "@Flow 3",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -3229,28 +3442,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -3495,8 +3717,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -3504,11 +3729,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -3516,28 +3753,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -3783,8 +4029,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -3792,11 +4041,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -3804,28 +4065,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -4133,8 +4403,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -4142,11 +4415,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow B",
-                    "@Flow 3",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -4154,28 +4439,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -4421,8 +4715,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -4430,11 +4727,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -4442,28 +4751,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -4709,8 +5027,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -4718,11 +5039,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -4730,28 +5063,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -5017,8 +5359,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -5026,11 +5371,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -5038,28 +5395,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -5306,8 +5672,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -5315,11 +5684,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -5327,28 +5708,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -5594,8 +5984,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -5603,11 +5996,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -5615,28 +6020,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -6301,16 +6715,22 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred B",
                   "name": "Cred B",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -6318,11 +6738,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 3",
-                    "@Flow 2",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -6330,34 +6762,46 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "NEW_VAR",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -6626,8 +7070,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -6635,11 +7082,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -6647,28 +7106,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -6914,8 +7382,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -6923,11 +7394,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -6935,28 +7418,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -7681,24 +8173,33 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred X",
                   "name": "Cred X",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred B",
                   "name": "Cred B",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -7706,13 +8207,31 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 3",
-                    "@Flow 2",
-                    "@Flow 5",
-                    "@Flow B",
-                    "@Flow 6",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -7720,41 +8239,59 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 6",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "UNDEFINED_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "NEW_VAR",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -8130,8 +8667,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -8139,11 +8679,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -8151,28 +8703,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -8418,8 +8979,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -8427,11 +8991,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -8439,28 +9015,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -9060,25 +9645,37 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred X",
                   "name": "Cred X",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred B",
                   "name": "Cred B",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -9086,13 +9683,31 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 3",
-                    "@Flow 2",
-                    "@Flow 5",
-                    "@Flow B",
-                    "@Flow 6",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -9100,41 +9715,59 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 6",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "UNDEFINED_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "NEW_VAR",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -9521,8 +10154,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -9530,11 +10166,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -9542,28 +10190,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -9809,8 +10466,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -9818,11 +10478,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -9830,28 +10502,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -10269,25 +10950,37 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred X",
                   "name": "Cred X",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred B",
                   "name": "Cred B",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -10295,34 +10988,61 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 3",
-                    "@Flow 2",
-                    "@Flow 5",
-                    "@Flow B",
-                    "@Flow 6",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.manualTrigger",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.cron",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.set",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -10330,41 +11050,59 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 6",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "UNDEFINED_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "NEW_VAR",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -10830,8 +11568,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -10839,11 +11580,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -10851,28 +11604,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -11118,8 +11880,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -11127,11 +11892,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -11139,28 +11916,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -11700,25 +12486,37 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred X",
                   "name": "Cred X",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred B",
                   "name": "Cred B",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -11726,35 +12524,65 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 3",
-                    "@Flow 2",
-                    "@Flow 5",
-                    "@Flow B",
-                    "@Flow 6",
-                    "@Flow D",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow D",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.manualTrigger",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.cron",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.set",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -11762,41 +12590,59 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 6",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "UNDEFINED_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "NEW_VAR",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -12300,8 +13146,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -12309,11 +13158,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -12321,28 +13182,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -12588,8 +13458,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -12597,11 +13470,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -12609,28 +13494,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -13186,25 +14080,37 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred X",
                   "name": "Cred X",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred B",
                   "name": "Cred B",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -13212,8 +14118,11 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@Table A",
                   "name": "Table A",
-                  "usedByWorkflows": [
-                    "@Flow T",
+                  "usedBy": [
+                    {
+                      "id": "@Flow T",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -13221,42 +14130,75 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 3",
-                    "@Flow 2",
-                    "@Flow 5",
-                    "@Flow B",
-                    "@Flow 6",
-                    "@Flow D",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow D",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.manualTrigger",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.cron",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.set",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.dataTable",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow T",
+                  "usedBy": [
+                    {
+                      "id": "@Flow T",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -13264,41 +14206,59 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 6",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "UNDEFINED_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "NEW_VAR",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -13384,6 +14344,7 @@ exports[`the operations of Git connections 1`] = `
           "n8n-export/projects/team-a-@Team A/data-tables/table-a-@Table A/data-table.json": {
             "columns": [
               {
+                "id": "<id>",
                 "index": 0,
                 "name": "city",
                 "type": "string",
@@ -13841,8 +14802,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -13850,11 +14814,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -13862,28 +14838,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -14129,8 +15114,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -14138,11 +15126,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -14150,28 +15150,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -14643,25 +15652,37 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred X",
                   "name": "Cred X",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred B",
                   "name": "Cred B",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -14669,8 +15690,11 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@Table A",
                   "name": "Table A",
-                  "usedByWorkflows": [
-                    "@Flow T",
+                  "usedBy": [
+                    {
+                      "id": "@Flow T",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -14678,42 +15702,75 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 3",
-                    "@Flow 2",
-                    "@Flow 5",
-                    "@Flow B",
-                    "@Flow 6",
-                    "@Flow D",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow D",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.manualTrigger",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.cron",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.set",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow P",
+                  "usedBy": [
+                    {
+                      "id": "@Flow P",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.dataTable",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow T",
+                  "usedBy": [
+                    {
+                      "id": "@Flow T",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -14721,41 +15778,59 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 6",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 6",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "UNDEFINED_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 5",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 5",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "NEW_VAR",
-                  "usedByWorkflows": [
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -14841,6 +15916,7 @@ exports[`the operations of Git connections 1`] = `
           "n8n-export/projects/team-a-@Team A/data-tables/table-a-@Table A/data-table.json": {
             "columns": [
               {
+                "id": "<id>",
                 "index": 0,
                 "name": "city",
                 "type": "string",
@@ -15298,8 +16374,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -15307,11 +16386,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -15319,28 +16410,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -15586,8 +16686,11 @@ exports[`the operations of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -15595,11 +16698,23 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
-                    "@Flow 3",
-                    "@Flow B",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 3",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow B",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -15607,28 +16722,37 @@ exports[`the operations of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GLOBAL_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "TEAM_VAR",
-                  "usedByWorkflows": [
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",

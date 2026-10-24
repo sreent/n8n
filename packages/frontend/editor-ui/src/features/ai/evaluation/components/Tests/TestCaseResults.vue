@@ -25,7 +25,7 @@ const rowIndexes = computed(() => wizard.datasetNamesByRow.map((_, index) => ind
 			}}</N8nText>
 			<div :class="$style.actions">
 				<N8nButton
-					variant="subtle"
+					variant="outline"
 					size="small"
 					data-test-id="tests-results-create-case"
 					@click="panel.openCreate()"

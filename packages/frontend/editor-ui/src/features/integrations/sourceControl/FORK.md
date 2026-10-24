@@ -15,8 +15,8 @@ REST calls, modal keys and test IDs.
 | `sourceControl.store.ts` | The store `sourceControl`: the preferences, the licence flag, the key types, the last commit message and the requests. |
 | `sourceControl.api.ts` | The requests of the REST API `/rest/source-control`. |
 | `sourceControl.types.ts` | The preferences, the requests and the answers. |
-| `sourceControl.utils.ts` | The order of the rows, the folder tree, the dates and the summaries of the toasts. |
-| `sourceControl.constants.ts` | The three modal keys. |
+| `sourceControl.utils.ts` | The order of the rows, the folder tree, the dates and the summaries of the toasts. Also `getProtectedInstanceTooltip()`, the plain-text tooltip of the controls that a protected instance locks. |
+| `sourceControl.constants.ts` | The three modal keys, and `PROTECTED_INSTANCE_DOCS_URL`, the docs link of the tooltip of the sidebar. |
 | `sourceControl.eventBus.ts` | The event bus. A pull emits `pull`, and ordinary pages load their lists again. |
 | `views/SettingsSourceControl.vue` | The page Settings > Environments. |
 | `components/SourceControlPushModal.vue` | The modal "Commit and push changes". |
@@ -57,8 +57,11 @@ REST calls, modal keys and test IDs.
 
 ## Differences from the original
 
-The golden tests show no difference. Parts that the tests do not record, for example the styles,
-can be different.
+The golden tests show one difference. Since upstream n8n 2.45, the text of the pull modal has a
+space before the status `New` of an item (`Last updated 2 Jan at 03:04 New`), but not before the
+other statuses. The space is only white space in the DOM: the badge looks the same. The fork
+renders the badge as for the other statuses, and the snapshot keeps the fork text. Parts that the
+tests do not record, for example the styles, can be different.
 
 ## Changes to ordinary files
 
@@ -90,7 +93,12 @@ can be different.
   pull modal (tabs, folders, automatic publishing, diffs, the pull and its toasts and errors) and
   the result modal. A stub of `vue-virtual-scroller` renders all rows.
 
-Both tests use the harness of the evaluation editor
+- `__tests__/sourceControl.utils.test.ts` (fork test) checks the text of the tooltip of a protected
+  instance. Upstream n8n 2.45 added the tooltip and the docs link to the enterprise folder. The fork
+  wrote them from the ordinary texts (`readOnlyEnv.tooltip`) and the link that the ordinary sidebar
+  had before.
+
+The two golden tests use the harness of the evaluation editor
 (`features/ai/evaluation/__tests__/golden/harness.ts`). The snapshots were recorded against the
 enterprise files, twice with the same result, and the fork files give the same snapshots.
 

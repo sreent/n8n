@@ -730,7 +730,6 @@ const Empty = defineComponent({ render: () => null });
 
 type AppOptions = {
 	sharing?: boolean;
-	granularCredentialSharing?: boolean;
 	/** Turn on every boolean licence feature, not only sharing. */
 	allFeatures?: boolean;
 	/** An n8n cloud instance. */
@@ -741,7 +740,10 @@ type AppOptions = {
 	noRbacScopes?: boolean;
 	/** Add a custom workflow role and a custom credential role to `GET /roles`. */
 	customRoles?: boolean;
-	/** The env feature flag `N8N_ENV_FEAT_CRED_SHARING`. */
+	/**
+	 * The env feature flag `N8N_ENV_FEAT_CRED_SHARING`. Upstream n8n 2.45 removed the flag, so the
+	 * cases with the flag now give the same record as the cases without it.
+	 */
 	credSharingFlag?: boolean;
 	/** The licence limit of team projects, else the default of the test settings. */
 	teamProjectLimit?: number;
@@ -822,7 +824,6 @@ async function setupApp(user: UserKey, options: AppOptions = {}) {
 	useSettingsStore().setSettings({
 		...defaultSettings,
 		enterprise: enterpriseSettings(options),
-		granularCredentialSharing: options.granularCredentialSharing ?? false,
 		deployment: { ...defaultSettings.deployment, type: options.cloud ? 'cloud' : 'default' },
 		envFeatureFlags: options.credSharingFlag ? { N8N_ENV_FEAT_CRED_SHARING: 'true' } : {},
 	});
@@ -1416,12 +1417,12 @@ const MODAL_CASES: Record<string, ModalCase> = {
 		context: 'editor',
 		noRbacScopes: true,
 	},
+	// Upstream n8n 2.45 always shares credentials granularly, so the setting is gone.
 	'memberA own workflow with granular credential sharing': {
 		user: 'memberA',
 		workflow: 'personalA',
 		scopes: 'all',
 		context: 'editor',
-		granularCredentialSharing: true,
 	},
 };
 

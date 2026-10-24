@@ -184,7 +184,7 @@ exports[`the Tests panel > a case from an execution 1`] = `
       ],
       "focusPanel": "evaluations",
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -224,7 +224,7 @@ exports[`the Tests panel > a case from an execution 1`] = `
         "WhenAI Agentreceives inputchatInputOutputResponse to be similar to (0-5):",
       ],
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -261,7 +261,7 @@ exports[`the Tests panel > a case from an execution 1`] = `
       ],
       "focusPanel": "evaluations",
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -333,7 +333,7 @@ exports[`the Tests panel > a case from an execution 1`] = `
         "WhenAI Agentreceives inputchatInputOutputResponse to be similar to (0-5):",
       ],
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
         "chevron-down",
         "spinner",
@@ -383,7 +383,7 @@ exports[`the Tests panel > a case from an execution 1`] = `
         "WhenAI Agentreceives inputchatInputOutputResponse to be similar to (0-5):",
       ],
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
         "chevron-down",
         "spinner",
@@ -436,7 +436,7 @@ exports[`the Tests panel > a case from an execution 1`] = `
         "Run #1, Mar 1 12:00To be similar 4/5",
       ],
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
         "chevron-down",
         "check",
@@ -776,7 +776,7 @@ exports[`the Tests panel > a manual case 1`] = `
       ],
       "focusPanel": "evaluations",
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -814,7 +814,7 @@ exports[`the Tests panel > a manual case 1`] = `
       ],
       "focusPanel": "evaluations",
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -852,7 +852,7 @@ exports[`the Tests panel > a manual case 1`] = `
       ],
       "focusPanel": "evaluations",
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -889,7 +889,7 @@ exports[`the Tests panel > a manual case 1`] = `
       ],
       "focusPanel": "evaluations",
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -927,7 +927,7 @@ exports[`the Tests panel > a manual case 1`] = `
       ],
       "focusPanel": "evaluations",
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -965,7 +965,7 @@ exports[`the Tests panel > a manual case 1`] = `
       ],
       "focusPanel": "evaluations",
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -1037,7 +1037,7 @@ exports[`the Tests panel > a manual case 1`] = `
         "WhenAI Agentreceives inputchatInputOutputResponse to be similar to (0-5):",
       ],
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
         "chevron-down",
         "spinner",
@@ -1092,7 +1092,7 @@ exports[`the Tests panel > a manual case 1`] = `
         "WhenAI Agentreceives inputchatInputOutputResponse to be similar to (0-5):",
       ],
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
         "chevron-down",
         "spinner",
@@ -1244,7 +1244,7 @@ exports[`the Tests panel > an execution from the executions page 1`] = `
       ],
       "focusPanel": "evaluations",
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -1316,7 +1316,7 @@ exports[`the Tests panel > an execution from the executions page 1`] = `
         "WhenAI Agentreceives inputchatInputOutputResponse to be similar to (0-5):",
       ],
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
         "chevron-down",
         "spinner",
@@ -1456,7 +1456,7 @@ exports[`the Tests panel > errors 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
         ],
         "route": "/workflow/wf1",
@@ -1525,7 +1525,7 @@ exports[`the Tests panel > errors 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
         ],
         "route": "/workflow/wf1",
@@ -1656,7 +1656,7 @@ exports[`the Tests panel > errors 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
         ],
         "route": "/workflow/wf1",
@@ -1734,7 +1734,7 @@ exports[`the Tests panel > errors 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
         ],
         "route": "/workflow/wf1",
@@ -1870,7 +1870,7 @@ exports[`the Tests panel > more flows 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
         ],
         "route": "/workflow/wf1",
@@ -1908,7 +1908,7 @@ exports[`the Tests panel > more flows 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
         ],
         "route": "/workflow/wf1",
@@ -1952,7 +1952,7 @@ exports[`the Tests panel > more flows 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
         ],
         "route": "/workflow/wf1",
@@ -2098,7 +2098,7 @@ exports[`the Tests panel > more flows 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "x",
@@ -2143,7 +2143,7 @@ exports[`the Tests panel > more flows 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "x",
@@ -2189,7 +2189,7 @@ exports[`the Tests panel > more flows 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "x",
@@ -2241,7 +2241,7 @@ exports[`the Tests panel > more flows 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "x",
@@ -2292,7 +2292,7 @@ exports[`the Tests panel > more flows 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "x",
@@ -2592,7 +2592,7 @@ exports[`the Tests panel > more flows 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
         ],
         "route": "/workflow/wf1",
@@ -2669,7 +2669,7 @@ exports[`the Tests panel > more flows 1`] = `
           "WhenSecond Agentreceives inputoutputintermediateStepsOutputResponse to be similar to (0-5):",
         ],
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "spinner",
@@ -2721,7 +2721,7 @@ exports[`the Tests panel > more flows 1`] = `
           "WhenSecond Agentreceives inputoutputintermediateStepsOutputResponse to be similar to (0-5):",
         ],
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "spinner",
@@ -3014,7 +3014,7 @@ exports[`the Tests panel > saved cases 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "check",
@@ -3059,7 +3059,7 @@ exports[`the Tests panel > saved cases 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "check",
@@ -3126,7 +3126,7 @@ exports[`the Tests panel > saved cases 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "check",
@@ -3189,7 +3189,7 @@ exports[`the Tests panel > saved cases 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "check",
@@ -3278,7 +3278,7 @@ exports[`the Tests panel > saved cases 1`] = `
           "WhenAI Agentreceives inputinputOutputResponse to be similar to (0-5):",
         ],
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "spinner",
@@ -3340,7 +3340,7 @@ exports[`the Tests panel > saved cases 1`] = `
           "WhenAI Agentreceives inputinputOutputResponse to be similar to (0-5):",
         ],
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "spinner",
@@ -3541,7 +3541,7 @@ exports[`the Tests panel > saved cases 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "check",
@@ -3957,7 +3957,7 @@ exports[`the Tests panel > saved cases 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "x",
@@ -4003,7 +4003,7 @@ exports[`the Tests panel > saved cases 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "x",
@@ -4054,7 +4054,7 @@ exports[`the Tests panel > saved cases 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "x",
@@ -4100,7 +4100,7 @@ exports[`the Tests panel > saved cases 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "x",
@@ -4167,7 +4167,7 @@ exports[`the Tests panel > saved cases 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "x",
@@ -5035,7 +5035,7 @@ exports[`the Tests panel > the checks 1`] = `
       ],
       "focusPanel": "evaluations",
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
       ],
       "route": "/workflow/wf1",
@@ -5113,7 +5113,7 @@ exports[`the Tests panel > the checks 1`] = `
         "WhenAI Agentreceives inputchatInputOutputResponse to be similar to (0-5):Response to be exactly:To use specific tools:No tools are connected to this node.Custom (expression based):$json.output.length > 3",
       ],
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
         "chevron-down",
         "spinner",
@@ -5172,7 +5172,7 @@ exports[`the Tests panel > the checks 1`] = `
         "WhenAI Agentreceives inputchatInputOutputResponse to be similar to (0-5):Response to be exactly:To use specific tools:No tools are connected to this node.Custom (expression based):$json.output.length > 3",
       ],
       "icons": [
-        "ellipsis-vertical",
+        "ellipsis",
         "chevron-down",
         "chevron-down",
         "spinner",
@@ -5763,7 +5763,7 @@ exports[`the Tests panel > the input fields 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
         ],
         "route": "/workflow/wf1",
@@ -5835,7 +5835,7 @@ exports[`the Tests panel > the input fields 1`] = `
           "WhenAI Agentreceives inputpromptOutputResponse to be similar to (0-5):",
         ],
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "spinner",
@@ -5885,7 +5885,7 @@ exports[`the Tests panel > the input fields 1`] = `
           "WhenAI Agentreceives inputpromptOutputResponse to be similar to (0-5):",
         ],
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "spinner",
@@ -6063,7 +6063,7 @@ exports[`the Tests panel > the input fields 1`] = `
         ],
         "focusPanel": "evaluations",
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
         ],
         "route": "/workflow/wf1",
@@ -6137,7 +6137,7 @@ exports[`the Tests panel > the input fields 1`] = `
           "WhenAI Agentreceives inputquestioncontextOutputResponse to be similar to (0-5):",
         ],
         "icons": [
-          "ellipsis-vertical",
+          "ellipsis",
           "chevron-down",
           "chevron-down",
           "spinner",

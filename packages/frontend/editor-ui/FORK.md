@@ -96,23 +96,23 @@ With the licence:
 
 1. An info text. A user who may share, and a user in their own personal project, see the text for
    the owner. Other users see the text for a team project, or the name of the personal owner.
-2. The select offers all projects except the owner project. The role is "User". The select is
-   read-only and static without `credential:share`. Its placeholder is "Share with users or
-   projects..." when the projects store lists team projects, else "Share with user(s)". The option
-   "All users and projects" follows the global scope `credential:shareGlobally` of the user, not
-   the scopes of the credential.
-3. The tab emits `update:modelValue` with the projects, and `update:shareWithAllUsers`.
+2. The select offers all projects except the owner project. The role is "Can use", with a
+   description. The select is read-only and static without `credential:share`. Its placeholder is
+   "Share with users or projects...". The option "All users and projects" follows the global scope
+   `credential:shareGlobally` of the user, not the scopes of the credential. A removal asks first.
+3. The list also shows each project of the user that has workflows that use the credential, but
+   no share: "Used in {workflow}" or "Used in {count} workflows". The personal project of a user
+   with the global scope `credential:use` (the owner and admins) says "Can use in personal space".
+   Each other project says "Can view". "Share" adds the project, and it is off without
+   `credential:share`. The list sorts its entries by name, people first, so a share does not move
+   an entry.
+4. The tab emits `update:modelValue` with the projects, and `update:shareWithAllUsers`.
 
-With credential sharing (`N8N_ENV_FEAT_CRED_SHARING`):
-
-1. The role is "Can use", with a description. A removal asks first.
-2. A user who may share sees each of their projects that has workflows that use the credential,
-   but no share: "Used in {workflow}" or "Used in {count} workflows", and "Only you" or
-   "Only {first name of the owner}" (else its email, else nothing). "Share" adds the project.
-3. For a user who may share, the tab loads the workflows when it opens, through `useDependencies`
-   (`POST /workflow-dependencies/details`), also without the licence and for a new credential.
-   `useDependencies` keeps the last result for each credential until the page loads again. The tab
-   shows that result at once, and keeps it when a request fails.
+The tab loads the workflows when it opens, through `useDependencies`
+(`POST /workflow-dependencies/details`), also without the licence and for a new credential.
+`useDependencies` keeps the last result for each credential until the page loads again. The tab
+shows that result at once, and keeps it when a request fails. Upstream n8n 2.45 removed the env
+feature flag `N8N_ENV_FEAT_CRED_SHARING`, so this behaviour is always on.
 
 ## Clean-room sources
 

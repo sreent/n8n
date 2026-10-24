@@ -76,8 +76,13 @@ export class WorkflowReviewService {
 	) {}
 
 	/** Each route needs the policy of the instance. */
+	/** Whether the policy of the instance turns workflow reviews on. */
+	async isEnabled() {
+		return (await this.policyService.get()).enabled;
+	}
+
 	async assertEnabled() {
-		if (!(await this.policyService.get()).enabled) {
+		if (!(await this.isEnabled())) {
 			throw new ForbiddenError('Workflow reviews are disabled on this instance');
 		}
 	}

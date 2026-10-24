@@ -1,16 +1,103 @@
-import { CreateDestinationDto, PublicDestinationResponseDto } from '@n8n/api-types';
-import type { PublicCreateDestination } from '@n8n/api-types';
+import { LogStreamingDestinationPublicDto } from '@n8n/api-types';
+import type {
+	CreateDestinationDto,
+	CreateLogStreamingDestinationPublic,
+	LogStreamingDestinationPublicType,
+	UpdateLogStreamingDestinationPublic,
+} from '@n8n/api-types';
 import {
+	circuitBreakerSchema,
 	defaultMessageEventBusDestinationSentryOptions,
 	defaultMessageEventBusDestinationSyslogOptions,
 	defaultMessageEventBusDestinationWebhookOptions,
+	MessageEventBusDestinationSentryOptionsSchema,
+	MessageEventBusDestinationSyslogOptionsSchema,
+	MessageEventBusDestinationWebhookOptionsSchema,
+	storedDestinationHostSchemas,
+	webhookParameterOptionsSchema,
 } from 'n8n-workflow';
-import type { z } from 'zod';
+import { z } from 'zod';
 
 import { ALL_EVENTS } from '../log-streaming.constants';
 
 /** A destination as the REST API takes it. The field `__type` gives the kind. */
 export type DestinationInput = z.infer<typeof CreateDestinationDto>;
+
+/**
+ * The options of a destination that is stored or that the environment gives. New input gets the
+ * strict host checks of `CreateDestinationDto` and of the public API. Stored options keep the
+ * earlier, looser checks of the URL and the host, so that a destination that worked before still
+ * loads.
+ */
+const storedDestinationSchema = z.discriminatedUnion('__type', [
+	MessageEventBusDestinationWebhookOptionsSchema.extend({ url: storedDestinationHostSchemas.url }),
+	MessageEventBusDestinationSentryOptionsSchema.extend({ dsn: storedDestinationHostSchemas.url }),
+	MessageEventBusDestinationSyslogOptionsSchema.extend({
+		host: storedDestinationHostSchemas.host,
+	}),
+]);
+
+const environmentCircuitBreakerSchema = circuitBreakerSchema
+	.unwrap()
+	.pick({ maxFailures: true, failureWindow: true })
+	.optional();
+
+/**
+ * A destination of `N8N_LOG_STREAMING_DESTINATIONS`: the fields of the public API, with `type` and
+ * without an id. The URL and the host keep the looser checks, so that a config that booted
+ * before still boots.
+ */
+export const EnvironmentDestinationSchema = z.discriminatedUnion('type', [
+	MessageEventBusDestinationWebhookOptionsSchema.omit({
+		__type: true,
+		id: true,
+		credentials: true,
+		authentication: true,
+		genericAuthType: true,
+		nodeCredentialType: true,
+		responseCodeMustMatch: true,
+		expectedStatusCode: true,
+		sendPayload: true,
+	}).extend({
+		type: z.literal('webhook'),
+		url: storedDestinationHostSchemas.url,
+		options: webhookParameterOptionsSchema
+			.unwrap()
+			.omit({ batch: true, response: true })
+			.optional(),
+		circuitBreaker: environmentCircuitBreakerSchema,
+	}),
+	MessageEventBusDestinationSyslogOptionsSchema.omit({
+		__type: true,
+		id: true,
+		credentials: true,
+		eol: true,
+		expectedStatusCode: true,
+	}).extend({
+		type: z.literal('syslog'),
+		host: storedDestinationHostSchemas.host,
+		circuitBreaker: environmentCircuitBreakerSchema,
+	}),
+	MessageEventBusDestinationSentryOptionsSchema.omit({
+		__type: true,
+		id: true,
+		credentials: true,
+		tracesSampleRate: true,
+		sendPayload: true,
+	}).extend({
+		type: z.literal('sentry'),
+		dsn: storedDestinationHostSchemas.url,
+		circuitBreaker: environmentCircuitBreakerSchema,
+	}),
+]);
+
+export type EnvironmentDestination = z.infer<typeof EnvironmentDestinationSchema>;
+
+/** A destination in the format of the public API or of the environment, with `type`. */
+type PublicDestinationInput =
+	| CreateLogStreamingDestinationPublic
+	| UpdateLogStreamingDestinationPublic
+	| EnvironmentDestination;
 
 /** A stored destination: the input with the defaults of its kind, and an id. */
 export type DestinationOptions = DestinationInput & { id: string };
@@ -38,7 +125,7 @@ const DEFAULTS: Record<DestinationType, object> = {
 };
 
 /** The kind of a destination of the public API and of `N8N_LOG_STREAMING_DESTINATIONS`. */
-export const PUBLIC_TYPES: Record<DestinationType, PublicCreateDestination['type']> = {
+export const PUBLIC_TYPES: Record<DestinationType, LogStreamingDestinationPublicType> = {
 	$$MessageEventBusDestinationWebhook: 'webhook',
 	$$MessageEventBusDestinationSyslog: 'syslog',
 	$$MessageEventBusDestinationSentry: 'sentry',
@@ -46,7 +133,7 @@ export const PUBLIC_TYPES: Record<DestinationType, PublicCreateDestination['type
 
 /** Stored options that are valid, with their id. Else `undefined`. */
 export function parseDestinationOptions(value: unknown): DestinationOptions | undefined {
-	const result = CreateDestinationDto.safeParse(value);
+	const result = storedDestinationSchema.safeParse(value);
 	if (!result.success) return undefined;
 	const { id } = result.data;
 	return id ? { ...result.data, id } : undefined;
@@ -83,11 +170,14 @@ export function isSubscribed(subscribedEvents: readonly string[] | undefined, ev
 
 /** A destination as the public API gives it: with `type`, and without the internal fields. */
 export function toPublicDestination(options: DestinationOptions) {
-	return PublicDestinationResponseDto.parse({ ...options, type: PUBLIC_TYPES[options.__type] });
+	return LogStreamingDestinationPublicDto.parse({
+		...options,
+		type: PUBLIC_TYPES[options.__type],
+	});
 }
 
 /** A destination of the public API or of the environment, as the REST API takes it. */
-export function fromPublicDestination(input: PublicCreateDestination): DestinationInput {
+export function fromPublicDestination(input: PublicDestinationInput): DestinationInput {
 	switch (input.type) {
 		case 'webhook': {
 			const { type: _type, ...webhook } = input;

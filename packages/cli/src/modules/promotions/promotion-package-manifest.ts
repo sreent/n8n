@@ -1,8 +1,10 @@
 import type { PackageManifest } from '@/modules/n8n-packages/spec/manifest.schema';
 import type {
+	PackageAgentRequirement,
 	PackageCredentialRequirement,
 	PackageDataTableRequirement,
 	PackageNodeTypeRequirement,
+	PackageRequirementConsumer,
 	PackageRequirements,
 	PackageTagRequirement,
 	PackageVariableRequirement,
@@ -32,11 +34,21 @@ function upsertEntries(old: ManifestEntry[] | undefined, added: ManifestEntry[] 
 	return result;
 }
 
+const consumerKey = ({ kind, id }: PackageRequirementConsumer) => `${kind}:${id}`;
+
+/** The consumers without repeats, in the order of their kinds and ids. */
+function uniqueConsumers(consumers: PackageRequirementConsumer[]) {
+	const byKey = new Map(consumers.map((consumer) => [consumerKey(consumer), consumer]));
+	return [...byKey.entries()]
+		.sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+		.map(([, consumer]) => consumer);
+}
+
 /**
- * Removes the uses of the replaced workflows, and the requirements that no workflow uses then.
+ * Removes the uses of the replaced workflows, and the requirements that nothing uses then.
  * Adds the new requirements: a requirement that exists gets the new uses, in the order of the ids.
  */
-function mergeUses<T extends { usedByWorkflows: string[] }>(
+function mergeUses<T extends { usedBy: PackageRequirementConsumer[] }>(
 	old: T[] | undefined,
 	added: T[] | undefined,
 	keyOf: (entry: T) => string,
@@ -44,8 +56,8 @@ function mergeUses<T extends { usedByWorkflows: string[] }>(
 ) {
 	const result: T[] = [];
 	for (const entry of old ?? []) {
-		const usedByWorkflows = entry.usedByWorkflows.filter((id) => !replaced.has(id));
-		if (usedByWorkflows.length > 0) result.push({ ...entry, usedByWorkflows });
+		const usedBy = entry.usedBy.filter(({ kind, id }) => kind !== 'workflow' || !replaced.has(id));
+		if (usedBy.length > 0) result.push({ ...entry, usedBy });
 	}
 	for (const entry of added ?? []) {
 		const index = result.findIndex((existing) => keyOf(existing) === keyOf(entry));
@@ -55,9 +67,7 @@ function mergeUses<T extends { usedByWorkflows: string[] }>(
 		}
 		result[index] = {
 			...entry,
-			usedByWorkflows: [
-				...new Set([...result[index].usedByWorkflows, ...entry.usedByWorkflows]),
-			].sort(),
+			usedBy: uniqueConsumers([...result[index].usedBy, ...entry.usedBy]),
 		};
 	}
 	return result;
@@ -87,6 +97,7 @@ function mergeRequirements(
 		byId,
 		replaced,
 	);
+	const agents = mergeUses<PackageAgentRequirement>(old?.agents, added?.agents, byId, replaced);
 	const variables = mergeUses<PackageVariableRequirement>(
 		old?.variables,
 		added?.variables,
@@ -104,6 +115,7 @@ function mergeRequirements(
 		...(credentials.length > 0 ? { credentials } : {}),
 		...(dataTables.length > 0 ? { dataTables } : {}),
 		...(workflows.length > 0 ? { workflows } : {}),
+		...(agents.length > 0 ? { agents } : {}),
 		...(variables.length > 0 ? { variables } : {}),
 		...(tags.length > 0 ? { tags } : {}),
 		...(nodeTypes.length > 0 ? { nodeTypes } : {}),

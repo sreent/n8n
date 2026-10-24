@@ -10,6 +10,8 @@ import {
 	N8nCheckbox,
 	N8nCopyInput,
 	N8nDialog,
+	N8nDialogBody,
+	N8nDialogFooter,
 	N8nDialogHeader,
 	N8nDialogTitle,
 	N8nInput,
@@ -75,7 +77,7 @@ const title = computed(() => {
 	return i18n.baseText(
 		isEdit.value
 			? 'settings.promotions.provider.dialog.title.edit'
-			: 'settings.promotions.provider.dialog.title.add',
+			: 'settings.promotions.gitConnections.provider.dialog.title.add',
 	);
 });
 
@@ -193,121 +195,122 @@ function onOpenChange(open: boolean) {
 		<N8nDialogHeader>
 			<N8nDialogTitle>{{ title }}</N8nDialogTitle>
 		</N8nDialogHeader>
-		<div v-if="deployKey" :class="$style.form" data-test-id="promotion-provider-key-step">
-			<N8nInputLabel :label="i18n.baseText('settings.promotions.provider.publicKey.label')">
-				<N8nCopyInput
-					:value="deployKey"
-					:copy-label="i18n.baseText('settings.promotions.provider.publicKey.copy')"
-					data-test-id="promotion-provider-public-key"
-				/>
-				<N8nText size="small" color="text-light">
-					{{ i18n.baseText('settings.promotions.provider.publicKey.hint') }}
-				</N8nText>
-			</N8nInputLabel>
-			<footer :class="$style.footer">
+		<div v-if="deployKey" data-test-id="promotion-provider-key-step">
+			<N8nDialogBody :class="$style.form">
+				<N8nInputLabel :label="i18n.baseText('settings.promotions.provider.publicKey.label')">
+					<N8nCopyInput
+						:value="deployKey"
+						:label="i18n.baseText('settings.promotions.provider.publicKey.label')"
+						:copy-label="i18n.baseText('settings.promotions.provider.publicKey.copy')"
+						data-test-id="promotion-provider-public-key"
+					/>
+					<N8nText size="small" color="text-light">
+						{{ i18n.baseText('settings.promotions.provider.publicKey.hint') }}
+					</N8nText>
+				</N8nInputLabel>
+			</N8nDialogBody>
+			<N8nDialogFooter>
 				<N8nButton data-test-id="promotion-provider-done-button" @click="emit('close')">
 					{{ i18n.baseText('promotions.modal.close') }}
 				</N8nButton>
-			</footer>
+			</N8nDialogFooter>
 		</div>
-		<form
-			v-else
-			:class="$style.form"
-			data-test-id="promotion-provider-form-step"
-			@submit.prevent="save"
-		>
-			<N8nNotice v-if="isInUse" data-test-id="promotion-provider-in-use">
-				{{ i18n.baseText('settings.promotions.provider.inUse.warning') }}
-				{{
-					i18n.baseText('settings.promotions.provider.inUse.connections', {
-						interpolate: { names: (usedBy ?? []).join(', ') },
-					})
-				}}
-			</N8nNotice>
-			<N8nInputLabel :label="i18n.baseText('settings.promotions.provider.form.name')" required>
-				<N8nInput v-model="name" data-test-id="promotion-provider-name-input" />
-			</N8nInputLabel>
-			<N8nInputLabel
-				:label="i18n.baseText('settings.promotions.provider.form.authType')"
-				:tooltip-text="
-					isEdit ? i18n.baseText('settings.promotions.provider.form.authType.locked') : undefined
-				"
-			>
-				<N8nSelect
-					v-model="authType"
-					size="large"
-					:disabled="isEdit"
-					:teleported="false"
-					data-test-id="promotion-provider-auth-type-select"
-				>
-					<N8nOption
-						value="ssh-key"
-						:label="i18n.baseText('settings.promotions.providers.authType.sshKey')"
-					/>
-					<N8nOption
-						value="token"
-						:label="i18n.baseText('settings.promotions.providers.authType.token')"
-					/>
-				</N8nSelect>
-			</N8nInputLabel>
-			<template v-if="authType === 'ssh-key'">
+		<form v-else data-test-id="promotion-provider-form-step" @submit.prevent="save">
+			<N8nDialogBody :class="$style.form">
+				<N8nNotice v-if="isInUse" data-test-id="promotion-provider-in-use">
+					{{ i18n.baseText('settings.promotions.gitConnections.provider.inUse.warning') }}
+					{{
+						i18n.baseText('settings.promotions.provider.inUse.connections', {
+							interpolate: { names: (usedBy ?? []).join(', ') },
+						})
+					}}
+				</N8nNotice>
+				<N8nInputLabel :label="i18n.baseText('settings.promotions.provider.form.name')" required>
+					<N8nInput v-model="name" data-test-id="promotion-provider-name-input" />
+				</N8nInputLabel>
 				<N8nInputLabel
-					v-if="!isEdit"
-					:label="i18n.baseText('settings.promotions.provider.form.keyType')"
+					:label="i18n.baseText('settings.promotions.provider.form.authType')"
+					:tooltip-text="
+						isEdit ? i18n.baseText('settings.promotions.provider.form.authType.locked') : undefined
+					"
 				>
 					<N8nSelect
-						v-model="keyType"
+						v-model="authType"
 						size="large"
+						:disabled="isEdit"
 						:teleported="false"
-						data-test-id="promotion-provider-key-type-select"
+						data-test-id="promotion-provider-auth-type-select"
 					>
-						<N8nOption value="ed25519" label="ED25519" />
-						<N8nOption value="rsa" label="RSA" />
+						<N8nOption
+							value="ssh-key"
+							:label="i18n.baseText('settings.promotions.providers.authType.sshKey')"
+						/>
+						<N8nOption
+							value="token"
+							:label="i18n.baseText('settings.promotions.providers.authType.token')"
+						/>
 					</N8nSelect>
 				</N8nInputLabel>
+				<template v-if="authType === 'ssh-key'">
+					<N8nInputLabel
+						v-if="!isEdit"
+						:label="i18n.baseText('settings.promotions.provider.form.keyType')"
+					>
+						<N8nSelect
+							v-model="keyType"
+							size="large"
+							:teleported="false"
+							data-test-id="promotion-provider-key-type-select"
+						>
+							<N8nOption value="ed25519" label="ED25519" />
+							<N8nOption value="rsa" label="RSA" />
+						</N8nSelect>
+					</N8nInputLabel>
+					<template v-else>
+						<N8nInputLabel :label="i18n.baseText('settings.promotions.provider.publicKey.label')">
+							<N8nCopyInput
+								:value="currentPublicKey"
+								:label="i18n.baseText('settings.promotions.provider.publicKey.label')"
+								:copy-label="i18n.baseText('settings.promotions.provider.publicKey.copy')"
+								data-test-id="promotion-provider-public-key"
+							/>
+						</N8nInputLabel>
+						<N8nCheckbox
+							v-model="regenerateKey"
+							:label="i18n.baseText('settings.promotions.provider.regenerateKey')"
+							data-test-id="promotion-provider-regenerate-key"
+						/>
+						<N8nText v-if="regenerateKey" size="small" color="text-light">
+							{{ i18n.baseText('settings.promotions.provider.regenerateKey.hint') }}
+						</N8nText>
+					</template>
+				</template>
 				<template v-else>
-					<N8nInputLabel :label="i18n.baseText('settings.promotions.provider.publicKey.label')">
-						<N8nCopyInput
-							:value="currentPublicKey"
-							:copy-label="i18n.baseText('settings.promotions.provider.publicKey.copy')"
-							data-test-id="promotion-provider-public-key"
+					<N8nInputLabel
+						:label="i18n.baseText('settings.promotions.provider.form.username')"
+						:required="!isEdit"
+					>
+						<N8nInput v-model="username" data-test-id="promotion-provider-username-input" />
+					</N8nInputLabel>
+					<N8nInputLabel
+						:label="i18n.baseText('settings.promotions.provider.form.password')"
+						:required="!isEdit"
+					>
+						<N8nInput
+							v-model="password"
+							type="password"
+							data-test-id="promotion-provider-password-input"
 						/>
 					</N8nInputLabel>
-					<N8nCheckbox
-						v-model="regenerateKey"
-						:label="i18n.baseText('settings.promotions.provider.regenerateKey')"
-						data-test-id="promotion-provider-regenerate-key"
-					/>
-					<N8nText v-if="regenerateKey" size="small" color="text-light">
-						{{ i18n.baseText('settings.promotions.provider.regenerateKey.hint') }}
+					<N8nText v-if="credentialsIncomplete" size="small" color="danger">
+						{{ i18n.baseText('settings.promotions.provider.form.credentials.required') }}
+					</N8nText>
+					<N8nText v-if="isEdit" size="small" color="text-light">
+						{{ i18n.baseText('settings.promotions.provider.form.credentials.keepHint') }}
 					</N8nText>
 				</template>
-			</template>
-			<template v-else>
-				<N8nInputLabel
-					:label="i18n.baseText('settings.promotions.provider.form.username')"
-					:required="!isEdit"
-				>
-					<N8nInput v-model="username" data-test-id="promotion-provider-username-input" />
-				</N8nInputLabel>
-				<N8nInputLabel
-					:label="i18n.baseText('settings.promotions.provider.form.password')"
-					:required="!isEdit"
-				>
-					<N8nInput
-						v-model="password"
-						type="password"
-						data-test-id="promotion-provider-password-input"
-					/>
-				</N8nInputLabel>
-				<N8nText v-if="credentialsIncomplete" size="small" color="danger">
-					{{ i18n.baseText('settings.promotions.provider.form.credentials.required') }}
-				</N8nText>
-				<N8nText v-if="isEdit" size="small" color="text-light">
-					{{ i18n.baseText('settings.promotions.provider.form.credentials.keepHint') }}
-				</N8nText>
-			</template>
-			<footer :class="$style.footer">
+			</N8nDialogBody>
+			<N8nDialogFooter>
 				<N8nButton
 					v-if="isEdit"
 					variant="destructive"
@@ -319,7 +322,7 @@ function onOpenChange(open: boolean) {
 					{{ i18n.baseText('generic.delete') }}
 				</N8nButton>
 				<N8nButton
-					variant="subtle"
+					variant="outline"
 					data-test-id="promotion-provider-cancel-button"
 					@click="emit('close')"
 				>
@@ -333,22 +336,14 @@ function onOpenChange(open: boolean) {
 				>
 					{{ i18n.baseText('generic.save') }}
 				</N8nButton>
-			</footer>
+			</N8nDialogFooter>
 		</form>
 	</N8nDialog>
 </template>
 
 <style module lang="scss">
 .form {
-	display: flex;
-	flex-direction: column;
 	gap: var(--spacing--sm);
-}
-
-.footer {
-	display: flex;
-	justify-content: flex-end;
-	gap: var(--spacing--2xs);
 }
 
 .delete {

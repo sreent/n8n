@@ -293,7 +293,7 @@ onMounted(loadChanges);
 					i18n.baseText('promotions.modal.error.description')
 				}}</N8nText>
 				<N8nButton
-					variant="subtle"
+					variant="outline"
 					size="small"
 					data-test-id="promotion-retry"
 					@click="loadChanges"
@@ -364,7 +364,7 @@ onMounted(loadChanges);
 					}}
 				</N8nText>
 				<div :class="$style.actions">
-					<N8nButton variant="subtle" @click="close">
+					<N8nButton variant="outline" @click="close">
 						{{ i18n.baseText('promotions.modal.close') }}
 					</N8nButton>
 					<N8nButton v-if="!isApply" disabled data-test-id="promotion-submit">

@@ -102,14 +102,13 @@ Some features also need a setting, as in upstream n8n:
 
 | Feature | Also needs | Set by `deploy/` |
 |---|---|---|
-| Node type policies | `N8N_ENABLED_MODULES=type-availability-policies` | Yes |
 | Git connections | `N8N_ENABLED_MODULES=promotions`, and `N8N_ENV_FEAT_PROMOTIONS=true` for the editor | Yes |
 | Dynamic credentials | `N8N_ENV_FEAT_DYNAMIC_CREDENTIALS=true` for the resolvers, the hooks and the check node | Yes |
 | Token exchange | `N8N_ENV_FEAT_TOKEN_EXCHANGE=true`, then `N8N_TOKEN_EXCHANGE_ENABLED=true` with trusted keys | No |
 | Multiple main instances | Queue mode and `N8N_MULTI_MAIN_SETUP_ENABLED=true` | In queue mode, not on the VM |
 | Worker view | Queue mode | In queue mode, not on the VM |
 | Worker pools | Queue mode and `N8N_WORKER_POOLS_ENABLED=true` | No |
-| Evaluation collections, config evaluations and agent evaluations | `N8N_EVAL_COLLECTIONS_ENABLED=true`, `N8N_CONFIG_EVALS_ENABLED=true` and `N8N_AGENT_EVALS_ENABLED=true`, and the module `agent-evals` in `N8N_ENABLED_MODULES`. They follow the feature flags of n8n, which come with the telemetry. Without the telemetry, only the variables turn them on. | Yes |
+| Evaluation collections, config evaluations and agent evaluations | `N8N_EVAL_COLLECTIONS_ENABLED=true`, `N8N_CONFIG_EVALS_ENABLED=true` and `N8N_AGENT_EVALS_ENABLED=true`. They follow the feature flags of n8n, which come with the telemetry. Without the telemetry, only the variables turn them on. | Yes |
 | More than one parallel case of an evaluation | `N8N_CONCURRENCY_EVALUATION_LIMIT`. Without it, the cases run one at a time. | Yes, 5 |
 | Gateway credits | A credential of a provider, and the switch on the page Settings > Gateway credits admin | No |
 | The banner of a non-production instance | `N8N_FORK_NON_PRODUCTION_BANNER=true`. The banner is not in the list, so it is off by default. | No |
@@ -155,7 +154,8 @@ controller that replaces `License.isLicensed` replaces the switch too.
   session, a plain install fails on `@vscode/ripgrep`. The script also stops with a clear error
   when a repository that it downloads from is not attached.
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
-  `--plan` to see which tests it selects. It leaves out the test files in
+  `--plan` to see which tests it selects. A change of more than 1000 files, for example an
+  upstream update, runs the full test suites, as in upstream CI. It leaves out the test files in
   `scripts/container-ci-skipped-tests.txt` (none now). It runs the integration tests with 2
   workers, because more time out on the 4 CPUs of a cloud session. When `deploy/` changes, it also
   runs the Node.js tests of `deploy/`. The tests of the Helm chart need Helm, and the tests of the

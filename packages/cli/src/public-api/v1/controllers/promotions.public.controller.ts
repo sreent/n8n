@@ -1,19 +1,19 @@
 import {
-	ApplyPackageDto,
-	ApplyPackageResultDto,
-	ContinueApplyPackageDto,
+	PromotionConnectionApplyDto,
+	PromotionConnectionApplyResultDto,
+	PromotionConnectionContinueApplyDto,
 	CreatePromotionConnectionDto,
-	CreatePromotionProviderDto,
+	CreatePromotionConnectionProviderDto,
 	ListPromotionConnectionsQueryDto,
 	ListPromotionProvidersQueryDto,
 	MAX_ITEMS_PER_PAGE,
 	PromotePackageDto,
-	PromotePackageResultDto,
+	PromotionConnectionPromoteResultDto,
 	PromoteSelectionRequestDto,
 	PromotionApplyConfigPublicDto,
-	PromotionChangesDto,
+	PromotionConnectionChangesDto,
 	PromotionChangesQueryDto,
-	PromotionCheckoutPublicDto,
+	PromotionConnectionCheckoutPublicDto,
 	PromotionConnectionListPublicDto,
 	PromotionConnectionProjectListPublicDto,
 	PromotionConnectionProjectPublicDto,
@@ -23,7 +23,7 @@ import {
 	PromotionProviderPublicDto,
 	PromotionPromoteConfigPublicDto,
 	UpdatePromotionConnectionDto,
-	UpdatePromotionProviderDto,
+	UpdatePromotionConnectionProviderDto,
 	UpsertPromotionApplyConfigDto,
 	UpsertPromotionPromoteConfigDto,
 	projectIdParamSchema,
@@ -95,7 +95,7 @@ export class PromotionsPublicController {
 	async createPromotionProvider(
 		req: AuthenticatedRequest,
 		_res: Response,
-		@Body input: CreatePromotionProviderDto,
+		@Body input: CreatePromotionConnectionProviderDto,
 	): Promise<PromotionProviderCreatedPublicDto> {
 		return await (await this.providersService()).create(input, req.user);
 	}
@@ -159,7 +159,7 @@ export class PromotionsPublicController {
 		_res: Response,
 		@Param('promotionProviderId', promotionProviderIdParamSchema)
 		promotionProviderId: string,
-		@Body input: UpdatePromotionProviderDto,
+		@Body input: UpdatePromotionConnectionProviderDto,
 	): Promise<PromotionProviderPublicDto> {
 		return await (await this.providersService()).update(promotionProviderId, input, req.user);
 	}
@@ -394,7 +394,7 @@ export class PromotionsPublicController {
 		'Clones the configured branch into local storage on the instance that handles the request. Safe to call repeatedly. Cloning one direction does not make the other ready.',
 	)
 	@ApiTags(tags)
-	@ApiResponse(200, PromotionCheckoutPublicDto)
+	@ApiResponse(200, PromotionConnectionCheckoutPublicDto)
 	@ApiErrorResponse(400)
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
@@ -404,7 +404,7 @@ export class PromotionsPublicController {
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
 		@Param('direction', promotionDirectionParamSchema) direction: string,
-	): Promise<PromotionCheckoutPublicDto> {
+	): Promise<PromotionConnectionCheckoutPublicDto> {
 		return await (await this.promotionsService()).clone(
 			promotionConnectionId,
 			parseDirection(direction),
@@ -421,7 +421,7 @@ export class PromotionsPublicController {
 		'Removes the local checkout and keeps the configuration, its credentials, and the trusted SSH host keys.',
 	)
 	@ApiTags(tags)
-	@ApiResponse(200, PromotionCheckoutPublicDto)
+	@ApiResponse(200, PromotionConnectionCheckoutPublicDto)
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
 	async disconnectPromotionCheckout(
@@ -430,7 +430,7 @@ export class PromotionsPublicController {
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
 		@Param('direction', promotionDirectionParamSchema) direction: string,
-	): Promise<PromotionCheckoutPublicDto> {
+	): Promise<PromotionConnectionCheckoutPublicDto> {
 		return await (await this.promotionsService()).disconnect(
 			promotionConnectionId,
 			parseDirection(direction),
@@ -523,7 +523,7 @@ export class PromotionsPublicController {
 		'Exports every team project, commits it, and pushes to the configured base branch or a new timestamped branch. The response reports the target branch in `git.branchName`. Personal projects are ignored. Requires the Promote direction to be cloned first, and is available on the instance connection only. The API key also needs variable:list when the workflows reference variables.',
 	)
 	@ApiTags(tags)
-	@ApiResponse(200, PromotePackageResultDto)
+	@ApiResponse(200, PromotionConnectionPromoteResultDto)
 	@ApiErrorResponse(400)
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
@@ -533,7 +533,7 @@ export class PromotionsPublicController {
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
 		@Body input: PromotePackageDto,
-	): Promise<PromotePackageResultDto> {
+	): Promise<PromotionConnectionPromoteResultDto> {
 		return await (await this.promotionsService()).promote(promotionConnectionId, req.user, {
 			...input,
 			canExportVariableValues: req.tokenGrant?.apiKeyScopes?.includes('variable:list') ?? false,
@@ -549,7 +549,7 @@ export class PromotionsPublicController {
 		'Checks the full package at the configured branch tip. Optionally send expectedSource with the configId, branchName, and full commitSha from the reviewed change preview; status `source-changed` means the branch moved since that review and nothing was imported. Returns status `blocked` before import writes if bindings need setup. Retain configId and git for Continue. Status `applied` includes counts and warnings. Inspect status before reading counts. Existing target variable values, including empty strings, are preserved. Requires a cloned Apply direction on an instance connection. The API key needs the gitConnection:pull scope. The importer checks user write permissions; granular API-key write scopes are not passed to it.',
 	)
 	@ApiTags(tags)
-	@ApiResponse(200, ApplyPackageResultDto)
+	@ApiResponse(200, PromotionConnectionApplyResultDto)
 	@ApiErrorResponse(400)
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(409)
@@ -560,8 +560,8 @@ export class PromotionsPublicController {
 		_res: Response,
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
-		@Body input: ApplyPackageDto,
-	): Promise<ApplyPackageResultDto> {
+		@Body input: PromotionConnectionApplyDto,
+	): Promise<PromotionConnectionApplyResultDto> {
 		return await (await this.promotionsService()).apply(
 			promotionConnectionId,
 			req.user,
@@ -578,7 +578,7 @@ export class PromotionsPublicController {
 		'Rechecks the configured source and current target bindings. Send expectedSource with the configId, branchName, and full commitSha from the reviewed Apply result. Status `source-changed` requires a new Apply review. Status `blocked` returns fresh binding details without import writes. Status `applied` includes counts and warnings. Inspect status before reading counts. Existing target variable values are preserved. Requires the same cloned instance connection and permissions as Apply. The importer checks user write permissions; granular API-key write scopes are not passed to it. No server session or exactly-once guarantee is provided.',
 	)
 	@ApiTags(tags)
-	@ApiResponse(200, ApplyPackageResultDto)
+	@ApiResponse(200, PromotionConnectionApplyResultDto)
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(409)
 	@ApiErrorResponse(422)
@@ -588,8 +588,8 @@ export class PromotionsPublicController {
 		_res: Response,
 		@Param('promotionConnectionId', promotionConnectionIdParamSchema)
 		promotionConnectionId: string,
-		@Body input: ContinueApplyPackageDto,
-	): Promise<ApplyPackageResultDto> {
+		@Body input: PromotionConnectionContinueApplyDto,
+	): Promise<PromotionConnectionApplyResultDto> {
 		return await (await this.promotionsService()).continueApply(
 			promotionConnectionId,
 			req.user,
@@ -607,7 +607,7 @@ export class PromotionsPublicController {
 		'Compares a team project on this instance with the branch of its promotion configuration and lists the workflows that differ. For `promote` the rows are what a promotion sends to the branch, and the key needs the gitConnection:push scope. For `apply` the rows are what applying the branch changes on this instance, and the key needs the gitConnection:pull scope. `commitSha` is the commit the rows were read from. Requires the direction to be cloned first.',
 	)
 	@ApiTags(tags)
-	@ApiResponse(200, PromotionChangesDto)
+	@ApiResponse(200, PromotionConnectionChangesDto)
 	@ApiErrorResponse(400)
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
@@ -617,7 +617,7 @@ export class PromotionsPublicController {
 		@Param('projectId', projectIdParamSchema) projectId: string,
 		@Param('direction', promotionDirectionParamSchema) direction: string,
 		@Query query: PromotionChangesQueryDto,
-	): Promise<PromotionChangesDto> {
+	): Promise<PromotionConnectionChangesDto> {
 		const parsedDirection = parseDirection(direction);
 		// The route accepts a key with either scope. The direction decides which one this call needs.
 		const requiredScope = parsedDirection === 'apply' ? 'gitConnection:pull' : 'gitConnection:push';
@@ -645,7 +645,7 @@ export class PromotionsPublicController {
 		"Promotes a chosen set of a team project's workflows to the Promote branch of the project's promotion configuration. Send workflow ids only; the server reads each one now, so the push carries the current state. Live and archived workflows the project owns are exported, so an archived id stays on the branch as archived; an id the project no longer owns (its workflow is gone, or moved to another project) leaves the branch, matching the project's change list. A deletion the branch does not hold under this project rejects the whole request before any write. Requires the Promote direction to be cloned first, and a promotion connection to resolve for the project (its own connection, otherwise the instance connection). The API key also needs variable:list when the workflows reference variables.",
 	)
 	@ApiTags(tags)
-	@ApiResponse(200, PromotePackageResultDto)
+	@ApiResponse(200, PromotionConnectionPromoteResultDto)
 	@ApiErrorResponse(400)
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(503)
@@ -654,7 +654,7 @@ export class PromotionsPublicController {
 		_res: Response,
 		@Param('projectId', projectIdParamSchema) projectId: string,
 		@Body input: PromoteSelectionRequestDto,
-	): Promise<PromotePackageResultDto> {
+	): Promise<PromotionConnectionPromoteResultDto> {
 		return await (await this.promotionsService()).promoteProjectSelection(projectId, req.user, {
 			...input,
 			// Variable values only travel when the key may list them.

@@ -1,6 +1,10 @@
 import type { WorkflowReviewWorkflowCauseActivityType } from '@n8n/api-types';
 import { Logger } from '@n8n/backend-common';
-import { EventService } from '@n8n/backend-services';
+import {
+	EventService,
+	type WorkflowMutationHooks,
+	type WorkflowPublishGuard,
+} from '@n8n/backend-services';
 import type { OperationContext } from '@n8n/db';
 import {
 	DbLock,
@@ -15,8 +19,6 @@ import { Service } from '@n8n/di';
 import { CollaborationService } from '@/collaboration/collaboration.service';
 import { WorkflowPublishBlockedError } from '@/errors/response-errors/workflow-publish-blocked.error';
 import { WorkflowReviewPolicyService } from '@/services/workflow-review-policy.service';
-import type { WorkflowMutationHooks } from '@/workflows/workflow-mutation-hooks-proxy.service';
-import type { WorkflowPublishGuard } from '@/workflows/workflow-publish-guard-proxy.service';
 
 type CloseTrigger = 'workflow-archived' | 'workflow-moved' | 'workflow-deleted' | 'unknown';
 

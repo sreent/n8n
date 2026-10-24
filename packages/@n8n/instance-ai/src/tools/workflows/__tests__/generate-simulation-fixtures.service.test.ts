@@ -160,6 +160,7 @@ describe('generateSimulationFixtures', () => {
 	it('forwards the fallback model config to the LLM call', async () => {
 		setupAgentMock(JSON.stringify({ A: [{ json: { ok: true } }] }));
 		const fallbackModelConfig = {
+			kind: 'endpoint' as const,
 			id: 'anthropic/claude-opus-4-8' as const,
 			url: 'https://proxy.example.com/anthropic/v1',
 			apiKey: 'proxy-token',
@@ -481,6 +482,7 @@ describe('generateSimulationFixtures', () => {
 			resource: 'message',
 			operation: 'post',
 			hasOutputParser: false,
+			parameters: { resource: 'message', operation: 'post' },
 		});
 		const promptText = (generate.mock.calls[0][0] as Array<{ content: Array<{ text: string }> }>)[0]
 			.content[0].text;
@@ -676,6 +678,25 @@ describe('withPassThroughFloor', () => {
 		);
 
 		expect(result.Hold).toEqual([{ email: 'ada@example.com' }]);
+	});
+
+	it('keeps the classification object when the classifier was asked for scores', () => {
+		const workflow = chain('@n8n/n8n-nodes-langchain.textClassifier');
+		const classifier = workflow.nodes.find((node) => node.name === 'Hold');
+		if (classifier) classifier.parameters = { options: { includeConfidenceScores: true } };
+
+		const result = withPassThroughFloor(
+			{
+				'Get Contact': [{ email: 'ada@example.com' }],
+				Hold: [{ classification: { category: 'Billing', confidence: 0.9 }, invented: true }],
+			},
+			workflow,
+			{ outputSchemaLookup: lookupBrevoOnly },
+		);
+
+		expect(result.Hold).toEqual([
+			{ email: 'ada@example.com', classification: { category: 'Billing', confidence: 0.9 } },
+		]);
 	});
 
 	it('keeps the marker object a partial pass-through adds on top', () => {

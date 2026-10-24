@@ -146,11 +146,12 @@ The body is `DecideWorkflowReviewRequestDto`: `approved` or `changes_requested`,
 - `GET /?workflowId=&state=&skip=&take=`: the reviews of a workflow, the newest first, with the
   name of the pinned version, `decisionBy` (the user who requested changes, while the decision is
   `changes_requested`) and `viewerCanOpen`.
-- `GET /inbox?state=&category=&limit=&cursor=`: the reviews that the caller may open, the newest
-  first, 15 by default. `waiting` holds the reviews where the caller is a reviewer or not an
-  author, `authored` the others. The cursor is opaque. A bad cursor: 400 "Invalid pagination
-  cursor".
-- `GET /summary`: the number of open and closed reviews that the caller may open.
+- The inbox of the editor reads the reviews from the inbox module (`GET /rest/inbox` and
+  `GET /rest/inbox/summary`). The module registers the source `workflow_review` there: the reviews
+  that the caller may open, the newest change first. `waiting` holds the reviews where the caller
+  is a reviewer or not an author, `authored` the others. The source is on while the licence value
+  and the review policy turn reviews on. Upstream n8n moved the list from the routes `GET /inbox`
+  and `GET /summary` of this controller to the inbox module, so the module has no such routes.
 - `GET /:id`: the review with its workflows. `baselineVersion` is the published version while the
   review is open, and the version that the approval kept after that. `viewerCanDecide`,
   `viewerDecisionIneligibilityReason` and `viewerCanComment` follow the rules above.
@@ -193,14 +194,14 @@ setting at **Settings > Security & policies**, n8n sends `n8n.audit.workflow-rev
 
 | File | Purpose |
 |---|---|
-| `workflow-reviews.module.ts` | The module: the controller, the providers and the start-up sweep |
+| `workflow-reviews.module.ts` | The module: the controller, the providers, the inbox source and the start-up sweep |
 | `workflow-reviews.controller.ts` | The REST API |
 | `workflow-review.service.ts` | Submit, new versions, decisions, comments and the auto-publish |
 | `workflow-review-read.service.ts` | The reads and the eligible reviewers |
 | `workflow-review-access.service.ts` | Who may open, decide and comment, and the inbox visibility |
 | `workflow-review-lifecycle.service.ts` | The publish guard and the mutation hooks |
 | `workflow-review-mapper.ts` | The users, summaries and activity entries of the answers |
-| `workflow-review-cursor.ts` | The cursors of the inbox and the activity |
+| `workflow-review-cursor.ts` | The cursor of the activity |
 | `__tests__/` | Unit tests of the access rules and the cursors |
 
 The golden test `packages/cli/test/integration/workflow-reviews/workflow-reviews.golden.test.ts`

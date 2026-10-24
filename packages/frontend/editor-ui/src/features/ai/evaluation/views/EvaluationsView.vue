@@ -84,7 +84,7 @@ onMounted(async () => {
 			<N8nButton
 				v-if="runningRun"
 				data-test-id="stop-test-button"
-				variant="subtle"
+				variant="outline"
 				:label="i18n.baseText('evaluation.stopTest')"
 				:disabled="isCancelling"
 				@click="stopTest"

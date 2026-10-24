@@ -39,13 +39,10 @@ const customData = computed(() =>
 			:title="i18n.baseText('executionDetails.additionalActions')"
 			data-test-id="execution-preview-ellipsis-button"
 			:disabled="!workflowPermissions.update"
-			variant="subtle"
+			variant="outline"
 			size="small"
 			icon="list-checks"
-			:class="{
-				[$style.highlightDataButton]: true,
-				[$style.highlightDataButtonActive]: customData.length > 0,
-			}"
+			:icon-only="customData.length === 0"
 		>
 			<N8nBadge v-if="customData.length > 0" :class="$style.badge" variant="primary">
 				{{ customData.length }}
@@ -122,15 +119,6 @@ const customData = computed(() =>
 
 .noResultsContainer {
 	padding: var(--spacing--xs) 0;
-}
-
-.highlightDataButton {
-	height: 30px;
-	width: 30px;
-}
-
-.highlightDataButtonActive {
-	width: auto;
 }
 
 .badge {

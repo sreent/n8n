@@ -75,4 +75,13 @@ export class AgentEvalDatasetRepository extends Repository<AgentEvalDataset> {
 		const result = await this.delete({ id, agentId });
 		return (result.affected ?? 0) > 0;
 	}
+
+	/** Whether a dataset other than `datasetId`, of any agent, reads the Data Table. */
+	async isDataTableReadByOtherDataset(dataTableId: string, datasetId: string): Promise<boolean> {
+		const datasets = await this.find({ where: { datasetSource: 'data_table' } });
+		return datasets.some(
+			({ id, datasetRef }) =>
+				id !== datasetId && 'dataTableId' in datasetRef && datasetRef.dataTableId === dataTableId,
+		);
+	}
 }

@@ -20,7 +20,8 @@ the module registry loads `modules/provisioning/` first, and the fork deleted
 
 The fork's OIDC and SAML sign-ins apply the roles. The module starts only with the `feat:saml` or
 the `feat:oidc` licence, as before. While the fork switch is on (step 5 of FORK.md), the licence has
-both, so the module starts by default.
+both, so the module starts by default. It starts on each instance type (main, worker and webhook),
+as in upstream n8n 2.45. Before 2.45, it started only on main instances.
 
 ## Behaviour
 

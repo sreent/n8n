@@ -46,16 +46,22 @@ A node references a credential in three places. The checks below cover all of th
 - `addOwnerAndSharings(workflow)` adds `homeProject`, `sharedWithProjects` and an empty
   `usedCredentials` list.
 - `addCredentialsToWorkflow(workflow, user)` and `getFolderUsedCredentials(user, folderId,
-  projectId)` describe the credentials that the workflows use. `currentUserCanUse` is true for a
-  credential that the user can use in the workflow or project. With credential sharing
-  (`N8N_ENV_FEAT_CRED_SHARING`), it is true for each credential that the user can read. The folder
-  version reads the workflows in the folder and its subfolders that the user can read. A folder
-  outside the project gives `FolderNotFoundError`.
+  projectId)` describe the credentials that the workflows use. For a workflow or a folder of a team
+  project, `currentUserCanUse` is true for each global credential, each credential of the projects
+  of the workflow (or of the project of the folder), and each credential of the personal project of
+  the user. A credential that the user can read only through a global scope, as the owner and
+  admins can, is not usable there. For a workflow or a folder of a personal project,
+  `currentUserCanUse` is true for each credential that the user can read. Upstream n8n 2.45 gives
+  these values. The folder version reads the workflows in the folder and its subfolders that the
+  user can read. A folder outside the project gives `FolderNotFoundError`.
 - `getWorkflowIdsWithResolvableCredentials(workflowIds)` gives the workflows that use an end-user
   credential.
 - `preventTampering(workflow, workflowId, user)` checks the nodes of an update before n8n saves it:
   1. A missing workflow gives `NotFoundError`. An update without nodes stays as it is.
-  2. A `null` credential in `node.credentials` gives a `BadRequestError`.
+  2. A `null` or missing credential in `node.credentials` gives a `BadRequestError` (400 "Invalid
+     workflow credentials - make sure you have access to all credentials and try again."). This is
+     a deliberate difference of the fork: upstream n8n 2.45 throws a `TypeError` there, which the
+     REST API gives as a server error. The golden snapshot keeps the fork answer for these steps.
   3. A node whose references the user can all use in the workflow stays as it is.
   4. A stored node with a reference that the user cannot use is read-only. When exactly one node of
      the update has its id, that node gets the stored version back, with the new `name`,
@@ -81,9 +87,14 @@ A node references a credential in three places. The checks below cover all of th
   moves the folder, its subfolders and their workflows (archived ones too). The user needs
   `workflow:create` in the destination project. A folder outside its project gives the
   `EntityNotFoundError` of the database layer, as in the original. A workflow that the destination
-  project owns already gives `TransferWorkflowError`. The shares, the credentials and the active
-  workflows work as for one workflow, but an activation error does not stop the transfer and gives
-  no result. After the move, the service calls `afterWorkflowsTransferred` with all the workflows.
+  project owns already gives `TransferWorkflowError`. Then the transfer policy of the destination
+  project must allow each workflow, before n8n changes anything, as in upstream n8n 2.45. The
+  first workflow that the policy refuses stops the transfer. The shares, the credentials and the
+  active workflows work as for one workflow, but an activation error does not stop the transfer
+  and gives no result. After the move, the service calls `afterWorkflowsTransferred` with all the
+  workflows. The cached owner of each moved workflow changes, also in the subfolders. This is a
+  deliberate difference of the fork: upstream n8n 2.45 keeps the old cached owner of the
+  workflows of the subfolders until the cache expires. The golden snapshot keeps the fork values.
 
 ### Credentials
 
@@ -99,7 +110,9 @@ A node references a credential in three places. The checks below cover all of th
 - `transferOne(user, credentialId, projectId)` moves the credential to the project. The user needs
   `credential:move` on the credential and `credential:create` in the project, else `NotFoundError`.
   The same project gives `TransferCredentialError`. An end-user credential needs a project that
-  allows it, and a user who may manage it there. After the transfer, the members of the source
+  allows it, and a user who may manage it there. Then the transfer policy of the destination project
+  must allow the credential (`credentialTransfer`, with the ID and the type of the credential), as
+  in upstream n8n 2.45. After the transfer, the members of the source
   project lose their connections to the credential when they can no longer use it
   (`CredentialConnectionStatusProxy.cleanupOrphanedEntriesForProjects`).
 

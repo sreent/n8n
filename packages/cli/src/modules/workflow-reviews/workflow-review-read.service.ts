@@ -1,9 +1,8 @@
 import type {
-	GetWorkflowReviewInboxSummaryResponse,
+	InboxCounts,
+	InboxWorkflowReviewItem,
 	ListWorkflowReviewActivityQueryDto,
 	ListWorkflowReviewActivityResponse,
-	ListWorkflowReviewInboxQueryDto,
-	ListWorkflowReviewInboxResponse,
 	ListWorkflowReviewRequestsQueryDto,
 	WorkflowReviewEligibleReviewersList,
 	WorkflowReviewInboxItem,
@@ -28,16 +27,12 @@ import {
 import { Service } from '@n8n/di';
 import { NotFoundError } from '@n8n/errors';
 
+import type { InboxSourceQuery } from '@/modules/inbox/inbox-source.registry';
 import { userHasScopes } from '@/permissions/check-access';
 import { WorkflowFinderService } from '@/workflows/workflow-finder.service';
 
 import { WorkflowReviewAccessService } from './workflow-review-access.service';
-import {
-	decodeActivityCursor,
-	decodeInboxCursor,
-	encodeActivityCursor,
-	encodeInboxCursor,
-} from './workflow-review-cursor';
+import { decodeActivityCursor, encodeActivityCursor } from './workflow-review-cursor';
 import { reviewerOrNull, toActivityEntry, toIso, toReviewer } from './workflow-review-mapper';
 
 /**
@@ -140,31 +135,25 @@ export class WorkflowReviewReadService {
 		return { count, data };
 	}
 
-	async getInbox(
-		user: User,
-		query: ListWorkflowReviewInboxQueryDto,
-	): Promise<ListWorkflowReviewInboxResponse> {
-		const cursor = query.cursor ? decodeInboxCursor(query.cursor) : undefined;
+	/**
+	 * The reviews of the inbox (its source `workflow_review`): the newest change first, then the
+	 * IDs in database order. The inbox merges them with the items of its other sources.
+	 */
+	async listForInbox(user: User, query: InboxSourceQuery): Promise<InboxWorkflowReviewItem[]> {
 		const requests = await this.inboxRepository.findRequests({
 			visibility: await this.access.inboxVisibility(user),
-			state: query.state ?? 'open',
+			state: query.state,
 			category: query.category ? { userId: user.id, category: query.category } : undefined,
-			// One more than the page tells whether another page follows.
-			limit: query.limit + 1,
-			cursor,
+			limit: query.limit,
+			boundary: query.boundary,
 		});
-		const hasMore = requests.length > query.limit;
-		const page = requests.slice(0, query.limit);
-		const last = page.at(-1);
-
-		return {
-			data: await this.toInboxItems(page),
-			nextCursor: hasMore && last ? encodeInboxCursor(last.createdAt, last.id) : null,
-			hasMore,
-		};
+		const items = await this.toInboxItems(requests);
+		// The source type comes first in each item, as in the other sources of the inbox.
+		return items.map((item) => ({ type: 'workflow_review' as const, ...item }));
 	}
 
-	async getSummary(user: User): Promise<GetWorkflowReviewInboxSummaryResponse> {
+	/** The numbers of open and closed reviews that the user sees in the inbox. */
+	async countForInbox(user: User): Promise<InboxCounts> {
 		return await this.inboxRepository.countRequestsByState(await this.access.inboxVisibility(user));
 	}
 

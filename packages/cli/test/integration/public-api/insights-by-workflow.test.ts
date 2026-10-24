@@ -2,6 +2,7 @@
 // (`/api/v1/insights/by-workflow`). See
 // packages/cli/src/public-api/v1/controllers/insights-by-workflow.public.controller.ts.
 import { ModuleRegistry } from '@n8n/backend-common';
+import { createCompactedInsightsEvent } from '@n8n/backend-module-insights/testing';
 import {
 	createTeamProject,
 	createWorkflow,
@@ -12,8 +13,6 @@ import {
 import { type Project, type User, WorkflowRepository } from '@n8n/db';
 import { Container } from '@n8n/di';
 import { DateTime } from 'luxon';
-
-import { createCompactedInsightsEvent } from '@/modules/insights/database/entities/__tests__/db-utils';
 
 import { createMemberWithApiKey, createOwnerWithApiKey } from '../shared/db/users';
 import * as utils from '../shared/utils';
@@ -184,7 +183,13 @@ describe('GET /insights/by-workflow', () => {
 		expect(names(second.body)).toEqual(['Reports']);
 		expect(second.body.nextCursor).toBeNull();
 
-		await agent.get('/insights/by-workflow').query({ limit: 0 }).expect(400);
+		// Since n8n 2.45, a limit of 0 gives the default page, as in the other public API routes.
+		const defaultPage = await agent
+			.get('/insights/by-workflow')
+			.query({ ...range, limit: 0 })
+			.expect(200);
+		expect(names(defaultPage.body)).toEqual(['Invoices', 'Newsletter', 'Reports']);
+		expect(defaultPage.body.nextCursor).toBeNull();
 	});
 
 	test('gives a member only the workflows that the member can read', async () => {

@@ -366,9 +366,10 @@ admin sees only their own calls in the usage.
 - A change of the settings and a top-up send an audit event (`n8n.audit.ai-gateway.*`) to log
   streaming and the audit log, with the user. The event of the settings names the settings that
   changed, the providers, the switch and the budgets, but no credential.
-- A token of the gateway is a JWT of the ordinary `JwtService` with the audience
-  `n8n:fork-ai-gateway`. It holds the user and expires after one hour. The tokens for sign-in, for
-  invitations and for OAuth have other audiences, so a token cannot serve another purpose.
+- A token of the gateway is a JWT of the ordinary `JwtService` with the token purpose `aiGateway`
+  (the audience `n8n:fork-ai-gateway`, in `TOKEN_PURPOSES` of `@n8n/backend-services`). It holds
+  the user and expires after one hour. The tokens for sign-in, for invitations and for OAuth have
+  other purposes, so a token cannot serve another purpose.
 - Users never get the API keys of the providers. The proxy reads them from the credentials that the
   admin picked, as `CredentialsHelper` does for an execution, so expressions such as `$secrets`
   work. The proxy keeps the decrypted data of a credential in the memory of the process for at

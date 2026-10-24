@@ -22,6 +22,8 @@ import './insights-by-workflow.public.controller';
 // Fork: the inventory of workflows in the public API (packages/cli/src/governance/README.md).
 import './inventory.public.controller';
 import './ldap.public.controller';
+import './log-streaming.public.controller';
+import './n8n-packages.public.controller';
 import './node-type-policies.public.controller';
 import './otel.public.controller';
 import './projects.public.controller';

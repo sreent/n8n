@@ -38,7 +38,7 @@ const isActive = (version: CompareVersion) =>
 			<N8nButton
 				v-if="state.kind !== 'running'"
 				data-test-id="compare-rerun"
-				variant="subtle"
+				variant="outline"
 				size="small"
 				icon="refresh-cw"
 				:label="i18n.baseText('evaluation.compare.rerun')"

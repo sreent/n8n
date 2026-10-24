@@ -80,7 +80,10 @@ the repositories of test runs and test cases are fork files too, see
      connected chat model for a metric that a model scores), and Set Outputs nodes with outputs.
   4. It reads all rows of the dataset. The Evaluation Trigger runs its operation `getRows` in a
      manual execution that saves no data. n8n keeps it as a deleted execution, as in the
-     original.
+     original. An error of the trigger gives the code `CANT_FETCH_TEST_CASES` with the message of
+     the error. A trigger that did not run, for example because a node has issues, gives the same
+     code with the message "Evaluation trigger node did not produce any output". No rows give
+     `TEST_CASES_NOT_FOUND`.
   5. It writes one case for each row, with the row as the inputs.
   6. It runs the cases in parallel, up to the limit. Each case is an execution in the mode
      `evaluation`, with the row as the pinned output of the trigger. The user can open it.

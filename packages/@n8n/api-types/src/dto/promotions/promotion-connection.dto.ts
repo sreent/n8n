@@ -1,3 +1,6 @@
+// Fork: upstream n8n removed this file when it replaced Git connections with environments. The
+// fork keeps Git connections, so it keeps their DTOs. See
+// packages/cli/src/modules/promotions/README.md.
 import '../../openapi-extend';
 
 import { z } from 'zod';
@@ -13,6 +16,11 @@ import { promotionProviderSummarySchema } from './promotion-provider.dto';
 import { n8nIdSchema } from '../../schemas/id.schema';
 import { Z } from '../../zod-class';
 import { publicApiPaginationSchema } from '../pagination/pagination.dto';
+
+/** The ID of a connection in a path of the public API. */
+export const promotionConnectionIdParamSchema = z
+	.string()
+	.openapi({ param: { description: 'The ID of the promotion connection.' } });
 
 /**
  * `instance` covers the whole instance. `projects` covers the projects linked to

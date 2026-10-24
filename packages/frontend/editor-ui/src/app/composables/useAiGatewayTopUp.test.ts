@@ -60,7 +60,7 @@ describe('useAiGatewayTopUp', () => {
 		});
 	});
 
-	it('sends non-trial owners to the Cloud Admin Panel', async () => {
+	it('sends non-trial owners to the Cloud console', async () => {
 		const usersStore = mockedStore(useUsersStore);
 		const uiStore = mockedStore(useUIStore);
 		usersStore.isInstanceOwner = true;
@@ -76,7 +76,7 @@ describe('useAiGatewayTopUp', () => {
 		expect(uiStore.openModalWithData).not.toHaveBeenCalled();
 	});
 
-	it('reports the error when the Admin Panel link fails', async () => {
+	it('reports the error when the Cloud console link fails', async () => {
 		const usersStore = mockedStore(useUsersStore);
 		const uiStore = mockedStore(useUIStore);
 		usersStore.isInstanceOwner = true;
@@ -89,7 +89,7 @@ describe('useAiGatewayTopUp', () => {
 		expect(uiStore.openModalWithData).not.toHaveBeenCalled();
 	});
 
-	it('does not open a modal when Admin Panel navigation does not happen', async () => {
+	it('does not open a modal when Cloud console navigation does not happen', async () => {
 		const usersStore = mockedStore(useUsersStore);
 		const uiStore = mockedStore(useUIStore);
 		usersStore.isInstanceOwner = true;

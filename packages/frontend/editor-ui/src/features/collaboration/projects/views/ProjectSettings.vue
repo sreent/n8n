@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ProjectSelfHealingSection } from '@n8n/frontend-module-self-healing';
 import type { Role } from '@n8n/permissions';
 import { computed, ref, watch, onBeforeMount, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
@@ -694,7 +695,7 @@ onMounted(async () => {
 				</N8nText>
 				<div :class="$style.headerButtons">
 					<N8nButton
-						variant="subtle"
+						variant="outline"
 						native-type="button"
 						:disabled="!isDirty"
 						class="mr-2xs"
@@ -850,13 +851,21 @@ onMounted(async () => {
 					"
 				/>
 
+				<ProjectSelfHealingSection
+					v-if="
+						settingsStore.moduleSettings['instance-ai']?.workflowSuggestionsEnabled &&
+						projectsStore.currentProject
+					"
+					:project-id="projectsStore.currentProject.id"
+				/>
+
 				<fieldset>
 					<h3 class="mb-m">{{ i18n.baseText('projects.settings.danger.title') }}</h3>
 					<small :class="$style.danger">{{
 						i18n.baseText('projects.settings.danger.message')
 					}}</small>
 					<N8nButton
-						variant="subtle"
+						variant="outline"
 						size="large"
 						native-type="button"
 						data-test-id="project-settings-delete-button"
@@ -950,6 +959,10 @@ onMounted(async () => {
 
 .membersTableContainer {
 	margin-top: var(--spacing--sm);
+
+	:global(.table-scroll) {
+		scrollbar-gutter: auto;
+	}
 }
 
 .search {

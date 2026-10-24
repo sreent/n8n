@@ -3,7 +3,6 @@ import { Container } from '@n8n/di';
 
 import '../sso-oidc/sso-oidc.module';
 import '../sso-saml/sso-saml.module';
-import '../provisioning/provisioning.module';
 import '../breaking-changes/breaking-changes.module';
 import '../mcp/mcp.module';
 import '../oauth-server/oauth-server.module';
@@ -11,7 +10,7 @@ import '../oauth-server/oauth-server.module';
 describe('main-only modules', () => {
 	const metadata = Container.get(ModuleMetadata);
 
-	test.each(['sso-oidc', 'sso-saml', 'provisioning', 'breaking-changes', 'mcp'])(
+	test.each(['sso-oidc', 'sso-saml', 'breaking-changes', 'mcp'])(
 		'%s should only run on main',
 		(moduleName) => {
 			expect(metadata.get(moduleName)?.instanceTypes).toEqual(['main']);

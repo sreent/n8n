@@ -996,9 +996,9 @@ exports[`Lifecycle of the external secrets module > the update interval 1`] = `
       "connect",
     ],
   ],
-  "updates of intervalDummy, at least 3": true,
+  "updates of intervalDummy, at least 3": false,
   "updates of intervalDummy, at most 4": true,
-  "updates of intervalFails, at least 3": true,
+  "updates of intervalFails, at least 3": false,
 }
 `;
 

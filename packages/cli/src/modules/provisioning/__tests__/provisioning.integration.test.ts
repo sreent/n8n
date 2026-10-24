@@ -6,7 +6,7 @@
 // n8n does, so a change in behaviour shows up as a snapshot diff.
 // packages/cli/src/modules/provisioning/FORK.md tells how the fork made the snapshot.
 import { ModuleRegistry } from '@n8n/backend-common';
-import { EventService, RoleDeletionCheckProxy } from '@n8n/backend-services';
+import { EventService, JwtService, RoleDeletionCheckProxy } from '@n8n/backend-services';
 import {
 	createTeamProject,
 	linkUserToProject,
@@ -43,7 +43,6 @@ import { OIDC_PREFERENCES_DB_KEY } from '@/modules/sso-oidc/constants';
 import { Publisher } from '@/scaling/pubsub/publisher.service';
 import { PubSubEventBus } from '@/scaling/pubsub/pubsub.eventbus';
 import { PubSubRegistry } from '@/scaling/pubsub/pubsub.registry';
-import { JwtService } from '@/services/jwt.service';
 import { setCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 
 import { createRole } from '@test-integration/db/roles';

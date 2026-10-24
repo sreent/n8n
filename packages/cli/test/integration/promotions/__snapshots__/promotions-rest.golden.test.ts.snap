@@ -303,23 +303,32 @@ exports[`the REST route of the change list of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@Flow 1",
-                    "@Flow 2",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@Flow 2",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GV",
-                  "usedByWorkflows": [
-                    "@Flow 1",
+                  "usedBy": [
+                    {
+                      "id": "@Flow 1",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "variables": [
               {
                 "id": "@GV",

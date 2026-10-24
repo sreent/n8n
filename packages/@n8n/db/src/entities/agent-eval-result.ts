@@ -45,6 +45,10 @@ export class AgentEvalResult extends WithTimestampsAndStringId {
 	@JsonColumn({ nullable: true })
 	metrics: IDataObject | null;
 
+	/** The verdict of the judge (`AgentEvalVerdict` in `@n8n/api-types`). `null` when no judge ran. */
+	@JsonColumn({ nullable: true })
+	verdict: JsonObject | null;
+
 	@DateTimeColumn({ nullable: true })
 	runAt: Date | null;
 

@@ -100,7 +100,16 @@ else
 		done <<<"$CHANGED_PACKAGES"
 	fi
 fi
-export CHANGED_FILES
+# The test runner reads CHANGED_FILES from its environment. Linux limits one environment string to
+# 128 KB, and with a larger value no command of a step can start. So, as upstream CI does
+# (ci-filter), the runner gets an empty list for a change set of more than 1000 files, and then
+# runs the full suites. This script keeps the full list for its own checks.
+CHANGED_FILE_COUNT=$(grep -c . <<<"$CHANGED_FILES")
+if [ "$CHANGED_FILE_COUNT" -le 1000 ]; then
+	RUNNER_CHANGED_FILES=$CHANGED_FILES
+else
+	RUNNER_CHANGED_FILES=
+fi
 
 tested() { grep -q "^$1 " <<<"$TESTED_PACKAGES"; }
 # Filter flags for the tested packages that match a path pattern (an extended regex).
@@ -141,13 +150,15 @@ INTEGRATION_ARGS=(--maxWorkers=2 "${CLI_SKIP_ARGS[@]}")
 
 if [ "$MODE" = plan ]; then
 	echo "Mode: quick (default). Base: $BASE"
+	[ -z "$RUNNER_CHANGED_FILES" ] && [ "$CHANGED_FILE_COUNT" -gt 0 ] &&
+		echo "Changed files: $CHANGED_FILE_COUNT, more than 1000. The test runner runs the full suites."
 	echo "Changed packages:"
 	awk 'NF { print "  " $1 }' <<<"$CHANGED_PACKAGES"
 	echo "Unit tests:"
 	while read -r name path; do
 		[ -n "$path" ] || continue
 		if jq -e '.scripts["test:changed"] // .scripts["test:unit:changed"]' "$path/package.json" >/dev/null; then
-			scope=$(cd "$path" && "$OLDPWD/$JANITOR" scope 2>/dev/null)
+			scope=$(cd "$path" && CHANGED_FILES=$RUNNER_CHANGED_FILES "$OLDPWD/$JANITOR" scope 2>/dev/null)
 			case "$scope" in
 				RUN_FULL) scope="full suite" ;;
 				SKIP) scope="no tests" ;;
@@ -188,7 +199,7 @@ step() {
 	shift
 	local start
 	start=$(date +%s)
-	"$@" >"$OUT/$name.log" 2>&1
+	CHANGED_FILES=$RUNNER_CHANGED_FILES "$@" >"$OUT/$name.log" 2>&1
 	local code=$?
 	[ "$code" -ne 0 ] && FAILED=1
 	echo "$name exit=$code time=$(($(date +%s) - start))s" | tee -a "$OUT/summary.txt"
@@ -200,6 +211,8 @@ else
 	COMPARED=$BASE
 fi
 echo "commit $SHA base $COMPARED mode $MODE" | tee "$OUT/summary.txt"
+[ -z "$RUNNER_CHANGED_FILES" ] && [ "$CHANGED_FILE_COUNT" -gt 0 ] &&
+	echo "changed files $CHANGED_FILE_COUNT: full test suites" | tee -a "$OUT/summary.txt"
 
 # Fork rule: the fork adds and changes no enterprise (.ee.) file. It only deletes the areas that
 # scripts/removed-enterprise-paths.txt lists. Compare the whole fork with the upstream commit

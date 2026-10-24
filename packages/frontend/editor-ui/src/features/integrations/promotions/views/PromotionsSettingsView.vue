@@ -128,7 +128,7 @@ onMounted(load);
 	<N8nSettingsLayout>
 		<N8nSettingsPageHeader
 			:title="i18n.baseText('settings.promotions.title')"
-			:description="i18n.baseText('settings.promotions.description')"
+			:description="i18n.baseText('settings.promotions.gitConnections.description')"
 			:show-docs-link="false"
 		/>
 
@@ -235,7 +235,7 @@ onMounted(load);
 							/>
 						</N8nSelect>
 						<N8nButton
-							variant="subtle"
+							variant="outline"
 							data-test-id="promotion-connection-add-provider"
 							@click="providerDialog = { fromForm: true }"
 						>

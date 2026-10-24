@@ -13,16 +13,26 @@ client `eventbus.ts` in `@n8n/rest-api-client`, they replace the enterprise fold
 | `components/EventDestinationSettingsModal.vue` | `logStreaming.ee/components/EventDestinationSettingsModal.vue` |
 | `@n8n/rest-api-client/src/api/eventbus.ts` | `eventbus.ee.ts` in that folder |
 | `components/EventDestinationCard.vue`, `components/EventSelection.vue` | (new files) |
-| `logStreaming.store.ts`, `logStreaming.descriptions.ts`, `logStreaming.utils.ts` | (new files) |
+| `module.descriptor.ts` | `logStreaming.ee/module.descriptor.ts` |
+| `logStreaming.store.ts`, `logStreaming.descriptions.ts`, `logStreaming.utils.ts`, `logStreaming.constants.ts` | (new files) |
 
 The fork knows only the names of the enterprise files, from the ordinary code that imported them.
-Three ordinary files use the page again, with the lines of upstream and the fork paths:
+Upstream n8n 2.45 moved the route, the settings item and the modal from the ordinary shell files
+(`app/router.ts`, `app/composables/useSettingsItems.ts`, `app/components/Modals.vue` and the
+modal defaults) into the module descriptor of the enterprise folder. The ordinary list
+`app/modules.manifest.ts` imports the fork descriptor (`LogStreamingModule`) instead. It gives:
 
-- `app/router.ts`: the route `/settings/log-streaming` (`VIEWS.LOG_STREAMING_SETTINGS`), for users
-  with the global scope `logStreaming:manage`.
-- `app/composables/useSettingsItems.ts`: the item **Log streaming** of the settings menu.
-- `app/components/Modals.vue`: the modal `LOG_STREAM_MODAL_KEY` with the props `destination`,
-  `isNew` and `eventBus`.
+- the route `/settings/log-streaming` (`VIEWS.LOG_STREAMING_SETTINGS`), for users with the global
+  scope `logStreaming:manage`, as the old lines of the router did;
+- the item **Log streaming** of the settings menu, after the worker view (`order: 170`);
+- the modal `LOG_STREAM_MODAL_KEY` (`settingsLogStream`). The modal gets the destination in the
+  prop `data` (`LogStreamModalData`), as the module modals do.
+
+The module has the ID `log-streaming`, the name of the backend module. While the backend module
+runs, the page works. While the fork switch is off, the module does not start, and the
+placeholder page (the same view) tells how to turn the switch on. While the switch is on and
+`N8N_DISABLED_MODULES` has `log-streaming`, the editor hides the page and the item, as it does for
+each inactive module.
 
 ## Behaviour
 
@@ -31,8 +41,8 @@ Three ordinary files use the page again, with the lines of upstream and the fork
 - While the module `log-streaming` is off, the page shows the box `action-box-unlicensed`. The
   module needs the licence value `feat:logStreaming`. The fork switch (step 5 of FORK.md) gives it
   by default, so the fork needs no licence. While the switch is off, the box tells to set
-  `N8N_FORK_FEATURES_ENABLED` to `true`. While the switch is on, the box tells to remove
-  `log-streaming` from `N8N_DISABLED_MODULES`.
+  `N8N_FORK_FEATURES_ENABLED` to `true`. The box also has the text for a module in
+  `N8N_DISABLED_MODULES`, but the editor shows no page for that case (see above).
 - Without destinations, the page shows the box `action-box-licensed` with the button **Add new
   destination**.
 - Each destination has a card (`destination-card`) with its name and type, a switch
@@ -82,7 +92,8 @@ Each export sends one request with `makeRestApiRequest` and gives the `data` of 
   `packages/quality/testing/playwright/tests/e2e/settings/log-streaming`: the test ids, the flow of
   the modal, and the title of the test button.
 - The ordinary texts `settings.log-streaming.*` in `@n8n/i18n`.
-- The ordinary lines of upstream in the router, the settings menu and `Modals.vue`.
+- The ordinary lines of upstream in the router, the settings menu and `Modals.vue` before n8n 2.45,
+  and the module types of `@n8n/frontend-module-sdk`.
 - The ordinary HTTP Request node (`HttpRequest/V3/Description.ts`) for the fields of a webhook,
   and the public API OpenAPI files of log streaming for the syslog facilities.
 

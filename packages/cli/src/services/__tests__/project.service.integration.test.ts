@@ -4,7 +4,7 @@
 // diff. packages/cli/src/services/FORK.md tells how the fork made the snapshot.
 import type { UpdateProjectDto } from '@n8n/api-types';
 import { LicenseState, ModuleRegistry } from '@n8n/backend-common';
-import { EventService } from '@n8n/backend-services';
+import { EventService, OwnershipTransferHandlerRegistry } from '@n8n/backend-services';
 import {
 	createActiveWorkflow,
 	createTeamProject,
@@ -16,7 +16,7 @@ import {
 	testModules,
 } from '@n8n/backend-test-utils';
 import type { BooleanLicenseFeature } from '@n8n/constants';
-import type { Project, Role, User } from '@n8n/db';
+import type { EntityManager, Project, Role, User } from '@n8n/db';
 import {
 	GLOBAL_ADMIN_ROLE,
 	GLOBAL_CHAT_USER_ROLE,
@@ -34,7 +34,6 @@ import { ActiveWorkflowManager } from '@/active-workflow-manager';
 import { License } from '@/license';
 import { DataTableService } from '@/modules/data-table/data-table.service';
 import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
-import { OwnershipTransferHandlerRegistry } from '@/services/ownership-transfer/ownership-transfer-handler.registry';
 import { ProjectService } from '@/services/project.service';
 
 import {
@@ -402,7 +401,9 @@ beforeAll(async () => {
 	license.setQuota('quota:maxTeamProjects', -1);
 
 	// Production registers this handler in the data table module's `init`, which tests do not run.
-	Container.get(OwnershipTransferHandlerRegistry).register({
+	Container.get<OwnershipTransferHandlerRegistry<EntityManager>>(
+		OwnershipTransferHandlerRegistry,
+	).register({
 		resource: 'data-table',
 		transferAll: async (fromProjectId, toProjectId, trx) => {
 			await Container.get(DataTableService).transferDataTablesByProjectId(
@@ -532,6 +533,19 @@ describe('ProjectService', () => {
 						),
 				),
 		);
+		outcomes['getProjectWithScope in an operation context'] = await read(
+			async () =>
+				await Container.get(ProjectRepository).runInTransaction(
+					{},
+					async (_manager, ctx) =>
+						await projectService.getProjectWithScope(
+							user('memberB'),
+							projectId('alpha'),
+							['workflow:create'],
+							ctx,
+						),
+				),
+		);
 
 		const idsWithScope: Record<string, unknown> = {};
 		for (const userLabel of USER_LABELS) {
@@ -539,6 +553,10 @@ describe('ProjectService', () => {
 				for (const [listLabel, list] of [
 					['all', undefined],
 					['alpha,beta,missing', [projectId('alpha'), projectId('beta'), 'missing-project']],
+					[
+						'alpha,personal:memberA,personal:memberB',
+						[projectId('alpha'), projectId('personal:memberA'), projectId('personal:memberB')],
+					],
 					['none', []],
 				] as const) {
 					const { result, error } = await read(

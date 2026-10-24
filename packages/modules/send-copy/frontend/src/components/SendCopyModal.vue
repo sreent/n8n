@@ -11,6 +11,8 @@ import {
 	N8nButton,
 	N8nCallout,
 	N8nDialog,
+	N8nDialogBody,
+	N8nDialogDescription,
 	N8nDialogFooter,
 	N8nIconButton,
 	N8nText,
@@ -198,12 +200,11 @@ async function onSend() {
 	<N8nDialog
 		:open="open"
 		:header="i18n.baseText('sendCopy.modal.title', { interpolate: { name: workflowName } })"
-		:description="i18n.baseText('sendCopy.modal.description')"
 		size="medium"
 		@update:open="onOpenChange"
 	>
-		<!-- N8nDialog renders no element of its own, so the test id goes on the body. -->
-		<div :class="$style.body" data-test-id="send-copy-modal">
+		<N8nDialogBody :class="$style.body" data-test-id="send-copy-modal">
+			<N8nDialogDescription>{{ i18n.baseText('sendCopy.modal.description') }}</N8nDialogDescription>
 			<N8nText tag="label" size="small" bold :for="recipientsInputId">
 				{{ i18n.baseText('sendCopy.modal.recipientsLabel') }}
 			</N8nText>
@@ -256,11 +257,11 @@ async function onSend() {
 				{{ i18n.baseText('sendCopy.modal.notCopied') }}
 				{{ i18n.baseText('sendCopy.modal.savedVersionNote') }}
 			</N8nCallout>
-		</div>
+		</N8nDialogBody>
 
 		<N8nDialogFooter>
 			<N8nButton
-				variant="subtle"
+				variant="outline"
 				:label="i18n.baseText('sendCopy.modal.cancel')"
 				data-test-id="send-copy-cancel"
 				@click="close"
@@ -279,8 +280,6 @@ async function onSend() {
 
 <style lang="scss" module>
 .body {
-	display: flex;
-	flex-direction: column;
 	gap: var(--spacing--2xs);
 }
 

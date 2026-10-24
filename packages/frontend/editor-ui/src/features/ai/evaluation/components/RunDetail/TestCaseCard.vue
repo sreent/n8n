@@ -11,10 +11,9 @@ import type { MetricSource, TestCaseExecutionRecord } from '../../evaluation.typ
 import {
 	formatDuration,
 	formatMetricLabel,
-	formatPercent,
+	formatRunMetric,
 	formatTokens,
 	isRunningTestCase,
-	normalizeMetricValue,
 	userDefinedMetricKeys,
 } from '../../evaluation.utils';
 
@@ -58,7 +57,7 @@ const metricRows = computed(() =>
 			key,
 			label: formatMetricLabel(key),
 			sourceNodeName: source?.nodeName,
-			value: formatPercent(normalizeMetricValue(value, source?.category)),
+			value: formatRunMetric(value, source?.category),
 		};
 	}),
 );
@@ -113,7 +112,7 @@ const metricRows = computed(() =>
 						<N8nButton
 							v-if="isFailed"
 							data-test-id="test-case-rerun-button"
-							variant="subtle"
+							variant="outline"
 							size="small"
 							:label="i18n.baseText('evaluation.runDetail.testCase.rerun')"
 							@click="emit('rerun')"

@@ -161,7 +161,10 @@ licence.
    attributes as JSON, or `saml-connection-test-failed` with the message of the error. It sends no
    events and no cookie, but it links or creates the user as a sign-in does.
 8. Else the event `user-logged-in` (`authenticationMethod: 'saml'`) with the user before the role
-   change. When the SAML login is on (`isSamlLicensedAndEnabled`), the session cookie (`usedMfa`
+   change. Before it, when the email of the user (the user of a SAML identity) differs from the
+   email of the response in lowercase, the event `user-login-email-conflict` with the user,
+   `authenticationMethod: 'saml'` and `assertedEmail`, as in upstream n8n 2.45. The sign-in goes
+   on. When the SAML login is on (`isSamlLicensedAndEnabled`), the session cookie (`usedMfa`
    true) and a redirect to `<instance base URL><relay state>`, with `validateRedirectUrl`. Else 202
    with the mapped attributes, and no cookie.
 9. A refused sign-in of the role provisioning sends `user-login-failed` (`userEmail` `unknown`,

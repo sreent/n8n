@@ -1,10 +1,10 @@
 import type {
-	CreatePromotionProviderDto,
-	PromotionProviderAuthInput,
-	PromotionProviderAuthUpdate,
+	CreatePromotionConnectionProviderDto,
+	PromotionConnectionProviderAuthInput,
+	PromotionConnectionProviderAuthUpdate,
 	PromotionProviderConfig,
 	PromotionSshKeyType,
-	UpdatePromotionProviderDto,
+	UpdatePromotionConnectionProviderDto,
 } from '@n8n/api-types';
 import { promotionGitConfigSchemas } from '@n8n/api-types';
 import { EventService } from '@n8n/backend-services';
@@ -66,7 +66,7 @@ export class PromotionProvidersService {
 		private readonly eventService: EventService,
 	) {}
 
-	async create(input: CreatePromotionProviderDto, user: User) {
+	async create(input: CreatePromotionConnectionProviderDto, user: User) {
 		const { config, credentials } = this.makeAuth(input.auth);
 		const provider = this.providerRepository.create({
 			name: input.name,
@@ -98,7 +98,7 @@ export class PromotionProvidersService {
 	}
 
 	/** Renames a provider, and replaces its credentials when `auth` is sent. */
-	async update(id: string, input: UpdatePromotionProviderDto, user: User) {
+	async update(id: string, input: UpdatePromotionConnectionProviderDto, user: User) {
 		const provider = await this.getEntity(id);
 		if (input.auth) {
 			if (input.auth.authType !== provider.authType) {
@@ -155,9 +155,9 @@ export class PromotionProvidersService {
 
 	/** An SSH update without `keyType` makes a key of the type of the current key. */
 	private withCurrentKeyType(
-		auth: PromotionProviderAuthUpdate,
+		auth: PromotionConnectionProviderAuthUpdate,
 		provider: PromotionProvider,
-	): PromotionProviderAuthInput {
+	): PromotionConnectionProviderAuthInput {
 		if (auth.authType === 'token') return auth;
 		const current = promotionGitConfigSchemas['ssh-key'].safeParse(provider.config);
 		return {
@@ -166,7 +166,7 @@ export class PromotionProvidersService {
 		};
 	}
 
-	private makeAuth(auth: PromotionProviderAuthInput): {
+	private makeAuth(auth: PromotionConnectionProviderAuthInput): {
 		config: PromotionProviderConfig;
 		credentials: PromotionCredentials;
 	} {

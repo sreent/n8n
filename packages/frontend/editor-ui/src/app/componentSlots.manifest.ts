@@ -11,6 +11,16 @@ import { defineAsyncComponent } from 'vue';
  */
 export const registerComponentSlots = () => {
 	componentRegistry.register(
+		'workflow-diff',
+		defineAsyncComponent(
+			async () => await import('@/features/workflows/workflowDiff/WorkflowDiffSlot.vue'),
+		),
+	);
+
+	// Fork: no 'promotion-changes' slot. Its component is in the enterprise folder `promotions.ee`,
+	// which the fork removed. The fork has no promotion reviews in the inbox, so nothing renders it.
+
+	componentRegistry.register(
 		'project-filter',
 		defineAsyncComponent(
 			async () => await import('@/features/collaboration/projects/components/ProjectFilter.vue'),

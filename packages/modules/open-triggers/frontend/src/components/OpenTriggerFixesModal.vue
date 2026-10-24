@@ -5,6 +5,8 @@ import {
 	N8nButton,
 	N8nCallout,
 	N8nDialog,
+	N8nDialogBody,
+	N8nDialogDescription,
 	N8nDialogFooter,
 	N8nIconButton,
 	N8nText,
@@ -104,18 +106,19 @@ function requestApproval() {
 	<N8nDialog
 		:open="open"
 		:header="i18n.baseText('openTriggers.fixes.title')"
-		:description="
-			i18n.baseText(
-				data?.canRequestApproval
-					? 'openTriggers.fixes.description'
-					: 'openTriggers.fixes.descriptionWithoutReviews',
-			)
-		"
 		size="medium"
 		@update:open="onOpenChange"
 	>
-		<!-- N8nDialog renders no element of its own, so the test id goes on the body. -->
-		<div :class="$style.body" data-test-id="open-trigger-fixes-modal">
+		<N8nDialogBody :class="$style.body" data-test-id="open-trigger-fixes-modal">
+			<N8nDialogDescription>
+				{{
+					i18n.baseText(
+						data?.canRequestApproval
+							? 'openTriggers.fixes.description'
+							: 'openTriggers.fixes.descriptionWithoutReviews',
+					)
+				}}
+			</N8nDialogDescription>
 			<ul :class="$style.list">
 				<li
 					v-for="item in items"
@@ -200,11 +203,11 @@ function requestApproval() {
 					</li>
 				</ul>
 			</div>
-		</div>
+		</N8nDialogBody>
 
 		<N8nDialogFooter>
 			<N8nButton
-				variant="subtle"
+				variant="outline"
 				:label="i18n.baseText('openTriggers.fixes.close')"
 				data-test-id="open-trigger-close"
 				@click="close"
@@ -229,10 +232,7 @@ function requestApproval() {
 
 <style lang="scss" module>
 .body {
-	display: flex;
-	flex-direction: column;
 	gap: var(--spacing--sm);
-	margin-top: var(--spacing--xs);
 }
 
 .list {

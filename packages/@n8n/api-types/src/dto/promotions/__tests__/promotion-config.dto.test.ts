@@ -1,3 +1,5 @@
+// Fork: upstream n8n removed this test with `../promotion-config.dto.ts`. The fork keeps both, see
+// that file.
 import {
 	PromotionApplyConfigPublicDto,
 	PromotionPromoteConfigPublicDto,

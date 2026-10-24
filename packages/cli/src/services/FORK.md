@@ -18,7 +18,9 @@ code. This is the second pull request of step 3.
   `projectIds` when given. An empty `projectIds` list gives none. Through a project role, it gives
   only team projects: the callers add the personal project themselves.
 - `findProjectsByIdsForUser(user, projectIds, scopes)` gives the projects with these ids where the
-  user holds all `scopes`, personal projects too, in the order of creation.
+  user holds all `scopes`, personal projects too: the oldest first, then by id, as the test
+  `test/integration/project.service.integration.test.ts` of upstream n8n 2.45 expects. It uses
+  `ProjectRepository.findByIdsWithUserRoles`.
 - `getProjectScopesForUser(user, projectId)` gives the global scopes of the user and the scopes of
   their role in the project. `addUserScopes(user, projects)` adds the role and the scopes of the
   user to each project: the project role when there is one, else the global role.
@@ -57,19 +59,24 @@ code. This is the second pull request of step 3.
   3. For a migration, the user needs `credential:create`, `workflow:create` and
      `dataTable:create` in the target project, else `NotFoundError`. A personal target project
      cannot get end-user credentials (`BadRequestError` with their names).
-  4. With a migration, the workflows and credentials that the project owns get the target project
+  4. With a migration, the transfer policy of the target project must allow each workflow and
+     each credential that the project owns (`OwnershipTransferService.enforceTransferPolicy`, as
+     for the deletion of a user). A refusal stops the deletion before anything moves. The ordinary
+     test `test/integration/policy/workflow-transfer.policy.test.ts` covers this step, because the
+     golden test has no transfer policy.
+  5. With a migration, the workflows and credentials that the project owns get the target project
      as owner. A share with the target project becomes ownership. The folders and the resources
      of modules (data tables) move too. Shares with the deleted project go with it.
-  5. Without a migration, the workflows and credentials of the project are deleted one at a time
+  6. Without a migration, the workflows and credentials of the project are deleted one at a time
      through their services, so a published workflow stops the deletion part of the way. Then the
      resources of modules are deleted.
-  6. When the external secrets module is active, the same transaction as the project deletion
+  7. When the external secrets module is active, the same transaction as the project deletion
      deletes the secrets provider connections that the project owns, disables the connections
      that it uses, and removes its access rows.
-  7. The members of the project lose their connections to the private credentials that they can
+  8. The members of the project lose their connections to the private credentials that they can
      no longer use (`CredentialConnectionStatusProxy.cleanupOrphanedEntriesForUsers`). Without
      the dynamic credentials module, this does nothing.
-  8. It emits `team-project-deleted`.
+  9. It emits `team-project-deleted`.
 
 ### Changing members
 

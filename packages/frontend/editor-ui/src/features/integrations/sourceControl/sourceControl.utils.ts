@@ -1,6 +1,6 @@
 // Fork code (not in upstream n8n): the helpers of the push and pull modals of source control: the
 // order of the rows, the folder tree of the workflows, the dates and the summaries of the toasts.
-// See `FORK.md` in this folder.
+// Also the tooltip of the controls that a protected instance locks. See `FORK.md` in this folder.
 import type { BaseTextKey } from '@n8n/i18n';
 import { useI18n } from '@n8n/i18n';
 import dateformat from 'dateformat';
@@ -116,6 +116,16 @@ export function filesInFolder(files: SourceControlledFile[], path: string[]) {
 		const folderPath = file.folderPath ?? [];
 		return path.every((name, index) => folderPath[index] === name);
 	});
+}
+
+/**
+ * The tooltip of a control that a protected instance locks, as plain text. The tooltip of the
+ * sidebar also has the docs link (`PROTECTED_INSTANCE_DOCS_URL`), which plain text cannot hold.
+ */
+export function getProtectedInstanceTooltip() {
+	return useI18n()
+		.baseText('readOnlyEnv.tooltip', { interpolate: { link: '' } })
+		.trim();
 }
 
 /** "Last updated 2 Jan at 03:04", with the year when it is not the current year. */
