@@ -20,7 +20,7 @@ import isEqual from 'lodash/isEqual';
 import { calculateWorkflowChecksum, STICKY_NODE_TYPE, UnexpectedError } from 'n8n-workflow';
 
 import { License } from '@/license';
-import { EnterpriseWorkflowService } from '@/workflows/workflow.service.ee';
+import { EnterpriseWorkflowService } from '@/workflows/enterprise-workflow.service';
 
 import { WorkflowSuggestionService } from '../workflow-suggestions/workflow-suggestion.service';
 import { toWorkflowJSON } from '../workflow-json';

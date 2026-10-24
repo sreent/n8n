@@ -12,7 +12,7 @@ import { ConflictError, ForbiddenError, NotFoundError, UserError } from '@n8n/er
 import { hasGlobalScope } from '@n8n/permissions';
 import { generateNanoId } from '@n8n/utils/generate-nano-id';
 
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import { SkillAgentsProxy } from './skill-agents-proxy.service';
 import { skillContentHash, type SkillContent } from './skill-content-hash';

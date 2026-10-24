@@ -6,7 +6,7 @@
 // the shutdown of the module. The snapshot was recorded against the enterprise module, and the
 // fork module gives the same snapshot. See `packages/cli/src/modules/dynamic-credentials/README.md`.
 import { ModuleRegistry } from '@n8n/backend-common';
-import { EventService } from '@n8n/backend-services';
+import { EventService, ExecutingUserIdentifierProxy } from '@n8n/backend-services';
 import { createTeamProject, linkUserToProject, testDb } from '@n8n/backend-test-utils';
 import type { CredentialsEntity, Project, User } from '@n8n/db';
 import { WorkflowRepository } from '@n8n/db';
@@ -23,7 +23,6 @@ import type { ICredentialContext, ICredentialType, IDataObject } from 'n8n-workf
 import { AuthService } from '@/auth/auth.service';
 import { CredentialConnectionStatusProxy } from '@/credentials/credential-connection-status-proxy';
 import { DynamicCredentialsProxy } from '@/credentials/dynamic-credentials-proxy';
-import { ExecutingUserIdentifierProxy } from '@/credentials/executing-user-identifier-proxy';
 import { LoadNodesAndCredentials } from '@/load-nodes-and-credentials';
 import { saveCredential } from '@test-integration/db/credentials';
 import { createMember, createOwner } from '@test-integration/db/users';

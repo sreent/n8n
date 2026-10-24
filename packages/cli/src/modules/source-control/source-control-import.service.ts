@@ -1,5 +1,5 @@
 import type { DataTableCreateColumnSchema, SourceControlledFile } from '@n8n/api-types';
-import { EventService } from '@n8n/backend-services';
+import { EventService, WorkflowMutationHooksProxy } from '@n8n/backend-services';
 import type { Project, User } from '@n8n/db';
 import {
 	CredentialsRepository,
@@ -25,7 +25,6 @@ import { DataTableRepository } from '@/modules/data-table/data-table.repository'
 import { PolicyEnforcementService } from '@/policy/policy-enforcement.service';
 import { PolicyViolationError } from '@/policy/policy-violation.error';
 import { WorkflowHistoryService } from '@/workflows/workflow-history/workflow-history.service';
-import { WorkflowMutationHooksProxy } from '@/workflows/workflow-mutation-hooks-proxy.service';
 import { WorkflowService } from '@/workflows/workflow.service';
 
 import { SourceControlResourcesService } from './source-control-resources.service';

@@ -6,7 +6,7 @@ import type { Scope } from '@n8n/permissions';
 import { UnexpectedError, UserError } from 'n8n-workflow';
 
 import { CredentialsService } from '@/credentials/credentials.service';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import type { AgentCredentialProvider } from '../agent-credential-provider.contracts';
 import { AgentSkillRefsService } from '../agent-skill-refs.service';

@@ -9,7 +9,7 @@ import * as instanceAi from '@n8n/instance-ai';
 import { mock } from 'vitest-mock-extended';
 
 import type { License } from '@/license';
-import type { EnterpriseWorkflowService } from '@/workflows/workflow.service.ee';
+import type { EnterpriseWorkflowService } from '@/workflows/enterprise-workflow.service';
 
 import type { WorkflowSuggestionService } from '../../workflow-suggestions/workflow-suggestion.service';
 import { SelfHealingCandidateService } from '../self-healing-candidate.service';

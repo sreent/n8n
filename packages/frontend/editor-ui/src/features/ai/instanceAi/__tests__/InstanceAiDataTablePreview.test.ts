@@ -1,7 +1,7 @@
 import { createComponentRenderer } from '@/__tests__/render';
 import { useDataTableStore } from '@/features/core/dataTable/dataTable.store';
 import type { DataTable, DataTableRow } from '@/features/core/dataTable/dataTable.types';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { createDeferredPromise } from '@n8n/utils/promise/deferred-promise';
 import { createTestingPinia } from '@pinia/testing';
 import { fireEvent, waitFor } from '@testing-library/vue';

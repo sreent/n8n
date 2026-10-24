@@ -15,7 +15,7 @@ import { UserError } from 'n8n-workflow';
 
 import { ConflictError, ForbiddenError, NotFoundError } from '@n8n/errors';
 import { hasGlobalScope } from '@n8n/permissions';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import { findIntroducedNameClashes, findNameClashGroups } from '@/modules/skills/skill-names';
 import {
 	SkillService,

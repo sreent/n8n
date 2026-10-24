@@ -1,20 +1,20 @@
-import { RESOURCES } from '@/constants.ee';
+import { RESOURCES } from '@/constants';
 import {
 	GLOBAL_CUSTOM_ROLE_SCOPE_GROUPS,
 	PROJECT_CUSTOM_ROLE_OPERATIONS,
-} from '@/roles/custom-role-scopes.ee';
+} from '@/roles/custom-role-scopes';
 import {
 	GLOBAL_ADMIN_SCOPES,
 	GLOBAL_CHAT_USER_SCOPES,
 	GLOBAL_MEMBER_SCOPES,
 	GLOBAL_OWNER_SCOPES,
-} from '@/roles/scopes/global-scopes.ee';
+} from '@/roles/scopes/global-scopes';
 import {
 	PERSONAL_PROJECT_OWNER_SCOPES,
 	PROJECT_EDITOR_SCOPES,
 	PROJECT_VIEWER_SCOPES,
 	REGULAR_PROJECT_ADMIN_SCOPES,
-} from '@/roles/scopes/project-scopes.ee';
+} from '@/roles/scopes/project-scopes';
 import { scopeInformation } from '@/scope-information';
 
 /**

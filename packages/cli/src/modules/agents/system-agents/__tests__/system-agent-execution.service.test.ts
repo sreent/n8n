@@ -5,7 +5,7 @@ import { ConflictError, NotFoundError } from '@n8n/errors';
 import { mock } from 'vitest-mock-extended';
 import { UserError } from 'n8n-workflow';
 
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import type { AgentChatAttachmentService } from '../../agent-chat-attachment.service';
 import type { AgentChatExecutionService } from '../../agent-chat-execution.service';
@@ -43,7 +43,7 @@ import type {
 	SystemAgentWorkspaceSource,
 } from '../system-agent.types';
 
-vi.mock('@/permissions.ee/check-access', () => ({ userHasScopes: vi.fn() }));
+vi.mock('@/permissions/check-access', () => ({ userHasScopes: vi.fn() }));
 
 const AGENT_ID = 'test-assistant';
 const user = mock<User>({ id: 'user-1' });

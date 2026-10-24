@@ -1,6 +1,6 @@
 import { computed } from 'vue';
 
-import { useAgentEvalsFlag } from '@/features/ai/evaluation.ee/composables/useAgentEvalsFlag';
+import { useAgentEvalsFlag } from '@/features/ai/evaluation/composables/useAgentEvalsFlag';
 
 export function useTestAgentPreviewFlag() {
 	const isAgentEvalsEnabled = useAgentEvalsFlag();

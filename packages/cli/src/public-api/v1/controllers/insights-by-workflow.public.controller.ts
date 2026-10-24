@@ -34,7 +34,7 @@ export class InsightsByWorkflowPublicController {
 		if (!this.moduleRegistry.isActive('insights')) {
 			throw new ServiceUnavailableError('The insights module is not enabled');
 		}
-		const { InsightsService } = await import('@/modules/insights/insights.service.js');
+		const { InsightsService } = await import('@n8n/backend-module-insights');
 		return Container.get(InsightsService);
 	}
 

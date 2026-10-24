@@ -6,7 +6,7 @@
 // snapshot was recorded against the original module of source control, and the fork module gives
 // the same snapshot. See `packages/cli/src/modules/source-control/README.md`.
 import { createTeamProject, linkUserToProject, mockInstance } from '@n8n/backend-test-utils';
-import { EventService } from '@n8n/backend-services';
+import { EventService, InstanceWriteAccessService } from '@n8n/backend-services';
 import type { User } from '@n8n/db';
 import {
 	GLOBAL_ADMIN_ROLE,
@@ -23,7 +23,6 @@ import { InstanceSettings } from 'n8n-core';
 import { deepCopy } from 'n8n-workflow';
 
 import { ActiveWorkflowManager } from '@/active-workflow-manager';
-import { InstanceWriteAccessService } from '@/services/instance-write-access.service';
 import { createUser } from '@test-integration/db/users';
 import { GoldenRecorder } from '@test-integration/golden-recorder';
 import type { SuperAgentTest } from '@test-integration/types';

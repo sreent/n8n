@@ -6,7 +6,7 @@ import { UnexpectedError, UserError } from 'n8n-workflow';
 import { mock } from 'vitest-mock-extended';
 
 import type { CredentialsService } from '@/credentials/credentials.service';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import type { AgentSkillRefsService } from '../../agent-skill-refs.service';
 import type { AgentValidationService } from '../../agent-validation.service';
@@ -19,7 +19,7 @@ import type { AgentsBuilderToolsService } from '../agents-builder-tools.service'
 import { AgentsBuilderService } from '../agents-builder.service';
 import type { BuilderCredentialService } from '../builder-session';
 
-vi.mock('@/permissions.ee/check-access', () => ({ userHasScopes: vi.fn() }));
+vi.mock('@/permissions/check-access', () => ({ userHasScopes: vi.fn() }));
 vi.mock('../agents-builder-tools.service', () => ({
 	AgentsBuilderToolsService: class AgentsBuilderToolsService {},
 }));

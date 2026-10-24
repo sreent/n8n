@@ -1,6 +1,6 @@
 import type { Project, User } from '@n8n/db';
 
-import type { ProjectService } from '@/services/project.service.ee';
+import type { ProjectService } from '@/services/project.service';
 
 import { assertEveryRequestedEntityAccessible } from '../package-export.errors';
 

@@ -15,7 +15,7 @@ import {
 import { Container, Service } from '@n8n/di';
 import { BadRequestError, ForbiddenError, NotFoundError } from '@n8n/errors';
 
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import { WorkflowFinderService } from '@/workflows/workflow-finder.service';
 
 import { SelfHealingConfiguration } from './database/self-healing-configuration.entity';

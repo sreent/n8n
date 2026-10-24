@@ -11,7 +11,7 @@
 vi.unmock('node:fs');
 
 import type { SamlPreferences } from '@n8n/api-types';
-import { EventService } from '@n8n/backend-services';
+import { EventService, JwtService } from '@n8n/backend-services';
 import { mockInstance, testDb } from '@n8n/backend-test-utils';
 import { GlobalConfig, InstanceSettingsLoaderConfig } from '@n8n/config';
 import { createTeamProject } from '@n8n/backend-test-utils';
@@ -54,7 +54,6 @@ import { SAML_PREFERENCES_DB_KEY } from '@/modules/sso-saml/constants';
 import { Publisher } from '@/scaling/pubsub/publisher.service';
 import { PubSubEventBus } from '@/scaling/pubsub/pubsub.eventbus';
 import { PubSubRegistry } from '@/scaling/pubsub/pubsub.registry';
-import { JwtService } from '@/services/jwt.service';
 import { setCurrentAuthenticationMethod } from '@/sso/sso-helpers';
 import { createHandlebarsEngine } from '@/utils/handlebars.util';
 

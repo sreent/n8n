@@ -8,7 +8,7 @@ import { ProjectTypes } from './projects.types';
 import type { ProjectRole, Scope } from '@n8n/permissions';
 import type { FrontendSettings } from '@n8n/api-types';
 import { useSettingsStore } from '@n8n/stores/settings.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 
 type MockRoute = {
 	params: Record<string, string>;

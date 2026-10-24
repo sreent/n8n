@@ -8,9 +8,9 @@ import type { ICredentialDataDecryptedObject } from 'n8n-workflow';
 
 import { CredentialTypes } from '@/credential-types';
 import { CredentialsHelper } from '@/credentials-helper';
-import { ExternalSecretsConfig } from '@/modules/external-secrets.ee/external-secrets.config';
-import { SecretsProviderAccessCheckService } from '@/modules/external-secrets.ee/secret-provider-access-check.service.ee';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
+import { SecretsProviderAccessCheckService } from '@/modules/external-secrets/secret-provider-access-check.service';
+import { userHasScopes } from '@/permissions/check-access';
 import { getBase } from '@/workflow-execute-additional-data';
 
 import { CredentialsService } from './credentials.service';

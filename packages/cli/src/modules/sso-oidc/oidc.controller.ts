@@ -2,7 +2,7 @@
 // `oidc.controller.ee.ts`. packages/cli/src/modules/sso-oidc/FORK.md describes them.
 import { OidcConfigDto } from '@n8n/api-types';
 import { Logger } from '@n8n/backend-common';
-import { EventService, UrlService } from '@n8n/backend-services';
+import { EventService, JwtService, UrlService } from '@n8n/backend-services';
 import { GlobalConfig, InstanceSettingsLoaderConfig } from '@n8n/config';
 import { Time } from '@n8n/constants';
 import { AuthenticatedRequest } from '@n8n/db';
@@ -14,7 +14,6 @@ import { Cipher } from 'n8n-core';
 import { AuthService } from '@/auth/auth.service';
 import { SsoAccessDeniedError } from '@/modules/provisioning/errors/sso-access-denied.error';
 import { AuthlessRequest } from '@/requests';
-import { JwtService } from '@/services/jwt.service';
 import { validateRedirectUrl } from '@/utils/validate-redirect-url';
 
 import { OIDC_ID_TOKEN_COOKIE_MAX_BYTES, OIDC_ID_TOKEN_COOKIE_NAME } from './constants';

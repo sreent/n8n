@@ -15,7 +15,7 @@ import type { IUser, UserAction } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
 import { computed } from 'vue';
 import { escapeHtml } from '@/app/utils/htmlUtils';
-import { getProtectedInstanceTooltip } from '@/features/integrations/sourceControl.ee/sourceControl.utils';
+import { getProtectedInstanceTooltip } from '@/features/integrations/sourceControl/sourceControl.utils';
 
 import { N8nActionToggle } from '@n8n/design-system';
 import { useUIStore } from '@/app/stores/ui.store';

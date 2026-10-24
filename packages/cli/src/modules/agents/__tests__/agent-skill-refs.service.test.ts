@@ -10,7 +10,7 @@ import type { Skill } from '@/modules/skills/skill.entity';
 import type { ResolvedSkillRow, SkillRepository } from '@/modules/skills/skill.repository';
 import type { SkillService } from '@/modules/skills/skill.service';
 import type { SkillsHubRollout } from '@/modules/skills/skills-hub-rollout';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 
 import type { AgentSkillUsageService } from '../agent-skill-usage.service';
 import { AgentSkillRefsService } from '../agent-skill-refs.service';
@@ -19,7 +19,7 @@ import type { Agent } from '../entities/agent.entity';
 import type { AgentRepository } from '../repositories/agent.repository';
 import type { AgentSkillRepository } from '../repositories/agent-skill.repository';
 
-vi.mock('@/permissions.ee/check-access', () => ({ userHasScopes: vi.fn() }));
+vi.mock('@/permissions/check-access', () => ({ userHasScopes: vi.fn() }));
 
 const ctx: OperationContext = {};
 const pinId = '0b2c6f1e-7d3a-4c1b-9f2e-5a6b7c8d9e0f';

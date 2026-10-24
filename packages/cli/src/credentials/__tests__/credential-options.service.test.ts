@@ -10,15 +10,15 @@ import { mock } from 'vitest-mock-extended';
 
 import type { CredentialTypes } from '@/credential-types';
 import type { CredentialsHelper } from '@/credentials-helper';
-import type { ExternalSecretsConfig } from '@/modules/external-secrets.ee/external-secrets.config';
-import type { SecretsProviderAccessCheckService } from '@/modules/external-secrets.ee/secret-provider-access-check.service.ee';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import type { ExternalSecretsConfig } from '@/modules/external-secrets/external-secrets.config';
+import type { SecretsProviderAccessCheckService } from '@/modules/external-secrets/secret-provider-access-check.service';
+import { userHasScopes } from '@/permissions/check-access';
 import { getBase } from '@/workflow-execute-additional-data';
 
 import { CredentialOptionsService } from '../credential-options.service';
 import type { CredentialsService } from '../credentials.service';
 
-vi.mock('@/permissions.ee/check-access', () => ({ userHasScopes: vi.fn() }));
+vi.mock('@/permissions/check-access', () => ({ userHasScopes: vi.fn() }));
 vi.mock('@/workflow-execute-additional-data', () => ({ getBase: vi.fn() }));
 
 describe('CredentialOptionsService', () => {

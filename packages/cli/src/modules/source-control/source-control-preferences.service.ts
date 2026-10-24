@@ -10,7 +10,7 @@ import { jsonParse, UserError } from 'n8n-workflow';
 import sshpk from 'sshpk';
 import { z } from 'zod';
 
-import { InstanceWriteAccessService } from '@/services/instance-write-access.service';
+import { InstanceWriteAccessService } from '@n8n/backend-services';
 
 import {
 	SOURCE_CONTROL_DEFAULT_BRANCH,

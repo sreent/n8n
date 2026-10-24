@@ -13,7 +13,7 @@ import { mock, type MockProxy } from 'vitest-mock-extended';
 import { BadRequestError, ConflictError, ForbiddenError, NotFoundError } from '@n8n/errors';
 import type { CredentialsService } from '@/credentials/credentials.service';
 import type { AgentConfigService } from '@/modules/agents/agent-config.service';
-import { userHasScopes } from '@/permissions.ee/check-access';
+import { userHasScopes } from '@/permissions/check-access';
 import type { ProjectAgent } from '@/modules/agents/entities/agent.entity';
 import type { AgentRepository } from '@/modules/agents/repositories/agent.repository';
 
@@ -27,7 +27,7 @@ import { AgentEvalService } from '../agent-eval.service';
 vi.mock('@/modules/agents/repositories/agent.repository', () => ({
 	AgentRepository: class AgentRepository {},
 }));
-vi.mock('@/permissions.ee/check-access', () => ({
+vi.mock('@/permissions/check-access', () => ({
 	userHasScopes: vi.fn().mockResolvedValue(true),
 }));
 vi.mock('../agent-eval-runner.service', () => ({
@@ -43,7 +43,7 @@ vi.mock('../agent-eval-instructions-rewrite', () => ({ rewriteAgentInstructions:
 vi.mock('../agent-eval-case-generation.service', () => ({
 	AgentEvalCaseGenerationService: class AgentEvalCaseGenerationService {},
 }));
-vi.mock('@/permissions.ee/check-access', () => ({
+vi.mock('@/permissions/check-access', () => ({
 	userHasScopes: vi.fn().mockResolvedValue(true),
 }));
 

@@ -8,7 +8,7 @@ import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useAgentNavigationCommands } from './useAgentNavigationCommands';
 import { listAgentsPageGlobal } from '@/features/agents/composables/useAgentApi';
 import { useProjectsStore } from '@/features/collaboration/projects/projects.store';
-import { useSourceControlStore } from '@/features/integrations/sourceControl.ee/sourceControl.store';
+import { useSourceControlStore } from '@/features/integrations/sourceControl/sourceControl.store';
 import { AGENT_BUILDER_VIEW } from '@/features/agents/constants';
 import type { AgentResource } from '@/features/agents/types';
 import { createTestProject } from '@/features/collaboration/projects/__tests__/utils';

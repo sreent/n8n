@@ -4,7 +4,7 @@ import type { Project } from '@n8n/db';
 import { Container, Service } from '@n8n/di';
 
 import type { AgentRepository } from '@/modules/agents/repositories/agent.repository';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 import type {
 	AgentExportRequirements,
