@@ -148,7 +148,8 @@ export class WorkflowReviewReadService {
 			boundary: query.boundary,
 		});
 		const items = await this.toInboxItems(requests);
-		return items.map((item) => ({ ...item, type: 'workflow_review' as const }));
+		// The source type comes first in each item, as in the other sources of the inbox.
+		return items.map((item) => ({ type: 'workflow_review' as const, ...item }));
 	}
 
 	/** The numbers of open and closed reviews that the user sees in the inbox. */
