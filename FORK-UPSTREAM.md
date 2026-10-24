@@ -6,9 +6,12 @@ steps of an update. This file tells what each update must keep and check.
 When a pull request adds fork lines to an upstream file, it adds a row to the first table. When it
 adds a golden test, it adds a row to the second table.
 
+Container CI also checks the map of the fork. The check fails when an update puts an upstream file
+in a folder that the map gives to the fork ([FORK-MAP.md](FORK-MAP.md#the-map-file)).
+
 ## Fork lines in upstream files
 
-The fork changes about 470 upstream files. Most of the changes are import paths to fork code, and
+The fork changes about 500 upstream files. Most of the changes are import paths to fork code, and
 a merge keeps them without help. The files in this table need more care. When an upstream update
 changes one of them, do what the second column tells.
 

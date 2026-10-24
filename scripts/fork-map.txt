@@ -1,0 +1,440 @@
+# The map of the fork: each path that the fork adds to upstream n8n, in an area with a layer and a
+# document. FORK-MAP.md describes the layers and the areas. scripts/fork-map.sh reads this file,
+# and scripts/container-ci.sh checks it.
+#
+# An area line starts an area: `area <name> <layer> <document>`. The document describes the area.
+# The lines after an area line are the paths of the area, one for each line, relative to the
+# repository root. A path that ends with / names a folder and everything in it. Lines that start
+# with # are comments.
+#
+# The layers:
+#   rebuilt     the fork's own versions of the enterprise features of n8n
+#   switch      the fork switch, which turns on the licence features
+#   fork        the features of the fork
+#   core        fork files in the community core of n8n, which are not part of a feature
+#   operations  deploy/, scripts/, vendor/ and the documents of the fork
+#
+# Each path holds fork files only: a file that is not in the upstream commit of
+# scripts/sync-upstream.base, or a folder of such files. Each file that the fork adds is in a path.
+
+# ── rebuilt ──────────────────────────────────────────────────────────────────
+
+area permissions rebuilt packages/@n8n/permissions/FORK.md
+packages/@n8n/permissions/FORK.md
+packages/@n8n/permissions/permission-snapshot.json
+packages/@n8n/permissions/src/__tests__/fork-scopes.test.ts
+packages/@n8n/permissions/src/constants.ts
+packages/@n8n/permissions/src/fork-scopes.ts
+packages/@n8n/permissions/src/permission-data.generated.ts
+packages/@n8n/permissions/src/principal.ts
+packages/@n8n/permissions/src/public-api-permissions.ts
+packages/@n8n/permissions/src/roles/custom-role-scopes.ts
+packages/@n8n/permissions/src/roles/role-maps.ts
+packages/@n8n/permissions/src/roles/scopes/
+packages/@n8n/permissions/src/schemas.ts
+packages/@n8n/permissions/src/types.ts
+packages/@n8n/permissions/src/utilities/combine-scopes.ts
+packages/@n8n/permissions/src/utilities/get-global-scopes.ts
+packages/@n8n/permissions/src/utilities/get-resource-permissions.ts
+packages/@n8n/permissions/src/utilities/get-role-scopes.ts
+packages/@n8n/permissions/src/utilities/has-global-scope.ts
+packages/@n8n/permissions/src/utilities/has-scope.ts
+packages/@n8n/permissions/src/utilities/static-roles-with-scope.ts
+scripts/permission-snapshot.mjs
+
+area scope-check rebuilt packages/cli/src/permissions/FORK.md
+packages/cli/src/permissions/
+
+area projects rebuilt packages/cli/src/services/FORK.md
+packages/@n8n/db/src/repositories/team-project.repository.ts
+packages/cli/src/services/FORK.md
+packages/cli/src/services/__tests__/__snapshots__/
+packages/cli/src/services/__tests__/project.service.integration.test.ts
+packages/cli/src/services/project.service.ts
+
+area sharing rebuilt packages/cli/src/workflows/FORK.md
+packages/@n8n/db/src/repositories/sharing.repository.ts
+packages/cli/src/credentials/enterprise-credentials.service.ts
+packages/cli/src/workflows/FORK.md
+packages/cli/src/workflows/__tests__/__snapshots__/
+packages/cli/src/workflows/__tests__/enterprise-sharing.integration.test.ts
+packages/cli/src/workflows/enterprise-workflow.service.ts
+
+area execution-view rebuilt packages/cli/src/executions/FORK.md
+packages/cli/src/executions/FORK.md
+packages/cli/src/executions/__tests__/__snapshots__/
+packages/cli/src/executions/__tests__/enterprise-executions.integration.test.ts
+packages/cli/src/executions/enterprise-execution.service.ts
+
+area sharing-ui rebuilt packages/frontend/editor-ui/FORK.md
+packages/frontend/editor-ui/FORK.md
+packages/frontend/editor-ui/src/app/api/workflowSharing.ts
+packages/frontend/editor-ui/src/app/components/EnterpriseEdition.vue
+packages/frontend/editor-ui/src/app/components/__tests__/
+packages/frontend/editor-ui/src/app/stores/workflowSharing.store.ts
+packages/frontend/editor-ui/src/features/credentials/components/CredentialEdit/CredentialSharing.vue
+packages/frontend/editor-ui/src/features/credentials/credentialSharing.api.ts
+packages/frontend/editor-ui/src/features/workflows/components/WorkflowShareModal.vue
+packages/frontend/editor-ui/src/features/workflows/components/__tests__/
+
+area sso-helpers rebuilt packages/cli/src/sso/FORK.md
+packages/cli/src/sso/
+
+area oidc rebuilt packages/cli/src/modules/sso-oidc/FORK.md
+packages/cli/src/modules/sso-oidc/FORK.md
+packages/cli/src/modules/sso-oidc/__tests__/__snapshots__/
+packages/cli/src/modules/sso-oidc/__tests__/oidc.integration.test.ts
+packages/cli/src/modules/sso-oidc/__tests__/oidc.service.test.ts
+packages/cli/src/modules/sso-oidc/oidc.controller.ts
+packages/cli/src/modules/sso-oidc/oidc.service.ts
+
+area provisioning rebuilt packages/cli/src/modules/provisioning/FORK.md
+packages/cli/src/modules/provisioning/
+
+area saml rebuilt packages/cli/src/modules/sso-saml/FORK.md
+packages/cli/src/modules/sso-saml/FORK.md
+packages/cli/src/modules/sso-saml/__tests__/__snapshots__/
+packages/cli/src/modules/sso-saml/__tests__/saml-signed-requests.integration.test.ts
+packages/cli/src/modules/sso-saml/__tests__/saml.integration.test.ts
+packages/cli/src/modules/sso-saml/saml.controller.ts
+packages/cli/src/modules/sso-saml/saml.service.ts
+packages/cli/src/modules/sso-saml/service-provider.ts
+
+area external-secrets rebuilt packages/cli/src/modules/external-secrets/FORK.md
+packages/@n8n/db/src/repositories/external-secrets-connection.repository.ts
+packages/@n8n/db/src/repositories/external-secrets-project-access.repository.ts
+packages/cli/src/modules/external-secrets/
+
+area external-secrets-editor rebuilt packages/frontend/editor-ui/src/features/integrations/externalSecrets/FORK.md
+packages/frontend/@n8n/rest-api-client/src/api/__tests__/__snapshots__/
+packages/frontend/@n8n/rest-api-client/src/api/__tests__/external-secrets.golden.test.ts
+packages/frontend/@n8n/rest-api-client/src/api/externalSecrets.ts
+packages/frontend/@n8n/rest-api-client/src/api/secretsProvider.ts
+packages/frontend/editor-ui/src/features/integrations/externalSecrets/
+
+area secrets-providers-editor rebuilt packages/frontend/editor-ui/src/features/integrations/secretsProviders/FORK.md
+packages/frontend/editor-ui/src/features/integrations/secretsProviders/
+
+area log-streaming rebuilt packages/cli/src/modules/log-streaming/README.md
+packages/cli/src/modules/log-streaming/
+
+area log-streaming-editor rebuilt packages/frontend/editor-ui/src/features/integrations/logStreaming/FORK.md
+packages/frontend/@n8n/rest-api-client/src/api/__tests__/eventbus.test.ts
+packages/frontend/@n8n/rest-api-client/src/api/eventbus.ts
+packages/frontend/editor-ui/src/features/integrations/logStreaming/
+
+area source-control rebuilt packages/cli/src/modules/source-control/README.md
+packages/cli/src/modules/source-control/
+packages/cli/test/integration/source-control/
+
+area source-control-editor rebuilt packages/frontend/editor-ui/src/features/integrations/sourceControl/FORK.md
+packages/frontend/editor-ui/src/features/integrations/sourceControl/
+
+area git-connections rebuilt packages/cli/src/modules/promotions/README.md
+packages/@n8n/api-types/src/dto/promotions/__tests__/promotion-config.dto.test.ts
+packages/@n8n/api-types/src/dto/promotions/__tests__/promotion-connection-provider.dto.test.ts
+packages/@n8n/api-types/src/dto/promotions/__tests__/promotion-connection.dto.test.ts
+packages/@n8n/api-types/src/dto/promotions/promotion-config.dto.ts
+packages/@n8n/api-types/src/dto/promotions/promotion-connection-operations.dto.ts
+packages/@n8n/api-types/src/dto/promotions/promotion-connection-provider.dto.ts
+packages/@n8n/api-types/src/dto/promotions/promotion-connection.dto.ts
+packages/cli/src/modules/promotions/
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/addProjectToPromotionConnection.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/clonePromotionCheckout.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/createPromotionConnection.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/deletePromotionConfig.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/deletePromotionConnection.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/getPromotionConnection.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/getPromotionConnectionProjects.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/getPromotionConnections.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/removeProjectFromPromotionConnection.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/updatePromotionConnection.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/upsertPromotionApplyConfig.generated.yml
+packages/cli/src/public-api/v1/handlers/promotions/spec/paths/upsertPromotionPromoteConfig.generated.yml
+packages/cli/src/public-api/v1/shared/spec/schemas/promotionConnectionApplyResultDto.generated.yml
+packages/cli/src/public-api/v1/shared/spec/schemas/promotionConnectionCheckoutPublicDto.generated.yml
+packages/cli/src/public-api/v1/shared/spec/schemas/promotionConnectionPromoteResultDto.generated.yml
+packages/cli/src/public-api/v1/shared/spec/schemas/promotionConnectionPublicDto.generated.yml
+packages/cli/test/integration/promotions/
+packages/cli/test/integration/public-api/git-connections.test.ts
+
+area git-connections-editor rebuilt packages/frontend/editor-ui/src/features/integrations/promotions/FORK.md
+packages/frontend/editor-ui/src/features/integrations/promotions/
+
+area workflow-reviews rebuilt packages/cli/src/modules/workflow-reviews/README.md
+packages/cli/src/modules/workflow-reviews/
+packages/cli/test/integration/workflow-reviews/
+
+area db-tables rebuilt packages/@n8n/db/src/entities/FORK.md
+packages/@n8n/db/src/entities/FORK.md
+packages/@n8n/db/src/entities/agent-eval-dataset.ts
+packages/@n8n/db/src/entities/agent-eval-rating.ts
+packages/@n8n/db/src/entities/agent-eval-result.ts
+packages/@n8n/db/src/entities/agent-eval-run.ts
+packages/@n8n/db/src/entities/annotation-tag-entity.ts
+packages/@n8n/db/src/entities/annotation-tag-mapping.ts
+packages/@n8n/db/src/entities/evaluation-collection.ts
+packages/@n8n/db/src/entities/evaluation-config.ts
+packages/@n8n/db/src/entities/execution-annotation.ts
+packages/@n8n/db/src/entities/project-pool-settings.ts
+packages/@n8n/db/src/entities/test-case-execution.ts
+packages/@n8n/db/src/entities/test-run.ts
+packages/@n8n/db/src/entities/workflow-review-activity-comment.ts
+packages/@n8n/db/src/entities/workflow-review-activity.ts
+packages/@n8n/db/src/entities/workflow-review-request-author.ts
+packages/@n8n/db/src/entities/workflow-review-request-reviewer.ts
+packages/@n8n/db/src/entities/workflow-review-request-workflow.ts
+packages/@n8n/db/src/entities/workflow-review-request.ts
+packages/@n8n/db/src/repositories/agent-eval-dataset.repository.ts
+packages/@n8n/db/src/repositories/agent-eval-rating.repository.ts
+packages/@n8n/db/src/repositories/agent-eval-result.repository.ts
+packages/@n8n/db/src/repositories/agent-eval-run.repository.ts
+packages/@n8n/db/src/repositories/annotation-tag-mapping.repository.ts
+packages/@n8n/db/src/repositories/annotation-tag.repository.ts
+packages/@n8n/db/src/repositories/project-pool-settings.repository.ts
+packages/@n8n/db/src/repositories/test-case-execution.repository.ts
+packages/@n8n/db/src/repositories/test-run.repository.ts
+packages/cli/test/integration/database/repositories/__snapshots__/
+packages/cli/test/integration/database/repositories/agent-eval.repositories.test.ts
+packages/cli/test/integration/database/repositories/workflow-review.repositories.test.ts
+
+area execution-annotations rebuilt packages/cli/src/executions/FORK.md
+packages/cli/src/controllers/annotation-tags.controller.ts
+packages/cli/src/services/annotation-tag.service.ts
+packages/cli/test/integration/__snapshots__/annotation-tags.api.test.ts.snap
+packages/cli/test/integration/annotation-tags.api.test.ts
+packages/frontend/editor-ui/src/features/execution/executions/components/workflow/WorkflowExecutionAnnotationPanel.vue
+packages/frontend/editor-ui/src/features/execution/executions/components/workflow/WorkflowExecutionAnnotationTags.vue
+packages/frontend/editor-ui/src/features/execution/executions/components/workflow/__tests__/
+packages/frontend/editor-ui/src/features/shared/tags/components/AnnotationTagsDropdown.vue
+packages/frontend/editor-ui/src/features/shared/tags/components/TagsManager/AnnotationTagsManager.vue
+packages/frontend/editor-ui/src/features/shared/tags/components/__tests__/
+
+area variables rebuilt packages/cli/src/environments/variables/FORK.md
+packages/cli/src/environments/
+packages/cli/test/integration/__snapshots__/variables.api.test.ts.snap
+packages/cli/test/integration/variables.api.test.ts
+
+area variables-editor rebuilt packages/frontend/editor-ui/src/features/settings/environments/FORK.md
+packages/frontend/editor-ui/src/features/settings/environments/
+
+area evaluations rebuilt packages/cli/src/evaluation/FORK.md
+packages/cli/src/evaluation/
+packages/cli/test/integration/evaluation/__snapshots__/
+packages/cli/test/integration/evaluation/evaluation-collections.rerun.test.ts
+packages/cli/test/integration/evaluation/evaluation-concurrency.golden.test.ts
+packages/cli/test/integration/evaluation/evaluation-config-extra.golden.test.ts
+packages/cli/test/integration/evaluation/evaluation-config.golden.test.ts
+packages/cli/test/integration/evaluation/evaluation-entities.golden.test.ts
+packages/cli/test/integration/evaluation/evaluation-features.golden.test.ts
+packages/cli/test/integration/evaluation/evaluations.public.golden.test.ts
+packages/cli/test/integration/evaluation/llm-judge-provider-registry.golden.test.ts
+packages/cli/test/integration/evaluation/test-run-cleanup.golden.test.ts
+packages/cli/test/integration/evaluation/test-runner-extra.golden.test.ts
+packages/cli/test/integration/evaluation/test-runner.golden.test.ts
+packages/cli/test/integration/evaluation/test-runs.api.golden.test.ts
+
+area evaluation-nodes rebuilt packages/nodes-base/nodes/Evaluation/FORK.md
+packages/nodes-base/nodes/Evaluation/Evaluation/CannedMetricPrompts.ts
+packages/nodes-base/nodes/Evaluation/Evaluation/Evaluation.node.json
+packages/nodes-base/nodes/Evaluation/Evaluation/Evaluation.node.ts
+packages/nodes-base/nodes/Evaluation/EvaluationTrigger/
+packages/nodes-base/nodes/Evaluation/FORK.md
+packages/nodes-base/nodes/Evaluation/common/
+packages/nodes-base/nodes/Evaluation/test/Evaluation.golden.test.ts
+packages/nodes-base/nodes/Evaluation/test/__snapshots__/
+
+area evaluations-editor rebuilt packages/frontend/editor-ui/src/features/ai/evaluation/FORK.md
+packages/frontend/editor-ui/src/features/ai/evaluation/
+
+area ai-workflow-builder rebuilt packages/@n8n/ai-workflow-builder/FORK.md
+packages/@n8n/ai-workflow-builder/
+packages/cli/src/services/__tests__/golden/
+
+area object-storage rebuilt packages/@n8n/blob-storage/FORK.md
+packages/@n8n/blob-storage/FORK.md
+packages/@n8n/blob-storage/src/__tests__/golden/
+packages/@n8n/blob-storage/src/azure-blob/azure-blob.service.ts
+packages/@n8n/blob-storage/src/azure-byte-store.ts
+packages/@n8n/blob-storage/src/object-store/object-store.service.ts
+packages/@n8n/blob-storage/src/s3-byte-store.ts
+
+area scaling rebuilt packages/cli/src/scaling/FORK.md
+packages/cli/src/controllers/project-pool-settings.controller.ts
+packages/cli/src/scaling/FORK.md
+packages/cli/src/scaling/__tests__/golden/
+packages/cli/src/scaling/__tests__/multi-main-setup.test.ts
+packages/cli/src/scaling/multi-main-setup.ts
+packages/cli/src/scaling/pool-config.service.ts
+packages/cli/src/scaling/worker-pools.service.ts
+packages/cli/src/scaling/worker-status.service.ts
+packages/cli/test/integration/worker-pools/
+
+area worker-view-editor rebuilt packages/frontend/editor-ui/src/features/settings/orchestration/FORK.md
+packages/frontend/editor-ui/src/features/settings/orchestration/
+
+area ldap rebuilt packages/cli/src/modules/ldap/README.md
+packages/cli/src/modules/ldap/
+packages/cli/test/integration/ldap/__snapshots__/
+packages/cli/test/integration/ldap/ldap.audit-events.test.ts
+packages/cli/test/integration/ldap/ldap.golden.test.ts
+packages/cli/test/integration/ldap/subject.ts
+
+area dynamic-credentials rebuilt packages/cli/src/modules/dynamic-credentials/README.md
+packages/cli/src/modules/dynamic-credentials/
+packages/cli/test/integration/dynamic-credentials/__snapshots__/
+packages/cli/test/integration/dynamic-credentials/connections.golden.test.ts
+packages/cli/test/integration/dynamic-credentials/endpoints.golden.test.ts
+packages/cli/test/integration/dynamic-credentials/fake-identity-provider.ts
+packages/cli/test/integration/dynamic-credentials/hooks.golden.test.ts
+packages/cli/test/integration/dynamic-credentials/resolution.golden.test.ts
+packages/cli/test/integration/dynamic-credentials/resolvers.golden.test.ts
+packages/cli/test/integration/dynamic-credentials/subject.ts
+
+area golden-tests rebuilt FORK-UPSTREAM.md
+packages/cli/test/integration/shared/golden-recorder.ts
+
+# ── switch ───────────────────────────────────────────────────────────────────
+
+area fork-switch switch FORK.md
+packages/cli/src/__tests__/license.fork-features.test.ts
+packages/cli/src/fork-features.ts
+packages/cli/test/setup-fork-features.ts
+
+area licence switch packages/cli/src/license/FORK.md
+packages/cli/src/commands/__tests__/base-command.fork-license.test.ts
+packages/cli/src/license/FORK.md
+
+# ── fork ─────────────────────────────────────────────────────────────────────
+
+area git-sync fork packages/cli/src/modules/git-sync/README.md
+packages/@n8n/api-types/src/dto/git-sync/
+packages/cli/src/modules/git-sync/
+packages/cli/src/utils/git-process.ts
+packages/modules/git-sync/
+
+area send-copy fork packages/cli/src/modules/send-copy/README.md
+packages/@n8n/api-types/src/dto/send-copy/
+packages/cli/src/modules/send-copy/
+packages/modules/send-copy/
+
+area audit-log fork packages/cli/src/modules/audit-log/README.md
+docs/generated/postgres-schema/public.fork_audit_log_event.md
+docs/generated/sqlite-schema/fork_audit_log_event.md
+packages/@n8n/api-types/src/dto/audit-log/
+packages/@n8n/api-types/src/schemas/fork-query-params.schema.ts
+packages/@n8n/db/src/migrations/common/1791734727111-CreateForkAuditLogEventTable.ts
+packages/@n8n/db/src/migrations/common/1791905061817-AddProjectToForkAuditLogEvent.ts
+packages/cli/src/eventbus/event-message-classes/fork-audit-event-names.ts
+packages/cli/src/events/__tests__/fork-governance-event-relay.test.ts
+packages/cli/src/events/maps/fork-governance.event-map.ts
+packages/cli/src/events/relays/fork-governance.event-relay.ts
+packages/cli/src/modules/audit-log/
+packages/cli/src/public-api/v1/controllers/audit-log.public.controller.ts
+packages/cli/src/public-api/v1/handlers/audit-log/
+packages/cli/test/integration/public-api/audit-log.test.ts
+packages/modules/audit-log/
+
+area open-triggers fork packages/cli/src/modules/open-triggers/README.md
+packages/@n8n/api-types/src/__tests__/open-trigger-kind.test.ts
+packages/@n8n/api-types/src/dto/workflows/open-trigger.dto.ts
+packages/@n8n/api-types/src/dto/workflows/open-trigger.openapi.ts
+packages/@n8n/api-types/src/utils/open-trigger-kind.ts
+packages/cli/src/modules/open-triggers/
+packages/cli/src/webhooks/test-webhook-call-guards.ts
+packages/cli/test/integration/public-api/open-triggers.test.ts
+packages/frontend/editor-ui/src/app/composables/useOpenTriggerFixes.test.ts
+packages/frontend/editor-ui/src/app/composables/useOpenTriggerFixes.ts
+packages/modules/open-triggers/
+
+area ai-gateway fork packages/cli/src/modules/ai-gateway/README.md
+docs/generated/postgres-schema/public.fork_ai_gateway_top_up.md
+docs/generated/postgres-schema/public.fork_ai_gateway_usage.md
+docs/generated/postgres-schema/public.fork_ai_gateway_wallet.md
+docs/generated/sqlite-schema/fork_ai_gateway_top_up.md
+docs/generated/sqlite-schema/fork_ai_gateway_usage.md
+docs/generated/sqlite-schema/fork_ai_gateway_wallet.md
+packages/@n8n/api-types/src/dto/ai-gateway/
+packages/@n8n/db/src/migrations/common/1792071265475-CreateForkAiGatewayTables.ts
+packages/@n8n/db/src/migrations/common/1792105169862-AddEstimatedToForkAiGatewayUsage.ts
+packages/cli/src/modules/ai-gateway/
+packages/cli/src/services/fork-ai-gateway-bridge.ts
+packages/modules/ai-gateway/
+
+area google-cloud-ocr fork packages/nodes-base/nodes/Google/CloudOcr/README.md
+packages/nodes-base/credentials/GoogleCloudOcrApi.credentials.ts
+packages/nodes-base/nodes/Google/CloudOcr/
+
+area google-cloud-storage fork packages/@n8n/blob-storage/FORK.md
+packages/@n8n/blob-storage/src/__tests__/gcs/
+packages/@n8n/blob-storage/src/gcs/
+packages/cli/src/commands/__tests__/base-command.fork-gcs.test.ts
+
+area review-routes fork packages/cli/src/governance/README.md
+packages/@n8n/api-types/src/dto/api-keys/api-key-review-public.dto.ts
+packages/@n8n/api-types/src/dto/api-keys/api-key-review-public.openapi.ts
+packages/@n8n/api-types/src/dto/insights/insights-by-workflow-public.dto.ts
+packages/@n8n/api-types/src/dto/insights/insights-by-workflow-public.openapi.ts
+packages/@n8n/api-types/src/dto/workflows/workflow-inventory-public.dto.ts
+packages/@n8n/api-types/src/dto/workflows/workflow-inventory-public.openapi.ts
+packages/cli/src/governance/
+packages/cli/src/public-api/v1/controllers/api-keys.public.controller.ts
+packages/cli/src/public-api/v1/controllers/insights-by-workflow.public.controller.ts
+packages/cli/src/public-api/v1/controllers/inventory.public.controller.ts
+packages/cli/src/public-api/v1/handlers/api-keys/
+packages/cli/src/public-api/v1/handlers/insights/spec/paths/getInsightsByWorkflow.generated.yml
+packages/cli/src/public-api/v1/handlers/inventory/
+packages/cli/src/public-api/v1/shared/services/offset-page.ts
+packages/cli/test/integration/public-api/api-keys-review.test.ts
+packages/cli/test/integration/public-api/insights-by-workflow.test.ts
+packages/cli/test/integration/public-api/users-last-active.test.ts
+packages/cli/test/integration/public-api/workflow-inventory.test.ts
+
+# ── core ─────────────────────────────────────────────────────────────────────
+
+area n8n-packages core packages/cli/src/modules/n8n-packages/FORK.md
+packages/cli/src/modules/n8n-packages/FORK.md
+packages/cli/src/modules/n8n-packages/spec/__tests__/legacy-requirements.test.ts
+packages/cli/src/modules/n8n-packages/spec/legacy-requirements.ts
+
+area settings-loader core packages/cli/src/instance-settings-loader/FORK.md
+packages/cli/src/instance-settings-loader/FORK.md
+packages/cli/src/instance-settings-loader/__tests__/fork-security-policy.instance-settings-loader.test.ts
+packages/cli/src/instance-settings-loader/loaders/fork-security-policy.instance-settings-loader.ts
+
+# ── operations ───────────────────────────────────────────────────────────────
+
+area deploy operations deploy/README.md
+deploy/
+
+area container-ci operations FORK.md
+scripts/container-ci-skipped-tests.txt
+scripts/container-ci.sh
+
+area upstream-updates operations FORK-UPSTREAM.md
+scripts/removed-enterprise-paths.txt
+scripts/removed-enterprise.sh
+scripts/sync-upstream.base
+scripts/sync-upstream.sh
+
+area cloud-sessions operations FORK.md
+scripts/cloud-install.sh
+scripts/cloud-node.sh
+
+area images operations FORK.md
+scripts/build-images.sh
+
+area vendor operations FORK.md
+scripts/vendor-wa-sqlite.sh
+vendor/
+
+area fork-map operations FORK-MAP.md
+FORK-MAP.md
+scripts/fork-map.sh
+scripts/fork-map.txt
+
+area fork-docs operations README.md
+FORK-ADOPTION.md
+FORK-FEATURES.md
+FORK-UPSTREAM.md
+FORK.md

@@ -55,8 +55,9 @@ diffs and named versions, insights without a limit of history, data redaction, n
 API key scopes, MFA enforcement, the personal space policy, token exchange and a private registry
 of community nodes.
 
-One switch, `N8N_FORK_FEATURES_ENABLED`, turns all of them off. [FORK-FEATURES.md](FORK-FEATURES.md)
-tells the status of each feature.
+One switch, `N8N_FORK_FEATURES_ENABLED`, turns all of them off. [FORK-ADOPTION.md](FORK-ADOPTION.md)
+tells how this works, who sets up each feature, and an order to adopt them.
+[FORK-FEATURES.md](FORK-FEATURES.md) tells the status of each feature.
 
 ### The features of the fork
 
@@ -117,6 +118,8 @@ Most of the repository is upstream n8n. The fork adds or changes these parts:
 | [FORK.md](FORK.md) | The rules of the fork, what it adds, the fork switch, and how to update from upstream |
 | [FORK-FEATURES.md](FORK-FEATURES.md) | Each enterprise feature of n8n, its status in the fork, and the history of the fork |
 | [FORK-UPSTREAM.md](FORK-UPSTREAM.md) | The checklist for an upstream update |
+| [FORK-MAP.md](FORK-MAP.md) | The layers of the repository, the areas of fork code, and how each layer changes |
+| [FORK-ADOPTION.md](FORK-ADOPTION.md) | How the enterprise features work for users, and how to adopt them |
 | [deploy/README.md](deploy/README.md) | How to run the fork |
 | A `README.md` or `FORK.md` in a module or folder | The design of that part |
 
