@@ -14,6 +14,6 @@ export function useAgentEvalsFlag() {
 	return computed(
 		() =>
 			settingsStore.settings.evaluation?.agentEvalsEnabled === true ||
-			posthogStore.getVariant(AGENT_EVALS_FLAG) === true,
+			posthogStore.isFeatureEnabled(AGENT_EVALS_FLAG),
 	);
 }
