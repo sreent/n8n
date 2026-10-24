@@ -1,6 +1,11 @@
 import { GLOBAL_CHAT_USER_ROLE_SLUG } from './constants';
 import { API_KEY_EXTRA_SCOPES } from './permission-data.generated';
-import { GLOBAL_MEMBER_SCOPES, GLOBAL_OWNER_SCOPES } from './roles/scopes/global-scopes';
+import {
+	GLOBAL_ADMIN_SCOPES,
+	GLOBAL_CHAT_USER_SCOPES,
+	GLOBAL_MEMBER_SCOPES,
+	GLOBAL_OWNER_SCOPES,
+} from './roles/scopes/global-scopes';
 import type { ApiKeyScope, AuthPrincipal, Scope } from './types';
 import { isApiKeyScope } from './types';
 
@@ -31,7 +36,23 @@ export const OWNER_API_KEY_SCOPES: ApiKeyScope[] = OWNER_ROLE_API_KEY_SCOPES.fil
 	(scope) => !scope.startsWith('communityPackage:'),
 );
 
+export const ADMIN_API_KEY_SCOPES: ApiKeyScope[] = scopesOf('global:admin', GLOBAL_ADMIN_SCOPES);
+
 export const MEMBER_API_KEY_SCOPES: ApiKeyScope[] = scopesOf('global:member', GLOBAL_MEMBER_SCOPES);
+
+/** A chat user cannot use API keys, so the list is empty. */
+export const CHAT_USER_API_KEY_SCOPES: ApiKeyScope[] = scopesOf(
+	GLOBAL_CHAT_USER_ROLE_SLUG,
+	GLOBAL_CHAT_USER_SCOPES,
+);
+
+/**
+ * The scopes that every API key can get, whatever the role: they give access to resources in the
+ * projects of the user, starting with the personal project.
+ */
+export const API_KEY_SCOPES_FOR_IMPLICIT_PERSONAL_PROJECT: ApiKeyScope[] = [
+	...API_KEY_EXTRA_SCOPES,
+];
 
 /**
  * The scopes to remove from the API keys of an owner or admin who becomes a member: all API key
