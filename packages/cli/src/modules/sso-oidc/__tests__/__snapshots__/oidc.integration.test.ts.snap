@@ -892,11 +892,18 @@ exports[`OIDC > rejected callbacks 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user xena@example.com","email":"xena@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user xena@example.com","email":"xena@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user xena@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -908,6 +915,7 @@ exports[`OIDC > rejected callbacks 1`] = `
             "firstName": null,
             "id": "@new user xena@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -1215,6 +1223,13 @@ exports[`OIDC > rejected callbacks 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user xena@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -1225,6 +1240,7 @@ exports[`OIDC > rejected callbacks 1`] = `
             "firstName": null,
             "id": "@new user xena@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -1838,6 +1854,13 @@ exports[`OIDC > rejected callbacks 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user xena@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -1848,6 +1871,7 @@ exports[`OIDC > rejected callbacks 1`] = `
             "firstName": null,
             "id": "@new user xena@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -4532,6 +4556,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user chat",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -4543,6 +4574,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Chat",
             "id": "@user chat",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -4671,6 +4703,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user dave",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -4682,6 +4721,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Dave",
             "id": "@user dave",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -4819,11 +4859,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user wes@example.com","email":"wes@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user wes@example.com","email":"wes@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user wes@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -4835,6 +4882,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user wes@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -4951,6 +4999,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user carol",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -4970,6 +5025,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Carol",
             "id": "@user carol",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -5107,11 +5163,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user alice@example.com","email":"alice@example.com","firstName":"Alice","lastName":"Doe","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user alice@example.com","email":"alice@example.com","firstName":"Alice","lastName":"Doe","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -5123,6 +5186,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -5263,11 +5327,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn@example.com","email":"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn@example.com","email":"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -5279,6 +5350,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -5418,11 +5490,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user noa.upper@example.com","email":"noa.upper@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user noa.upper@example.com","email":"noa.upper@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user noa.upper@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -5434,6 +5513,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user noa.upper@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -5564,6 +5644,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user erin",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -5575,6 +5662,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Erin",
             "id": "@user erin",
             "isPending": true,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -5703,6 +5791,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user frank",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -5714,6 +5809,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Frank",
             "id": "@user frank",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": true,
@@ -6085,6 +6181,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user carol",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -6095,6 +6198,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Carol",
             "id": "@user carol",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -6300,6 +6404,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user carol",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -6310,6 +6421,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Carol",
             "id": "@user carol",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -6438,6 +6550,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user grace",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -6457,6 +6576,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Grace",
             "id": "@user grace",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -6585,6 +6705,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user admin",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -6596,6 +6723,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Admin",
             "id": "@user admin",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -6718,6 +6846,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user owner",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "email",
@@ -6737,6 +6872,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Owner",
             "id": "@user owner",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -6773,6 +6909,7 @@ exports[`OIDC > signing in 1`] = `
             "agent:create",
             "agent:delete",
             "agent:execute",
+            "agent:export",
             "agent:list",
             "agent:manage",
             "agent:publish",
@@ -6793,6 +6930,11 @@ exports[`OIDC > signing in 1`] = `
             "apiKey:create",
             "apiKey:manage",
             "apiKey:update",
+            "app:create",
+            "app:delete",
+            "app:list",
+            "app:read",
+            "app:update",
             "auditLogs:manage",
             "banner:dismiss",
             "breakingChanges:list",
@@ -6862,18 +7004,20 @@ exports[`OIDC > signing in 1`] = `
             "folder:move",
             "folder:read",
             "folder:update",
+            "gitConnection:approveReviews",
             "gitConnection:clone",
             "gitConnection:create",
             "gitConnection:delete",
+            "gitConnection:discover",
             "gitConnection:list",
             "gitConnection:manageProjects",
             "gitConnection:pull",
             "gitConnection:push",
             "gitConnection:read",
+            "gitConnection:readReviews",
             "gitConnection:update",
             "insights:list",
             "insights:read",
-            "instanceAi:eval",
             "instanceAi:gateway",
             "instanceAi:manage",
             "instanceAi:message",
@@ -6902,6 +7046,11 @@ exports[`OIDC > signing in 1`] = `
             "projectAiPreference:list",
             "projectAiPreference:read",
             "projectAiPreference:update",
+            "projectSkill:create",
+            "projectSkill:delete",
+            "projectSkill:list",
+            "projectSkill:read",
+            "projectSkill:update",
             "projectVariable:create",
             "projectVariable:delete",
             "projectVariable:list",
@@ -6917,8 +7066,14 @@ exports[`OIDC > signing in 1`] = `
             "roleMappingRule:read",
             "roleMappingRule:update",
             "saml:manage",
+            "scim:manage",
             "securityAudit:generate",
             "securitySettings:manage",
+            "skill:create",
+            "skill:delete",
+            "skill:list",
+            "skill:read",
+            "skill:update",
             "sourceControl:manage",
             "sourceControl:pull",
             "sourceControl:push",
@@ -6928,6 +7083,11 @@ exports[`OIDC > signing in 1`] = `
             "tag:list",
             "tag:read",
             "tag:update",
+            "trustedSource:create",
+            "trustedSource:delete",
+            "trustedSource:list",
+            "trustedSource:read",
+            "trustedSource:update",
             "user:changeRole",
             "user:create",
             "user:delete",
@@ -6963,6 +7123,7 @@ exports[`OIDC > signing in 1`] = `
           "id": "@user owner",
           "isOwner": true,
           "isPending": false,
+          "kind": "person",
           "lastActiveAt": "<date>",
           "lastName": "Fixture",
           "mfaAuthenticated": false,
@@ -7179,6 +7340,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user otto",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -7190,6 +7358,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Otto",
             "id": "@user otto",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -7401,6 +7570,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user omar",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -7412,6 +7588,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Omar",
             "id": "@user omar",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -7540,6 +7717,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user pim",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -7551,6 +7735,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Pim",
             "id": "@user pim",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -7679,6 +7864,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user henry",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -7690,6 +7882,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Henry",
             "id": "@user henry",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -7818,6 +8011,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user bob",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -7829,6 +8029,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Bob",
             "id": "@user bob",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -8049,11 +8250,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user size2831@example.com","email":"size2831@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user size2831@example.com","email":"size2831@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user size2831@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -8065,6 +8273,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user size2831@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -8204,11 +8413,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user size2833@example.com","email":"size2833@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user size2833@example.com","email":"size2833@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user size2833@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -8220,6 +8436,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user size2833@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -8344,11 +8561,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user size3801@example.com","email":"size3801@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user size3801@example.com","email":"size3801@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user size3801@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -8360,6 +8584,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user size3801@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -8484,11 +8709,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user leo.info@example.com","email":"leo.info@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user leo.info@example.com","email":"leo.info@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user leo.info@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -8500,6 +8732,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user leo.info@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -8639,11 +8872,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user quinn@example.com","email":"quinn@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user quinn@example.com","email":"quinn@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user quinn@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -8655,6 +8895,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user quinn@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -8877,11 +9118,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user kim@example.com","email":"kim@example.com","firstName":"Kim","lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user kim@example.com","email":"kim@example.com","firstName":"Kim","lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user kim@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -8893,6 +9141,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Kim",
             "id": "@new user kim@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -9116,11 +9365,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user sam@example.com","email":"sam@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user sam@example.com","email":"sam@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user sam@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -9132,6 +9388,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user sam@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -9272,11 +9529,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user vic@example.com","email":"vic@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user vic@example.com","email":"vic@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user vic@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -9288,6 +9552,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user vic@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -9427,11 +9692,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user tia@example.com","email":"tia@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user tia@example.com","email":"tia@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user tia@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -9443,6 +9715,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user tia@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -9567,6 +9840,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user carol",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -9577,6 +9857,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Carol",
             "id": "@user carol",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -10037,6 +10318,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user ted",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -10048,6 +10336,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Ted",
             "id": "@user ted",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -10176,6 +10465,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user una",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -10187,6 +10483,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Una",
             "id": "@user una",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -10481,6 +10778,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user wil",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -10492,6 +10796,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Wil",
             "id": "@user wil",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -10629,11 +10934,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user pat@example.com","email":"pat@example.com","firstName":"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP","lastName":"QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user pat@example.com","email":"pat@example.com","firstName":"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP","lastName":"QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user pat@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -10645,6 +10957,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
             "id": "@new user pat@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ",
             "mfaEnabled": false,
@@ -10784,11 +11097,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user lia@example.com","email":"lia@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user lia@example.com","email":"lia@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user lia@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -10800,6 +11120,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user lia@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -10939,11 +11260,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user pam@example.com","email":"pam@example.com","firstName":"  Pam  ","lastName":" ","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user pam@example.com","email":"pam@example.com","firstName":"  Pam  ","lastName":" ","personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user pam@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -10955,6 +11283,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "  Pam  ",
             "id": "@new user pam@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": " ",
             "mfaEnabled": false,
@@ -11094,11 +11423,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user ivan@example.com","email":"ivan@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user ivan@example.com","email":"ivan@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user ivan@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -11110,6 +11446,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user ivan@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -11240,6 +11577,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user judy",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -11251,6 +11595,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Judy",
             "id": "@user judy",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -11471,11 +11816,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user rob@example.com","email":"rob@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user rob@example.com","email":"rob@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user rob@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -11487,6 +11839,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user rob@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -11626,11 +11979,18 @@ exports[`OIDC > signing in 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user oli@example.com","email":"oli@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user oli@example.com","email":"oli@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user oli@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -11642,6 +12002,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": null,
             "id": "@new user oli@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -11766,6 +12127,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -11776,6 +12144,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -11898,6 +12267,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -11908,6 +12284,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -12030,6 +12407,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -12040,6 +12424,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -12162,6 +12547,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -12172,6 +12564,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -12294,6 +12687,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -12304,6 +12704,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -12426,6 +12827,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -12436,6 +12844,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -12558,6 +12967,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -12568,6 +12984,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -12690,6 +13107,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -12700,6 +13124,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -12822,6 +13247,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -12832,6 +13264,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -12954,6 +13387,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -12964,6 +13404,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -13086,6 +13527,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -13096,6 +13544,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -13224,6 +13673,13 @@ exports[`OIDC > signing in 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user owner",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -13235,6 +13691,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Owner",
             "id": "@user owner",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -13357,6 +13814,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -13367,6 +13831,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -13489,6 +13954,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -13499,6 +13971,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -13621,6 +14094,13 @@ exports[`OIDC > signing in 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user alice@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -13631,6 +14111,7 @@ exports[`OIDC > signing in 1`] = `
             "firstName": "Alice",
             "id": "@new user alice@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": "Doe",
             "mfaEnabled": false,
@@ -16333,10 +16814,10 @@ exports[`OIDC > the cookie settings 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user cookie@example.com","email":"cookie@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user cookie@example.com","email":"cookie@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user cookie@example.com","email":"cookie@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user cookie@example.com","email":"cookie@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19262,10 +19743,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout5@example.com","email":"logout5@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout5@example.com","email":"logout5@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout5@example.com","email":"logout5@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout5@example.com","email":"logout5@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19317,10 +19798,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout7@example.com","email":"logout7@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout7@example.com","email":"logout7@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout7@example.com","email":"logout7@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout7@example.com","email":"logout7@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19372,10 +19853,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout6@example.com","email":"logout6@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout6@example.com","email":"logout6@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout6@example.com","email":"logout6@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout6@example.com","email":"logout6@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19427,10 +19908,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout8@example.com","email":"logout8@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout8@example.com","email":"logout8@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout8@example.com","email":"logout8@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout8@example.com","email":"logout8@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19482,10 +19963,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout9@example.com","email":"logout9@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout9@example.com","email":"logout9@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout9@example.com","email":"logout9@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout9@example.com","email":"logout9@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19539,10 +20020,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout11@example.com","email":"logout11@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout11@example.com","email":"logout11@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout11@example.com","email":"logout11@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout11@example.com","email":"logout11@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19594,10 +20075,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout10@example.com","email":"logout10@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout10@example.com","email":"logout10@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout10@example.com","email":"logout10@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout10@example.com","email":"logout10@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19646,10 +20127,10 @@ exports[`OIDC > the logout 1`] = `
     "database": {
       "user": {
         "added": [
-          "{"id":"@new user logout14@example.com","email":"logout14@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout14@example.com","email":"logout14@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout14@example.com","email":"logout14@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout14@example.com","email":"logout14@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19683,10 +20164,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout12@example.com","email":"logout12@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout12@example.com","email":"logout12@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout12@example.com","email":"logout12@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout12@example.com","email":"logout12@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19738,10 +20219,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout13@example.com","email":"logout13@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout13@example.com","email":"logout13@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout13@example.com","email":"logout13@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout13@example.com","email":"logout13@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19840,10 +20321,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout2@example.com","email":"logout2@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout2@example.com","email":"logout2@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout2@example.com","email":"logout2@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout2@example.com","email":"logout2@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -19895,10 +20376,10 @@ exports[`OIDC > the logout 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user logout3@example.com","email":"logout3@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user logout3@example.com","email":"logout3@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user logout3@example.com","email":"logout3@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user logout3@example.com","email":"logout3@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -20248,11 +20729,18 @@ exports[`OIDC > the provider metadata over time 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user tim@example.com","email":"tim@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user tim@example.com","email":"tim@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user tim@example.com",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -20264,6 +20752,7 @@ exports[`OIDC > the provider metadata over time 1`] = `
             "firstName": null,
             "id": "@new user tim@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
@@ -20395,6 +20884,13 @@ exports[`OIDC > the provider metadata over time 1`] = `
     },
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@user tom",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -20406,6 +20902,7 @@ exports[`OIDC > the provider metadata over time 1`] = `
             "firstName": "Tom",
             "id": "@user tom",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": "<date>",
             "lastName": "Fixture",
             "mfaEnabled": false,
@@ -20755,10 +21252,10 @@ exports[`OIDC > the service 1`] = `
       },
       "user": {
         "added": [
-          "{"id":"@new user row@example.com","email":"row@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member"}",
+          "{"id":"@new user row@example.com","email":"row@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":"<date>","roleSlug":"global:member","kind":"person"}",
         ],
         "removed": [
-          "{"id":"@new user row@example.com","email":"row@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member"}",
+          "{"id":"@new user row@example.com","email":"row@example.com","firstName":null,"lastName":null,"personalizationAnswers":null,"createdAt":"<date>","updatedAt":"<date>","disabled":0,"mfaEnabled":0,"mfaSecret":null,"mfaRecoveryCodes":"","lastActiveAt":null,"roleSlug":"global:member","kind":"person"}",
         ],
       },
     },
@@ -20837,6 +21334,13 @@ exports[`OIDC > the service 1`] = `
     "database": {},
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@new user row@example.com",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "oidc",
@@ -20847,6 +21351,7 @@ exports[`OIDC > the service 1`] = `
             "firstName": null,
             "id": "@new user row@example.com",
             "isPending": false,
+            "kind": "person",
             "lastActiveAt": null,
             "lastName": null,
             "mfaEnabled": false,
