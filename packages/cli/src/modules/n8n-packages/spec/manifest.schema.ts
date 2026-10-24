@@ -2,6 +2,7 @@ import path from 'node:path';
 import { z } from 'zod';
 
 import { FORMAT_VERSION } from './constants';
+import { upgradeLegacyRequirements } from './legacy-requirements';
 import { packageRequirementsSchema } from './requirements.schema';
 
 export const manifestEntrySchema = z.object({
@@ -55,7 +56,8 @@ export const packageManifestSchema = z
 		dataTables: z.array(manifestEntrySchema).optional(),
 		variables: z.array(manifestEntrySchema).optional(),
 		tags: z.array(manifestEntrySchema).optional(),
-		requirements: packageRequirementsSchema.optional(),
+		// Fork: reads the requirements of older packages too (./legacy-requirements.ts).
+		requirements: z.preprocess(upgradeLegacyRequirements, packageRequirementsSchema.optional()),
 	})
 	.superRefine((manifest, ctx) => {
 		assertNoDuplicateIds(manifest.workflows, 'workflow', ctx);
