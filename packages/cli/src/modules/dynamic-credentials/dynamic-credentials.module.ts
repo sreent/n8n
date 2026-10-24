@@ -29,9 +29,7 @@ export class DynamicCredentialsModule implements ModuleInterface {
 		const { CredentialConnectionStatusProxy } = await import(
 			'@/credentials/credential-connection-status-proxy.js'
 		);
-		const { ExecutingUserIdentifierProxy } = await import(
-			'@/credentials/executing-user-identifier-proxy.js'
-		);
+		const { ExecutingUserIdentifierProxy } = await import('@n8n/backend-services');
 		const { DynamicCredentialService } = await import('./services/dynamic-credential.service.js');
 		const { DynamicCredentialStorageService } = await import(
 			'./services/dynamic-credential-storage.service.js'

@@ -1,18 +1,27 @@
 import { Logger } from '@n8n/backend-common';
 import { CredentialResolverError } from '@n8n/decorators';
-import { Service } from '@n8n/di';
-import type { ICredentialContext } from 'n8n-workflow';
-import { z } from 'zod';
+import { Container, Service } from '@n8n/di';
+import { TrustedSourceGate } from '@n8n/inbound-auth';
+import {
+	N8NOAuthMetadataSchema,
+	type ICredentialContext,
+	type IN8NOAuthMetadata,
+} from 'n8n-workflow';
+import { z } from 'zod/v4';
 
 import { AuthService } from '@/auth/auth.service';
-import type { IExecutingUserIdentifier } from '@/credentials/executing-user-identifier.interface';
-import { OAuthTokenVerifierProxy } from '@/services/oauth-token-verifier-proxy.service';
+import type { IExecutingUserIdentifier } from '@n8n/backend-services';
+import { OAuthTokenVerifierProxy } from '@n8n/backend-services/auth';
 
 import type { IdentifierOptions, ITokenIdentifier } from './identifier-interface';
 import { extractToken } from './oauth2-utils';
 
-/** The sources of the identities of n8n users. */
-export const n8nIdentityMetadataSchema = z.discriminatedUnion('source', [
+/**
+ * The sources of the identities of n8n users. An n8n OAuth identity has the one schema of
+ * `n8n-workflow`, which also reads the seals of older versions. That schema uses zod 4, so this
+ * union does too.
+ */
+export const n8nIdentityMetadataSchema = z.union([
 	z.object({ source: z.literal('manual-execution') }),
 	z.object({ source: z.literal('chat-hub-injected') }),
 	z.object({
@@ -21,22 +30,8 @@ export const n8nIdentityMetadataSchema = z.discriminatedUnion('source', [
 		endpoint: z.string(),
 		browserId: z.string().optional(),
 	}),
-	z.object({
-		source: z.literal('n8n-oauth'),
-		subject: z.string().optional(),
-		resource: z.string(),
-		establishedAt: z.number().optional(),
-		executionPath: z.array(z.string()).optional(),
-		grant: z
-			.object({
-				audiences: z.array(z.string()).min(1),
-				executeAccessWorkflowId: z.string().optional(),
-			})
-			.optional(),
-	}),
+	N8NOAuthMetadataSchema,
 ]);
-
-type N8nOAuthMetadata = Extract<z.infer<typeof n8nIdentityMetadataSchema>, { source: 'n8n-oauth' }>;
 
 /** Whether an identity is the identity of an n8n user (a session or an n8n OAuth token). */
 export function isN8nIdentity(context: ICredentialContext) {
@@ -110,7 +105,7 @@ export class N8NIdentifier implements ITokenIdentifier, IExecutingUserIdentifier
 
 	private async resolveOAuthUser(
 		token: string,
-		metadata: N8nOAuthMetadata,
+		metadata: IN8NOAuthMetadata,
 		executionId: string | undefined,
 	) {
 		const invalidToken = () =>
@@ -121,11 +116,14 @@ export class N8NIdentifier implements ITokenIdentifier, IExecutingUserIdentifier
 			if (!executionId || !metadata.executionPath?.includes(executionId)) {
 				throw new CredentialResolverError('Sealed identity is not valid for this execution');
 			}
+			// The seal re-takes the decision that admitted the caller: the user, the binding of
+			// the trusted source and the grant. A legacy seal without a grant has nothing to re-take.
 			if (metadata.grant) {
-				const allowed = await this.tokenVerifier.authorizeSealedGrant(
-					metadata.subject,
-					metadata.grant,
-				);
+				const allowed = await this.authorizeSeal({
+					userId: metadata.subject,
+					grant: metadata.grant,
+					...(metadata.binding ? { binding: metadata.binding } : {}),
+				});
 				if (!allowed) throw invalidToken();
 			}
 			return metadata.subject;
@@ -133,5 +131,11 @@ export class N8NIdentifier implements ITokenIdentifier, IExecutingUserIdentifier
 		const { user } = await this.tokenVerifier.verifyOAuthAccessToken(token, metadata.resource);
 		if (!user) throw invalidToken();
 		return user.id;
+	}
+
+	/** The module `inbound-auth-core` binds the gate. Without it, nothing can re-check a seal. */
+	private async authorizeSeal(input: Parameters<TrustedSourceGate['authorizeSealed']>[0]) {
+		if (!Container.has(TrustedSourceGate)) return false;
+		return await Container.get(TrustedSourceGate).authorizeSealed(input);
 	}
 }
