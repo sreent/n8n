@@ -26,12 +26,15 @@ The images are `ghcr.io/sreent/n8n` and `ghcr.io/sreent/n8n-runners`. Each image
 | Azure Container Apps | [deploy/container-apps/README.md](deploy/container-apps/README.md) |
 | Kubernetes | [deploy/kubernetes/README.md](deploy/kubernetes/README.md) |
 
-Two more guides help a platform team:
+Four more guides help a platform team:
 
+- [deploy/platform-setup-checklist.md](deploy/platform-setup-checklist.md): the steps that set up
+  n8n for the users, from the server and the sign-in to the checks of each tier.
 - [deploy/forgejo/README.md](deploy/forgejo/README.md): Forgejo, a private Git server for the Git
   features of n8n.
 - [deploy/platform/README.md](deploy/platform/README.md): the setup tool, which makes the team
   projects, the SSO group rules and the team credentials from one config file.
+- [deploy/ai-gateway-checks.md](deploy/ai-gateway-checks.md): the checks of Gateway credits.
 
 ## Features
 

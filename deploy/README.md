@@ -152,6 +152,9 @@ Only Caddy is reachable from outside. n8n, the runners and PostgreSQL have no op
 
 `docker compose ps` shows the four services. `docker compose logs -f n8n` shows the n8n log.
 
+Then set up n8n for the users with [platform-setup-checklist.md](platform-setup-checklist.md): the
+sign-in, the team projects, the connectors, the visibility and the checks of each tier.
+
 ## Back up
 
 - `backup.sh` writes a database backup to `backups/`. It removes backups that are older than
@@ -262,7 +265,8 @@ call and stops the calls when a budget is spent. An admin adds top-ups and sets 
 same page. This stack runs the nodes in the n8n container, so the gateway needs no setting in
 `.env`. In queue mode, the workers run the nodes and call the gateway on the main instances: the
 other options set its address for them. See the
-[README of the module](../packages/cli/src/modules/ai-gateway/README.md).
+[README of the module](../packages/cli/src/modules/ai-gateway/README.md). To check Gateway credits
+on your server, follow [ai-gateway-checks.md](ai-gateway-checks.md).
 
 ## Limits
 
@@ -449,6 +453,8 @@ spaces. A user cannot hide a workflow from them.
 |---|---|
 | `docker-compose.yml` | The four services |
 | `platform/` | The setup of the team projects, the SSO group rules and the team credentials (`setup.mjs`) |
+| `platform-setup-checklist.md` | The setup steps of the platform team, from the server and the sign-in to the checks of each tier |
+| `ai-gateway-checks.md` | The checks of Gateway credits on a server: Azure OpenAI, Vertex AI and Google Cloud OCR |
 | `Caddyfile` | The HTTPS proxy, with the IP limits for webhooks and forms |
 | `.env.example` | The settings. Copy it to `.env` |
 | `backup.sh` | Makes a database backup |
