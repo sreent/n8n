@@ -57,8 +57,11 @@ REST calls, modal keys and test IDs.
 
 ## Differences from the original
 
-The golden tests show no difference. Parts that the tests do not record, for example the styles,
-can be different.
+The golden tests show one difference. Since upstream n8n 2.45, the text of the pull modal has a
+space before the status `New` of an item (`Last updated 2 Jan at 03:04 New`), but not before the
+other statuses. The space is only white space in the DOM: the badge looks the same. The fork
+renders the badge as for the other statuses, and the snapshot keeps the fork text. Parts that the
+tests do not record, for example the styles, can be different.
 
 ## Changes to ordinary files
 

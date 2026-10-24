@@ -141,7 +141,7 @@ async function run() {
 						:aria-label="i18n.baseText('workflowHistory.content.actions')"
 						data-test-id="tests-detail-menu"
 					>
-						<N8nIcon icon="ellipsis-vertical" size="small" />
+						<N8nIcon icon="ellipsis" size="small" />
 					</button>
 				</template>
 			</N8nDropdownMenu>
