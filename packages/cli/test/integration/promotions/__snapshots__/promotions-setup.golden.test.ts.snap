@@ -207,7 +207,32 @@ exports[`the set-up of Git connections 1`] = `
     "response": {
       "<order>": "id asc",
       "<page is the slice of the order>": true,
-      "data": "0 of 3 rows",
+      "data": [
+        {
+          "authType": "token",
+          "createdAt": "<date>",
+          "id": "@provider Bot user",
+          "name": "Bot user",
+          "type": "git",
+          "updatedAt": "<date>",
+        },
+        {
+          "authType": "ssh-key",
+          "createdAt": "<date>",
+          "id": "@provider Deploy key",
+          "name": "Deploy key",
+          "type": "git",
+          "updatedAt": "<date>",
+        },
+        {
+          "authType": "ssh-key",
+          "createdAt": "<date>",
+          "id": "@provider RSA key",
+          "name": "RSA key",
+          "type": "git",
+          "updatedAt": "<date>",
+        },
+      ],
       "nextCursor": null,
     },
     "status": 200,

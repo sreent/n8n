@@ -240,16 +240,22 @@ exports[`the dependencies in the change list of Git connections 1`] = `
                   "id": "@Cred A",
                   "name": "Cred A",
                   "type": "httpBasicAuth",
-                  "usedByWorkflows": [
-                    "@W1 cred A",
+                  "usedBy": [
+                    {
+                      "id": "@W1 cred A",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "id": "@Cred X",
                   "name": "Cred X",
                   "type": "httpHeaderAuth",
-                  "usedByWorkflows": [
-                    "@W6 cred X",
+                  "usedBy": [
+                    {
+                      "id": "@W6 cred X",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -257,8 +263,11 @@ exports[`the dependencies in the change list of Git connections 1`] = `
                 {
                   "id": "@Table A",
                   "name": "Table A",
-                  "usedByWorkflows": [
-                    "@W5 table",
+                  "usedBy": [
+                    {
+                      "id": "@W5 table",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -266,29 +275,59 @@ exports[`the dependencies in the change list of Git connections 1`] = `
                 {
                   "type": "n8n-nodes-base.httpRequest",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@W10 in folder",
-                    "@W1 cred A",
-                    "@W2 global var",
-                    "@W3 project var",
-                    "@W4 tag",
-                    "@W6 cred X",
-                    "@W7 plain",
-                    "@W9 child",
+                  "usedBy": [
+                    {
+                      "id": "@W10 in folder",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@W1 cred A",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@W2 global var",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@W3 project var",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@W4 tag",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@W6 cred X",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@W7 plain",
+                      "kind": "workflow",
+                    },
+                    {
+                      "id": "@W9 child",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.dataTable",
                   "typeVersion": 1,
-                  "usedByWorkflows": [
-                    "@W5 table",
+                  "usedBy": [
+                    {
+                      "id": "@W5 table",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "type": "n8n-nodes-base.executeWorkflow",
                   "typeVersion": 1.2,
-                  "usedByWorkflows": [
-                    "@W8 parent",
+                  "usedBy": [
+                    {
+                      "id": "@W8 parent",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -296,22 +335,31 @@ exports[`the dependencies in the change list of Git connections 1`] = `
                 {
                   "id": "@tag prod",
                   "name": "prod",
-                  "usedByWorkflows": [
-                    "@W4 tag",
+                  "usedBy": [
+                    {
+                      "id": "@W4 tag",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
               "variables": [
                 {
                   "name": "GV",
-                  "usedByWorkflows": [
-                    "@W2 global var",
+                  "usedBy": [
+                    {
+                      "id": "@W2 global var",
+                      "kind": "workflow",
+                    },
                   ],
                 },
                 {
                   "name": "PV",
-                  "usedByWorkflows": [
-                    "@W3 project var",
+                  "usedBy": [
+                    {
+                      "id": "@W3 project var",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
@@ -319,14 +367,17 @@ exports[`the dependencies in the change list of Git connections 1`] = `
                 {
                   "id": "@W9 child",
                   "name": "W9 child",
-                  "usedByWorkflows": [
-                    "@W8 parent",
+                  "usedBy": [
+                    {
+                      "id": "@W8 parent",
+                      "kind": "workflow",
+                    },
                   ],
                 },
               ],
             },
             "sourceId": "<sha256>",
-            "sourceN8nVersion": "2.42.0",
+            "sourceN8nVersion": "2.45.0",
             "tags": [
               {
                 "id": "@tag prod",
@@ -407,6 +458,7 @@ exports[`the dependencies in the change list of Git connections 1`] = `
           "n8n-export/projects/team-a-@Team A/data-tables/table-a-@Table A/data-table.json": {
             "columns": [
               {
+                "id": "<id>",
                 "index": 0,
                 "name": "city",
                 "type": "string",

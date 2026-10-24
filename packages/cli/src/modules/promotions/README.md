@@ -326,6 +326,13 @@ of the audit log). The services therefore take the user of the request.
 - The golden test `promotions-rest` records the REST route of the change list next to the public
   API route, for an owner, a member, an unknown project, a personal project and a wrong direction.
   Two runs against the original module gave the same snapshot, and the fork gives it too.
+- Upstream n8n 2.45 replaced the original module with environments, so the snapshots can no
+  longer be recorded again against an original. For 2.45, the four snapshots `promotions-setup`,
+  `promotions-operations`, `promotions-dependencies` and `promotions-rest` were updated from a run
+  of the fork, because only ordinary upstream code changed what they record: the requirements of a
+  package use `usedBy` entries in place of `usedByWorkflows`, a package names n8n 2.45, an export
+  of a data table gives the IDs of its columns, the message about the scope `variable:list` names
+  "entities", and `limit=0` in the public API gives the default page of 100 items.
 - `packages/cli/test/integration/public-api/git-connections.test.ts` is the upstream test of the
   public API from before environments, with the fork DTOs and the import paths of the fork module.
 - `__tests__/` has unit tests of the URL check and of the merge of the manifest.
