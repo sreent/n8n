@@ -6,7 +6,6 @@ import { createTestingPinia } from '@pinia/testing';
 import { useSettingsStore } from '@n8n/stores/settings.store';
 import { useUsersStore } from '@n8n/stores/users.store';
 import { useUIStore } from '@/app/stores/ui.store';
-import { COMMUNITY_PLUS_ENROLLMENT_MODAL } from '@/features/settings/usage/usage.constants';
 import {
 	COMPANY_TYPE_KEY,
 	COMPANY_INDUSTRY_EXTENDED_KEY,
@@ -186,14 +185,15 @@ describe('PersonalizationModal', () => {
 			return openModalWithData;
 		};
 
-		it('opens the enrollment modal on self-hosted when the user can register', async () => {
+		// Fork: the fork has no registration of the Community Edition, so the survey never opens it
+		// (packages/cli/src/license/FORK.md).
+		it('does not open the enrollment modal on self-hosted', async () => {
 			const openModalWithData = await submitSurvey('default');
 
 			await vi.waitFor(() =>
-				expect(openModalWithData).toHaveBeenCalledWith(
-					expect.objectContaining({ name: COMMUNITY_PLUS_ENROLLMENT_MODAL }),
-				),
+				expect(useUsersStore().submitPersonalizationSurvey).toHaveBeenCalled(),
 			);
+			expect(openModalWithData).not.toHaveBeenCalled();
 		});
 
 		it('does not open the enrollment modal on cloud', async () => {

@@ -237,7 +237,7 @@ onMounted(async () => {
 				<div :class="$style.actions">
 					<N8nIconButton
 						v-if="isEditMode && canDelete"
-						variant="subtle"
+						variant="outline"
 						icon="trash-2"
 						:disabled="isSaving"
 						data-test-id="secrets-provider-delete-button"

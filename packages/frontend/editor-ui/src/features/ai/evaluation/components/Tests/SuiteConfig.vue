@@ -80,7 +80,7 @@ function onSelectNode(name: string) {
 		<N8nButton
 			v-for="metric in selectedMetrics"
 			:key="metric.key"
-			variant="subtle"
+			variant="outline"
 			size="small"
 			:aria-label="i18n.baseText('evaluations.tests.detail.removeMetric')"
 			:data-test-id="`tests-suite-config-metric-${metric.key}`"

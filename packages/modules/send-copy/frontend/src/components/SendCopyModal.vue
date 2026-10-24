@@ -260,7 +260,7 @@ async function onSend() {
 
 		<N8nDialogFooter>
 			<N8nButton
-				variant="subtle"
+				variant="outline"
 				:label="i18n.baseText('sendCopy.modal.cancel')"
 				data-test-id="send-copy-cancel"
 				@click="close"

@@ -130,7 +130,7 @@ function seePlans() {
 						<N8nButton size="small" @click="seePlans">{{
 							i18n.baseText('evaluations.setupWizard.step3.notice.link')
 						}}</N8nButton>
-						<N8nButton size="small" variant="subtle" @click="metricsSkipped = true">{{
+						<N8nButton size="small" variant="outline" @click="metricsSkipped = true">{{
 							i18n.baseText('evaluations.setupWizard.step3.skip')
 						}}</N8nButton>
 					</div>
@@ -152,7 +152,7 @@ function seePlans() {
 						<N8nButton size="small" @click="openEditor('addEvaluationNode')">{{
 							i18n.baseText('evaluations.setupWizard.step3.button')
 						}}</N8nButton>
-						<N8nButton size="small" variant="subtle" @click="metricsSkipped = true">{{
+						<N8nButton size="small" variant="outline" @click="metricsSkipped = true">{{
 							i18n.baseText('evaluations.setupWizard.step3.skip')
 						}}</N8nButton>
 					</div>
@@ -178,7 +178,7 @@ function seePlans() {
 				<N8nButton
 					v-else
 					size="small"
-					variant="subtle"
+					variant="outline"
 					:disabled="!canRunInEditor"
 					@click="openEditor('executeEvaluation')"
 					>{{ i18n.baseText('evaluations.setupWizard.step4.altButton') }}</N8nButton

@@ -25,7 +25,6 @@ import { useUsersStore } from '@n8n/stores/users.store';
 import { useUIStore } from '@/app/stores/ui.store';
 import { useFoldersStore } from '@/features/core/folders/folders.store';
 import type { Project, ProjectListItem } from '@/features/collaboration/projects/projects.types';
-import { COMMUNITY_PLUS_ENROLLMENT_MODAL } from '@/features/settings/usage/usage.constants';
 
 import { useGlobalEntityCreation } from './useGlobalEntityCreation';
 
@@ -147,31 +146,16 @@ describe('useGlobalEntityCreation', () => {
 			} as unknown as typeof usersStore.currentUser;
 		};
 
-		it('shows a New folder item when folders are unavailable', () => {
+		// Fork: the fork has no registration of the Community Edition, so the item shows only while
+		// folders are on (packages/cli/src/license/FORK.md).
+		it('shows no New folder item while folders are unavailable', () => {
 			enableRegisteredCommunityFolderCta();
 			const projectsStore = mockedStore(useProjectsStore);
 			projectsStore.isTeamProjectFeatureEnabled = false;
 
 			const { menu } = useGlobalEntityCreation();
 
-			expect(menu.value).toContainEqual(
-				expect.objectContaining({ id: 'folder', title: 'New folder' }),
-			);
-		});
-
-		it('opens the Community Plus enrollment modal', () => {
-			enableRegisteredCommunityFolderCta();
-			const uiStore = mockedStore(useUIStore);
-
-			const { handleSelect } = useGlobalEntityCreation();
-			handleSelect('folder');
-
-			expect(uiStore.openModalWithData).toHaveBeenCalledWith({
-				name: COMMUNITY_PLUS_ENROLLMENT_MODAL,
-				data: {
-					customHeading: 'Get access to folders with registered community',
-				},
-			});
+			expect(menu.value).not.toContainEqual(expect.objectContaining({ id: 'folder' }));
 		});
 
 		it('keeps the item when folders are enabled', () => {

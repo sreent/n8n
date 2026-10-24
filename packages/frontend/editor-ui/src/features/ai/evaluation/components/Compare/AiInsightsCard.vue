@@ -29,7 +29,7 @@ const i18n = useI18n();
 				i18n.baseText('evaluation.compare.insights.error')
 			}}</N8nText>
 			<N8nButton
-				variant="subtle"
+				variant="outline"
 				size="small"
 				:label="i18n.baseText('evaluation.compare.insights.retry')"
 				@click="emit('retry')"

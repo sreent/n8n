@@ -148,7 +148,7 @@ async function run() {
 			<div :class="$style.actions">
 				<N8nButton
 					v-if="!isNewCase"
-					variant="subtle"
+					variant="outline"
 					size="small"
 					data-test-id="tests-detail-create-case"
 					@click="panel.openCreate()"

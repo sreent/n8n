@@ -35,7 +35,7 @@ function onOpen(open: boolean) {
 		<template #trigger>
 			<N8nButton
 				data-test-id="parallel-eval-toggle"
-				variant="subtle"
+				variant="outline"
 				icon="chevron-down"
 				icon-only
 				:aria-label="i18n.baseText('evaluation.runInParallel.popover.ariaLabel')"

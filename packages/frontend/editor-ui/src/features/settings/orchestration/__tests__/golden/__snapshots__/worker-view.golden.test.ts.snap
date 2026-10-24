@@ -2154,9 +2154,7 @@ exports[`the worker view > the charts of several workers 1`] = `
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],
@@ -4774,9 +4772,7 @@ exports[`the worker view > the controls of a worker card 1`] = `
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],
@@ -5450,9 +5446,7 @@ exports[`the worker view > the formats of a worker card 1`] = `
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],
@@ -5690,9 +5684,7 @@ exports[`the worker view > the formats of a worker card 1`] = `
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],
@@ -5958,9 +5950,7 @@ exports[`the worker view > the formats of a worker card 1`] = `
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],
@@ -6203,9 +6193,7 @@ exports[`the worker view > the history in the charts 1`] = `
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],
@@ -8010,9 +7998,7 @@ exports[`the worker view > the order of the cards, the interfaces and the jobs 1
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],
@@ -8582,9 +8568,7 @@ exports[`the worker view > the page with workers 1`] = `
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],
@@ -8604,9 +8588,7 @@ exports[`the worker view > the page with workers 1`] = `
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],
@@ -8642,9 +8624,7 @@ exports[`the worker view > the page with workers 1`] = `
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],
@@ -8672,9 +8652,7 @@ exports[`the worker view > the page with workers 1`] = `
       "screen": {
         "page": {
           "controls": [],
-          "icons": [
-            "spinner",
-          ],
+          "icons": [],
           "testIds": [
             "worker-view-licensed: Workers",
           ],

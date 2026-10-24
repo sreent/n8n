@@ -6,10 +6,11 @@
 import type { SecretProviderTypeResponse } from '@n8n/api-types';
 import { N8nButton, N8nEmptyState, N8nHeading, N8nIcon } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
+import { computed } from 'vue';
 
 import SecretsProviderImage from './SecretsProviderImage.vue';
 
-defineProps<{
+const props = defineProps<{
 	providerTypes: SecretProviderTypeResponse[];
 	canCreate: boolean;
 }>();
@@ -19,6 +20,12 @@ const emit = defineEmits<{
 }>();
 
 const i18n = useI18n();
+
+/** The logo of the right card: the provider type in the middle of the list, as upstream n8n 2.45. */
+const middleProviderType = computed(() => {
+	const count = props.providerTypes.length;
+	return props.providerTypes[Math.min(Math.ceil(count / 2), count - 1)];
+});
 </script>
 
 <template>
@@ -30,7 +37,7 @@ const i18n = useI18n();
 				</div>
 				<div :class="$style.iconCard"><N8nIcon icon="vault" /></div>
 				<div :class="$style.iconCard">
-					<SecretsProviderImage v-if="providerTypes[2]" :provider="providerTypes[2]" />
+					<SecretsProviderImage v-if="middleProviderType" :provider="middleProviderType" />
 				</div>
 			</div>
 			<N8nHeading tag="h2" size="medium" align="center" class="mb-2xs">

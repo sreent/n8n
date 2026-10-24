@@ -1,8 +1,8 @@
 <script setup lang="ts">
 /**
  * Fork code (not in upstream n8n): the modal with the settings of one log streaming destination.
- * It replaces the enterprise modal of the same name, and takes the same props from `Modals.vue`.
- * `../FORK.md` describes it.
+ * It replaces the enterprise modal of the same name. The module descriptor registers it, so it
+ * gets the destination in `data`. `../FORK.md` describes it.
  */
 import { useToast } from '@n8n/composables/useToast';
 import {
@@ -19,7 +19,6 @@ import {
 import { useI18n } from '@n8n/i18n';
 import type { EventDestination, EventDestinationInput } from '@n8n/rest-api-client/api/eventbus';
 import { useSettingsStore } from '@n8n/stores/settings.store';
-import type { EventBus } from '@n8n/utils/event-bus';
 import { isRecord } from '@n8n/utils/is-record';
 import set from 'lodash/set';
 import unset from 'lodash/unset';
@@ -34,6 +33,7 @@ import type { IUpdateInformation } from '@/Interface';
 import { useCredentialsStore } from '@/features/credentials/credentials.store';
 import ParameterInputList from '@/features/ndv/parameters/components/ParameterInputList.vue';
 
+import type { LogStreamModalData } from '../logStreaming.constants';
 import { destinationDescription, WEBHOOK_CREDENTIAL_TYPES } from '../logStreaming.descriptions';
 import { useLogStreamingStore } from '../logStreaming.store';
 import {
@@ -47,10 +47,7 @@ import EventSelection from './EventSelection.vue';
 
 const props = defineProps<{
 	modalName: string;
-	/** The stored destination. A new destination has none. */
-	destination?: object;
-	isNew?: boolean;
-	eventBus?: EventBus;
+	data?: LogStreamModalData;
 }>();
 
 /** The path of the parameters in the values of the form, as in the node view. */
@@ -77,7 +74,7 @@ const toast = useToast();
 const message = useMessage();
 const i18n = useI18n();
 
-const stored = isEventDestination(props.destination) ? props.destination : undefined;
+const stored = isEventDestination(props.data?.destination) ? props.data.destination : undefined;
 
 /** The values of the form. A new destination has none until the user selects its type. */
 const values = ref<EventDestinationInput | undefined>(stored ? deepCopy(stored) : undefined);
@@ -249,7 +246,7 @@ async function deleteDestination() {
 <template>
 	<Modal
 		:name="modalName"
-		:event-bus="eventBus"
+		:event-bus="data?.eventBus"
 		:width="values ? '820px' : '460px'"
 		:min-height="values ? '620px' : undefined"
 		:scrollable="true"
@@ -270,7 +267,7 @@ async function deleteDestination() {
 				<div :class="$style.actions">
 					<N8nButton
 						v-if="savedId && !readOnly"
-						variant="subtle"
+						variant="outline"
 						icon="trash-2"
 						:title="i18n.baseText('settings.log-streaming.delete')"
 						data-test-id="destination-delete-button"
@@ -278,7 +275,7 @@ async function deleteDestination() {
 					/>
 					<N8nButton
 						v-if="savedId"
-						variant="subtle"
+						variant="outline"
 						:label="i18n.baseText('settings.log-streaming.testEvent')"
 						:title="testButtonTitle"
 						:icon="testResult === undefined ? undefined : testResult ? 'circle-check' : 'circle-x'"

@@ -21,7 +21,6 @@ import { useMessage } from '@/app/composables/useMessage';
 import { useTelemetry } from '@n8n/composables/useTelemetry';
 import { VARIABLE_MODAL_KEY } from '@/features/settings/environments/environments.constants';
 import { PROJECT_DATA_TABLES } from '@/features/core/dataTable/constants';
-import { COMMUNITY_PLUS_ENROLLMENT_MODAL } from '@/features/settings/usage/usage.constants';
 import { getResourcePermissions } from '@n8n/permissions';
 import { MODAL_CONFIRM } from '@/app/constants';
 import { usePageRedirectionHelper } from '@/app/composables/usePageRedirectionHelper';
@@ -210,25 +209,16 @@ export const useGlobalEntityCreation = () => {
 		};
 	});
 
+	// Fork: the fork has no registration of the Community Edition (packages/cli/src/license/FORK.md),
+	// so the item shows only while folders are on, and it never opens the registration.
 	const folderItem = computed<Item | null>(() => {
-		const canUserRegisterCommunityPlus = getResourcePermissions(
-			usersStore.currentUser?.globalScopes,
-		).community.register;
+		if (!settingsStore.isFoldersFeatureEnabled) return null;
+
 		const folderProjectPermissions = getResourcePermissions(folderProject.value?.scopes).folder;
-
-		if (
-			!settingsStore.isFoldersFeatureEnabled &&
-			(settingsStore.deploymentType !== 'default' || !canUserRegisterCommunityPlus)
-		) {
-			return null;
-		}
-
 		return {
 			id: FOLDER_MENU_ID,
 			title: i18n.baseText('projects.menu.create.folder'),
-			disabled:
-				settingsStore.isFoldersFeatureEnabled &&
-				(sourceControlStore.preferences.branchReadOnly || !folderProjectPermissions.create),
+			disabled: sourceControlStore.preferences.branchReadOnly || !folderProjectPermissions.create,
 		};
 	});
 
@@ -513,16 +503,7 @@ export const useGlobalEntityCreation = () => {
 
 	const handleSelect = (id: string) => {
 		if (id === FOLDER_MENU_ID) {
-			if (!settingsStore.isFoldersFeatureEnabled) {
-				uiStore.openModalWithData({
-					name: COMMUNITY_PLUS_ENROLLMENT_MODAL,
-					data: {
-						customHeading: i18n.baseText('folders.registeredCommunity.cta.heading'),
-					},
-				});
-			} else {
-				void createFolder();
-			}
+			void createFolder();
 			return;
 		}
 

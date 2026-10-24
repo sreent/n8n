@@ -204,7 +204,7 @@ function requestApproval() {
 
 		<N8nDialogFooter>
 			<N8nButton
-				variant="subtle"
+				variant="outline"
 				:label="i18n.baseText('openTriggers.fixes.close')"
 				data-test-id="open-trigger-close"
 				@click="close"

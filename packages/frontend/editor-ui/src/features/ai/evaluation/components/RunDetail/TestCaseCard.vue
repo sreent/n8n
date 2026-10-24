@@ -113,7 +113,7 @@ const metricRows = computed(() =>
 						<N8nButton
 							v-if="isFailed"
 							data-test-id="test-case-rerun-button"
-							variant="subtle"
+							variant="outline"
 							size="small"
 							:label="i18n.baseText('evaluation.runDetail.testCase.rerun')"
 							@click="emit('rerun')"

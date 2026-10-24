@@ -238,7 +238,7 @@ onMounted(async () => {
 		<template #footer>
 			<div :class="$style.footer">
 				<N8nButton
-					variant="subtle"
+					variant="outline"
 					:label="i18n.baseText('generic.cancel')"
 					data-test-id="add-execution-to-dataset-cancel"
 					@click="close"

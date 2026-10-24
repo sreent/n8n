@@ -476,7 +476,7 @@ onMounted(async () => {
 		</template>
 		<template #footer>
 			<div :class="$style.footer">
-				<N8nButton variant="subtle" class="mr-2xs" @click="close">{{
+				<N8nButton variant="outline" class="mr-2xs" @click="close">{{
 					i18n.baseText('settings.sourceControl.modals.pull.buttons.cancel')
 				}}</N8nButton>
 				<N8nButton data-test-id="force-pull" @click="pull">{{

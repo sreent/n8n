@@ -8,11 +8,12 @@ import { defineComponent } from 'vue';
 
 import { renderComponent } from '@/__tests__/render';
 import { mockedStore } from '@/__tests__/utils';
-import { LOG_STREAM_MODAL_KEY, MODAL_CONFIRM } from '@/app/constants';
+import { MODAL_CONFIRM } from '@/app/constants';
 import { useUIStore } from '@/app/stores/ui.store';
 import { useCredentialsStore } from '@/features/credentials/credentials.store';
 
 import EventDestinationSettingsModal from '../components/EventDestinationSettingsModal.vue';
+import { LOG_STREAM_MODAL_KEY, type LogStreamModalData } from '../logStreaming.constants';
 import { useLogStreamingStore } from '../logStreaming.store';
 
 const confirm = vi.fn();
@@ -65,9 +66,10 @@ const webhook: EventDestination = {
 	anonymizeAuditMessages: false,
 };
 
-function renderModal(props: Record<string, unknown> = {}) {
+/** Renders the modal with the data that the page passes when it opens the modal. */
+function renderModal(data: LogStreamModalData = {}) {
 	return renderComponent(EventDestinationSettingsModal, {
-		props: { modalName: LOG_STREAM_MODAL_KEY, ...props },
+		props: { modalName: LOG_STREAM_MODAL_KEY, data },
 		global: { stubs: { Modal: ModalStub, ParameterInputList: ParameterInputListStub } },
 	});
 }

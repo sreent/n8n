@@ -113,7 +113,7 @@ async function onAction(action: CardAction) {
 				<ExternalSecretsProviderConnectionSwitch :provider="provider" />
 				<N8nActionToggle :actions="actions" @action="onAction" />
 			</div>
-			<N8nButton v-else variant="subtle" @click="openModal">
+			<N8nButton v-else variant="outline" @click="openModal">
 				{{ i18n.baseText('settings.externalSecrets.card.setUp') }}
 			</N8nButton>
 		</div>

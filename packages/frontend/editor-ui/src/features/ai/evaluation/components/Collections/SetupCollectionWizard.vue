@@ -294,7 +294,7 @@ watch(configId, (id) => {
 			</div>
 			<N8nButton
 				data-test-id="setup-collection-wizard-cancel"
-				variant="subtle"
+				variant="outline"
 				:label="i18n.baseText('evaluation.setup.footer.cancel')"
 				@click="open = false"
 			/>
