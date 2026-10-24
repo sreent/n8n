@@ -21,13 +21,11 @@ parameters:
       enum:
         - public-api
         - mcp-server-api
-      description: 'Only the API keys of this audience: `public-api` (the public API) or `mcp-server-api` (the MCP server of n8n).'
+        - scim-api
+      description: 'Only the API keys of this audience: `public-api` (the public API), `mcp-server-api` (the MCP server of n8n) or `scim-api` (SCIM provisioning).'
     required: false
     name: audience
     in: query
-x-eov-operation-id: unreachable
-x-eov-operation-handler: v1/handlers/decorator-routed.handler
-x-decorator-routed: true
 responses:
   '200':
     description: Operation successful.
@@ -53,7 +51,8 @@ responses:
                     enum:
                       - public-api
                       - mcp-server-api
-                    description: 'What the API key opens: `public-api` or `mcp-server-api`.'
+                      - scim-api
+                    description: 'What the API key opens: `public-api`, `mcp-server-api` or `scim-api`.'
                   scopes:
                     type: array
                     items:

@@ -4,9 +4,6 @@ tags:
 summary: Export audit events
 description: 'Returns a file with all audit events that match the filter, newest first: a CSV file with the columns `timestamp`, `eventName`, `userId`, `userEmail`, `payload`, `projectId` and `projectType`, or a JSON array of events.'
 x-required-scope: auditLogs:manage
-x-eov-operation-id: unreachable
-x-eov-operation-handler: v1/handlers/decorator-routed.handler
-x-decorator-routed: true
 parameters:
   - schema:
       type: string

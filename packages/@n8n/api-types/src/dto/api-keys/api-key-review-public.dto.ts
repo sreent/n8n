@@ -8,7 +8,7 @@ import { apiKeyReviewFieldDocs, apiKeyReviewQueryFieldDocs } from './api-key-rev
 import { Z } from '../../zod-class';
 import { publicApiPaginationSchema } from '../pagination/pagination.dto';
 
-export const apiKeyAudienceSchema = z.enum(['public-api', 'mcp-server-api']);
+export const apiKeyAudienceSchema = z.enum(['public-api', 'mcp-server-api', 'scim-api']);
 
 export class ListApiKeysQueryPublicDto extends Z.class({
 	userId: z.string().trim().min(1).max(36).optional().openapi(apiKeyReviewQueryFieldDocs.userId),

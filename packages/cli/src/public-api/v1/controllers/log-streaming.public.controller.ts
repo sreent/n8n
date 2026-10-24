@@ -7,11 +7,9 @@ import {
 	LogStreamingTestResultPublicDto,
 	logStreamingDestinationIdParamSchema,
 } from '@n8n/api-types';
-import { OutboundHttp } from '@n8n/backend-network';
-import { CredentialsFinderService } from '@n8n/backend-services';
-import { InstanceSettingsLoaderConfig } from '@n8n/config';
+import { ModuleRegistry } from '@n8n/backend-common';
 import { LICENSE_FEATURES } from '@n8n/constants';
-import type { AuthenticatedRequest, User } from '@n8n/db';
+import type { AuthenticatedRequest } from '@n8n/db';
 import {
 	ApiDescription,
 	ApiErrorResponse,
@@ -28,32 +26,22 @@ import {
 	PublicApiController,
 	Put,
 } from '@n8n/decorators';
+import { Container } from '@n8n/di';
 import type { Response } from 'express';
-import type { MessageEventBusDestinationOptions } from 'n8n-workflow';
 
-import { ConflictError, NotFoundError } from '@n8n/errors';
+import { ForbiddenError, NotFoundError, ServiceUnavailableError } from '@n8n/errors';
 import { eventNamesAll } from '@/eventbus/event-message-classes';
-import { MessageEventBus } from '@/eventbus/message-event-bus/message-event-bus';
-import { createMessageEventBusDestination } from '@/modules/log-streaming.ee/create-message-event-bus-destination';
-import { assertUserCanUseDestinationCredentials } from '@/modules/log-streaming.ee/destinations/destination-credentials-access';
-import { LogStreamingDestinationService } from '@/modules/log-streaming.ee/log-streaming-destination.service';
-
-import {
-	toInternalDestinationOptions,
-	toLogStreamingDestinationPublic,
-} from './log-streaming.mapper';
 
 const tags = ['LogStreaming'];
 
+/*
+ * Fork controller (upstream n8n calls its enterprise log streaming module here). The routes call
+ * the fork module `log-streaming`. As in upstream n8n, they answer 403 without the licence value,
+ * which the fork switch gives. They answer 503 while the module is off, as the promotions routes do.
+ */
 @PublicApiController('/settings/log-streaming')
 export class LogStreamingPublicController {
-	constructor(
-		private readonly destinationService: LogStreamingDestinationService,
-		private readonly eventBus: MessageEventBus,
-		private readonly instanceSettingsLoaderConfig: InstanceSettingsLoaderConfig,
-		private readonly outboundHttp: OutboundHttp,
-		private readonly credentialsFinderService: CredentialsFinderService,
-	) {}
+	constructor(private readonly moduleRegistry: ModuleRegistry) {}
 
 	@Get('/event-types')
 	@ApiKeyScope('eventBusDestination:list')
@@ -64,7 +52,9 @@ export class LogStreamingPublicController {
 	)
 	@ApiTags(tags)
 	@ApiResponse(200, LogStreamingEventTypesPublicDto)
+	@ApiErrorResponse(503)
 	async getLogStreamingEventTypes(): Promise<LogStreamingEventTypesPublicDto> {
+		this.assertModuleActive();
 		return { data: eventNamesAll };
 	}
 
@@ -77,10 +67,12 @@ export class LogStreamingPublicController {
 	)
 	@ApiTags(tags)
 	@ApiResponse(200, LogStreamingDestinationListPublicDto)
+	@ApiErrorResponse(503)
 	async getLogStreamingDestinations(): Promise<LogStreamingDestinationListPublicDto> {
-		const destinations = await this.destinationService.findDestination();
+		const { service, toPublicDestination } = await this.logStreaming();
+		const destinations = await service.findDestinations();
 
-		return { data: destinations.map(toLogStreamingDestinationPublic) };
+		return { data: destinations.map(toPublicDestination) };
 	}
 
 	@Get('/destinations/:destinationId')
@@ -93,14 +85,15 @@ export class LogStreamingPublicController {
 	@ApiTags(tags)
 	@ApiResponse(200, LogStreamingDestinationPublicDto)
 	@ApiErrorResponse(404)
+	@ApiErrorResponse(503)
 	async getLogStreamingDestination(
 		_req: AuthenticatedRequest,
 		_res: Response,
 		@Param('destinationId', logStreamingDestinationIdParamSchema) destinationId: string,
 	): Promise<LogStreamingDestinationPublicDto> {
-		const destination = await this.findDestinationOrFail(destinationId);
+		const { service, toPublicDestination } = await this.logStreaming();
 
-		return toLogStreamingDestinationPublic(destination);
+		return toPublicDestination(await service.findDestinationOrFail(destinationId));
 	}
 
 	@Post('/destinations')
@@ -113,16 +106,21 @@ export class LogStreamingPublicController {
 	@ApiTags(tags)
 	@ApiResponse(200, LogStreamingDestinationPublicDto)
 	@ApiErrorResponse(409)
+	@ApiErrorResponse(503)
 	async createLogStreamingDestination(
 		req: AuthenticatedRequest,
 		_res: Response,
 		@Body body: CreateLogStreamingDestinationPublicDto,
 	): Promise<LogStreamingDestinationPublicDto> {
-		this.assertNotManagedByEnv();
+		const { service, fromPublicDestination, toPublicDestination } = await this.logStreaming();
+		service.assertNotManagedByEnv();
 
-		return await this.saveDestination(req.user, toInternalDestinationOptions(body));
+		return toPublicDestination(
+			await service.saveDestination(fromPublicDestination(body), req.user),
+		);
 	}
 
+	/** Changes the fields of the body. The fields that the body leaves out keep their values. */
 	@Put('/destinations/:destinationId')
 	@ApiKeyScope('eventBusDestination:update')
 	@Licensed(LICENSE_FEATURES.LOG_STREAMING)
@@ -134,20 +132,20 @@ export class LogStreamingPublicController {
 	@ApiResponse(200, LogStreamingDestinationPublicDto)
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(409)
+	@ApiErrorResponse(503)
 	async updateLogStreamingDestination(
 		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('destinationId', logStreamingDestinationIdParamSchema) destinationId: string,
 		@Body body: UpdateLogStreamingDestinationPublicDto,
 	): Promise<LogStreamingDestinationPublicDto> {
-		this.assertNotManagedByEnv();
-		await this.findDestinationOrFail(destinationId);
+		const { service, fromPublicDestination, toPublicDestination } = await this.logStreaming();
+		service.assertNotManagedByEnv();
+		const { id } = await service.findDestinationOrFail(destinationId);
 
-		// `addDestination` replaces the stored destination that has this id.
-		return await this.saveDestination(req.user, {
-			...toInternalDestinationOptions(body),
-			id: destinationId,
-		});
+		return toPublicDestination(
+			await service.saveDestination({ ...fromPublicDestination(body), id }, req.user),
+		);
 	}
 
 	@Post('/destinations/:destinationId/test')
@@ -160,26 +158,22 @@ export class LogStreamingPublicController {
 	@ApiTags(tags)
 	@ApiResponse(200, LogStreamingTestResultPublicDto)
 	@ApiErrorResponse(404)
+	@ApiErrorResponse(503)
 	async testLogStreamingDestination(
 		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('destinationId', logStreamingDestinationIdParamSchema) destinationId: string,
 	): Promise<LogStreamingTestResultPublicDto> {
-		const destination = await this.findDestinationOrFail(destinationId);
-		await assertUserCanUseDestinationCredentials(
-			this.credentialsFinderService,
-			req.user,
-			destination,
-		);
+		const { service } = await this.logStreaming();
+		// A destination that does not take the test event is a failed test, not a server error.
+		const success = await service
+			.testDestination(destinationId, req.user)
+			.catch((error: unknown) => {
+				if (error instanceof NotFoundError || error instanceof ForbiddenError) throw error;
+				return false;
+			});
 
-		// A delivery failure is a failed test, not a server error.
-		try {
-			const result = await this.destinationService.testDestination(destinationId);
-
-			return { success: result };
-		} catch {
-			return { success: false };
-		}
+		return { success };
 	}
 
 	@Delete('/destinations/:destinationId')
@@ -193,43 +187,35 @@ export class LogStreamingPublicController {
 	@ApiResponse(200, LogStreamingDestinationPublicDto)
 	@ApiErrorResponse(404)
 	@ApiErrorResponse(409)
+	@ApiErrorResponse(503)
 	async deleteLogStreamingDestination(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Param('destinationId', logStreamingDestinationIdParamSchema) destinationId: string,
 	): Promise<LogStreamingDestinationPublicDto> {
-		this.assertNotManagedByEnv();
-		const destination = await this.findDestinationOrFail(destinationId);
-		await this.destinationService.removeDestination(destinationId);
+		const { service, toPublicDestination } = await this.logStreaming();
 
-		return toLogStreamingDestinationPublic(destination);
+		return toPublicDestination(await service.deleteDestination(destinationId, req.user));
 	}
 
-	private assertNotManagedByEnv() {
-		if (this.instanceSettingsLoaderConfig.logStreamingManagedByEnv) {
-			throw new ConflictError(
-				'Log streaming destinations are managed via environment variables and cannot be modified through the API',
-			);
+	private assertModuleActive() {
+		if (!this.moduleRegistry.isActive('log-streaming')) {
+			throw new ServiceUnavailableError('The log streaming module is not enabled');
 		}
 	}
 
-	private async saveDestination(
-		user: User,
-		options: MessageEventBusDestinationOptions,
-	): Promise<LogStreamingDestinationPublicDto> {
-		await assertUserCanUseDestinationCredentials(this.credentialsFinderService, user, options);
-
-		const destination = createMessageEventBusDestination(this.eventBus, this.outboundHttp, options);
-		const result = await this.destinationService.addDestination(destination);
-
-		return toLogStreamingDestinationPublic(result.serialize());
-	}
-
-	private async findDestinationOrFail(id: string): Promise<MessageEventBusDestinationOptions> {
-		const [destination] = await this.destinationService.findDestination(id);
-		if (!destination) {
-			throw new NotFoundError(`Log streaming destination with id "${id}" could not be found`);
-		}
-		return destination;
+	/** The service and the helpers of the module. The routes load them only when the module is on. */
+	private async logStreaming() {
+		this.assertModuleActive();
+		const [{ LogStreamingService }, { fromPublicDestination, toPublicDestination }] =
+			await Promise.all([
+				import('@/modules/log-streaming/log-streaming.service.js'),
+				import('@/modules/log-streaming/destinations/destination-options.js'),
+			]);
+		return {
+			service: Container.get(LogStreamingService),
+			fromPublicDestination,
+			toPublicDestination,
+		};
 	}
 }

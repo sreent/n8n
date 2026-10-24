@@ -7,7 +7,7 @@ import {
 	UpdateLdapConfigurationPublicDto,
 } from '@n8n/api-types';
 import { LICENSE_FEATURES } from '@n8n/constants';
-import type { AuthenticatedRequest, AuthProviderSyncHistory } from '@n8n/db';
+import type { AuthenticatedRequest, AuthProviderSyncHistory, User } from '@n8n/db';
 import {
 	ApiDescription,
 	ApiKeyScope,
@@ -105,17 +105,17 @@ export class LdapPublicController {
 	@ApiTags(tags)
 	@ApiResponse(200, LdapSyncHistoryPublicDto)
 	async runLdapSync(
-		_req: AuthenticatedRequest,
+		req: AuthenticatedRequest,
 		_res: Response,
 		@Body body: RunLdapSyncPublicDto,
 	): Promise<LdapSyncHistoryPublicDto> {
-		const syncHistory = await this.runSync(body.type);
+		const syncHistory = await this.runSync(body.type, req.user);
 		return toLdapSyncHistoryPublic(syncHistory);
 	}
 
-	private async runSync(type: 'live' | 'dry'): Promise<AuthProviderSyncHistory> {
+	private async runSync(type: 'live' | 'dry', user: User): Promise<AuthProviderSyncHistory> {
 		try {
-			return await this.ldapService.runSync(type);
+			return await this.ldapService.runSync(type, user);
 		} catch (error) {
 			if (error instanceof ResponseError) {
 				throw error;

@@ -9,14 +9,16 @@ export const apiKeyReviewQueryFieldDocs = {
 	},
 	audience: {
 		description:
-			'Only the API keys of this audience: `public-api` (the public API) or `mcp-server-api` (the MCP server of n8n).',
+			'Only the API keys of this audience: `public-api` (the public API), `mcp-server-api` (the MCP server of n8n) or `scim-api` (SCIM provisioning).',
 	},
 } as const satisfies Record<string, ZodOpenAPIMetadata>;
 
 export const apiKeyReviewFieldDocs = {
 	id: { description: 'The id of the API key.' },
 	label: { description: 'The label that the user gave the API key.', example: 'SIEM export' },
-	audience: { description: 'What the API key opens: `public-api` or `mcp-server-api`.' },
+	audience: {
+		description: 'What the API key opens: `public-api`, `mcp-server-api` or `scim-api`.',
+	},
 	scopes: {
 		description: 'The scopes of the API key. A key of the MCP server can have no scopes.',
 	},
