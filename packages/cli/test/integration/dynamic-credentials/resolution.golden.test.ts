@@ -4,16 +4,24 @@
 // the identities of a manual run (the session cookie), of a request (the cookie and the browser
 // id), of an n8n OAuth token and of a bearer token, and with a fake OAuth2 provider for the OAuth2
 // resolvers. It records the results, the errors, the stored entries (decrypted), the requests to
-// the provider and the calls to the n8n token verifier. The snapshot was recorded against the
-// enterprise module, and the fork module gives the same snapshot. See
+// the provider and the calls to the n8n token verifier and to the gate of sealed identities. The
+// snapshot was recorded against the enterprise module, and the fork module gives the same
+// snapshot. See
 // `packages/cli/src/modules/dynamic-credentials/README.md`.
 import { generateKeyPairSync, type KeyObject } from 'node:crypto';
 
 import { Logger } from '@n8n/backend-common';
+import { ExecutingUserIdentifierProxy } from '@n8n/backend-services';
+import {
+	OAuthTokenVerifierProxy,
+	type OAuthTokenVerifier,
+	type UserWithContext,
+} from '@n8n/backend-services/auth';
 import { testDb } from '@n8n/backend-test-utils';
 import type { CredentialsEntity, User } from '@n8n/db';
 import { WorkflowRepository } from '@n8n/db';
 import { Container } from '@n8n/di';
+import { TrustedSourceGate } from '@n8n/inbound-auth';
 import { exportJWK, SignJWT } from 'jose';
 import { OAuth2Api } from 'n8n-nodes-base/credentials/OAuth2Api.credentials';
 import { SlackOAuth2Api } from 'n8n-nodes-base/credentials/SlackOAuth2Api.credentials';
@@ -29,13 +37,7 @@ import type {
 
 import { AuthService } from '@/auth/auth.service';
 import { DynamicCredentialsProxy } from '@/credentials/dynamic-credentials-proxy';
-import { ExecutingUserIdentifierProxy } from '@/credentials/executing-user-identifier-proxy';
 import { LoadNodesAndCredentials } from '@/load-nodes-and-credentials';
-import {
-	OAuthTokenVerifierProxy,
-	type OAuthTokenVerifier,
-	type UserWithContext,
-} from '@/services/oauth-token-verifier-proxy.service';
 import { saveCredential } from '@test-integration/db/credentials';
 import { createMember, createOwner, createUser } from '@test-integration/db/users';
 import { GoldenRecorder } from '@test-integration/golden-recorder';
@@ -63,7 +65,7 @@ let ownerAgent: SuperAgentTest;
 const proxy = () => Container.get(DynamicCredentialsProxy);
 const contexts = () => Container.get(ExecutionContextService);
 
-// #region The fake n8n token verifier
+// #region The fake n8n token verifier and the fake gate of sealed identities
 
 const verifierCalls: unknown[][] = [];
 
@@ -80,11 +82,19 @@ const fakeVerifier: OAuthTokenVerifier = {
 		}
 		return { user: known.user(), grant: known.grant };
 	},
-	async authorizeSealedGrant(userId, grant) {
-		verifierCalls.push(['authorizeSealedGrant', userId, grant]);
-		return sealedGrantAllowed;
-	},
 };
+
+/** Re-checks a sealed identity in place of the gate of the module `inbound-auth-core`. */
+class FakeTrustedSourceGate extends TrustedSourceGate {
+	async authorizeSealed(input: Parameters<TrustedSourceGate['authorizeSealed']>[0]) {
+		verifierCalls.push(['authorizeSealed', input]);
+		return sealedGrantAllowed;
+	}
+}
+
+// Bind the gate before the module starts, as the module `inbound-auth-core` does: a service can
+// take the gate when the container creates it.
+Container.set(TrustedSourceGate, new FakeTrustedSourceGate());
 
 // #endregion
 
@@ -720,15 +730,25 @@ describe('dynamic credential resolution', () => {
 		const grant: OAuthResourceGrant = { audiences: [resource], executeAccessWorkflowId: 'wf-1' };
 		const oauth = async (
 			token: string,
-			options: { subject?: string; grant?: OAuthResourceGrant } = {},
+			options: { subject?: string; binding?: { sourceId: string; subject: string } } = {},
 		) =>
 			(await contexts().decryptCredentialContext(
 				await contexts().buildTriggerIdentityCredentials(
 					token,
 					resource,
-					options.grant,
+					grant,
 					options.subject,
+					options.binding,
 				),
+			)) as ICredentialContext;
+		/** A seal of an older version of n8n: it has no version and no grant. */
+		const legacySeal = async (token: string, subject: string) =>
+			(await contexts().decryptCredentialContext(
+				await Container.get(Cipher).encryptV2({
+					version: 1,
+					identity: token,
+					metadata: { source: 'n8n-oauth', resource, establishedAt: 0, executionPath: [], subject },
+				}),
 			)) as ICredentialContext;
 		const bound = async (credentials: ICredentialContext, executionId: string) => {
 			const encrypted = await contexts().maybeBindExecutionId(
@@ -768,41 +788,32 @@ describe('dynamic credential resolution', () => {
 			async () => await resolve(privateCredential, await oauth('token-unknown')),
 		);
 		await step('resolve with a sealed subject in the execution it was bound to', async () => {
-			const context = await bound(
-				await oauth('token-gone', { subject: owner.id, grant }),
-				'execution-1',
-			);
+			const context = await bound(await oauth('token-gone', { subject: owner.id }), 'execution-1');
 			return await resolve(privateCredential, undefined, {
 				raw: context,
 				executionId: 'execution-1',
 			});
 		});
 		await step('resolve with a sealed subject in another execution', async () => {
-			const context = await bound(
-				await oauth('token-gone', { subject: owner.id, grant }),
-				'execution-1',
-			);
+			const context = await bound(await oauth('token-gone', { subject: owner.id }), 'execution-1');
 			return await resolve(privateCredential, undefined, {
 				raw: context,
 				executionId: 'execution-2',
 			});
 		});
 		await step('resolve with a sealed subject without an execution id', async () => {
-			const context = await bound(
-				await oauth('token-gone', { subject: owner.id, grant }),
-				'execution-1',
-			);
+			const context = await bound(await oauth('token-gone', { subject: owner.id }), 'execution-1');
 			return await resolve(privateCredential, undefined, { raw: context });
 		});
 		await step(
 			'resolve with a sealed subject that was never bound',
 			async () =>
-				await resolve(privateCredential, await oauth('token-gone', { subject: owner.id, grant }), {
+				await resolve(privateCredential, await oauth('token-gone', { subject: owner.id }), {
 					executionId: 'execution-3',
 				}),
 		);
-		await step('resolve with a sealed subject without a grant', async () => {
-			const context = await bound(await oauth('token-gone', { subject: owner.id }), 'execution-4');
+		await step('resolve with a legacy sealed subject without a grant', async () => {
+			const context = await bound(await legacySeal('token-gone', owner.id), 'execution-4');
 			return await resolve(privateCredential, undefined, {
 				raw: context,
 				executionId: 'execution-4',
@@ -810,10 +821,7 @@ describe('dynamic credential resolution', () => {
 		});
 		sealedGrantAllowed = false;
 		await step('resolve with a sealed subject whose grant is withdrawn', async () => {
-			const context = await bound(
-				await oauth('token-gone', { subject: owner.id, grant }),
-				'execution-5',
-			);
+			const context = await bound(await oauth('token-gone', { subject: owner.id }), 'execution-5');
 			return await resolve(privateCredential, undefined, {
 				raw: context,
 				executionId: 'execution-5',
@@ -821,10 +829,7 @@ describe('dynamic credential resolution', () => {
 		});
 		sealedGrantAllowed = true;
 		await step('resolve with a sealed subject of a known token', async () => {
-			const context = await bound(
-				await oauth('token-owner', { subject: owner.id, grant }),
-				'execution-6',
-			);
+			const context = await bound(await oauth('token-owner', { subject: owner.id }), 'execution-6');
 			return await resolve(privateCredential, undefined, {
 				raw: context,
 				executionId: 'execution-6',
@@ -832,12 +837,25 @@ describe('dynamic credential resolution', () => {
 		});
 		await step('resolve with a sealed subject that is not the user of the token', async () => {
 			const context = await bound(
-				await oauth('token-member', { subject: owner.id, grant }),
+				await oauth('token-member', { subject: owner.id }),
 				'execution-7',
 			);
 			return await resolve(privateCredential, undefined, {
 				raw: context,
 				executionId: 'execution-7',
+			});
+		});
+		await step('resolve with a sealed subject that came through a trusted source', async () => {
+			const context = await bound(
+				await oauth('token-gone', {
+					subject: owner.id,
+					binding: { sourceId: 'source-1', subject: 'external-owner' },
+				}),
+				'execution-8',
+			);
+			return await resolve(privateCredential, undefined, {
+				raw: context,
+				executionId: 'execution-8',
 			});
 		});
 		await step(
@@ -851,7 +869,7 @@ describe('dynamic credential resolution', () => {
 			'identify a sealed subject',
 			async () =>
 				await Container.get(ExecutingUserIdentifierProxy).identify(
-					await oauth('token-gone', { subject: member.id, grant }),
+					await oauth('token-gone', { subject: member.id }),
 				),
 		);
 		await step(
