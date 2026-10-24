@@ -154,6 +154,10 @@ For an organisation that starts with the fork:
    workflow history, debug in editor, workflow reviews, the one-click fixes of open triggers,
    evaluations, Gateway credits, Git sync and Send a copy.
 
+[deploy/platform-setup-checklist.md](deploy/platform-setup-checklist.md) gives these steps in detail
+for a server of `deploy/` with sign-in through Entra ID, with the checks of each tier.
+[deploy/ai-gateway-checks.md](deploy/ai-gateway-checks.md) has the checks of Gateway credits.
+
 ## What is different from the Enterprise Edition
 
 - **No licence actions.** Settings > Usage and plan has no activation key, no registration and no
