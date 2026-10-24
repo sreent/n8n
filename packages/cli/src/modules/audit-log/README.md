@@ -189,6 +189,7 @@ curl -H "X-N8N-API-KEY: $N8N_API_KEY" \
 | `audit-log.controller.ts` | The REST API |
 | `packages/cli/src/public-api/v1/controllers/audit-log.public.controller.ts` | The public API |
 | `packages/@n8n/api-types/src/dto/audit-log/` | The query and response types of the REST API (`audit-log.dto.ts`) and of the public API (`audit-log-public.dto.ts`). The backend and the editor use the same types |
+| `packages/@n8n/api-types/src/schemas/fork-query-params.schema.ts` | The query parameters of a time and of a whole number, which the REST APIs of the audit log and of the AI gateway share |
 | `database/` | The entity and the repository of the table |
 
 ## Sources

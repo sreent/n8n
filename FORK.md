@@ -9,6 +9,10 @@ The other documents of the fork:
 - [FORK-FEATURES.md](FORK-FEATURES.md): each enterprise feature of n8n, what the fork does about
   it, and the history of the fork.
 - [FORK-UPSTREAM.md](FORK-UPSTREAM.md): the checklist for an upstream update.
+- [FORK-MAP.md](FORK-MAP.md): the layers of the repository, the areas of fork code, and how each
+  layer changes.
+- [FORK-ADOPTION.md](FORK-ADOPTION.md): how the enterprise features work for the users of the fork,
+  and how an organisation starts to use them.
 - [deploy/README.md](deploy/README.md): how to run the fork.
 
 ## Feature freeze
@@ -97,6 +101,8 @@ on. `License` (`packages/cli/src/license.ts`) gives them while `N8N_FORK_FEATURE
 `true`, the default. With `N8N_FORK_FEATURES_ENABLED=false`, the licence decides, as in upstream
 n8n. The licence checks of ordinary code stay.
 [FORK-FEATURES.md](FORK-FEATURES.md#licence-features) tells which features the switch turns on.
+[FORK-ADOPTION.md](FORK-ADOPTION.md) tells users how the switch works and how to adopt the
+features.
 
 Some features also need a setting, as in upstream n8n:
 
@@ -143,6 +149,8 @@ controller that replaces `License.isLicensed` replaces the switch too.
 - **Notices.** Keep `LICENSE.md` and `LICENSE_EE.md`. This file and `README.md` are the notice that
   the fork changes n8n. Use the fork for internal business use only.
 - Keep the changes to upstream files small. Each upstream update must merge them again.
+- **The map.** Each file that the fork adds is in an area of `scripts/fork-map.txt`, with a layer
+  and a document ([FORK-MAP.md](FORK-MAP.md)). Container CI checks this.
 - Open pull requests as ready for review, not as drafts.
 
 ## Cloud sessions

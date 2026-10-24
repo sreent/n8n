@@ -218,6 +218,8 @@ echo "commit $SHA base $COMPARED mode $MODE" | tee "$OUT/summary.txt"
 # scripts/removed-enterprise-paths.txt lists. Compare the whole fork with the upstream commit
 # that it matches, so that an upstream update still passes.
 step clean-room scripts/removed-enterprise.sh check "$UPSTREAM_BASE"
+# The map of the fork (FORK-MAP.md) holds each file that the fork adds, and no upstream file.
+step fork-map scripts/fork-map.sh check "$UPSTREAM_BASE"
 # The permission data of @n8n/permissions must be what scripts/permission-snapshot.mjs makes from
 # the recorded snapshot of a running n8n.
 step permission-data node scripts/permission-snapshot.mjs generate \
