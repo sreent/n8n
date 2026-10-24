@@ -102,14 +102,13 @@ Some features also need a setting, as in upstream n8n:
 
 | Feature | Also needs | Set by `deploy/` |
 |---|---|---|
-| Node type policies | `N8N_ENABLED_MODULES=type-availability-policies` | Yes |
 | Git connections | `N8N_ENABLED_MODULES=promotions`, and `N8N_ENV_FEAT_PROMOTIONS=true` for the editor | Yes |
 | Dynamic credentials | `N8N_ENV_FEAT_DYNAMIC_CREDENTIALS=true` for the resolvers, the hooks and the check node | Yes |
 | Token exchange | `N8N_ENV_FEAT_TOKEN_EXCHANGE=true`, then `N8N_TOKEN_EXCHANGE_ENABLED=true` with trusted keys | No |
 | Multiple main instances | Queue mode and `N8N_MULTI_MAIN_SETUP_ENABLED=true` | In queue mode, not on the VM |
 | Worker view | Queue mode | In queue mode, not on the VM |
 | Worker pools | Queue mode and `N8N_WORKER_POOLS_ENABLED=true` | No |
-| Evaluation collections, config evaluations and agent evaluations | `N8N_EVAL_COLLECTIONS_ENABLED=true`, `N8N_CONFIG_EVALS_ENABLED=true` and `N8N_AGENT_EVALS_ENABLED=true`, and the module `agent-evals` in `N8N_ENABLED_MODULES`. They follow the feature flags of n8n, which come with the telemetry. Without the telemetry, only the variables turn them on. | Yes |
+| Evaluation collections, config evaluations and agent evaluations | `N8N_EVAL_COLLECTIONS_ENABLED=true`, `N8N_CONFIG_EVALS_ENABLED=true` and `N8N_AGENT_EVALS_ENABLED=true`. They follow the feature flags of n8n, which come with the telemetry. Without the telemetry, only the variables turn them on. | Yes |
 | More than one parallel case of an evaluation | `N8N_CONCURRENCY_EVALUATION_LIMIT`. Without it, the cases run one at a time. | Yes, 5 |
 | Gateway credits | A credential of a provider, and the switch on the page Settings > Gateway credits admin | No |
 | The banner of a non-production instance | `N8N_FORK_NON_PRODUCTION_BANNER=true`. The banner is not in the list, so it is off by default. | No |
