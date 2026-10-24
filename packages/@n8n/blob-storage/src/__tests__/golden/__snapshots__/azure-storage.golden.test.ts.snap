@@ -69,7 +69,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: Fake Azure error InternalError",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -168,7 +168,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: Fake Azure error AuthorizationPermissionMismatch",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -219,7 +219,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: Fake Azure error AuthorizationPermissionMismatch",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -253,7 +253,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: ",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -288,7 +288,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: Fake Azure error InternalError",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -396,7 +396,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: Fake Azure error InternalError",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -476,7 +476,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: Fake Azure error InternalError",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -593,7 +593,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: ",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -673,7 +673,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: Fake Azure error InternalError",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -950,7 +950,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: ",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -985,7 +985,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: Fake Azure error ContainerNotFound",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -1019,7 +1019,7 @@ exports[`Azure Blob storage > handles server errors 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: ",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -1183,7 +1183,7 @@ exports[`Azure Blob storage > starts the client 1`] = `
       "class": "UserError",
       "level": "info",
       "message": "Azure Blob container "n8n-golden" does not exist or is not accessible.",
-      "name": "Error",
+      "name": "UserError",
     },
     "logs": [
       {
@@ -1237,7 +1237,7 @@ exports[`Azure Blob storage > starts the client 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: Fake Azure error AuthorizationFailure",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [
       {
@@ -1285,7 +1285,7 @@ exports[`Azure Blob storage > starts the client 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: Fake Azure error InternalError",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [
       {
@@ -1423,7 +1423,7 @@ exports[`Azure Blob storage > starts the client 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: connect ECONNREFUSED 127.0.0.1:PORT",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [
       {
@@ -1492,7 +1492,7 @@ exports[`Azure Blob storage > starts the client 1`] = `
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: connect ECONNREFUSED 127.0.0.1:PORT",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [
       {
@@ -1566,7 +1566,7 @@ exports[`Azure Blob storage > starts the client 1`] = `
       "class": "UserError",
       "level": "info",
       "message": "Azure Blob container name not configured. Please set \`N8N_EXTERNAL_STORAGE_AZURE_CONTAINER_NAME\`.",
-      "name": "Error",
+      "name": "UserError",
     },
     "logs": [],
     "requests": [],
@@ -2177,7 +2177,7 @@ exports[`Azure Blob storage > writes, reads, copies, renames and deletes objects
       "class": "UnexpectedError",
       "level": "error",
       "message": "chunkSize must be a positive integer, got 0",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [],
@@ -2188,7 +2188,7 @@ exports[`Azure Blob storage > writes, reads, copies, renames and deletes objects
       "class": "UnexpectedError",
       "level": "error",
       "message": "chunkSize must be a positive integer, got 1.5",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [],
@@ -2355,7 +2355,7 @@ exports[`Azure Blob storage > writes, reads, copies, renames and deletes objects
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: URI malformed",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -2566,7 +2566,7 @@ exports[`Azure Blob storage > writes, reads, copies, renames and deletes objects
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: ",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
@@ -2722,7 +2722,7 @@ exports[`Azure Blob storage > writes, reads, copies, renames and deletes objects
       "class": "UnexpectedError",
       "level": "error",
       "message": "Request to Azure Blob storage failed: ",
-      "name": "Error",
+      "name": "UnexpectedError",
     },
     "logs": [],
     "requests": [
