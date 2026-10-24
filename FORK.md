@@ -154,7 +154,8 @@ controller that replaces `License.isLicensed` replaces the switch too.
   session, a plain install fails on `@vscode/ripgrep`. The script also stops with a clear error
   when a repository that it downloads from is not attached.
 - GitHub Actions is off in this fork. Run `scripts/container-ci.sh` before you push. Use
-  `--plan` to see which tests it selects. It leaves out the test files in
+  `--plan` to see which tests it selects. A change of more than 1000 files, for example an
+  upstream update, runs the full test suites, as in upstream CI. It leaves out the test files in
   `scripts/container-ci-skipped-tests.txt` (none now). It runs the integration tests with 2
   workers, because more time out on the 4 CPUs of a cloud session. When `deploy/` changes, it also
   runs the Node.js tests of `deploy/`. The tests of the Helm chart need Helm, and the tests of the
