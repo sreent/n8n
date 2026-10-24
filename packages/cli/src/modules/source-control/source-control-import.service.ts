@@ -505,13 +505,12 @@ export class SourceControlImportService {
 
 	/** Adds a column with the id of the file. */
 	private async addColumn(tableId: string, column: ExportableDataTable['columns'][number]) {
-		const schema: DataTableCreateColumnSchema & { id: string } = {
-			id: column.id,
+		const schema: DataTableCreateColumnSchema = {
 			name: column.name,
 			type: this.columnType(column.type),
 			index: column.index,
 		};
-		await this.dataTableColumnRepository.addColumn(tableId, schema);
+		await this.dataTableColumnRepository.addColumn(tableId, schema, undefined, column.id);
 	}
 
 	private columnType(type: string): DataTableCreateColumnSchema['type'] {
