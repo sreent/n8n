@@ -7,6 +7,9 @@ import { useToast } from '@n8n/composables/useToast';
 import {
 	N8nButton,
 	N8nDialog,
+	N8nDialogBody,
+	N8nDialogDescription,
+	N8nDialogFooter,
 	N8nIcon,
 	N8nInput,
 	N8nOption,
@@ -188,13 +191,9 @@ watch(configId, (id) => {
 </script>
 
 <template>
-	<N8nDialog
-		v-model:open="open"
-		size="large"
-		:header="i18n.baseText('evaluation.setup.title')"
-		:description="i18n.baseText('evaluation.setup.subtitle')"
-	>
-		<div :class="$style.body" data-test-id="setup-collection-wizard">
+	<N8nDialog v-model:open="open" size="large" :header="i18n.baseText('evaluation.setup.title')">
+		<N8nDialogBody :class="$style.body" data-test-id="setup-collection-wizard">
+			<N8nDialogDescription>{{ i18n.baseText('evaluation.setup.subtitle') }}</N8nDialogDescription>
 			<div :class="$style.field">
 				<N8nText size="small" bold>{{ i18n.baseText('evaluation.setup.collectionName') }}</N8nText>
 				<N8nInput
@@ -286,8 +285,8 @@ watch(configId, (id) => {
 					</div>
 				</div>
 			</template>
-		</div>
-		<div :class="$style.footer">
+		</N8nDialogBody>
+		<N8nDialogFooter :class="$style.footer">
 			<div :class="$style.summary">
 				<N8nText size="small" bold>{{ summary }}</N8nText>
 				<N8nText v-if="runsExplain" size="xsmall" color="text-light">{{ runsExplain }}</N8nText>
@@ -305,14 +304,12 @@ watch(configId, (id) => {
 				:loading="isCreating"
 				@click="create"
 			/>
-		</div>
+		</N8nDialogFooter>
 	</N8nDialog>
 </template>
 
 <style module lang="scss">
 .body {
-	display: flex;
-	flex-direction: column;
 	gap: var(--spacing--md);
 }
 
@@ -351,10 +348,7 @@ watch(configId, (id) => {
 }
 
 .footer {
-	display: flex;
 	align-items: center;
-	gap: var(--spacing--2xs);
-	margin-top: var(--spacing--md);
 }
 
 .summary {

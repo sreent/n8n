@@ -9,7 +9,9 @@ import {
 	N8nButton,
 	N8nCallout,
 	N8nDialog,
+	N8nDialogBody,
 	N8nDialogDescription,
+	N8nDialogFooter,
 	N8nDialogHeader,
 	N8nDialogTitle,
 	N8nIcon,
@@ -92,7 +94,7 @@ function onOpenChange(open: boolean) {
 				i18n.baseText('promotions.bindings.subtitle')
 			}}</N8nDialogDescription>
 		</N8nDialogHeader>
-		<div :class="$style.body" data-test-id="promotion-bindings-body">
+		<N8nDialogBody :class="$style.body" data-test-id="promotion-bindings-body">
 			<p>{{ i18n.baseText('promotions.bindings.description') }}</p>
 			<N8nCallout v-if="continueError" theme="danger">
 				{{ i18n.baseText('promotions.bindings.error.continue') }}
@@ -210,8 +212,8 @@ function onOpenChange(open: boolean) {
 			<N8nText v-if="hasSavedResources" tag="p" size="small" color="text-light">
 				{{ i18n.baseText('promotions.bindings.savedResources') }}
 			</N8nText>
-		</div>
-		<footer :class="$style.footer">
+		</N8nDialogBody>
+		<N8nDialogFooter :class="$style.footer">
 			<span role="status" :class="$style.status">{{
 				i18n.baseText('promotions.bindings.unresolvedCount', {
 					adjustToNumber: unresolvedCount,
@@ -224,17 +226,14 @@ function onOpenChange(open: boolean) {
 			<N8nButton :disabled="busy || unresolvedCount > 0" :loading="continuing" @click="onContinue">
 				{{ i18n.baseText('promotions.bindings.continue') }}
 			</N8nButton>
-		</footer>
+		</N8nDialogFooter>
 	</N8nDialog>
 </template>
 
 <style module lang="scss">
 .body {
-	display: flex;
-	flex-direction: column;
 	gap: var(--spacing--xs);
 	max-height: 60vh;
-	overflow-y: auto;
 }
 
 .group {
@@ -285,11 +284,7 @@ function onOpenChange(open: boolean) {
 }
 
 .footer {
-	display: flex;
 	align-items: center;
-	justify-content: flex-end;
-	gap: var(--spacing--2xs);
-	margin-top: var(--spacing--md);
 }
 
 .status {

@@ -13,7 +13,9 @@ import {
 	N8nCallout,
 	N8nCheckbox,
 	N8nDialog,
+	N8nDialogBody,
 	N8nDialogClose,
+	N8nDialogDescription,
 	N8nDialogFooter,
 	N8nIcon,
 	N8nInput,
@@ -813,33 +815,36 @@ onMounted(async () => {
 		<N8nDialog
 			:open="showUnsavedChangesDialog"
 			:header="i18n.baseText('settings.gitSync.unsavedChanges')"
-			:description="i18n.baseText('settings.gitSync.unsavedChanges.message')"
 			size="medium"
+			data-test-id="git-sync-unsaved-changes-dialog"
 			@update:open="onUnsavedChangesDialogOpen"
 		>
-			<div data-test-id="git-sync-unsaved-changes-dialog">
-				<N8nDialogFooter>
-					<N8nDialogClose as-child>
-						<N8nButton
-							variant="outline"
-							:label="i18n.baseText('generic.keepEditing')"
-							@click="onKeepEditing"
-						/>
-					</N8nDialogClose>
+			<N8nDialogBody>
+				<N8nDialogDescription>
+					{{ i18n.baseText('settings.gitSync.unsavedChanges.message') }}
+				</N8nDialogDescription>
+			</N8nDialogBody>
+			<N8nDialogFooter>
+				<N8nDialogClose as-child>
 					<N8nButton
 						variant="outline"
-						:label="i18n.baseText('settings.gitSync.unsavedChanges.leaveWithoutSaving')"
-						@click="onLeaveWithoutSaving"
+						:label="i18n.baseText('generic.keepEditing')"
+						@click="onKeepEditing"
 					/>
-					<N8nButton
-						variant="solid"
-						:label="i18n.baseText('settings.gitSync.unsavedChanges.saveAndLeave')"
-						:loading="gitSyncStore.saving"
-						:disabled="!gitSyncStore.canSave"
-						@click="onSaveAndLeave"
-					/>
-				</N8nDialogFooter>
-			</div>
+				</N8nDialogClose>
+				<N8nButton
+					variant="outline"
+					:label="i18n.baseText('settings.gitSync.unsavedChanges.leaveWithoutSaving')"
+					@click="onLeaveWithoutSaving"
+				/>
+				<N8nButton
+					variant="solid"
+					:label="i18n.baseText('settings.gitSync.unsavedChanges.saveAndLeave')"
+					:loading="gitSyncStore.saving"
+					:disabled="!gitSyncStore.canSave"
+					@click="onSaveAndLeave"
+				/>
+			</N8nDialogFooter>
 		</N8nDialog>
 
 		<N8nAlertDialog
