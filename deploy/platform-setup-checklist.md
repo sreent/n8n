@@ -1,10 +1,7 @@
 # n8n platform setup checklist
 
-Fork document (not in upstream n8n). Git keeps the versions of this checklist, and pull requests
-review its changes. The Claude Doc [n8n platform setup
-checklist](https://claude.ai/artifact/8PT1Cd7swxrRrRpDDKJTn8) has the same steps. Tick the items and
-write the answers in the doc, not in this file. When you change the steps in one of them, change the
-other in the same way.
+Fork document (not in upstream n8n). These steps set up n8n for the users of the organisation: the
+server, the sign-in, the tiers of builders, the connectors, the visibility and the checks.
 
 ## Before you start
 

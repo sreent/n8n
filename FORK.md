@@ -60,8 +60,9 @@ A README or a FORK.md in the folder of each item describes it.
   ([packages/cli/src/license/FORK.md](packages/cli/src/license/FORK.md)).
 - `deploy/`: runs the fork on a Linux server with Docker Compose, on Google Cloud Run, on Amazon
   ECS, on Azure Container Apps or on Kubernetes. It also has Forgejo (a private Git server for the
-  Git features of n8n), the platform setup tool and a workflow that sends a weekly governance
-  report.
+  Git features of n8n), the platform setup tool, a workflow that sends a weekly governance report,
+  the setup checklist of the platform team (`platform-setup-checklist.md`) and the checks of Gateway
+  credits (`ai-gateway-checks.md`).
 - `vendor/`: the wa-sqlite package that the editor app installs. Upstream installs it from GitHub,
   which a cloud session cannot do. `scripts/vendor-wa-sqlite.sh` packs it from the upstream commit
   and gives the same file again.
