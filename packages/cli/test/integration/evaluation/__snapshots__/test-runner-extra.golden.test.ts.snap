@@ -1506,8 +1506,10 @@ exports[`a test run, more cases > with checks before the run and row indices 1`]
     "run": {
       "cancelRequested": 0,
       "completed": 1,
-      "errorCode": "UNKNOWN_ERROR",
-      "errorDetails": null,
+      "errorCode": "CANT_FETCH_TEST_CASES",
+      "errorDetails": {
+        "message": "Evaluation trigger node did not produce any output",
+      },
       "metrics": null,
       "runningInstanceId": null,
       "status": "error",
@@ -1532,7 +1534,7 @@ exports[`a test run, more cases > with checks before the run and row indices 1`]
           "concurrency_limit_source": "tier",
           "concurrency_limited_by_config": false,
           "duration": "<duration>",
-          "error_message": "No active execution found",
+          "error_message": "CANT_FETCH_TEST_CASES: Evaluation trigger node did not produce any output",
           "errored_test_case_count": 0,
           "is_part_of_collection": false,
           "metric_count": 0,
@@ -1760,9 +1762,9 @@ exports[`a test run, more cases > with checks before the run and row indices 1`]
     "cases": [
       {
         "completed": 1,
-        "errorCode": "UNKNOWN_ERROR",
+        "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
         "errorDetails": null,
-        "hasExecution": 0,
+        "hasExecution": 1,
         "inputs": {
           "createdAt": "<date>",
           "expected": "A",
@@ -1772,7 +1774,8 @@ exports[`a test run, more cases > with checks before the run and row indices 1`]
           "row_number": 0,
           "updatedAt": "<date>",
         },
-        "metrics": null,
+        "metricOrder": [],
+        "metrics": {},
         "outputs": null,
         "runIndex": 0,
         "started": 1,
@@ -1780,9 +1783,9 @@ exports[`a test run, more cases > with checks before the run and row indices 1`]
       },
       {
         "completed": 1,
-        "errorCode": "UNKNOWN_ERROR",
+        "errorCode": "FAILED_TO_EXECUTE_WORKFLOW",
         "errorDetails": null,
-        "hasExecution": 0,
+        "hasExecution": 1,
         "inputs": {
           "createdAt": "<date>",
           "expected": "B",
@@ -1792,7 +1795,8 @@ exports[`a test run, more cases > with checks before the run and row indices 1`]
           "row_number": 1,
           "updatedAt": "<date>",
         },
-        "metrics": null,
+        "metricOrder": [],
+        "metrics": {},
         "outputs": null,
         "runIndex": 1,
         "started": 1,
