@@ -1,10 +1,8 @@
 # AI gateway checks on your server
 
-Fork document (not in upstream n8n). Git keeps the versions of these checks, and pull requests
-review their changes. The Claude Doc [AI gateway checks on your
-server](https://claude.ai/artifact/2t9jmL4C4VLQnAWRUH4BvW) has the same checks. Tick the items in
-the doc, not in this file. When you change the checks in one of them, change the other in the same
-way.
+Fork document (not in upstream n8n). These checks show that Gateway credits work on your server:
+Azure OpenAI, Vertex AI, Google Cloud OCR, the estimates, and the prices and the processors of
+Document AI.
 
 ## Before you start
 
