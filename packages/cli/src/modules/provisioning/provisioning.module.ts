@@ -9,7 +9,6 @@ import { Container } from '@n8n/di';
 @BackendModule({
 	name: 'provisioning',
 	licenseFlag: ['feat:saml', 'feat:oidc'],
-	instanceTypes: ['main'],
 })
 export class ProvisioningModule implements ModuleInterface {
 	async init() {
