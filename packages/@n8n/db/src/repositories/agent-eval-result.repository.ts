@@ -1,9 +1,23 @@
 import { Service } from '@n8n/di';
-import { DataSource, Repository } from '@n8n/typeorm';
+import { DataSource, In, Repository } from '@n8n/typeorm';
 import type { UpdateResult } from '@n8n/typeorm';
 import type { IDataObject, JsonObject } from 'n8n-workflow';
 
 import { AgentEvalResult, type AgentEvalResultStatus } from '../entities';
+
+/** A case with one of these statuses has finished, so a rerun can claim it. */
+const SETTLED_STATUSES: AgentEvalResultStatus[] = ['success', 'error', 'cancelled'];
+
+/** The fields that an attempt of a case writes. A new attempt clears them, because it reuses the row. */
+const clearedAttempt = () => ({
+	completedAt: null,
+	output: null,
+	toolCalls: null,
+	metrics: null,
+	verdict: null,
+	errorCode: null,
+	errorDetails: null,
+});
 
 /**
  * Fork repository (not in upstream n8n): the results of the cases of agent eval runs. It replaces
@@ -37,6 +51,7 @@ export class AgentEvalResultRepository extends Repository<AgentEvalResult> {
 				output: null,
 				toolCalls: null,
 				metrics: null,
+				verdict: null,
 				runAt: null,
 				completedAt: null,
 				errorCode: null,
@@ -69,16 +84,34 @@ export class AgentEvalResultRepository extends Repository<AgentEvalResult> {
 	}
 
 	async markAsRunning(id: string): Promise<UpdateResult> {
-		return await this.update(id, { status: 'running', runAt: new Date() });
+		return await this.update(id, { status: 'running', runAt: new Date(), ...clearedAttempt() });
+	}
+
+	/**
+	 * Starts a rerun of a finished case. Of two requests for the same case, only one claims it.
+	 * Returns false when the case is new or running.
+	 */
+	async claimForRerun(id: string): Promise<boolean> {
+		const result = await this.update(
+			{ id, status: In(SETTLED_STATUSES) },
+			{ status: 'running', runAt: new Date(), ...clearedAttempt() },
+		);
+		return (result.affected ?? 0) > 0;
 	}
 
 	async markAsCancelled(id: string): Promise<UpdateResult> {
 		return await this.update(id, { status: 'cancelled', completedAt: new Date() });
 	}
 
+	/** The verdict of the judge is in the same write, so a finished case never shows without it. */
 	async markAsCompleted(
 		id: string,
-		outcome: { output: JsonObject; toolCalls?: JsonObject | null; metrics?: IDataObject | null },
+		outcome: {
+			output: JsonObject;
+			toolCalls?: JsonObject | null;
+			metrics?: IDataObject | null;
+			verdict?: JsonObject | null;
+		},
 	): Promise<UpdateResult> {
 		return await this.update(id, {
 			status: 'success',
@@ -86,7 +119,24 @@ export class AgentEvalResultRepository extends Repository<AgentEvalResult> {
 			output: outcome.output,
 			toolCalls: outcome.toolCalls ?? null,
 			metrics: outcome.metrics ?? null,
+			verdict: outcome.verdict ?? null,
 		});
+	}
+
+	/** Sets the verdict and keeps the status. `null` records that no judge ran. */
+	async updateVerdict(id: string, verdict: JsonObject | null): Promise<UpdateResult> {
+		return await this.update(id, { verdict });
+	}
+
+	/** Replaces the copy of the input of the case. */
+	async updateInput(id: string, input: JsonObject): Promise<UpdateResult> {
+		return await this.update(id, { input });
+	}
+
+	/** Whether the result of the run was deleted. */
+	async deleteById(id: string, runId: string): Promise<boolean> {
+		const result = await this.delete({ id, runId });
+		return (result.affected ?? 0) > 0;
 	}
 
 	async markAsError(

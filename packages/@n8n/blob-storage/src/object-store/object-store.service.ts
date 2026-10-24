@@ -252,7 +252,15 @@ export class ObjectStoreService {
 		this.gcs = client;
 	}
 
-	private async checkConnection() {
+	/**
+	 * Checks that the bucket is reachable. With a bucket of Google Cloud Storage, it makes the
+	 * native client once, which checks the credentials and the bucket.
+	 */
+	async checkConnection() {
+		if (this.gcsConfig.bucketName) {
+			await this.initGcs();
+			return;
+		}
 		this.logger.debug('Checking connection to S3 bucket', {
 			bucket: this.bucket,
 			endpoint: this.endpoint,

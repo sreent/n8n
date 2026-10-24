@@ -82,6 +82,11 @@ export class AgentEvalRunRepository extends Repository<AgentEvalRun> {
 	}
 
 	/** Sets the flag that the running instance reads, also when no message reaches it. */
+	/** Replaces the metrics of a run, for example the counts of a settled run after a deleted result. */
+	async updateMetrics(id: string, metrics: IDataObject): Promise<UpdateResult> {
+		return await this.update(id, { metrics });
+	}
+
 	async requestCancellation(id: string): Promise<UpdateResult> {
 		return await this.update(id, { cancelRequested: true });
 	}

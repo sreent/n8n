@@ -1,5 +1,5 @@
 import { Service } from '@n8n/di';
-import { DataSource, In } from '@n8n/typeorm';
+import { DataSource, type EntityManager, In } from '@n8n/typeorm';
 
 import { BaseRepository } from './base-repository';
 import {
@@ -58,10 +58,16 @@ export class SecretsProviderConnectionRepository extends BaseRepository<SecretsP
 		return connection ? String(connection.id) : null;
 	}
 
-	/** The IDs of the connections with the provider keys, as text. Disabled connections count. */
-	async findIdsByProviderKeys(providerKeys: string[]): Promise<string[]> {
+	/**
+	 * The IDs of the connections with the provider keys, as text. Disabled connections count.
+	 * With `entityManager`, the query runs in its transaction.
+	 */
+	async findIdsByProviderKeys(
+		providerKeys: string[],
+		entityManager?: EntityManager,
+	): Promise<string[]> {
 		if (providerKeys.length === 0) return [];
-		const connections = await this.find({
+		const connections = await (entityManager ?? this.manager).find(SecretsProviderConnection, {
 			select: { id: true },
 			where: { providerKey: In(providerKeys) },
 			order: { id: 'ASC' },

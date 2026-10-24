@@ -2,6 +2,7 @@
 // (`/api/v1/insights/by-workflow`). See
 // packages/cli/src/public-api/v1/controllers/insights-by-workflow.public.controller.ts.
 import { ModuleRegistry } from '@n8n/backend-common';
+import { createCompactedInsightsEvent } from '@n8n/backend-module-insights/testing';
 import {
 	createTeamProject,
 	createWorkflow,
@@ -12,8 +13,6 @@ import {
 import { type Project, type User, WorkflowRepository } from '@n8n/db';
 import { Container } from '@n8n/di';
 import { DateTime } from 'luxon';
-
-import { createCompactedInsightsEvent } from '@/modules/insights/database/entities/__tests__/db-utils';
 
 import { createMemberWithApiKey, createOwnerWithApiKey } from '../shared/db/users';
 import * as utils from '../shared/utils';

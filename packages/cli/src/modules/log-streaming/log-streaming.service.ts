@@ -1,4 +1,3 @@
-import { PublicCreateDestinationDto } from '@n8n/api-types';
 import { Logger } from '@n8n/backend-common';
 import { CredentialsFinderService, EventService } from '@n8n/backend-services';
 import { InstanceSettingsLoaderConfig } from '@n8n/config';
@@ -27,6 +26,7 @@ import { EventDestinationRepository } from './database/event-destination.reposit
 import { DestinationCredentials } from './destinations/destination-credentials';
 import {
 	buildDestinationOptions,
+	EnvironmentDestinationSchema,
 	fromPublicDestination,
 	parseDestinationOptions,
 	PUBLIC_TYPES,
@@ -217,7 +217,7 @@ export class LogStreamingService {
 		} catch {
 			throw new InstanceBootstrappingError(`${ENV_VARIABLE} is not valid JSON`);
 		}
-		const result = z.array(PublicCreateDestinationDto).safeParse(parsed);
+		const result = z.array(EnvironmentDestinationSchema).safeParse(parsed);
 		if (!result.success) {
 			const issues = result.error.issues.map(
 				({ path, message }) => `${path.join('.')}: ${message}`,

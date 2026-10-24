@@ -25,6 +25,8 @@ export const TOKEN_PURPOSES = {
 	publicApiKey: 'public-api',
 	mcpApiKey: 'mcp-server-api',
 	scimApiKey: 'scim-api',
+	// Fork: the tokens of Gateway credits (packages/cli/src/modules/ai-gateway/README.md).
+	aiGateway: 'n8n:fork-ai-gateway',
 } as const satisfies Record<string, string> & {
 	// Keep these three in step with the persisted `api_key.audience` values.
 	publicApiKey: ApiKeyAudience;

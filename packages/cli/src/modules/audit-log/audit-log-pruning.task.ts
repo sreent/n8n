@@ -1,6 +1,6 @@
 import { Time } from '@n8n/constants';
-import { intervalFromSeconds, SystemTask } from '@n8n/decorators';
-import type { SystemTaskEffects, SystemTaskPlacement, SystemTaskSchedule } from '@n8n/decorators';
+import { clusterTarget, intervalFromSeconds, SystemTask } from '@n8n/decorators';
+import type { SystemTaskSchedule } from '@n8n/decorators';
 
 import { AuditLogPruningService } from './audit-log-pruning.service';
 import { AuditLogConfig } from './audit-log.config';
@@ -14,16 +14,18 @@ export class AuditLogPruningTask implements SystemTask {
 		this.config.pruneIntervalHours * Time.hours.toSeconds,
 	);
 
-	readonly effects: SystemTaskEffects = 'idempotent';
-
-	readonly placement: SystemTaskPlacement = { scope: 'cluster', durable: true };
+	readonly target = clusterTarget({
+		/** An event is older than the retention or not, so a repeated run deletes nothing new. */
+		scheduler: { retryOnFailure: true },
+	});
 
 	constructor(
 		private readonly config: AuditLogConfig,
 		private readonly pruningService: AuditLogPruningService,
 	) {}
 
-	async run(): Promise<void> {
+	async run(signal: AbortSignal): Promise<void> {
+		signal.throwIfAborted();
 		await this.pruningService.prune();
 	}
 }

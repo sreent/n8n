@@ -47,14 +47,15 @@ repositories of upstream n8n. They add no table and no module.
   `apiKey:manage`. So a member gets 403, also with the scope on the key.
 - `apiKey:manage` is an upstream scope. The fork adds it as an API key scope (see
   [packages/@n8n/permissions/FORK.md](../../../@n8n/permissions/FORK.md#fork-scopes)).
-- Query: `userId`, `audience` (`public-api` or `mcp-server-api`), `limit` (1 to 250, default 100)
-  and `cursor`. The route sorts the keys newest first.
+- Query: `userId`, `audience` (`public-api`, `mcp-server-api` or `scim-api`), `limit` (1 to 250,
+  default 100) and `cursor`. The route sorts the keys newest first.
 - The response never gives the value of a key.
 - `expiresAt` comes from the key itself (a JWT). `expired` is true when that time is past. n8n
   rejects an expired key.
 - `lastUsedAt`: n8n saves the time when a key signs in, at most once a minute. An expired key does
   not sign in, so its `lastUsedAt` does not change.
 - A key of the MCP server has the audience `mcp-server-api` and no scopes.
+- A SCIM provisioning key has the audience `scim-api`. Each user has one at most.
 
 ## The last activity of users
 

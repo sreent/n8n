@@ -35,6 +35,7 @@ import {
 	createFilter,
 	escapeFilter,
 	formatUrl,
+	getLdapSynchronizationsWithCount,
 	getMappingAttributes,
 	isLdapConfig,
 	mapLdapAttributesToUser,
@@ -416,6 +417,14 @@ export class LdapService implements IPasswordAuthHandler<User> {
 		}
 
 		return history;
+	}
+
+	/** A part of the synchronization history and the count of all runs, newest first. */
+	async getSynchronizations(
+		offset: number,
+		limit: number,
+	): Promise<[AuthProviderSyncHistory[], number]> {
+		return await getLdapSynchronizationsWithCount(offset, limit);
 	}
 
 	/** The users to create, to update and to disable. */
