@@ -869,6 +869,68 @@ export {
 	type PromotionReviewType,
 	type PromotionReviewTab,
 } from './promotions/promotion-review.dto';
+// Fork: the DTOs of Git connections, which upstream n8n replaced with environments. See
+// packages/cli/src/modules/promotions/README.md.
+export {
+	PromotionApplyConfigPublicDto,
+	PromotionPromoteConfigPublicDto,
+	UpsertPromotionApplyConfigDto,
+	UpsertPromotionPromoteConfigDto,
+	promotionApplyConfigPublicSchema,
+	promotionApplyConfigSummarySchema,
+	promotionConfigCheckoutSchema,
+	promotionConfigSettingsSchema,
+	promotionConnectionConfigsPublicSchema,
+	promotionConnectionConfigsSummarySchema,
+	promotionGitSettingsSchemas,
+	promotionPromoteConfigPublicSchema,
+	promotionPromoteConfigSummarySchema,
+	type PromotionConfigCheckout,
+	type PromotionConfigSettings,
+	type PromotionConnectionConfigsPublic,
+	type PromotionConnectionConfigsSummary,
+} from './promotions/promotion-config.dto';
+export {
+	CreatePromotionConnectionDto,
+	ListPromotionConnectionsQueryDto,
+	PromotionConnectionListPublicDto,
+	PromotionConnectionProjectListPublicDto,
+	PromotionConnectionProjectPublicDto,
+	PromotionConnectionPublicDto,
+	UpdatePromotionConnectionDto,
+	promotionConnectionIdParamSchema,
+	promotionConnectionProjectPublicSchema,
+	promotionConnectionPublicSchema,
+	promotionConnectionScopeSchema,
+	promotionConnectionSummarySchema,
+	promotionConnectionTargetSchema,
+	type PromotionConnectionScope,
+	type PromotionConnectionSummary,
+	type PromotionConnectionTarget,
+} from './promotions/promotion-connection.dto';
+export {
+	PromotionConnectionApplyDto,
+	PromotionConnectionApplyResultDto,
+	PromotionConnectionChangesDto,
+	PromotionConnectionCheckoutPublicDto,
+	PromotionConnectionContinueApplyDto,
+	PromotionConnectionPromoteResultDto,
+	promotionConnectionApplyCountsSchema,
+	promotionConnectionApplyResultSchema,
+	promotionConnectionChangesSchema,
+	promotionConnectionCheckoutPublicSchema,
+	promotionConnectionPromoteResultSchema,
+	type PromotionConnectionChanges,
+} from './promotions/promotion-connection-operations.dto';
+export {
+	CreatePromotionConnectionProviderDto,
+	UpdatePromotionConnectionProviderDto,
+	promotionConnectionProviderAuthInputSchema,
+	promotionConnectionProviderAuthUpdateSchema,
+	promotionConnectionTokenAuthInputSchema,
+	type PromotionConnectionProviderAuthInput,
+	type PromotionConnectionProviderAuthUpdate,
+} from './promotions/promotion-connection-provider.dto';
 
 export {
 	ScimConfigPatchDto,

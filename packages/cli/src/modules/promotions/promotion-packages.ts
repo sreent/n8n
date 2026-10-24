@@ -9,7 +9,11 @@ import { jsonParse } from 'n8n-workflow';
 
 import { formatEntityFile } from '@/modules/n8n-packages/io/entity-file-format';
 import { N8nPackagesService } from '@/modules/n8n-packages/n8n-packages.service';
-import type { ImportRequest, ImportResult } from '@/modules/n8n-packages/n8n-packages.types';
+import type {
+	ExportPackageEventCounts,
+	ImportRequest,
+	ImportResult,
+} from '@/modules/n8n-packages/n8n-packages.types';
 import type { PackageManifest } from '@/modules/n8n-packages/spec/manifest.schema';
 import { packageManifestSchema } from '@/modules/n8n-packages/spec/manifest.schema';
 
@@ -51,6 +55,12 @@ interface SelectionRequest {
 
 function countBy<T>(items: T[], predicate: (item: T) => boolean) {
 	return items.filter(predicate).length;
+}
+
+/** The counts of a promotion. The package of a Git connection has no agents, so they have no count. */
+function promoteCounts(counts: ExportPackageEventCounts) {
+	const { workflows, folders, credentials, dataTables, variables, tags } = counts;
+	return { workflows, folders, credentials, dataTables, variables, tags };
 }
 
 /** The counts of an apply, from the result of the package import. */
@@ -125,6 +135,8 @@ export class PromotionPackages {
 					user,
 					projectIds: projects.map(({ id }) => id),
 					includeArchivedWorkflows: true,
+					// Git connections move workflows only, so the package keeps agents out.
+					includeAgents: false,
 					canExportVariableValues,
 				},
 				{ targetDir: staging },
@@ -132,7 +144,7 @@ export class PromotionPackages {
 			const target = path.join(repository, PROMOTION_PACKAGE_FOLDER);
 			await rm(target, { recursive: true, force: true });
 			await rename(staging, target);
-			return counts;
+			return promoteCounts(counts);
 		});
 	}
 
@@ -151,6 +163,7 @@ export class PromotionPackages {
 					projectIds: [request.projectId],
 					projectWorkflowIds: request.liveIds,
 					includeArchivedWorkflows: true,
+					includeAgents: false,
 					canExportVariableValues: request.canExportVariableValues,
 				},
 				{ targetDir: staging },
@@ -168,7 +181,7 @@ export class PromotionPackages {
 				path.join(target, MANIFEST_FILE),
 				formatEntityFile(packageManifestSchema.parse(merged)),
 			);
-			return counts;
+			return promoteCounts(counts);
 		});
 	}
 

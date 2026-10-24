@@ -17,15 +17,8 @@ export const registerComponentSlots = () => {
 		),
 	);
 
-	componentRegistry.register(
-		'promotion-changes',
-		defineAsyncComponent(
-			async () =>
-				await import(
-					'@/features/integrations/promotions.ee/components/review/PromotionReviewChanges.vue'
-				),
-		),
-	);
+	// Fork: no 'promotion-changes' slot. Its component is in the enterprise folder `promotions.ee`,
+	// which the fork removed. The fork has no promotion reviews in the inbox, so nothing renders it.
 
 	componentRegistry.register(
 		'project-filter',

@@ -34,7 +34,10 @@ describe('Public API scope parity', () => {
 				declared.add(`${resource}:${operation}`);
 			}
 		}
-		const orphans = [...declared].filter((scope) => !consumed.has(scope));
+		// Fork: the fork leaves out the environment routes of upstream n8n, so no fork route takes
+		// this scope (packages/cli/src/modules/promotions/README.md).
+		const leftOut = new Set(['gitConnection:discover']);
+		const orphans = [...declared].filter((scope) => !consumed.has(scope) && !leftOut.has(scope));
 		expect(orphans).toEqual([]);
 	});
 });

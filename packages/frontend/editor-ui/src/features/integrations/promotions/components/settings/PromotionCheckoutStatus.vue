@@ -67,7 +67,7 @@ const connectDisabled = computed(() => props.state === 'unsaved' || props.dirty 
 		</N8nButton>
 		<N8nButton
 			v-if="showDisconnect"
-			variant="subtle"
+			variant="outline"
 			size="small"
 			:disabled="busy"
 			data-test-id="promotion-checkout-disconnect"

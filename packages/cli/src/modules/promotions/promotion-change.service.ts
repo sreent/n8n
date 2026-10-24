@@ -1,7 +1,7 @@
 import type {
 	PromotableResource,
 	PromotableResourceStatus,
-	PromotionChanges,
+	PromotionConnectionChanges,
 	PromotionChangesQueryDto,
 	PromotionDirection,
 } from '@n8n/api-types';
@@ -14,7 +14,10 @@ import path from 'node:path';
 import { HashingPackageWriter } from '@/modules/n8n-packages/io/hashing-package-writer';
 import { PACKAGE_ENTITY_LAYOUT } from '@/modules/n8n-packages/io/manifest-entry';
 import { N8nPackagesService } from '@/modules/n8n-packages/n8n-packages.service';
-import type { PackageManifest } from '@/modules/n8n-packages/spec/manifest.schema';
+import {
+	packageManifestSchema,
+	type PackageManifest,
+} from '@/modules/n8n-packages/spec/manifest.schema';
 import type { PackageRequirements } from '@/modules/n8n-packages/spec/requirements.schema';
 
 import type { PromotionConfig } from './database/entities/promotion-config.entity';
@@ -52,6 +55,14 @@ function slugOfFolder(folder: string) {
 	return name.slice(0, name.lastIndexOf('-'));
 }
 
+/** Whether the workflow is one of the consumers of a requirement. */
+function isUsedByWorkflow(
+	requirement: { usedBy: Array<{ kind: string; id: string }> },
+	workflowId: string,
+) {
+	return requirement.usedBy.some(({ kind, id }) => kind === 'workflow' && id === workflowId);
+}
+
 /** The number of credentials, data tables, sub-workflows, variables and tags that a workflow uses. */
 function dependencyCount(requirements: PackageRequirements | undefined, workflowId: string) {
 	if (!requirements) return 0;
@@ -65,7 +76,7 @@ function dependencyCount(requirements: PackageRequirements | undefined, workflow
 	let count = 0;
 	for (const list of lists) {
 		for (const entry of list ?? []) {
-			if (entry.usedByWorkflows.includes(workflowId)) count++;
+			if (isUsedByWorkflow(entry, workflowId)) count++;
 		}
 	}
 	return count;
@@ -101,8 +112,9 @@ function dependenciesOf(
 	const requirements = manifest?.requirements;
 	if (!manifest || !requirements) return dependencies;
 	for (const kind of DEPENDENCY_KINDS) {
-		for (const { id, usedByWorkflows } of requirements[kind] ?? []) {
-			if (!usedByWorkflows.includes(workflowId)) continue;
+		for (const requirement of requirements[kind] ?? []) {
+			if (!isUsedByWorkflow(requirement, workflowId)) continue;
+			const { id } = requirement;
 			const entry = manifest[kind]?.find((candidate) => candidate.id === id);
 			const file = entry ? `${entry.target}/${PACKAGE_ENTITY_LAYOUT[kind].fileName}` : undefined;
 			dependencies.entities.set(
@@ -112,8 +124,9 @@ function dependenciesOf(
 		}
 	}
 	const projectVariables = `${projectFolderOf(workflowFolder)}/variables/`;
-	for (const { name, usedByWorkflows } of requirements.variables ?? []) {
-		if (!usedByWorkflows.includes(workflowId)) continue;
+	for (const requirement of requirements.variables ?? []) {
+		if (!isUsedByWorkflow(requirement, workflowId)) continue;
+		const { name } = requirement;
 		const scopes = new Set<VariableScope>();
 		for (const entry of manifest.variables ?? []) {
 			if (entry.name !== name) continue;
@@ -182,7 +195,7 @@ export class PromotionChangeService {
 		projectId: string,
 		direction: PromotionDirection,
 		query: Pick<PromotionChangesQueryDto, 'search' | 'sort' | 'order'>,
-	): Promise<PromotionChanges> {
+	): Promise<PromotionConnectionChanges> {
 		const { project, connection, config } = await this.targets.forProject(projectId, direction);
 		await this.targets.assertCloned(connection, config, 'branch files');
 
@@ -193,7 +206,8 @@ export class PromotionChangeService {
 
 		const writer = new HashingPackageWriter();
 		const { manifest } = await this.packagesService.exportPackageToWriter(
-			{ user, projectIds: [project.id], includeArchivedWorkflows: true },
+			// Git connections move workflows only, so the package keeps agents out.
+			{ user, projectIds: [project.id], includeArchivedWorkflows: true, includeAgents: false },
 			writer,
 		);
 		const hashes = new Map(writer.finalize().map(({ path: file, blobSha }) => [file, blobSha]));
@@ -433,12 +447,14 @@ export class PromotionChangeService {
 		return workflows;
 	}
 
+	/** The schema also reads the requirements of a package that an older n8n wrote. */
 	private async readBranchManifest(repository: string, commitSha: string) {
 		const text = await this.git.run(repository, [
 			'show',
 			`${commitSha}:${PROMOTION_PACKAGE_FOLDER}/manifest.json`,
 		]);
-		return jsonParse<PackageManifest>(text);
+		const parsed = packageManifestSchema.safeParse(jsonParse<unknown>(text));
+		return parsed.success ? parsed.data : undefined;
 	}
 
 	private async readBranchWorkflow(repository: string, commitSha: string, folder: string) {

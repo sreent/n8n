@@ -16,6 +16,7 @@ import {
 	N8nText,
 } from '@n8n/design-system';
 import { useI18n } from '@n8n/i18n';
+import { computed } from 'vue';
 
 import { consumersText, usePromotionBindings } from '../composables/usePromotionBindings';
 import type { BindingPreflight } from '../promotions.types';
@@ -33,7 +34,22 @@ const i18n = useI18n();
 const { groups, busy, unresolvedCount, hasSavedResources, scopeLabel, create } =
 	usePromotionBindings(() => props.preflight);
 
-type Conflict = BindingPreflight['conflicts'][number];
+/**
+ * The conflicts of Git connections. Upstream n8n added the conflicts of environments
+ * (`project-deletion` and `destructive-change`) to the shared schema. The fork backend never sends
+ * them.
+ */
+type Conflict = Exclude<
+	BindingPreflight['conflicts'][number],
+	{ code: 'project-deletion' | 'destructive-change' }
+>;
+
+const conflicts = computed(() =>
+	props.preflight.conflicts.filter(
+		(conflict): conflict is Conflict =>
+			conflict.code !== 'project-deletion' && conflict.code !== 'destructive-change',
+	),
+);
 
 function conflictName(conflict: Conflict) {
 	return conflict.kind === 'project' ? conflict.project.name : conflict.name;
@@ -157,12 +173,12 @@ function onOpenChange(open: boolean) {
 					<p v-for="line in consumersText(requirement.consumers, i18n)" :key="line">{{ line }}</p>
 				</N8nCallout>
 			</template>
-			<template v-if="preflight.conflicts.length">
+			<template v-if="conflicts.length">
 				<h3 :class="$style.sectionTitle">
 					{{ i18n.baseText('promotions.bindings.conflicts.title') }}
 				</h3>
 				<N8nCallout
-					v-for="(conflict, index) in preflight.conflicts"
+					v-for="(conflict, index) in conflicts"
 					:key="`${conflict.kind}-${index}`"
 					theme="warning"
 				>
@@ -202,7 +218,7 @@ function onOpenChange(open: boolean) {
 					interpolate: { count: unresolvedCount },
 				})
 			}}</span>
-			<N8nButton variant="subtle" :disabled="busy" @click="back">
+			<N8nButton variant="outline" :disabled="busy" @click="back">
 				{{ i18n.baseText('promotions.bindings.close') }}
 			</N8nButton>
 			<N8nButton :disabled="busy || unresolvedCount > 0" :loading="continuing" @click="onContinue">

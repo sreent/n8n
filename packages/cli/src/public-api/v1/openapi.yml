@@ -71,7 +71,7 @@ tags:
     description: Operations about projects
   - name: Promotions
     x-displayName: Promotions
-    description: Operations about promotion providers, environments, and package operations
+    description: Operations about promotion providers, connections, and package operations
   - name: Role
     x-displayName: Role
     description: Operations about roles

@@ -1,17 +1,16 @@
-operationId: addProjectToPromotionEnvironment
+operationId: addProjectToPromotionConnection
 tags:
   - Promotions
-summary: Link a project to a promotion environment
-description: Links a team project to a project-scoped environment. A project can have one environment for each direction. A direction without a project environment uses the instance environment.
+summary: Link a project to a promotion connection
+description: Links a team project to a project-scoped connection. A project can be linked to only one connection.
 x-required-scope: gitConnection:manageProjects
 parameters:
   - $ref: ../../../../shared/spec/parameters/idempotencyKey.yml
   - schema:
       type: string
-      format: uuid
     required: true
-    description: The ID of the promotion environment.
-    name: promotionEnvironmentId
+    description: The ID of the promotion connection.
+    name: promotionConnectionId
     in: path
   - schema:
       type: string
@@ -31,13 +30,13 @@ responses:
               type: string
               minLength: 1
               maxLength: 36
-            environmentId:
+            connectionId:
               type: string
               minLength: 1
               maxLength: 36
           required:
             - projectId
-            - environmentId
+            - connectionId
   '400':
     $ref: ../../../../shared/spec/responses/badRequest.yml
   '401':

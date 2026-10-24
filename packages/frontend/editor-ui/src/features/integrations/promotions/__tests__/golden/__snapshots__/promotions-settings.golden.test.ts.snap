@@ -3669,7 +3669,7 @@ exports[`the settings page of Git connections > the instance connection 1`] = `
         "overlays": [
           {
             "controls": [
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAnew1 n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAnew1 n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button #promotion-provider-done-button: Close",
               "button #dialog-close-button: Close dialog",
@@ -17959,7 +17959,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -18088,7 +18088,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -18251,7 +18251,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -18880,7 +18880,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button [disabled] #promotion-provider-delete-button: Delete",
@@ -18997,7 +18997,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button [disabled] #promotion-provider-delete-button: Delete",
@@ -20548,7 +20548,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
         "overlays": [
           {
             "controls": [
-              "input type=text #promotion-provider-public-key value="ssh-rsa AAAAnew1 n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-rsa AAAAnew1 n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button #promotion-provider-done-button: Close",
               "button #dialog-close-button: Close dialog",
@@ -20997,7 +20997,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
         "overlays": [
           {
             "controls": [
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAnew1 n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAnew1 n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button #promotion-provider-done-button: Close",
               "button #dialog-close-button: Close dialog",
@@ -21100,21 +21100,21 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
       "click": "copy-input-button",
       "effects": [
         [
-          "document.execCommand",
-          "copy",
+          "clipboard.writeText",
+          "ssh-ed25519 AAAAnew1 n8n promotions",
         ],
       ],
       "screen": {
         "overlays": [
           {
             "controls": [
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAnew1 n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAnew1 n8n promotions": Deploy key",
               "button #copy-input-button: Copied to clipboard",
               "button #promotion-provider-done-button: Close",
               "button #dialog-close-button: Close dialog",
             ],
             "icons": [
-              "copy",
+              "check",
               "x",
             ],
             "testIds": [
@@ -22319,7 +22319,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
         "overlays": [
           {
             "controls": [
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAnew1 n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAnew1 n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button #promotion-provider-done-button: Close",
               "button #dialog-close-button: Close dialog",
@@ -22729,7 +22729,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -22839,8 +22839,8 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
       "click": "copy-input-button",
       "effects": [
         [
-          "document.execCommand",
-          "copy",
+          "clipboard.writeText",
+          "ssh-ed25519 AAAAgolden n8n promotions",
         ],
       ],
       "screen": {
@@ -22851,7 +22851,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copied to clipboard",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -22864,7 +22864,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
             ],
             "icons": [
               "circle-help",
-              "copy",
+              "check",
               "x",
             ],
             "testIds": [
@@ -23068,7 +23068,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -23197,7 +23197,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -23324,7 +23324,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -23453,7 +23453,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -23580,7 +23580,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -23709,7 +23709,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -27546,7 +27546,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -27662,7 +27662,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
               "input type=text [disabled] role=combobox value="SSH key": Select",
               "li role=option: SSH key",
               "li role=option: Username and password",
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAAgolden n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button role=checkbox #promotion-provider-regenerate-key: ",
               "button #promotion-provider-delete-button: Delete",
@@ -27805,7 +27805,7 @@ exports[`the settings page of Git connections > the provider dialog 1`] = `
         "overlays": [
           {
             "controls": [
-              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAArotated n8n promotions": ",
+              "input type=text #promotion-provider-public-key value="ssh-ed25519 AAAArotated n8n promotions": Deploy key",
               "button #copy-input-button: Copy deploy key",
               "button #promotion-provider-done-button: Close",
               "button #dialog-close-button: Close dialog",

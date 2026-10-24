@@ -103,7 +103,7 @@ function onOpenChange(open: boolean) {
 				/>
 			</N8nInputLabel>
 			<footer :class="$style.footer">
-				<N8nButton variant="subtle" data-test-id="promote-cancel-button" @click="emit('close')">
+				<N8nButton variant="outline" data-test-id="promote-cancel-button" @click="emit('close')">
 					{{ i18n.baseText('generic.cancel') }}
 				</N8nButton>
 				<N8nButton

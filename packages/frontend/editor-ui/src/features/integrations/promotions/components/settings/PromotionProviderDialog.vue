@@ -75,7 +75,7 @@ const title = computed(() => {
 	return i18n.baseText(
 		isEdit.value
 			? 'settings.promotions.provider.dialog.title.edit'
-			: 'settings.promotions.provider.dialog.title.add',
+			: 'settings.promotions.gitConnections.provider.dialog.title.add',
 	);
 });
 
@@ -197,6 +197,7 @@ function onOpenChange(open: boolean) {
 			<N8nInputLabel :label="i18n.baseText('settings.promotions.provider.publicKey.label')">
 				<N8nCopyInput
 					:value="deployKey"
+					:label="i18n.baseText('settings.promotions.provider.publicKey.label')"
 					:copy-label="i18n.baseText('settings.promotions.provider.publicKey.copy')"
 					data-test-id="promotion-provider-public-key"
 				/>
@@ -217,7 +218,7 @@ function onOpenChange(open: boolean) {
 			@submit.prevent="save"
 		>
 			<N8nNotice v-if="isInUse" data-test-id="promotion-provider-in-use">
-				{{ i18n.baseText('settings.promotions.provider.inUse.warning') }}
+				{{ i18n.baseText('settings.promotions.gitConnections.provider.inUse.warning') }}
 				{{
 					i18n.baseText('settings.promotions.provider.inUse.connections', {
 						interpolate: { names: (usedBy ?? []).join(', ') },
@@ -269,6 +270,7 @@ function onOpenChange(open: boolean) {
 					<N8nInputLabel :label="i18n.baseText('settings.promotions.provider.publicKey.label')">
 						<N8nCopyInput
 							:value="currentPublicKey"
+							:label="i18n.baseText('settings.promotions.provider.publicKey.label')"
 							:copy-label="i18n.baseText('settings.promotions.provider.publicKey.copy')"
 							data-test-id="promotion-provider-public-key"
 						/>
@@ -319,7 +321,7 @@ function onOpenChange(open: boolean) {
 					{{ i18n.baseText('generic.delete') }}
 				</N8nButton>
 				<N8nButton
-					variant="subtle"
+					variant="outline"
 					data-test-id="promotion-provider-cancel-button"
 					@click="emit('close')"
 				>

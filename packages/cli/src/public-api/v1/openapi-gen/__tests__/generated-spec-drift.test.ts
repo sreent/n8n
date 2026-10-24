@@ -1,10 +1,6 @@
 import '../../controllers';
 
-import {
-	ApplyPackageResultDto,
-	PromotionBranchListPublicDto,
-	PromotionRepositoryListPublicDto,
-} from '@n8n/api-types';
+import { PromotionConnectionApplyResultDto } from '@n8n/api-types';
 import { ControllerRegistryMetadata } from '@n8n/decorators';
 import { Container } from '@n8n/di';
 import type { OpenAPIV3 } from 'openapi-types';
@@ -32,6 +28,8 @@ describe('generated OpenAPI spec is up to date', () => {
 	);
 });
 
+// Fork: the public API of the fork has the Apply routes of Git connections, with the fork DTO and
+// the connection and config IDs (packages/cli/src/modules/promotions/README.md).
 describe('Apply response documentation', () => {
 	it.each(['applyPackage', 'continueApplyPackage'])(
 		'%s exposes all outcomes and the required gates',
@@ -39,7 +37,7 @@ describe('Apply response documentation', () => {
 			const route = Container.get(ControllerRegistryMetadata)
 				.getControllerMetadata(PromotionsPublicController as never)
 				.routes.get(handler);
-			expect(route?.responseDto).toBe(ApplyPackageResultDto);
+			expect(route?.responseDto).toBe(PromotionConnectionApplyResultDto);
 			expect(route?.accessScope).toEqual({ scope: 'gitConnection:pull', globalOnly: true });
 			expect(route?.apiKeyScope).toBe('gitConnection:pull');
 			expect(route?.licenseFeature).toBe('feat:gitConnections');
@@ -51,7 +49,7 @@ describe('Apply response documentation', () => {
 			const response = operation.responses['200'] as OpenAPIV3.ResponseObject;
 			const schema = response.content?.['application/json'].schema as OpenAPIV3.ReferenceObject;
 			expect(schema).toEqual({
-				$ref: '../../../../shared/spec/schemas/applyPackageResultDto.generated.yml',
+				$ref: '../../../../shared/spec/schemas/promotionConnectionApplyResultDto.generated.yml',
 			});
 			const schemaPath = path.posix.normalize(
 				path.posix.join(path.posix.dirname(outputPath), schema.$ref),
@@ -71,7 +69,7 @@ describe('Apply response documentation', () => {
 						(candidate.properties?.status as OpenAPIV3.SchemaObject).enum?.[0] === status,
 				);
 				expect(outcome?.required).toEqual(
-					expect.arrayContaining(['status', 'environmentId', 'git', ...fields]),
+					expect.arrayContaining(['status', 'connectionId', 'configId', 'git', ...fields]),
 				);
 				if (status !== 'applied') expect(outcome?.properties).not.toHaveProperty('counts');
 			}
@@ -79,25 +77,5 @@ describe('Apply response documentation', () => {
 	);
 });
 
-describe('Discovery response documentation', () => {
-	it.each([
-		['getPromotionProviderRepositories', PromotionRepositoryListPublicDto],
-		['getPromotionProviderRepositoryBranches', PromotionBranchListPublicDto],
-	] as const)('%s declares its response and access gates', (handler, responseDto) => {
-		const route = Container.get(ControllerRegistryMetadata)
-			.getControllerMetadata(PromotionsPublicController as never)
-			.routes.get(handler);
-		expect(route?.responseDto).toBe(responseDto);
-		expect(route?.accessScope).toEqual({ scope: 'gitConnection:discover', globalOnly: true });
-		expect(route?.apiKeyScope).toBe('gitConnection:discover');
-		expect(route?.licenseFeature).toBe('feat:gitConnections');
-		const outputPath = `handlers/promotions/spec/paths/${handler}.generated.yml`;
-		const operation = parse(
-			getGeneratedArtifacts().find((artifact) => artifact.outputPath === outputPath)!.content,
-		) as OpenAPIV3.OperationObject;
-		expect(operation).toHaveProperty('x-required-scope', 'gitConnection:discover');
-		expect(operation.parameters).toContainEqual({
-			$ref: '../../../../shared/spec/parameters/limit.yml',
-		});
-	});
-});
+// Fork: the fork has no discovery routes of Git hosts. They belong to the environments of upstream
+// n8n, which the fork leaves out.

@@ -2,7 +2,7 @@ operationId: getPromotionProviders
 tags:
   - Promotions
 summary: List promotion providers
-description: Returns a cursor-paginated list of providers, without their public configuration.
+description: Returns a cursor-paginated list of providers, without their public keys.
 x-required-scope: gitConnection:list
 parameters:
   - $ref: ../../../../shared/spec/parameters/limit.yml

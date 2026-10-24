@@ -1,15 +1,14 @@
-operationId: getPromotionEnvironmentProjects
+operationId: getPromotionConnectionProjects
 tags:
   - Promotions
-summary: List projects linked to a promotion environment
+summary: List projects linked to a promotion connection
 x-required-scope: gitConnection:read
 parameters:
   - schema:
       type: string
-      format: uuid
     required: true
-    description: The ID of the promotion environment.
-    name: promotionEnvironmentId
+    description: The ID of the promotion connection.
+    name: promotionConnectionId
     in: path
 responses:
   '200':
