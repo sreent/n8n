@@ -87,6 +87,8 @@ exports[`LDAP > the access to the routes 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -94,6 +96,9 @@ exports[`LDAP > the access to the routes 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -111,6 +116,14 @@ exports[`LDAP > the access to the routes 1`] = `
       },
     },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -387,6 +400,8 @@ exports[`LDAP > the binary attributes 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -461,6 +476,14 @@ exports[`LDAP > the binary attributes 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -509,6 +532,14 @@ exports[`LDAP > the binary attributes 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -537,6 +568,14 @@ exports[`LDAP > the binary attributes 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=alice,ou=people,dc=example,dc=com",
         "alice-pass",
@@ -546,6 +585,13 @@ exports[`LDAP > the binary attributes 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -557,7 +603,7 @@ exports[`LDAP > the binary attributes 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "alice@example.com",
           "firstName": "Alice",
@@ -576,6 +622,14 @@ exports[`LDAP > the binary attributes 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -603,6 +657,14 @@ exports[`LDAP > the binary attributes 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -644,6 +706,8 @@ exports[`LDAP > the binary attributes 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -676,12 +740,28 @@ exports[`LDAP > the binary attributes 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=alice,ou=people,dc=example,dc=com",
         "alice-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -714,6 +794,13 @@ exports[`LDAP > the binary attributes 1`] = `
     ],
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -724,7 +811,7 @@ exports[`LDAP > the binary attributes 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "alice@example.com",
           "firstName": "Alice",
@@ -746,6 +833,8 @@ exports[`LDAP > the binary attributes 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -2182,6 +2271,8 @@ exports[`LDAP > the email checks 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -2297,6 +2388,8 @@ exports[`LDAP > the email checks 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -2385,6 +2478,8 @@ exports[`LDAP > the email checks 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -2417,12 +2512,28 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=pat2,ou=people,dc=example,dc=com",
         "pat2-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -2479,7 +2590,27 @@ exports[`LDAP > the email checks 1`] = `
     "step": "two entries with one email in other cases",
   },
   {
+    "changes": {
+      "identities": {
+        "added": [
+          "{"providerType":"ldap","providerId":"quinn","user":"quinn@localhost"}",
+        ],
+      },
+      "users": {
+        "added": [
+          "{"email":"quinn@localhost","firstName":"Quinn","lastName":"Quill","role":"global:member","disabled":false,"password":"<set>","personalProject":true}",
+        ],
+      },
+    },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -2507,6 +2638,14 @@ exports[`LDAP > the email checks 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -2517,6 +2656,14 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -2545,18 +2692,47 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
     ],
-    "logs": [
+    "events": [
       [
-        "error",
-        "Cannot save user <quinn@localhost>: Provided email is invalid",
+        "user-signed-up",
+        {
+          "user": "<user quinn@localhost>",
+          "userType": "ldap",
+          "wasDisabledLdapUser": false,
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "ldap",
+          "user": "<user quinn@localhost>",
+        },
       ],
     ],
     "outcome": {
       "body": {
-        "code": 0,
-        "message": "Cannot save user <quinn@localhost>: Provided email is invalid",
+        "data": {
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "disabled": false,
+          "email": "quinn@localhost",
+          "firstName": "Quinn",
+          "isPending": false,
+          "lastName": "Quill",
+          "mfaEnabled": false,
+          "role": "global:member",
+          "settings": null,
+          "signInType": "email",
+        },
       },
-      "status": 500,
+      "cookie": "<set>",
+      "status": 200,
     },
     "step": "an email without a top-level domain",
   },
@@ -2574,6 +2750,14 @@ exports[`LDAP > the email checks 1`] = `
       },
     },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -2603,12 +2787,28 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=ross,ou=people,dc=example,dc=com",
         "ross-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -2649,6 +2849,13 @@ exports[`LDAP > the email checks 1`] = `
         },
       ],
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -2659,7 +2866,7 @@ exports[`LDAP > the email checks 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "ross+tag@example.co.uk",
           "firstName": "Ross",
@@ -2677,7 +2884,27 @@ exports[`LDAP > the email checks 1`] = `
     "step": "an email with a tag",
   },
   {
+    "changes": {
+      "identities": {
+        "added": [
+          "{"providerType":"ldap","providerId":"sam","user":"sam@example"}",
+        ],
+      },
+      "users": {
+        "added": [
+          "{"email":"sam@example","firstName":"Sam","lastName":"Stone","role":"global:member","disabled":false,"password":"<set>","personalProject":true}",
+        ],
+      },
+    },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -2705,6 +2932,14 @@ exports[`LDAP > the email checks 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -2715,6 +2950,14 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -2743,23 +2986,72 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
     ],
-    "logs": [
+    "events": [
       [
-        "error",
-        "Cannot save user <sam@example>: Provided email is invalid",
+        "user-signed-up",
+        {
+          "user": "<user sam@example>",
+          "userType": "ldap",
+          "wasDisabledLdapUser": false,
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "ldap",
+          "user": "<user sam@example>",
+        },
       ],
     ],
     "outcome": {
       "body": {
-        "code": 0,
-        "message": "Cannot save user <sam@example>: Provided email is invalid",
+        "data": {
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "disabled": false,
+          "email": "sam@example",
+          "firstName": "Sam",
+          "isPending": false,
+          "lastName": "Stone",
+          "mfaEnabled": false,
+          "role": "global:member",
+          "settings": null,
+          "signInType": "email",
+        },
       },
-      "status": 500,
+      "cookie": "<set>",
+      "status": 200,
     },
     "step": "an email without a dot in the domain",
   },
   {
+    "changes": {
+      "identities": {
+        "added": [
+          "{"providerType":"ldap","providerId":"tom","user":"tom!x@example.com"}",
+        ],
+      },
+      "users": {
+        "added": [
+          "{"email":"tom!x@example.com","firstName":"Tom","lastName":"Tate","role":"global:member","disabled":false,"password":"<set>","personalProject":true}",
+        ],
+      },
+    },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -2787,6 +3079,14 @@ exports[`LDAP > the email checks 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -2797,6 +3097,14 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -2825,23 +3133,72 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
     ],
-    "logs": [
+    "events": [
       [
-        "error",
-        "Cannot save user <tom!x@example.com>: Provided email is invalid",
+        "user-signed-up",
+        {
+          "user": "<user tom!x@example.com>",
+          "userType": "ldap",
+          "wasDisabledLdapUser": false,
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "ldap",
+          "user": "<user tom!x@example.com>",
+        },
       ],
     ],
     "outcome": {
       "body": {
-        "code": 0,
-        "message": "Cannot save user <tom!x@example.com>: Provided email is invalid",
+        "data": {
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "disabled": false,
+          "email": "tom!x@example.com",
+          "firstName": "Tom",
+          "isPending": false,
+          "lastName": "Tate",
+          "mfaEnabled": false,
+          "role": "global:member",
+          "settings": null,
+          "signInType": "email",
+        },
       },
-      "status": 500,
+      "cookie": "<set>",
+      "status": 200,
     },
     "step": "an email with a special character",
   },
   {
+    "changes": {
+      "identities": {
+        "added": [
+          "{"providerType":"ldap","providerId":"jose","user":"josé@example.com"}",
+        ],
+      },
+      "users": {
+        "added": [
+          "{"email":"josé@example.com","firstName":"Jose","lastName":"Jara","role":"global:member","disabled":false,"password":"<set>","personalProject":true}",
+        ],
+      },
+    },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -2869,6 +3226,14 @@ exports[`LDAP > the email checks 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -2879,6 +3244,14 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -2907,23 +3280,72 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
     ],
-    "logs": [
+    "events": [
       [
-        "error",
-        "Cannot save user <josé@example.com>: Provided email is invalid",
+        "user-signed-up",
+        {
+          "user": "<user josé@example.com>",
+          "userType": "ldap",
+          "wasDisabledLdapUser": false,
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "ldap",
+          "user": "<user josé@example.com>",
+        },
       ],
     ],
     "outcome": {
       "body": {
-        "code": 0,
-        "message": "Cannot save user <josé@example.com>: Provided email is invalid",
+        "data": {
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "disabled": false,
+          "email": "josé@example.com",
+          "firstName": "Jose",
+          "isPending": false,
+          "lastName": "Jara",
+          "mfaEnabled": false,
+          "role": "global:member",
+          "settings": null,
+          "signInType": "email",
+        },
       },
-      "status": 500,
+      "cookie": "<set>",
+      "status": 200,
     },
     "step": "an email with an accent",
   },
   {
+    "changes": {
+      "identities": {
+        "added": [
+          "{"providerType":"ldap","providerId":"vic","user":"vic@example.c"}",
+        ],
+      },
+      "users": {
+        "added": [
+          "{"email":"vic@example.c","firstName":"Vic","lastName":"Vale","role":"global:member","disabled":false,"password":"<set>","personalProject":true}",
+        ],
+      },
+    },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -2951,6 +3373,14 @@ exports[`LDAP > the email checks 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -2961,6 +3391,14 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -2989,23 +3427,60 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
     ],
-    "logs": [
+    "events": [
       [
-        "error",
-        "Cannot save user <vic@example.c>: Provided email is invalid",
+        "user-signed-up",
+        {
+          "user": "<user vic@example.c>",
+          "userType": "ldap",
+          "wasDisabledLdapUser": false,
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "ldap",
+          "user": "<user vic@example.c>",
+        },
       ],
     ],
     "outcome": {
       "body": {
-        "code": 0,
-        "message": "Cannot save user <vic@example.c>: Provided email is invalid",
+        "data": {
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "disabled": false,
+          "email": "vic@example.c",
+          "firstName": "Vic",
+          "isPending": false,
+          "lastName": "Vale",
+          "mfaEnabled": false,
+          "role": "global:member",
+          "settings": null,
+          "signInType": "email",
+        },
       },
-      "status": 500,
+      "cookie": "<set>",
+      "status": 200,
     },
     "step": "a top-level domain of one letter",
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -3057,6 +3532,14 @@ exports[`LDAP > the email checks 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -3085,12 +3568,28 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=nina,ou=people,dc=example,dc=com",
         "nina-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -3137,10 +3636,24 @@ exports[`LDAP > the email checks 1`] = `
     "step": "an email user in another case",
   },
   {
+    "changes": {
+      "identities": {
+        "added": [
+          "{"providerType":"ldap","providerId":"wes","user":" wes@example.com"}",
+        ],
+      },
+      "users": {
+        "added": [
+          "{"email":" wes@example.com","firstName":"Wes","lastName":"West","role":"global:member","disabled":false,"password":"<set>","personalProject":true}",
+        ],
+      },
+    },
     "directory": [
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -3173,12 +3686,28 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=wes,ou=people,dc=example,dc=com",
         "wes-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -3209,18 +3738,47 @@ exports[`LDAP > the email checks 1`] = `
         "unbind",
       ],
     ],
-    "logs": [
+    "events": [
       [
-        "error",
-        "Cannot save user < wes@example.com>: Provided email is invalid",
+        "user-signed-up",
+        {
+          "user": "<user  wes@example.com>",
+          "userType": "ldap",
+          "wasDisabledLdapUser": false,
+        },
+      ],
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
+        "user-logged-in",
+        {
+          "authenticationMethod": "ldap",
+          "user": "<user  wes@example.com>",
+        },
       ],
     ],
     "outcome": {
       "body": {
-        "code": 0,
-        "message": "Cannot save user < wes@example.com>: Provided email is invalid",
+        "data": {
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "disabled": false,
+          "email": " wes@example.com",
+          "firstName": "Wes",
+          "isPending": false,
+          "lastName": "West",
+          "mfaEnabled": false,
+          "role": "global:member",
+          "settings": null,
+          "signInType": "email",
+        },
       },
-      "status": 500,
+      "cookie": "<set>",
+      "status": 200,
     },
     "step": "a sign-in by uid with an email with a space",
   },
@@ -3229,6 +3787,8 @@ exports[`LDAP > the email checks 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -3259,6 +3819,14 @@ exports[`LDAP > the email checks 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -3461,6 +4029,8 @@ exports[`LDAP > the scheduled synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -3644,6 +4214,8 @@ exports[`LDAP > the scheduled synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -4012,6 +4584,8 @@ exports[`LDAP > the scheduled synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -4197,6 +4771,8 @@ exports[`LDAP > the scheduled synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -4285,6 +4861,14 @@ exports[`LDAP > the scheduled synchronization 1`] = `
       },
     },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -4596,6 +5180,8 @@ exports[`LDAP > the scheduled synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -4623,6 +5209,9 @@ exports[`LDAP > the scheduled synchronization 1`] = `
           "paged": true,
           "timeLimit": 60,
         },
+      ],
+      [
+        "unbind",
       ],
     ],
     "events": [
@@ -4799,6 +5388,8 @@ exports[`LDAP > the sign-in 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -4831,12 +5422,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=alice,ou=people,dc=example,dc=com",
         "alice-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -4877,6 +5484,13 @@ exports[`LDAP > the sign-in 1`] = `
         },
       ],
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -4887,7 +5501,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "alice@example.com",
           "firstName": "Alice",
@@ -4907,6 +5521,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -4935,6 +5557,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=alice,ou=people,dc=example,dc=com",
         "alice-pass",
@@ -4944,6 +5574,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -4955,7 +5592,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "alice@example.com",
           "firstName": "Alice",
@@ -4975,6 +5612,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -5003,9 +5648,20 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=alice,ou=people,dc=example,dc=com",
         "wrong",
+      ],
+      [
+        "unbind",
       ],
     ],
     "events": [
@@ -5035,6 +5691,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -5101,6 +5765,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -5129,12 +5801,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=carol,ou=people,dc=example,dc=com",
         "carol-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -5167,6 +5855,13 @@ exports[`LDAP > the sign-in 1`] = `
     ],
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -5177,7 +5872,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "carol@example.com",
           "firstName": "Carol",
@@ -5196,6 +5891,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -5247,6 +5950,13 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@owner",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "email",
@@ -5257,7 +5967,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "owner@example.com",
           "firstName": "Olivia",
@@ -5284,6 +5994,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -5312,12 +6030,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=boss,ou=people,dc=example,dc=com",
         "boss-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -5350,6 +6084,13 @@ exports[`LDAP > the sign-in 1`] = `
     ],
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@owner",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -5360,7 +6101,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "owner@example.com",
           "firstName": "Olivia",
@@ -5380,6 +6121,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -5408,6 +6157,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=boss,ou=people,dc=example,dc=com",
         "boss-pass",
@@ -5417,6 +6174,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@owner",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -5428,7 +6192,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "owner@example.com",
           "firstName": "Olivia",
@@ -5458,6 +6222,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -5486,6 +6258,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=bob,ou=people,dc=example,dc=com",
         "bob-pass",
@@ -5495,6 +6275,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -5506,7 +6293,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "bob@example.com",
           "firstName": "Bob",
@@ -5526,6 +6313,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -5554,9 +6349,20 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=bob,ou=people,dc=example,dc=com",
         "password",
+      ],
+      [
+        "unbind",
       ],
     ],
     "events": [
@@ -5587,6 +6393,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -5613,6 +6427,14 @@ exports[`LDAP > the sign-in 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -5644,6 +6466,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -5713,6 +6543,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -5741,6 +6579,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=olga,ou=people,dc=example,dc=com",
         "olga-pass",
@@ -5750,6 +6596,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -5761,7 +6614,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "olga@example.com",
           "firstName": "Olga",
@@ -5788,6 +6641,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -5816,12 +6677,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=lena,ou=people,dc=example,dc=com",
         "lena-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -5854,6 +6731,13 @@ exports[`LDAP > the sign-in 1`] = `
     ],
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -5864,7 +6748,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "lena@example.com",
           "firstName": "Lena",
@@ -5899,6 +6783,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -5927,12 +6819,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=uma,ou=people,dc=example,dc=com",
         "uma-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -5965,6 +6873,13 @@ exports[`LDAP > the sign-in 1`] = `
     ],
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -5975,7 +6890,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": true,
           "email": "uma@example.com",
           "firstName": "Uma",
@@ -6013,6 +6928,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -6041,6 +6964,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=dave,ou=people,dc=example,dc=com",
         "dave-pass",
@@ -6050,6 +6981,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -6061,7 +6999,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "not-an-email",
           "firstName": "Dave",
@@ -6080,6 +7018,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -6109,9 +7055,20 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=frank2,ou=people,dc=example,dc=com",
         "frank-pass",
+      ],
+      [
+        "unbind",
       ],
     ],
     "events": [
@@ -6142,6 +7099,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -6170,12 +7135,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=frank2,ou=people,dc=example,dc=com",
         "frank2-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -6234,6 +7215,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -6262,9 +7251,20 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=tri3,ou=people,dc=example,dc=com",
         "tri1-pass",
+      ],
+      [
+        "unbind",
       ],
     ],
     "events": [
@@ -6295,6 +7295,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -6323,12 +7331,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=tri3,ou=people,dc=example,dc=com",
         "tri3-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -6387,6 +7411,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -6413,6 +7445,14 @@ exports[`LDAP > the sign-in 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -6455,6 +7495,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -6481,6 +7529,14 @@ exports[`LDAP > the sign-in 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -6535,6 +7591,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -6563,12 +7627,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=ivan,ou=people,dc=example,dc=com",
         "ivan-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -6609,6 +7689,13 @@ exports[`LDAP > the sign-in 1`] = `
         },
       ],
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -6619,7 +7706,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "ivan@example.com",
           "firstName": "Ivan",
@@ -6638,6 +7725,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -6667,6 +7762,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=alice,ou=people,dc=example,dc=com",
         "alice-pass",
@@ -6676,6 +7779,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -6687,7 +7797,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "alice@example.com",
           "firstName": "Alice",
@@ -6719,6 +7829,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -6747,12 +7865,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=jill,ou=people,dc=example,dc=com",
         "jill-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -6793,6 +7927,13 @@ exports[`LDAP > the sign-in 1`] = `
         },
       ],
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -6803,7 +7944,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "jill@example.com",
           "firstName": null,
@@ -6822,6 +7963,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -6873,6 +8022,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -6922,6 +8079,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -6973,6 +8138,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -7022,6 +8195,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -7090,9 +8271,20 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "events": [
@@ -7129,6 +8321,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -7152,6 +8352,9 @@ exports[`LDAP > the sign-in 1`] = `
           "paged": true,
           "timeLimit": 60,
         },
+      ],
+      [
+        "unbind",
       ],
     ],
     "events": [
@@ -7190,6 +8393,8 @@ exports[`LDAP > the sign-in 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -7222,9 +8427,20 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=frank2,ou=people,dc=example,dc=com",
         "frank-pass",
+      ],
+      [
+        "unbind",
       ],
     ],
     "events": [
@@ -7270,6 +8486,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -7298,6 +8522,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=frank2,ou=people,dc=example,dc=com",
         "frank2-pass",
@@ -7307,6 +8539,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -7318,7 +8557,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "frank@example.com",
           "firstName": "Frank",
@@ -7340,6 +8579,8 @@ exports[`LDAP > the sign-in 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -7378,6 +8619,20 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
+        "startTLS",
+        {
+          "rejectUnauthorized": true,
+        },
+      ],
+      [
         "bind",
         "uid=alice,ou=people,dc=example,dc=com",
         "alice-pass",
@@ -7387,6 +8642,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -7398,7 +8660,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "alice@example.com",
           "firstName": "Alice",
@@ -7430,6 +8692,20 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
+        "startTLS",
+        {
+          "rejectUnauthorized": true,
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -7458,12 +8734,40 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
+        "startTLS",
+        {
+          "rejectUnauthorized": true,
+        },
+      ],
+      [
         "bind",
         "uid=ivan,ou=people,dc=example,dc=com",
         "ivan-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
+        "startTLS",
+        {
+          "rejectUnauthorized": true,
+        },
       ],
       [
         "bind",
@@ -7504,6 +8808,13 @@ exports[`LDAP > the sign-in 1`] = `
         },
       ],
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -7514,7 +8825,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "ivan@example.com",
           "firstName": "Ivan",
@@ -7548,6 +8859,8 @@ exports[`LDAP > the sign-in 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -7580,12 +8893,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=hank,ou=people,dc=example,dc=com",
         "hank-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -7626,6 +8955,13 @@ exports[`LDAP > the sign-in 1`] = `
         },
       ],
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -7636,7 +8972,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "hank@example.com",
           "firstName": "Hank",
@@ -7658,6 +8994,8 @@ exports[`LDAP > the sign-in 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -7690,6 +9028,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=erin,ou=people,dc=example,dc=com",
         "erin-pass",
@@ -7720,6 +9066,14 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -7748,6 +9102,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=alice,ou=people,dc=example,dc=com",
         "alice-pass",
@@ -7757,6 +9119,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -7768,7 +9137,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "alice@example.com",
           "firstName": "Alice",
@@ -7787,6 +9156,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -7816,6 +9193,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=lena,ou=people,dc=example,dc=com",
         "lena-pass",
@@ -7825,6 +9210,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -7836,7 +9228,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "lena@example.com",
           "firstName": "Lena",
@@ -7874,6 +9266,14 @@ exports[`LDAP > the sign-in 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -7902,6 +9302,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=bob,ou=people,dc=example,dc=com",
         "bob-pass",
@@ -7911,6 +9319,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -7922,7 +9337,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "bob-at-example",
           "firstName": "Bob",
@@ -7941,6 +9356,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -7968,6 +9391,14 @@ exports[`LDAP > the sign-in 1`] = `
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -7999,6 +9430,14 @@ exports[`LDAP > the sign-in 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -8062,6 +9501,8 @@ exports[`LDAP > the sign-in 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -8094,6 +9535,14 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=carol,ou=people,dc=example,dc=com",
         "carol-pass",
@@ -8103,6 +9552,13 @@ exports[`LDAP > the sign-in 1`] = `
       ],
     ],
     "events": [
+      [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
       [
         "user-logged-in",
         {
@@ -8114,7 +9570,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "carol@example.com",
           "firstName": "Cook",
@@ -8174,6 +9630,13 @@ exports[`LDAP > the sign-in 1`] = `
   {
     "events": [
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "@owner",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "email",
@@ -8184,7 +9647,7 @@ exports[`LDAP > the sign-in 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "owner@example.com",
           "firstName": "Olivia",
@@ -8257,6 +9720,8 @@ exports[`LDAP > the sign-in 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -8289,12 +9754,28 @@ exports[`LDAP > the sign-in 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=alice,ou=people,dc=example,dc=com",
         "alice-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -8422,6 +9903,8 @@ exports[`LDAP > the synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -8551,6 +10034,14 @@ exports[`LDAP > the synchronization 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -8635,6 +10126,14 @@ exports[`LDAP > the synchronization 1`] = `
       },
     },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -8742,6 +10241,14 @@ exports[`LDAP > the synchronization 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -8842,6 +10349,14 @@ exports[`LDAP > the synchronization 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -8920,6 +10435,14 @@ exports[`LDAP > the synchronization 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -8996,6 +10519,14 @@ exports[`LDAP > the synchronization 1`] = `
       },
     },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -9075,9 +10606,20 @@ exports[`LDAP > the synchronization 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "logs": [
@@ -9097,6 +10639,14 @@ exports[`LDAP > the synchronization 1`] = `
   },
   {
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -9122,6 +10672,9 @@ exports[`LDAP > the synchronization 1`] = `
           "timeLimit": 60,
         },
       ],
+      [
+        "unbind",
+      ],
     ],
     "logs": [
       [
@@ -9143,6 +10696,8 @@ exports[`LDAP > the synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -9150,6 +10705,9 @@ exports[`LDAP > the synchronization 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "wrong-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "logs": [
@@ -9179,6 +10737,8 @@ exports[`LDAP > the synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 9000,
+          "timeout": 9000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -9272,6 +10832,8 @@ exports[`LDAP > the synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -9367,6 +10929,8 @@ exports[`LDAP > the synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -9464,6 +11028,8 @@ exports[`LDAP > the synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -9549,6 +11115,14 @@ exports[`LDAP > the synchronization 1`] = `
     },
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -9616,6 +11190,8 @@ exports[`LDAP > the synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -9711,6 +11287,8 @@ exports[`LDAP > the synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -10918,6 +12496,8 @@ exports[`LDAP > the synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11029,6 +12609,14 @@ exports[`LDAP > the synchronization 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
@@ -11053,6 +12641,9 @@ exports[`LDAP > the synchronization 1`] = `
           "timeLimit": 60,
         },
       ],
+      [
+        "unbind",
+      ],
     ],
     "logs": [
       [
@@ -11068,9 +12659,20 @@ exports[`LDAP > the synchronization 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "logs": [
@@ -11099,6 +12701,8 @@ exports[`LDAP > the synchronization 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11106,6 +12710,9 @@ exports[`LDAP > the synchronization 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "wrong-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "events": [
@@ -11149,6 +12756,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11156,6 +12765,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11169,6 +12781,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "tlsOptions": {
             "rejectUnauthorized": true,
           },
@@ -11179,6 +12793,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11192,6 +12809,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "tlsOptions": {
             "rejectUnauthorized": false,
           },
@@ -11202,6 +12821,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11215,6 +12837,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11229,6 +12853,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "cn=admin,dc=example,dc=com",
         "admin-secret",
       ],
+      [
+        "unbind",
+      ],
     ],
     "outcome": {
       "body": {},
@@ -11241,6 +12868,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11255,6 +12884,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "cn=admin,dc=example,dc=com",
         "admin-secret",
       ],
+      [
+        "unbind",
+      ],
     ],
     "outcome": {
       "body": {},
@@ -11267,6 +12899,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11274,6 +12908,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11287,6 +12924,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 7000,
+          "timeout": 7000,
           "url": "ldap://ldap.example.com:10389",
         },
       ],
@@ -11294,6 +12933,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11307,6 +12949,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldaps://ldap.example.com:389",
         },
       ],
@@ -11314,6 +12958,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11327,6 +12974,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11334,6 +12983,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "",
         "",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11347,6 +12999,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11354,6 +13008,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "",
         "",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11370,6 +13027,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11377,6 +13036,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11393,6 +13055,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11400,6 +13064,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "wrong-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11416,6 +13083,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11423,6 +13092,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11439,6 +13111,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11447,6 +13121,9 @@ exports[`LDAP > the test of the connection 1`] = `
         {
           "rejectUnauthorized": true,
         },
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11463,6 +13140,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11470,6 +13149,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11486,6 +13168,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11493,6 +13177,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11506,6 +13193,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11514,6 +13203,9 @@ exports[`LDAP > the test of the connection 1`] = `
         {
           "rejectUnauthorized": true,
         },
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11528,9 +13220,26 @@ exports[`LDAP > the test of the connection 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
+        "startTLS",
+        {
+          "rejectUnauthorized": true,
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11544,6 +13253,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11551,6 +13262,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11565,9 +13279,20 @@ exports[`LDAP > the test of the connection 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11581,6 +13306,8 @@ exports[`LDAP > the test of the connection 1`] = `
       [
         "new Client",
         {
+          "connectTimeout": 60000,
+          "timeout": 60000,
           "url": "ldap://ldap.example.com:389",
         },
       ],
@@ -11588,6 +13315,9 @@ exports[`LDAP > the test of the connection 1`] = `
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11599,9 +13329,20 @@ exports[`LDAP > the test of the connection 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": {
@@ -11624,6 +13365,14 @@ exports[`LDAP > the test of the connection 1`] = `
       },
     },
     "directory": [
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
       [
         "bind",
         "cn=admin,dc=example,dc=com",
@@ -11653,12 +13402,28 @@ exports[`LDAP > the test of the connection 1`] = `
         "unbind",
       ],
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "uid=alice,ou=people,dc=example,dc=com",
         "alice-pass",
       ],
       [
         "unbind",
+      ],
+      [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
       ],
       [
         "bind",
@@ -11699,6 +13464,13 @@ exports[`LDAP > the test of the connection 1`] = `
         },
       ],
       [
+        "experiment-user-first-login",
+        {
+          "at": "<date>",
+          "userId": "<id>",
+        },
+      ],
+      [
         "user-logged-in",
         {
           "authenticationMethod": "ldap",
@@ -11709,7 +13481,7 @@ exports[`LDAP > the test of the connection 1`] = `
     "outcome": {
       "body": {
         "data": {
-          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
+          "<fields>": "createdAt,disabled,email,featureFlagPayloads,featureFlags,firstName,globalScopes,id,isOwner,isPending,kind,lastActiveAt,lastName,mfaAuthenticated,mfaEnabled,personalizationAnswers,role,settings,signInType",
           "disabled": false,
           "email": "alice@example.com",
           "firstName": "Alice",
@@ -11729,9 +13501,20 @@ exports[`LDAP > the test of the connection 1`] = `
   {
     "directory": [
       [
+        "new Client",
+        {
+          "connectTimeout": 60000,
+          "timeout": 60000,
+          "url": "ldap://ldap.example.com:389",
+        },
+      ],
+      [
         "bind",
         "cn=admin,dc=example,dc=com",
         "admin-secret",
+      ],
+      [
+        "unbind",
       ],
     ],
     "outcome": "done",

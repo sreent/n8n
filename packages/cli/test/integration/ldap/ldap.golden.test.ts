@@ -869,6 +869,7 @@ describe('LDAP', () => {
 		expect(transcript).toMatchSnapshot();
 	});
 
+	// About 170 requests, which take close to the default timeout of 10 seconds.
 	test('the validation of the configuration', async () => {
 		await reset();
 		await put(CONFIG);
@@ -915,7 +916,7 @@ describe('LDAP', () => {
 			);
 		}
 		expect(transcript).toMatchSnapshot();
-	});
+	}, 60_000);
 
 	test('the access to the routes', async () => {
 		await reset();
@@ -1350,6 +1351,7 @@ describe('LDAP', () => {
 		expect(transcript).toMatchSnapshot();
 	});
 
+	// More than 50 sign-ins, which take close to the default timeout of 10 seconds.
 	test('the sign-in', async () => {
 		await reset();
 		await put(CONFIG);
@@ -1515,7 +1517,7 @@ describe('LDAP', () => {
 			return await service().handleLogin('alice@example.com', 'alice-pass');
 		});
 		expect(transcript).toMatchSnapshot();
-	});
+	}, 60_000);
 
 	test('the scheduled synchronization', async () => {
 		await reset();

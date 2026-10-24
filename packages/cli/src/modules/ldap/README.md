@@ -55,9 +55,10 @@ The settings row `features.ldap` keeps the configuration as JSON. The migration
 
 - The URL is `ldap://<host>:<port>`, or `ldaps://<host>:<port>` for TLS. The host field is used as
   it is.
-- TLS and STARTTLS check the certificate unless `allowUnauthorizedCerts` is on. STARTTLS starts
-  once, when n8n makes the client.
-- n8n keeps one client. A save or a start makes a new one.
+- TLS and STARTTLS check the certificate unless `allowUnauthorizedCerts` is on.
+- Each operation (a test of the connection, a search, a check of a password) uses a new client, as
+  in upstream n8n 2.45. The client waits at most the search timeout for the connection and for
+  each answer. With STARTTLS, it starts TLS first. At the end, also after an error, it unbinds.
 - n8n binds with the binding DN and password. Empty ones bind anonymously.
 - The test of the connection binds and answers 200, or 400 with the message of the directory.
 
