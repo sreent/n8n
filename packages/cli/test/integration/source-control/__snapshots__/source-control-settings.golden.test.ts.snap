@@ -1427,7 +1427,7 @@ origin	https://127.0.0.1:<port>/owner/repo.git (push)",
   {
     "body": {
       "code": 403,
-      "message": "Cannot modify data tables on a protected instance. This instance is in read-only mode.",
+      "message": "Cannot change the data table structure on a protected instance. This instance is in read-only mode. Rows can still be edited.",
     },
     "git": [],
     "ssh": [],
