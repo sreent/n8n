@@ -183,7 +183,13 @@ describe('GET /insights/by-workflow', () => {
 		expect(names(second.body)).toEqual(['Reports']);
 		expect(second.body.nextCursor).toBeNull();
 
-		await agent.get('/insights/by-workflow').query({ limit: 0 }).expect(400);
+		// Since n8n 2.45, a limit of 0 gives the default page, as in the other public API routes.
+		const defaultPage = await agent
+			.get('/insights/by-workflow')
+			.query({ ...range, limit: 0 })
+			.expect(200);
+		expect(names(defaultPage.body)).toEqual(['Invoices', 'Newsletter', 'Reports']);
+		expect(defaultPage.body.nextCursor).toBeNull();
 	});
 
 	test('gives a member only the workflows that the member can read', async () => {
