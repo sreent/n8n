@@ -129,6 +129,15 @@ export class SamlController {
 				req,
 				binding,
 			);
+			// Only the user of a SAML identity can have another email than the response.
+			const assertedEmail = attributes.email.toLowerCase();
+			if (authenticatedUser.email.toLowerCase() !== assertedEmail) {
+				this.eventService.emit('user-login-email-conflict', {
+					user: authenticatedUser,
+					authenticationMethod: 'saml',
+					assertedEmail,
+				});
+			}
 			this.eventService.emit('user-logged-in', {
 				user: authenticatedUser,
 				authenticationMethod: 'saml',
