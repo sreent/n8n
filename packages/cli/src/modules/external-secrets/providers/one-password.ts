@@ -120,7 +120,10 @@ export class OnePasswordProvider extends SecretsProvider {
 		return name in this.secrets;
 	}
 
+	/** The editor completes the fields of an item, so each name is `<item title>.<field label>`. */
 	getSecretNames(): string[] {
-		return Object.keys(this.secrets);
+		return Object.entries(this.secrets).flatMap(([title, fields]) =>
+			Object.keys(fields).map((label) => `${title}.${label}`),
+		);
 	}
 }

@@ -151,6 +151,8 @@ The provider uses the `@1password/connect` library, which makes its own requests
   not empty, `0`, `false` or `null`. A later field with the same label wins, and a later item with
   the same title wins. An item without such fields is left out. A failure throws (the library
   rejects with the error body of the server), and the old secrets stay.
+- `getSecret(title)` gives the fields of the item. `getSecretNames()` gives the name of each field
+  as `<title>.<label>`, for example `Fields.username`.
 - `test`: "Client not initialized" before a connect; the list of the vaults gives `[true]`, or the
   error message ("Unknown error" for a rejection that is not an error).
 - There is no request timeout, only the connect timeout.
@@ -298,8 +300,7 @@ The manager keeps the providers that n8n uses in the provider registry, by name.
 the secrets proxy of the core (`ExternalSecretsProxy`), which gives the secrets to expressions
 (`$secrets.<name>.<secret>`).
 
-- The start loads the providers and starts the update interval. A second start does nothing until
-  a stop.
+- The start loads the providers. A second start does nothing until a stop.
 - In the mode with settings, the setting `feature.externalSecrets` holds the settings of all
   provider types: an encrypted JSON object `{ <type>: { connected, connectedAt, settings } }`.
   Each type in it is a provider with the name of the type. The manager connects a provider only
@@ -323,14 +324,17 @@ the secrets proxy of the core (`ExternalSecretsProxy`), which gives the secrets 
   secrets. When the provider is ready, it takes the place of the provider of the name, and the
   retries stop. A new load of the name, a removal of the name, a reload of all providers and the
   stop cancel the retries. A provider that only waited for a retry then disconnects.
-- At each update interval, the manager reads the secrets of each connected provider again. When a
-  read fails, the provider keeps its old secrets.
+- The system task `external-secrets-refresh` (`external-secrets-refresh.task.ts`) reads the secrets
+  of each connected provider again at each update interval, in each main, worker and webhook
+  instance. When a read fails, the provider keeps its old secrets. The runner of the system tasks
+  skips an update while the last one runs, and stops the updates at the shutdown. Upstream n8n
+  2.45 moved the update interval to a system task too.
 - After each change through the APIs, the manager sends the command
   `reload-external-secrets-providers` to the other instances. The publisher sends commands only in
   queue mode. Each instance that gets the command loads all providers again: it removes the
   providers of names that are not stored now, and loads the others again.
-- The stop ends the update interval and the retries, and disconnects the providers, also the
-  providers that wait for a retry. The providers stay in the registry with their secrets.
+- The stop ends the retries, and disconnects the providers, also the providers that wait for a
+  retry. The providers stay in the registry with their secrets.
 - A test makes a new instance of the type, initializes it with the settings (`connected: true`),
   connects it, runs its `test()` and disconnects it. When the initialization fails, the result is
   `{ success: false }`. When the connect fails, the error of the result is the message of
@@ -631,7 +635,9 @@ dates. Of an HTML error page, the snapshot keeps only the first line.
 
 The tests of the retries and of the update interval check times in ranges, because the delays are
 random. The connections whose connect fails live less than 5 seconds in the other tests, so no
-retry comes in a step.
+retry comes in a step. The test does not run the system tasks. Thus, since upstream n8n 2.45, the
+step of the update interval shows that the module reads the secrets only at the start.
+`__tests__/external-secrets-refresh.task.test.ts` tests the system task.
 
 The module snapshots were recorded against the original module, and a second recording gave the
 same snapshots. The fork module gives the same snapshots. Ten mutations of the fork code (the

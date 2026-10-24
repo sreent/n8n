@@ -20,6 +20,11 @@ export class ExternalSecretsModule implements ModuleInterface {
 		await Container.get(ExternalSecretsManager).init();
 	}
 
+	async systemTasks() {
+		const { ExternalSecretsRefreshTask } = await import('./external-secrets-refresh.task.js');
+		return [ExternalSecretsRefreshTask];
+	}
+
 	@OnShutdown()
 	async shutdown() {
 		const { ExternalSecretsManager } = await import('./external-secrets-manager.js');

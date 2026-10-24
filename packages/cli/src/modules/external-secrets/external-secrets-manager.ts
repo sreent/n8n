@@ -51,29 +51,30 @@ export class ExternalSecretsManager implements IExternalSecretsManager {
 		private readonly providerRegistry: ExternalSecretsProviderRegistry,
 		private readonly providerLifecycle: ExternalSecretsProviderLifecycle,
 		_providerConnectionManager: ExternalSecretsProviderConnectionManager,
-		private readonly secretsCache: ExternalSecretsSecretsCache,
+		_secretsCache: ExternalSecretsSecretsCache,
 		private readonly connectionRepository: SecretsProviderConnectionRepository,
 		private readonly cipher: Cipher,
 	) {
 		this.logger = this.logger.scoped('external-secrets');
 	}
 
-	/** Load the providers and start the update interval. A second call does nothing. */
+	/**
+	 * Load the providers. A second call does nothing. The system task `external-secrets-refresh`
+	 * reads their secrets again at each update interval.
+	 */
 	async init() {
 		if (this.initialized) return;
 		this.initialized = true;
 		Container.get(ExternalSecretsProxy).setManager(this);
 		await this.loadAllProviders();
-		this.secretsCache.start();
 	}
 
 	/**
-	 * Stop the update interval and the retries, and disconnect the providers. The providers stay in
-	 * the registry. The disconnects start before this method returns.
+	 * Stop the retries, and disconnect the providers. The providers stay in the registry. The
+	 * disconnects start before this method returns.
 	 */
 	shutdown() {
 		this.initialized = false;
-		this.secretsCache.stop();
 		const providers = new Set([
 			...this.providerLifecycle.cancelAllRetries(),
 			...this.providerRegistry.getAll(),
