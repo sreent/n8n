@@ -3,8 +3,10 @@
 // describes its behaviour.
 import { CredentialsFinderService, WorkflowMutationHooksProxy } from '@n8n/backend-services';
 import type {
+	CredentialsEntity,
 	CredentialUsedByWorkflow,
 	EntityManager,
+	Project,
 	User,
 	WorkflowEntity,
 	WorkflowWithSharingsAndCredentials,
@@ -210,10 +212,15 @@ export class EnterpriseWorkflowService {
 		workflow: WorkflowWithSharingsMetaDataAndCredentials,
 		currentUser: User,
 	) {
-		const usable = await this.credentialIdsForUsedList(currentUser);
+		const homeProject = await this.sharedWorkflowRepository.getWorkflowOwningProject(workflow.id);
+		const canUse = await this.usedListRule(
+			currentUser,
+			homeProject,
+			async () => await this.sharedWorkflowRepository.findProjectIds(workflow.id),
+		);
 		workflow.usedCredentials = await this.describeCredentials(
 			credentialIdsOf(workflow.nodes),
-			usable,
+			canUse,
 		);
 	}
 
@@ -296,10 +303,14 @@ export class EnterpriseWorkflowService {
 			projectId,
 		);
 		const workflows = await this.workflowRepository.findByIds(workflowIds, { fields: ['nodes'] });
-		const usable = await this.credentialIdsForUsedList(user);
+		const canUse = await this.usedListRule(
+			user,
+			await this.projectService.findProject(projectId),
+			async () => [projectId],
+		);
 		return await this.describeCredentials(
 			[...new Set(workflows.flatMap(({ nodes }) => credentialIdsOf(nodes)))],
-			usable,
+			canUse,
 		);
 	}
 
@@ -492,6 +503,23 @@ export class EnterpriseWorkflowService {
 				"You can't transfer a workflow into the project that's already owning it.",
 			);
 		}
+		// The transfer policy of the destination project must allow each workflow of the folder, the
+		// oldest first.
+		if (this.policyEnforcementService.hasChecksFor('workflowTransfer')) {
+			const workflows = new Map(
+				(await this.workflowRepository.findByIds(workflowIds, { fields: ['name', 'nodes'] })).map(
+					(workflow) => [workflow.id, workflow],
+				),
+			);
+			for (const workflowId of workflowIds) {
+				const workflow = workflows.get(workflowId);
+				if (!workflow) continue;
+				await this.policyEnforcementService.enforceWorkflowTransfer(
+					{ workflow, targetProjectId: destinationProject.id },
+					{ kind: 'user', user },
+				);
+			}
+		}
 		const activeWorkflows = (
 			await this.workflowRepository.findByIds(workflowIds, { fields: ['activeVersionId'] })
 		).flatMap(({ id, activeVersionId }) => (activeVersionId ? [{ id, activeVersionId }] : []));
@@ -548,17 +576,35 @@ export class EnterpriseWorkflowService {
 		return new Set(credentials.map(({ id }) => id));
 	}
 
-	/** The credentials that a list of used credentials marks as usable: each one the user can read. */
-	private async credentialIdsForUsedList(user: User) {
-		const credentials = await this.credentialsFinderService.findCredentialsForUser(user, [
-			'credential:read',
-		]);
-		return new Set(credentials.map(({ id }) => id));
+	/**
+	 * Which credentials a list of used credentials marks as usable. For the workflows of a team
+	 * project, that is each global credential, each credential of the projects of the workflow, and
+	 * each credential of the personal project of the user, as upstream n8n 2.45 does. A credential
+	 * that the user can read only through a global scope does not count there. For the workflows of
+	 * a personal project, it is each credential that the user can read.
+	 */
+	private async usedListRule(
+		user: User,
+		homeProject: Project | null | undefined,
+		projectIdsOfWorkflow: () => Promise<string[]>,
+	): Promise<(credential: CredentialsEntity) => boolean> {
+		if (homeProject?.type !== 'team') {
+			const readable = await this.credentialsFinderService.findCredentialsForUser(user, [
+				'credential:read',
+			]);
+			const readableIds = new Set(readable.map(({ id }) => id));
+			return (credential) => readableIds.has(credential.id);
+		}
+		const projectIds = new Set(await projectIdsOfWorkflow());
+		const personalProject = await this.projectService.getPersonalProject(user);
+		if (personalProject) projectIds.add(personalProject.id);
+		return (credential) =>
+			credential.isGlobal || credential.shared.some(({ projectId }) => projectIds.has(projectId));
 	}
 
 	private async describeCredentials(
 		credentialIds: string[],
-		usable: Set<string>,
+		canUse: (credential: CredentialsEntity) => boolean,
 	): Promise<CredentialUsedByWorkflow[]> {
 		const result: CredentialUsedByWorkflow[] = [];
 		for (const chunk of chunkIds(credentialIds)) {
@@ -566,13 +612,14 @@ export class EnterpriseWorkflowService {
 				withSharings: true,
 			});
 			for (const credential of credentials) {
+				const currentUserCanUse = canUse(credential);
 				const { id, name, type, homeProject, sharedWithProjects } =
 					this.ownershipService.addOwnedByAndSharedWith(credential);
 				result.push({
 					id,
 					name,
 					type,
-					currentUserCanUse: usable.has(id),
+					currentUserCanUse,
 					homeProject,
 					sharedWithProjects,
 				});
