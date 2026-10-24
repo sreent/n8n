@@ -11,10 +11,9 @@ import type { MetricSource, TestCaseExecutionRecord } from '../../evaluation.typ
 import {
 	formatDuration,
 	formatMetricLabel,
-	formatPercent,
+	formatRunMetric,
 	formatTokens,
 	isRunningTestCase,
-	normalizeMetricValue,
 	userDefinedMetricKeys,
 } from '../../evaluation.utils';
 
@@ -58,7 +57,7 @@ const metricRows = computed(() =>
 			key,
 			label: formatMetricLabel(key),
 			sourceNodeName: source?.nodeName,
-			value: formatPercent(normalizeMetricValue(value, source?.category)),
+			value: formatRunMetric(value, source?.category),
 		};
 	}),
 );

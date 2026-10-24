@@ -907,6 +907,7 @@ type CredentialCase = {
 	homeProject: ProjectSharingData;
 	sharedWithProjects?: ProjectSharingData[];
 	canShare?: boolean;
+	/** The env feature flag `N8N_ENV_FEAT_CRED_SHARING`. Upstream n8n 2.45 removed it. */
 	credSharingFlag?: boolean;
 	sharing?: boolean;
 	/** A credential that is not saved yet: no credential, and no id. */

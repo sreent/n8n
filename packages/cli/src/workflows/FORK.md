@@ -46,11 +46,9 @@ A node references a credential in three places. The checks below cover all of th
 - `addOwnerAndSharings(workflow)` adds `homeProject`, `sharedWithProjects` and an empty
   `usedCredentials` list.
 - `addCredentialsToWorkflow(workflow, user)` and `getFolderUsedCredentials(user, folderId,
-  projectId)` describe the credentials that the workflows use. `currentUserCanUse` is true for a
-  credential that the user can use in the workflow or project. With credential sharing
-  (`N8N_ENV_FEAT_CRED_SHARING`), it is true for each credential that the user can read. The folder
-  version reads the workflows in the folder and its subfolders that the user can read. A folder
-  outside the project gives `FolderNotFoundError`.
+  projectId)` describe the credentials that the workflows use. `currentUserCanUse` is true for each
+  credential that the user can read. The folder version reads the workflows in the folder and its
+  subfolders that the user can read. A folder outside the project gives `FolderNotFoundError`.
 - `getWorkflowIdsWithResolvableCredentials(workflowIds)` gives the workflows that use an end-user
   credential.
 - `preventTampering(workflow, workflowId, user)` checks the nodes of an update before n8n saves it:

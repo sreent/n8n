@@ -59,10 +59,12 @@ the enterprise folder.
   does: the detail page loads the runs once more, so it asks twice each second. A polling ends
   when it finds the run done or fails, and the other pollings of the run go on.
 - The detail page shows the state of the run, the average of each metric with the change from
-  the last completed run before it, and a card for each case. A score from 0 to 1 shows as a
-  percentage, a score of an AI-based metric (1 to 5) as a share of 5, a boolean as 100% or 0%,
-  and a value above 1 as a percentage. "Re-run test" starts a new run of the workflow and opens
-  it. The detail page loads its data only when it opens.
+  the last completed run before it, and a card for each case. A built-in metric of the Evaluation
+  node shows as a percentage: a score of an AI-based metric (1 to 5) as a share of 5, and the
+  other built-in scores from 0 to 1. A custom metric, or a metric that no node of the workflow
+  sets, shows its own value (a number to two decimals, or `true` or `false`), and its change is
+  the difference of the values. "Re-run test" starts a new run of the workflow and opens it. The
+  detail page loads its data only when it opens.
 
 ## Behaviour of the collections
 
@@ -183,7 +185,7 @@ files, and the fork files give the same snapshot:
 description of what a user sees: the text, the test IDs, the controls, the icons, the data of
 the charts, the toasts, the telemetry and the opened windows. It records no markup and no styles.
 Thus the snapshots do not show the variants of the buttons. The buttons use the variants of the
-design system, as core n8n does: `solid` for the main action, `subtle` for Cancel and the other
+design system, as core n8n does: `solid` for the main action, `outline` for Cancel and the other
 actions, and `ghost` for "Add check".
 `node-types.json` holds the built descriptions of the Evaluation nodes, the manual trigger, the
 AI Agent and the OpenAI chat model. To make it again, build `nodes-base` and

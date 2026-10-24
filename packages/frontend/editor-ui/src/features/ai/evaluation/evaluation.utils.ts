@@ -94,6 +94,45 @@ export function formatDelta(delta: number): string {
 	return `${points > 0 ? '+' : ''}${points}%`;
 }
 
+/** A built-in metric has a known scale, so the run detail shows it as a percentage. */
+const isScaledMetric = (category: MetricCategory | undefined) =>
+	category !== undefined && category !== 'custom';
+
+const toNumber = (value: number | boolean) => (typeof value === 'boolean' ? Number(value) : value);
+
+const roundToHundredths = (value: number) => Math.round(value * 100) / 100;
+
+/**
+ * A metric value of the run detail. A built-in metric shows as a percentage. A custom metric, or
+ * a metric that no node of the workflow sets, shows its own value.
+ */
+export function formatRunMetric(
+	value: number | boolean,
+	category: MetricCategory | undefined,
+): string {
+	if (isScaledMetric(category)) return formatPercent(normalizeMetricValue(value, category));
+	return typeof value === 'boolean' ? String(value) : String(roundToHundredths(value));
+}
+
+/** The change of a metric from the previous run: a change of the share or of the own value. */
+export function metricDelta(
+	value: number | boolean,
+	previous: number | boolean,
+	category: MetricCategory | undefined,
+): number {
+	return isScaledMetric(category)
+		? roundToHundredths(
+				normalizeMetricValue(value, category) - normalizeMetricValue(previous, category),
+			)
+		: roundToHundredths(toNumber(value) - toNumber(previous));
+}
+
+/** A change of a metric: percentage points for a built-in metric, else the difference. */
+export function formatMetricDelta(delta: number, category: MetricCategory | undefined): string {
+	if (isScaledMetric(category)) return formatDelta(delta);
+	return `${delta > 0 ? '+' : ''}${delta}`;
+}
+
 const numberFormat = new Intl.NumberFormat('en-US');
 
 export const formatTokens = (tokens: number) => `${numberFormat.format(tokens)}t`;

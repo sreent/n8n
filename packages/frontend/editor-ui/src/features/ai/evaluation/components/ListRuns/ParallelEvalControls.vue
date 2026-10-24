@@ -56,6 +56,7 @@ function onOpen(open: boolean) {
 				<ElSlider
 					v-model="concurrency"
 					data-test-id="run-in-parallel-concurrency"
+					:label="i18n.baseText('evaluation.runInParallel.popover.title')"
 					:min="1"
 					:max="parallelEvalStore.maxConcurrency"
 					:step="1"

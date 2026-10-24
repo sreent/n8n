@@ -7,9 +7,10 @@ import { computed } from 'vue';
 
 import type { MetricSource, MetricValues } from '../../evaluation.types';
 import {
+	formatMetricDelta,
 	formatMetricLabel,
-	formatPercent,
-	normalizeMetricValue,
+	formatRunMetric,
+	metricDelta,
 	userDefinedMetricKeys,
 } from '../../evaluation.utils';
 import TrendDeltaBadge from './TrendDeltaBadge.vue';
@@ -23,13 +24,16 @@ const props = defineProps<{
 const cards = computed(() =>
 	userDefinedMetricKeys(props.currentMetrics).map((key) => {
 		const category = props.metricSources[key]?.category;
-		const current = normalizeMetricValue(props.currentMetrics[key], category);
+		const value = props.currentMetrics[key];
 		const previousValue = props.previousMetrics?.[key];
-		const delta =
-			previousValue === undefined
-				? 0
-				: Math.round((current - normalizeMetricValue(previousValue, category)) * 100) / 100;
-		return { key, label: formatMetricLabel(key), value: formatPercent(current), delta };
+		const delta = previousValue === undefined ? 0 : metricDelta(value, previousValue, category);
+		return {
+			key,
+			label: formatMetricLabel(key),
+			value: formatRunMetric(value, category),
+			delta,
+			deltaLabel: formatMetricDelta(delta, category),
+		};
 	}),
 );
 </script>
@@ -46,7 +50,7 @@ const cards = computed(() =>
 				<N8nText size="small" color="text-base">{{ card.label }}</N8nText>
 				<div :class="$style.values">
 					<span :class="$style.value">{{ card.value }}</span>
-					<TrendDeltaBadge v-if="card.delta !== 0" :delta="card.delta" />
+					<TrendDeltaBadge v-if="card.delta !== 0" :delta="card.delta" :label="card.deltaLabel" />
 				</div>
 			</div>
 		</div>
