@@ -492,6 +492,12 @@ export class ProjectService {
 		const memberIds = await this.findUserIdsByProjectId(projectId);
 
 		if (targetProject) {
+			// The transfer policy of the target project must allow each workflow and credential,
+			// before anything moves.
+			await ownershipTransferService.enforceTransferPolicy(projectId, targetProject.id, {
+				kind: 'user',
+				user,
+			});
 			await this.transferOwnedResources(projectId, targetProject.id);
 		} else {
 			await this.deleteOwnedResources(user, projectId);
