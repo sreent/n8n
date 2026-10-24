@@ -1,7 +1,7 @@
 // Fork service (not in upstream n8n): the workflow sharing service of the fork, in place of the
 // enterprise `workflow.service.ee.ts` for ordinary code. packages/cli/src/workflows/FORK.md
 // describes its behaviour.
-import { CredentialsFinderService } from '@n8n/backend-services';
+import { CredentialsFinderService, WorkflowMutationHooksProxy } from '@n8n/backend-services';
 import type {
 	CredentialUsedByWorkflow,
 	EntityManager,
@@ -21,6 +21,7 @@ import {
 } from '@n8n/db';
 import { Service } from '@n8n/di';
 import { BadRequestError, NotFoundError, UserError } from '@n8n/errors';
+import { hasGlobalScope } from '@n8n/permissions';
 import type {
 	INode,
 	INodeCredentials,
@@ -35,11 +36,12 @@ import {
 	WORKFLOW_TOOL_LANGCHAIN_NODE_TYPE,
 	WorkflowActivationError,
 } from 'n8n-workflow';
+import { isDeepStrictEqual } from 'node:util';
 
 import { ActiveWorkflowManager } from '@/active-workflow-manager';
-import { isCredSharingEnabled } from '@/constants/credential-sharing';
 import { CredentialsService } from '@/credentials/credentials.service';
 import { FolderNotFoundError } from '@/errors/folder-not-found.error';
+import { UninspectableSubworkflowSourceError } from '@/errors/uninspectable-subworkflow-source.error';
 import { TransferWorkflowError } from '@/errors/response-errors/transfer-workflow.error';
 import { FolderService } from '@/services/folder.service';
 import { PolicyEnforcementService } from '@/policy/policy-enforcement.service';
@@ -47,7 +49,6 @@ import { OwnershipService } from '@/services/ownership.service';
 import { ProjectService } from '@/services/project.service';
 
 import { WorkflowFinderService } from './workflow-finder.service';
-import { WorkflowMutationHooksProxy } from './workflow-mutation-hooks-proxy.service';
 
 /** The ids of the credentials that the nodes reference. References by name only have no id. */
 function credentialIdsOf(nodes: INode[] = []) {
@@ -98,6 +99,25 @@ const WORKFLOW_SELECTOR_TYPES: Array<string | undefined> = [
 	WORKFLOW_TOOL_LANGCHAIN_NODE_TYPE,
 	RETRIEVER_WORKFLOW_LANGCHAIN_NODE_TYPE,
 ];
+
+/** The sources of a sub-workflow that n8n resolves only when the workflow runs. */
+const RUNTIME_SOURCES = ['localFile', 'url'];
+
+/**
+ * Whether a node loads a sub-workflow from a source that n8n resolves only at run time, also in an
+ * inline sub-workflow. A save cannot check the credentials of such a sub-workflow. A source that
+ * is an expression counts too.
+ */
+function hasUninspectableSource(node: NodeReferences): boolean {
+	if (!WORKFLOW_SELECTOR_TYPES.includes(node.type)) return false;
+	const source = node.parameters?.source;
+	if (typeof source === 'string' && (RUNTIME_SOURCES.includes(source) || source.startsWith('='))) {
+		return true;
+	}
+	const subWorkflow = parseObject(node.parameters?.workflowJson);
+	const subNodes = Array.isArray(subWorkflow?.nodes) ? subWorkflow.nodes : [];
+	return subNodes.some((subNode) => isNodeReferences(subNode) && hasUninspectableSource(subNode));
+}
 
 /**
  * The credential references of a node that a sharing check must cover: the credentials of the
@@ -190,7 +210,7 @@ export class EnterpriseWorkflowService {
 		workflow: WorkflowWithSharingsMetaDataAndCredentials,
 		currentUser: User,
 	) {
-		const usable = await this.credentialIdsForUsedList(currentUser, { workflowId: workflow.id });
+		const usable = await this.credentialIdsForUsedList(currentUser);
 		workflow.usedCredentials = await this.describeCredentials(
 			credentialIdsOf(workflow.nodes),
 			usable,
@@ -199,25 +219,43 @@ export class EnterpriseWorkflowService {
 
 	/**
 	 * The ids of the credentials that the nodes reference, also in inline agents and inline
-	 * sub-workflows. A reference that n8n cannot check sets `hasUnresolved`.
+	 * sub-workflows. A reference that n8n cannot check sets `hasUnresolved`. A sub-workflow that
+	 * n8n loads only at run time sets `hasUninspectableSource`.
 	 */
 	collectCredentialReferences(workflow: Pick<WorkflowEntity, 'nodes'>) {
 		const ids = new Set<string>();
 		let hasUnresolved = false;
+		let hasUninspectable = false;
 		for (const node of workflow.nodes ?? []) {
 			for (const id of credentialReferencesOf(node)) {
 				if (id === null) hasUnresolved = true;
 				else ids.add(id);
 			}
+			if (hasUninspectableSource(node)) hasUninspectable = true;
 		}
-		return { ids, hasUnresolved };
+		return { ids, hasUnresolved, hasUninspectableSource: hasUninspectable };
 	}
 
-	/** Throw when the workflow references a credential outside `allowedCredentialIds`. */
+	/** Whether the user can use every credential of the instance, as the owner and admins can. */
+	canUseEveryCredential(user: User) {
+		return hasGlobalScope(user, 'credential:use');
+	}
+
+	/**
+	 * Throw when the workflow references a credential outside `allowedCredentialIds`, or loads a
+	 * sub-workflow from a source that n8n resolves only at run time. Only a user who can use every
+	 * credential may save such a source (`allowUninspectableSource`).
+	 */
 	validateCredentialPermissionsToUser(
 		workflow: Pick<WorkflowEntity, 'nodes'>,
 		allowedCredentialIds: Set<string>,
+		{ allowUninspectableSource = false }: { allowUninspectableSource?: boolean } = {},
 	) {
+		const uninspectable = allowUninspectableSource
+			? undefined
+			: workflow.nodes?.find((node) => hasUninspectableSource(node));
+		if (uninspectable) throw new UninspectableSubworkflowSourceError(uninspectable);
+
 		const { ids, hasUnresolved } = this.collectCredentialReferences(workflow);
 		if (hasUnresolved || [...ids].some((id) => !allowedCredentialIds.has(id))) {
 			throw new UserError('The workflow contains credentials that you do not have access to');
@@ -258,7 +296,7 @@ export class EnterpriseWorkflowService {
 			projectId,
 		);
 		const workflows = await this.workflowRepository.findByIds(workflowIds, { fields: ['nodes'] });
-		const usable = await this.credentialIdsForUsedList(user, { projectId });
+		const usable = await this.credentialIdsForUsedList(user);
 		return await this.describeCredentials(
 			[...new Set(workflows.flatMap(({ nodes }) => credentialIdsOf(nodes)))],
 			usable,
@@ -271,14 +309,16 @@ export class EnterpriseWorkflowService {
 	 * credential that the user cannot use gets its stored version back, with the new name, position
 	 * and `disabled` flag. Another node with such a credential is an error.
 	 */
-	async preventTampering<T extends { nodes?: INode[] }>(
+	async preventTampering<T extends { nodes: INode[] }>(
 		workflow: T,
 		workflowId: string,
 		user: User,
+		restoredNodes?: INode[],
 	): Promise<T> {
 		const previous = await this.workflowRepository.findOneBy({ id: workflowId });
 		if (!previous) throw new NotFoundError('Workflow not found');
-		if (!workflow.nodes) return workflow;
+		// An update request can leave out the nodes, although the entity type has them.
+		if (!Array.isArray(workflow.nodes)) return workflow;
 
 		const hasMissingCredential = workflow.nodes.some((node) =>
 			Object.values(node.credentials ?? {}).some(
@@ -292,19 +332,36 @@ export class EnterpriseWorkflowService {
 			);
 		}
 
+		// A new or changed sub-workflow source that n8n resolves only at run time hides its
+		// credentials from this check. Only a user who can use every credential may save it.
+		if (!this.canUseEveryCredential(user)) {
+			const changed = workflow.nodes.find((node) => {
+				if (!hasUninspectableSource(node)) return false;
+				const stored = previous.nodes.find(({ id }) => id === node.id);
+				return !(
+					stored?.type === node.type && isDeepStrictEqual(stored.parameters, node.parameters)
+				);
+			});
+			if (changed) {
+				throw new BadRequestError(new UninspectableSubworkflowSourceError(changed).message);
+			}
+		}
+
 		const usable = await this.usableCredentialIds(user, { workflowId });
 		const canUse = (node: INode) =>
 			credentialReferencesOf(node).every((id) => id !== null && usable.has(id));
 
 		// A stored node with a credential that the user cannot use is read-only. An update of it
-		// gets the stored version back, when exactly one node of the update has its id.
-		const readOnlyIds = new Set(previous.nodes.filter((node) => !canUse(node)).map(({ id }) => id));
+		// gets the stored version back, when exactly one node of the update has its id. A restore
+		// may also bring back the nodes of a version from the history of this workflow.
+		const baseNodes = [...(restoredNodes ?? []), ...previous.nodes];
+		const readOnlyIds = new Set(baseNodes.filter((node) => !canUse(node)).map(({ id }) => id));
 		const idCounts = new Map<string | undefined, number>();
 		for (const { id } of workflow.nodes) idCounts.set(id, (idCounts.get(id) ?? 0) + 1);
 
 		workflow.nodes = workflow.nodes.map((node) => {
 			if (canUse(node)) return node;
-			const previousNode = previous.nodes.find(({ id }) => id === node.id);
+			const previousNode = baseNodes.find(({ id }) => id === node.id);
 			if (previousNode && readOnlyIds.has(node.id) && idCounts.get(node.id) === 1) {
 				// Only the keys that the update has, so that an unchanged node equals the stored one.
 				return {
@@ -491,15 +548,8 @@ export class EnterpriseWorkflowService {
 		return new Set(credentials.map(({ id }) => id));
 	}
 
-	/**
-	 * The credentials that a list of used credentials marks as usable. With credential sharing
-	 * (`N8N_ENV_FEAT_CRED_SHARING`), that is each credential that the user can read.
-	 */
-	private async credentialIdsForUsedList(
-		user: User,
-		options: { workflowId: string } | { projectId: string },
-	) {
-		if (!isCredSharingEnabled()) return await this.usableCredentialIds(user, options);
+	/** The credentials that a list of used credentials marks as usable: each one the user can read. */
+	private async credentialIdsForUsedList(user: User) {
 		const credentials = await this.credentialsFinderService.findCredentialsForUser(user, [
 			'credential:read',
 		]);

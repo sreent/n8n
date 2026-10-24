@@ -1,7 +1,7 @@
 import type { CreateProjectDto, UpdateProjectDto } from '@n8n/api-types';
 import { LicenseState, ModuleRegistry } from '@n8n/backend-common';
-import { EventService, RoleService } from '@n8n/backend-services';
-import type { EntityManager, User } from '@n8n/db';
+import { EventService, OwnershipTransferHandlerRegistry, RoleService } from '@n8n/backend-services';
+import type { EntityManager, OperationContext, User } from '@n8n/db';
 import {
 	FolderRepository,
 	GLOBAL_ADMIN_ROLE,
@@ -36,7 +36,6 @@ import {
 import { CredentialConnectionStatusProxy } from '@/credentials/credential-connection-status-proxy';
 import type { ProjectRequest } from '@/requests';
 import { OwnershipService } from '@/services/ownership.service';
-import { OwnershipTransferHandlerRegistry } from '@/services/ownership-transfer/ownership-transfer-handler.registry';
 
 export class ProjectNotFoundError extends NotFoundError {
 	constructor(readonly projectId: string) {
@@ -93,28 +92,59 @@ export class ProjectService {
 		private readonly eventService: EventService,
 		private readonly moduleRegistry: ModuleRegistry,
 		private readonly ownershipService: OwnershipService,
-		private readonly transferHandlers: OwnershipTransferHandlerRegistry,
+		private readonly transferHandlers: OwnershipTransferHandlerRegistry<EntityManager>,
 		private readonly connectionStatusProxy: CredentialConnectionStatusProxy,
 	) {}
 
 	// #region Scope checks
 
-	/** The project, when the user holds all `scopes` globally or through their role in it. */
+	/**
+	 * The project, when the user holds all `scopes` globally or through their role in it. The check
+	 * reads the active transaction of `ctx`.
+	 */
+	getProjectWithScope(
+		user: User,
+		projectId: string,
+		scopes: Scope[],
+		entityManager: EntityManager,
+	): Promise<Project | null>;
+	getProjectWithScope(
+		user: User,
+		projectId: string,
+		scopes: Scope[],
+		ctx?: OperationContext,
+	): Promise<Project | null>;
+	// The credential sharing passes the entity manager of its transaction, which the ordinary
+	// credentials controller opens. The other callers pass an operation context.
 	async getProjectWithScope(
 		user: User,
 		projectId: string,
 		scopes: Scope[],
-		trx?: EntityManager,
+		ctx: OperationContext | EntityManager = {},
 	): Promise<Project | null> {
-		const projects = trx?.getRepository(Project) ?? this.projectRepository;
+		if (isEntityManager(ctx)) {
+			return await this.getProjectWithScopeInManager(user, projectId, scopes, ctx);
+		}
+
+		// A global role reaches every project (no role list). A project role must have the scopes.
+		const roles = hasGlobalScope(user, scopes, { mode: 'allOf' })
+			? undefined
+			: await this.projectRolesWithScopes(scopes);
+		return await this.projectRepository.findOneWithUserRoles(projectId, user.id, roles, ctx);
+	}
+
+	private async getProjectWithScopeInManager(
+		user: User,
+		projectId: string,
+		scopes: Scope[],
+		trx: EntityManager,
+	): Promise<Project | null> {
 		if (hasGlobalScope(user, scopes, { mode: 'allOf' })) {
-			return await projects.findOneBy({ id: projectId });
+			return await trx.getRepository(Project).findOneBy({ id: projectId });
 		}
 
 		const roles = await this.projectRolesWithScopes(scopes, trx);
-		const relation = await (
-			trx?.getRepository(ProjectRelation) ?? this.projectRelationRepository
-		).findOne({
+		const relation = await trx.getRepository(ProjectRelation).findOne({
 			where: { projectId, userId: user.id },
 			relations: { role: true, project: true },
 			loadEagerRelations: false,
@@ -124,8 +154,9 @@ export class ProjectService {
 
 	/**
 	 * The ids of the projects where the user holds all `scopes`, out of `projectIds` when given.
-	 * A global role reaches every project. A project role reaches only team projects: callers add
-	 * the personal project themselves.
+	 * A global role reaches every project. Without `projectIds`, a project role reaches only team
+	 * projects: callers add the personal project themselves. With `projectIds`, it also reaches the
+	 * personal project of the user, as upstream n8n 2.45 does.
 	 */
 	async getProjectIdsWithScope(
 		user: User,
@@ -148,8 +179,7 @@ export class ProjectService {
 			.filter(
 				({ role, project }) =>
 					roles.includes(role.slug) &&
-					project.type === 'team' &&
-					(!projectIds || projectIds.includes(project.id)),
+					(projectIds ? projectIds.includes(project.id) : project.type === 'team'),
 			)
 			.map(({ projectId }) => projectId);
 	}
@@ -220,6 +250,11 @@ export class ProjectService {
 		return new Set(projects.map(({ id }) => id));
 	}
 
+	/** The personal project of the user and the team projects where the user is an admin. */
+	async getUserOwnedOrAdminProjects(userId: string): Promise<Project[]> {
+		return await this.projectRepository.findOwnedOrAdminByUser(userId);
+	}
+
 	async getPersonalProject(user: User): Promise<Project | null> {
 		return await this.projectRepository.getPersonalProjectForUser(user.id);
 	}
@@ -267,6 +302,15 @@ export class ProjectService {
 		const shares = await this.sharedWorkflowRepository.find({
 			select: { projectId: true },
 			where: { workflowId },
+		});
+		return shares.map(({ projectId }) => projectId);
+	}
+
+	/** The team projects among the projects of `findProjectsWorkflowIsIn`. */
+	async findTeamProjectsWorkflowIsIn(workflowId: string): Promise<string[]> {
+		const shares = await this.sharedWorkflowRepository.find({
+			select: { projectId: true },
+			where: { workflowId, project: { type: 'team' } },
 		});
 		return shares.map(({ projectId }) => projectId);
 	}
@@ -745,4 +789,9 @@ export class ProjectService {
 	}
 
 	// #endregion
+}
+
+/** An entity manager has repositories. An operation context only names its transaction. */
+function isEntityManager(value: OperationContext | EntityManager): value is EntityManager {
+	return 'getRepository' in value;
 }
