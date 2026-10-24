@@ -4,7 +4,6 @@ import {
 	DecideWorkflowReviewRequestDto,
 	GetWorkflowReviewEligibleReviewersQueryDto,
 	ListWorkflowReviewActivityQueryDto,
-	ListWorkflowReviewInboxQueryDto,
 	ListWorkflowReviewRequestsQueryDto,
 	UpdateWorkflowReviewRequestVersionDto,
 } from '@n8n/api-types';
@@ -47,24 +46,6 @@ export class WorkflowReviewsController {
 	) {
 		await this.reviews.assertEnabled();
 		return await this.reads.getEligibleReviewers(req.user, query.workflowId);
-	}
-
-	@Get('/summary')
-	@Licensed('feat:workflowReviews')
-	async summary(req: AuthenticatedRequest) {
-		await this.reviews.assertEnabled();
-		return await this.reads.getSummary(req.user);
-	}
-
-	@Get('/inbox')
-	@Licensed('feat:workflowReviews')
-	async inbox(
-		req: AuthenticatedRequest,
-		_res: Response,
-		@Query query: ListWorkflowReviewInboxQueryDto,
-	) {
-		await this.reviews.assertEnabled();
-		return await this.reads.getInbox(req.user, query);
 	}
 
 	@Post('/')

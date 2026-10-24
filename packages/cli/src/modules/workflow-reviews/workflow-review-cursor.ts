@@ -1,8 +1,8 @@
 import { BadRequestError } from '@n8n/errors';
 
 /**
- * Fork code (not in upstream n8n): the opaque cursors of the inbox and of the activity feed. The
- * clients only send a cursor back, so the format is free. See `README.md`.
+ * Fork code (not in upstream n8n): the opaque cursor of the activity feed. The clients only send a
+ * cursor back, so the format is free. The inbox module pages the inbox itself. See `README.md`.
  */
 
 const INVALID_CURSOR = 'Invalid pagination cursor';
@@ -17,23 +17,6 @@ function decode(cursor: string): unknown {
 	} catch {
 		throw new BadRequestError(INVALID_CURSOR);
 	}
-}
-
-/** The inbox pages by creation time, then by id: the cursor holds both of the last item. */
-export function encodeInboxCursor(createdAt: Date, id: string) {
-	return encode({ c: createdAt.toISOString(), i: id });
-}
-
-export function decodeInboxCursor(cursor: string): { createdAt: Date; id: string } {
-	const value = decode(cursor);
-	if (value !== null && typeof value === 'object' && 'c' in value && 'i' in value) {
-		const { c, i } = value;
-		const createdAt = typeof c === 'string' ? new Date(c) : null;
-		if (createdAt && !Number.isNaN(createdAt.getTime()) && typeof i === 'string' && i !== '') {
-			return { createdAt, id: i };
-		}
-	}
-	throw new BadRequestError(INVALID_CURSOR);
 }
 
 /** The feed pages backwards: the cursor holds the id of the oldest entry of the page. */
